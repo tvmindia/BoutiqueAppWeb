@@ -58,7 +58,7 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   background-color: #ffffff;
-  border: 1px solid #cccccc;
+  border: 3px solid #b7b7b7;/*#cccccc; form controls border width change*/
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
           box-shadow: none;
