@@ -57,7 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AdminPanel\Boutique.aspx" />
+    <Content Include="AdminPanel\SaDashBoard.aspx" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
     <Content Include="CSS\bootstrap.css" />
@@ -215,12 +215,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminPanel\Boutique.aspx.cs">
-      <DependentUpon>Boutique.aspx</DependentUpon>
+    <Compile Include="AdminPanel\SaDashBoard.aspx.cs">
+      <DependentUpon>SaDashBoard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AdminPanel\Boutique.aspx.designer.cs">
-      <DependentUpon>Boutique.aspx</DependentUpon>
+    <Compile Include="AdminPanel\SaDashBoard.aspx.designer.cs">
+      <DependentUpon>SaDashBoard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

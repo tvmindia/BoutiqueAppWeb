@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Boutique.aspx.cs" Inherits="Boutique.AdminPanel.Boutique" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="SaDashBoard.aspx.cs" Inherits="Boutique.AdminPanel.Boutique" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -24,9 +24,13 @@
 					<p>Users</p>
 					<span class="badge">237</span>
 				</a>
+                    <a class="quick-button metro green span2">
+					<i class="icon-tags"></i>
+					<p>Total Boutiques</p>
+				</a>
 				<a class="quick-button metro red span2">
 					<i class="icon-comments-alt"></i>
-					<p>Comments</p>
+					<p>Notifications</p>
 					<span class="badge">46</span>
 				</a>
 				<a class="quick-button metro blue span2">
@@ -34,18 +38,15 @@
 					<p>Orders</p>
 					<span class="badge">13</span>
 				</a>
-				<a class="quick-button metro green span2">
-					<i class="icon-barcode"></i>
-					<p>Products</p>
-				</a>
+				
 				<a class="quick-button metro pink span2">
-					<i class="icon-envelope"></i>
-					<p>Messages</p>
+					<i class="icon-ambulance"></i>
+					<p>Errors</p>
 					<span class="badge">88</span>
 				</a>
 				<a class="quick-button metro black span2">
 					<i class="icon-calendar"></i>
-					<p>Calendar</p>
+					<p>Installed</p>
 				</a>
 				
 				<div class="clearfix"></div>
@@ -280,7 +281,7 @@
 						
 		
 			
-			<div class="row-fluid">
+		<%--	<div class="row-fluid">
 				
 				<div class="box black span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
@@ -456,7 +457,7 @@
 				</div>
 			
 			</div>
-			
+			--%>
 		
 			
        
