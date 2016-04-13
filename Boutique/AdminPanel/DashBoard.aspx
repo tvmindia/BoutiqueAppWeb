@@ -35,13 +35,13 @@
 				</a>
 				<a class="quick-button metro blue span2">
 					<i class="icon-shopping-cart"></i>
-					<p>Orders</p>
+					<p>Visits</p>
 					<span class="badge">13</span>
 				</a>
 				
 				<a class="quick-button metro pink span2">
 					<i class="icon-ambulance"></i>
-					<p>Errors</p>
+					<p>Not in Stock</p>
 					<span class="badge">88</span>
 				</a>
 				<a class="quick-button metro black span2">
@@ -59,213 +59,13 @@
 			<div class="row-fluid">
 				<%-- create boutique --%>
 			
-					
-				<%--	<div id="stats-chart2"  style="height:282px" ></div>--%> 
 
-                   <%-- create boutique form--%>
+
+               <%-- create boutique form--%>
                      <div class="row-fluid">
                           
 
-			     	<div class="box span6">
-					<div class="box-header">
-						<h2>Create Bouquet</h2>
-						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
-						</div>
-					</div>
-					<div class="box-content"  style="height:488px;overflow:auto;" >
-						<div class="form-horizontal">
-							<%--<fieldset>--%>
-							  <div class="control-group">
-							
-								  <label class="control-label" for="focusedInput">App Version</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtAppVersion" type="text"/>
-								</div>
-								</div>
-							
-							  <div class="control-group">
-								 <label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtBouquetName" type="text"/>
-								</div>
-								</div>
-
-                              <div class="control-group">
-								 <label class="control-label" for="focusedInput">Started Year</label>
-								<div class="controls">
-								  <input class="input-small focused" id="txtStartYear" type="text"/>
-								</div>
-								</div>
-
-                              <div class="control-group">
-                                <label class="control-label" for="focusedInput">About us</label>
-                                  <div class="controls">
-                                <textarea class="form-control" style="max-width:50%" rows="5" id="txtAboutus"></textarea>
-							  </div>
-                              </div>
-
-                              <div class="control-group">
-								 <label class="control-label" for="focusedInput">Caption</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtCaption" type="text"/>
-								</div>
-								</div>
-                        
-
-                              <div class="control-group">
-								 <label class="control-label" for="focusedInput">Location</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtLocation" type="text"/>
-								</div>
-								</div>
-
-                             <div class="control-group">
-								 <label class="control-label" for="focusedInput">Address</label>
-								<div class="controls">
-								  <textarea class="form-control" style="max-width:50%" rows="4" id="txtAddress"></textarea>
-								</div>
-								</div>
-
-
-                             <div class="control-group">
-								 <label class="control-label" for="focusedInput">Phone</label>
-								<div class="controls">
-								  <input class="input-medium focused" id="txtPhone" type="text"/>
-								</div>
-								</div>
-
-                             <div class="control-group">
-								 <label class="control-label" for="focusedInput">Timings</label>
-								<div class="controls">
-								  <input class="input-medium focused" id="txtTimings" type="text"/>
-								</div>
-								</div>
-
-                               <div class="control-group">
-								 <label class="control-label" for="focusedInput">Working Days</label>
-								<div class="controls">
-								  <input class="input-small focused" id="txtWorkingDays" type="text"/>
-								</div>
-								</div>
-
-                             <div class="control-group">
-								 <label class="control-label" for="focusedInput">Facebook Link</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtFacebooklink" type="text"/>
-								</div>
-								</div>
-
-                             <div class="control-group">
-								 <label class="control-label" for="focusedInput">Instagram Link</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtInstatgramlink" type="text"/>
-								</div>
-								</div>
-
-
-
-                                
-							  </div>
-						
-							  <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
-							<%--</fieldset>--%>
-						</div>
-                    </div>
-                      
-                     
-                         
-                  
-                    <div class="box span6">
-                    <div class="box-header" data-original-title>
-						<h2>Create Administrator</h2>
-						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
-						</div>
-					</div>
-                    <div class="box-content" style="height:488px;">
-						<div class="form-horizontal">
-							<%--<fieldset>--%>
-							  <div class="control-group">
-							
-								  <label class="control-label" for="focusedInput">Name</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtUserName" type="text"/>
-								</div>
-								</div>
-							
-							  <div class="control-group">
-								 <label class="control-label" for="focusedInput">Mobile</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtMobile" type="text"/>
-								</div>
-								</div>
-
-
-                             <div class="control-group">
-								 <label class="control-label" for="focusedInput">Email</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtUserEmail" type="text"/>
-								</div>
-								</div>
-
-                               <div class="control-group">
-								<label class="control-label">Is Acitive?</label>
-								<div class="controls">
-								  <label class="checkbox inline">
-									<input type="checkbox" id="chkActive" value="option1"/>Yes</label>
-								
-								</div>
-							  </div>
-
-
-                             <div class="control-group">
-								<label class="control-label">Is Admin?</label>
-								<div class="controls">
-								  <label class="checkbox inline">
-									<input type="checkbox" id="chkIsAdmin" value="option1"/>Yes</label>
-								
-								</div>
-							  </div>
-
-                            <div class="control-group">
-							  <label class="control-label" for="date01">DOB</label>
-							  <div class="controls">
-								<input type="text" class="input-medium datepicker" id="dateDOB" value="02/16/12"/>
-							  </div>
-							</div>
-
-                              <div class="control-group">
-							  <label class="control-label" for="date01">Anniversary</label>
-							  <div class="controls">
-								<input type="text" class="input-medium datepicker" id="dateAnniversary" value="02/16/12"/>
-							  </div>
-							</div>
-
-
-                              <div class="control-group">
-								 <label class="control-label" for="focusedInput">Loyalty Card No</label>
-								<div class="controls">
-								  <input class="input-medium focused" id="txtloycardno" type="text"/>
-								</div>
-								</div>
-                                
-							  </div>
-						
-							<div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
-							
-						</div>
-					</div>
+			     
                    
 			     	 </div>
                  
@@ -281,7 +81,7 @@
 						
 		
 			
-		<%--	<div class="row-fluid">
+			<div class="row-fluid">
 				
 				<div class="box black span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
@@ -457,7 +257,7 @@
 				</div>
 			
 			</div>
-			--%>
+			
 		
 			
        

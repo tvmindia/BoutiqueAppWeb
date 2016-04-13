@@ -380,8 +380,8 @@
 			
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li><a href="#"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
-                        <li><a href="#"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+						<li><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
+                        <li><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
 						<li><a href="#"><i class=""></i><span class="hidden-tablet">✎ Profile</span></a></li>
 						<li><a href="#"><i class=""></i><span class="hidden-tablet">👨 People</span></a></li>
 						<li><a href="#"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>

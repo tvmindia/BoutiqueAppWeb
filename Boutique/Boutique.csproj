@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminPanel\DashBoard.aspx" />
+    <Content Include="AdminPanel\People.aspx" />
+    <Content Include="AdminPanel\Profile.aspx" />
     <Content Include="AdminPanel\SaDashBoard.aspx" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
@@ -65,6 +67,8 @@
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\chosen.css" />
     <Content Include="CSS\CustomCSS\DashBoard.css" />
+    <Content Include="CSS\CustomCSS\People.css" />
+    <Content Include="CSS\CustomCSS\Profile.css" />
     <Content Include="CSS\CustomCSS\saDashboard.css" />
     <Content Include="CSS\elfinder.min.css" />
     <Content Include="CSS\elfinder.theme.css" />
@@ -223,6 +227,20 @@
     </Compile>
     <Compile Include="AdminPanel\DashBoard.aspx.designer.cs">
       <DependentUpon>DashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\People.aspx.cs">
+      <DependentUpon>People.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\People.aspx.designer.cs">
+      <DependentUpon>People.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\SaDashBoard.aspx.cs">
       <DependentUpon>SaDashBoard.aspx</DependentUpon>
