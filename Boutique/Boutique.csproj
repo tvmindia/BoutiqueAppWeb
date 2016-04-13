@@ -57,13 +57,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminPanel\DashBoard.aspx" />
     <Content Include="AdminPanel\SaDashBoard.aspx" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
     <Content Include="CSS\bootstrap.css" />
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\chosen.css" />
-    <Content Include="CSS\CustomCSS\Boutique.css" />
+    <Content Include="CSS\CustomCSS\DashBoard.css" />
+    <Content Include="CSS\CustomCSS\saDashboard.css" />
     <Content Include="CSS\elfinder.min.css" />
     <Content Include="CSS\elfinder.theme.css" />
     <Content Include="CSS\font-awesome-ie7.min.css" />
@@ -215,6 +217,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPanel\DashBoard.aspx.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\DashBoard.aspx.designer.cs">
+      <DependentUpon>DashBoard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\SaDashBoard.aspx.cs">
       <DependentUpon>SaDashBoard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

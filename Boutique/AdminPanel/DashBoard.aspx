@@ -1,9 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="SaDashBoard.aspx.cs" Inherits="Boutique.AdminPanel.Boutique" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="DashBoard.aspx.cs" Inherits="Boutique.AdminPanel.DashBoard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
-    <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet" />
+
+     <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
 
     <div id="content" class="span10">
 			
@@ -467,6 +467,4 @@
         
 		
 	
-
-
 </asp:Content>
