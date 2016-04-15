@@ -57,8 +57,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminPanel\Category.aspx" />
     <Content Include="AdminPanel\DashBoard.aspx" />
     <Content Include="AdminPanel\People.aspx" />
+    <Content Include="AdminPanel\Products.aspx" />
     <Content Include="AdminPanel\Profile.aspx" />
     <Content Include="AdminPanel\SaDashBoard.aspx" />
     <Content Include="CSS\bootstrap-responsive.css" />
@@ -66,8 +68,10 @@
     <Content Include="CSS\bootstrap.css" />
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\chosen.css" />
+    <Content Include="CSS\CustomCSS\Category.css" />
     <Content Include="CSS\CustomCSS\DashBoard.css" />
     <Content Include="CSS\CustomCSS\People.css" />
+    <Content Include="CSS\CustomCSS\Products.css" />
     <Content Include="CSS\CustomCSS\Profile.css" />
     <Content Include="CSS\CustomCSS\saDashboard.css" />
     <Content Include="CSS\elfinder.min.css" />
@@ -80,6 +84,7 @@
     <Content Include="CSS\halflings.css" />
     <Content Include="CSS\ie.css" />
     <Content Include="CSS\ie9.css" />
+    <Content Include="CSS\jasny-bootstrap.min.css" />
     <Content Include="CSS\jquery-ui-1.8.21.custom.css" />
     <Content Include="CSS\jquery.cleditor.css" />
     <Content Include="CSS\jquery.gritter.css" />
@@ -178,6 +183,7 @@
     <Content Include="font\glyphiconshalflings-regular.eot" />
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
+    <Content Include="CSS\jasny-bootstrap.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -193,6 +199,7 @@
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\excanvas.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\jasny-bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-migrate-1.0.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.custom.min.js" />
@@ -221,6 +228,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPanel\Category.aspx.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Category.aspx.designer.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\DashBoard.aspx.cs">
       <DependentUpon>DashBoard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -234,6 +248,13 @@
     </Compile>
     <Compile Include="AdminPanel\People.aspx.designer.cs">
       <DependentUpon>People.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Products.aspx.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Products.aspx.designer.cs">
+      <DependentUpon>Products.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
