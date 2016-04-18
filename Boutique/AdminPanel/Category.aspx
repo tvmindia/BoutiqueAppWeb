@@ -5,6 +5,15 @@
      <link href="../CSS/CustomCSS/Category.css" rel="stylesheet" />
 
      <div id="content" class="span10">
+
+          <ul class="breadcrumb">
+				<li>
+					<i class="icon-home"></i>
+					<a href="index.html">Home</a> 
+					<i class="icon-angle-right"></i>
+				</li>
+				<li><a href="#">Category</a></li>
+			</ul>
           <div class="row-fluid">
 
 
@@ -12,7 +21,7 @@
 
                <div class="box span12">
 					<div class="box-header">
-						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Categories</h2>
+						<h2> Categories</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -94,7 +103,7 @@
 
                <div class="box span12">
 					<div class="box-header">
-						<h2>Create Category</h2>
+						<h2>New Category</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -113,12 +122,15 @@
                             						
 						</div>
 						
-							  <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
+							 
 							<%--</fieldset>--%>
 						</div>
+
+                    <footer class="InnerFooter">
+                				<button type="submit" class="btn btn-primary">Save changes</button>
+								<button class="btn">Cancel</button>
+						
+                     </footer> 
                     </div>
 
           </div>

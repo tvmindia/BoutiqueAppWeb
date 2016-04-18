@@ -382,14 +382,14 @@
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
                         <li><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-						<li><a href="#"><i class=""></i><span class="hidden-tablet">✎ Profile</span></a></li>
-						<li><a href="#"><i class=""></i><span class="hidden-tablet">👨 People</span></a></li>
-						<li><a href="#"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
-						<li><a href="#"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>		
-						<li><a href="#"><i class="icon-edit"></i><span class="hidden-tablet"> Notifications</span></a></li>
-						<li><a href="#"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
-						<li><a href="#"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>
-						<li><a href="#"><i class="icon-picture"></i><span class="hidden-tablet"> Gallery</span></a></li>
+						<li><a href="Profile.aspx"><i class=""></i><span class="hidden-tablet">✎ Profile</span></a></li>
+						<li><a href="People.aspx"><i class=""></i><span class="hidden-tablet">👨 People</span></a></li>
+						<li><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
+						<li><a href="Products.aspx"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>		
+						<li><a href="Notifications.aspx"><i class="icon-edit"></i><span class="hidden-tablet"> Notifications</span></a></li>
+						<li><a href="Loyalty.aspx"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
+						<li><a href="LoyaltySettings.aspx"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>
+						
 						
                        
 					</ul>

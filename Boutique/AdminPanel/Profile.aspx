@@ -4,16 +4,22 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <link href="../CSS/CustomCSS/Profile.css" rel="stylesheet" />
 
-
-
     <div id="content" class="span10">
+         <ul class="breadcrumb">
+				<li>
+					<i class="icon-home"></i>
+					<a href="index.html">Home</a> 
+					<i class="icon-angle-right"></i>
+				</li>
+				<li><a href="#">Profile</a></li>
+			</ul>
 
 
        <div class="row-fluid">
 
       <div class="box span6">
 					<div class="box-header">
-						<h2>Create Bouquet</h2>
+						<h2>New Boutique</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -115,12 +121,13 @@
                                 
 							  </div>
 						
-							  <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
+							
 							<%--</fieldset>--%>
 						</div>
+                    <footer class="InnerFooter">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+					    <button class="btn">Cancel</button>
+                    </footer>
                     </div>
       </div>
     </div>

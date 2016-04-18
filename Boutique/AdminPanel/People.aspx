@@ -5,12 +5,20 @@
       <link href="../CSS/CustomCSS/People.css" rel="stylesheet" />
 
      <div id="content" class="span10">
+          <ul class="breadcrumb">
+				<li>
+					<i class="icon-home"></i>
+					<a href="index.html">Home</a> 
+					<i class="icon-angle-right"></i>
+				</li>
+				<li><a href="#">People</a></li>
+			</ul>
 
          <div class="row-fluid">
 
                 <div class="box span6">
 					<div class="box-header">
-						<h2>Create New User</h2>
+						<h2>New User</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -77,27 +85,28 @@
 
 							  </div>
 						
-					            <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
+					          
 						
 						</div>
-
+                      <footer class="InnerFooter">
+                				<button type="submit" class="btn btn-primary">Save changes</button>
+								<button class="btn">Cancel</button>
+						
+                        </footer> 
                     </div>
 
              <%--  Grid User--%>
 
                <div class="box span6">
 					<div class="box-header">
-						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Current Users</h2>
+						<h2>Current Users</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content"  style="height:440px;overflow:auto;">
+					<div class="box-content"  style="height:490px;overflow:auto;">
 						<table class="table table-condensed">
 							  <thead>
 								  <tr>
@@ -163,6 +172,9 @@
 						  </ul>
 						</div>     
 					</div>
+
+                    
+
 				</div>
 
              <%--  Grid User--%>
@@ -175,7 +187,7 @@
          <div class="row-fluid">
                 <div class="box span6">
 					<div class="box-header">
-						<h2>Create Owner</h2>
+						<h2>New Owner</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -257,26 +269,29 @@
 
 							  </div>
 						
-							  <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
+							
 							<%--</fieldset>--%>
 						</div>
+
+                    <footer class="InnerFooter">
+                				<button type="submit" class="btn btn-primary">Save changes</button>
+								<button class="btn">Cancel</button>
+						
+                        </footer> 
                     </div>
 
                <%--  Grid Owners--%>
 
                <div class="box span6">
 					<div class="box-header">
-						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Current Owners</h2>
+						<h2>Current Owners</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content" style="height:438px;overflow:auto;">
+					<div class="box-content" style="height:492px;overflow:auto;">
 						<table class="table table-condensed">
 							  <thead>
 								  <tr>
@@ -354,7 +369,7 @@
 
              <div class="box span6">
                  	<div class="box-header">
-						<h2>Create Designer</h2>
+						<h2>New Designer</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -382,13 +397,13 @@
 
 
                     </div>
-                          <div class="form-actions">
-								<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-							  </div>
- 
+                        
                     </div>
-
+                   <footer class="InnerFooter">
+                				<button type="submit" class="btn btn-primary">Save changes</button>
+								<button class="btn">Cancel</button>
+						
+                        </footer> 
 
              </div>
 
@@ -398,14 +413,14 @@
 
                <div class="box span6">
 					<div class="box-header">
-						<h2><i class="halflings-icon align-justify"></i><span class="break"></span>Current Designers</h2>
+						<h2>Current Designers</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content">
+					<div class="box-content" style="height:305px;overflow:auto;">
 						<table class="table table-condensed">
 							  <thead>
 								  <tr>

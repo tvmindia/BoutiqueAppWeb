@@ -59,6 +59,9 @@
   <ItemGroup>
     <Content Include="AdminPanel\Category.aspx" />
     <Content Include="AdminPanel\DashBoard.aspx" />
+    <Content Include="AdminPanel\Loyalty.aspx" />
+    <Content Include="AdminPanel\LoyaltySettings.aspx" />
+    <Content Include="AdminPanel\Notifications.aspx" />
     <Content Include="AdminPanel\People.aspx" />
     <Content Include="AdminPanel\Products.aspx" />
     <Content Include="AdminPanel\Profile.aspx" />
@@ -70,6 +73,9 @@
     <Content Include="CSS\chosen.css" />
     <Content Include="CSS\CustomCSS\Category.css" />
     <Content Include="CSS\CustomCSS\DashBoard.css" />
+    <Content Include="CSS\CustomCSS\Loyalty.css" />
+    <Content Include="CSS\CustomCSS\LoyaltySettings.css" />
+    <Content Include="CSS\CustomCSS\Notifications.css" />
     <Content Include="CSS\CustomCSS\People.css" />
     <Content Include="CSS\CustomCSS\Products.css" />
     <Content Include="CSS\CustomCSS\Profile.css" />
@@ -241,6 +247,27 @@
     </Compile>
     <Compile Include="AdminPanel\DashBoard.aspx.designer.cs">
       <DependentUpon>DashBoard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Loyalty.aspx.cs">
+      <DependentUpon>Loyalty.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Loyalty.aspx.designer.cs">
+      <DependentUpon>Loyalty.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\LoyaltySettings.aspx.cs">
+      <DependentUpon>LoyaltySettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\LoyaltySettings.aspx.designer.cs">
+      <DependentUpon>LoyaltySettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\Notifications.aspx.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\Notifications.aspx.designer.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\People.aspx.cs">
       <DependentUpon>People.aspx</DependentUpon>
