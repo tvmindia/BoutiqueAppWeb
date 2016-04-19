@@ -104,6 +104,7 @@
     <Content Include="CSS\uploadify.css" />
     <Content Include="font\glyphicons-regular.svg" />
     <Content Include="font\glyphiconshalflings-regular.svg" />
+    <Content Include="General\UnderConstruction.aspx" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />
@@ -297,6 +298,16 @@
     <Compile Include="AdminPanel\SaDashBoard.aspx.designer.cs">
       <DependentUpon>SaDashBoard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DAL\BoutiqueServices.cs" />
+    <Compile Include="DAL\dbConnection.cs" />
+    <Compile Include="DAL\UserServices.cs" />
+    <Compile Include="General\UnderConstruction.aspx.cs">
+      <DependentUpon>UnderConstruction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="General\UnderConstruction.aspx.designer.cs">
+      <DependentUpon>UnderConstruction.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -311,7 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DAL\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\UserJS\" />
     <Folder Include="WebServices\" />
