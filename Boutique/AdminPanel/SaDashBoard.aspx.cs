@@ -8,9 +8,10 @@ using System.Web.UI.WebControls;
 
 namespace Boutique.AdminPanel
 {
-    public partial class Boutique : System.Web.UI.Page
+    public partial class SaDashBoard : System.Web.UI.Page
     {
-        BoutiqueServices boutiqueObj = new BoutiqueServices();
+        Boutiques boutiqueObj = new Boutiques();
+        Users userObj = new Users();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -42,6 +43,32 @@ namespace Boutique.AdminPanel
 
              }
              finally
+            {
+
+            }
+        }
+
+        protected void NewAdmin_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                userObj.Name = (txtUserName.Value.Trim() != "") ? txtUserName.Value.Trim() : null;
+                userObj.Mobile = (txtMobile.Value.Trim() != "") ? txtMobile.Value.Trim() : null;
+                userObj.Email = (txtUserEmail.Value.Trim() != "") ? txtUserEmail.Value.Trim() : null;
+                userObj.IsActive = (chkActive.Checked != true) ? false : true;
+                userObj.IsAdmin = (chkIsAdmin.Checked != true) ? false : true;
+                userObj.BoutiqueID = "470a044a-4dba-4770-bca7-331d2c0834ae";
+                userObj.AddNewUser();
+
+                //userObj.DOB = (dateDOB.Value.Trim() != "") ? DateTime.Parse(dateDOB.Value.ToString()) : DateTime.Parse(null);//
+                //userObj.Anniversary = (dateAnniversary.Value.Trim() != "") ? DateTime.Parse(dateAnniversary.Value.ToString()) : DateTime.Parse(null);//check
+                //// dateFormat: 'dd-mm-yy'
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
             {
 
             }

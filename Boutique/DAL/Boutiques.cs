@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Boutique.DAL
 {
-    public class BoutiqueServices
+    public class Boutiques
     {
         #region properties
         public string BoutiqueID
@@ -80,6 +80,31 @@ namespace Boutique.DAL
         }
 
 
+        public string CreatedBy
+        {
+            get;
+            set;
+        }
+
+        public DateTime CreatedDate
+        {
+            get;
+            set;
+        }
+
+        public string UpdatedBy
+        {
+            get;
+            set;
+        }
+
+        public DateTime UpdatedDate
+        {
+            get;
+            set;
+        }
+
+
         #endregion properties
 
         #region Methods
@@ -123,8 +148,8 @@ namespace Boutique.DAL
                 }
             }
             return ds;
-          
-            
+
+
         }
         #endregion GetAllBoutiques
 
@@ -170,7 +195,7 @@ namespace Boutique.DAL
                 }
             }
             return ds;
-          
+
 
         }
         #endregion GetBoutique
@@ -178,9 +203,9 @@ namespace Boutique.DAL
         #region NewBoutique
         public Int16 NewBoutique()
         {
-             dbConnection dcon =null;
-             SqlCommand cmd=null;
-             SqlParameter outParameter=null;
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
             try
             {
                 dcon = new dbConnection();
@@ -203,24 +228,24 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = DateTime.Now;
-               
+
 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
 
             finally
             {
-                if(dcon.SQLCon!=null)
+                if (dcon.SQLCon != null)
                 {
                     dcon.DisconectDB();
-                   
+
                 }
             }
             //insert success or failure
@@ -285,7 +310,7 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
 
-           
+
         }
         #endregion EditBoutique
 

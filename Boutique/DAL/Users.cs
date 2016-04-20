@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Boutique.DAL
 {
-    public class UserServices
+    public class Users
     {
 
         #region properties
@@ -46,13 +46,13 @@ namespace Boutique.DAL
             set;
         }
 
-        public DateTime DOB
+        public DateTime? DOB
         {
             get;
             set;
         }
 
-        public DateTime Anniversary
+        public DateTime? Anniversary
         {
             get;
             set;
@@ -106,16 +106,19 @@ namespace Boutique.DAL
             try
             {
                 _boutiqueid = Guid.Parse(boutiqueID);
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[SelectAllUsersByBoutiqueiD]";
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
-                sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
+                if (_boutiqueid != Guid.Empty)
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectAllUsersByBoutiqueiD]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
             }
 
             catch (Exception ex)
@@ -136,26 +139,32 @@ namespace Boutique.DAL
         #endregion SelectAllUsers
 
         #region SelectUser
-        public DataSet SelectUserByUserID(string userID)
+        public DataSet SelectUserByUserID(string userID,string boutiqueID)
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter sda = null;
             Guid _userid = Guid.Empty;
+            Guid _boutiqueid = Guid.Empty;
             try
             {
                 _userid = Guid.Parse(userID);
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[]";
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _userid;
-                sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
+                _boutiqueid = Guid.Parse(boutiqueID);
+                if ((_userid != Guid.Empty) && (_boutiqueid != Guid.Empty))
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectUserByUserID]";
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _userid;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
             }
 
             catch (Exception ex)
@@ -175,6 +184,7 @@ namespace Boutique.DAL
         }
         #endregion SelectUser
 
+
         #region AddNewUser
         public Int16 AddNewUser()
         {
@@ -183,6 +193,8 @@ namespace Boutique.DAL
             SqlParameter outParameter = null;
             try
             {
+
+
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();

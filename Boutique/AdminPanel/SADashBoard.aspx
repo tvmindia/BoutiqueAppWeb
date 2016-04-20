@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="SaDashBoard.aspx.cs" Inherits="Boutique.AdminPanel.Boutique" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="SaDashBoard.aspx.cs" Inherits="Boutique.AdminPanel.SaDashBoard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -855,8 +855,8 @@
                     
                     <div class="box span6">
                           <asp:UpdatePanel ID="upNewAdminstrator" runat="server" UpdateMode="Conditional" >
-                            <ContentTemplate>
-                               <div class="box-header">
+                           <ContentTemplate>
+                        <div class="box-header">
 						<h2>New Administrator</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
@@ -871,14 +871,14 @@
 							
 								  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserName" type="text"/>
+								  <input class="input-large focused" id="txtUserName" runat="server" type="text"/>
 								</div>
 								</div>
 							
 							  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Mobile</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtMobile" type="text"/>
+								  <input class="input-large focused" id="txtMobile" runat="server" type="text"/>
 								</div>
 								</div>
 
@@ -886,7 +886,7 @@
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Email</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserEmail" type="text"/>
+								  <input class="input-large focused" id="txtUserEmail" runat="server" type="text"/>
 								</div>
 								</div>
 
@@ -894,7 +894,7 @@
 								<label class="control-label">Is Acitive?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
-									<input type="checkbox" id="chkActive" value="option1"/>Yes</label>
+									<input type="checkbox" id="chkActive" runat="server" value="option1"/>Yes</label>
 								
 								</div>
 							  </div>
@@ -904,41 +904,20 @@
 								<label class="control-label">Is Admin?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
-									<input type="checkbox" id="chkIsAdmin" value="option1"/>Yes</label>
+									<input type="checkbox" id="chkIsAdmin" runat="server" value="option1"/>Yes</label>
 								
 								</div>
 							  </div>
 
-                              <div class="control-group">
-							  <label class="control-label" for="date01">DOB</label>
-							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateDOB" value="02/16/12"/>
-							  </div>
-							</div>
-
-                              <div class="control-group">
-							  <label class="control-label" for="date01">Anniversary</label>
-							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateAnniversary" value="02/16/12"/>
-							  </div>
-							</div>
+                            
 
 
-                              <div class="control-group">
-								 <label class="control-label" for="focusedInput">Loyalty Card No</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtloycardno" type="text"/>
-								</div>
-								</div>
-                                
-							  </div>
+                         
 						
-						
-							
 						</div>
                                <footer class="InnerFooter">
                         
-								<button type="submit" class="btn btn-primary">Save changes</button>
+								<button type="submit" runat="server" onserverclick="NewAdmin_ServerClick" class="btn btn-primary">Save changes</button>
 								<button class="btn">Cancel</button>
 						 </footer> 
                            </ContentTemplate>

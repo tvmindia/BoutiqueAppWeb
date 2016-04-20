@@ -83,7 +83,7 @@
 			
 			<div class="row-fluid">
 				
-				<div class="box black span4" onTablet="span6" onDesktop="span4">
+				<div class="box black span4" onDesktop="span4">
 					<div class="box-header">
 						<h2><i class="halflings-icon white list"></i><span class="break"></span>Weekly Stat</h2>
 						<div class="box-icon">
