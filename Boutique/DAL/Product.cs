@@ -8,12 +8,12 @@ namespace Boutique.DAL
     public class Product
     {
         #region properties
-        public Guid ProductID
+        public string ProductID
         {
             get;
             set;
         }
-        public Guid BoutiqueID
+        public string BoutiqueID
         {
             get;
             set;
@@ -48,7 +48,7 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public Guid DesignerID
+        public string DesignerID
         {
             get;
             set;
