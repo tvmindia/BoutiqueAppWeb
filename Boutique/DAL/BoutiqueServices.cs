@@ -206,6 +206,7 @@ namespace Boutique.DAL
                
 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
 
@@ -263,6 +264,7 @@ namespace Boutique.DAL
 
 
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
 
