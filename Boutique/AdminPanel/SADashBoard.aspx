@@ -742,7 +742,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-			     		        <div class="box-content"  style="height:488px;overflow:auto;" >
+			     		        <div class="box-content"  style="height:305px;overflow:auto;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 							  <div class="control-group">
@@ -839,7 +839,7 @@
 						
 						 
 							<%--</fieldset>--%>
-						</div>
+					         	</div>
                                 <footer class="InnerFooter">
                 				<button type="submit" class="btn btn-primary" runat="server" onserverclick="NewBoutique_ServerClick">Save</button>
 
@@ -864,9 +864,23 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-                               <div class="box-content" style="height:488px;">
+                         <div class="box-content" style="height:305px;">
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
+
+                             <div class="control-group">
+								<label class="control-label" for="selectError">Boutiques</label>
+								<div class="controls">
+								  <select id="selectError" data-rel="chosen">
+									<option>Boutiques 1</option>
+									<option>Boutiques 2</option>
+									<option>Boutiques 3</option>
+									<option>Boutiques 4</option>
+									<option>albert 5</option>
+								  </select>
+								</div>
+							  </div>
+
 							  <div class="control-group">
 							
 								  <label class="control-label" for="focusedInput">Name</label>
@@ -915,11 +929,12 @@
                          
 						
 						</div>
+                         </div>
                                <footer class="InnerFooter">
                         
 								<button type="submit" runat="server" onserverclick="NewAdmin_ServerClick" class="btn btn-primary">Save changes</button>
 								<button class="btn">Cancel</button>
-						 </footer> 
+						       </footer> 
                            </ContentTemplate>
                           </asp:UpdatePanel>
 					</div>

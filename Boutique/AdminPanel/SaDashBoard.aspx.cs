@@ -53,11 +53,13 @@ namespace Boutique.AdminPanel
             try
             {
                 userObj.Name = (txtUserName.Value.Trim() != "") ? txtUserName.Value.Trim() : null;
-                userObj.Mobile = (txtMobile.Value.Trim() != "") ? txtMobile.Value.Trim() : null;
+                userObj.Mobile = (txtMobile.Value.Trim() != "") ? txtMobile.Value.Trim() : null;//cant be null
                 userObj.Email = (txtUserEmail.Value.Trim() != "") ? txtUserEmail.Value.Trim() : null;
                 userObj.IsActive = (chkActive.Checked != true) ? false : true;
                 userObj.IsAdmin = (chkIsAdmin.Checked != true) ? false : true;
                 userObj.BoutiqueID = "470a044a-4dba-4770-bca7-331d2c0834ae";
+                userObj.CreatedBy = "albert";
+                userObj.CreatedDate = DateTime.Now;
                 userObj.AddNewUser();
 
                 //userObj.DOB = (dateDOB.Value.Trim() != "") ? DateTime.Parse(dateDOB.Value.ToString()) : DateTime.Parse(null);//
