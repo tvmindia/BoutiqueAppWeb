@@ -301,6 +301,7 @@
     </Compile>
     <Compile Include="DAL\BoutiqueServices.cs" />
     <Compile Include="DAL\dbConnection.cs" />
+    <Compile Include="DAL\ProductServices.cs" />
     <Compile Include="DAL\UserServices.cs" />
     <Compile Include="General\UnderConstruction.aspx.cs">
       <DependentUpon>UnderConstruction.aspx</DependentUpon>
