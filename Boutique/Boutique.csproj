@@ -192,6 +192,7 @@
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="CSS\jasny-bootstrap.css.map" />
     <Content Include="WebServices\WebService.asmx" />
+    <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
