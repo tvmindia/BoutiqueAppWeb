@@ -191,6 +191,8 @@
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="CSS\jasny-bootstrap.css.map" />
+    <Content Include="Scripts\UserJS\Boutiques.js" />
+    <Content Include="Scripts\UserJS\SaDashBoard.js" />
     <Content Include="WebServices\WebService.asmx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -329,7 +331,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\UserJS\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
