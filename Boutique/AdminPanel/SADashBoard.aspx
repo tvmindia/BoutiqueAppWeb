@@ -63,7 +63,7 @@
             <asp:UpdatePanel ID="upBoutiqueGrid" runat="server" UpdateMode="Always" >
                  <ContentTemplate>
                  <div class="row-fluid sortable">		
-				<div class="box span12">
+			    	<div class="box span12">
 					<div class="box-header">
 						<h2> All Boutiques</h2>
 						<div class="box-icon">
@@ -715,7 +715,7 @@
 					  </table>            
 					</div>
 				</div><!--/span-->
-            </div>
+                 </div>
                  </ContentTemplate>
             </asp:UpdatePanel>
 
