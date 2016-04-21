@@ -194,6 +194,7 @@
     <Content Include="Scripts\UserJS\Boutiques.js" />
     <Content Include="Scripts\UserJS\SaDashBoard.js" />
     <Content Include="WebServices\WebService.asmx" />
+    <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
