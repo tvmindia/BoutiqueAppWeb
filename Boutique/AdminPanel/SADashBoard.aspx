@@ -7,7 +7,7 @@
     </asp:ScriptManager>
     <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet" />
     <script src="../Scripts/UserJS/SaDashBoard.js"></script>
-    <script src="../Scripts/UserJS/Boutiques.js"></script>
+   
     
     <div id="content" class="span10">
 			
@@ -64,7 +64,7 @@
 
             
                  <div class="row-fluid sortable">		
-                        <asp:UpdatePanel ID="upBoutiqueGrid" runat="server" UpdateMode="Always" >
+                        <asp:UpdatePanel ID="upBoutiqueGrid" runat="server" UpdateMode="Always">
                     <ContentTemplate>
 			    	<div class="box span12">
           
@@ -85,8 +85,7 @@
 								  <th>Location</th>
                                   <th>Phone</th>
                                   <th>Timing</th>
-								  <th>Working Days</th>
-								  <th>Status</th>
+								  <th style="width:105px;">Working Days</th>
 								  <th>Actions</th>
 							  </tr>
 						  </thead>   
@@ -118,8 +117,20 @@
                      
 
         	     	<div class="box span6">
-                          <asp:UpdatePanel ID="upNewBoutique" runat="server" UpdateMode="Conditional" >
+                          <asp:UpdatePanel ID="upNewBoutique" runat="server" UpdateMode="Always" >
+                            <%--  <Triggers><%--Triggered from new boutique button click
+                                 <asp:AsyncPostBackTrigger ControlID="btnSaveBoutique" />
+                              </Triggers>--%>
                             <ContentTemplate>
+                                 <script type="text/javascript">
+                                     Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(pageLoaded);
+                                     //Sys.WebForms.PageRequestManager.getInstance().add_pageLoading(pageLoadingHandler)
+                                     function pageLoaded(sender, args) {
+                                                                           
+                                         BindBoutiqueAsyncLoad();
+                                     }
+                                     
+                                 </script>
 				            	<div class="box-header">
 						<h2>New Boutique</h2>
 						<div class="box-icon">
@@ -227,7 +238,7 @@
 							<%--</fieldset>--%>
 					         	</div>
                                 <footer class="InnerFooter">
-                				<button type="submit" class="btn btn-primary" runat="server" onserverclick="NewBoutique_ServerClick">Save</button>
+                				<button type="submit" class="btn btn-primary" id="btnSaveBoutique" runat="server" onserverclick="NewBoutique_ServerClick">Save</button>
 
 								<button class="btn">Cancel</button>
 						

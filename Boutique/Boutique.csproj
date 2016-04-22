@@ -191,7 +191,6 @@
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="CSS\jasny-bootstrap.css.map" />
-    <Content Include="Scripts\UserJS\Boutiques.js" />
     <Content Include="Scripts\UserJS\SaDashBoard.js" />
     <Content Include="WebServices\WebService.asmx" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />

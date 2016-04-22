@@ -148,6 +148,15 @@ namespace Boutique.AdminPanel {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtInstatgramlink;
         
         /// <summary>
+        /// btnSaveBoutique control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSaveBoutique;
+        
+        /// <summary>
         /// upNewAdminstrator control.
         /// </summary>
         /// <remarks>

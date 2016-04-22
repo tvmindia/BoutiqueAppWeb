@@ -23,6 +23,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllBoutiques()
         {
+            string jsonResult = null;
             DataSet ds=null;
             Boutiques boutiqWebObj = new Boutiques();
             ds=boutiqWebObj.GetAllBoutiques();
@@ -54,7 +55,9 @@ namespace Boutique.AdminPanel
                 //parentRow.Add(childRow);
             }
             
-           return jsSerializer.Serialize(parentRow);
+            jsonResult= jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
            
 
           //Converting to Json
@@ -88,6 +91,7 @@ namespace Boutique.AdminPanel
                 boutiqueObj.FbLink = (txtFacebooklink.Value.Trim() != "") ? txtFacebooklink.Value.Trim() : null;
                 boutiqueObj.InstagramLink = (txtInstatgramlink.Value.Trim() != "") ? txtInstatgramlink.Value.Trim() : null;
                 boutiqueObj.NewBoutique();
+              //  upBoutiqueGrid.Update();
             }
             catch(Exception ex)
             {
