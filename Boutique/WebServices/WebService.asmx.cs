@@ -26,7 +26,7 @@ namespace Boutique.WebServices
         /// <param name="boutiqueID">Boutique's ID</param>
         /// <returns>JSON of product details</returns>
         [WebMethod]
-        public string Products(string productID,string boutiqueID)
+        public string Products(string productID,string boutiqueID,string userID)
         {
             DataTable dt = new DataTable();
             try
@@ -34,7 +34,13 @@ namespace Boutique.WebServices
                 Product product = new Product();
                 product.ProductID = productID;
                 product.BoutiqueID = boutiqueID;
-                dt=product.GetProductByProductID();
+                dt = product.GetProductByProductID();
+
+                DataTable favInfo=product.FavoriteInfo(userID);
+                dt.Columns.Add("FavCount", typeof(int));
+                dt.Columns.Add("isFav", typeof(Boolean));
+                dt.Rows[0]["FavCount"] = favInfo.Rows[0]["FavCount"];
+                dt.Rows[0]["isFav"] = favInfo.Rows[0]["isFav"];                
             }
             catch (Exception ex)
             {

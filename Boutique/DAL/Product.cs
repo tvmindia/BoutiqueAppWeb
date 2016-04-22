@@ -358,6 +358,58 @@ namespace Boutique.DAL
             }
             #endregion
 
+            #region Favorite informations: Count and isFavorite
+        /// <summary>
+        /// Function to get the total favorite count and whether the user favorited this before. based on a product
+        /// </summary>
+        /// <param name="userID">user id to check whether this user favorited the current product</param>
+        /// <returns>Favorite count and isfavorated boolean value</returns>
+            public DataTable FavoriteInfo(string userID)
+            {
+                if (ProductID == "")
+                {
+                    throw new Exception("ProductID is Empty!!");
+                }
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataTable dt = null;
+                SqlDataAdapter sda = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetFavoriteInformation]";
+                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                    sda.SelectCommand = cmd;
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                    return dt;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+            }
+        #endregion Favorite informations: Count and isFavorite
+
         #endregion Methods
     }
 }
