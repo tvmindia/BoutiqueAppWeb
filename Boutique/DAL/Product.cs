@@ -306,8 +306,7 @@ namespace Boutique.DAL
                 return Int16.Parse(outParameter.Value.ToString());
             }
             #endregion
-
-        
+                
             #region Product details as DataTable
             /// <summary>
             /// To get a product's details by ProductID
@@ -315,6 +314,7 @@ namespace Boutique.DAL
             /// <returns>Datatable of details</returns>
             public DataTable GetProductByProductID()
             {
+                // TODO: add product view information to that table too: in the case of mobile app
                 if (ProductID == "")
                 {
                     throw new Exception("ProductID is Empty!!");
