@@ -60,6 +60,37 @@ namespace Boutique.WebServices
         }
         #endregion Products
 
+        #region Boutique
+
+
+        [WebMethod]
+        public string Boutique(string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Boutiques boutique = new Boutiques();
+                boutique.BoutiqueID = boutiqueID;
+                dt = boutique.GetBoutique(boutiqueID).Tables[0];
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion Boutique
+
         #region JSON converter
         /// <summary>
         /// JSON function without returning any images
