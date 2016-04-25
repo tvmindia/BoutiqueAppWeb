@@ -188,9 +188,14 @@ namespace Boutique.DAL
         #region AddNewUser
         public Int16 AddNewUser()
         {
+            if (Mobile == "")
+            {
+                throw new Exception("Mobile is Empty!!");
+            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
+            SqlParameter outParameter2 = null;
             Guid _boutiqued = Guid.Empty;
             try
             {
@@ -217,7 +222,9 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;
                     cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                    outParameter2 = cmd.Parameters.Add("@LoyalyCardNumber", SqlDbType.BigInt);
                     outParameter.Direction = ParameterDirection.Output;
+                    outParameter2.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -236,6 +243,7 @@ namespace Boutique.DAL
                 }
             }
             //insert success or failure
+            LoyaltyCardNo = Int64.Parse(outParameter2.Value.ToString());
             return Int16.Parse(outParameter.Value.ToString());
 
         }
