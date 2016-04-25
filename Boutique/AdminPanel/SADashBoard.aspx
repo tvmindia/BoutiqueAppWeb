@@ -2,9 +2,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManagerSA" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
+   <%-- <asp:ScriptManager ID="ScriptManagerSA" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
        
-    </asp:ScriptManager>
+    </asp:ScriptManager>--%>
     <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet" />
     <script src="../Scripts/UserJS/SaDashBoard.js"></script>
    
@@ -64,9 +64,9 @@
 
             
                  <div class="row-fluid sortable">		
-                        <asp:UpdatePanel ID="upBoutiqueGrid" runat="server" UpdateMode="Always">
-                    <ContentTemplate>
+                        
 			    	<div class="box span12">
+                     
           
 					<div class="box-header">
 						<h2> All Boutiques</h2>
@@ -86,7 +86,7 @@
                                   <th>Phone</th>
                                   <th>Timing</th>
 								  <th style="width:105px;">Working Days</th>
-								  <th>Actions</th>
+								  <th style="width:85px;">Actions</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
@@ -97,10 +97,10 @@
 						  </tbody>
 					  </table>            
 					</div>
+                      
                    
 				</div><!--/span-->
-         </ContentTemplate>
-            </asp:UpdatePanel>
+         
                  </div>
                 
 
@@ -117,20 +117,7 @@
                      
 
         	     	<div class="box span6">
-                          <asp:UpdatePanel ID="upNewBoutique" runat="server" UpdateMode="Always" >
-                            <%--  <Triggers><%--Triggered from new boutique button click
-                                 <asp:AsyncPostBackTrigger ControlID="btnSaveBoutique" />
-                              </Triggers>--%>
-                            <ContentTemplate>
-                                 <script type="text/javascript">
-                                     Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(pageLoaded);
-                                     //Sys.WebForms.PageRequestManager.getInstance().add_pageLoading(pageLoadingHandler)
-                                     function pageLoaded(sender, args) {
-                                                                           
-                                         BindBoutiqueAsyncLoad();
-                                     }
-                                     
-                                 </script>
+                      
 				            	<div class="box-header">
 						<h2>New Boutique</h2>
 						<div class="box-icon">
@@ -146,7 +133,7 @@
 							
 								  <label class="control-label" for="focusedInput">App Version</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtAppVersion" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtAppVersion" type="text"/>
 								</div>
 								</div>
 							
@@ -238,21 +225,21 @@
 							<%--</fieldset>--%>
 					         	</div>
                                 <footer class="InnerFooter">
-                				<button type="submit" class="btn btn-primary" id="btnSaveBoutique" runat="server" onserverclick="NewBoutique_ServerClick">Save</button>
+                			<%--	<button type="submit" class="btn btn-primary" id="btnSaveBoutique">Save</button>--%>
+                                   <a class="btn btn-primary AddBoutique" href="#">Save</></a>
 
-								<button class="btn">Cancel</button>
+                                    <a class="btn">Cancel</a>
+							<%--	<button class="btn">Cancel</button>--%>
 						
                         </footer> 
-                            </ContentTemplate>
-                         </asp:UpdatePanel>
+                           
                        </div>
                       
                      
                          
                     
                     <div class="box span6">
-                          <asp:UpdatePanel ID="upNewAdminstrator" runat="server" UpdateMode="Conditional" >
-                           <ContentTemplate>
+                        
                         <div class="box-header">
 						<h2>New Administrator</h2>
 						<div class="box-icon">
@@ -309,34 +296,24 @@
 								
 								</div>
 							  </div>
-
-
                               <div class="control-group">
 								<label class="control-label">Is Admin?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
 									<input type="checkbox" id="chkIsAdmin" runat="server" value="option1"/>Yes</label>
-								
+					
 								</div>
 							  </div>
-
-                            
-
-
-                         
-						
 						</div>
                          </div>
                                <footer class="InnerFooter">
                         
-								<button type="submit" runat="server" onserverclick="NewAdmin_ServerClick" class="btn btn-primary">Save changes</button>
+							<%--	<button type="submit" class="btn btn-primary Addboutique">Save changes</button>--%>
+                                   <a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a>
 								<button class="btn">Cancel</button>
 						       </footer> 
-                           </ContentTemplate>
-                          </asp:UpdatePanel>
-					</div>
-                   
-                   
+                       	</div>
+                 
 			         </div>
                 
                  
