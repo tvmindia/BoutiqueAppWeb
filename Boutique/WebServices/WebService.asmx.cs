@@ -110,11 +110,9 @@ namespace Boutique.WebServices
                 user.AddNewUser();
 
                 Int64 loyaltyCardNumber = user.LoyaltyCardNo;
-                dr["Flag"] = false;
-                dr["Message"] = ex.Message;
-                dt.Columns.Add("LoyaltyCardNo", typeof(Int64));
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));
+                dt.Columns.Add("LoyaltyCardNo", typeof(Int64));
                 DataRow dr = dt.NewRow();
                 dr["Flag"] = true;
                 dr["Message"] = "Success";
