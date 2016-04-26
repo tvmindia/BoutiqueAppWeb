@@ -21,6 +21,7 @@ namespace Boutique.AdminPanel
         }
         #region webmethods
         [System.Web.Services.WebMethod]
+        #region GetAllBoutiques
         public static string GetAllBoutiques()
         {
             string jsonResult = null;
@@ -62,11 +63,56 @@ namespace Boutique.AdminPanel
 
           //Converting to Json
        }
-                    
-     
+        #endregion GetAllBoutiques
+
+        #region NewBoutique
+        [System.Web.Services.WebMethod]
+        public static string NewBoutique(Boutiques NewBoutique)
+        {
+            Boutiques boutiqueObj = new Boutiques();
+            boutiqueObj.NewBoutique();
+          string dfd=  boutiqueObj.AppVersion;
+
+            return "";
+        }
+        #endregion NewBoutique
+
+
+
+
         #endregion webmethods
         #region Methods
-       public void show()
+
+        #region BindBoutiqueDetails
+        public string BindBoutiqueDetails(string Boutiqueid)
+        {
+            try
+            {
+                DataSet ds = null;
+                ds=boutiqueObj.GetBoutique(Boutiqueid);
+                if((ds.Tables[0].Rows.Count>0)&&(ds!=null))
+                {
+
+                    txtAppVersion.Value = ds.Tables[0].Rows[0]["AppVersion"].ToString();
+                    txtUserName.Value = "Albert Thomson";
+
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return "";
+        }
+        #endregion BindBoutiqueDetails
+        public void show()
 {
 
 }
@@ -74,35 +120,35 @@ namespace Boutique.AdminPanel
 
 
         #region events
-        protected void NewBoutique_ServerClick(object sender, EventArgs e)
-        {
-            try
-            {
-                boutiqueObj.AppVersion = (txtAppVersion.Value.Trim() != "") ? txtAppVersion.Value.Trim() : null;
-                boutiqueObj.Name = (txtBouquetName.Value.Trim() != "") ? txtBouquetName.Value.Trim() : null;
-                boutiqueObj.StartedYear = (txtStartYear.Value.Trim() != "") ? txtStartYear.Value.Trim() : null;
-                boutiqueObj.AboutUs = (txtAboutus.Value.Trim() != "") ? txtAboutus.Value.Trim() : null;
-                boutiqueObj.Caption = (txtCaption.Value.Trim() != "") ? txtCaption.Value.Trim() : null;
-                boutiqueObj.Location = (txtLocation.Value.Trim() != "") ? txtLocation.Value.Trim() : null;
-                boutiqueObj.Address = (txtAddress.Value.Trim() != "") ? txtAddress.Value.Trim() : null;
-                boutiqueObj.Phone = (txtPhone.Value.Trim() != "") ? txtPhone.Value.Trim() : null;
-                boutiqueObj.Timing = (txtTimings.Value.Trim() != "") ? txtTimings.Value.Trim() : null;
-                boutiqueObj.WorkingDays = (txtWorkingDays.Value.Trim() != "") ? txtWorkingDays.Value.Trim() : null;
-                boutiqueObj.FbLink = (txtFacebooklink.Value.Trim() != "") ? txtFacebooklink.Value.Trim() : null;
-                boutiqueObj.InstagramLink = (txtInstatgramlink.Value.Trim() != "") ? txtInstatgramlink.Value.Trim() : null;
-                boutiqueObj.NewBoutique();
-              //  upBoutiqueGrid.Update();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
+        //protected void NewBoutique_ServerClick(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        boutiqueObj.AppVersion = (txtAppVersion.Value.Trim() != "") ? txtAppVersion.Value.Trim() : null;
+        //        boutiqueObj.Name = (txtBouquetName.Value.Trim() != "") ? txtBouquetName.Value.Trim() : null;
+        //        boutiqueObj.StartedYear = (txtStartYear.Value.Trim() != "") ? txtStartYear.Value.Trim() : null;
+        //        boutiqueObj.AboutUs = (txtAboutus.Value.Trim() != "") ? txtAboutus.Value.Trim() : null;
+        //        boutiqueObj.Caption = (txtCaption.Value.Trim() != "") ? txtCaption.Value.Trim() : null;
+        //        boutiqueObj.Location = (txtLocation.Value.Trim() != "") ? txtLocation.Value.Trim() : null;
+        //        boutiqueObj.Address = (txtAddress.Value.Trim() != "") ? txtAddress.Value.Trim() : null;
+        //        boutiqueObj.Phone = (txtPhone.Value.Trim() != "") ? txtPhone.Value.Trim() : null;
+        //        boutiqueObj.Timing = (txtTimings.Value.Trim() != "") ? txtTimings.Value.Trim() : null;
+        //        boutiqueObj.WorkingDays = (txtWorkingDays.Value.Trim() != "") ? txtWorkingDays.Value.Trim() : null;
+        //        boutiqueObj.FbLink = (txtFacebooklink.Value.Trim() != "") ? txtFacebooklink.Value.Trim() : null;
+        //        boutiqueObj.InstagramLink = (txtInstatgramlink.Value.Trim() != "") ? txtInstatgramlink.Value.Trim() : null;
+        //        boutiqueObj.NewBoutique();
+        //      //  upBoutiqueGrid.Update();
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        throw ex;
 
-             }
-             finally
-            {
+        //     }
+        //     finally
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
         protected void NewAdmin_ServerClick(object sender, EventArgs e)
         {
