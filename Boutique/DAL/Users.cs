@@ -191,6 +191,10 @@ namespace Boutique.DAL
 
 
         #region AddNewUser
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <returns>status</returns>
         public Int16 AddNewUser()
         {
             if (Mobile == "")
@@ -201,14 +205,13 @@ namespace Boutique.DAL
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
             SqlParameter outParameter2 = null;
+            SqlParameter outParameter3 = null;
             Guid _boutiqued = Guid.Empty;
             try
             {
                 _boutiqued = Guid.Parse(BoutiqueID);
                 if (_boutiqued != Guid.Empty)
                 {
-
-
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
@@ -228,8 +231,10 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar,6).Value = Gender;
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                     outParameter2 = cmd.Parameters.Add("@LoyalyCardNumber", SqlDbType.BigInt);
+                    outParameter3 = cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier);
                     outParameter.Direction = ParameterDirection.Output;
-                    outParameter2.Direction = ParameterDirection.Output;
+                    outParameter2.Direction = ParameterDirection.Output; 
+                    outParameter3.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -249,10 +254,60 @@ namespace Boutique.DAL
             }
             //insert success or failure
             LoyaltyCardNo = Int64.Parse(outParameter2.Value.ToString());
+            UserID = outParameter3.Value.ToString();
             return Int16.Parse(outParameter.Value.ToString());
 
         }
         #endregion AddNewUser
+
+        #region User Activation
+        /// <summary>
+        /// To activate a user by userID
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 UserActivation()
+        {
+            if (UserID == "")
+            {
+                throw new Exception("UserID is Empty!!");
+            } 
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UserActivation]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion User Activation
 
         #region EditUser
         public Int16 EditUser(string userID)

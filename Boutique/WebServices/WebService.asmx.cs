@@ -58,8 +58,11 @@ namespace Boutique.WebServices
         #endregion Products
 
         #region Boutique
-
-
+        /// <summary>
+        /// Webservice to get the details of boutique
+        /// </summary>
+        /// <param name="boutiqueID">to know which boutique</param>
+        /// <returns>boutique details as Json</returns>
         [WebMethod]
         public string Boutique(string boutiqueID)
         {
@@ -89,6 +92,17 @@ namespace Boutique.WebServices
         #endregion Boutique
 
         #region User
+        /// <summary>
+        /// to register new user with user details. It won't activare the user.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="mobile"></param>
+        /// <param name="email"></param>
+        /// <param name="boutiqueID"></param>
+        /// <param name="dob"></param>
+        /// <param name="anniversary"></param>
+        /// <param name="gender"></param>
+        /// <returns>flag and message. Then OTP number and Loyalty Card Number. also UserID for activation</returns>
         [WebMethod]
         public string UserRegistration(string name, string mobile, string email,string boutiqueID, DateTime dob, DateTime anniversary,string gender)
         {
@@ -103,20 +117,74 @@ namespace Boutique.WebServices
                 user.DOB = dob;
                 user.Anniversary = anniversary;
                 user.Gender = gender;
-                user.IsActive = true;
+                user.IsActive = false;
                 user.CreatedBy = "User";
                 user.CreatedDate = DateTime.Now;
                 user.IsAdmin = false;
                 user.AddNewUser();
 
-                Int64 loyaltyCardNumber = user.LoyaltyCardNo;
+                
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));
+                dt.Columns.Add("UserID", typeof(String));
                 dt.Columns.Add("LoyaltyCardNo", typeof(Int64));
+                dt.Columns.Add("OTP", typeof(int));
                 DataRow dr = dt.NewRow();
                 dr["Flag"] = true;
                 dr["Message"] = "Success";
-                dr["LoyaltyCardNo"] = loyaltyCardNumber;
+                dr["UserID"] = user.UserID;
+                dr["LoyaltyCardNo"] = user.LoyaltyCardNo;
+                Random rnd = new Random();                  // Random number creation for OTP
+                dr["OTP"] = rnd.Next(2000, 9000);
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        /// <summary>
+        /// To activate a user by user Id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns>status</returns>
+        [WebMethod]
+        public string UserActivation(string userId, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Users user = new Users();
+                user.BoutiqueID = boutiqueID;
+                user.UserID = userId;
+                
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                if (user.UserActivation() == 1)
+                {
+
+                    dr["Flag"] = true;
+                    dr["Message"] = "User Account Successfully Activated";
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = "User Account Activation is UNSUCCESSFULL";
+                }
                 dt.Rows.Add(dr);
             }
             catch (Exception ex)
