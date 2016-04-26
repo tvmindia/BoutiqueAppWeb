@@ -1,7 +1,8 @@
 ﻿$("document").ready(function (e) {
-
+    $("#hdfBoutiqueID").val('');
   
-    debugger;
+   // $('#rowfluidDiv').show();
+   // $('.alert-error').show();
     var jsonResult = {};
     jsonResult = GetAllBoutiques();
     //var table = {};
@@ -11,32 +12,103 @@
     if (jsonResult != undefined)
     {
         BindBoutiqueTable(jsonResult);
+        BindDropDown(jsonResult);
+
     }
     //events
+
+
+    $(".edit").live(
+       {
+           click: function (e) {
+               var jsonResult = {};
+               editedrow = $(this).closest('tr');
+               var boutid = editedrow.attr("boutiqueID");
+               jsonResult = GetBoutiques(boutid);
+               if (jsonResult != undefined) {
+
+                   BindBoutiqueTextBoxes(jsonResult);
+               }
+
+           
+               return false;
+           }
+       })
+
+    $(".CancelClear").live({
+        click: function (e) {// Clear controls
+
+            clearControls();
+
+        }
+    })
+
+
+
     $(".AddBoutique").live({
         click: function (e) {// submit button click
-
-            debugger;
+            var boutiquid = $("#hdfBoutiqueID").val();
+            var result = "";
             var Boutique = new Object();
+            if (boutiquid != "")
+            {
+                Boutique.BoutiqueID = boutiquid;
+            }
             Boutique.AppVersion = $("#txtAppVersion").val();
             Boutique.Name = $("#txtBouquetName").val();
             Boutique.StartedYear = $("#txtStartYear").val();
             Boutique.AboutUs = $("#txtAboutus").val();
+            Boutique.Caption = $("#txtCaption").val();
+            Boutique.Location = $("#txtLocation").val();
+            Boutique.Address = $("#txtAddress").val();
+            Boutique.Phone = $("#txtPhone").val();
+            Boutique.Timing = $("#txtTimings").val();
+            Boutique.WorkingDays = $("#txtWorkingDays").val();
+            Boutique.FbLink = $("#txtFacebooklink").val();
+            Boutique.InstagramLink = $("#txtInstatgramlink").val();
           
-            InsertBoutique(Boutique);
+            result = InsertBoutique(Boutique);
+            if (result!= "0")
+            {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+            }
+            if (result== "1")
+            {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+            }
             
+            BindBoutiqueAsyncLoad();//Gridbind
+          
+        }
+    })
+
+  
+    $(".AddAdmin").live({
+        click: function (e) {// submit button click
+
+            debugger;
+            var Admin = new Object();
+            Admin.Name = $("#txtUserName").val();
+            
+            Admin.Mobile = $("#txtMobile").val();
+            Admin.Email = $("#txtUserEmail").val();
+            Admin.IsActive = "true";
+            Admin.BoutiqueID = "470a044a-4dba-4770-bca7-331d2c0834ae";
+          
+
+            InsertAdmin(Admin);
+
             //var jsonResults = {};
             //jsonResults = GetAllBoutiques();
             //if (jsonResults != undefined)
             //{
             //    BindBoutiqueTable(jsonResults);
             //}
-          
+
         }
     })
-
-  
-
    
 
 
@@ -66,8 +138,18 @@ function getJsonData(data, page) {
 
 function  InsertBoutique(Boutique)
 {
-    var data = "{'NewBoutique':" + JSON.stringify(Boutique) + "}";
+    var data = "{'boutiqueobj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/NewBoutique");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
+}
+
+
+function InsertAdmin(Admin) {
+    var data = "{'userObj':" + JSON.stringify(Admin) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/NewAdmin");
 
 }
 
@@ -106,7 +188,8 @@ function BindBoutiqueAsyncLoad()
 
 
 function BindBoutiqueTable(Records) {
-  
+   // $("#bouquetTable").find(".dataTables_wrapper").remove();
+    //$("#bouquetTable").removeClass("dataTables_wrapper");
     $("#bouquetTable").find(".odd").remove();
     $("#bouquetTable").find(".myrows").remove();
     $.each(Records, function (index, Records) {
@@ -118,23 +201,67 @@ function BindBoutiqueTable(Records) {
 }
 
 
-function BindEvents() {
-    $(document).ready(function() {
-        alert("Albert");
-        $(".Edit").live(
-       {
-           click: function (e) {
-               debugger;
-               editedrow = $(this).closest('tr');
-               var boutid = editedrow.attr("boutiqueID");
-               GetBoutiques(boutid);
+function BindDropDown(Records)
 
-               alert(boutid);
-               return false;
-           }
+{
+    // $('.selectpicker').selectpicker();
+    var i = 1;
+    $.each(Records, function(index, Records)
+    {
+         // $select.append('<option id="' + Records.id + '">' + Records.name + '</option>');
+        //  $option.append('<option id="' + Records.BoutiqueID + '">' + Records.Name + '</option>');
+       
+       
+        //$select.append('<option id="' + Records.BoutiqueID + '">' + Records.Name + '</option>');
+        $(".chzn-results").append('<li id="ddlBoutiques_chzn_o_'+i+'" class="active-result" style="" Boutiqueid="' + Records.BoutiqueID + '">' + Records.Name + '</li>');
+        i++;
+      //  $(".chzn-results").append('<li id="ddlBoutiques_chzn_o_0" class="active-result" style="" Boutiqueid="' + Records.BoutiqueID + '">' + Records.Name + '</li>');
+        //<li id="selectError_chzn_o_1" class="active-result" style="">Option 2</li>
+       // <li id="ddlBoutiques_chzn_o_0" class="active-result result-selected" style="">Select</li>
+    })
+}
 
-       })
+
+function BindBoutiqueTextBoxes(Records)
+{
+    $.each(Records, function(index, Records)
+    {
+
+        $("#txtAppVersion").val(Records.AppVersion);
+        $("#txtBouquetName").val(Records.Name);
+        $("#txtStartYear").val(Records.StartedYear);
+        $("#txtAboutus").val(Records.AboutUs);
+        $("#txtCaption").val(Records.Caption);
+        $("#txtLocation").val(Records.Location);
+        $("#txtAddress").val(Records.Address);
+        $("#txtPhone").val(Records.Phone);
+        $("#txtTimings").val(Records.Timing);
+        $("#txtWorkingDays").val(Records.WorkingDays);
+        $("#txtFacebooklink").val(Records.FBLink);
+        $("#txtInstatgramlink").val(Records.InstagramLink);
+        $("#hdfBoutiqueID").val(Records.BoutiqueID);
+    
+
+    })
+    $(".AddBoutique").text("Modify");
+}
+
+function clearControls() {
+
+    $("#txtAppVersion").val('');
+    $("#txtBouquetName").val('');
+    $("#txtStartYear").val('');
+    $("#txtAboutus").val('');
+    $("#txtCaption").val('');
+    $("#txtLocation").val('');
+    $("#txtAddress").val('');
+    $("#txtPhone").val('');
+    $("#txtTimings").val('');
+    $("#txtWorkingDays").val('');
+    $("#txtFacebooklink").val('');
+    $("#txtInstatgramlink").val('');
+    $("#hdfBoutiqueID").val('');
+ }
 
 
-        });
-    }
+

@@ -67,40 +67,73 @@ namespace Boutique.AdminPanel
 
         #region NewBoutique
         [System.Web.Services.WebMethod]
-        public static string NewBoutique(Boutiques NewBoutique)
+        public static string NewBoutique(Boutiques boutiqueobj)
         {
-            Boutiques boutiqueObj = new Boutiques();
-            boutiqueObj.NewBoutique();
-          string dfd=  boutiqueObj.AppVersion;
+            string status=null;        
+           if(boutiqueobj.BoutiqueID == null)
+           {
+               status= boutiqueobj.NewBoutique().ToString();
+           }
+           else
+           {
+               status=boutiqueobj.EditBoutique(boutiqueobj.BoutiqueID).ToString();
+           }
 
-            return "";
+
+           return status;
         }
         #endregion NewBoutique
-
-
-
-
-        #endregion webmethods
-        #region Methods
+        #region NewAdmin
+        [System.Web.Services.WebMethod]
+        public static string NewAdmin(Users userObj)
+        {
+            userObj.AddNewUser();
+            return "";
+        }
+        #endregion NewAdmin
 
         #region BindBoutiqueDetails
-        public string BindBoutiqueDetails(string Boutiqueid)
+         [System.Web.Services.WebMethod]
+        public static string BindBoutiqueDetails(string Boutiqueid)
         {
+            string jsResult=null;
             try
             {
+               
                 DataSet ds = null;
-                ds=boutiqueObj.GetBoutique(Boutiqueid);
-                if((ds.Tables[0].Rows.Count>0)&&(ds!=null))
+                Boutiques boutiqueObj = new Boutiques();
+                ds = boutiqueObj.GetBoutique(Boutiqueid);
+                if ((ds.Tables[0].Rows.Count > 0) && (ds != null))
                 {
 
-                    txtAppVersion.Value = ds.Tables[0].Rows[0]["AppVersion"].ToString();
-                    txtUserName.Value = "Albert Thomson";
+                    string dfd = ds.Tables[0].Rows[0]["AppVersion"].ToString();
 
 
 
+                    //Converting to Json
+                   
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                        jsResult= jsSerializer.Serialize(parentRow);
+                       
+                    }
+                   
+                }
+                
                 }
 
-            }
             catch (Exception ex)
             {
                 throw ex;
@@ -109,9 +142,15 @@ namespace Boutique.AdminPanel
             {
 
             }
-            return "";
+            return jsResult;
         }
         #endregion BindBoutiqueDetails
+
+
+        #endregion webmethods
+        #region Methods
+
+       
         public void show()
 {
 
@@ -150,33 +189,33 @@ namespace Boutique.AdminPanel
         //    }
         //}
 
-        protected void NewAdmin_ServerClick(object sender, EventArgs e)
-        {
-            try
-            {
-                userObj.Name = (txtUserName.Value.Trim() != "") ? txtUserName.Value.Trim() : null;
-                userObj.Mobile = (txtMobile.Value.Trim() != "") ? txtMobile.Value.Trim() : null;//cant be null
-                userObj.Email = (txtUserEmail.Value.Trim() != "") ? txtUserEmail.Value.Trim() : null;
-                userObj.IsActive = (chkActive.Checked != true) ? false : true;
-                userObj.IsAdmin = (chkIsAdmin.Checked != true) ? false : true;
-                userObj.BoutiqueID = "470a044a-4dba-4770-bca7-331d2c0834ae";
-                userObj.CreatedBy = "albert";
-                userObj.CreatedDate = DateTime.Now;
-                userObj.AddNewUser();
+        //protected void NewAdmin_ServerClick(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        userObj.Name = (txtUserName.Value.Trim() != "") ? txtUserName.Value.Trim() : null;
+        //        userObj.Mobile = (txtMobile.Value.Trim() != "") ? txtMobile.Value.Trim() : null;//cant be null
+        //        userObj.Email = (txtUserEmail.Value.Trim() != "") ? txtUserEmail.Value.Trim() : null;
+        //        userObj.IsActive = (chkActive.Checked != true) ? false : true;
+        //        userObj.IsAdmin = (chkIsAdmin.Checked != true) ? false : true;
+        //        userObj.BoutiqueID = "470a044a-4dba-4770-bca7-331d2c0834ae";
+        //        userObj.CreatedBy = "albert";
+        //        userObj.CreatedDate = DateTime.Now;
+        //        userObj.AddNewUser();
 
-                //userObj.DOB = (dateDOB.Value.Trim() != "") ? DateTime.Parse(dateDOB.Value.ToString()) : DateTime.Parse(null);//
-                //userObj.Anniversary = (dateAnniversary.Value.Trim() != "") ? DateTime.Parse(dateAnniversary.Value.ToString()) : DateTime.Parse(null);//check
-                //// dateFormat: 'dd-mm-yy'
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
+        //        //userObj.DOB = (dateDOB.Value.Trim() != "") ? DateTime.Parse(dateDOB.Value.ToString()) : DateTime.Parse(null);//
+        //        //userObj.Anniversary = (dateAnniversary.Value.Trim() != "") ? DateTime.Parse(dateAnniversary.Value.ToString()) : DateTime.Parse(null);//check
+        //        //// dateFormat: 'dd-mm-yy'
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
 
-            }
-        }
+        //    }
+        //}
         #endregion events
     }
 }
