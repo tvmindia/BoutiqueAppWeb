@@ -144,32 +144,35 @@ namespace Boutique.DAL
         #endregion SelectAllUsers
 
         #region SelectUser
-        public DataSet SelectUserByUserID(string userID,string boutiqueID)
+        public DataSet SelectUserByUserID()
         {
+            if (UserID == "")
+            {
+                throw new Exception("UserID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter sda = null;
-            Guid _userid = Guid.Empty;
-            Guid _boutiqueid = Guid.Empty;
             try
             {
-                _userid = Guid.Parse(userID);
-                _boutiqueid = Guid.Parse(boutiqueID);
-                if ((_userid != Guid.Empty) && (_boutiqueid != Guid.Empty))
-                {
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[SelectUserByUserID]";
-                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _userid;
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
                     sda.Fill(ds);
-                }
+                    if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such ID"); }
             }
 
             catch (Exception ex)
@@ -287,7 +290,9 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UserActivation]";
                 cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID); 
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
                 outParameter.Direction = ParameterDirection.Output;
@@ -308,6 +313,60 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion User Activation
+
+        #region User Login
+        /// <summary>
+        /// To Login a user by Mobile
+        /// </summary>
+        /// <returns>Datatable wit UserID and isActive</returns>
+        public DataTable UserLogin()
+        {
+            if (Mobile == "")
+            {
+                throw new Exception("Mobile number is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataTable dt=null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UserLogin]";
+                cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar,20).Value = Mobile;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count == 0) { throw new Exception("No such account"); }
+                DataRow row = dt.NewRow();
+                row = dt.Rows[0];
+                UserID = row["UserID"].ToString();
+                IsActive = Boolean.Parse(row["Active"].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion User Login
 
         #region EditUser
         public Int16 EditUser(string userID)
@@ -337,7 +396,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = Anniversary;
                 cmd.Parameters.Add("@LoyaltyCardNo", SqlDbType.BigInt).Value = LoyaltyCardNo;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.NVarChar, 200).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
 
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);

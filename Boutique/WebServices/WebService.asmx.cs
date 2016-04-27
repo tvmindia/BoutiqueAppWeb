@@ -170,6 +170,7 @@ namespace Boutique.WebServices
                 Users user = new Users();
                 user.BoutiqueID = boutiqueID;
                 user.UserID = userId;
+                user.UpdatedBy = "User";
                 
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));
@@ -186,6 +187,72 @@ namespace Boutique.WebServices
                     dr["Message"] = "User Account Activation is UNSUCCESSFULL";
                 }
                 dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        /// <summary>
+        /// To login a user with mobile number. If user exists, 
+        /// OTP and true flag will be sent along with isActive information. Else Exception message with false flag.
+        /// </summary>
+        /// <param name="mobile"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns>Flag, User Id , is Active, OTP</returns>
+        [WebMethod]
+        public string UserLogin(string mobile, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Users user = new Users();
+                user.BoutiqueID = boutiqueID;
+                user.Mobile = mobile;
+                dt=user.UserLogin();
+                dt.Columns.Add("OTP", typeof(int));
+                Random rnd = new Random();                  // Random number creation for OTP
+                dt.Rows[0]["OTP"] = rnd.Next(2000, 9000);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        [WebMethod]
+        public string UserDetails(string userID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Users user = new Users();
+                user.BoutiqueID = boutiqueID;
+                user.UserID = userID;
+                dt = user.SelectUserByUserID().Tables[0];
             }
             catch (Exception ex)
             {
