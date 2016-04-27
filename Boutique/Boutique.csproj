@@ -68,6 +68,7 @@
     <Content Include="AdminPanel\SaDashBoard.aspx" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
+    <Content Include="CSS\bootstrap-select-1.6.3.css" />
     <Content Include="CSS\bootstrap.css" />
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\chosen.css" />
@@ -191,6 +192,7 @@
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="CSS\jasny-bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap-select-1.6.3.js" />
     <Content Include="Scripts\UserJS\SaDashBoard.js" />
     <Content Include="WebServices\WebService.asmx" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />

@@ -92,8 +92,30 @@ namespace Boutique.AdminPanel
         }
         #endregion NewAdmin
 
-        #region BindBoutiqueDetails
+        #region DeleteBoutique
          [System.Web.Services.WebMethod]
+        public static string DeleteBoutique(string Boutiqueid)
+        {
+            string status = null;
+            try
+            {
+                Boutiques boutiqueObj = new Boutiques();
+                status = boutiqueObj.DeleteBoutique(Boutiqueid).ToString();
+            }
+             catch(Exception)
+            {
+               status= "500";//Exception of foreign key
+            }
+             finally
+            {
+
+            }
+            return status;
+        }
+        #endregion DeleteBoutique
+
+        #region BindBoutiqueDetails
+        [System.Web.Services.WebMethod]
         public static string BindBoutiqueDetails(string Boutiqueid)
         {
             string jsResult=null;
@@ -106,11 +128,7 @@ namespace Boutique.AdminPanel
                 if ((ds.Tables[0].Rows.Count > 0) && (ds != null))
                 {
 
-                    string dfd = ds.Tables[0].Rows[0]["AppVersion"].ToString();
-
-
-
-                    //Converting to Json
+                   //Converting to Json
                    
                     JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
                     List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

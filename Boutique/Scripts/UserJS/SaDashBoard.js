@@ -1,26 +1,31 @@
 ﻿$("document").ready(function (e) {
     $("#hdfBoutiqueID").val('');
-  
-   // $('#rowfluidDiv').show();
-   // $('.alert-error').show();
+
+    //CallingDropDown
+   
+    //CallingDropDown
+
+
     var jsonResult = {};
     jsonResult = GetAllBoutiques();
-    //var table = {};
-    //table = JSON.parse(jsonResult.d);
-    //alert(table[0].StartedYear);
-    //alert(table[1].Name);
-    if (jsonResult != undefined)
-    {
+    DropDownBindDynamic($("#localidad_origen_1"), jsonResult, -1);
+    $('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker('refresh');
+    if (jsonResult != undefined) {
         BindBoutiqueTable(jsonResult);
-        BindDropDown(jsonResult);
-
+       
     }
+    
+   
     //events
 
 
     $(".edit").live(
        {
            click: function (e) {
+               $('#rowfluidDiv').hide();
+               $('.alert-success').hide();
+               $('.alert-error').hide();
                var jsonResult = {};
                editedrow = $(this).closest('tr');
                var boutid = editedrow.attr("boutiqueID");
@@ -31,6 +36,32 @@
                }
 
            
+               return false;
+           }
+       })
+
+    $(".Delete").live(
+       {
+           click: function (e) {
+               $('#rowfluidDiv').hide();
+               $('.alert-success').hide();
+               $('.alert-error').hide();
+               var jsonResult = {};
+               editedrow = $(this).closest('tr');
+               var boutid = editedrow.attr("boutiqueID");
+               jsonResult = DeleteBoutique(boutid);
+               if (jsonResult != undefined) {
+                   if (jsonResult == "1") {
+                       BindBoutiqueAsyncLoad();//Gridbind
+                       $('#rowfluidDiv').show();
+                       $('.alert-success').show();
+                   }
+                   if (jsonResult != "1") {
+                       BindBoutiqueAsyncLoad();//Gridbind
+                       $('#rowfluidDiv').show();
+                       $('.alert-error').show();
+                   }
+               }
                return false;
            }
        })
@@ -47,6 +78,10 @@
 
     $(".AddBoutique").live({
         click: function (e) {// submit button click
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
             var boutiquid = $("#hdfBoutiqueID").val();
             var result = "";
             var Boutique = new Object();
@@ -68,12 +103,12 @@
             Boutique.InstagramLink = $("#txtInstatgramlink").val();
           
             result = InsertBoutique(Boutique);
-            if (result!= "0")
+            if (result=="1")
             {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
             }
-            if (result== "1")
+            if (result!= "1")
             {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
@@ -87,6 +122,9 @@
   
     $(".AddAdmin").live({
         click: function (e) {// submit button click
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
 
             debugger;
             var Admin = new Object();
@@ -109,6 +147,11 @@
 
         }
     })
+
+
+    //$("#localidad_origen_1").on('change', ".localidad_origen, .localidad_destino", function () {
+    //    alert("Meeept");
+    //})
    
 
 
@@ -144,6 +187,15 @@ function  InsertBoutique(Boutique)
     table = JSON.parse(jsonResult.d);
     return table;
 
+}
+
+function DeleteBoutique(boutiqueid)
+{
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/DeleteBoutique");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 }
 
 
@@ -182,7 +234,14 @@ function BindBoutiqueAsyncLoad()
     if (jsonResults != undefined) {
         BindBoutiqueTable(jsonResults);
        
+           
+        DropDownBindDynamic($("#localidad_origen_1"), jsonResults, -1);
+        $('.selectpicker').selectpicker();
+        $('.selectpicker').selectpicker('refresh');
+       
+       
     }
+
 
 }
 
@@ -194,7 +253,7 @@ function BindBoutiqueTable(Records) {
     $("#bouquetTable").find(".myrows").remove();
     $.each(Records, function (index, Records) {
       //  var html = '<tr class="row_1" idval="' + Record.id + '"  chid="' + Record.id + '"><td width="15%" align="center" valign="middle"><input type="hidden" class="m-wrap span12 hftxtManuItemId"   id="hftxtManuItemId" value="' + Record.FocusItemManufacture.id + '"><a class="edit" chid="' + Record.id + '" suggestcatlog="' + Record.SuggestedCatlog + '" annualvol="' + Record.AnnualVolume + '" releaseqty="' + Record.ReleaseQuantity + '" targetpriz="' + Record.TargetPrize + '" certificate="' + Record.CertificateId + '" itemDescription="' + Record.ItemDescription + '" href="#">' + Record.SuggestedCatlog + '</a></td><td width="18%" height="20" align="center" valign="middle"><input  type="text" id="txtManuCost' + index + '" class="m-wrap span12 txtManuCost"   placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtLeadTime' + index + '" class="m-wrap span12 txtLeadTime"  placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtToolCharge' + index + '" class="m-wrap span12 txtToolCharge"  placeholder=""></td><td width="14%" align="center" valign="middle"><input type="text" id="txtMinQty' + index + '" class="m-wrap span12 txtMinQty"  placeholder=""></td><td width="11%" align="center" valign="middle"><a class="attachment"><img src="/Contents/assets/img/icn_attachment.png" alt="attachment"></a></td></tr>';
-        var html = '<tr class="myrows" boutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.AppVersion + '</td><td class="center">' + Records.Location + '</td><td class="center">' + Records.Phone + '</td><td class="center">' + Records.Timing + '</td><td class="center">' + Records.WorkingDays + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="myrows" boutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.AppVersion + '</td><td class="center">' + Records.Location + '</td><td class="center">' + Records.Phone + '</td><td class="center">' + Records.Timing + '</td><td class="center">' + Records.WorkingDays + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
        $("#bouquetTable").append(html);
     })
    
@@ -213,7 +272,9 @@ function BindDropDown(Records)
        
        
         //$select.append('<option id="' + Records.BoutiqueID + '">' + Records.Name + '</option>');
-        $(".chzn-results").append('<li id="ddlBoutiques_chzn_o_'+i+'" class="active-result" style="" Boutiqueid="' + Records.BoutiqueID + '">' + Records.Name + '</li>');
+        //$(".chzn-results").append('<li id="ddlBoutiques_chzn_o_'+i+'" class="active-result" style="" Boutiqueid="' + Records.BoutiqueID + '">' + Records.Name + '</li>');
+        $(".chzn-results").append('<li class="active-result" style="" >' + Records.Name + '</li>');
+
         i++;
       //  $(".chzn-results").append('<li id="ddlBoutiques_chzn_o_0" class="active-result" style="" Boutiqueid="' + Records.BoutiqueID + '">' + Records.Name + '</li>');
         //<li id="selectError_chzn_o_1" class="active-result" style="">Option 2</li>
@@ -221,6 +282,25 @@ function BindDropDown(Records)
     })
 }
 
+function DropDownBindDynamic(dd,Records,indx) {
+    
+    var cadena = "";
+    var myflag = false;
+    for (var i = 0; i < Records.length; i++) {
+        if (myflag == true) {
+            cadena += "<option SELECTED value='" + Records[i]["BoutiqueID"] + "'>" + Records[i]["Name"] + "</option>\n";
+            myflag = false;
+        }
+        else {
+            cadena += "<option value='" + Records[i]["BoutiqueID"] + "'>" + Records[i]["Name"] + "</option>\n";
+        }
+        if (Records[i]["id"] == indx) {
+            myflag = true;
+        }
+    }
+   dd.append(cadena);
+    
+}
 
 function BindBoutiqueTextBoxes(Records)
 {
@@ -261,6 +341,10 @@ function clearControls() {
     $("#txtFacebooklink").val('');
     $("#txtInstatgramlink").val('');
     $("#hdfBoutiqueID").val('');
+    $(".AddBoutique").text("Save");
+     $('#rowfluidDiv').hide();
+   
+     
  }
 
 
