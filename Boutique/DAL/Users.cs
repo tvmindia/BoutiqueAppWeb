@@ -144,32 +144,35 @@ namespace Boutique.DAL
         #endregion SelectAllUsers
 
         #region SelectUser
-        public DataSet SelectUserByUserID(string userID,string boutiqueID)
+        public DataSet SelectUserByUserID()
         {
+            if (UserID == "")
+            {
+                throw new Exception("UserID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter sda = null;
-            Guid _userid = Guid.Empty;
-            Guid _boutiqueid = Guid.Empty;
             try
             {
-                _userid = Guid.Parse(userID);
-                _boutiqueid = Guid.Parse(boutiqueID);
-                if ((_userid != Guid.Empty) && (_boutiqueid != Guid.Empty))
-                {
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[SelectUserByUserID]";
-                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _userid;
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
                     sda.Fill(ds);
-                }
+                    if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such ID"); }
             }
 
             catch (Exception ex)

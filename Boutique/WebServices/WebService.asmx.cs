@@ -243,6 +243,33 @@ namespace Boutique.WebServices
             return getDbDataAsJSON(dt);
         }
 
+        [WebMethod]
+        public string UserDetails(string userID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Users user = new Users();
+                user.BoutiqueID = boutiqueID;
+                user.UserID = userID;
+                dt = user.SelectUserByUserID().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion User
 
         #region JSON converter
