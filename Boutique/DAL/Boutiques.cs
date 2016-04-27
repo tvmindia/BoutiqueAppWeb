@@ -229,7 +229,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@FBLink", SqlDbType.NVarChar, 200).Value = FbLink;
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
-                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
@@ -287,7 +287,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@FBLink", SqlDbType.NVarChar, 200).Value = FbLink;
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.NVarChar, 200).Value = DateTime.Now;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
 
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);

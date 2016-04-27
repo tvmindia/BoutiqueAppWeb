@@ -69,15 +69,15 @@
                      
           
 					<div class="box-header">
-						<h2> All Boutiques</h2>
+						<h2>  All Boutiques</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content">
-						<table id="bouquetTable" class="table table-striped table-bordered bootstrap-datatable datatable">
+					<div class="box-content" style="height:350px;overflow:auto;">
+						<table id="bouquetTable" class="table table-striped table-bordered">
 						  <thead>
 							  <tr>
 								  <th>Boutique</th>
@@ -103,10 +103,37 @@
          
                  </div>
                 
+        
 
+		 <%--Alert boxes --%>
+               <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
+				<div class="box span12">
 
-		
-				<%-- create boutique --%>
+                    <div class="box-content alerts">
+						<div class="alert alert-error" style="display:none;">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Oh snap!</strong> Change a few things up and try submitting again.
+						</div>
+						<div class="alert alert-success" style="display:none;">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Well done!</strong> You successfully read this important alert message.
+						</div>
+						<div class="alert alert-info" style="display:none;">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+						</div>
+					</div>
+
+                </div>
+            </div>
+				
+	    <%--Alert boxes --%>
+			
 			
 					
 			
@@ -118,8 +145,8 @@
 
         	     	<div class="box span6">
                       
-				            	<div class="box-header">
-						<h2>New Boutique</h2>
+				       <div class="box-header">
+						<h2>  New Boutique</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -140,28 +167,28 @@
 							  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtBouquetName" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtBouquetName" type="text"/>
 								</div>
 								</div>
 
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Started Year</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtStartYear" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtStartYear" type="text"/>
 								</div>
 								</div>
 
                               <div class="control-group">
                                 <label class="control-label" for="focusedInput">About us</label>
                                   <div class="controls">
-                                <textarea class="form-control" style="max-width:68%" rows="5" runat="server" id="txtAboutus"></textarea>
+                                <textarea class="form-control" style="max-width:68%" rows="5" id="txtAboutus"></textarea>
 							  </div>
                               </div>
 
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Caption</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtCaption" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtCaption" type="text"/>
 								</div>
 								</div>
                         
@@ -169,14 +196,14 @@
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Location</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtLocation" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtLocation" type="text"/>
 								</div>
 								</div>
 
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Address</label>
 								<div class="controls">
-								  <textarea class="form-control" style="max-width:68%" rows="4" runat="server" id="txtAddress"></textarea>
+								  <textarea class="form-control" style="max-width:68%" rows="4" id="txtAddress"></textarea>
 								</div>
 								</div>
 
@@ -184,35 +211,35 @@
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Phone</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtPhone" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtPhone" type="text"/>
 								</div>
 								</div>
 
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Timings</label>
 								<div class="controls">
-								  <input class="input-large focused" runat="server" id="txtTimings" type="text"/>
+								  <input class="input-large focused" id="txtTimings" type="text"/>
 								</div>
 								</div>
 
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Working Days</label>
 								<div class="controls">
-								  <input class="input-large focused" runat="server" id="txtWorkingDays" type="text"/>
+								  <input class="input-large focused" id="txtWorkingDays" type="text"/>
 								</div>
 								</div>
 
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Facebook Link</label>
 								<div class="controls">
-								  <input class="input-large focused" runat="server" id="txtFacebooklink" type="text"/>
+								  <input class="input-large focused" id="txtFacebooklink" type="text"/>
 								</div>
 								</div>
 
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Instagram Link</label>
 								<div class="controls">
-								  <input class="input-large focused" runat="server" id="txtInstatgramlink" type="text"/>
+								  <input class="input-large focused" id="txtInstatgramlink" type="text"/>
 								</div>
 								</div>
 
@@ -228,7 +255,7 @@
                 			<%--	<button type="submit" class="btn btn-primary" id="btnSaveBoutique">Save</button>--%>
                                    <a class="btn btn-primary AddBoutique" href="#">Save</></a>
 
-                                    <a class="btn">Cancel</a>
+                                    <a class="btn CancelClear">Cancel</a>
 							<%--	<button class="btn">Cancel</button>--%>
 						
                         </footer> 
@@ -241,7 +268,7 @@
                     <div class="box span6">
                         
                         <div class="box-header">
-						<h2>New Administrator</h2>
+						<h2>  New Administrator</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -255,12 +282,12 @@
                              <div class="control-group">
 								<label class="control-label" for="selectError">Boutiques</label>
 								<div class="controls">
-								  <select id="selectError" data-rel="chosen">
-									<option>Boutiques 1</option>
-									<option>Boutiques 2</option>
+								  <select id="ddlBoutiques" class="selectpicker" data-rel="chosen">
+							    	<option>Select</option>
+									<%--<option>Boutiques 2</option>
 									<option>Boutiques 3</option>
 									<option>Boutiques 4</option>
-									<option>albert 5</option>
+									<option>albert 5</option>--%>
 								  </select>
 								</div>
 							  </div>
@@ -269,14 +296,14 @@
 							
 								  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserName" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtUserName" type="text"/>
 								</div>
 								</div>
 							
 							  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Mobile</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtMobile" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtMobile" type="text"/>
 								</div>
 								</div>
 
@@ -284,7 +311,7 @@
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Email</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserEmail" runat="server" type="text"/>
+								  <input class="input-large focused" id="txtUserEmail" type="text"/>
 								</div>
 								</div>
 
@@ -292,25 +319,19 @@
 								<label class="control-label">Is Acitive?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
-									<input type="checkbox" id="chkActive" runat="server" value="option1"/>Yes</label>
+									<input type="checkbox" id="chkActive"/>Yes</label>
 								
 								</div>
 							  </div>
-                              <div class="control-group">
-								<label class="control-label">Is Admin?</label>
-								<div class="controls">
-								  <label class="checkbox inline">
-									<input type="checkbox" id="chkIsAdmin" runat="server" value="option1"/>Yes</label>
-					
-								</div>
-							  </div>
+                            
 						</div>
                          </div>
                                <footer class="InnerFooter">
                         
 							<%--	<button type="submit" class="btn btn-primary Addboutique">Save changes</button>--%>
-                                   <a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a>
-								<button class="btn">Cancel</button>
+                                     <a class="btn btn-primary AddAdmin" href="#">Save</></a>
+                                    <a class="btn">Cancel</a>
+                                  
 						       </footer> 
                        	</div>
                  
@@ -320,9 +341,10 @@
 		  
 				<%-- create boutique form--%>	
 				
-                <%-- create boutique --%>
-				
-	
+             
+
+       
 	</div>
+    <input type="hidden" id="hdfBoutiqueID" value="Norway"/>
       
 </asp:Content>
