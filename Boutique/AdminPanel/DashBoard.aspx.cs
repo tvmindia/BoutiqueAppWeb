@@ -24,7 +24,7 @@ namespace Boutique.AdminPanel
         #region WebMethods
         #region SelectAllUsers
         [System.Web.Services.WebMethod]
-        public static string SelectAllUsersByBoutiqueid(string Boutiqueid)
+        public static string SelectAllUsersByBoutiqueID(string Boutiqueid)
         {
             string jsonResult = null;
             DataSet ds = null;
@@ -71,13 +71,12 @@ namespace Boutique.AdminPanel
 
         #region SelectAllProducts
          [System.Web.Services.WebMethod]
-        public static string SelectAllProductsByBoutiqueid(string Boutiqueid)
+        public static string SelectAllProductsByBoutiqueID(string Boutiqueid)
         {
             string jsonResult = null;
             DataSet ds = null;
             Product productObj = new Product();
-            ///ds = productObj.
-
+            ds = productObj.GetAllProducts(Boutiqueid);
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -95,7 +94,6 @@ namespace Boutique.AdminPanel
                 }
                 //childRow = new Dictionary<string, object>();
                 //childRow.Add("Result", "Success");
-
                 //parentRow.Add(childRow);
             }
             else
@@ -104,16 +102,9 @@ namespace Boutique.AdminPanel
                 //childRow.Add("Result", "Error");
                 //parentRow.Add(childRow);
             }
-
             jsonResult = jsSerializer.Serialize(parentRow);
-
             return jsonResult;
-
-
-            //Converting to Json 
-
-
-           
+           //Converting to Json 
         }
         #endregion SelectAllProducts
 

@@ -410,6 +410,51 @@ namespace Boutique.DAL
             }
         #endregion Favorite informations: Count and isFavorite
 
+            #region GetAllProducts
+            public DataSet GetAllProducts(string boutiqueID)
+            {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            Guid _boutiqueid = Guid.Empty;
+            try
+            {
+                _boutiqueid = Guid.Parse(boutiqueID);
+                if (_boutiqueid != Guid.Empty)
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectAllProductsByBoutiqueID]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+
+                    sda.Fill(ds);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllProducts
+
         #endregion Methods
     }
 }

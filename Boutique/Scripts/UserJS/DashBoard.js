@@ -56,7 +56,7 @@ function GetAllUsers(boutiqueid) {
     var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsersByBoutiqueid");
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsersByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -66,7 +66,7 @@ function GetAllProducts(boutiqueid)
     var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/...........");
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllProductsByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
 }
