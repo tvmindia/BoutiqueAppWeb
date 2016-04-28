@@ -1,16 +1,18 @@
 ﻿$("document").ready(function (e) {
     $("#hdfBoutiqueID").val('');
 
-    //CallingDropDown
+    
    
-    //CallingDropDown
+    
 
 
     var jsonResult = {};
     jsonResult = GetAllBoutiques();
+    //CallingDropDown
     DropDownBindDynamic($("#localidad_origen_1"), jsonResult, -1);
     $('.selectpicker').selectpicker();
     $('.selectpicker').selectpicker('refresh');
+    //CallingDropDown
     if (jsonResult != undefined) {
         BindBoutiqueTable(jsonResult);
        
@@ -68,13 +70,15 @@
 
     $(".CancelClear").live({
         click: function (e) {// Clear controls
-
-            clearControls();
-
+        clearControls();
         }
     })
-
-
+    
+    $(".CancelAdClear").live({
+        click: function (e) {// Clear controls
+            ClearAdminControls();
+        }
+    })
 
     $(".AddBoutique").live({
         click: function (e) {// submit button click
@@ -125,18 +129,31 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-
-            debugger;
+          
+            var result = "";
             var Admin = new Object();
+            Admin.BoutiqueID = $('.selectpicker').selectpicker('val');//"470a044a-4dba-4770-bca7-331d2c0834ae";
             Admin.Name = $("#txtUserName").val();
             
             Admin.Mobile = $("#txtMobile").val();
             Admin.Email = $("#txtUserEmail").val();
-            Admin.IsActive = "true";
-            Admin.BoutiqueID = "470a044a-4dba-4770-bca7-331d2c0834ae";
-          
-
-            InsertAdmin(Admin);
+           // 
+                if($('#chkActive').is(':checked')) 
+                 {
+                    Admin.IsActive = "true";
+                 }
+                 else {
+                    Admin.IsActive = "false";
+                     }
+                result=InsertAdmin(Admin);
+                if (result == "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                }
+                if (result != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                }
 
             //var jsonResults = {};
             //jsonResults = GetAllBoutiques();
@@ -147,11 +164,7 @@
 
         }
     })
-
-
-    //$("#localidad_origen_1").on('change', ".localidad_origen, .localidad_destino", function () {
-    //    alert("Meeept");
-    //})
+    
    
 
 
@@ -202,6 +215,9 @@ function DeleteBoutique(boutiqueid)
 function InsertAdmin(Admin) {
     var data = "{'userObj':" + JSON.stringify(Admin) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/NewAdmin");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 
 }
 
@@ -237,7 +253,9 @@ function BindBoutiqueAsyncLoad()
            
         DropDownBindDynamic($("#localidad_origen_1"), jsonResults, -1);
         $('.selectpicker').selectpicker();
-        $('.selectpicker').selectpicker('refresh');
+       // $('.selectpicker').selectpicker('refresh');
+        $('.selectpicker').selectpicker('render');
+
        
        
     }
@@ -259,31 +277,8 @@ function BindBoutiqueTable(Records) {
    
 }
 
-
-function BindDropDown(Records)
-
-{
-    // $('.selectpicker').selectpicker();
-    var i = 1;
-    $.each(Records, function(index, Records)
-    {
-         // $select.append('<option id="' + Records.id + '">' + Records.name + '</option>');
-        //  $option.append('<option id="' + Records.BoutiqueID + '">' + Records.Name + '</option>');
-       
-       
-        //$select.append('<option id="' + Records.BoutiqueID + '">' + Records.Name + '</option>');
-        //$(".chzn-results").append('<li id="ddlBoutiques_chzn_o_'+i+'" class="active-result" style="" Boutiqueid="' + Records.BoutiqueID + '">' + Records.Name + '</li>');
-        $(".chzn-results").append('<li class="active-result" style="" >' + Records.Name + '</li>');
-
-        i++;
-      //  $(".chzn-results").append('<li id="ddlBoutiques_chzn_o_0" class="active-result" style="" Boutiqueid="' + Records.BoutiqueID + '">' + Records.Name + '</li>');
-        //<li id="selectError_chzn_o_1" class="active-result" style="">Option 2</li>
-       // <li id="ddlBoutiques_chzn_o_0" class="active-result result-selected" style="">Select</li>
-    })
-}
-
-function DropDownBindDynamic(dd,Records,indx) {
-    
+function DropDownBindDynamic(dd, Records, indx) {
+    $('.selectpicker').selectpicker('refresh');
     var cadena = "";
     var myflag = false;
     for (var i = 0; i < Records.length; i++) {
@@ -298,7 +293,10 @@ function DropDownBindDynamic(dd,Records,indx) {
             myflag = true;
         }
     }
-   dd.append(cadena);
+    dd.append(cadena);
+    $('.selectpicker').selectpicker();
+     $('.selectpicker').selectpicker('refresh');
+   // $('.selectpicker').selectpicker('render');
     
 }
 
@@ -306,7 +304,6 @@ function BindBoutiqueTextBoxes(Records)
 {
     $.each(Records, function(index, Records)
     {
-
         $("#txtAppVersion").val(Records.AppVersion);
         $("#txtBouquetName").val(Records.Name);
         $("#txtStartYear").val(Records.StartedYear);
@@ -320,14 +317,11 @@ function BindBoutiqueTextBoxes(Records)
         $("#txtFacebooklink").val(Records.FBLink);
         $("#txtInstatgramlink").val(Records.InstagramLink);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
-    
-
-    })
+       })
     $(".AddBoutique").text("Modify");
 }
 
 function clearControls() {
-
     $("#txtAppVersion").val('');
     $("#txtBouquetName").val('');
     $("#txtStartYear").val('');
@@ -342,10 +336,25 @@ function clearControls() {
     $("#txtInstatgramlink").val('');
     $("#hdfBoutiqueID").val('');
     $(".AddBoutique").text("Save");
-     $('#rowfluidDiv').hide();
-   
-     
+    $('#rowfluidDiv').hide();
+}
+
+function ClearAdminControls()
+{
+    $('.selectpicker').selectpicker('val', 'one');
+    $('.selectpicker').selectpicker('refresh');
+    $('.selectpicker').selectpicker();
+
+    $("#txtUserName").val('');
+    $("#txtMobile").val('');
+    $("#txtUserEmail").val('');
+
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+ 
  }
+
 
 
 

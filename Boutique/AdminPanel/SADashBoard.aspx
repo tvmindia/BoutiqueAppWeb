@@ -114,11 +114,11 @@
                     <div class="box-content alerts">
 						<div class="alert alert-error" style="display:none;">
 						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Oh snap!</strong> Not Successfull.
+							<strong>Operation Not Successfull.</strong> 
 						</div>
 						<div class="alert alert-success" style="display:none;">
 						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Done!</strong> Successfull.
+							<strong>Successfull.</strong> 
 						</div>
 						<div class="alert alert-info" style="display:none;">
 							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
@@ -285,7 +285,7 @@
 								<label class="control-label" for="selectError">Boutiques</label>
 								<div class="controls">
                                  <select id="localidad_origen_1" name="localidad_origen_1" class="selectpicker input-sm" data-live-search="true">
-                                  <option value="">Choose Boutiques</option>
+                                  <option value="one">Choose Boutiques</option>
 
                                  </select>
 								</div>
@@ -318,7 +318,7 @@
 								<label class="control-label">Is Acitive?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
-									<input type="checkbox" id="chkActive"/>Yes</label>
+									<input type="checkbox" id="chkActive" checked/>Yes</label>
 								
 								</div>
 							  </div>
@@ -329,7 +329,7 @@
                         
 							<%--	<button type="submit" class="btn btn-primary Addboutique">Save changes</button>--%>
                                      <a class="btn btn-primary AddAdmin" href="#">Save</></a>
-                                    <a class="btn">Cancel</a>
+                                    <a class="btn CancelAdClear">Cancel</a>
                                   
 						       </footer> 
                        	</div>

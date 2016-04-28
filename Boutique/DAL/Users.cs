@@ -74,7 +74,7 @@ namespace Boutique.DAL
             set;
         }
 
-        public DateTime CreatedDate
+        public DateTime? CreatedDate
         {
             get;
             set;
@@ -86,7 +86,7 @@ namespace Boutique.DAL
             set;
         }
 
-        public DateTime UpdatedDate
+        public DateTime? UpdatedDate
         {
             get;
             set;
@@ -120,8 +120,10 @@ namespace Boutique.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[SelectAllUsersByBoutiqueiD]";
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
+                    
                     sda.Fill(ds);
                 }
             }

@@ -4,6 +4,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
+     <script src="../Scripts/UserJS/DashBoard.js"></script>
+
+
+
 
     <div id="content" class="span10">
 			
@@ -22,38 +26,40 @@
 				<a class="quick-button metro yellow span2">
 					<i class="icon-group"></i>
 					<p>Users</p>
-					<span class="badge">237</span>
+					<span class="badge" id="UsersBadge">0</span>
 				</a>
                     <a class="quick-button metro green span2">
 					<i class="icon-tags"></i>
-					<p>Total Boutiques</p>
+					<p>Total Products</p>
+                   <span class="badge" id="TotalProductsBadge">0</span>
 				</a>
 				<a class="quick-button metro red span2">
 					<i class="icon-comments-alt"></i>
 					<p>Notifications</p>
-					<span class="badge">46</span>
+					<span class="badge" id="NotificationBadge">0</span>
 				</a>
 				<a class="quick-button metro blue span2">
 					<i class="icon-shopping-cart"></i>
 					<p>Visits</p>
-					<span class="badge">13</span>
+					<span class="badge" id="VisitsBadge">0</span>
 				</a>
 				
 				<a class="quick-button metro pink span2">
 					<i class="icon-ambulance"></i>
 					<p>Not in Stock</p>
-					<span class="badge">88</span>
+					<span class="badge" id="NotInStockBadge">0</span>
 				</a>
 				<a class="quick-button metro black span2">
 					<i class="icon-calendar"></i>
 					<p>Installed</p>
+                    <span class="badge" id="InstalledBadge">0</span>
 				</a>
 				
 				<div class="clearfix"></div>
 								
 			</div><!--/row-->
      <%--   Report tiles--%>
-<div class="span12" style="height:20px;">
+             <div class="span12" style="height:20px;">
 
 </div>
 			<div class="row-fluid">

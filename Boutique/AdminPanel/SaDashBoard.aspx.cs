@@ -87,8 +87,9 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string NewAdmin(Users userObj)
         {
-            userObj.AddNewUser();
-            return "";
+            string status = null;
+            status=userObj.AddNewUser().ToString();
+            return status;
         }
         #endregion NewAdmin
 
