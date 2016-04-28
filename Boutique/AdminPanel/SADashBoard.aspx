@@ -5,7 +5,9 @@
    <%-- <asp:ScriptManager ID="ScriptManagerSA" runat="server" EnablePartialRendering="true" EnablePageMethods="true"  >
        
     </asp:ScriptManager>--%>
-    <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet"/>
+    <link href="../CSS/bootstrap-select-1.6.3.css" rel="stylesheet"/>
+    <script src="../Scripts/bootstrap-select-1.6.3.js"></script>
     <script src="../Scripts/UserJS/SaDashBoard.js"></script>
    
     
@@ -73,10 +75,10 @@
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>style="height:350px;overflow:auto;"--%>
 						</div>
 					</div>
-					<div class="box-content" style="height:350px;overflow:auto;">
+					<div class="box-content" style="min-height:50px; max-height:350px; overflow:scroll;">
 						<table id="bouquetTable" class="table table-striped table-bordered">
 						  <thead>
 							  <tr>
@@ -111,21 +113,21 @@
 
                     <div class="box-content alerts">
 						<div class="alert alert-error" style="display:none;">
-							<button type="button" class="close" data-dismiss="alert">×</button>
-							<strong>Oh snap!</strong> Change a few things up and try submitting again.
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Oh snap!</strong> Not Successfull.
 						</div>
 						<div class="alert alert-success" style="display:none;">
-							<button type="button" class="close" data-dismiss="alert">×</button>
-							<strong>Well done!</strong> You successfully read this important alert message.
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Done!</strong> Successfull.
 						</div>
 						<div class="alert alert-info" style="display:none;">
-							<button type="button" class="close" data-dismiss="alert">×</button>
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
 							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
 						</div>
 						<div class="alert alert-block" style="display:none;">
-							<button type="button" class="close" data-dismiss="alert">×</button>
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
 							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+							<p>Best check yourself, you're not looking too good.</p>
 						</div>
 					</div>
 
@@ -268,7 +270,7 @@
                     <div class="box span6">
                         
                         <div class="box-header">
-						<h2>  New Administrator</h2>
+						<h2> New Administrator</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -282,13 +284,10 @@
                              <div class="control-group">
 								<label class="control-label" for="selectError">Boutiques</label>
 								<div class="controls">
-								  <select id="ddlBoutiques" class="selectpicker" data-rel="chosen">
-							    	<option>Select</option>
-									<%--<option>Boutiques 2</option>
-									<option>Boutiques 3</option>
-									<option>Boutiques 4</option>
-									<option>albert 5</option>--%>
-								  </select>
+                                 <select id="localidad_origen_1" name="localidad_origen_1" class="selectpicker input-sm" data-live-search="true">
+                                  <option value="">Choose Boutiques</option>
+
+                                 </select>
 								</div>
 							  </div>
 
@@ -345,6 +344,6 @@
 
        
 	</div>
-    <input type="hidden" id="hdfBoutiqueID" value="Norway"/>
+    <input type="hidden" id="hdfBoutiqueID" value=""/>
       
 </asp:Content>

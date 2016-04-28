@@ -258,7 +258,7 @@ namespace Boutique.DAL
         #endregion NewBoutique
 
         #region EditBoutique
-        public int EditBoutique(string boutiqueID)
+        public Int16 EditBoutique(string boutiqueID)
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -323,9 +323,43 @@ namespace Boutique.DAL
         /// </summary>
         /// <param name="BoutiqueID"></param>
         /// <returns></returns>
-        public int DeleteBoutique(string BoutiqueID)
+        public Int16 DeleteBoutique(string boutiqueID)
         {
-            return 1;
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            Guid _boutiqueid = Guid.Empty;
+            try
+            {
+                _boutiqueid = Guid.Parse(boutiqueID);
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteBoutique]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+                     
         }
         #endregion DeleteBoutique
 
