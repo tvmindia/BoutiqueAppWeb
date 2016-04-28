@@ -284,6 +284,35 @@ namespace Boutique.WebServices
         }
         #endregion User
 
+        #region OwnersAndDesigners
+        [WebMethod]
+        public string OwnersAndDesigners(string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Designers designer = new Designers();
+                designer.BoutiqueID = boutiqueID;
+                dt = designer.GetAllDesigners();
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #region JSON converter
         /// <summary>
         /// JSON function without returning any images

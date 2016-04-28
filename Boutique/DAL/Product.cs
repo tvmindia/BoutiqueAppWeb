@@ -161,14 +161,14 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[InsertProduct]";
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                     cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = DesignerID;
+                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -223,15 +223,15 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[UpdateProduct]";
-                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = ProductID;
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
+                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                     cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = DesignerID;
+                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
