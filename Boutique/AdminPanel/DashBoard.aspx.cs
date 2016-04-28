@@ -108,6 +108,186 @@ namespace Boutique.AdminPanel
         }
         #endregion SelectAllProducts
 
+
+        #region SelectAllNotifications
+
+         [System.Web.Services.WebMethod]
+         public static string SelectAllNotificationsByBoutiqueID(string Boutiqueid)
+         {
+             string jsonResult = null;
+             DataSet ds = null;
+             Notification notificationObj = new Notification();
+             ds = notificationObj.SelectAllNotifications(Boutiqueid);
+             //Converting to Json
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+             Dictionary<string, object> childRow;
+             if (ds.Tables[0].Rows.Count > 0)
+             {
+                 foreach (DataRow row in ds.Tables[0].Rows)
+                 {
+                     childRow = new Dictionary<string, object>();
+                     foreach (DataColumn col in ds.Tables[0].Columns)
+                     {
+                         childRow.Add(col.ColumnName, row[col]);
+                     }
+                     parentRow.Add(childRow);
+                 }
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Success");
+
+                 //parentRow.Add(childRow);
+             }
+             else
+             {
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Error");
+                 //parentRow.Add(childRow);
+             }
+
+             jsonResult = jsSerializer.Serialize(parentRow);
+
+             return jsonResult;
+
+
+             //Converting to Json
+         }
+        #endregion SelectAllNotifications
+
+
+        #region SelectAllProductViewDetails
+         [System.Web.Services.WebMethod]
+         public static string SelectAllProductViewDetailsByBoutiqueID(string Boutiqueid)
+         {
+             string jsonResult = null;
+             DataSet ds = null;
+             Product productObj = new Product();
+             ds = productObj.SelectAllProductViewDetails(Boutiqueid);
+             //Converting to Json
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+             Dictionary<string, object> childRow;
+             if (ds.Tables[0].Rows.Count > 0)
+             {
+                 foreach (DataRow row in ds.Tables[0].Rows)
+                 {
+                     childRow = new Dictionary<string, object>();
+                     foreach (DataColumn col in ds.Tables[0].Columns)
+                     {
+                         childRow.Add(col.ColumnName, row[col]);
+                     }
+                     parentRow.Add(childRow);
+                 }
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Success");
+
+                 //parentRow.Add(childRow);
+             }
+             else
+             {
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Error");
+                 //parentRow.Add(childRow);
+             }
+
+             jsonResult = jsSerializer.Serialize(parentRow);
+
+             return jsonResult;
+
+
+             ////Converting to Json
+         }
+
+        #endregion SelectAllProductViewDetails
+
+        #region SelectAllProductOutOfStock
+         [System.Web.Services.WebMethod]
+         public static string SelectAllProductOutOfStock(string Boutiqueid)
+         {
+             string jsonResult = null;
+             DataSet ds = null;
+             Product productObj = new Product();
+             ds = productObj.SelectAllProductViewDetails(Boutiqueid);
+             //Converting to Json
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+             Dictionary<string, object> childRow;
+             if (ds.Tables[0].Rows.Count > 0)
+             {
+                 foreach (DataRow row in ds.Tables[0].Rows)
+                 {
+                     childRow = new Dictionary<string, object>();
+                     foreach (DataColumn col in ds.Tables[0].Columns)
+                     {
+                         childRow.Add(col.ColumnName, row[col]);
+                     }
+                     parentRow.Add(childRow);
+                 }
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Success");
+
+                 //parentRow.Add(childRow);
+             }
+             else
+             {
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Error");
+                 //parentRow.Add(childRow);
+             }
+
+             jsonResult = jsSerializer.Serialize(parentRow);
+
+             return jsonResult;
+
+
+             ////Converting to Json
+         }
+        #endregion SelectAllProductOutOfStock
+
+        #region SelectAllAppInstalled
+         [System.Web.Services.WebMethod]
+         public static string SelectAllAppInstalled(string Boutiqueid)
+         {
+             string jsonResult = null;
+             DataSet ds = null;
+            // Product productObj = new Product();
+             //ds = productObj.(Boutiqueid);
+             //Converting to Json
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+             Dictionary<string, object> childRow;
+             if (ds.Tables[0].Rows.Count > 0)
+             {
+                 foreach (DataRow row in ds.Tables[0].Rows)
+                 {
+                     childRow = new Dictionary<string, object>();
+                     foreach (DataColumn col in ds.Tables[0].Columns)
+                     {
+                         childRow.Add(col.ColumnName, row[col]);
+                     }
+                     parentRow.Add(childRow);
+                 }
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Success");
+
+                 //parentRow.Add(childRow);
+             }
+             else
+             {
+                 //childRow = new Dictionary<string, object>();
+                 //childRow.Add("Result", "Error");
+                 //parentRow.Add(childRow);
+             }
+
+             jsonResult = jsSerializer.Serialize(parentRow);
+
+             return jsonResult;
+
+
+             ////Converting to Json
+         }
+        #endregion SelectAllAppInstalled
+
         #endregion WebMethods
 
 
