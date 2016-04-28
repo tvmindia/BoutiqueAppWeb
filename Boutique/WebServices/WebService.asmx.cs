@@ -104,7 +104,7 @@ namespace Boutique.WebServices
         /// <param name="gender"></param>
         /// <returns>flag and message. Then OTP number and Loyalty Card Number. also UserID for activation</returns>
         [WebMethod]
-        public string UserRegistration(string name, string mobile, string email,string boutiqueID, DateTime dob, DateTime anniversary,string gender)
+        public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary)
         {
             DataTable dt = new DataTable();
             try
@@ -114,8 +114,14 @@ namespace Boutique.WebServices
                 user.Name = name;
                 user.Mobile = mobile;
                 user.Email = email;
-                user.DOB = dob;
-                user.Anniversary = anniversary;
+                if (dob != "null")
+                {
+                    user.DOB = DateTime.Parse(dob);
+                }
+                if (anniversary != "null")
+                {
+                    user.Anniversary = DateTime.Parse(anniversary);
+                }               
                 user.Gender = gender;
                 user.IsActive = false;
                 user.CreatedBy = "User";
@@ -243,6 +249,12 @@ namespace Boutique.WebServices
             return getDbDataAsJSON(dt);
         }
 
+        /// <summary>
+        /// To get user details
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns>json of details</returns>
         [WebMethod]
         public string UserDetails(string userID, string boutiqueID)
         {
@@ -271,6 +283,35 @@ namespace Boutique.WebServices
             return getDbDataAsJSON(dt);
         }
         #endregion User
+
+        #region OwnersAndDesigners
+        [WebMethod]
+        public string OwnersAndDesigners(string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Designers designer = new Designers();
+                designer.BoutiqueID = boutiqueID;
+                dt = designer.GetAllDesigners();
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
 
         #region JSON converter
         /// <summary>
