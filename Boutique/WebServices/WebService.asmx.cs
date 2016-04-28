@@ -104,7 +104,7 @@ namespace Boutique.WebServices
         /// <param name="gender"></param>
         /// <returns>flag and message. Then OTP number and Loyalty Card Number. also UserID for activation</returns>
         [WebMethod]
-        public string UserRegistration(string name, string mobile, string email,string boutiqueID, DateTime dob, DateTime anniversary,string gender)
+        public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary)
         {
             DataTable dt = new DataTable();
             try
@@ -114,8 +114,14 @@ namespace Boutique.WebServices
                 user.Name = name;
                 user.Mobile = mobile;
                 user.Email = email;
-                user.DOB = dob;
-                user.Anniversary = anniversary;
+                if (dob != "null")
+                {
+                    user.DOB = DateTime.Parse(dob);
+                }
+                if (anniversary != "null")
+                {
+                    user.Anniversary = DateTime.Parse(anniversary);
+                }               
                 user.Gender = gender;
                 user.IsActive = false;
                 user.CreatedBy = "User";
@@ -243,6 +249,12 @@ namespace Boutique.WebServices
             return getDbDataAsJSON(dt);
         }
 
+        /// <summary>
+        /// To get user details
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns>json of details</returns>
         [WebMethod]
         public string UserDetails(string userID, string boutiqueID)
         {
