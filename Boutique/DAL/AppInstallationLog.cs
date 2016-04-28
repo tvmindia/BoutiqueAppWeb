@@ -91,7 +91,7 @@ namespace Boutique.DAL
 
         }
 
-        #endregion AllDesigners
+        #endregion 
 
          #endregion Methods
 
