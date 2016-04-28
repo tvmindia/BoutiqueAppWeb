@@ -286,14 +286,18 @@ namespace Boutique.WebServices
 
         #region OwnersAndDesigners
         [WebMethod]
-        public string OwnersAndDesigners(string boutiqueID)
+        public string OwnersAndDesigners(string ownerORdesigner,string boutiqueID)
         {
             DataTable dt = new DataTable();
             try
             {
-                Designers designer = new Designers();
-                designer.BoutiqueID = boutiqueID;
-                dt = designer.GetAllDesigners();
+                if (ownerORdesigner.Equals("designer"))
+                {
+                    Designers designer = new Designers();
+                    designer.BoutiqueID = boutiqueID;
+                    dt = designer.GetAllDesigners();
+                }
+                
             }
             catch (Exception ex)
             {
