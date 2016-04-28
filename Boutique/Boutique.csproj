@@ -305,6 +305,7 @@
     </Compile>
     <Compile Include="DAL\Boutiques.cs" />
     <Compile Include="DAL\dbConnection.cs" />
+    <Compile Include="DAL\Designers.cs" />
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\Users.cs" />
     <Compile Include="General\UnderConstruction.aspx.cs">
