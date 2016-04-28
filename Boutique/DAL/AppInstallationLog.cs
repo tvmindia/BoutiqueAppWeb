@@ -51,7 +51,7 @@ namespace Boutique.DAL
         #region Methods
 
         #region AllDesigners
-        public DataTable GetAllAppInstallation()
+        public DataSet GetAllAppInstallation()
         {
             if (BoutiqueID == "")
             {
@@ -60,7 +60,7 @@ namespace Boutique.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlDataAdapter sda = null;
-            DataTable dt = null;
+            DataSet ds = null;
             try
             {
                 dcon = new dbConnection();
@@ -72,10 +72,10 @@ namespace Boutique.DAL
                 cmd.CommandText = "[SelectAllAppInstallationsUnderBoutique]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                 sda.SelectCommand = cmd;
-                dt = new DataTable();
-                sda.Fill(dt);
-                if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
-                return dt;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such item"); }
+                return ds;
             }
             catch (Exception ex)
             {

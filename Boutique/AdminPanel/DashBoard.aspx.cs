@@ -242,16 +242,18 @@ namespace Boutique.AdminPanel
 
              ////Converting to Json
          }
+        
         #endregion SelectAllProductOutOfStock
-
+        
         #region SelectAllAppInstalled
          [System.Web.Services.WebMethod]
          public static string SelectAllAppInstalled(string Boutiqueid)
          {
              string jsonResult = null;
              DataSet ds = null;
-            // Product productObj = new Product();
-             //ds = productObj.(Boutiqueid);
+             AppInstallationLog appInstallLogObj = new AppInstallationLog();
+             appInstallLogObj.BoutiqueID = Boutiqueid;
+             ds = appInstallLogObj.GetAllAppInstallation();
              //Converting to Json
              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
              List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

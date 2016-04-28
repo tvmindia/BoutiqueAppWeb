@@ -76,7 +76,7 @@ function BindTotalProducts(boutiqueid)
       $("#NotInStockBadge").text(table.length);
   }
 
-  function BindAppInstalled()
+  function BindAppInstalled(boutiqueid)
   {
       var table = {};
       table = GetAppInstalledDetails(boutiqueid);
@@ -137,7 +137,7 @@ function GetAppInstalledDetails(boutiqueid)
     var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/.......");
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllAppInstalled");
     table = JSON.parse(ds.d);
     return table;
 }
