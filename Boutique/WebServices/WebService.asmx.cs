@@ -285,6 +285,12 @@ namespace Boutique.WebServices
         #endregion User
 
         #region OwnersAndDesigners
+        /// <summary>
+        /// Webservice to get owner or designer details
+        /// </summary>
+        /// <param name="ownerORdesigner">"designer" or "owner"</param>
+        /// <param name="boutiqueID"></param>
+        /// <returns>JSON of details</returns>
         [WebMethod]
         public string OwnersAndDesigners(string ownerORdesigner,string boutiqueID)
         {
@@ -298,6 +304,43 @@ namespace Boutique.WebServices
                     dt = designer.GetAllDesigners();
                 }
                 
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
+        #region Notifications
+        [WebMethod]
+        public string Notifications(string notificationIDs, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                    Notification notifications = new Notification();
+                    notifications.BoutiqueID = boutiqueID;
+                    if (notificationIDs == "")                          //App don't have any present notifications
+                    {
+                        dt = notifications.GetNotificationsForApp(null);
+                    }
+                    else
+                    {
+                        dt = notifications.GetNotificationsForApp(notificationIDs);
+                    }
+                    
             }
             catch (Exception ex)
             {
