@@ -139,8 +139,8 @@
 									  <th>Name</th>
 									  <th>Mobile</th>
 									  <th>Email</th>
-									  <th>LoyaltyNo</th> 
-                                      <th>Status</th>                                         
+									  <th>Actions</th>
+                                                                           
 								  </tr>
 							  </thead>   
 							  <tbody>
@@ -186,7 +186,7 @@
 								</tr>                              --%>     
 							  </tbody>
 						 </table>  
-						 <div class="pagination pagination-centered">
+						<%-- <div class="pagination pagination-centered">
 						  <ul>
 							<li><a href="#">Prev</a></li>
 							<li class="active">
@@ -197,7 +197,7 @@
 							<li><a href="#">4</a></li>
 							<li><a href="#">Next</a></li>
 						  </ul>
-						</div>     
+						</div>     --%>
 					</div>
 
                     
