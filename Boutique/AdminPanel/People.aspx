@@ -3,16 +3,44 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <link href="../CSS/CustomCSS/People.css" rel="stylesheet" />
-
+      <script src="../Scripts/UserJS/People.js"></script>
      <div id="content" class="span10">
           <ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
+					<a href="DashBoard.aspx">Home</a> 
 					<i class="icon-angle-right"></i>
 				</li>
 				<li><a href="#">People</a></li>
 			</ul>
+         <%--Alert boxes --%>
+         <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
+				<div class="box span12">
+
+                    <div class="box-content alerts">
+						<div class="alert alert-error" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>
+						<div class="alert alert-info" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yourself, you're not looking too good.</p>
+						</div>
+					</div>
+
+                </div>
+            </div>
+		
+	     <%--Alert boxes --%>
 
          <div class="row-fluid">
 
@@ -101,23 +129,22 @@
 					<div class="box-header">
 						<h2>Current Users</h2>
 						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+							
 						</div>
 					</div>
 					<div class="box-content"  style="height:490px;overflow:auto;">
-						<table class="table table-condensed">
+						<table class="table table-condensed" id="UsersTable">
 							  <thead>
 								  <tr>
-									  <th>Username</th>
-									  <th>Date registered</th>
-									  <th>Role</th>
-									  <th>Status</th>                                          
+									  <th>Name</th>
+									  <th>Mobile</th>
+									  <th>Email</th>
+									  <th>LoyaltyNo</th> 
+                                      <th>Status</th>                                         
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<tr>
+								<%--<tr>
 									<td>Albert</td>
 									<td class="center">2012/01/01</td>
 									<td class="center">Member</td>
@@ -156,7 +183,7 @@
 									<td class="center">
 										<span class="label label-success">Active</span>
 									</td>                                        
-								</tr>                                   
+								</tr>                              --%>     
 							  </tbody>
 						 </table>  
 						 <div class="pagination pagination-centered">
@@ -361,7 +388,6 @@
 
              <%--  Grid Owners--%>
          </div>
-
 
          <div class="row-fluid">
 
