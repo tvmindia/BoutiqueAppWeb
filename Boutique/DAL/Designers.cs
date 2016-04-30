@@ -30,6 +30,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string Mobile
+        {
+            get;
+            set;
+        }
         public string CreatedBy
         {
             get;
@@ -86,6 +91,7 @@ namespace Boutique.DAL
                     row = dt.Rows[0];
                     Name = row["Name"].ToString();
                     Profile = row["Profile"].ToString();
+                    Mobile = row["Mobile"].ToString();
                     CreatedBy = row["CreatedBy"].ToString();
                     CreatedDate = DateTime.Parse(row["CreatedDate"].ToString());
                     UpdatedBy = row["UpdatedBy"].ToString();
@@ -131,6 +137,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
+                    cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -185,6 +192,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
+                    cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
