@@ -324,6 +324,12 @@ namespace Boutique.WebServices
         #endregion
 
         #region Notifications
+        /// <summary>
+        /// Webservice to provide notifications
+        /// </summary>
+        /// <param name="notificationIDs">notification IDs that are already shown in device, comma seperated string</param>
+        /// <param name="boutiqueID"></param>
+        /// <returns>JSON of notifications that are never shown in the app yet</returns>
         [WebMethod]
         public string Notifications(string notificationIDs, string boutiqueID)
         {
