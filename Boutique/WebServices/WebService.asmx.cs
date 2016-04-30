@@ -303,6 +303,12 @@ namespace Boutique.WebServices
                     designer.BoutiqueID = boutiqueID;
                     dt = designer.GetAllDesigners();
                 }
+                else if (ownerORdesigner.Equals("owner"))
+                {
+                    Owners owner = new Owners();
+                    owner.BoutiqueID = boutiqueID;
+                    dt = owner.GetAllOwners();
+                }
                 
             }
             catch (Exception ex)
@@ -324,6 +330,12 @@ namespace Boutique.WebServices
         #endregion
 
         #region Notifications
+        /// <summary>
+        /// Webservice to provide notifications
+        /// </summary>
+        /// <param name="notificationIDs">notification IDs that are already shown in device, comma seperated string</param>
+        /// <param name="boutiqueID"></param>
+        /// <returns>JSON of notifications that are never shown in the app yet</returns>
         [WebMethod]
         public string Notifications(string notificationIDs, string boutiqueID)
         {

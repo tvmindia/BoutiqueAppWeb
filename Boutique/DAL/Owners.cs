@@ -7,10 +7,10 @@ using System.Web;
 
 namespace Boutique.DAL
 {
-    public class Designers
+    public class Owners
     {
         #region Properties
-        public string DesignerID
+        public string OwnerID
         {
             get;
             set;
@@ -20,17 +20,42 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string UserID
+        {
+            get;
+            set;
+        }
         public string Name
         {
             get;
             set;
         }
-        public string Profile
+        public string Address
         {
             get;
             set;
         }
-        public string Mobile
+        public string Phone
+        {
+            get;
+            set;
+        }
+        public string Email
+        {
+            get;
+            set;
+        }
+        public DateTime DOB
+        {
+            get;
+            set;
+        }
+        public string Gender
+        {
+            get;
+            set;
+        }
+        public string Profile
         {
             get;
             set;
@@ -62,12 +87,12 @@ namespace Boutique.DAL
 
         
             #region Constructors
-            public Designers()
+            public Owners()
             {
             }
-            public Designers(string DesignerID,string BoutiqueID)
+            public Owners(string OwnerID,string BoutiqueID)
             {
-                this.DesignerID = DesignerID;
+                this.OwnerID = OwnerID;
                 this.BoutiqueID = BoutiqueID;
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
@@ -80,8 +105,8 @@ namespace Boutique.DAL
                     cmd = new SqlCommand();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[SelectDesignerByDesignerID]";
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.DesignerID);
+                    cmd.CommandText = "[SelectOwnerByOwnerID]";
+                    cmd.Parameters.Add("@OwnerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OwnerID);
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);                    
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
@@ -89,9 +114,14 @@ namespace Boutique.DAL
                     if (dt.Rows.Count == 0) { throw new Exception("No such ID"); }
                     DataRow row = dt.NewRow();
                     row = dt.Rows[0];
+                    UserID = row["UserID"].ToString();
                     Name = row["Name"].ToString();
+                    Address = row["Address"].ToString();
+                    Phone = row["Phone"].ToString();
+                    Email = row["Email"].ToString();
+                    DOB = DateTime.Parse(row["DOB"].ToString());
+                    Gender = row["Name"].ToString();
                     Profile = row["Profile"].ToString();
-                    Mobile = row["Mobile"].ToString();
                     CreatedBy = row["CreatedBy"].ToString();
                     CreatedDate = DateTime.Parse(row["CreatedDate"].ToString());
                     UpdatedBy = row["UpdatedBy"].ToString();
@@ -112,16 +142,20 @@ namespace Boutique.DAL
             }
             #endregion Constructors
 
-            #region New Designer
+            #region New Owner
         /// <summary>
-        /// to insert a new Designer into database
+        /// to insert a new Owner into database
         /// </summary>
         /// <returns>status</returns>
-            public Int16 InsertDesigner()
+            public Int16 InsertOwner()
             {
                 if (BoutiqueID == "")
                 {
                     throw new Exception("BoutiqueID is Empty!!");
+                }
+                if (UserID == "")
+                {
+                    throw new Exception("UserID is Empty!!");
                 }
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
@@ -133,11 +167,16 @@ namespace Boutique.DAL
                     cmd = new SqlCommand();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[InsertDesigner]";
+                    cmd.CommandText = "[InsertOwner]";
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
+                    cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
+                    cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = Phone;
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = Email;
+                    cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
+                    cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
-                    cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -160,22 +199,26 @@ namespace Boutique.DAL
                 return Int16.Parse(outParameter.Value.ToString());
 
             }
-            #endregion New Designer
+            #endregion 
 
-            #region Edit Designer
+            #region Edit Owner
         /// <summary>
-        /// to edit the designer details
+        /// to edit the owner details
         /// </summary>
         /// <returns>status</returns>
-            public Int16 UpdateDesigner()
+            public Int16 UpdateOwner()
             {
-                if (DesignerID == "")
+                if (OwnerID == "")
                 {
-                    throw new Exception("DesignerID is Empty!!");
+                    throw new Exception("OwnerID is Empty!!");
                 }
                 if (BoutiqueID == "")
                 {
                     throw new Exception("BoutiqueID is Empty!!");
+                }
+                if (UserID == "")
+                {
+                    throw new Exception("UserID is Empty!!");
                 }
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
@@ -187,12 +230,17 @@ namespace Boutique.DAL
                     cmd = new SqlCommand();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[UpdateDesigner]";
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
+                    cmd.CommandText = "[UpdateOwner]";
+                    cmd.Parameters.Add("@OwnerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OwnerID);
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
+                    cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
+                    cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = Phone;
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = Email;
+                    cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
+                    cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
-                    cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -215,18 +263,18 @@ namespace Boutique.DAL
                 return Int16.Parse(outParameter.Value.ToString());
 
             }
-            #endregion Edit Designer
+            #endregion
 
-            #region Delete a Designer
+            #region Delete an Owner
         /// <summary>
-        /// To delete a designer by designer id
+        /// To delete an owner by owner id
         /// </summary>
         /// <returns>status</returns>
-            public Int16 DeleteDesigner()
+            public Int16 DeleteOwner()
             {
-                if (DesignerID == "")
+                if (OwnerID == "")
                 {
-                    throw new Exception("DesignerID is Empty!!");
+                    throw new Exception("OwnerID is Empty!!");
                 }
                 if (BoutiqueID == "")
                 {
@@ -245,8 +293,8 @@ namespace Boutique.DAL
                     sda = new SqlDataAdapter();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[DeleteDesigner]";
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.DesignerID);
+                    cmd.CommandText = "[DeleteOwner]";
+                    cmd.Parameters.Add("@OwnerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OwnerID);
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                     outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
                     outParameter.Direction = ParameterDirection.Output;
@@ -268,8 +316,12 @@ namespace Boutique.DAL
             }
             #endregion
 
-        #region AllDesigners
-            public DataTable GetAllDesigners()
+        #region AllOWners
+        /// <summary>
+        /// To get all the owners under a boutique
+        /// </summary>
+        /// <returns></returns>
+            public DataTable GetAllOwners()
             {
                 if (BoutiqueID == "")
                 {
@@ -287,7 +339,7 @@ namespace Boutique.DAL
                     sda = new SqlDataAdapter();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[SelectAllDesigners]";
+                    cmd.CommandText = "[SelectAllOwners]";
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
@@ -309,7 +361,7 @@ namespace Boutique.DAL
 
             }
 
-        #endregion AllDesigners
+        #endregion
 
         #endregion Methods
 
