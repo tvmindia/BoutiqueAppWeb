@@ -92,14 +92,18 @@ function BindTotalProducts(boutiqueid)
 //listbox
   function BindDashBoardListUser(Records)
   {
-    //  $(".LastUsers").find("#mylist").remove();
-     //$("#bouquetTable").find(".myrows").remove();
+   
       $.each(Records, function (index, Records) {
+          var createdDate = null;
+          if (Records.CreatedDate != null) {
+              var src = Records.CreatedDate;//"/Date(1302589032000+0400)/";
+              src = src.replace(/[^0-9 +]/g, '');
+              var createdDate = new Date(parseInt(src));
+          }
+          
+
        //   var create = new Date(Records.CreatedDate);
-        //  var ddftfdf = JSON.stringify(Records.CreatedDate);
-          //  var html = '<tr class="row_1" idval="' + Record.id + '"  chid="' + Record.id + '"><td width="15%" align="center" valign="middle"><input type="hidden" class="m-wrap span12 hftxtManuItemId"   id="hftxtManuItemId" value="' + Record.FocusItemManufacture.id + '"><a class="edit" chid="' + Record.id + '" suggestcatlog="' + Record.SuggestedCatlog + '" annualvol="' + Record.AnnualVolume + '" releaseqty="' + Record.ReleaseQuantity + '" targetpriz="' + Record.TargetPrize + '" certificate="' + Record.CertificateId + '" itemDescription="' + Record.ItemDescription + '" href="#">' + Record.SuggestedCatlog + '</a></td><td width="18%" height="20" align="center" valign="middle"><input  type="text" id="txtManuCost' + index + '" class="m-wrap span12 txtManuCost"   placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtLeadTime' + index + '" class="m-wrap span12 txtLeadTime"  placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtToolCharge' + index + '" class="m-wrap span12 txtToolCharge"  placeholder=""></td><td width="14%" align="center" valign="middle"><input type="text" id="txtMinQty' + index + '" class="m-wrap span12 txtMinQty"  placeholder=""></td><td width="11%" align="center" valign="middle"><a class="attachment"><img src="/Contents/assets/img/icn_attachment.png" alt="attachment"></a></td></tr>';
-          //var html = '<tr class="myrows" boutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.AppVersion + '</td><td class="center">' + Records.Location + '</td><td class="center">' + Records.Phone + '</td><td class="center">' + Records.Timing + '</td><td class="center">' + Records.WorkingDays + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-          var html = '<li class="yellow" Userid="' + Records.UserID + '"><a href="#"></a><span class="break"></span><strong>Name:</strong> ' + Records.Name + '<br/><strong>Since:</strong> <br/>' + Records.CreatedDate + '<strong>Mobile:</strong> ' + Records.Mobile + '</li>';
+          var html = '<li class="yellow" Userid="' + Records.UserID + '"><a href="#"></a><span class="break"></span><strong>Name:</strong> ' + Records.Name + '<br/><strong>Since:</strong> <br/>' + createdDate + '<strong>Mobile:</strong> ' + Records.Mobile + '</li>';
           $(".LastUsers").append(html);
       })
   }
@@ -115,8 +119,15 @@ function BindTotalProducts(boutiqueid)
   function BindDashBoardNotifications(Records) {
      
       $.each(Records, function (index, Records) {
+
+          var endDate = null;
+          if (Records.EndDate != null) {
+              var src = Records.EndDate;//"/Date(1302589032000+0400)/";
+              src = src.replace(/[^0-9 +]/g, '');
+              var endDate = new Date(parseInt(src));
+          }
           
-          var html = '<li class="red" notificationid="' + Records.NotificationID + '"><a href="#"></a><span class="break"></span><strong>Title:</strong> ' + Records.Title + '<br/><strong>Description:</strong> <br/>' + Records.Description + '<strong>End Date:</strong> ' + Records.EndDate + '</li>';
+          var html = '<li class="red" notificationid="' + Records.NotificationID + '"><a href="#"></a><span class="break"></span><strong>Title:</strong> ' + Records.Title + '<br/><strong>Description:</strong> <br/>' + Records.Description + '<strong>End Date:</strong> ' + endDate + '</li>';
           $(".Notify").append(html);
       })
   }

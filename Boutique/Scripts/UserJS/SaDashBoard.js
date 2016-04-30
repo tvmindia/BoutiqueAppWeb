@@ -222,20 +222,16 @@ function InsertAdmin(Admin) {
 }
 
 function GetAllBoutiques() {
-
     var ds = {};
     var table = {};
     var data = "{}";
     ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/GetAllBoutiques");
     table = JSON.parse(ds.d);
-    //alert(table[0].StartedYear);
-    //alert(table[1].Name);
     return table;
 }
 
 function GetBoutiques(boutiqueid)
-{
-    var ds = {};
+{   var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
     ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/BindBoutiqueDetails");

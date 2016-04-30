@@ -46,13 +46,13 @@ namespace Boutique.DAL
             set;
         }
 
-        public DateTime? DOB
+        public string DOB
         {
             get;
             set;
         }
 
-        public DateTime? Anniversary
+        public string Anniversary
         {
             get;
             set;
@@ -228,8 +228,8 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
                     cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqued;
-                    cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
-                    cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = Anniversary;
+                    cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
+                    cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;
                     cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
@@ -377,10 +377,11 @@ namespace Boutique.DAL
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
           
-            Guid _userid = Guid.Empty;
+           
+
             try
             {
-                _userid = Guid.Parse(userID);
+              
                
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
@@ -388,14 +389,14 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateUserDetails]";
-                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _userid;
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
                 cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
-                cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
-                cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = Anniversary;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
+                cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary); 
                 cmd.Parameters.Add("@LoyaltyCardNo", SqlDbType.BigInt).Value = LoyaltyCardNo;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;

@@ -82,7 +82,7 @@
 								<label class="control-label">Is Acitive?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
-									<input type="checkbox" id="chkActive" value="option1"/>Yes</label>
+									<input type="checkbox" class="chkActive" id="chkActive" value="option1"/>Yes</label>
 								</div>
 							  </div>
 
@@ -91,25 +91,16 @@
                             <div class="control-group">
 							  <label class="control-label" for="date01">DOB</label>
 							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateDOB" value="02/16/12"/>
+								<input type="text" class="input-large datepicker" id="dateDOB" value=""/>
 							  </div>
 							</div>
 
                                <div class="control-group">
 							  <label class="control-label" for="date01">Anniversary</label>
 							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateAnniversary" value="02/16/12"/>
+								<input type="text" class="input-large datepicker" id="dateAnniversary" value=""/>
 							  </div>
 							</div>
-
-                             <div class="control-group">
-								 <label class="control-label" for="focusedInput">Loyalty Card No</label>
-								<div class="controls">
-								  <input class="input-large focused" id="txtloycardno" type="text"/>
-								</div>
-								</div>
-
-                           
 
 							  </div>
 						
@@ -117,8 +108,10 @@
 						
 						</div>
                       <footer class="InnerFooter">
-                				<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
+                				
+                           <a class="btn btn-primary AddUser" href="#">Save</></a>
+							
+                           <a class="btn CancelUser">Cancel</a>
 						
                         </footer> 
                     </div>
@@ -139,51 +132,12 @@
 									  <th>Name</th>
 									  <th>Mobile</th>
 									  <th>Email</th>
-									  <th>Actions</th>
+									  <th style="width:105px;">Actions</th>
                                                                            
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<%--<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-important">Banned</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Admin</td>
-									<td class="center">
-										<span class="label">Inactive</span>
-									</td>                                        
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/03/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-warning">Pending</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/21</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                        
-								</tr>                              --%>     
+								
 							  </tbody>
 						 </table>  
 						<%-- <div class="pagination pagination-centered">
@@ -521,7 +475,8 @@
      </div>
 
 
-
-   
+     <input type="hidden" id="hdfBoutiqueID" value=""/>
+     <input type="hidden" id="hdfUserID" value=""/>
+     <input type="hidden" id="hdfCardNo" value=""/>
 
 </asp:Content>

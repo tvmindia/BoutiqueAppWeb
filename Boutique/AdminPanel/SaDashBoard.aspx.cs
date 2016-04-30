@@ -88,7 +88,15 @@ namespace Boutique.AdminPanel
         public static string NewAdmin(Users userObj)
         {
             string status = null;
-            status=userObj.AddNewUser().ToString();
+            if(userObj.UserID==null)
+            {
+                status = userObj.AddNewUser().ToString();
+            }
+            else
+            {
+                status = userObj.EditUser(userObj.UserID).ToString();
+            }
+           
             return status;
         }
         #endregion NewAdmin

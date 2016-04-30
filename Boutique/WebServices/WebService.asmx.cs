@@ -116,11 +116,11 @@ namespace Boutique.WebServices
                 user.Email = email;
                 if (dob != "null")
                 {
-                    user.DOB = DateTime.Parse(dob);
+                    user.DOB = dob;
                 }
                 if (anniversary != "null")
                 {
-                    user.Anniversary = DateTime.Parse(anniversary);
+                    user.Anniversary = anniversary;
                 }               
                 user.Gender = gender;
                 user.IsActive = false;
