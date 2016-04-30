@@ -303,6 +303,12 @@ namespace Boutique.WebServices
                     designer.BoutiqueID = boutiqueID;
                     dt = designer.GetAllDesigners();
                 }
+                else if (ownerORdesigner.Equals("owner"))
+                {
+                    Owners owner = new Owners();
+                    owner.BoutiqueID = boutiqueID;
+                    dt = owner.GetAllOwners();
+                }
                 
             }
             catch (Exception ex)
