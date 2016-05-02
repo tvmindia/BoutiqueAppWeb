@@ -2,12 +2,9 @@
 
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
 
-
-    var jsonResult = {};
-    jsonResult = GetAllUsers(boutiqueid);
-    if (jsonResult != undefined) {
-        BindUserTable(jsonResult);
-    }
+    BindAsyncUserTable(boutiqueid);
+    BindAsyncOwnerTable(boutiqueid);
+   
 
 
 
@@ -43,16 +40,18 @@
                $('.alert-error').hide();
                var jsonResult = {};
                editedrow = $(this).closest('tr');
-               var boutid = editedrow.attr("boutiqueID");
-               jsonResult = DeleteBoutique(boutid);
+               var User = new Object();
+               User.BoutiqueID = boutiqueid;
+               User.UserID = editedrow.attr("userID");
+               jsonResult = DeleteUser(User);
                if (jsonResult != undefined) {
                    if (jsonResult == "1") {
-                       BindBoutiqueAsyncLoad();//Gridbind
+                       BindAsyncUserTable(boutiqueid)//Gridbind
                        $('#rowfluidDiv').show();
                        $('.alert-success').show();
                    }
                    if (jsonResult != "1") {
-                       BindBoutiqueAsyncLoad();//Gridbind
+                       BindAsyncUserTable(boutiqueid)//Gridbind
                        $('#rowfluidDiv').show();
                        $('.alert-error').show();
                    }
@@ -65,6 +64,44 @@
     $(".CancelUser").live({
         click: function (e) {// Clear controls
             clearUserControls();
+        }
+    })
+    $(".AddOwner").live({
+        click: function (e) {// submit button click
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var result = "";
+            var Owners = new Object();
+            if ($("#hdfUserID").val() != "")
+            {
+                Owners.UserID = $("#hdfUserID").val();
+            }
+            else {
+                alert("Please Select A User..");
+                return;
+            }
+            Owners.BoutiqueID = boutiqueid;
+            Owners.Name = $("#txtOwnerName").val();
+            Owners.Address = $("#txtOwnerAddress").val();
+            Owners.Phone = $("#txtPhone").val();
+            Owners.Email = $("#txtOwnerEmail").val();
+            Owners.DOB = $("#DOBDate").val();
+           
+            Owners.Gender = "Male";
+
+            Owners.Profile = $("#txtProfile").val();
+          
+            result = InsertOwner(Owners);
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+            }
+
         }
     })
 
@@ -135,20 +172,64 @@ function getJsonData(data, page) {
 }
 //---end of getting data as json -----//
 
+function BindAsyncUserTable(boutiqueid)
+{
+    var jsonResult = {};
+    jsonResult = GetAllUsers(boutiqueid);
+    if (jsonResult != undefined) {
+        BindUserTable(jsonResult);
+    }
+}
 
 
+function InsertOwner(Owners)
+{
+    var data = "{'ownersObj':" + JSON.stringify(Owners) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/People.aspx/InsertOwner");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
 
 
 function BindUserTable(Records) {
     //$("#UsersTable").find(".odd").remove();
-    $("#UsersTable").find(".myrows").remove();
+    $("#UsersTable").find(".userrows").remove();
     $.each(Records, function (index, Records) {
     var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
     $("#UsersTable").append(html);
     })
 
 }
+function BindAsyncOwnerTable(boutiqueid)
+{
+   
+    var jsonResult = {};
+    jsonResult = GetAllOwners(boutiqueid);
+    if (jsonResult != undefined) {
+        BindOwnerTable(jsonResult);
+    }
 
+}
+
+function GetAllOwners(boutiqueid)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllOwners");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function BindOwnerTable(Records)
+{
+    $("#OwnerTable").find(".ownerrows").remove();
+    $.each(Records, function (index, Records) {
+        var html = '<tr class="ownerrows" ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#OwnerTable").append(html);
+    })
+}
 
 
 function GetAllUsers(boutiqueid) {
@@ -176,7 +257,6 @@ function InsertUser(User) {
 
 
 function clearUserControls() {
-   
     $("#txtName").val('');
     $("#txtMobile").val('');
     $("#txtEmail").val('');
@@ -187,7 +267,6 @@ function clearUserControls() {
     $('.alert-success').hide();
     $('.alert-error').hide();
     $(".AddUser").text("Save");
-
 }
 
 
@@ -247,4 +326,14 @@ function ConvertJsonToDate(jsonDate)
         var date = day + "/" + month + "/" + year;
         return date;
     }
+}
+
+function DeleteUser(User)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'userObj':" + JSON.stringify(User) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteUser");
+    table = JSON.parse(ds.d);
+    return table;
 }

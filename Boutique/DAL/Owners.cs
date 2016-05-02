@@ -45,7 +45,7 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public DateTime DOB
+        public string DOB
         {
             get;
             set;
@@ -119,7 +119,7 @@ namespace Boutique.DAL
                     Address = row["Address"].ToString();
                     Phone = row["Phone"].ToString();
                     Email = row["Email"].ToString();
-                    DOB = DateTime.Parse(row["DOB"].ToString());
+                    DOB = row["DOB"].ToString();
                     Gender = row["Name"].ToString();
                     Profile = row["Profile"].ToString();
                     CreatedBy = row["CreatedBy"].ToString();
@@ -177,7 +177,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
@@ -358,11 +358,8 @@ namespace Boutique.DAL
                         dcon.DisconectDB();
                     }
                 }
-
             }
-
         #endregion
-
         #endregion Methods
 
     }

@@ -255,8 +255,9 @@
 						</div>
 
                     <footer class="InnerFooter">
-                				<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
+                		   <a class="btn btn-primary AddOwner" href="#">Save</></a>
+							
+                           <a class="btn CancelOwner">Cancel</a>
 						
                         </footer> 
                     </div>
@@ -273,17 +274,17 @@
 						</div>
 					</div>
 					<div class="box-content" style="height:492px;overflow:auto;">
-						<table class="table table-condensed">
+						<table class="table table-condensed" id="OwnerTable">
 							  <thead>
 								  <tr>
-									  <th>Username</th>
-									  <th>Date registered</th>
-									  <th>Role</th>
-									  <th>Status</th>                                          
+									  <th>Owner Name</th>
+									  <th>Mobile</th>
+									  <th>Email</th>
+									  <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<tr>
+								<%--<tr>
 									<td>Albert</td>
 									<td class="center">2012/01/01</td>
 									<td class="center">Member</td>
@@ -322,10 +323,10 @@
 									<td class="center">
 										<span class="label label-success">Active</span>
 									</td>                                        
-								</tr>                                   
+								</tr>                                   --%>
 							  </tbody>
 						 </table>  
-						 <div class="pagination pagination-centered">
+						<%-- <div class="pagination pagination-centered">
 						  <ul>
 							<li><a href="#">Prev</a></li>
 							<li class="active">
@@ -336,7 +337,7 @@
 							<li><a href="#">4</a></li>
 							<li><a href="#">Next</a></li>
 						  </ul>
-						</div>     
+						</div>     --%>
 					</div>
 				</div>
 

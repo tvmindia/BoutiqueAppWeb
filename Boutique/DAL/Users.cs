@@ -228,8 +228,11 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
                     cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqued;
-                    cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
-                    cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
+                    if (DOB != "") cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value =DateTime.Parse(DOB);
+                    if (Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
+                   
+                   
+                   
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;
                     cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
@@ -427,6 +430,51 @@ namespace Boutique.DAL
            
         }
         #endregion EditUser
+
+        #region DeleteUser
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name=userObj></param>
+        /// <returns></returns>
+        public Int16 DeleteUser()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteUser]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion DeleteBoutique
         #endregion Methods
     }
 }
