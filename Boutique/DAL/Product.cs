@@ -389,7 +389,8 @@ namespace Boutique.DAL
                     cmd.CommandText = "[GetFavoriteInformation]";
                     cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
-                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                    if(userID!="")
+                        cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);
