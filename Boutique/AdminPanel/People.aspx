@@ -214,7 +214,7 @@
                             <div class="control-group">
 							  <label class="control-label" for="date01">DOB</label>
 							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="DOBDate" value="02/16/12"/>
+								<input type="text" class="input-large datepicker" id="DOBDate" value=""/>
 							  </div>
 							</div>
 
@@ -478,6 +478,7 @@
 
      <input type="hidden" id="hdfBoutiqueID" value=""/>
      <input type="hidden" id="hdfUserID" value=""/>
+     <input type="hidden" id="hdfOwnerID" value=""/>
      <input type="hidden" id="hdfCardNo" value=""/>
 
 </asp:Content>

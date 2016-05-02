@@ -4,14 +4,36 @@
 
     BindAsyncUserTable(boutiqueid);
     BindAsyncOwnerTable(boutiqueid);
-   
+    
 
-
-
-   
-    $(".edit").live(
+    $(".owneredit").live(
        {
            click: function (e) {
+               $('#rowfluidDiv').hide();
+               $('.alert-success').hide();
+               $('.alert-error').hide();
+               var jsonResult = {};
+               editedrow = $(this).closest('tr');
+               var Owners = new Object();
+               Owners.BoutiqueID = boutiqueid;
+               Owners.UserID = editedrow.attr("userID");
+               Owners.OwnerID = editedrow.attr("ownerID");
+               jsonResult = GetOwner(Owners);
+               if (jsonResult != undefined) {
+
+                   BindOwnerTextBoxes(jsonResult);
+               }
+
+
+               return false;
+           }
+       })
+
+   
+    $(".useredit").live(
+       {
+           click: function (e) {
+            
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -32,9 +54,11 @@
            }
        })
 
-    $(".Delete").live(
+    $(".userdelete").live(
        {
            click: function (e) {
+
+               alert("user");
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -61,9 +85,48 @@
        })
 
 
+    $(".ownerdelete").live(
+      {
+          click: function (e) {
+
+              alert("owner");
+              debugger;
+              $('#rowfluidDiv').hide();
+              $('.alert-success').hide();
+              $('.alert-error').hide();
+              var jsonResult = {};
+              editedrow = $(this).closest('tr');
+              var Owners = new Object();
+              Owners.BoutiqueID = boutiqueid;
+              Owners.UserID = editedrow.attr("userID");
+              Owners.OwnerID = editedrow.attr("ownerID");
+              jsonResult = DeleteOwner(Owners);
+              if (jsonResult != undefined) {
+                  if (jsonResult == "1") {
+                      BindAsyncOwnerTable(boutiqueid)//Gridbind
+                      $('#rowfluidDiv').show();
+                      $('.alert-success').show();
+                  }
+                  if (jsonResult != "1") {
+                      BindAsyncOwnerTable(boutiqueid)//Gridbind
+                      $('#rowfluidDiv').show();
+                      $('.alert-error').show();
+                  }
+              }
+              return false;
+          }
+      })
+
+
     $(".CancelUser").live({
         click: function (e) {// Clear controls
             clearUserControls();
+        }
+    })
+
+    $(".CancelOwner").live({
+        click: function (e) {// Clear controls
+            clearOwnerControls();
         }
     })
     $(".AddOwner").live({
@@ -91,6 +154,7 @@
             Owners.Gender = "Male";
 
             Owners.Profile = $("#txtProfile").val();
+            Owners.OwnerID = $("#hdfOwnerID").val();
           
             result = InsertOwner(Owners);
             if (result == "1") {
@@ -196,7 +260,7 @@ function BindUserTable(Records) {
     //$("#UsersTable").find(".odd").remove();
     $("#UsersTable").find(".userrows").remove();
     $.each(Records, function (index, Records) {
-    var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
     $("#UsersTable").append(html);
     })
 
@@ -226,7 +290,7 @@ function BindOwnerTable(Records)
 {
     $("#OwnerTable").find(".ownerrows").remove();
     $.each(Records, function (index, Records) {
-        var html = '<tr class="ownerrows" ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="ownerrows" userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info owneredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger ownerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#OwnerTable").append(html);
     })
 }
@@ -253,7 +317,22 @@ function InsertUser(User) {
 
 }
 
+function clearOwnerControls()
+{
 
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $("#txtOwnerName").val('');
+    $("#txtOwnerAddress").val('');
+    $("#txtPhone").val('');
+    $("#txtOwnerEmail").val('');
+    $("#DOBDate").val('');
+  //  $("#radioMale").val('');
+    $("#txtProfile").val('');
+    $("#hdfOwnerID").val('');
+    $(".AddOwner").text("Save");
+}
 
 
 function clearUserControls() {
@@ -275,6 +354,15 @@ function GetUser(User) {
     var table = {};
     var data = "{'userobj':" + JSON.stringify(User) + "}";
     ds = getJsonData(data, "../AdminPanel/People.aspx/GetUser");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetOwner(Owner) {
+    var ds = {};
+    var table = {};
+    var data = "{'ownersObj':" + JSON.stringify(Owner) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetOwner");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -314,6 +402,23 @@ function BindUserTextBoxes(Records)
     $(".AddUser").text("Modify");
 }
 
+
+function BindOwnerTextBoxes(Records)
+{
+    $.each(Records, function (index, Records) {
+
+        $("#txtOwnerName").val(Records.Name);
+        $("#txtOwnerAddress").val(Records.Address);
+        $("#txtPhone").val(Records.Mobile);
+        $("#txtOwnerEmail").val(Records.Email);
+        $("#DOBDate").val(ConvertJsonToDate(Records.DOB));
+        $("#radioMale").val();
+        $("#txtProfile").val(Records.Profile);
+        $("#hdfOwnerID").val(Records.OwnerID);
+    })
+    $(".AddOwner").text("Modify");
+}
+
 function ConvertJsonToDate(jsonDate)
 {
     if (jsonDate != null) {
@@ -334,6 +439,15 @@ function DeleteUser(User)
     var table = {};
     var data = "{'userObj':" + JSON.stringify(User) + "}";
     ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteUser");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function DeleteOwner(Owner) {
+    var ds = {};
+    var table = {};
+    var data = "{'ownersObj':" + JSON.stringify(Owner) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteOwner");
     table = JSON.parse(ds.d);
     return table;
 }

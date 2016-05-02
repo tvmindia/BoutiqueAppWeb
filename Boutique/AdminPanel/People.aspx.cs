@@ -16,6 +16,29 @@ namespace Boutique.AdminPanel
         {
 
         }
+        #region DeleteOwner
+        [System.Web.Services.WebMethod]
+        public static string DeleteOwner(Owners ownersObj)
+        {
+            string status = null;
+            try
+            {
+
+              status=ownersObj.DeleteOwner().ToString();
+              
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+     
+        #endregion DeleteOwner
 
         #region NewOwner
         [System.Web.Services.WebMethod]
@@ -25,14 +48,14 @@ namespace Boutique.AdminPanel
             try
             {
 
-                if (ownersObj.UserID != null)
+                if (ownersObj.OwnerID != null)
                 {
-                 
-                    status = ownersObj.InsertOwner().ToString();
+                    status = ownersObj.UpdateOwner().ToString();
+                   
                 }
                 else
                 {
-                    //status = ownersObj.EditUser(userObj.UserID).ToString();
+                    status = ownersObj.InsertOwner().ToString();
                 }
               
             }
@@ -47,7 +70,39 @@ namespace Boutique.AdminPanel
             return status;
         }
         #endregion NewOwner
+        #region GetOwner
+        [System.Web.Services.WebMethod]
+        public static string GetOwner(Owners ownersObj)
+        {
+            DataTable dt= null;
+            dt = ownersObj.GetOwner();
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
 
+            }
+
+
+            return jsSerializer.Serialize(parentRow);
+
+
+
+
+            //Converting to Json
+        }
+        #endregion GetOwner
 
         #region GetUser
         [System.Web.Services.WebMethod]
