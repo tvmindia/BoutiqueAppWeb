@@ -131,7 +131,7 @@ namespace Boutique.WebServices
                     user.Anniversary = "";
                 }
                 user.Gender = gender;
-                user.IsActive = false;
+                user.IsActive = true;
                 user.CreatedBy = "User";
                 user.CreatedDate = DateTime.Now;
                 user.IsAdmin = false;
