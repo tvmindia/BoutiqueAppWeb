@@ -284,6 +284,51 @@ namespace Boutique.WebServices
         }
         #endregion User
 
+        #region Favorites
+        /// <summary>
+        /// To add or remove from favorite list
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <param name="userID"></param>
+        /// <param name="AddOrRemove">string "add" or "remove" should be given</param>
+        /// <returns>status</returns>
+        [WebMethod]
+        public string Favorites(string productID, string boutiqueID, string userID,string AddOrRemove)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.ProductID = productID;
+                product.BoutiqueID = boutiqueID;
+                product.AddOrRemoveFromFavorites(userID, AddOrRemove);
+
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = true;
+                dr["Message"] = "Success";
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #region OwnersAndDesigners
         /// <summary>
         /// Webservice to get owner or designer details
