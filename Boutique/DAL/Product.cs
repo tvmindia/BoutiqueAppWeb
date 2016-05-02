@@ -389,7 +389,8 @@ namespace Boutique.DAL
                     cmd.CommandText = "[GetFavoriteInformation]";
                     cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
-                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                    if(userID!="")
+                        cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);
@@ -409,6 +410,63 @@ namespace Boutique.DAL
                 }
             }
         #endregion Favorite informations: Count and isFavorite
+
+            #region Add Or Remove From Favorites        
+        /// <summary>
+        /// To add or remove from favorite table
+        /// </summary>
+        /// <param name="UserID">user who favorites it</param>
+        /// <param name="AddOrRemove">"add" or "remove" string</param>
+            public void AddOrRemoveFromFavorites(string UserID,string AddOrRemove)
+            {
+                // TODO: add product view information to that table too: in the case of mobile app
+                if (ProductID == "")
+                {
+                    throw new Exception("ProductID is Empty!!");
+                }
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                if (UserID == "")
+                {
+                    throw new Exception("UserID is Empty!!");
+                }
+                if (AddOrRemove == "" || (AddOrRemove!="add" && AddOrRemove!="remove"))
+                {
+                    throw new Exception("Should give Add or Remove information!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[AddOrRemoveFromFavorites]";
+                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                    cmd.Parameters.Add("@AddOrRemove", SqlDbType.NVarChar, 10).Value = AddOrRemove;
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "UserFromApp";
+                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+            }
+            #endregion
 
             #region GetAllProducts
             public DataSet GetAllProducts(string boutiqueID)
@@ -500,7 +558,7 @@ namespace Boutique.DAL
 
         #endregion SelectAllProductViewDetails
 
-        #region GetAllProductsOutOfStock
+            #region GetAllProductsOutOfStock
             public DataSet SelectAllProductsOutOfStock(string boutiqueID)
             {
                 dbConnection dcon = null;
