@@ -118,10 +118,18 @@ namespace Boutique.WebServices
                 {
                     user.DOB = dob;
                 }
+                else
+                {
+                    user.DOB = "";
+                }
                 if (anniversary != "null")
                 {
                     user.Anniversary = anniversary;
-                }               
+                }
+                else
+                {
+                    user.Anniversary = "";
+                }
                 user.Gender = gender;
                 user.IsActive = false;
                 user.CreatedBy = "User";
