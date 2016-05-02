@@ -249,7 +249,7 @@ namespace Boutique.DAL
 
             catch (SqlException ex)
             {   //------------------Mobile number already exist exception
-                if (ex.Number == 2627) throw new Exception("This Mobile number is already registered!! Please login");
+                if (ex.Number == 2627) throw new Exception("This Mobile number is already registered!! Please login"); //Unique Constraint violation
                 throw ex;
             }
             catch (Exception ex)
