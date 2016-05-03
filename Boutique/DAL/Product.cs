@@ -358,6 +358,53 @@ namespace Boutique.DAL
             }
             #endregion
 
+            #region Add entry to product view log
+        /// <summary>
+        /// to insert a product view log entry
+        /// </summary>
+        /// <param name="userID">to store which user has visited the product details. Can be "" </param>
+            public void InsertProductViewLog(string userID)
+            {
+                // TODO: add product view information to that table too: in the case of mobile app
+                if (ProductID == "")
+                {
+                    throw new Exception("ProductID is Empty!!");
+                }
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[InsertProductViewLog]";
+                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    if(userID!="") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "UserFromApp";
+                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+            }
+            #endregion
+
             #region Favorite informations: Count and isFavorite
         /// <summary>
         /// Function to get the total favorite count and whether the user favorited this before. based on a product
