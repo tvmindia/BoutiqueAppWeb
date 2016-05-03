@@ -77,10 +77,25 @@ namespace Boutique.DAL
         }
         #endregion properties
 
+        #region Categoryproperties
+
+        public string CategoryCode
+        {
+            get;
+            set;
+        }
+        public string CategoryName
+        {
+            get;
+            set;
+        }
+
+        #endregion Categoryproperties
+
         #region Methods
-          
-            #region Constructors
-            public Product()
+
+        #region Constructors
+        public Product()
             {
             }
             public Product(string ProductID,string BoutiqueID)
@@ -649,5 +664,150 @@ namespace Boutique.DAL
             }
         #endregion GetAllProductsOutOfStock
         #endregion Methods
+
+
+
+        #region CategoryMethods
+
+        #region GetAllCategories
+            public DataSet GetAllCategories(string boutiqueID)
+            {
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                Guid _boutiqueid = Guid.Empty;
+                try
+                {
+                    _boutiqueid = Guid.Parse(boutiqueID);
+                    if (_boutiqueid != Guid.Empty)
+                    {
+                        dcon = new dbConnection();
+                        dcon.GetDBConnection();
+                        cmd = new SqlCommand();
+                        cmd.Connection = dcon.SQLCon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "[GetAllCategories]";
+                        cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                        sda = new SqlDataAdapter();
+                        sda.SelectCommand = cmd;
+                        ds = new DataSet();
+
+                        sda.Fill(ds);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+
+                    }
+                }
+                return ds;
+            }
+        #endregion GetAllCategories
+
+            #region GetCategory
+            public DataSet GetCategory()
+            {
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+               
+                try
+                {
+                  
+                    if (BoutiqueID!= null)
+                    {
+                        dcon = new dbConnection();
+                        dcon.GetDBConnection();
+                        cmd = new SqlCommand();
+                        cmd.Connection = dcon.SQLCon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "[SelectCategoryByCategoryCode]";
+                        cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                        cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                        sda = new SqlDataAdapter();
+                        sda.SelectCommand = cmd;
+                        ds = new DataSet();
+
+                        sda.Fill(ds);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+
+                    }
+                }
+                return ds;
+            }
+            #endregion GetCategory
+
+            #region InsertCategory
+            public Int16 InsertCategory()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+               
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlParameter outParameter = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[InsertCategory]";
+                    cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                   
+                    cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
+                   
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+
+                    outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                    outParameter.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                //insert success or failure
+                return Int16.Parse(outParameter.Value.ToString());
+
+            }
+        #endregion InsertCategory
+
+        #endregion CategoryMethods
     }
 }

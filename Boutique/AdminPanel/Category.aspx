@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <link href="../CSS/CustomCSS/Category.css" rel="stylesheet" />
+     <script src="../Scripts/UserJS/Category.js"></script>
 
      <div id="content" class="span10">
 
@@ -14,6 +15,35 @@
 				</li>
 				<li><a href="#">Category</a></li>
 			</ul>
+
+              <%--Alert boxes --%>
+         <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
+				<div class="box span12">
+
+                    <div class="box-content alerts">
+						<div class="alert alert-error" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>
+						<div class="alert alert-info" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yourself, you're not looking too good.</p>
+						</div>
+					</div>
+
+                </div>
+            </div>
+		
+	     <%--Alert boxes --%>
           <div class="row-fluid">
 
 
@@ -74,10 +104,17 @@
 					<div class="box-content"  style="height:215px;overflow:auto;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
-						   <div class="control-group">
-								 <label class="control-label" for="focusedInput">Name</label>
+						  <div class="control-group">
+								 <label class="control-label" for="focusedInput">Category Code</label>
 								<div class="controls">
-								  <textarea class="form-control" style="max-width:68%" rows="4" id="txtName"></textarea>
+								  <input class="input-large focused" id="txtCatCode" type="text"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+								<label class="control-label" for="focusedInput">Category Name</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtCategoryName" type="text"/>
 								</div>
 								</div>
                             						
@@ -88,8 +125,11 @@
 						</div>
 
                     <footer class="InnerFooter">
-                				<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
+                				
+
+                          <a class="btn btn-primary AddCategory" href="#">Save</></a>
+							
+                           <a class="btn CancelCategory">Cancel</a>
 						
                      </footer> 
                     </div>
