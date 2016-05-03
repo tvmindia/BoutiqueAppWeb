@@ -174,7 +174,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
                     cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = Phone;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = Email;
-                    cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
+                    if (DOB != null) cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
@@ -241,7 +241,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
@@ -316,8 +316,54 @@ namespace Boutique.DAL
             }
             #endregion
 
-        #region AllOWners
-        /// <summary>
+            #region GetOwner
+            /// <summary>
+            /// To get all the owners under a boutique
+            /// </summary>
+            /// <returns></returns>
+            public DataTable GetOwner()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlDataAdapter sda = null;
+                DataTable dt = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectOwnerByOwnerID]";
+                    cmd.Parameters.Add("@OwnerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OwnerID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);  
+                    sda.SelectCommand = cmd;
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                    return dt;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+            }
+            #endregion GetOwner
+
+            #region AllOWners
+            /// <summary>
         /// To get all the owners under a boutique
         /// </summary>
         /// <returns></returns>
