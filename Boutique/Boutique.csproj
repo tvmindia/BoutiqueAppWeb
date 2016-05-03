@@ -193,6 +193,7 @@
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="CSS\jasny-bootstrap.css.map" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
+    <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
     <Content Include="Scripts\UserJS\People.js" />
     <Content Include="Scripts\UserJS\Profile.js" />

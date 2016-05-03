@@ -4,7 +4,7 @@
 
     BindAsyncUserTable(boutiqueid);
     BindAsyncOwnerTable(boutiqueid);
-    
+    BindAsycDesignerTable(boutiqueid);
 
     $(".owneredit").live(
        {
@@ -54,11 +54,37 @@
            }
        })
 
+    $(".designeredit").live(
+     {
+         click: function (e) {
+
+             $('#rowfluidDiv').hide();
+             $('.alert-success').hide();
+             $('.alert-error').hide();
+             var jsonResult = {};
+             editedrow = $(this).closest('tr');
+             var Designer = new Object();
+             Designer.BoutiqueID = boutiqueid;
+             Designer.DesignerID = editedrow.attr("designerID");
+
+             jsonResult = GetDesigner(Designer);
+             if (jsonResult != undefined) {
+
+                 BindDesignerTextBoxes(jsonResult);
+             }
+
+
+             return false;
+         }
+     })
+
+
+
     $(".userdelete").live(
        {
            click: function (e) {
 
-               alert("user");
+              
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -89,8 +115,8 @@
       {
           click: function (e) {
 
-              alert("owner");
-              debugger;
+             
+           
               $('#rowfluidDiv').hide();
               $('.alert-success').hide();
               $('.alert-error').hide();
@@ -117,6 +143,38 @@
           }
       })
 
+    $(".designerdelete").live(
+     {
+         click: function (e) {
+
+
+
+             $('#rowfluidDiv').hide();
+             $('.alert-success').hide();
+             $('.alert-error').hide();
+             var jsonResult = {};
+             editedrow = $(this).closest('tr');
+             var Designer = new Object();
+             Designer.BoutiqueID = boutiqueid;
+             Designer.DesignerID = editedrow.attr("designerID");
+           
+             jsonResult = DeleteDesigner(Designer);
+             if (jsonResult != undefined) {
+                 if (jsonResult == "1") {
+                     BindAsycDesignerTable(boutiqueid)//Gridbind
+                     $('#rowfluidDiv').show();
+                     $('.alert-success').show();
+                 }
+                 if (jsonResult != "1") {
+                     BindAsycDesignerTable(boutiqueid)//Gridbind
+                     $('#rowfluidDiv').show();
+                     $('.alert-error').show();
+                 }
+             }
+             return false;
+         }
+     })
+
 
     $(".CancelUser").live({
         click: function (e) {// Clear controls
@@ -129,6 +187,14 @@
             clearOwnerControls();
         }
     })
+   
+
+    $(".CancelDesigner").live({
+        click: function (e) {// Clear controls
+            clearDesignerControls();
+        }
+    })
+
     $(".AddOwner").live({
         click: function (e) {// submit button click
             $('#rowfluidDiv').hide();
@@ -209,6 +275,44 @@
         }
     })
 
+
+
+
+    $(".AddDesigner").live({
+        click: function (e) {// submit button click
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+
+            var result = "";
+            var Designer = new Object();
+            if ($("#hdfDesignerID").val() != "")
+            {
+                Designer.DesignerID = $("#hdfDesignerID").val();
+            }
+          
+          
+            Designer.BoutiqueID = boutiqueid;
+            Designer.Name = $("#txtDesignerName").val();
+            Designer.Mobile = $("#txtDesignerMobile").val();
+            Designer.Profile = $("#txtDesignerProfile").val();
+                              
+          
+            result = InsertDesigner(Designer);
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                BindAsycDesignerTable(boutiqueid);
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                BindAsycDesignerTable(boutiqueid);
+            }
+
+        }
+    })
+
     
 });//end of document.ready
 
@@ -242,6 +346,15 @@ function BindAsyncUserTable(boutiqueid)
     jsonResult = GetAllUsers(boutiqueid);
     if (jsonResult != undefined) {
         BindUserTable(jsonResult);
+    }
+}
+
+function BindAsycDesignerTable(boutiqueid)
+{
+    var jsonResult = {};
+    jsonResult = GetAllDesigners(boutiqueid);
+    if (jsonResult != undefined) {
+        BindDesignerTable(jsonResult);
     }
 }
 
@@ -296,6 +409,15 @@ function BindOwnerTable(Records)
 }
 
 
+function BindDesignerTable(Records)
+{
+    $("#DesignerTable").find(".designerrows").remove();
+    $.each(Records, function (index, Records) {
+        var html = '<tr class="designerrows" designerID="' + Records.DesignerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Profile + '</td><td class="center"><a class="btn btn-info designeredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger designerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#DesignerTable").append(html);
+    })
+}
+
 function GetAllUsers(boutiqueid) {
 
     var ds = {};
@@ -315,6 +437,16 @@ function InsertUser(User) {
     table = JSON.parse(jsonResult.d);
     return table;
 
+}
+
+function InsertDesigner(Designer)
+{
+    var data = "{'designerObj':" + JSON.stringify(Designer) + "}";
+
+    jsonResult = getJsonData(data, "../AdminPanel/People.aspx/InsertDesigner");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 }
 
 function clearOwnerControls()
@@ -348,6 +480,20 @@ function clearUserControls() {
     $(".AddUser").text("Save");
 }
 
+function clearDesignerControls()
+{
+    $("#txtDesignerName").val('');
+    $("#txtDesignerMobile").val(''); 
+    $("#txtDesignerProfile").val('');
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $("#hdfDesignerID").val('');
+    
+    $(".AddDesigner").text("Save");
+
+}
+
 
 function GetUser(User) {
     var ds = {};
@@ -363,6 +509,15 @@ function GetOwner(Owner) {
     var table = {};
     var data = "{'ownersObj':" + JSON.stringify(Owner) + "}";
     ds = getJsonData(data, "../AdminPanel/People.aspx/GetOwner");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetDesigner(Designer) {
+    var ds = {};
+    var table = {};
+    var data = "{'designerobj':" + JSON.stringify(Designer) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetDesigner");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -419,6 +574,20 @@ function BindOwnerTextBoxes(Records)
     $(".AddOwner").text("Modify");
 }
 
+function BindDesignerTextBoxes(Records)
+{
+
+    $.each(Records, function (index, Records) {
+
+        $("#txtDesignerName").val(Records.Name);
+        $("#txtDesignerMobile").val(Records.Mobile);
+        $("#txtDesignerProfile").val(Records.Profile);
+        $("#hdfDesignerID").val(Records.DesignerID);
+    })
+
+    $(".AddDesigner").text("Modify");
+}
+
 function ConvertJsonToDate(jsonDate)
 {
     if (jsonDate != null) {
@@ -448,6 +617,28 @@ function DeleteOwner(Owner) {
     var table = {};
     var data = "{'ownersObj':" + JSON.stringify(Owner) + "}";
     ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteOwner");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
+function DeleteDesigner(Designer)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'designerObj':" + JSON.stringify(Designer) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteDesigner");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
+function GetAllDesigners(boutiqueid) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesigners");
     table = JSON.parse(ds.d);
     return table;
 }

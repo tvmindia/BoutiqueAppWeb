@@ -138,7 +138,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
                     cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
@@ -311,6 +311,49 @@ namespace Boutique.DAL
 
         #endregion AllDesigners
 
+
+            #region GetDesigner
+            public DataTable GetDesigner()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlDataAdapter sda = null;
+                DataTable dt = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectDesignerByDesignerID]";
+                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.DesignerID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID); 
+                    sda.SelectCommand = cmd;
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                    return dt;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+
+            }
+        #endregion GetDesigner
         #endregion Methods
 
     }

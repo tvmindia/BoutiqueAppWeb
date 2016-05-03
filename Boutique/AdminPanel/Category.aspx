@@ -9,7 +9,7 @@
           <ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
+					<a href="DashBoard.aspx">Home</a> 
 					<i class="icon-angle-right"></i>
 				</li>
 				<li><a href="#">Category</a></li>
@@ -23,65 +23,26 @@
 					<div class="box-header">
 						<h2> Categories</h2>
 						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+							
 						</div>
 					</div>
 					<div class="box-content">
-						<table class="table table-condensed">
+						<table class="table table-condensed" id="CategoryTable">
 							  <thead>
 								  <tr>
-									  <th>Username</th>
-									  <th>Date registered</th>
-									  <th>Role</th>
-									  <th>Status</th>                                          
+									  <th>Category</th>
+									  <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-important">Banned</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Admin</td>
-									<td class="center">
-										<span class="label">Inactive</span>
-									</td>                                        
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/03/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-warning">Pending</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/21</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                        
-								</tr>                                   
+								
+								
+								
+								
+								                       
 							  </tbody>
 						 </table>  
-						 <div class="pagination pagination-centered">
+						<%-- <div class="pagination pagination-centered">
 						  <ul>
 							<li><a href="#">Prev</a></li>
 							<li class="active">
@@ -92,7 +53,7 @@
 							<li><a href="#">4</a></li>
 							<li><a href="#">Next</a></li>
 						  </ul>
-						</div>     
+						</div>     --%>
 					</div>
 				</div>
 

@@ -187,5 +187,120 @@ namespace Boutique.AdminPanel
             //Converting to Json
         }
         #endregion GetAllOwners
+
+        #region GetAllDesigners
+        [System.Web.Services.WebMethod]
+        public static string GetAllDesigners(string Boutiqueid)
+        {
+            DataTable dt = null;
+            Designers designerObj=new Designers();
+            designerObj.BoutiqueID = Boutiqueid;
+            dt = designerObj.GetAllDesigners();
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            return jsSerializer.Serialize(parentRow);
+            //Converting to Json
+        }
+
+        #endregion GetAllDesigners
+
+        #region InsertDesigner
+        [System.Web.Services.WebMethod]
+        public static string InsertDesigner(Designers designerObj)
+        {
+            string status = null;
+            try
+            {
+
+                if (designerObj.DesignerID != null)
+                {
+                    status = designerObj.UpdateDesigner().ToString();
+
+                }
+                else
+                {
+                    status = designerObj.InsertDesigner().ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+        #endregion InsertDesigner
+
+        #region GetDesigner
+        [System.Web.Services.WebMethod]
+        public static string GetDesigner(Designers designerobj)
+        {
+            DataTable dt = null;
+            dt = designerobj.GetDesigner();
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+
+            }
+
+
+            return jsSerializer.Serialize(parentRow);
+            //Converting to Json
+        }
+        #endregion GetDesigner
+
+
+        #region DeleteDesigner
+        [System.Web.Services.WebMethod]
+        public static string DeleteDesigner(Designers designerObj)  
+        {
+            string status = null;
+            try
+            {
+
+                status = designerObj.DeleteDesigner().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+        #endregion DeleteDesigner
     }
 }

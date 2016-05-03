@@ -208,9 +208,6 @@
 								</div>
 								</div>
 
-                            
-                           
-
                             <div class="control-group">
 							  <label class="control-label" for="date01">DOB</label>
 							  <div class="controls">
@@ -262,15 +259,13 @@
                         </footer> 
                     </div>
 
-               <%--  Grid Owners--%>
+               <%--Grid Owners--%>
 
                <div class="box span6">
 					<div class="box-header">
 						<h2>Current Owners</h2>
 						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+						
 						</div>
 					</div>
 					<div class="box-content" style="height:492px;overflow:auto;">
@@ -284,46 +279,8 @@
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<%--<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-important">Banned</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Admin</td>
-									<td class="center">
-										<span class="label">Inactive</span>
-									</td>                                        
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/03/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-warning">Pending</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/21</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                        
-								</tr>                                   --%>
+						
+								  
 							  </tbody>
 						 </table>  
 						<%-- <div class="pagination pagination-centered">
@@ -352,9 +309,7 @@
                  	<div class="box-header">
 						<h2>New Designer</h2>
 						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+						
 						</div>
 					</div>
 
@@ -363,14 +318,22 @@
 
                         <div class="control-group">
 							
-								  <label class="control-label" for="focusedInput">Name</label>
+								<label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
 								  <input class="input-large focused" id="txtDesignerName" type="text"/>
 								</div>
 								</div>
 
                          <div class="control-group">
-								 <label class="control-label" for="focusedInput">Profile</label>
+							
+								<label class="control-label" for="focusedInput">Mobile</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtDesignerMobile" type="text"/>
+								</div>
+								</div>
+
+                         <div class="control-group">
+								<label class="control-label" for="focusedInput">Profile</label>
 								<div class="controls">
 								  <textarea class="form-control" style="max-width:68%" rows="4" id="txtDesignerProfile"></textarea>
 								</div>
@@ -381,10 +344,9 @@
                         
                     </div>
                    <footer class="InnerFooter">
-                				<button type="submit" class="btn btn-primary">Save changes</button>
-								<button class="btn">Cancel</button>
-						
-                        </footer> 
+                	       <a class="btn btn-primary AddDesigner" href="#">Save</></a>
+						   <a class="btn CancelDesigner">Cancel</a>
+				  </footer> 
 
              </div>
 
@@ -396,65 +358,28 @@
 					<div class="box-header">
 						<h2>Current Designers</h2>
 						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+						
 						</div>
 					</div>
 					<div class="box-content" style="height:305px;overflow:auto;">
-						<table class="table table-condensed">
+						<table class="table table-condensed" id="DesignerTable">
 							  <thead>
 								  <tr>
-									  <th>Username</th>
-									  <th>Date registered</th>
-									  <th>Role</th>
-									  <th>Status</th>                                          
+									  <th style="width:85px;">Name</th>
+									  <th style="width:102px;">Mobile</th>
+									  <th style="width:110px;">Profile</th>
+									  <th style="width:85px;">Actions</th>                                          
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-important">Banned</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/02/01</td>
-									<td class="center">Admin</td>
-									<td class="center">
-										<span class="label">Inactive</span>
-									</td>                                        
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/03/01</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-warning">Pending</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>Albert</td>
-									<td class="center">2012/01/21</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                        
-								</tr>                                   
+								
+								
+								
+								
+								                           
 							  </tbody>
 						 </table>  
-						 <div class="pagination pagination-centered">
+						<%-- <div class="pagination pagination-centered">
 						  <ul>
 							<li><a href="#">Prev</a></li>
 							<li class="active">
@@ -465,7 +390,7 @@
 							<li><a href="#">4</a></li>
 							<li><a href="#">Next</a></li>
 						  </ul>
-						</div>     
+						</div>     --%>
 					</div>
 				</div>
 
@@ -480,5 +405,6 @@
      <input type="hidden" id="hdfUserID" value=""/>
      <input type="hidden" id="hdfOwnerID" value=""/>
      <input type="hidden" id="hdfCardNo" value=""/>
+     <input type="hidden" id="hdfDesignerID" value="" />
 
 </asp:Content>
