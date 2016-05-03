@@ -27,17 +27,22 @@ namespace Boutique.WebServices
         {
             DataTable dt = new DataTable();
             try
-            {
+            {   
+                //------Getting product details-----
                 Product product = new Product();
                 product.ProductID = productID;
                 product.BoutiqueID = boutiqueID;
                 dt = product.GetProductByProductID();
 
+                //---------Getting favorite information-----                
                 DataTable favInfo=product.FavoriteInfo(userID);
                 dt.Columns.Add("FavCount", typeof(int));
                 dt.Columns.Add("isFav", typeof(Boolean));
                 dt.Rows[0]["FavCount"] = favInfo.Rows[0]["FavCount"];
-                dt.Rows[0]["isFav"] = favInfo.Rows[0]["isFav"];                
+                dt.Rows[0]["isFav"] = favInfo.Rows[0]["isFav"];
+
+                //-----------inserting product view log--------
+                product.InsertProductViewLog(userID);
             }
             catch (Exception ex)
             {
