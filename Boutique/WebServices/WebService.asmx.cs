@@ -62,6 +62,40 @@ namespace Boutique.WebServices
         }
         #endregion Products
 
+        #region Categories
+        /// <summary>
+        /// To get all categories names and details
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string Categories(string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.BoutiqueID = boutiqueID;
+                dt = product.GetAllCategories(boutiqueID).Tables[0];
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #region Boutique
         /// <summary>
         /// Webservice to get the details of boutique
