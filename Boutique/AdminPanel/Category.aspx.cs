@@ -84,7 +84,11 @@ namespace Boutique.AdminPanel
              string status=null;
              try
              {
-                 status = categoryObj.InsertCategory().ToString();
+                 if (categoryObj.CategoryCode != null)
+                 {
+                     status = categoryObj.InsertCategory().ToString();
+                 }
+              
              }
              catch(Exception)
              {
@@ -93,6 +97,23 @@ namespace Boutique.AdminPanel
              return status;
         }
         #endregion InsertCategory
+
+        #region UpdateCategory
+        [System.Web.Services.WebMethod]
+        public static string UpdateCategory(Product categoryObj)
+        {
+            string status = null;
+            try
+            {
+                status = categoryObj.EditCategory().ToString();
+            }
+            catch(Exception)
+            {
+
+            }
+            return status;
+        }
+        #endregion UpdateCategory
         #endregion Methods
 
     }

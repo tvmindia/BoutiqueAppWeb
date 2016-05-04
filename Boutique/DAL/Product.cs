@@ -669,7 +669,7 @@ namespace Boutique.DAL
 
         #region CategoryMethods
 
-        #region GetAllCategories
+            #region GetAllCategories
             public DataSet GetAllCategories(string boutiqueID)
             {
                 dbConnection dcon = null;
@@ -807,6 +807,58 @@ namespace Boutique.DAL
 
             }
         #endregion InsertCategory
+
+        #region EditCategory
+            public Int16 EditCategory()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                if(CategoryCode=="")
+                {
+                    throw new Exception("Category Code is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlParameter outParameter = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[UpdateCategory]";
+                    cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+
+                    cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
+
+                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+
+                    outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                    outParameter.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                //insert success or failure
+                return Int16.Parse(outParameter.Value.ToString());
+
+
+            }
+        #endregion EditCategory
 
         #endregion CategoryMethods
     }

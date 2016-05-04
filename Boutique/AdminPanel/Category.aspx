@@ -60,7 +60,8 @@
 						<table class="table table-condensed" id="CategoryTable">
 							  <thead>
 								  <tr>
-									  <th>Category</th>
+                                      <th>Category Code</th>
+									  <th>Category Name</th>
 									  <th>Actions</th>                                          
 								  </tr>
 							  </thead>   

@@ -35,49 +35,52 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-
             var result = "";
-            var Category = new Object();
+            if ($(".AddCategory").text() == "Save")
+            {
+               
+                
+                var Category = new Object();
+                Category.BoutiqueID = boutiqueid;
+                Category.CategoryCode = $("#txtCatCode").val();
+                Category.CategoryName = $("#txtCategoryName").val();
+                result = InsertCategory(Category);
+            }
+            if ($(".AddCategory").text() == "Modify")
+            {
+                var Category = new Object();
+                Category.BoutiqueID = boutiqueid;
+                Category.CategoryCode = $("#txtCatCode").val();
+                Category.CategoryName = $("#txtCategoryName").val();
+                result = UpdateCategory(Category);
 
-          
-            Category.BoutiqueID = boutiqueid;
-            Category.CategoryCode = $("#txtCatCode").val();
-            Category.CategoryName = $("#txtCategoryName").val();
-          
-            
-       
-          
-            result = InsertCategory(Category);
+            }
+            BindAsyncCategoryTable(boutiqueid);
+
+
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+              
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+               
             }
 
         }
     })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    $(".CancelCategory").live({
+        click: function (e) {// Clear controls
+            ClearCategoryControls();
+        }
+    })
 
 
 });//end of document.ready
-
-
 
 //---getting data as json-----//
 function getJsonData(data, page) {
@@ -125,7 +128,7 @@ function GetAllCategories(boutiqueid) {
 function BindCategoryTable(Records) {
     $("#CategoryTable").find(".categoryrows").remove();
     $.each(Records, function (index, Records) {
-        var html = '<tr class="categoryrows" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="categoryrows" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#CategoryTable").append(html);
     })
 }
@@ -140,6 +143,14 @@ function InsertCategory(Category) {
     return table;
 
 }
+function UpdateCategory(Category)
+{
+    var data = "{'categoryObj':" + JSON.stringify(Category) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Category.aspx/UpdateCategory");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
 
 function GetCategory(Category) {
     var ds = {};
@@ -152,9 +163,21 @@ function GetCategory(Category) {
 
 function BindCategoryTextBoxes(Records) {
     $.each(Records, function (index, Records) {
-
-        $("#txtCatCode").val(Records.CategoryCode);
-        $("#txtCategoryName").val(Records.Name);
-        })
+    $("#txtCatCode").val(Records.CategoryCode);
+    $("#txtCategoryName").val(Records.Name);
+    })
+    $("#txtCatCode").attr('disabled', true);
     $(".AddCategory").text("Modify");
+}
+
+
+function ClearCategoryControls()
+{
+    $("#txtCatCode").val('');
+    $("#txtCategoryName").val('');
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $(".AddCategory").text("Save");
+    $("#txtCatCode").attr('disabled', false);
 }
