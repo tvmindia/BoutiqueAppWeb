@@ -84,7 +84,7 @@ namespace Boutique.AdminPanel
              string status=null;
              try
              {
-                 if (categoryObj.CategoryCode != null)
+                 if (categoryObj.CategoryCode != "")
                  {
                      status = categoryObj.InsertCategory().ToString();
                  }
@@ -106,6 +106,7 @@ namespace Boutique.AdminPanel
             try
             {
                 status = categoryObj.EditCategory().ToString();
+
             }
             catch(Exception)
             {
@@ -114,6 +115,25 @@ namespace Boutique.AdminPanel
             return status;
         }
         #endregion UpdateCategory
+
+        #region DeleteCategory
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteCategory(Product categoryObj)
+        {
+            string status = null;
+            try
+            {
+                status = categoryObj.DeleteCategory().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//exception occur
+            }
+            return status;
+        }
+        #endregion DeleteCategory
         #endregion Methods
 
     }

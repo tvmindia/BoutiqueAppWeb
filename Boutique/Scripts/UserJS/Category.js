@@ -5,6 +5,40 @@
     BindAsyncCategoryTable(boutiqueid);
 
 
+    $(".catdelete").live(
+    {
+        click: function (e) {
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var jsonResult = {};
+            editedrow = $(this).closest('tr');
+            var Category = new Object();
+            Category.BoutiqueID = boutiqueid;
+            Category.CategoryID = editedrow.attr("CategoryID");
+            Category.CategoryCode = editedrow.attr("CategCode");
+            result = DeleteCategory(Category);
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+
+            }
+           
+            BindAsyncCategoryTable(boutiqueid);
+            $("#txtCatCode").val('');
+            $("#txtCategoryName").val('');
+            $(".AddCategory").text("Save");
+            $("#hdfCategoryID").val('');
+            return false;
+        }
+    })
+
     $(".categoryedit").live(
     {
         click: function (e) {
@@ -16,8 +50,7 @@
             editedrow = $(this).closest('tr');
             var Category = new Object();
             Category.BoutiqueID = boutiqueid;
-            Category.CategoryCode = editedrow.attr("CategCode");
-
+            Category.CategoryID = editedrow.attr("CategoryID");
             jsonResult = GetCategory(Category);
             if (jsonResult != undefined) {
 
@@ -50,10 +83,10 @@
             {
                 var Category = new Object();
                 Category.BoutiqueID = boutiqueid;
+                Category.CategoryID = $("#hdfCategoryID").val();
                 Category.CategoryCode = $("#txtCatCode").val();
                 Category.CategoryName = $("#txtCategoryName").val();
                 result = UpdateCategory(Category);
-
             }
             BindAsyncCategoryTable(boutiqueid);
 
@@ -68,14 +101,16 @@
                 $('.alert-error').show();
                
             }
-
+            return false;
         }
+       
     })
 
 
     $(".CancelCategory").live({
         click: function (e) {// Clear controls
             ClearCategoryControls();
+            return false;
         }
     })
 
@@ -128,9 +163,19 @@ function GetAllCategories(boutiqueid) {
 function BindCategoryTable(Records) {
     $("#CategoryTable").find(".categoryrows").remove();
     $.each(Records, function (index, Records) {
-        var html = '<tr class="categoryrows" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="categoryrows" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#CategoryTable").append(html);
     })
+}
+
+function DeleteCategory(Category)
+{
+    var data = "{'categoryObj':" + JSON.stringify(Category) + "}";
+
+    jsonResult = getJsonData(data, "../AdminPanel/Category.aspx/DeleteCategory");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 }
 
 function InsertCategory(Category) {
@@ -165,8 +210,10 @@ function BindCategoryTextBoxes(Records) {
     $.each(Records, function (index, Records) {
     $("#txtCatCode").val(Records.CategoryCode);
     $("#txtCategoryName").val(Records.Name);
+    $("#hdfCategoryID").val(Records.CategoryID);
+
     })
-    $("#txtCatCode").attr('disabled', true);
+  //  $("#txtCatCode").attr('disabled', true);
     $(".AddCategory").text("Modify");
 }
 
@@ -179,5 +226,5 @@ function ClearCategoryControls()
     $('.alert-success').hide();
     $('.alert-error').hide();
     $(".AddCategory").text("Save");
-    $("#txtCatCode").attr('disabled', false);
+    //$("#txtCatCode").attr('disabled', false);
 }

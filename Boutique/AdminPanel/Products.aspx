@@ -64,6 +64,37 @@
 			
 			</div><!--/row-->
            <%--Gallery--%>
+
+            <%--Alert boxes --%>
+            <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
+				<div class="box span12">
+
+                    <div class="box-content alerts">
+						<div class="alert alert-error" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>
+						<div class="alert alert-info" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
+						<div class="alert alert-block" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<h4 class="alert-heading">Warning!</h4>
+							<p>Best check yourself, you're not looking too good.</p>
+						</div>
+					</div>
+
+                </div>
+            </div>
+		
+             <%--Alert boxes --%>
+
+
          <div class="row-fluid">
 
               <div class="box span12">
@@ -80,8 +111,8 @@
 							<%--<fieldset>--%>
 
 
-                              <%--  fileupload with preview --%>
-							<div class="fileinput fileinput-new" data-provides="fileinput">
+                           <%--  fileupload with preview --%>
+							<%--<div class="fileinput fileinput-new" data-provides="fileinput">
                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                            <img data-src="holder.js/100%x100%" alt="..."/>
                          </div>
@@ -90,17 +121,17 @@
                             <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                            </div>
-                        </div>
+                        </div>--%>
 							 <%--  fileupload with preview--%>
                         	
-                                <div class="control-group">
+                                <%--<div class="control-group">
 								<label class="control-label">Is Main Picture?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
 									<input type="checkbox" id="chkIsMainPicture" value="option1"/>Yes</label>
 								
 								</div>
-							  </div>
+							  </div>--%>
 
 
 
@@ -177,19 +208,15 @@
 								</div>
 							  </div>
 
-
-							
-						
-					         
-						
 						</div>
-                  
-
+           
               </div>
                     <footer class="InnerFooter">
-                         <button type="submit" class="btn btn-primary">Save changes</button>
-				    	 <button class="btn">Cancel</button>
-                  </footer>
+                          <a class="btn btn-primary AddProduct" href="#">Save</></a>
+							
+                          <a class="btn CancelProduct">Cancel</a>
+						
+                     </footer> 
                
 
 
