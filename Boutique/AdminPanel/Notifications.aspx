@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
-
+    <script src="../Scripts/UserJS/Notification.js"></script>
      <div id="content" class="span10">
          	<ul class="breadcrumb">
 				<li>
@@ -26,7 +26,8 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<table class="table table-bordered table-striped table-condensed">
+                        <%--class="table table-bordered table-striped table-condensed"--%>
+						<table class="table table-condensed" id="NotificationTable">
 							  <thead>
 								  <tr>
 									  <th>Title</th>
@@ -36,36 +37,7 @@
 								  </tr>
 							  </thead>   
 							  <tbody>
-								<tr>
-									<td>New arival</td>
-									<td class="center">Description</td>
-									<td class="center">2012/02/05</td>
-									<td class="center">2012/01/01</td>                                       
-								</tr>
-								<tr>
-									<td>Stock Clearence</td>
-									<td class="center">Description</td>
-									<td class="center">2012/02/05</td>
-									<td class="center">2012/01/01</td>                                         
-								</tr>
-								<tr>
-									<td>50% Discount</td>
-									<td class="center">Description</td>
-									<td class="center">2012/02/05</td>
-									<td class="center">2012/01/01</td>                              
-								</tr>
-								<tr>
-									<td>Custom Design</td>
-									<td class="center">Description</td>
-									<td class="center">2012/02/05</td>
-									<td class="center">2012/01/01</td>   
-                               </tr>  
-								<tr>
-									<td>Bridal Collection</td>
-								<td class="center">Description</td>
-									<td class="center">2012/02/05</td>
-									<td class="center">2012/01/01</td>                                           
-								</tr>                                   
+								                  
 							  </tbody>
 						 </table>  
 						 <div class="pagination pagination-centered">
