@@ -89,7 +89,11 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string CategoryID
+        {
+            get;
+            set;
+        }
         #endregion Categoryproperties
 
         #region Methods
@@ -183,8 +187,8 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = DBNull.Value;
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
@@ -289,7 +293,7 @@ namespace Boutique.DAL
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
                 SqlDataAdapter sda = null;
-                DataTable dt = null;
+              
                 SqlParameter outParameter = null;
                 try
                 {
@@ -733,7 +737,7 @@ namespace Boutique.DAL
                         cmd.Connection = dcon.SQLCon;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "[SelectCategoryByCategoryCode]";
-                        cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                        cmd.Parameters.Add("@CategoryID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(CategoryID);
                         cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                         sda = new SqlDataAdapter();
                         sda.SelectCommand = cmd;
@@ -815,6 +819,10 @@ namespace Boutique.DAL
                 {
                     throw new Exception("BoutiqueID is Empty!!");
                 }
+                if(CategoryID=="")
+                {
+                    throw new Exception("CategoryID is Empty!!");
+                }
                 if(CategoryCode=="")
                 {
                     throw new Exception("Category Code is Empty!!");
@@ -830,6 +838,7 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[UpdateCategory]";
+                    cmd.Parameters.Add("@CategoryID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(CategoryID);
                     cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
 
@@ -859,6 +868,58 @@ namespace Boutique.DAL
 
             }
         #endregion EditCategory
+
+        #region DeleteCategory
+            /// <summary>
+            /// To delete a category by category id
+            /// </summary>
+            /// <returns>status</returns>
+            public Int16 DeleteCategory()
+            {
+                if (CategoryID == "")
+                {
+                    throw new Exception("CategoryID is Empty!!");
+                }
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlDataAdapter sda = null;
+              
+                SqlParameter outParameter = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[DeleteCategory]";
+                    cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                    cmd.Parameters.Add("@CategoryID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.CategoryID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
+                    outParameter.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                //delete success or failure
+                return Int16.Parse(outParameter.Value.ToString());
+            }
+        #endregion DeleteCategory
 
         #endregion CategoryMethods
     }

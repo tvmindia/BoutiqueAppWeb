@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Boutique.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +14,32 @@ namespace Boutique.AdminPanel
         {
 
         }
+
+
+        #region InsertProduct
+        [System.Web.Services.WebMethod]
+        public static string InsertProduct(Product productObj)
+        {
+            string status = null;
+            try
+            {
+                if (productObj.BoutiqueID != "")
+                {
+                    status = productObj.InsertProduct().ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+            return status;
+        }
+        #endregion InsertProduct
+
+
+
+
+
     }
 }

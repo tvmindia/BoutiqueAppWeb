@@ -5,9 +5,56 @@
     BindAsyncCategory(boutiqueid);
     //CallingDropDown
     //BindCategoryDropDown();
-    $('.selectpicker').selectpicker();
+    //$('.selectpicker').selectpicker();
    // $('.selectpicker').selectpicker('refresh');
     //CallingDropDown
+
+
+    $(".AddProduct").live({
+        click: function (e) {// submit button click
+            
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var result = "";
+            if ($(".AddProduct").text() == "Save") {
+                var Product = new Object();
+                Product.BoutiqueID = boutiqueid;
+                Product.Name = $("#txtName").val();
+                Product.Description = $("#txtDescription").val();
+                Product.Price = $("#txtPrice").val();
+                Product.IsOutOfStock = 'false';
+                Product.IsActive = 'true';
+                Product.Categories = 'KUR,NEW';
+                Product.DesignerID = $("#selectError3Des").val();
+                result = InsertProduct(Product);
+            }
+            //if ($(".AddProduct").text() == "Modify") {
+            //    var Category = new Object();
+            //    Category.BoutiqueID = boutiqueid;
+            //    Category.CategoryID = $("#hdfCategoryID").val();
+            //    Category.CategoryCode = $("#txtCatCode").val();
+            //    Category.CategoryName = $("#txtCategoryName").val();
+            //    result = UpdateCategory(Category);
+            //}
+           // BindAsyncCategoryTable(boutiqueid);
+
+
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+
+            }
+            return false;
+        }
+
+    })
+
 
 
 });//end of document.ready
@@ -82,5 +129,15 @@ function GetAllCategories(boutiqueid) {
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
     ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategories");
     table = JSON.parse(ds.d);
+    return table;
+}
+
+function InsertProduct(Product)
+{
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+
+    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/InsertProduct");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
     return table;
 }
