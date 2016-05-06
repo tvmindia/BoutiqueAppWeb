@@ -2,7 +2,29 @@
 
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
     BindNotificationsTable(boutiqueid);
+
+    $(".notificationedit").live(
+    {
+        click: function (e) {
+
+            //$('#rowfluidDiv').hide();
+            //$('.alert-success').hide();
+            //$('.alert-error').hide();
+            var jsonResult = {};
+            editedrow = $(this).closest('tr');
+            var Notification = new Object();
+            Notification.BoutiqueID = boutiqueid;
+            Notification.NotificationID = editedrow.attr("NotificationID");
+            jsonResult = GetNotification(Notification);
+            if (jsonResult != undefined) {
+                BindNotificationTextBoxes(jsonResult);
+            }
+            return false;
+        }
+    })
+
 });
+//------------Notification details table------------
 function BindNotificationsTable(boutiqueid) {
     var jsonResult = {};
     jsonResult = GetAllNotifications(boutiqueid);
@@ -19,12 +41,33 @@ function GetAllNotifications(boutiqueid) {
     return table;
 }
 function FillNotificationTable(Records) {
-    $("#NotificationTable").find(".categoryrows").remove();
+    $("#NotifieionTable").find(".notificationrows").remove();
     $.each(Records, function (index, Records) {
-        var html = '<tr><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">'+ConvertJsonToDate(Records.EndDate)+'</td></tr>'
+        var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info notificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger notificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
         $("#NotificationTable").append(html);
     })
 }
+//------------Edit--------------------
+function BindNotificationTextBoxes(Records) {
+    $.each(Records, function (index, Records) {
+        $("#txtTitle").val(Records.Title);
+        $("#txtDescription").val(Records.Description);
+        $("#dateStartDate").val(ConvertJsonToDate(Records.StartDate));
+        $("#dateEndDate").val(ConvertJsonToDate(Records.EndDate));
+
+    })
+    //  $("#txtCatCode").attr('disabled', true);
+   // $(".AddCategory").text("Modify");
+}
+function GetNotification(Notification) {
+    var ds = {};
+    var table = {};
+    var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetNotificationByID");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 //---getting data as json-----//
 function getJsonData(data, page) {
     var jsonResult = {};
