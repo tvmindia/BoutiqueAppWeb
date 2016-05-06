@@ -97,7 +97,50 @@ namespace Boutique.DAL
             return ds;
         }
 
-
+        public DataSet GetNotification()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (NotificationID == "")
+            {
+                throw new Exception("NotificationID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectNotificationByNotificationID]";
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.NotificationID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such item"); }
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+        }
+           
 
         #region Notifications for App
         public DataTable GetNotificationsForApp(string notificationsIDs)

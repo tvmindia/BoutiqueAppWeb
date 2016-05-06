@@ -33,14 +33,15 @@
 									  <th>Title</th>
 									  <th>Description</th>
 									  <th>Start Date</th>
-									  <th>End Date</th>                                          
+									  <th>End Date</th>      
+                                      <th>Actions</th>                                    
 								  </tr>
 							  </thead>   
 							  <tbody>
 								                  
 							  </tbody>
 						 </table>  
-						 <div class="pagination pagination-centered">
+						<%-- <div class="pagination pagination-centered">
 						  <ul>
 							<li><a href="#">Prev</a></li>
 							<li class="active">
@@ -51,7 +52,7 @@
 							<li><a href="#">4</a></li>
 							<li><a href="#">Next</a></li>
 						  </ul>
-						</div>     
+						</div>  --%>   
 					</div>
 				</div><!--/span-->
 			</div><!--/row-->
@@ -95,14 +96,14 @@
                            <div class="control-group">
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateStartDate" value="02/16/12"/>
+								<input type="text" class="input-large datepicker" id="dateStartDate" value=""/>
 							  </div>
 							</div>
 
                               <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateEndDate" value="02/16/12"/>
+								<input type="text" class="input-large datepicker" id="dateEndDate" value=""/>
 							  </div>
 							</div>
 						
