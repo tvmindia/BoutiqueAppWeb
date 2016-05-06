@@ -129,8 +129,7 @@
 								<div class="controls">
 								  <label class="checkbox inline">
 									<input type="checkbox" id="chkIsMainPicture" value="option1"/>Yes</label>
-								
-								</div>
+		    					  </div>
 							  </div>--%>
 
 
@@ -161,34 +160,58 @@
 								</div>
 
                              
-                            <div class="control-group">
-								<label class="control-label">Is Out of Stock?</label>
-								<div class="controls">
-								  <label class="checkbox inline">
-									<input type="checkbox" id="chkisOutOfStock" value="option1"/>Yes</label>
-								
-								</div>
-							  </div>
+                          
 
-                             <div class="control-group">
-								<label class="control-label">Is Active?</label>
+                            <div class="control-group">
+								<label class="control-label">Is OutofStock</label>
 								<div class="controls">
-								  <label class="checkbox inline">
-									<input type="checkbox" id="chkisIsActive" value="option1"/>Yes</label>
+								  <label class="radio">
+									<input type="radio" name="optionsRadios" id="OptisOutOfStockYes" value=""/>
+									Yes
+								  </label>
 								
+								  <label class="radio">
+									<input type="radio" name="optionsRadios" id="OptisOutOfStockNo" value=""/>
+									No
+								  </label>
 								</div>
 							  </div>
 
                               <div class="control-group">
+								<label class="control-label">Is Active</label>
+								<div class="controls">
+								  <label class="radio">
+									<input type="radio" name="optionsRadios" id="OptIsActiveYes" value="option1" checked=""/>
+									Yes
+								  </label>
+								
+								  <label class="radio">
+									<input type="radio" name="optionsRadios" id="OptIsActiveNo" value="option2"/>
+									No
+								  </label>
+								</div>
+							  </div>
+
+
+                           
+
+                           <%--   <div class="control-group">
 								<label class="control-label" for="selectError3">Categories</label>
 								<div class="controls">
 								  <select id="selectError3Cat" class="catpicker">
                                       <option>Choose Category</option>
-								<%--	<option>Category 1</option>
-									<option>Category 2</option>
-									<option>Category 3</option>
-									<option>Category 4</option>
-									<option>Category 5</option>--%>
+							
+								  </select>
+								</div>
+							  </div>--%>
+
+
+                             <div class="control-group">
+								<label class="control-label" for="selectError1">Categories</label>
+								<div class="controls">
+								  <select id="selectCategories" multiple="multiple" data-rel="chosen">
+									
+                                  
 								  </select>
 								</div>
 							  </div>

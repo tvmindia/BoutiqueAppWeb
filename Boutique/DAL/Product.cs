@@ -190,7 +190,6 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = DBNull.Value;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                     outParameter.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
