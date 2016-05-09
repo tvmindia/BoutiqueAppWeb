@@ -19,6 +19,11 @@ namespace Boutique.AdminPanel
         }
 
         #region Get All notifications
+        /// <summary>
+        /// To get all the notifications list for the table
+        /// </summary>
+        /// <param name="Boutiqueid"></param>
+        /// <returns></returns>
         [System.Web.Services.WebMethod]
         public static string GetAllNotifications(string Boutiqueid)
         {
@@ -63,6 +68,13 @@ namespace Boutique.AdminPanel
         }
         #endregion
 
+
+        #region Get a Notification
+        /// <summary>
+        /// To get a specifica notification details for the editing purpose
+        /// </summary>
+        /// <param name="notificationObj"></param>
+        /// <returns></returns>
         [System.Web.Services.WebMethod]
         public static string GetNotificationByID(Notification notificationObj)
         {
@@ -90,6 +102,36 @@ namespace Boutique.AdminPanel
 
             return jsonResult; //Converting to Json
         }
+        #endregion
+
+
+        #region Delete a notification
+        /// <summary>
+        /// To delete a notification by notification id
+        /// </summary>
+        /// <param name="notificationObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string DeleteNotification(Notification notificationObj)
+        {
+            string status = null;
+            try
+            {
+
+                status = notificationObj.DeleteNotification().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+        #endregion
 
     }
 
