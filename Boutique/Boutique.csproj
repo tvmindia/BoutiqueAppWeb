@@ -91,6 +91,7 @@
     <Content Include="CSS\halflings.css" />
     <Content Include="CSS\ie.css" />
     <Content Include="CSS\ie9.css" />
+    <Content Include="CSS\jasny-bootstrap.css.map" />
     <Content Include="CSS\jasny-bootstrap.min.css" />
     <Content Include="CSS\jquery-ui-1.8.21.custom.css" />
     <Content Include="CSS\jquery.cleditor.css" />
@@ -98,6 +99,7 @@
     <Content Include="CSS\jquery.iphone.toggle.css" />
     <Content Include="CSS\jquery.noty.css" />
     <Content Include="CSS\noty_theme_default.css" />
+    <Content Include="CSS\select2.min.css" />
     <Content Include="CSS\style-forms.css" />
     <Content Include="CSS\style-responsive.css" />
     <Content Include="CSS\style.css" />
@@ -191,8 +193,8 @@
     <Content Include="font\glyphiconshalflings-regular.eot" />
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
-    <Content Include="CSS\jasny-bootstrap.css.map" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
     <Content Include="Scripts\UserJS\Notification.js" />

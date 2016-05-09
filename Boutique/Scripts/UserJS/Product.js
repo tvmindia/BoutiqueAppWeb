@@ -101,14 +101,15 @@ function BindCategoryDropDown(dd,Records,indx)
 {
 
     //var options = [], key, value;
-    for (var i = 0; i < Records.length; i++) {
+ //   for (var i = 0; i < Records.length; i++) {
 
-        $('#selectCategories_chzn').append(
-                                $('<option></option>')
-                                      .val(Records[i].BoutiqueID)
-                                      .html(Records[i].Name)
-                                      .attr("selected", "selected"));
-        $("#selectCategories_chzn").trigger("liszt:updated");
+   
+        //$('#selectCategories_chzn').append(
+        //                        $('<option></option>')
+        //                              .val(Records[i].BoutiqueID)
+        //                              .html(Records[i].Name)
+        //                              .attr("selected", "selected"));
+        //$("#selectCategories_chzn").trigger("liszt:updated");
 
 
 
@@ -118,7 +119,7 @@ function BindCategoryDropDown(dd,Records,indx)
         //$("select").append("<option value=" + value + ">" + value + "<option>");
         //$('#selectCategories_chzn').append("<option value='" + Records[i].BoutiqueID + "'>" + Records[i].Name + "</option>");
        
-    }
+   // }
     //$('.chzn-drop').chosen().trigger("chosen:updated");
    // Event.fire($('#selectCategories_chzn'), "chosen:updated");
     //$('#slt').append(option);
