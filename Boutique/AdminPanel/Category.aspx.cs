@@ -20,12 +20,12 @@ namespace Boutique.AdminPanel
         #region Methods
         #region GetAllCategories
         [System.Web.Services.WebMethod]
-        public static string GetAllCategories(string Boutiqueid)
+        public static string GetAllCategoryIDandName(string Boutiqueid)
         {
             DataSet ds = null;
             Product productObj = new Product();
-            ds = productObj.GetAllCategories(Boutiqueid);
-            
+            ds = productObj.GetAllCategoryIDAndName(Boutiqueid);
+            string json;
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -43,6 +43,9 @@ namespace Boutique.AdminPanel
                 }
             }
             return jsSerializer.Serialize(parentRow);
+
+          
+            //return json = JsonConvert.SerializeObject(ds.Tables[0]);
             //Converting to Json
         }
 
@@ -56,7 +59,7 @@ namespace Boutique.AdminPanel
             DataSet ds = null;
             ds=categoryObj.GetCategory();
 
-            //Converting to Json
+           // Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
@@ -73,6 +76,9 @@ namespace Boutique.AdminPanel
                 }
             }
             return jsSerializer.Serialize(parentRow);
+
+          
+          
             //Converting to Json
         }
         #endregion GetCategory

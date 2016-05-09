@@ -1,16 +1,19 @@
 ﻿$("document").ready(function (e) {
-
+    //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
-   // $(".chosen-select").chosen();
-    BindAsyncCategory(boutiqueid);
-    BindAsyncDesigner(boutiqueid);
-    //CallingDropDown
-    //BindCategoryDropDown();
-    //$('.selectpicker').selectpicker();
-   // $('.selectpicker').selectpicker('refresh');
-    //CallingDropDown
 
+   
+    $(".ddlcategories").select2({
+        placeholder: "Choose Categories",
+        allowClear: true,
+        data: BindAsyncCategory(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
+    });
+    $(".ddlDesigners").select2({
+        placeholder: "Choose Designers",
+        data: BindAsyncDesigner(boutiqueid)//Designer dropdown binds only with id and text[key:value] mandatory
+    });
 
+  
     $(".AddProduct").live({
         click: function (e) {// submit button click
             
@@ -26,8 +29,17 @@
                 Product.Price = $("#txtPrice").val();
                 Product.IsOutOfStock = 'false';
                 Product.IsActive = 'true';
-                Product.Categories = 'KUR,NEW';
-                Product.DesignerID = $("#selectError3Des").val();
+                var Categ = $("#idDdlCategories").val();
+                var com = "";
+                Product.Categories = "";
+                for (var i = 0; i < Categ.length;i++)
+                {
+                    Product.Categories = Product.Categories + com + Categ[i].toString();
+                    com = ",";
+                }
+                alert(Product.Categories);
+             
+                Product.DesignerID = $("#idDdlDesigners").val();
                 result = InsertProduct(Product);
             }
             //if ($(".AddProduct").text() == "Modify") {
@@ -39,17 +51,13 @@
             //    result = UpdateCategory(Category);
             //}
            // BindAsyncCategoryTable(boutiqueid);
-
-
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
-
             }
             return false;
         }
@@ -77,7 +85,7 @@ function getJsonData(data, page) {
 
     }).done(function (data) {
 
-        //     $("#loadingimage").hide();
+        //$("#loadingimage").hide();
         jsonResult = data;
     });
     return jsonResult;
@@ -89,10 +97,7 @@ function BindAsyncCategory(boutiqueid) {
     var jsonResult = {};
     jsonResult = GetAllCategories(boutiqueid);
     if (jsonResult != undefined) {
-       
-      //  $("#selectError3Cat").find
-        BindCategoryDropDown($("#selectCategories"), jsonResult, -1);
-
+        return jsonResult;
     }
 }
 
@@ -197,8 +202,9 @@ function BindAsyncDesigner(boutiqueid) {
     var jsonResult = {};
     jsonResult = GetAllDesigners(boutiqueid);
     if (jsonResult != undefined) {
+        return jsonResult;
        // $("#selectError3Cat").find
-        BindDesignerDropDown($("#selectError3Des"), jsonResult, -1);
+       // BindDesignerDropDown($("#selectError3Des"), jsonResult, -1);
 
     }
 }
@@ -208,8 +214,9 @@ function GetAllCategories(boutiqueid) {
     var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategories");
+    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
     table = JSON.parse(ds.d);
+   
     return table;
 }
 function GetAllDesigners(boutiqueid) {
@@ -217,7 +224,7 @@ function GetAllDesigners(boutiqueid) {
     var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesigners");
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesignerIDAndName");
     table = JSON.parse(ds.d);
     return table;
 }

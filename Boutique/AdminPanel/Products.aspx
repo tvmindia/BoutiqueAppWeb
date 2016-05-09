@@ -3,9 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
-    
-    <link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet" />
-    <script src="../Scripts/jasny-bootstrap.min.js"></script>
+    <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <script src="../Scripts/select2.min.js"></script>
+   <%-- <link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/jasny-bootstrap.min.js"></script>--%>
    <%-- <script src="../Scripts/bootstrap-select-1.6.3.js"></script>--%>
    
 
@@ -166,12 +167,12 @@
 								<label class="control-label">Is OutofStock</label>
 								<div class="controls">
 								  <label class="radio">
-									<input type="radio" name="optionsRadios" id="OptisOutOfStockYes" value=""/>
+									<input type="radio" name="optionsRadiosOutStock" id="OptisOutOfStockYes" value="true"/>
 									Yes
 								  </label>
 								
 								  <label class="radio">
-									<input type="radio" name="optionsRadios" id="OptisOutOfStockNo" value=""/>
+									<input type="radio" name="optionsRadiosOutStock" id="OptisOutOfStockNo" value="false" checked=""/>
 									No
 								  </label>
 								</div>
@@ -181,53 +182,34 @@
 								<label class="control-label">Is Active</label>
 								<div class="controls">
 								  <label class="radio">
-									<input type="radio" name="optionsRadios" id="OptIsActiveYes" value="option1" checked=""/>
+									<input type="radio" name="optionsRadiosActive" id="OptIsActiveYes" value="true" checked=""/>
 									Yes
 								  </label>
 								
 								  <label class="radio">
-									<input type="radio" name="optionsRadios" id="OptIsActiveNo" value="option2"/>
+									<input type="radio" name="optionsRadiosActive" id="OptIsActiveNo" value="false"/>
 									No
 								  </label>
 								</div>
 							  </div>
 
-
-                           
-
-                           <%--   <div class="control-group">
-								<label class="control-label" for="selectError3">Categories</label>
-								<div class="controls">
-								  <select id="selectError3Cat" class="catpicker">
-                                      <option>Choose Category</option>
-							
-								  </select>
-								</div>
-							  </div>--%>
-
-
-                             <div class="control-group">
-								<label class="control-label" for="selectError1">Categories</label>
-								<div class="controls">
-								  <select id="selectCategories" multiple="multiple" data-rel="chosen">
-									
-                                  
-								  </select>
-								</div>
-							  </div>
+                        
+                            <div class="control-group">
+                                <label class="control-label" for="selectError1">Categories</label>
+                                <div class="controls">
+                                <select class="ddlcategories" multiple="multiple" id="idDdlCategories">
+                            
+                                </select>
+                                </div>
+                            </div>
 
 
                             <div class="control-group">
 								<label class="control-label" for="selectError3">Designed By</label>
 								<div class="controls">
-								  <select id="selectError3Des">
-                                      <option>Choose Designer</option>
-									<%--<option>Designer 1</option>
-									<option>Designer 2</option>
-									<option>Designer 3</option>
-									<option>Designer 4</option>
-									<option>Designer 5</option>--%>
-								  </select>
+								   <select class="ddlDesigners" id="idDdlDesigners">
+                            
+                                </select>
 								</div>
 							  </div>
 

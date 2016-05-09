@@ -671,9 +671,9 @@ namespace Boutique.DAL
 
 
         #region CategoryMethods
-
+        
             #region GetAllCategories
-            public DataSet GetAllCategories(string boutiqueID)
+            public DataSet GetAllCategories(string boutiqueID)//for dropdownbind
             {
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
@@ -716,6 +716,51 @@ namespace Boutique.DAL
                 return ds;
             }
         #endregion GetAllCategories
+
+#region GetAllCategoryIDAndName
+        public DataSet GetAllCategoryIDAndName(string boutiqueID)
+            {
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                Guid _boutiqueid = Guid.Empty;
+                try
+                {
+                    _boutiqueid = Guid.Parse(boutiqueID);
+                    if (_boutiqueid != Guid.Empty)
+                    {
+                        dcon = new dbConnection();
+                        dcon.GetDBConnection();
+                        cmd = new SqlCommand();
+                        cmd.Connection = dcon.SQLCon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "[GetAllCategoryIDAndName]";
+                        cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                        sda = new SqlDataAdapter();
+                        sda.SelectCommand = cmd;
+                        ds = new DataSet();
+                        sda.Fill(ds);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+
+                    }
+                }
+                return ds;
+            }
+
+#endregion GetAllCategoryIDAndName
 
             #region GetCategory
             public DataSet GetCategory()

@@ -218,6 +218,35 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllDesigners
 
+        #region GetAllDesignerIDAndName
+        [System.Web.Services.WebMethod]
+        public static string GetAllDesignerIDAndName(string Boutiqueid)
+        {
+            DataTable dt = null;
+            Designers designerObj = new Designers();
+            designerObj.BoutiqueID = Boutiqueid;
+            dt = designerObj.GetAllDesignerIDAndName();
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            return jsSerializer.Serialize(parentRow);
+            //Converting to Json
+        }
+        #endregion GetAllDesignerIDAndName
+
         #region InsertDesigner
         [System.Web.Services.WebMethod]
         public static string InsertDesigner(Designers designerObj)
