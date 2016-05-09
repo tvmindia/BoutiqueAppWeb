@@ -55,6 +55,12 @@ namespace Boutique.DAL
 
         #region Methods
 
+        #region Get all the notifications
+        /// <summary>
+        /// get all the notifications
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
         public DataSet SelectAllNotifications(string boutiqueID)
         {
             dbConnection dcon = null;
@@ -96,7 +102,13 @@ namespace Boutique.DAL
             }
             return ds;
         }
+        #endregion
 
+        #region Get a notification details
+        /// <summary>
+        /// To get details of a specific notification
+        /// </summary>
+        /// <returns></returns>
         public DataSet GetNotification()
         {
             if (BoutiqueID == "")
@@ -140,7 +152,58 @@ namespace Boutique.DAL
                 }
             }
         }
-           
+        #endregion
+
+        #region Delete Notification
+        /// <summary>
+        /// To delete a notification by notification id
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 DeleteNotification()
+        {
+            if (NotificationID == "")
+            {
+                throw new Exception("NotificationID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteNotification]";
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.NotificationID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //delete success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion 
 
         #region Notifications for App
         public DataTable GetNotificationsForApp(string notificationsIDs)
