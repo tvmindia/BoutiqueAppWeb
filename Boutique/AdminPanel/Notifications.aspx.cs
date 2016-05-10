@@ -18,6 +18,35 @@ namespace Boutique.AdminPanel
 
         }
 
+        #region Add new Notification
+        [System.Web.Services.WebMethod]
+        public static string InsertNotification(Notification notificationObj)
+        {
+            string status = null;
+            try
+            {
+                if (notificationObj.NotificationID != null)
+                {
+                   // status = notificationObj.UpdateDesigner().ToString();
+                    throw new Exception("It is update :-P !!");
+                }
+                else
+                {
+                    status = notificationObj.InsertNotification().ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+        #endregion
+
         #region Get All notifications
         /// <summary>
         /// To get all the notifications list for the table
