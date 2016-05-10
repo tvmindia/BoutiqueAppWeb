@@ -142,6 +142,7 @@
 								<label class="control-label" for="categories">Category</label>
 								<div class="controls">
 								  <select class="categories">
+                                      <option></option>
 								  </select>
 								</div>
 							  </div>

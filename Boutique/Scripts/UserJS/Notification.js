@@ -6,11 +6,12 @@
     $(".products").select2({
         placeholder: "Choose related product",
         allowClear: false,
-        //data: BindProductDropdown(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
+        //data: BindProductDropdown(boutiqueid)
     });
     $(".categories").select2({
-        placeholder: "Choose related product",
-        allowClear: false,
+        allowClear: true,
+        placeholder: "Choose related category",
+        
         data: BindCategoryDropdown(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
     });
     //Edit button--------
