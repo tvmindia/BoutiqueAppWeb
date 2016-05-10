@@ -87,7 +87,7 @@
 
                   
                   <div class="box-header">
-						<h2>New Notification</h2>
+						<h2 id="editLabel">New Notification</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -176,4 +176,5 @@
        
 
      </div>
+    <input type="hidden" id="hdfNotificationID" value=""/>
 </asp:Content>

@@ -54,8 +54,7 @@ namespace Boutique.DAL
         #endregion properties
 
         #region Methods
-
-
+        
         #region New Notification
         /// <summary>
         /// to insert a new notification into database
@@ -116,6 +115,62 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
+        #endregion
+
+        #region Edit notification
+        /// <summary>
+        /// to edit the Notification details
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 UpdateNotification()
+            {
+                if (NotificationID == "")
+                {
+                    throw new Exception("NotificationID is Empty!!");
+                }
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlParameter outParameter = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[UpdateNotification]";
+                    cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(NotificationID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@Title", SqlDbType.NVarChar, 50).Value = Title;
+                    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = StartDate;
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = EndDate;
+                    if (ProductID != "") cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                    if (CategoryCode != "") cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+
+                    outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                    outParameter.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                //update success or failure
+                return Int16.Parse(outParameter.Value.ToString());
+
+            }
         #endregion
 
         #region Get all the notifications

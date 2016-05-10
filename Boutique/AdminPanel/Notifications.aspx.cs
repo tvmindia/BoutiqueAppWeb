@@ -18,17 +18,16 @@ namespace Boutique.AdminPanel
 
         }
 
-        #region Add new Notification
+        #region Add or edit Notification
         [System.Web.Services.WebMethod]
         public static string InsertNotification(Notification notificationObj)
         {
             string status = null;
             try
             {
-                if (notificationObj.NotificationID != null)
+                if (notificationObj.NotificationID != "")
                 {
-                   // status = notificationObj.UpdateDesigner().ToString();
-                    throw new Exception("It is update :-P !!");
+                    status = notificationObj.UpdateNotification().ToString();
                 }
                 else
                 {
@@ -97,7 +96,6 @@ namespace Boutique.AdminPanel
         }
         #endregion
 
-
         #region Get a Notification
         /// <summary>
         /// To get a specifica notification details for the editing purpose
@@ -132,7 +130,6 @@ namespace Boutique.AdminPanel
             return jsonResult; //Converting to Json
         }
         #endregion
-
 
         #region Delete a notification
         /// <summary>

@@ -32,6 +32,7 @@
             $('.alert-error').hide();
             var result = "";
             var Notification = new Object();
+            Notification.NotificationID=$("#hdfNotificationID").val();
             Notification.BoutiqueID = boutiqueid;
             if ($("#txtTitle").val() != "") {
                 Notification.Title = $("#txtTitle").val();
@@ -67,6 +68,9 @@
                 $("#txtDescription").val("");
                 $("#dateStartDate").val("");
                 $("#dateEndDate").val("");
+                $(".submitDetails").text("Save");
+                $("#editLabel").text("New Notification");
+                $("#hdfNotificationID").val('');
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
@@ -103,6 +107,9 @@
                 $("#txtDescription").val("");
                 $("#dateStartDate").val("");
                 $("#dateEndDate").val("");
+                $(".submitDetails").text("Save");
+                $("#editLabel").text("New Notification");
+                $("#hdfNotificationID").val('');
             }          
             return false;
         }        
@@ -114,7 +121,9 @@
             $("#txtDescription").val("");
             $("#dateStartDate").val("");
             $("#dateEndDate").val("");
-            $(".submitDetails").text("Modify");
+            $(".submitDetails").text("Save");
+            $("#editLabel").text("New Notification");
+            $("#hdfNotificationID").val('');
         }
     })
 });
@@ -156,9 +165,10 @@ function BindNotificationTextBoxes(Records) {
         $("#txtDescription").val(Records.Description);
         $("#dateStartDate").val(ConvertJsonToDate(Records.StartDate));
         $("#dateEndDate").val(ConvertJsonToDate(Records.EndDate));
-
+        $("#hdfNotificationID").val(Records.NotificationID);
     });
     $(".submitDetails").text("Modify");
+    $("#editLabel").text("Edit Notification");
 }
 function GetNotification(Notification) {
     var ds = {};
