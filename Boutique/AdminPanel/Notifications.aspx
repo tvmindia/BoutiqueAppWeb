@@ -130,7 +130,7 @@
                               <div class="control-group">
 								<label class="control-label" for="selectError3">Products</label>
 								<div class="controls">
-								  <select id="selectError3Cat">
+								  <select id="selectError3Cat" >
 									<option>Product 1</option>
 									<option>Product 2</option>
 									<option>Product 3</option>

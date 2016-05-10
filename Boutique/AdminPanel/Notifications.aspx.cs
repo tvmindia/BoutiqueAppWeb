@@ -19,6 +19,11 @@ namespace Boutique.AdminPanel
         }
 
         #region Add or edit Notification
+        /// <summary>
+        /// If notification id is an empty string it will do inserting, otherwise updating
+        /// </summary>
+        /// <param name="notificationObj"></param>
+        /// <returns></returns>
         [System.Web.Services.WebMethod]
         public static string InsertNotification(Notification notificationObj)
         {
