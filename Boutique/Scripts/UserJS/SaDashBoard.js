@@ -1,22 +1,22 @@
 ﻿$("document").ready(function (e) {
     $("#hdfBoutiqueID").val('');
 
-    
+    BindAsyncBoutiqueDropDown();
    
     
 
 
     var jsonResult = {};
     jsonResult = GetAllBoutiques();
-    //CallingDropDown
-    DropDownBindDynamic($("#localidad_origen_1"), jsonResult, -1);
-    $('.selectpicker').selectpicker();
-    $('.selectpicker').selectpicker('refresh');
-    //CallingDropDown
     if (jsonResult != undefined) {
         BindBoutiqueTable(jsonResult);
-       
+
     }
+    //CallingDropDown
+    
+   
+    //CallingDropDown
+   
     
    
     //events
@@ -201,7 +201,13 @@ function  InsertBoutique(Boutique)
     return table;
 
 }
-
+function BindAsyncBoutiqueDropDown() {//&&&&&&&&&&&&&&&&&&
+    var jsonResult = {};
+    jsonResult = GetAllBoutiquesDropDown();
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
 function DeleteBoutique(boutiqueid)
 {
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
@@ -245,15 +251,7 @@ function BindBoutiqueAsyncLoad()
     jsonResults = GetAllBoutiques();
     if (jsonResults != undefined) {
         BindBoutiqueTable(jsonResults);
-       
-           
-        DropDownBindDynamic($("#localidad_origen_1"), jsonResults, -1);
-        $('.selectpicker').selectpicker();
-       // $('.selectpicker').selectpicker('refresh');
-        $('.selectpicker').selectpicker('render');
-
-       
-       
+             
     }
 
 
@@ -273,28 +271,6 @@ function BindBoutiqueTable(Records) {
    
 }
 
-function DropDownBindDynamic(dd, Records, indx) {
-    $('.selectpicker').selectpicker('refresh');
-    var cadena = "";
-    var myflag = false;
-    for (var i = 0; i < Records.length; i++) {
-        if (myflag == true) {
-            cadena += "<option SELECTED value='" + Records[i]["BoutiqueID"] + "'>" + Records[i]["Name"] + "</option>\n";
-            myflag = false;
-        }
-        else {
-            cadena += "<option value='" + Records[i]["BoutiqueID"] + "'>" + Records[i]["Name"] + "</option>\n";
-        }
-        if (Records[i]["id"] == indx) {
-            myflag = true;
-        }
-    }
-    dd.append(cadena);
-    $('.selectpicker').selectpicker();
-     $('.selectpicker').selectpicker('refresh');
-   // $('.selectpicker').selectpicker('render');
-    
-}
 
 function BindBoutiqueTextBoxes(Records)
 {

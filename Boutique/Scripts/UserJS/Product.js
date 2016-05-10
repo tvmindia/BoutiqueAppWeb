@@ -9,8 +9,9 @@
         data: BindAsyncCategory(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
     });
     $(".ddlDesigners").select2({
-        placeholder: "Choose Designers",
+      
         data: BindAsyncDesigner(boutiqueid)//Designer dropdown binds only with id and text[key:value] mandatory
+        ,placeholder: "Select a Designer"
     });
 
   
@@ -27,8 +28,19 @@
                 Product.Name = $("#txtName").val();
                 Product.Description = $("#txtDescription").val();
                 Product.Price = $("#txtPrice").val();
-                Product.IsOutOfStock = 'false';
-                Product.IsActive = 'true';
+             
+                if ($("input[name=optionsRadiosOutStock]:checked"))
+                {
+                 
+                 Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
+                }
+                if ($("input[name=optionsRadiosActive]:checked"))
+                {
+                    Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
+                   
+                }
+                
+             
                 var Categ = $("#idDdlCategories").val();
                 var com = "";
                 Product.Categories = "";
@@ -40,7 +52,7 @@
                 alert(Product.Categories);
              
                 Product.DesignerID = $("#idDdlDesigners").val();
-                result = InsertProduct(Product);
+                //result = InsertProduct(Product);
             }
             //if ($(".AddProduct").text() == "Modify") {
             //    var Category = new Object();

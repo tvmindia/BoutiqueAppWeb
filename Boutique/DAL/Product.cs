@@ -187,7 +187,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = DBNull.Value;
+                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);

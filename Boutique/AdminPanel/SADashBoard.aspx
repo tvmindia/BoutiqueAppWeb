@@ -6,8 +6,8 @@
        
     </asp:ScriptManager>--%>
     <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet"/>
-    <link href="../CSS/bootstrap-select-1.6.3.css" rel="stylesheet"/>
-    <script src="../Scripts/bootstrap-select-1.6.3.js"></script>
+    <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <script src="../Scripts/select2.min.js"></script>
     <script src="../Scripts/UserJS/SaDashBoard.js"></script>
    
     
@@ -284,10 +284,11 @@
                              <div class="control-group">
 								<label class="control-label" for="selectError">Boutiques</label>
 								<div class="controls">
-                                 <select id="localidad_origen_1" name="localidad_origen_1" class="selectpicker input-sm" data-live-search="true">
-                                  <option value="one">Choose Boutiques</option>
-
-                                 </select>
+                                 
+                                       <select class="input-large ddlboutiques" multiple="multiple" id="idDdlboutiques">
+                                            <option value="-1">Choose Boutiques</option>
+                            
+                                </select>
 								</div>
 							  </div>
 

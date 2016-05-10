@@ -5,8 +5,8 @@
      <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
-   <%-- <link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet" />
-    <script src="../Scripts/jasny-bootstrap.min.js"></script>--%>
+    <link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/jasny-bootstrap.min.js"></script>
    <%-- <script src="../Scripts/bootstrap-select-1.6.3.js"></script>--%>
    
 
@@ -113,7 +113,7 @@
 
 
                            <%--  fileupload with preview --%>
-							<%--<div class="fileinput fileinput-new" data-provides="fileinput">
+							<div class="fileinput fileinput-new" data-provides="fileinput">
                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                            <img data-src="holder.js/100%x100%" alt="..."/>
                          </div>
@@ -122,16 +122,16 @@
                             <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                            </div>
-                        </div>--%>
+                        </div>
 							 <%--  fileupload with preview--%>
                         	
-                                <%--<div class="control-group">
+                               <div class="control-group">
 								<label class="control-label">Is Main Picture?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
 									<input type="checkbox" id="chkIsMainPicture" value="option1"/>Yes</label>
 		    					  </div>
-							  </div>--%>
+							  </div>
 
 
 
@@ -161,7 +161,7 @@
 								</div>
 
                              
-                          
+                         
 
                             <div class="control-group">
 								<label class="control-label">Is OutofStock</label>
@@ -181,6 +181,7 @@
                               <div class="control-group">
 								<label class="control-label">Is Active</label>
 								<div class="controls">
+                                    <div id="isActiverdbtn">
 								  <label class="radio">
 									<input type="radio" name="optionsRadiosActive" id="OptIsActiveYes" value="true" checked=""/>
 									Yes
@@ -190,6 +191,7 @@
 									<input type="radio" name="optionsRadiosActive" id="OptIsActiveNo" value="false"/>
 									No
 								  </label>
+                                        </div>
 								</div>
 							  </div>
 
@@ -197,7 +199,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="selectError1">Categories</label>
                                 <div class="controls">
-                                <select class="ddlcategories" multiple="multiple" id="idDdlCategories">
+                                <select class="input-xlarge ddlcategories" multiple="multiple" id="idDdlCategories">
                             
                                 </select>
                                 </div>
@@ -208,8 +210,8 @@
 								<label class="control-label" for="selectError3">Designed By</label>
 								<div class="controls">
 								   <select class="ddlDesigners" id="idDdlDesigners">
-                            
-                                </select>
+                                     <option value="-1">Choose a Designer</option>
+                                   </select>
 								</div>
 							  </div>
 
