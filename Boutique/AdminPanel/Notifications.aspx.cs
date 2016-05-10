@@ -18,6 +18,39 @@ namespace Boutique.AdminPanel
 
         }
 
+        #region Add or edit Notification
+        /// <summary>
+        /// If notification id is an empty string it will do inserting, otherwise updating
+        /// </summary>
+        /// <param name="notificationObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string InsertNotification(Notification notificationObj)
+        {
+            string status = null;
+            try
+            {
+                if (notificationObj.NotificationID != "")
+                {
+                    status = notificationObj.UpdateNotification().ToString();
+                }
+                else
+                {
+                    status = notificationObj.InsertNotification().ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+        #endregion
+
         #region Get All notifications
         /// <summary>
         /// To get all the notifications list for the table
@@ -68,7 +101,6 @@ namespace Boutique.AdminPanel
         }
         #endregion
 
-
         #region Get a Notification
         /// <summary>
         /// To get a specifica notification details for the editing purpose
@@ -103,7 +135,6 @@ namespace Boutique.AdminPanel
             return jsonResult; //Converting to Json
         }
         #endregion
-
 
         #region Delete a notification
         /// <summary>

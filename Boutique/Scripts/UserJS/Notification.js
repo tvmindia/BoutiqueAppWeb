@@ -23,7 +23,61 @@
             return false;
         }
     })
-
+    //Save button---------
+    $(".submitDetails").live(
+    {
+        click: function (e) {
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var result = "";
+            var Notification = new Object();
+            Notification.NotificationID=$("#hdfNotificationID").val();
+            Notification.BoutiqueID = boutiqueid;
+            if ($("#txtTitle").val() != "") {
+                Notification.Title = $("#txtTitle").val();
+            }
+            else {
+                alert("Please enter user name....");
+                return;
+            }
+            if ($("#dateStartDate").val() != "") {
+                Notification.StartDate = $("#dateStartDate").val();
+            }
+            else {
+                alert("Please select start date....");
+                return;
+            }
+            if ($("#dateEndDate").val() != "") {
+                Notification.EndDate = $("#dateEndDate").val();
+            }
+            else {
+                alert("Please select end date....");
+                return;
+            }
+            Notification.Description = $("#txtDescription").val();
+            Notification.ProductID = "";// $("#txtOwnerAddress").val();
+            Notification.CategoryCode = "";//$("#txtPhone").val();
+            
+            result = InsertNotification(Notification);
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                BindNotificationsTable(boutiqueid);
+                $("#txtTitle").val("");
+                $("#txtDescription").val("");
+                $("#dateStartDate").val("");
+                $("#dateEndDate").val("");
+                $(".submitDetails").text("Save");
+                $("#editLabel").text("New Notification");
+                $("#hdfNotificationID").val('');
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+            }
+        }
+    })
     //Delete button---------
     $(".notificationdelete").live(
     {
@@ -53,9 +107,24 @@
                 $("#txtDescription").val("");
                 $("#dateStartDate").val("");
                 $("#dateEndDate").val("");
+                $(".submitDetails").text("Save");
+                $("#editLabel").text("New Notification");
+                $("#hdfNotificationID").val('');
             }          
             return false;
         }        
+    })
+    //Cancel button-----------
+    $(".Cancel").live({
+        click: function (e) {// Clear controls
+            $("#txtTitle").val("");
+            $("#txtDescription").val("");
+            $("#dateStartDate").val("");
+            $("#dateEndDate").val("");
+            $(".submitDetails").text("Save");
+            $("#editLabel").text("New Notification");
+            $("#hdfNotificationID").val('');
+        }
     })
 });
 //------------Notification details table------------
@@ -81,6 +150,14 @@ function FillNotificationTable(Records) {
         $("#NotificationTable").append(html);
     })
 }
+//------------Insert--------------------
+function InsertNotification(Notification) {
+    var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/InsertNotification");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
 //------------Edit--------------------
 function BindNotificationTextBoxes(Records) {
     $.each(Records, function (index, Records) {
@@ -88,10 +165,10 @@ function BindNotificationTextBoxes(Records) {
         $("#txtDescription").val(Records.Description);
         $("#dateStartDate").val(ConvertJsonToDate(Records.StartDate));
         $("#dateEndDate").val(ConvertJsonToDate(Records.EndDate));
-
+        $("#hdfNotificationID").val(Records.NotificationID);
     });
-    //  $("#txtCatCode").attr('disabled', true);
-    $("#submitDetails").value("Modify");
+    $(".submitDetails").text("Modify");
+    $("#editLabel").text("Edit Notification");
 }
 function GetNotification(Notification) {
     var ds = {};

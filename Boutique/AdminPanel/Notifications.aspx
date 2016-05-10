@@ -28,16 +28,7 @@
 						<div class="alert alert-success" style="display:none;">
 						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
 							<strong>Successfull.</strong> 
-						</div>
-						<div class="alert alert-info" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
+						</div>						
 					</div>
 
                 </div>
@@ -96,7 +87,7 @@
 
                   
                   <div class="box-header">
-						<h2>New Notification</h2>
+						<h2 id="editLabel">New Notification</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -139,7 +130,7 @@
                               <div class="control-group">
 								<label class="control-label" for="selectError3">Products</label>
 								<div class="controls">
-								  <select id="selectError3Cat">
+								  <select id="selectError3Cat" >
 									<option>Product 1</option>
 									<option>Product 2</option>
 									<option>Product 3</option>
@@ -171,8 +162,11 @@
 						</div>
 
                         <footer class="InnerFooter">
-                         <button type="submit" class="btn btn-primary submitDetails">Save</button>
-				    	 <button class="btn">Cancel</button>
+                        <%-- <button type="submit" class="btn btn-primary submitDetails">Save</button>
+				    	 <button class="btn">Cancel</button>--%>
+                            <a class="btn btn-primary submitDetails" href="#">Save</></a>
+							
+                           <a class="btn Cancel">Cancel</a>
                          </footer>
 
               </div>
@@ -182,4 +176,5 @@
        
 
      </div>
+    <input type="hidden" id="hdfNotificationID" value=""/>
 </asp:Content>
