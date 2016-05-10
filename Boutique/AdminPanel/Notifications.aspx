@@ -5,6 +5,8 @@
 
      <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
     <script src="../Scripts/UserJS/Notification.js"></script>
+    <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <script src="../Scripts/select2.min.js"></script> 
      <div id="content" class="span10">
          	<ul class="breadcrumb">
 				<li>
@@ -128,28 +130,18 @@
 							</div>
 						
                               <div class="control-group">
-								<label class="control-label" for="selectError3">Products</label>
+								<label class="control-label" for="products">Product</label>
 								<div class="controls">
-								  <select id="selectError3Cat" >
-									<option>Product 1</option>
-									<option>Product 2</option>
-									<option>Product 3</option>
-									<option>Product 4</option>
-									<option>Product 5</option>
+								  <select class="products" >
 								  </select>
 								</div>
 							  </div>
 
 
                             <div class="control-group">
-								<label class="control-label" for="selectError3">Category</label>
+								<label class="control-label" for="categories">Category</label>
 								<div class="controls">
-								  <select id="selectError3Des">
-									<option>Category 1</option>
-									<option>Category 2</option>
-									<option>Category 3</option>
-									<option>Category 4</option>
-									<option>Category 5</option>
+								  <select class="categories">
 								  </select>
 								</div>
 							  </div>
