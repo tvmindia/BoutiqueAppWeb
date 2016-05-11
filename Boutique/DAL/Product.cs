@@ -96,12 +96,31 @@ namespace Boutique.DAL
         }
         #endregion Categoryproperties
 
+        #region productImagesproperties
+        public string ImageID
+        {
+            get;
+            set;
+        }
+        public string[] Image//Accepts base64 charaters of images
+        {
+            get;
+            set;
+        }
+        public byte IsMain
+        {
+            get;
+            set;
+        }
+        #endregion productImagesproperties
+
         #region Methods
 
         #region Constructors
         public Product()
-            {
-            }
+        {
+
+        }
             public Product(string ProductID,string BoutiqueID)
             {
                 this.ProductID = ProductID;

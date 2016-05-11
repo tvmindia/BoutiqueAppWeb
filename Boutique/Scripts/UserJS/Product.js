@@ -4,7 +4,9 @@
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.
-        alert("suceess");
+      
+
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
     } else {
         alert('The File APIs are not fully supported in this browser.');
     }
@@ -19,9 +21,13 @@
     $(".ddlDesigners").select2({
       
         data: BindAsyncDesigner(boutiqueid)//Designer dropdown binds only with id and text[key:value] mandatory
+        ,allowClear: true
         ,placeholder: "Select a Designer"
     });
 
+
+
+   
   
     $(".AddProduct").live({
         click: function (e) {// submit button click
@@ -30,7 +36,9 @@
             $('.alert-success').hide();
             $('.alert-error').hide();
             var result = "";
+           
             if ($(".AddProduct").text() == "Save") {
+              
                 var Product = new Object();
                 Product.BoutiqueID = boutiqueid;
                 Product.Name = $("#txtName").val();
@@ -39,16 +47,12 @@
              
                 if ($("input[name=optionsRadiosOutStock]:checked"))
                 {
-                 
                  Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
                 }
                 if ($("input[name=optionsRadiosActive]:checked"))
                 {
                     Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
-                   
                 }
-                
-             
                 var Categ = $("#idDdlCategories").val();
                 var com = "";
                 Product.Categories = "";
@@ -57,10 +61,49 @@
                     Product.Categories = Product.Categories + com + Categ[i].toString();
                     com = ",";
                 }
-                alert(Product.Categories);
+              
              
                 Product.DesignerID = $("#idDdlDesigners").val();
-                //result = InsertProduct(Product);
+
+
+                //imageupload
+                debugger;
+                var files = $("#files").prop("files");
+                var com = "";
+                for (var i = 0; i < files.length; i++) {
+                    (function (file) {
+                        if (file.type.indexOf("image") == 0) {
+                            var fileReader = new FileReader();
+                            fileReader.onload = function (f) {
+                                Product.Image = Product.Image + com + f.target.result;
+                                com = ",";
+                                //alert(file.name);
+                                alert(Product.Image);
+                                //$.ajax({
+                                //    type: "POST",
+                                //    url: "http://localhost:49525/Home/UploadFile",
+                                //    data: {
+                                //        'file': f.target.result,
+                                //        'name': file.name
+                                //    },
+                                //    success: function (result) {
+                                //        $("#results").
+                                //            append(result).append("<br/>");
+                                //    }
+                                //});
+
+                            };
+
+                            fileReader.readAsDataURL(file);
+                        }
+                    })(files[i]);
+                }
+
+
+              
+
+                //imageupload
+                result = InsertProduct(Product);
             }
             //if ($(".AddProduct").text() == "Modify") {
             //    var Category = new Object();
@@ -87,6 +130,45 @@
 
 
 });//end of document.ready
+
+
+
+
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+            continue;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e)
+            {
+                // Render thumbnail.
+                var span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                                 '" title="', escape(theFile.name), '"/>'].join('');
+                document.getElementById('list').insertBefore(span, null);
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+    }
+}
+
+
+
+
+
 
 
 

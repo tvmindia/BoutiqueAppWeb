@@ -99,6 +99,9 @@
          <div class="row-fluid">
 
               <div class="box span12">
+                  <div class="span12">
+
+                
 
                   
                   <div class="box-header">
@@ -107,36 +110,20 @@
 							
 						</div>
 					</div>
-					<div class="box-content"  style="height:503px;overflow:auto;" >
+					<div class="span6"  style="height:553px;overflow:auto;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 
 
-                           <%--  fileupload with preview --%>
-							<div class="fileinput fileinput-new" data-provides="fileinput">
-                           <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                           <img data-src="holder.js/100%x100%" alt="..."/>
-                         </div>
-                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                         <div>
-                            <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
-                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                           </div>
-                        </div>
-							 <%--  fileupload with preview--%>
+                        
                         	
-                               <div class="control-group">
+                              <div class="control-group">
 								<label class="control-label">Is Main Picture?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
 									<input type="checkbox" id="chkIsMainPicture" value="option1"/>Yes</label>
 		    					  </div>
 							  </div>
-
-
-
-
-
 							  <div class="control-group">
 							
 								  <label class="control-label" for="focusedInput">Name</label>
@@ -144,26 +131,19 @@
 								  <input class="input-large focused" id="txtName" type="text"/>
 								</div>
 								</div>
-							<div class="control-group">
+						      <div class="control-group">
 								 <label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
 								  <textarea class="form-control" style="max-width:68%" rows="4" id="txtDescription"></textarea>
 								</div>
 								</div>
-							  
-
-                             
-                             <div class="control-group">
+					          <div class="control-group">
 								 <label class="control-label" for="focusedInput">Price</label>
 								<div class="controls">
 								  <input class="input-large focused" id="txtPrice" type="text"/>
 								</div>
 								</div>
-
-                             
-                         
-
-                            <div class="control-group">
+                              <div class="control-group">
 								<label class="control-label">Is OutofStock</label>
 								<div class="controls">
 								  <label class="radio">
@@ -177,7 +157,6 @@
 								  </label>
 								</div>
 							  </div>
-
                               <div class="control-group">
 								<label class="control-label">Is Active</label>
 								<div class="controls">
@@ -194,9 +173,8 @@
                                         </div>
 								</div>
 							  </div>
-
-                        
-                            <div class="control-group">
+                      
+                              <div class="control-group">
                                 <label class="control-label" for="selectError1">Categories</label>
                                 <div class="controls">
                                 <select class="input-xlarge ddlcategories" multiple="multiple" id="idDdlCategories">
@@ -204,34 +182,44 @@
                                 </select>
                                 </div>
                             </div>
-
-
-                            <div class="control-group">
+                          
+                              <div class="control-group">
 								<label class="control-label" for="selectError3">Designed By</label>
 								<div class="controls">
 								   <select class="ddlDesigners" id="idDdlDesigners">
-                                     <option value="-1">Choose a Designer</option>
+                                     <option></option>
                                    </select>
 								</div>
 							  </div>
 
 						</div>
-           
               </div>
-                    <footer class="InnerFooter">
+                    <div class="span5" style="height:553px;overflow:auto;">
+                        <div class="form-horizontal">
+                              <div class="control-group">
+                           <%--  fileupload with preview --%>
+                                  <label class="control-label">Product Image</label>
+                            <div class="controls">
+							<input type="file" id="files" name="files[]" multiple="multiple"/>
+                            </div>
+                          
+                          
+                       
+						   <%--  fileupload with preview--%>
+                            </div>
+                                <output id="list"></output>
+                        </div>
+                    </div>
+                        </div>
+                   
+              </div>
+              <footer class="InnerFooter">
                           <a class="btn btn-primary AddProduct" href="#">Save</></a>
 							
                           <a class="btn CancelProduct">Cancel</a>
 						
                      </footer> 
-               
-
-
-              </div>
+             
          </div>
-
-
-     
      </div>
-
 </asp:Content>
