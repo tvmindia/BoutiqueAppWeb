@@ -201,6 +201,7 @@
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
+    <Content Include="Scripts\UserJS\Loyalty.js" />
     <Content Include="Scripts\UserJS\Notification.js" />
     <Content Include="Scripts\UserJS\People.js" />
     <Content Include="Scripts\UserJS\Product.js" />

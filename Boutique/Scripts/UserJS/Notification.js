@@ -5,13 +5,12 @@
     //Edit space drop downs-------------
     $(".products").select2({
         placeholder: "Choose related product",
-        allowClear: false,
-        //data: BindProductDropdown(boutiqueid)
+        allowClear: true,
+        data: BindProductDropdown(boutiqueid)
     });
     $(".categories").select2({
         allowClear: true,
-        placeholder: "Choose related category",
-        
+        placeholder: "Choose related category",        
         data: BindCategoryDropdown(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
     });
     //Edit button--------
@@ -41,6 +40,8 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+            $("#txtTitle").val($("#txtTitle").val().trim());            
+            $("#txtDescription").val($("#txtDescription").val().trim());
             var result = "";
             var Notification = new Object();
             Notification.NotificationID=$("#hdfNotificationID").val();
@@ -49,25 +50,29 @@
                 Notification.Title = $("#txtTitle").val();
             }
             else {
-                alert("Please enter user name....");
+                alert("Please enter title.");
                 return;
             }
             if ($("#dateStartDate").val() != "") {
                 Notification.StartDate = $("#dateStartDate").val();
             }
             else {
-                alert("Please select start date....");
+                alert("Please select start date.");
                 return;
             }
             if ($("#dateEndDate").val() != "") {
                 Notification.EndDate = $("#dateEndDate").val();
             }
             else {
-                alert("Please select end date....");
+                alert("Please select end date.");
+                return;
+            }
+            if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
+                alert("End date should be after the starting date.");
                 return;
             }
             Notification.Description = $("#txtDescription").val();
-            Notification.ProductID = "";// $("#txtOwnerAddress").val();
+            Notification.ProductID = $(".products").val();
             Notification.CategoryCode = $(".categories").val();
             
             result = InsertNotification(Notification);
@@ -82,6 +87,8 @@
                 $(".submitDetails").text("Save");
                 $("#editLabel").text("New Notification");
                 $("#hdfNotificationID").val('');
+                $(".products").select2("val", "");
+                $(".categories").select2("val", "");
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
@@ -121,6 +128,8 @@
                 $(".submitDetails").text("Save");
                 $("#editLabel").text("New Notification");
                 $("#hdfNotificationID").val('');
+                $(".products").select2("val", "");
+                $(".categories").select2("val", "");
             }          
             return false;
         }        
@@ -135,6 +144,8 @@
             $(".submitDetails").text("Save");
             $("#editLabel").text("New Notification");
             $("#hdfNotificationID").val('');
+            $(".products").select2("val", "");
+            $(".categories").select2("val", "");
         }
     })
 });
@@ -164,10 +175,18 @@ function FillNotificationTable(Records) {
 //------------Dropdowns-----------------
 function BindProductDropdown(boutiqueid) {
     var jsonResult = {};
-    jsonResult = GetAllCategories(boutiqueid);
+    jsonResult = GetAllProducts(boutiqueid);
     if (jsonResult != undefined) {
         return jsonResult;
     }
+}
+function GetAllProducts(boutiqueid) {
+    var ds = {};
+    var table = {};
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
 }
 function BindCategoryDropdown(boutiqueid) {
     var jsonResult = {};
@@ -199,6 +218,8 @@ function BindNotificationTextBoxes(Records) {
         $("#txtDescription").val(Records.Description);
         $("#dateStartDate").val(ConvertJsonToDate(Records.StartDate));
         $("#dateEndDate").val(ConvertJsonToDate(Records.EndDate));
+        $(".products").val(Records.ProductID).trigger("change");
+        $(".categories").val(Records.CategoryCode).trigger("change");
         $("#hdfNotificationID").val(Records.NotificationID);
     });
     $(".submitDetails").text("Modify");

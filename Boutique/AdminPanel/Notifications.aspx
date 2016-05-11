@@ -7,6 +7,9 @@
     <script src="../Scripts/UserJS/Notification.js"></script>
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script> 
+    <style>
+        label.control-label {cursor: default!important;}
+    </style>
      <div id="content" class="span10">
          	<ul class="breadcrumb">
 				<li>
@@ -118,14 +121,14 @@
                            <div class="control-group">
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateStartDate" value=""/>
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white"  class="input-large datepicker" id="dateStartDate" value=""/>
 							  </div>
 							</div>
 
                               <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
-								<input type="text" class="input-large datepicker" id="dateEndDate" value=""/>
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white" class="input-large datepicker" id="dateEndDate" value=""/>
 							  </div>
 							</div>
 						
@@ -133,6 +136,7 @@
 								<label class="control-label" for="products">Product</label>
 								<div class="controls">
 								  <select class="products" >
+                                      <option></option>
 								  </select>
 								</div>
 							  </div>
