@@ -6,12 +6,11 @@
     $(".products").select2({
         placeholder: "Choose related product",
         allowClear: false,
-        //data: BindProductDropdown(boutiqueid)
+        data: BindProductDropdown(boutiqueid)
     });
     $(".categories").select2({
         allowClear: true,
-        placeholder: "Choose related category",
-        
+        placeholder: "Choose related category",        
         data: BindCategoryDropdown(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
     });
     //Edit button--------
@@ -168,6 +167,14 @@ function BindProductDropdown(boutiqueid) {
     if (jsonResult != undefined) {
         return jsonResult;
     }
+}
+function GetAllProducts(boutiqueid) {
+    var ds = {};
+    var table = {};
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
 }
 function BindCategoryDropdown(boutiqueid) {
     var jsonResult = {};
