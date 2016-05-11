@@ -40,6 +40,8 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+            $("#txtTitle").val($("#txtTitle").val().trim());            
+            $("#txtDescription").val($("#txtDescription").val().trim());
             var result = "";
             var Notification = new Object();
             Notification.NotificationID=$("#hdfNotificationID").val();
@@ -48,21 +50,25 @@
                 Notification.Title = $("#txtTitle").val();
             }
             else {
-                alert("Please enter user name....");
+                alert("Please enter title.");
                 return;
             }
             if ($("#dateStartDate").val() != "") {
                 Notification.StartDate = $("#dateStartDate").val();
             }
             else {
-                alert("Please select start date....");
+                alert("Please select start date.");
                 return;
             }
             if ($("#dateEndDate").val() != "") {
                 Notification.EndDate = $("#dateEndDate").val();
             }
             else {
-                alert("Please select end date....");
+                alert("Please select end date.");
+                return;
+            }
+            if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
+                alert("End date should be after the starting date.");
                 return;
             }
             Notification.Description = $("#txtDescription").val();
