@@ -2,7 +2,18 @@
 
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
     BindNotificationsTable(boutiqueid);
-
+    //Edit space drop downs-------------
+    $(".products").select2({
+        placeholder: "Choose related product",
+        allowClear: false,
+        //data: BindProductDropdown(boutiqueid)
+    });
+    $(".categories").select2({
+        allowClear: true,
+        placeholder: "Choose related category",
+        
+        data: BindCategoryDropdown(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
+    });
     //Edit button--------
     $(".notificationedit").live(
     {
@@ -57,7 +68,7 @@
             }
             Notification.Description = $("#txtDescription").val();
             Notification.ProductID = "";// $("#txtOwnerAddress").val();
-            Notification.CategoryCode = "";//$("#txtPhone").val();
+            Notification.CategoryCode = $(".categories").val();
             
             result = InsertNotification(Notification);
             if (result == "1") {
@@ -149,6 +160,29 @@ function FillNotificationTable(Records) {
         var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info notificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger notificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
         $("#NotificationTable").append(html);
     })
+}
+//------------Dropdowns-----------------
+function BindProductDropdown(boutiqueid) {
+    var jsonResult = {};
+    jsonResult = GetAllCategories(boutiqueid);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+function BindCategoryDropdown(boutiqueid) {
+    var jsonResult = {};
+    jsonResult = GetAllCategories(boutiqueid);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+function GetAllCategories(boutiqueid) {
+    var ds = {};
+    var table = {};
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
+    table = JSON.parse(ds.d);
+    return table;
 }
 //------------Insert--------------------
 function InsertNotification(Notification) {
