@@ -17,7 +17,7 @@
           			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header">
-						<h2> Members</h2>
+						<h2> Customers</h2>
 						<div class="box-icon">
 						<%--	<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -25,13 +25,13 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<table class="table table-striped table-bordered bootstrap-datatable datatable">
+						<table class="table table-striped table-bordered bootstrap-datatable datatable" id="UsersTable">
 						  <thead>
 							  <tr>
-								  <th>Username</th>
-								  <th>Date registered</th>
-								  <th>Role</th>
-								  <th>Status</th>
+								  <th>Name</th>
+								  <th>Mobile</th>
+								  <th>Email</th>
+								  <th>Loyalty Card No</th>
 								  <th>Actions</th>
 							  </tr>
 						  </thead>   
@@ -77,7 +77,7 @@
 						
 						
 							<tr>
-								<td>Dennis Ji</td>
+								<td>Dennis ki</td>
 								<td class="center">2012/03/01</td>
 								<td class="center">Member</td>
 								<td class="center">
@@ -98,10 +98,10 @@
 							</tr>
 							<tr>
 								<td>Dennis Ji</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
+								<td class="center">999999</td>
+								<td class="center">Member@mail.com</td>
 								<td class="center">
-									<span class="label label-warning">Pending</span>
+									loyaltynum
 								</td>
 								<td class="center">
 									<a class="btn btn-success" href="#">
