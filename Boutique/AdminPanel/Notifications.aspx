@@ -133,6 +133,7 @@
 								<label class="control-label" for="products">Product</label>
 								<div class="controls">
 								  <select class="products" >
+                                      <option></option>
 								  </select>
 								</div>
 							  </div>

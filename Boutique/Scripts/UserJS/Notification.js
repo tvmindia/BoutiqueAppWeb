@@ -5,7 +5,7 @@
     //Edit space drop downs-------------
     $(".products").select2({
         placeholder: "Choose related product",
-        allowClear: false,
+        allowClear: true,
         data: BindProductDropdown(boutiqueid)
     });
     $(".categories").select2({
@@ -66,7 +66,7 @@
                 return;
             }
             Notification.Description = $("#txtDescription").val();
-            Notification.ProductID = "";// $("#txtOwnerAddress").val();
+            Notification.ProductID = $(".products").val();
             Notification.CategoryCode = $(".categories").val();
             
             result = InsertNotification(Notification);
@@ -81,6 +81,8 @@
                 $(".submitDetails").text("Save");
                 $("#editLabel").text("New Notification");
                 $("#hdfNotificationID").val('');
+                $(".products").select2("val", "");
+                $(".categories").select2("val", "");
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
@@ -120,6 +122,8 @@
                 $(".submitDetails").text("Save");
                 $("#editLabel").text("New Notification");
                 $("#hdfNotificationID").val('');
+                $(".products").select2("val", "");
+                $(".categories").select2("val", "");
             }          
             return false;
         }        
@@ -134,6 +138,8 @@
             $(".submitDetails").text("Save");
             $("#editLabel").text("New Notification");
             $("#hdfNotificationID").val('');
+            $(".products").select2("val", "");
+            $(".categories").select2("val", "");
         }
     })
 });
@@ -163,7 +169,7 @@ function FillNotificationTable(Records) {
 //------------Dropdowns-----------------
 function BindProductDropdown(boutiqueid) {
     var jsonResult = {};
-    jsonResult = GetAllCategories(boutiqueid);
+    jsonResult = GetAllProducts(boutiqueid);
     if (jsonResult != undefined) {
         return jsonResult;
     }
@@ -172,7 +178,7 @@ function GetAllProducts(boutiqueid) {
     var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllProductIDandName");
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -206,6 +212,8 @@ function BindNotificationTextBoxes(Records) {
         $("#txtDescription").val(Records.Description);
         $("#dateStartDate").val(ConvertJsonToDate(Records.StartDate));
         $("#dateEndDate").val(ConvertJsonToDate(Records.EndDate));
+        $(".products").val(Records.ProductID).trigger("change");
+        $(".categories").val(Records.CategoryCode).trigger("change");
         $("#hdfNotificationID").val(Records.NotificationID);
     });
     $(".submitDetails").text("Modify");
