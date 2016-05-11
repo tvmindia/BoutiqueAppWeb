@@ -2,6 +2,14 @@
     //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
 
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+        alert("suceess");
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+
+
    
     $(".ddlcategories").select2({
         placeholder: "Choose Categories",

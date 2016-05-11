@@ -1,7 +1,7 @@
 ﻿$("document").ready(function (e) {
     $("#hdfBoutiqueID").val('');
 
-    BindAsyncBoutiqueDropDown();
+    //BindAsyncBoutiqueDropDown();
    
     
 
