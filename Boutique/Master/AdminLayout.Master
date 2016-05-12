@@ -380,7 +380,7 @@
 			
 	
 			
-         <form id="form1" runat="server">
+         <form id="form1" enctype="multipart/form-data">
        
          <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
        

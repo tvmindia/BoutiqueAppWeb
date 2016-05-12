@@ -67,43 +67,32 @@
 
 
                 //imageupload
-                debugger;
-                var files = $("#files").prop("files");
-                var com = "";
-                for (var i = 0; i < files.length; i++) {
-                    (function (file) {
-                        if (file.type.indexOf("image") == 0) {
-                            var fileReader = new FileReader();
-                            fileReader.onload = function (f) {
-                                Product.Image = Product.Image + com + f.target.result;
-                                com = ",";
-                                //alert(file.name);
-                                alert(Product.Image);
-                                //$.ajax({
-                                //    type: "POST",
-                                //    url: "http://localhost:49525/Home/UploadFile",
-                                //    data: {
-                                //        'file': f.target.result,
-                                //        'name': file.name
-                                //    },
-                                //    success: function (result) {
-                                //        $("#results").
-                                //            append(result).append("<br/>");
-                                //    }
-                                //});
+                var upfiles = $("#files").prop("files");
+                //var uploadfiles = $("#MultipleFilesUpload").get(0);
+                var uploadedfiles = upfiles.files;
 
-                            };
+                var fromdata = new FormData();
 
-                            fileReader.readAsDataURL(file);
-                        }
-                    })(files[i]);
+                for (var i = 0; i < uploadedfiles.length; i++) {
+                    fromdata.append(uploadedfiles[i].name, uploadedfiles[i]);
                 }
+                postBlobAjax(fromdata, "../ImageHandler/ImageServiceHandler.ashx");
 
-
-              
 
                 //imageupload
-                result = InsertProduct(Product);
+
+
+
+                //imageupload
+               // var formData = new FormData(document.getElementById("form1"));
+
+                //formData.append('file', event.target.result))
+               // formData.append('file', document.getElementById("form1"))
+               // postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+              
+
+               
+              //  result = InsertProduct(Product);
             }
             //if ($(".AddProduct").text() == "Modify") {
             //    var Category = new Object();
@@ -111,7 +100,7 @@
             //    Category.CategoryID = $("#hdfCategoryID").val();
             //    Category.CategoryCode = $("#txtCatCode").val();
             //    Category.CategoryName = $("#txtCategoryName").val();
-            //    result = UpdateCategory(Category);
+             //  result = UpdateCategory(Category);
             //}
            // BindAsyncCategoryTable(boutiqueid);
             if (result == "1") {
@@ -193,6 +182,27 @@ function getJsonData(data, page) {
     return jsonResult;
 }
 //---end of getting data as json -----//
+
+
+//post File/blog to Server
+
+function postBlobAjax(fromdata, page)
+{
+    var jsonResult = {};
+    $.ajax({
+        type:'post',
+        url:page,
+        data: fromdata,
+        async: false,
+        processData:false,
+        contentType:false,
+    }).done(function (data) {
+     
+        jsonResult = data;
+    });
+    return jsonResult;
+}
+//post File/blog to Server
 
 
 function BindAsyncCategory(boutiqueid) {
