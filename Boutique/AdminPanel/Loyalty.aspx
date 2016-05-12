@@ -65,7 +65,15 @@
 							
 								  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserName" type="text"/>
+								  <label class="control-label" id="txtUserName"/>
+								</div>
+								</div>
+
+                            <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Mobile</label>
+								<div class="controls">
+								  <label class="control-label" id="txtMobile"/>
 								</div>
 								</div>
 
@@ -73,7 +81,7 @@
 							
 								  <label class="control-label" for="focusedInput">Loyalty Card No</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtLoyalCardNo" type="text"/>
+								  <label class="control-label" id="txtLoyalCardNo" />
 								</div>
 								</div>
 
@@ -81,15 +89,14 @@
 							
 								  <label class="control-label" for="focusedInput">Loyalty Points</label>
 								<div class="controls">
-								 
-                                  <span class="input-large uneditable-input" id="txtLoyaltyPoints"></span>
+								 <label class="control-label" id="txtLoyaltyPoints" style="color:purple;font-size:large; font-weight: bold;"/>
 								</div>
 								</div>
                             <div class="control-group">
 							
 								  <label class="control-label" for="focusedInput">Current Purchase</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtcurrentPurchase" type="text"/>
+								  <input class="input-large focused" id="txtcurrentPurchase" type="number"/>
 								</div>
 								</div>
 						
@@ -121,5 +128,5 @@
 
     </div>
 
-
+    <input type="hidden" id="hdfUserID" value=""/>
 </asp:Content>
