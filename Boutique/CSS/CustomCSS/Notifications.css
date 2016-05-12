@@ -15,3 +15,7 @@
     background-color:#B8D0E8;
     
 }
+
+.TableLayout{
+    min-height:50px; max-height:350px; overflow-y:scroll; margin-bottom: 20px;
+}

@@ -50,7 +50,7 @@
 							
 						</div>
 					</div>
-					<div class="box-content" style="min-height:50px; max-height:350px; overflow-y:scroll; margin-bottom: 20px">
+					<div class="box-content TableLayout" >
                         <%--class="table table-bordered table-striped table-condensed"--%>
 						<table class="table table-condensed" id="NotificationTable">
 							  <thead>

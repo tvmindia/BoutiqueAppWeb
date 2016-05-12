@@ -246,7 +246,6 @@ function DeleteNotification(Notification)
 //---getting data as json-----//
 function getJsonData(data, page) {
     var jsonResult = {};
-    // $("#loadingimage").show();
     var req = $.ajax({
         type: "post",
         url: page,
@@ -257,8 +256,6 @@ function getJsonData(data, page) {
         dataType: "json"
 
     }).done(function (data) {
-
-        //     $("#loadingimage").hide();
         jsonResult = data;
     });
     return jsonResult;

@@ -3,7 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/Loyalty.css" rel="stylesheet" />
-
+    <script src="../Scripts/UserJS/Loyalty.js"></script>
+    <style>
+        label.control-label {cursor: default!important;}
+    </style>
     <div id="content" class="span10">
         	<ul class="breadcrumb">
 				<li>
@@ -24,8 +27,10 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content">
-						<table class="table table-striped table-bordered bootstrap-datatable datatable" id="UsersTable">
+                    <%-- style="min-height:50px; max-height:350px; overflow-y:scroll; margin-bottom: 20px" --%>
+					<div class="box-content" >
+						<%--<table class="table table-striped table-bordered bootstrap-datatable datatable" id="UsersTable">--%>
+						<table class="table table-striped table-bordered  bootstrap-datatable" id="UsersTable">
 						  <thead>
 							  <tr>
 								  <th>Name</th>
@@ -35,87 +40,7 @@
 								  <th>Actions</th>
 							  </tr>
 						  </thead>   
-						  <tbody>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>  
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>  
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i> 
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">2012/01/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-success">Active</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>  
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>  
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i> 
-									</a>
-								</td>
-							</tr>
-						
-						
-							<tr>
-								<td>Dennis ki</td>
-								<td class="center">2012/03/01</td>
-								<td class="center">Member</td>
-								<td class="center">
-									<span class="label label-warning">Pending</span>
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i> 
-
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td>Dennis Ji</td>
-								<td class="center">999999</td>
-								<td class="center">Member@mail.com</td>
-								<td class="center">
-									loyaltynum
-								</td>
-								<td class="center">
-									<a class="btn btn-success" href="#">
-										<i class="halflings-icon white zoom-in"></i>                                            
-									</a>
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>                                            
-									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i> 
-										
-									</a>
-								</td>
-							</tr>
+						  <tbody id="userrows">
 						  </tbody>
 					  </table>            
 					</div>
@@ -140,7 +65,15 @@
 							
 								  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserName" type="text"/>
+								  <label class="control-label" id="txtUserName"/>
+								</div>
+								</div>
+
+                            <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Mobile</label>
+								<div class="controls">
+								  <label class="control-label" id="txtMobile"/>
 								</div>
 								</div>
 
@@ -148,7 +81,7 @@
 							
 								  <label class="control-label" for="focusedInput">Loyalty Card No</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtLoyalCardNo" type="text"/>
+								  <label class="control-label" id="txtLoyalCardNo" />
 								</div>
 								</div>
 
@@ -156,15 +89,14 @@
 							
 								  <label class="control-label" for="focusedInput">Loyalty Points</label>
 								<div class="controls">
-								 
-                                  <span class="input-large uneditable-input" id="txtLoyaltyPoints"></span>
+								 <label class="control-label" id="txtLoyaltyPoints" style="color:purple;font-size:large; font-weight: bold;"/>
 								</div>
 								</div>
                             <div class="control-group">
 							
 								  <label class="control-label" for="focusedInput">Current Purchase</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtcurrentPurchase" type="text"/>
+								  <input class="input-large focused" id="txtcurrentPurchase" type="number"/>
 								</div>
 								</div>
 						
@@ -196,5 +128,5 @@
 
     </div>
 
-
+    <input type="hidden" id="hdfUserID" value=""/>
 </asp:Content>
