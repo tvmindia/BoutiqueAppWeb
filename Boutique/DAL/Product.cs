@@ -1032,7 +1032,7 @@ namespace Boutique.DAL
         #endregion CategoryMethods
 
         #region ProductImageMethods
-        public Int16 ProductImageMethods()
+        public Int16 InsertProductImage()
         {
             if (ProductID == "")
             {
@@ -1053,8 +1053,8 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
                 cmd.Parameters.Add("@IsMain", SqlDbType.Bit).Value = IsMain;
-               // cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
-               // cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -1074,10 +1074,10 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
-        #region ProductImageMethods
+       
 
 
         #endregion ProductImageMethods
-        #endregion ProductImageMethods
+       
     }
 }

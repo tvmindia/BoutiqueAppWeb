@@ -6,7 +6,7 @@
         // Great success! All the File APIs are supported.
       
 
-        document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        document.getElementById('productfile').addEventListener('change', handleFileSelect, false);
     } else {
         alert('The File APIs are not fully supported in this browser.');
     }
@@ -38,8 +38,7 @@
             $('.alert-error').hide();
             var result = "";
            
-            if ($(".AddProduct").text() == "Save")
-            {
+            if ($(".AddProduct").text() == "Save") {
               
                 var Product = new Object();
                 Product.BoutiqueID = boutiqueid;
@@ -66,30 +65,48 @@
               
              
                 Product.DesignerID = $("#idDdlDesigners").val();
-                result = InsertProduct(Product);
+                
 
                 //imageupload
+                //var upfiles = $("#files").prop("files");
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
                 var file, img;
                 // if ((file = $('#files')[0].files[0])) {
-                var upfiles = $('#files')[0].files;
-                for (var k = 0; k < upfiles.length; k++) 
-                {
+                var upfiles = $('#productfile')[0].files;
+                if ((file = $('#productfile')[0].files[0])) {
                     img = new Image();
                     img.onload = function () {
-                                              
-                        formData.append('file', $('#files')[0].files[k]);
+                        sendFile(file);
+
+                        formData.append('file', $('#productfile')[0].files[0]);
+                        postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
                     };
                     img.onerror = function () {
-                        alert("Not a valid file:" + upfiles[k].type);
+                        alert("Not a valid file:" + file.type);
                     };
-                    img.src = _URL.createObjectURL(upfiles[k]);
+                    img.src = _URL.createObjectURL(file);
                 }
-            
-                    postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+
+               // postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                   
+
+
                 //imageupload
-         }
+
+
+
+                //imageupload
+               // var formData = new FormData(document.getElementById("form1"));
+
+                //formData.append('file', event.target.result))
+               // formData.append('file', document.getElementById("form1"))
+               // postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+              
+
+               
+              //  result = InsertProduct(Product);
+            }
             //if ($(".AddProduct").text() == "Modify") {
             //    var Category = new Object();
             //    Category.BoutiqueID = boutiqueid;
@@ -129,7 +146,7 @@ function sendFile(file)
 
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
-
+    $("#list").find(".thumb").remove();
     // Loop through the FileList and render image files as thumbnails.
     for (var i = 0, f; f = files[i]; i++) {
 
@@ -191,16 +208,17 @@ function getJsonData(data, page) {
 
 function postBlobAjax(formData, page)
 {
-   
+    debugger;
     $.ajax({
         type: 'post',
         url: page,
+        async: false,
         data: formData,
         success: function (status) {
             if (status != 'error') {
                 //var my_path = "MediaUploader/" + status;
                 // $("#myUploadedImg").attr("src", my_path);
-                alert("images uploaded successfully");
+                alert("success");
             }
         },
         processData: false,

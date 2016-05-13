@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Boutique.DAL;
 
+
 namespace Boutique.ImageHandler
 {
     /// <summary>
@@ -17,9 +18,9 @@ namespace Boutique.ImageHandler
         {
            
             //context.Response.Write("Hello World");
-            //context.Response.ContentType = "image/png";
+          // context.Response.ContentType = "image/png";
             //context.Response.Expires = -1;
-            context.Response.ContentType = "text/plain";
+           context.Response.ContentType = "text/plain";
             try
             {
                 string dirFullPath = HttpContext.Current.Server.MapPath("~/MediaUploader/");
@@ -38,20 +39,20 @@ namespace Boutique.ImageHandler
 
                     if (!string.IsNullOrEmpty(fileName))
                     {
-                        //fileExtension = Path.GetExtension(fileName);
-                        //str_image = "MyPHOTO_" + numFiles.ToString() + fileExtension;
-                        //string pathToSave_100 = HttpContext.Current.Server.MapPath("~/MediaUploader/") + str_image;
-                        //file.SaveAs(pathToSave_100);
-                         Product prodobj = new Product();
-                         //Product prodobj;
-                         prodobj.ImageFile = new byte[file.ContentLength];
+                        fileExtension = Path.GetExtension(fileName);
+                        str_image = "MyPHOTO_" + numFiles.ToString() + fileExtension;
+                        string pathToSave_100 = HttpContext.Current.Server.MapPath("~/MediaUploader/") + str_image;
+                        file.SaveAs(pathToSave_100);
+                        Product prodobj = new Product();
+                      //  Product prodobj;
+                        prodobj.ImageFile = new byte[file.ContentLength];
                          byte[] myData = new byte[file.ContentLength];
                          file.InputStream.Read(myData, 0, file.ContentLength);
 
                          file.InputStream.Read(prodobj.ImageFile, 0, file.ContentLength);
                          prodobj.ProductID="0d313265-e102-442b-9bc5-f8c69015f6d4";
                          prodobj.IsMain = true;
-                         prodobj.ProductImageMethods();
+                         prodobj.InsertProductImage();
 
 
 

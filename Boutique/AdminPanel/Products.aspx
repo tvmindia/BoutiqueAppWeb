@@ -194,13 +194,16 @@
 
 						</div>
               </div>
-                    <div class="span5" style="height:553px;overflow:auto;">
+                    <div class="span5" style="height:553px;overflow:auto;background-color:lightyellow;">
                         <div class="form-horizontal">
+                            <div class="control-group">
+                                </div>
                               <div class="control-group">
                            <%--  fileupload with preview --%>
                                   <label class="control-label">Product Image</label>
                             <div class="controls">
-							<input type="file" id="files" name="files[]" multiple="multiple"/>
+							<input type="file" id="productfile" name="files"/>
+                                <a class="btn btn-primary AddProductimage" href="#">Upload</></a>
                             </div>
                           
                           
