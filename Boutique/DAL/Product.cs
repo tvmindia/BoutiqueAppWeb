@@ -102,12 +102,12 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public string[] Image//Accepts base64 charaters of images
+        public byte[] ImageFile//of images
         {
             get;
             set;
         }
-        public byte IsMain
+        public bool IsMain
         {
             get;
             set;
@@ -1030,5 +1030,54 @@ namespace Boutique.DAL
         #endregion DeleteCategory
 
         #endregion CategoryMethods
+
+        #region ProductImageMethods
+        public Int16 ProductImageMethods()
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "InsertProductImages";
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
+                cmd.Parameters.Add("@IsMain", SqlDbType.Bit).Value = IsMain;
+               // cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+               // cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #region ProductImageMethods
+
+
+        #endregion ProductImageMethods
+        #endregion ProductImageMethods
     }
 }
