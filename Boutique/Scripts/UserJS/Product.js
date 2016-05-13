@@ -26,7 +26,8 @@
     });
 
 
-
+    
+    
    
   
     $(".AddProduct").live({
@@ -37,7 +38,8 @@
             $('.alert-error').hide();
             var result = "";
            
-            if ($(".AddProduct").text() == "Save") {
+            if ($(".AddProduct").text() == "Save")
+            {
               
                 var Product = new Object();
                 Product.BoutiqueID = boutiqueid;
@@ -64,54 +66,37 @@
               
              
                 Product.DesignerID = $("#idDdlDesigners").val();
-
-
-                //imageupload
-                debugger;
-                var files = $("#files").prop("files");
-                var com = "";
-                for (var i = 0; i < files.length; i++) {
-                    (function (file) {
-                        if (file.type.indexOf("image") == 0) {
-                            var fileReader = new FileReader();
-                            fileReader.onload = function (f) {
-                                Product.Image = Product.Image + com + f.target.result;
-                                com = ",";
-                                //alert(file.name);
-                                alert(Product.Image);
-                                //$.ajax({
-                                //    type: "POST",
-                                //    url: "http://localhost:49525/Home/UploadFile",
-                                //    data: {
-                                //        'file': f.target.result,
-                                //        'name': file.name
-                                //    },
-                                //    success: function (result) {
-                                //        $("#results").
-                                //            append(result).append("<br/>");
-                                //    }
-                                //});
-
-                            };
-
-                            fileReader.readAsDataURL(file);
-                        }
-                    })(files[i]);
-                }
-
-
-              
-
-                //imageupload
                 result = InsertProduct(Product);
-            }
+
+                //imageupload
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var file, img;
+                // if ((file = $('#files')[0].files[0])) {
+                var upfiles = $('#files')[0].files;
+                for (var k = 0; k < upfiles.length; k++) 
+                {
+                    img = new Image();
+                    img.onload = function () {
+                                              
+                        formData.append('file', $('#files')[0].files[k]);
+                    };
+                    img.onerror = function () {
+                        alert("Not a valid file:" + upfiles[k].type);
+                    };
+                    img.src = _URL.createObjectURL(upfiles[k]);
+                }
+            
+                    postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                //imageupload
+         }
             //if ($(".AddProduct").text() == "Modify") {
             //    var Category = new Object();
             //    Category.BoutiqueID = boutiqueid;
             //    Category.CategoryID = $("#hdfCategoryID").val();
             //    Category.CategoryCode = $("#txtCatCode").val();
             //    Category.CategoryName = $("#txtCategoryName").val();
-            //    result = UpdateCategory(Category);
+             //  result = UpdateCategory(Category);
             //}
            // BindAsyncCategoryTable(boutiqueid);
             if (result == "1") {
@@ -130,6 +115,13 @@
 
 
 });//end of document.ready
+
+
+function sendFile(file)
+{
+
+   
+}
 
 
 
@@ -193,6 +185,32 @@ function getJsonData(data, page) {
     return jsonResult;
 }
 //---end of getting data as json -----//
+
+
+//post File/blog to Server
+
+function postBlobAjax(formData, page)
+{
+   
+    $.ajax({
+        type: 'post',
+        url: page,
+        data: formData,
+        success: function (status) {
+            if (status != 'error') {
+                //var my_path = "MediaUploader/" + status;
+                // $("#myUploadedImg").attr("src", my_path);
+                alert("images uploaded successfully");
+            }
+        },
+        processData: false,
+        contentType: false,
+        error: function () {
+            alert("Whoops something went wrong!");
+        }
+    });
+}
+//post File/blog to Server
 
 
 function BindAsyncCategory(boutiqueid) {

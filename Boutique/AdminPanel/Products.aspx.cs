@@ -8,6 +8,11 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//
+
+
+//
+
 namespace Boutique.AdminPanel
 {
     public partial class Products : System.Web.UI.Page
@@ -38,6 +43,19 @@ namespace Boutique.AdminPanel
             return status;
         }
         #endregion InsertProduct
+          
+        #region InsertProductImage
+        //[System.Web.Services.WebMethod]
+        public string InsertProductImage()
+        {
+            
+
+            return "333";
+        }
+
+        #endregion InsertProductImage
+
+      
 
         #region GetAllProducts
         [System.Web.Services.WebMethod]
