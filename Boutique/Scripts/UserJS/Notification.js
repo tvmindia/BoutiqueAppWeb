@@ -2,7 +2,7 @@
 
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
     BindNotificationsTable(boutiqueid);
-    //Edit space drop downs-------------
+    //Edit region drop downs-------------
     $(".products").select2({
         placeholder: "Choose related product",
         allowClear: true,
@@ -30,6 +30,14 @@
             if (jsonResult != undefined) {
                 BindNotificationTextBoxes(jsonResult);
             }
+            //Scroll page
+            var offset = $('#editLabel').offset();
+            offset.left -= 20;
+            offset.top -= 20;
+            $('html, body').animate({
+                scrollTop: offset.top,
+                scrollLeft: offset.left
+            });
             return false;
         }
     })
@@ -94,6 +102,14 @@
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
             }
+            //Scroll page
+            var offset = $('#rowfluidDiv').offset();
+            offset.left -= 20;
+            offset.top -= 20;
+            $('html, body').animate({
+                scrollTop: offset.top,
+                scrollLeft: offset.left
+            });
         }
     })
     //Delete button---------
@@ -130,7 +146,15 @@
                 $("#hdfNotificationID").val('');
                 $(".products").select2("val", "");
                 $(".categories").select2("val", "");
-            }          
+                //Scroll page
+                var offset = $('#rowfluidDiv').offset();
+                offset.left -= 20;
+                offset.top -= 20;
+                $('html, body').animate({
+                    scrollTop: offset.top,
+                    scrollLeft: offset.left
+                });
+            }
             return false;
         }        
     })
