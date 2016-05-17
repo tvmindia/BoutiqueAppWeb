@@ -1,11 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Loyalty.aspx.cs" Inherits="Boutique.AdminPanel.Loyalty" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+   
+
     <link href="../CSS/CustomCSS/Loyalty.css" rel="stylesheet" />
     <script src="../Scripts/UserJS/Loyalty.js"></script>
     <style>
         label.control-label {cursor: default!important;}
+        label {cursor: default!important;}
     </style>
     <div id="content" class="span10">
         	<ul class="breadcrumb">
@@ -48,75 +56,160 @@
                           </div><!--/row-->
 
 
-        <div class="row-fluid">
-               	<div class="box span6">
+        <div class="row-fluid" id="DetailSection">
+               	<div class="box span12">
 				  <div class="box-header">
 						<h2>Details</h2>
-						<div class="box-icon">
+					<%--	<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
-						</div>
+							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+						</div>--%>
 					</div>
-					<div class="box-content" style="height:330px;overflow:auto;" >
-						<div class="form-horizontal">
+					<div class="box-content span12" > 
+						<div class="form-horizontal" style="margin-left:auto" >
 							<%--<fieldset>--%>
-							  <div class="control-group">
-							
+                          
+                            
+                            
+                            <div class="span6">
+							  <div class="row control-group">
 								  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <label class="control-label" id="txtUserName"/>
+								  <label class="control-label Detail" id="txtUserName"/>
 								</div>
-								</div>
-
-                            <div class="control-group">
-							
+                                  </div>
+                               <div class="row control-group">
 								  <label class="control-label" for="focusedInput">Mobile</label>
 								<div class="controls">
-								  <label class="control-label" id="txtMobile"/>
+								  <label class="control-label Detail" id="txtMobile"/>
 								</div>
-								</div>
-
-                            <div class="control-group">
-							
+							</div>
+                             <div class="row control-group">
 								  <label class="control-label" for="focusedInput">Loyalty Card No</label>
 								<div class="controls">
-								  <label class="control-label" id="txtLoyalCardNo" />
+								  <label class="control-label Detail" id="txtLoyalCardNo" />
 								</div>
-								</div>
-
-                            <div class="control-group">
-							
+							</div>
+                             <div class="row control-group">
 								  <label class="control-label" for="focusedInput">Loyalty Points</label>
 								<div class="controls">
-								 <label class="control-label" id="txtLoyaltyPoints" style="color:purple;font-size:large; font-weight: bold;"/>
+								 <label class="control-label LoyaltyPoints" id="txtLoyaltyPoints"/>
 								</div>
-								</div>
-                            <div class="control-group">
-							
-								  <label class="control-label" for="focusedInput">Current Purchase</label>
+                                 </div>
+                               <div class="row control-group">
+                                <div class="control-group">							
+								  <label class="control-label" for="focusedInput">Purchase Amount</label>
 								<div class="controls">
 								  <input class="input-large focused" id="txtcurrentPurchase" type="number"/>
 								</div>
 								</div>
+                                   </div>
 						
+                            </div>
+               
+                                                       <%-- <div class="control-group" style="margin-right: 8%;">
+                                  <div class="span2">
+                                  <label class="control-label" >Redeem?</label>
+                                  </div>  
+                                  <div class="span10">
+								        <div class="control-group span6" id="redeemBox">
+								          
+                                            <div class="row" style="margin: 8%;">
+                                                        <div class="span6">
+							                              <label class="" for="focusedInput">Loyalty Points</label>
+                                                        </div>
+                            
+							                           <div class="span6">
+							                              <label class="LoyaltyPoints"  id="txtredeemedLoyalty"/>
+                                                       </div>             
+                                                
+                                            </div>       
+                                            <div class="row" style="margin: 8%;">                            
+                                                       <div class="span6">
+							                              <label class="" for="focusedInput">Amount</label>
+                                                        </div>
+                            
+							                           <div class="span6">
+							                              <label class="LoyaltyPoints" id="txtredeemedAmount"/>
+                                                       </div>
+                                            </div>
+                                                       <div class="span12" style="text-align: center;">                                  
+                                                           <input id="Button1"  class="btn" style="margin-bottom: 5%;" type="button" value="Redeem it" />
+                                                       </div>
+                                        </div>
+                                                
+                                        <div class="control-group span6"  id="noredeemBox">
+                                             <div class="row" style="margin: 8%;">
+								               
+                                                        <div class="span6">
+							                              <label for="focusedInput">Loyalty Points</label>
+                                                        </div>
+                            
+							                           <div class="span6">
+							                              <label class="LoyaltyPoints" id="txtnotRedeemedLoyalty"/>
+                                                       </div>
+                                             </div>
+                                             <div class="row" style="margin: 8%;">
+                                                 <div class="span12">
+                                                       <div class=" span6">
+							                              <label for="focusedInput">Amount</label>
+                                                        </div>
+                            
+							                           <div class="span6">
+							                              <label class="LoyaltyPoints" id="txtnotRedeemedAmount"/>
+                                                       </div>
+                                                   </div>
+                                             </div>
+                                                <div class="span12" style="text-align: center;">
+                                                         <input id="Button2"  class="btn" style="margin-bottom: 5%;" type="button" value="Don't Redeem" />                                                
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                              </div>--%>
 
 
-                              <div class="control-group">
-								<label class="control-label">Redeem?</label>
-								<div class="controls">
-								  <label class="checkbox inline">
-									<input type="checkbox" id="chkRedeem" value="option1"/>Yes</label>
-								
-								</div>
-							  </div>
+                            <div class="span4">
+                                    
 
-							  </div>
-						
-							
-							<%--</fieldset>--%>
-						</div>
+                                 <table class="table table-striped table-bordered">
+						  <thead>
+							  <%--<tr>
+								  <th>Name</th>
+								  <th>Mobile</th>
+								  <th>Email</th>
+								  <th>Loyalty Card No</th>
+								  <th>Actions</th>
+							  </tr>--%>
+						  </thead>   
+						  <tbody>
+                              <tr>
+                                 <td colspan="2">
+                                      Loyalty Points
+                                 </td>
+                              </tr>
+                              <tr>
+                                  <td>
+                                      Existing Points
+                                  </td>
+                                  <td style="text-align:right">
+                                      500
+                                  </td>
+                              </tr>
+						  </tbody>
+					  </table>   
 
+
+
+                             </div>
+
+
+
+
+					    	</div>	  
+                        
+                    </div>
                         <footer class="InnerFooter">
                 				<button type="submit" class="btn btn-primary">Save changes</button>
 								<button class="btn">Cancel</button>
@@ -129,4 +222,8 @@
     </div>
 
     <input type="hidden" id="hdfUserID" value=""/>
+
+      
+
 </asp:Content>
+   

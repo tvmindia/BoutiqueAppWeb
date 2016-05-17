@@ -1,10 +1,18 @@
 ﻿$("document").ready(function (e) {
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+
+    var MIN_AMOUNT_TO_REDEEM = 500;
+    var MAX_DISCOUNT_PERCENTAGE;
+
     BindUserTable(boutiqueid);
     $('#UsersTable').DataTable( {
         "bPaginate": false,             //removing paging
     } );
 
+    $("#txtredeemedLoyalty").text('--');        //Blank at loyalty fields
+    $("#txtredeemedAmount").text('--');
+    $("#txtnotRedeemedLoyalty").text('--');
+    $("#txtnotRedeemedAmount").text('--');
 
     //Selecting user--------
     $(".userselect").live(
@@ -23,10 +31,83 @@
             if (jsonResult != undefined) {
                 BindUserTextBoxes(jsonResult);
             }
+            //Scroll page
+            var offset = $('#DetailSection').offset();
+            offset.left -= 20;
+            offset.top -= 20;
+            $('html, body').animate({
+                scrollTop: offset.top,
+                scrollLeft: offset.left
+            });
+            $('#txtcurrentPurchase').focus(); //to directly enter the amount
+            $('#txtcurrentPurchase').val('');
+            $("#txtredeemedLoyalty").text('--');
+            $("#txtredeemedAmount").text('--');
+            $("#txtnotRedeemedLoyalty").text('--');
+            $("#txtnotRedeemedAmount").text('--');
+            $("#noredeemBox").css({ "border": "none" });
+            $("#redeemBox").css({ "border": "none" });
             return false;
         }
     })
+
+    $("#noredeemBox").live(
+    {
+        click: function (e) {
+            if ($('#txtnotRedeemedLoyalty').text() != "--") {
+                $("#noredeemBox").css({ "border": "2px solid purple", "border-radius": "10px" });
+                $("#redeemBox").css({ "border": "none" });
+                $("#Button2").val("Don't Redeem ✔");
+                $("#Button1").val("Redeem it");
+            }
+        }
+    })
+    $("#redeemBox").live(
+   {
+       click: function (e) {
+        if ($('#txtredeemedLoyalty').text() != "--") {
+               $("#redeemBox").css({ "border": "2px solid purple", "border-radius": "10px" });
+               $("#noredeemBox").css({ "border": "none" });
+               $("#Button1").val("Redeem it ✔");
+               $("#Button2").val("Don't Redeem");
+           }
+       }
+    })
+  
+    //$('#txtcurrentPurchase').change(function () {
+    //    alert("Handler for .change() called.");
+    //});
+
+    $('#txtcurrentPurchase').on('input',function(e){
+        var CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
+        var CurrentPurchase=parseInt($('#txtcurrentPurchase').val());
+        var redeemedAmount = CurrentPurchase - CurrentLoyalty;
+        var redeemedLoyalty = Math.floor(redeemedAmount * 10 / 100);
+        var notRedeemedLoyalty = Math.floor(CurrentLoyalty + CurrentPurchase*10/100);
+        var notRedeemedAmount = CurrentPurchase;       
+        $("#txtnotRedeemedLoyalty").text(notRedeemedLoyalty);
+        $("#txtnotRedeemedAmount").text(notRedeemedAmount);
+        //Redeem box functioning------
+        if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {
+            $("#txtredeemedLoyalty").text(redeemedLoyalty);
+            $("#txtredeemedAmount").text(redeemedAmount);
+            $("#Button1").addClass("btn-primary");
+        }
+        else {
+            $("#txtredeemedLoyalty").text('--');
+            $("#txtredeemedAmount").text('--');
+            $("#Button1").removeClass("btn-primary");
+            $("#redeemBox").css({ "background-color": "white", "border": "none" });
+        }
+        //No Redeem box functioning-----
+        if ($('#txtnotRedeemedLoyalty').text() != "--") {
+            $("#Button2").addClass("btn-primary");
+        }
+    });
+
 });
+
+
 //------------User details table------------
 function BindUserTable(boutiqueid) {
     var jsonResult = {};
@@ -57,12 +138,9 @@ function BindUserTextBoxes(Records) {
         $("#txtUserName").text(Records.Name);
         $("#txtMobile").text(Records.Mobile);
         $("#txtLoyalCardNo").text(Records.LoyaltyCardNo);
-        $("#txtLoyaltyPoints").text((Records.LoyaltyPoints == null ? 0 : Records.LoyaltyPoints));
-       
+        $("#txtLoyaltyPoints").text((Records.LoyaltyPoints == null ? 0 : Records.LoyaltyPoints));       
         $("#hdfUserID").val(Records.UserID);
     });
-   // $(".submitDetails").text("Modify");
-  //  $("#editLabel").text("Edit Notification");
 }
 function GetUserDetails(User) {
     var ds = {};
