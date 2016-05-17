@@ -27,20 +27,25 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertProduct(Product productObj)
         {
-            string status = null;
+            List<Product> prodList = new List<Product>();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             try
             {
                 if (productObj.BoutiqueID != "")
                 {
-                    status = productObj.InsertProduct().ToString();
+                   //returns status and productid
+                    productObj.status = productObj.InsertProduct().ToString();
+                  
+                    prodList.Add(productObj);
+                    
+                   
                 }
-
             }
             catch (Exception)
             {
 
             }
-            return status;
+            return jsSerializer.Serialize(prodList);
         }
         #endregion InsertProduct
           
@@ -55,7 +60,16 @@ namespace Boutique.AdminPanel
 
         #endregion InsertProductImage
 
-      
+        #region GetAllProductImages
+     
+        [System.Web.Services.WebMethod]
+        public static string GetAllProductImages(Product productObj)
+        {
+            DataSet ds=null;
+            ds=productObj.GetAllProductImages();
+            return "";
+        }
+        #endregion GetAllProductImages
 
         #region GetAllProducts
         [System.Web.Services.WebMethod]
