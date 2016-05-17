@@ -17,8 +17,8 @@
 }
 
 .thumb {/*for image uploader preview html 5*/
-    height: 75px;
-    width:75px;
+    height: 175px;
+    width:350px;
     border: 1px solid #000;
     margin: 10px 5px 0 0;
   }

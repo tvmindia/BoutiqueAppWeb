@@ -5,9 +5,9 @@
      <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
-    <link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet" />
-    <script src="../Scripts/jasny-bootstrap.min.js"></script>
-   <%-- <script src="../Scripts/bootstrap-select-1.6.3.js"></script>--%>
+    <%--<link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet"/>--%>
+    <%--<script src="../Scripts/jasny-bootstrap.min.js"></script>--%>
+    <%-- <script src="../Scripts/bootstrap-select-1.6.3.js"></script>--%>
    
 
 
@@ -174,7 +174,7 @@
 								</div>
 							  </div>
                       
-                              <div class="control-group">
+                               <div class="control-group">
                                 <label class="control-label" for="selectError1">Categories</label>
                                 <div class="controls">
                                 <select class="input-xlarge ddlcategories" multiple="multiple" id="idDdlCategories">
@@ -204,6 +204,7 @@
                             <div class="controls">
 							<input type="file" id="productfile" name="files"/>
                                 <a class="btn btn-primary AddProductimage" href="#">Upload</></a>
+                                <a class="btn ClearProductimage" href="#">Clear</></a>
                             </div>
                           
                           
@@ -211,6 +212,11 @@
 						   <%--  fileupload with preview--%>
                             </div>
                                 <output id="list"></output>
+
+
+                        </div>
+                        <div>
+                             <output id="listAll"></output>
                         </div>
                     </div>
                         </div>
@@ -225,4 +231,5 @@
              
          </div>
      </div>
+     <input type="hidden" id="hdfproductID" value=""/>
 </asp:Content>

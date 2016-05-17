@@ -1,7 +1,7 @@
 ﻿$("document").ready(function (e) {
     //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
-
+   
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.
       
@@ -63,49 +63,28 @@
                     com = ",";
                 }
               
-             
-                Product.DesignerID = $("#idDdlDesigners").val();
-                
-
-                //imageupload
-                //var upfiles = $("#files").prop("files");
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var file, img;
-                // if ((file = $('#files')[0].files[0])) {
-                var upfiles = $('#productfile')[0].files;
-                if ((file = $('#productfile')[0].files[0])) {
-                    img = new Image();
-                    img.onload = function () {
-                        sendFile(file);
-
-                        formData.append('file', $('#productfile')[0].files[0]);
-                        postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
-                    };
-                    img.onerror = function () {
-                        alert("Not a valid file:" + file.type);
-                    };
-                    img.src = _URL.createObjectURL(file);
+                if ($("#idDdlDesigners").val() != null)
+                {
+                    Product.DesignerID = $("#idDdlDesigners").val();
                 }
-
-               // postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
-                   
-
-
-                //imageupload
-
-
-
-                //imageupload
-               // var formData = new FormData(document.getElementById("form1"));
-
-                //formData.append('file', event.target.result))
-               // formData.append('file', document.getElementById("form1"))
-               // postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                else
+                {
+                    Product.DesignerID = "";
+                }
+             
+                result = InsertProduct(Product);
               
-
-               
-              //  result = InsertProduct(Product);
+                 if (result[0].status == "1") {
+                     $("#hdfproductID").val(result[0].ProductID);
+                     $('#rowfluidDiv').show();
+                     $('.alert-success').show();
+                 }
+                 if (result[0].status != "1") {
+                     $('#rowfluidDiv').show();
+                     $('.alert-error').show();
+                 }
+                 return false;
+           
             }
             //if ($(".AddProduct").text() == "Modify") {
             //    var Category = new Object();
@@ -116,27 +95,102 @@
              //  result = UpdateCategory(Category);
             //}
            // BindAsyncCategoryTable(boutiqueid);
-            if (result == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-            }
-            if (result != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-            }
-            return false;
+           
         }
 
     })
 
+    $(".AddProductimage").live({
+        click: function (e) {// submit button click
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var imgresult = "";
+            //imageupload
+            var _URL = window.URL || window.webkitURL;
+            var formData = new FormData();
+            var file, img;
+
+            //var Product = new Object();
+            //Product.ProductID = $("#hdfproductID").val('8c9b8e83-dc8f-48d7-994b-8688516a8771');
+            //formData.append('Product', 12324);
+            // if ((file = $('#files')[0].files[0])) {
+            //var upfiles = $('#productfile')[0].files;
+            if ((file = $('#productfile')[0].files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    var image = $('#productfile')[0].files[0];
+                  
+                  
+                    formData.append('files', image, '8c9b8e83-dc8f-48d7-994b-8688516a8771,' + file.name);
+                   
+
+                  //  formData.append('file', $('#productfile')[0].files[0]);
+                    //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                };
+                img.onerror = function () {
+                    alert("Not a valid file:" + file.type);
+                };
+                img.src = _URL.createObjectURL(file);
+            }
+        
+            //imageupload
+           // formData.append('prod', 88888);
+          //  formData.append('ismain', 77777);
+            postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+
+              //  result = InsertProduct(Product);
+
+                if (result[0].status == "1") {
+                    $("#hdfproductID").val(result[0].ProductID);
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                }
+                if (result[0].status != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                }
+                return false;
+
+        }
+
+    })
+   
+    $(".CancelProduct").live({
+        click: function (e) {// Clear controls
+            Cleardsfs();
+            return false;
+        }
+    })
+
+    $(".ClearProductimage").live({
+        click: function (e) {// Clear image control
+            ClearImage();
+            return false;
+        }
+    })
 
 
 });//end of document.ready
 
 
-function sendFile(file)
+function LoadAllImages()
 {
+   
+}
 
+
+
+function ClearImage()
+{
+    
+    document.getElementById("productfile").value = "";
+    
+    $("#list").find(".thumb").remove();
+   
+    //$('#productfile')[0].files;
+    //document.getElementById('productfile').parentNode.innerHTML = document.getElementById('productfile').parentNode.innerHTML;
    
 }
 
@@ -208,25 +262,27 @@ function getJsonData(data, page) {
 
 function postBlobAjax(formData, page)
 {
-    debugger;
-    $.ajax({
-        type: 'post',
-        url: page,
-        async: false,
-        data: formData,
-        success: function (status) {
-            if (status != 'error') {
-                //var my_path = "MediaUploader/" + status;
-                // $("#myUploadedImg").attr("src", my_path);
-                alert("success");
-            }
-        },
-        processData: false,
-        contentType: false,
-        error: function () {
-            alert("Whoops something went wrong!");
-        }
-    });
+    var request = new XMLHttpRequest();
+    request.open("POST", page);
+    request.send(formData);
+    //$.ajax({
+    //    type: 'post',
+    //    url: page,
+    //    async: false,
+    //    data: formData,
+    //    success: function (status) {
+    //        if (status != 'error') {
+    //            //var my_path = "MediaUploader/" + status;
+    //            // $("#myUploadedImg").attr("src", my_path);
+    //            alert("success");
+    //        }
+    //    },
+    //    processData: false,
+    //    contentType: false,
+    //    error: function () {
+    //        alert("Whoops something went wrong!");
+    //    }
+    //});
 }
 //post File/blog to Server
 
@@ -345,6 +401,18 @@ function BindAsyncDesigner(boutiqueid) {
        // BindDesignerDropDown($("#selectError3Des"), jsonResult, -1);
 
     }
+}
+
+
+function GetAllProductImages(productid) {//dgdfgfd/dsfdsfds
+
+    var ds = {};
+    var table = {};
+    var data = "{'ProductID':" + JSON.stringify(productid) + "}";
+    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
+    table = JSON.parse(ds.d);
+
+    return table;
 }
 
 function GetAllCategories(boutiqueid) {

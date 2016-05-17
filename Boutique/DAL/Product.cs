@@ -75,6 +75,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -190,7 +195,7 @@ namespace Boutique.DAL
                 }
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
-                SqlParameter outParameter = null;
+                SqlParameter outstatus = null,outproductid=null;
                 try
                 {
                     dcon = new dbConnection();
@@ -209,8 +214,10 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                    outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
-                    outParameter.Direction = ParameterDirection.Output;
+                    outstatus = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                    outproductid = cmd.Parameters.Add("@OutProductID", SqlDbType.UniqueIdentifier);
+                    outproductid.Direction = ParameterDirection.Output;
+                    outstatus.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -225,7 +232,9 @@ namespace Boutique.DAL
                     }
                 }
                 //insert success or failure
-                return Int16.Parse(outParameter.Value.ToString());
+               
+                ProductID = outproductid.Value != null ? outproductid.Value.ToString() : "";
+                return Int16.Parse(outstatus.Value.ToString());
 
             }
             #endregion New Product
@@ -1078,6 +1087,53 @@ namespace Boutique.DAL
 
 
         #endregion ProductImageMethods
-       
+
+        #region GetAllProductImages
+        public DataSet GetAllProductImages()
+        {
+
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+         
+            try
+            {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetAllProductImages]";
+                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
+           
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+
+        #endregion GetAllProductImages
+
     }
 }
