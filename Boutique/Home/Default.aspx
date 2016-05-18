@@ -62,7 +62,7 @@
 
 		<!-- Header -->
 			<header id="header" style="position: fixed!important;z-index: 99999!important" class="navbar" >
-				<h1><a href="index.html">B e W e D o</a></h1>
+				<h1><a onclick="SmoothScroll('#banner')">B e W e D o</a></h1>
 				<nav id="nav">
 					<ul>
 						<li><a onclick="SmoothScroll('#banner')">Home</a></li>
