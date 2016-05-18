@@ -115,6 +115,39 @@
     <Content Include="font\glyphicons-regular.svg" />
     <Content Include="font\glyphiconshalflings-regular.svg" />
     <Content Include="General\UnderConstruction.aspx" />
+    <Content Include="Home\css\font-awesome.min.css" />
+    <Content Include="Home\css\skel.css" />
+    <Content Include="Home\css\style-large.css" />
+    <Content Include="Home\css\style-medium.css" />
+    <Content Include="Home\css\style-small.css" />
+    <Content Include="Home\css\style-xlarge.css" />
+    <Content Include="Home\css\style-xsmall.css" />
+    <Content Include="Home\css\style.css" />
+    <Content Include="Home\Default.aspx" />
+    <Content Include="Home\fonts\fontawesome-webfont.svg" />
+    <Content Include="Home\images\about.jpg" />
+    <Content Include="Home\images\about1.jpg" />
+    <Content Include="Home\images\bokeh_car_lights_bg.jpg" />
+    <Content Include="Home\images\bokeh_car_lights_bg4.jpg" />
+    <Content Include="Home\images\bokeh_car_lights_bg5.jpg" />
+    <Content Include="Home\images\contact.jpg" />
+    <Content Include="Home\images\dark_tint.png" />
+    <Content Include="Home\images\engine.png" />
+    <Content Include="Home\images\pic02.jpg" />
+    <Content Include="Home\images\pic03.jpg" />
+    <Content Include="Home\images\pic04.jpg" />
+    <Content Include="Home\images\pic07.jpg" />
+    <Content Include="Home\images\pic08.jpg" />
+    <Content Include="Home\images\profile_placeholder.gif" />
+    <Content Include="Home\images\social.jpg" />
+    <Content Include="Home\images\testrimonials.jpg" />
+    <Content Include="Home\images\testrimonials1.jpg" />
+    <Content Include="Home\js\engine.js" />
+    <Content Include="Home\js\html5shiv.js" />
+    <Content Include="Home\js\init.js" />
+    <Content Include="Home\js\jquery.min.js" />
+    <Content Include="Home\js\skel-layers.min.js" />
+    <Content Include="Home\js\skel.min.js" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />
@@ -214,6 +247,10 @@
     <Content Include="WebServices\WebService.asmx" />
     <Content Include="packages.config" />
     <Content Include="ImageHandler\ImageServiceHandler.ashx" />
+    <Content Include="Home\fonts\fontawesome-webfont.eot" />
+    <Content Include="Home\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Home\fonts\fontawesome-webfont.woff" />
+    <Content Include="Home\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -347,6 +384,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Home\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ImageHandler\ImageServiceHandler.ashx.cs">
       <DependentUpon>ImageServiceHandler.ashx</DependentUpon>
     </Compile>
@@ -365,10 +408,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Home\css\" />
-    <Folder Include="Home\fonts\" />
-    <Folder Include="Home\images\" />
-    <Folder Include="Home\js\" />
     <Folder Include="MediaUploader\" />
     <Folder Include="Models\" />
   </ItemGroup>
