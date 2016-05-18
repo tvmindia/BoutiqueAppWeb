@@ -2,7 +2,7 @@
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
 
     var MIN_AMOUNT_TO_REDEEM = 500;
-    var MAX_DISCOUNT_PERCENTAGE;
+    var MAX_DISCOUNT_PERCENTAGE=50;
 
     BindUserTable(boutiqueid);
     $('#UsersTable').DataTable( {
@@ -78,31 +78,37 @@
     //    alert("Handler for .change() called.");
     //});
 
-    $('#txtcurrentPurchase').on('input',function(e){
+    $('#txtcurrentPurchase').on('input', function (e) {
+
         var CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
         var CurrentPurchase=parseInt($('#txtcurrentPurchase').val());
-        var redeemedAmount = CurrentPurchase - CurrentLoyalty;
-        var redeemedLoyalty = Math.floor(redeemedAmount * 10 / 100);
-        var notRedeemedLoyalty = Math.floor(CurrentLoyalty + CurrentPurchase*10/100);
-        var notRedeemedAmount = CurrentPurchase;       
-        $("#txtnotRedeemedLoyalty").text(notRedeemedLoyalty);
-        $("#txtnotRedeemedAmount").text(notRedeemedAmount);
-        //Redeem box functioning------
+        var pointsFromThisPurchase = Math.floor(CurrentPurchase * 10 / 100);
+        var totalPoints = CurrentLoyalty + pointsFromThisPurchase;
+        var redeemablePoints;
         if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {
-            $("#txtredeemedLoyalty").text(redeemedLoyalty);
-            $("#txtredeemedAmount").text(redeemedAmount);
-            $("#Button1").addClass("btn-primary");
+            var max = CurrentPurchase * MAX_DISCOUNT_PERCENTAGE / 100; //maximum discountable amount
+            if (CurrentLoyalty >= max) {
+                redeemablePoints = max;
+            }
+            else {
+                redeemablePoints = CurrentLoyalty;
+            }
         }
         else {
-            $("#txtredeemedLoyalty").text('--');
-            $("#txtredeemedAmount").text('--');
-            $("#Button1").removeClass("btn-primary");
-            $("#redeemBox").css({ "background-color": "white", "border": "none" });
+            redeemablePoints = 0
         }
-        //No Redeem box functioning-----
-        if ($('#txtnotRedeemedLoyalty').text() != "--") {
-            $("#Button2").addClass("btn-primary");
-        }
+        redeemablePoints = Math.floor(redeemablePoints);
+
+        $('input[name=redeem]').removeClass('checked');
+        $("#radioButtons").find('label').removeClass('active')
+                        .end().find('[type="radio"]').prop('checked', false);
+        $("#radioButtons").val(false);
+        $("#radioYes").attr('checked', true);
+
+        $("#existingPoints").text(CurrentLoyalty);
+        $("#pointsFromThisPurchase").text(pointsFromThisPurchase);
+        $("#totalPoints").text(totalPoints);       
+        $("#redeemablePoints").text(redeemablePoints);
     });
 
 });
