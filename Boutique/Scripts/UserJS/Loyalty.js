@@ -59,34 +59,35 @@
     var redeemablePoints;
     var totalPoints;
     $('#txtcurrentPurchase').on('input', function (e) {
-
-        CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
-        CurrentPurchase=parseInt($('#txtcurrentPurchase').val());
-        var pointsFromThisPurchase = Math.floor(CurrentPurchase * MONEY_TO_POINT_VALUE / 100);
-        totalPoints = CurrentLoyalty + pointsFromThisPurchase;       
-        if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {
-            var max = CurrentPurchase * MAX_DISCOUNT_PERCENTAGE / 100; //maximum discountable amount
-            if (CurrentLoyalty >= max) {
-                redeemablePoints = max;
+        if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0)) {
+            CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
+            CurrentPurchase = parseInt($('#txtcurrentPurchase').val());
+            var pointsFromThisPurchase = Math.floor(CurrentPurchase * MONEY_TO_POINT_VALUE / 100);
+            totalPoints = CurrentLoyalty + pointsFromThisPurchase;
+            if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {
+                var max = CurrentPurchase * MAX_DISCOUNT_PERCENTAGE / 100; //maximum discountable amount
+                if (CurrentLoyalty >= max) {
+                    redeemablePoints = max;
+                }
+                else {
+                    redeemablePoints = CurrentLoyalty;
+                }
             }
             else {
-                redeemablePoints = CurrentLoyalty;
+                redeemablePoints = 0
             }
-        }
-        else {
-            redeemablePoints = 0
-        }
-        redeemablePoints = Math.floor(redeemablePoints);
+            redeemablePoints = Math.floor(redeemablePoints);
 
-        $("#radioYes").parent().removeClass('checked');
-        $("#radioNo").parent().removeClass('checked');
-        $("#netAmount").text('');
-        $("#netPoints").text('');
+            $("#radioYes").parent().removeClass('checked');
+            $("#radioNo").parent().removeClass('checked');
+            $("#netAmount").text('');
+            $("#netPoints").text('');
 
-        $("#existingPoints").text(CurrentLoyalty);
-        $("#pointsFromThisPurchase").text(pointsFromThisPurchase);
-        $("#totalPoints").text(totalPoints);       
-        $("#redeemablePoints").text(redeemablePoints);
+            $("#existingPoints").text(CurrentLoyalty);
+            $("#pointsFromThisPurchase").text(pointsFromThisPurchase);
+            $("#totalPoints").text(totalPoints);
+            $("#redeemablePoints").text(redeemablePoints);
+        }
     });
 
     $('#txtcurrentPurchase').blur(function () {
