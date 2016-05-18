@@ -365,6 +365,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Home\css\" />
+    <Folder Include="Home\fonts\" />
+    <Folder Include="Home\images\" />
+    <Folder Include="Home\js\" />
     <Folder Include="MediaUploader\" />
     <Folder Include="Models\" />
   </ItemGroup>
