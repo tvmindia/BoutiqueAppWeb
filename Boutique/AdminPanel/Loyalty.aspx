@@ -225,7 +225,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2" id="radioButtons">                                                
-                                                <label class="btn-group">
+                                                <label class="radio">
                                             <input type="radio" name="redeem" value="yes" id="radioYes"/> Redeem it
                                                     </label>
                                                 <label class="radio">
