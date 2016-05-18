@@ -180,7 +180,7 @@
                             <div class="span4">
 
 
-                                <table class="table table-striped table-bordered">
+                                <table class="table table-bordered">
                                     <thead>
                                         <%--<tr>
 								  <th>Name</th>
@@ -192,48 +192,52 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td colspan="2">Loyalty Points
+                                            <td colspan="2" style="background-color:#f9f9f9">Loyalty Points
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Existing Points
                                             </td>
-                                            <td style="text-align: right">500
+                                            <td style="text-align: right" id="existingPoints">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Points from this purchase
                                             </td>
-                                            <td style="text-align: right">200
+                                            <td style="text-align: right" id="pointsFromThisPurchase">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Total Points
                                             </td>
-                                            <td style="text-align: right">900
+                                            <td style="text-align: right" id="totalPoints">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Redeem Points
+                                            <td colspan="2" style="background-color:#f9f9f9">Redeem Points
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Redeemable Points
                                             </td>
-                                            <td style="text-align: right">200
+                                            <td style="text-align: right" id="redeemablePoints">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Redeem
-                                            </td>
-                                            <td>Don't redeem
+                                            <td colspan="2" id="radioButtons">                                                
+                                                <label class="btn-group">
+                                            <input type="radio" name="redeem" value="yes" id="radioYes"/> Redeem it
+                                                    </label>
+                                                <label class="radio">
+                                            <input type="radio" name="redeem" value="no" id="radioNo"/> Don't Redeem 
+                                                    </label>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Net
+                                            <td colspan="2" style="background-color:#f9f9f9">Net
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr style="font-size:large;font-weight: bold">
                                             <td colspan="2">Amount
                                             </td>
                                         </tr>
