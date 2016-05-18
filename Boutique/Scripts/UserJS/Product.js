@@ -109,14 +109,10 @@
             var imgresult = "";
             //imageupload
             var _URL = window.URL || window.webkitURL;
-            var formData = new FormData();
+           var formData = new FormData();
             var file, img;
+           
 
-            //var Product = new Object();
-            //Product.ProductID = $("#hdfproductID").val('8c9b8e83-dc8f-48d7-994b-8688516a8771');
-            //formData.append('Product', 12324);
-            // if ((file = $('#files')[0].files[0])) {
-            //var upfiles = $('#productfile')[0].files;
             if ((file = $('#productfile')[0].files[0])) {
                 img = new Image();
                 img.onload = function () {
@@ -124,8 +120,7 @@
                   
                   
                     formData.append('files', image, '8c9b8e83-dc8f-48d7-994b-8688516a8771,' + file.name);
-                   
-
+                 
                   //  formData.append('file', $('#productfile')[0].files[0]);
                     //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
                 };
@@ -151,6 +146,9 @@
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                 }
+                var product = new object();
+                product.ProductID = '8c9b8e83-dc8f-48d7-994b-8688516a8771';
+                GetAllProductImages(Product)
                 return false;
 
         }
@@ -170,6 +168,12 @@
             return false;
         }
     })
+
+  
+
+
+
+
 
 
 });//end of document.ready
@@ -262,27 +266,28 @@ function getJsonData(data, page) {
 
 function postBlobAjax(formData, page)
 {
-    var request = new XMLHttpRequest();
-    request.open("POST", page);
-    request.send(formData);
-    //$.ajax({
-    //    type: 'post',
-    //    url: page,
-    //    async: false,
-    //    data: formData,
-    //    success: function (status) {
-    //        if (status != 'error') {
-    //            //var my_path = "MediaUploader/" + status;
-    //            // $("#myUploadedImg").attr("src", my_path);
-    //            alert("success");
-    //        }
-    //    },
-    //    processData: false,
-    //    contentType: false,
-    //    error: function () {
-    //        alert("Whoops something went wrong!");
-    //    }
-    //});
+    //var request = new XMLHttpRequest();
+    //request.open("POST", page);
+    //request.send(formData);
+    $.ajax({
+        type: 'post',
+        url: page,
+        headers: { 'Cache-Control': 'no-cache' },
+        async: false,
+        data: formData,
+        success: function (status) {
+            if (status != 'error') {
+                //var my_path = "MediaUploader/" + status;
+                // $("#myUploadedImg").attr("src", my_path);
+                alert("success");
+            }
+        },
+        processData: false,
+        contentType: false,
+        error: function () {
+            alert("Whoops something went wrong!");
+        }
+    });
 }
 //post File/blog to Server
 
@@ -404,14 +409,13 @@ function BindAsyncDesigner(boutiqueid) {
 }
 
 
-function GetAllProductImages(productid) {//dgdfgfd/dsfdsfds
+function GetAllProductImages(Product) {//dgdfgfd/dsfdsfds
 
     var ds = {};
     var table = {};
-    var data = "{'ProductID':" + JSON.stringify(productid) + "}";
-    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
+    var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductImages");
     table = JSON.parse(ds.d);
-
     return table;
 }
 

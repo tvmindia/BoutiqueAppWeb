@@ -53,8 +53,7 @@ namespace Boutique.ImageHandler
                         
                       //  Product prodobj;
                         prodobj.ImageFile = new byte[file.ContentLength];
-                         byte[] myData = new byte[file.ContentLength];
-                         file.InputStream.Read(myData, 0, file.ContentLength);
+                       
 
                          file.InputStream.Read(prodobj.ImageFile, 0, file.ContentLength);
                         // prodobj.ProductID=Product.ProductID

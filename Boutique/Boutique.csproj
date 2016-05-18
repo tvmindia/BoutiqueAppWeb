@@ -69,6 +69,7 @@
     <Content Include="AdminPanel\LoyaltySettings.aspx" />
     <Content Include="AdminPanel\Notifications.aspx" />
     <Content Include="AdminPanel\People.aspx" />
+    <Content Include="AdminPanel\ProductFileUpload.aspx" />
     <Content Include="AdminPanel\Products.aspx" />
     <Content Include="AdminPanel\Profile.aspx" />
     <Content Include="AdminPanel\SaDashBoard.aspx" />
@@ -207,6 +208,7 @@
     <Content Include="Scripts\UserJS\Notification.js" />
     <Content Include="Scripts\UserJS\People.js" />
     <Content Include="Scripts\UserJS\Product.js" />
+    <Content Include="Scripts\UserJS\ProductFileUpload.js" />
     <Content Include="Scripts\UserJS\Profile.js" />
     <Content Include="Scripts\UserJS\SaDashBoard.js" />
     <Content Include="WebServices\WebService.asmx" />
@@ -298,6 +300,13 @@
     </Compile>
     <Compile Include="AdminPanel\People.aspx.designer.cs">
       <DependentUpon>People.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\ProductFileUpload.aspx.cs">
+      <DependentUpon>ProductFileUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\ProductFileUpload.aspx.designer.cs">
+      <DependentUpon>ProductFileUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\Products.aspx.cs">
       <DependentUpon>Products.aspx</DependentUpon>
