@@ -196,22 +196,16 @@
               </div>
                     <div class="span5" style="height:553px;overflow:auto;background-color:lightyellow;">
                         <div class="form-horizontal">
-                            <div class="control-group">
+                                <div class="control-group">
                                 </div>
                               <div class="control-group">
-                           <%--  fileupload with preview --%>
-                                  <label class="control-label">Product Image</label>
-                            <div class="controls">
-							<input type="file" id="productfile" name="files"/>
-                                <a class="btn btn-primary AddProductimage" href="#">Upload</></a>
-                                <a class="btn ClearProductimage" href="#">Clear</></a>
-                            </div>
+                         
                           
-                          
+                          <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 370px; height: 200px;"></iframe> 
                        
-						   <%--  fileupload with preview--%>
+						
                             </div>
-                                <output id="list"></output>
+                               
 
 
                         </div>

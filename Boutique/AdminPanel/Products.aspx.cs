@@ -65,9 +65,33 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllProductImages(Product productObj)
         {
+            
             DataSet ds=null;
             ds=productObj.GetAllProductImages();
-            return "";
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        if (col.ColumnName == "Image")
+                        {
+                            productObj.ImageFile =(byte[])(row[col]);
+                            string base64String = Convert.ToBase64String(productObj.ImageFile, 0, productObj.ImageFile.Length);
+                            row[col] = base64String;
+                        }
+
+
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            return jsSerializer.Serialize(parentRow);   
         }
         #endregion GetAllProductImages
 
@@ -100,6 +124,7 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllProducts
 
+        
 
 
 
