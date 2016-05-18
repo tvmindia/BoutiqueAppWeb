@@ -84,19 +84,19 @@
                                 <div class="row control-group">
                                     <label class="control-label" for="focusedInput">Name</label>
                                     <div class="controls">
-                                        <label class="control-label Detail" id="txtUserName" />
+                                        <label class="control-label" id="txtUserName" />
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <label class="control-label" for="focusedInput">Mobile</label>
                                     <div class="controls">
-                                        <label class="control-label Detail" id="txtMobile" />
+                                        <label class="control-label" id="txtMobile" />
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <label class="control-label" for="focusedInput">Loyalty Card No</label>
                                     <div class="controls">
-                                        <label class="control-label Detail" id="txtLoyalCardNo" />
+                                        <label class="control-label" id="txtLoyalCardNo" />
                                     </div>
                                 </div>
                                 <div class="row control-group">
@@ -181,18 +181,10 @@
 
 
                                 <table class="table table-bordered">
-                                    <thead>
-                                        <%--<tr>
-								  <th>Name</th>
-								  <th>Mobile</th>
-								  <th>Email</th>
-								  <th>Loyalty Card No</th>
-								  <th>Actions</th>
-							  </tr>--%>
-                                    </thead>
+                                  
                                     <tbody>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9">Loyalty Points
+                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Loyalty Points
                                             </td>
                                         </tr>
                                         <tr>
@@ -214,7 +206,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9">Redeem Points
+                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Redeem Points
                                             </td>
                                         </tr>
                                         <tr>
@@ -234,15 +226,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9">Net
+                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Net
                                             </td>
                                         </tr>
                                         <tr style="font-size:large;font-weight: bold">
-                                            <td colspan="2">Amount
+                                            <td>Amount
+                                            </td>
+                                            <td id="netAmount" style="text-align: right">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Balance Points
+                                            <td>Balance Points
+                                            </td>
+                                            <td id="netPoints" style="text-align: right">
                                             </td>
                                         </tr>
                                     </tbody>
