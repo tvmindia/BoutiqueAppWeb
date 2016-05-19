@@ -247,7 +247,7 @@ function BindNotificationTextBoxes(Records) {
         $("#hdfNotificationID").val(Records.NotificationID);
     });
     $(".submitDetails").text("Modify");
-    $("#editLabel").text("Edit Notification");
+    $("#editLabel").text("Modify Notification");
 }
 function GetNotification(Notification) {
     var ds = {};

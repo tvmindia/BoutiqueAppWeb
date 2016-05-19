@@ -84,19 +84,19 @@
                                 <div class="row control-group">
                                     <label class="control-label" for="focusedInput">Name</label>
                                     <div class="controls">
-                                        <label class="control-label Detail" id="txtUserName" />
+                                        <label class="control-label" id="txtUserName" />
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <label class="control-label" for="focusedInput">Mobile</label>
                                     <div class="controls">
-                                        <label class="control-label Detail" id="txtMobile" />
+                                        <label class="control-label" id="txtMobile" />
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <label class="control-label" for="focusedInput">Loyalty Card No</label>
                                     <div class="controls">
-                                        <label class="control-label Detail" id="txtLoyalCardNo" />
+                                        <label class="control-label" id="txtLoyalCardNo" />
                                     </div>
                                 </div>
                                 <div class="row control-group">
@@ -116,83 +116,15 @@
 
                             </div>
 
-                            <%-- <div class="control-group" style="margin-right: 8%;">
-                                  <div class="span2">
-                                  <label class="control-label" >Redeem?</label>
-                                  </div>  
-                                  <div class="span10">
-								        <div class="control-group span6" id="redeemBox">
-								          
-                                            <div class="row" style="margin: 8%;">
-                                                        <div class="span6">
-							                              <label class="" for="focusedInput">Loyalty Points</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints"  id="txtredeemedLoyalty"/>
-                                                       </div>             
-                                                
-                                            </div>       
-                                            <div class="row" style="margin: 8%;">                            
-                                                       <div class="span6">
-							                              <label class="" for="focusedInput">Amount</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints" id="txtredeemedAmount"/>
-                                                       </div>
-                                            </div>
-                                                       <div class="span12" style="text-align: center;">                                  
-                                                           <input id="Button1"  class="btn" style="margin-bottom: 5%;" type="button" value="Redeem it" />
-                                                       </div>
-                                        </div>
-                                                
-                                        <div class="control-group span6"  id="noredeemBox">
-                                             <div class="row" style="margin: 8%;">
-								               
-                                                        <div class="span6">
-							                              <label for="focusedInput">Loyalty Points</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints" id="txtnotRedeemedLoyalty"/>
-                                                       </div>
-                                             </div>
-                                             <div class="row" style="margin: 8%;">
-                                                 <div class="span12">
-                                                       <div class=" span6">
-							                              <label for="focusedInput">Amount</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints" id="txtnotRedeemedAmount"/>
-                                                       </div>
-                                                   </div>
-                                             </div>
-                                                <div class="span12" style="text-align: center;">
-                                                         <input id="Button2"  class="btn" style="margin-bottom: 5%;" type="button" value="Don't Redeem" />                                                
-                                                </div>
-                                            
-                                        </div>
-                                    </div>
-                              </div>--%>
 
                             <div class="span4">
 
 
                                 <table class="table table-bordered">
-                                    <thead>
-                                        <%--<tr>
-								  <th>Name</th>
-								  <th>Mobile</th>
-								  <th>Email</th>
-								  <th>Loyalty Card No</th>
-								  <th>Actions</th>
-							  </tr>--%>
-                                    </thead>
+                                  
                                     <tbody>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9">Loyalty Points
+                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Loyalty Points
                                             </td>
                                         </tr>
                                         <tr>
@@ -214,7 +146,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9">Redeem Points
+                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Redeem Points
                                             </td>
                                         </tr>
                                         <tr>
@@ -225,7 +157,7 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2" id="radioButtons">                                                
-                                                <label class="btn-group">
+                                                <label class="radio">
                                             <input type="radio" name="redeem" value="yes" id="radioYes"/> Redeem it
                                                     </label>
                                                 <label class="radio">
@@ -234,15 +166,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9">Net
+                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Net
                                             </td>
                                         </tr>
                                         <tr style="font-size:large;font-weight: bold">
-                                            <td colspan="2">Amount
+                                            <td>Amount
+                                            </td>
+                                            <td id="netAmount" style="text-align: right">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Balance Points
+                                            <td>Balance Points
+                                            </td>
+                                            <td id="netPoints" style="text-align: right">
                                             </td>
                                         </tr>
                                     </tbody>

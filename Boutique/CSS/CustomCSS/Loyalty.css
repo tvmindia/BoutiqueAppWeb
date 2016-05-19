@@ -22,10 +22,7 @@
     font-weight: bold;
 }
 
-.Detail{
-    font-size:large;
-   
-}
+
 input[type=checkbox].css-checkbox {
 							position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
 						}
