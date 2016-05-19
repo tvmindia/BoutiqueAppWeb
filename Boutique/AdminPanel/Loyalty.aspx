@@ -116,66 +116,6 @@
 
                             </div>
 
-                            <%-- <div class="control-group" style="margin-right: 8%;">
-                                  <div class="span2">
-                                  <label class="control-label" >Redeem?</label>
-                                  </div>  
-                                  <div class="span10">
-								        <div class="control-group span6" id="redeemBox">
-								          
-                                            <div class="row" style="margin: 8%;">
-                                                        <div class="span6">
-							                              <label class="" for="focusedInput">Loyalty Points</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints"  id="txtredeemedLoyalty"/>
-                                                       </div>             
-                                                
-                                            </div>       
-                                            <div class="row" style="margin: 8%;">                            
-                                                       <div class="span6">
-							                              <label class="" for="focusedInput">Amount</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints" id="txtredeemedAmount"/>
-                                                       </div>
-                                            </div>
-                                                       <div class="span12" style="text-align: center;">                                  
-                                                           <input id="Button1"  class="btn" style="margin-bottom: 5%;" type="button" value="Redeem it" />
-                                                       </div>
-                                        </div>
-                                                
-                                        <div class="control-group span6"  id="noredeemBox">
-                                             <div class="row" style="margin: 8%;">
-								               
-                                                        <div class="span6">
-							                              <label for="focusedInput">Loyalty Points</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints" id="txtnotRedeemedLoyalty"/>
-                                                       </div>
-                                             </div>
-                                             <div class="row" style="margin: 8%;">
-                                                 <div class="span12">
-                                                       <div class=" span6">
-							                              <label for="focusedInput">Amount</label>
-                                                        </div>
-                            
-							                           <div class="span6">
-							                              <label class="LoyaltyPoints" id="txtnotRedeemedAmount"/>
-                                                       </div>
-                                                   </div>
-                                             </div>
-                                                <div class="span12" style="text-align: center;">
-                                                         <input id="Button2"  class="btn" style="margin-bottom: 5%;" type="button" value="Don't Redeem" />                                                
-                                                </div>
-                                            
-                                        </div>
-                                    </div>
-                              </div>--%>
 
                             <div class="span4">
 

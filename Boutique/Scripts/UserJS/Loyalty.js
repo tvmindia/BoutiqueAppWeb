@@ -61,7 +61,7 @@
 
     //Entering purchase amount-------------
     $('#txtcurrentPurchase').on('input', function (e) {
-        if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#txtLoyalCardNo').text() != '')) {
+        if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
             CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
             CurrentPurchase = parseInt($('#txtcurrentPurchase').val());
             var pointsFromThisPurchase = Math.floor(CurrentPurchase * MONEY_TO_POINT_VALUE / 100);
@@ -102,10 +102,10 @@
     $("#radioYes").live(
     {
         click: function (e) {
-            if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#txtLoyalCardNo').text() != '')) {
+            if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase - redeemablePoints;
                 var Points = totalPoints - redeemablePoints;
-                $("#netAmount").text(Amount);
+                $("#netAmount").text((Amount).toLocaleString('en-IN'));
                 $("#netPoints").text(Points);
             }
         }
@@ -114,10 +114,11 @@
     $("#radioNo").live(
     {
         click: function (e) {
-            if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#txtLoyalCardNo').text() != '')) {
+            if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase;
                 var Points = totalPoints;
-                $("#netAmount").text(Amount);
+             //   $("#netAmount").text(commaSeparateNumber(Amount));
+                $("#netAmount").text((Amount).toLocaleString('en-IN'));
                 $("#netPoints").text(Points);
             }
         }
@@ -196,7 +197,6 @@
         }
     })
 });
-
 
 //------------User details table------------
 function BindUserTable(boutiqueid) {
