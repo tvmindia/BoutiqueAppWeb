@@ -370,6 +370,7 @@
     <Compile Include="DAL\Boutiques.cs" />
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="DAL\Designers.cs" />
+    <Compile Include="DAL\Loyalty.cs" />
     <Compile Include="DAL\Notification.cs" />
     <Compile Include="DAL\Owners.cs" />
     <Compile Include="DAL\Product.cs" />

@@ -58,8 +58,10 @@
     var CurrentPurchase;
     var redeemablePoints;
     var totalPoints;
+
+    //Entering purchase amount-------------
     $('#txtcurrentPurchase').on('input', function (e) {
-        if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0)) {
+        if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#txtLoyalCardNo').text() != '')) {
             CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
             CurrentPurchase = parseInt($('#txtcurrentPurchase').val());
             var pointsFromThisPurchase = Math.floor(CurrentPurchase * MONEY_TO_POINT_VALUE / 100);
@@ -96,25 +98,103 @@
         }
     });
 
+    //Redeeming decision------------------
     $("#radioYes").live(
     {
         click: function (e) {
-            var Amount=CurrentPurchase-redeemablePoints;
-            var Points=totalPoints-redeemablePoints;
-            $("#netAmount").text(Amount);
-            $("#netPoints").text(Points);
+            if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#txtLoyalCardNo').text() != '')) {
+                var Amount = CurrentPurchase - redeemablePoints;
+                var Points = totalPoints - redeemablePoints;
+                $("#netAmount").text(Amount);
+                $("#netPoints").text(Points);
+            }
         }
     });
 
     $("#radioNo").live(
     {
         click: function (e) {
-            var Amount = CurrentPurchase;
-            var Points = totalPoints;
-            $("#netAmount").text(Amount);
-            $("#netPoints").text(Points);
+            if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#txtLoyalCardNo').text() != '')) {
+                var Amount = CurrentPurchase;
+                var Points = totalPoints;
+                $("#netAmount").text(Amount);
+                $("#netPoints").text(Points);
+            }
         }
     });
+
+    //Save button---------
+    $(".submitDetails").live(
+    {
+        click: function (e) {
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var purchaseAmount=$('#txtcurrentPurchase').val();
+
+            $("#txtDescription").val($("#txtDescription").val().trim());
+            var result = "";
+            var Notification = new Object();
+            Notification.NotificationID = $("#hdfNotificationID").val();
+            Notification.BoutiqueID = boutiqueid;
+            if ($("#txtTitle").val() != "") {
+                Notification.Title = $("#txtTitle").val();
+            }
+            else {
+                alert("Please enter title.");
+                return;
+            }
+            if ($("#dateStartDate").val() != "") {
+                Notification.StartDate = $("#dateStartDate").val();
+            }
+            else {
+                alert("Please select start date.");
+                return;
+            }
+            if ($("#dateEndDate").val() != "") {
+                Notification.EndDate = $("#dateEndDate").val();
+            }
+            else {
+                alert("Please select end date.");
+                return;
+            }
+            if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
+                alert("End date should be after the starting date.");
+                return;
+            }
+            Notification.Description = $("#txtDescription").val();
+            Notification.ProductID = $(".products").val();
+            Notification.CategoryCode = $(".categories").val();
+
+            result = InsertNotification(Notification);
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                BindNotificationsTable(boutiqueid);
+                $("#txtTitle").val("");
+                $("#txtDescription").val("");
+                $("#dateStartDate").val("");
+                $("#dateEndDate").val("");
+                $(".submitDetails").text("Save");
+                $("#editLabel").text("New Notification");
+                $("#hdfNotificationID").val('');
+                $(".products").select2("val", "");
+                $(".categories").select2("val", "");
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+            }
+            //Scroll page
+            var offset = $('#rowfluidDiv').offset();
+            offset.left -= 20;
+            offset.top -= 20;
+            $('html, body').animate({
+                scrollTop: offset.top,
+                scrollLeft: offset.left
+            });
+        }
+    })
 });
 
 
