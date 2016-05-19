@@ -1215,6 +1215,36 @@ z-index:9999;
             }
 
 
+            .wrapper.why {
+       color: #fff!important;
+        border-bottom: 1px solid rgba(144, 144, 144, 0.25);
+        border-top: 1px solid rgba(144, 144, 144, 0.25);
+        background-image: url(../images/dark_tint.png), url(../images/why.jpg);
+        background-position: center center;
+        background-size: cover;
+        color: #ffffff;
+   background-attachment: fixed;
+ 
+
+
+
+
+
+    }
+
+        .wrapper.why h2 {
+            color: white;
+        }
+
+        .wrapper.why h2, h4 {
+            color: #F5F5F5;
+        }
+
+        .wrapper.why p {
+            color: white;
+        }
+
+
 
     .wrapper.style1 {
         background-color: #ADD43C;
