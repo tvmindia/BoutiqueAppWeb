@@ -85,6 +85,7 @@
     <Content Include="CSS\CustomCSS\LoyaltySettings.css" />
     <Content Include="CSS\CustomCSS\Notifications.css" />
     <Content Include="CSS\CustomCSS\People.css" />
+    <Content Include="CSS\CustomCSS\ProductFileUpload.css" />
     <Content Include="CSS\CustomCSS\Products.css" />
     <Content Include="CSS\CustomCSS\Profile.css" />
     <Content Include="CSS\CustomCSS\saDashboard.css" />

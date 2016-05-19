@@ -2,15 +2,13 @@
     //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
    
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
-      
+    var imageids = {};
+   
+    imageids = GetAllProductImages('8c9b8e83-dc8f-48d7-994b-8688516a8771');
+    BindAllImages(imageids);
 
-        document.getElementById('productfile').addEventListener('change', handleFileSelect, false);
-    } else {
-        alert('The File APIs are not fully supported in this browser.');
-    }
 
+   
 
    
     $(".ddlcategories").select2({
@@ -146,9 +144,7 @@
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                 }
-                var product = new object();
-                product.ProductID = '8c9b8e83-dc8f-48d7-994b-8688516a8771';
-                GetAllProductImages(Product)
+               
                 return false;
 
         }
@@ -179,10 +175,7 @@
 });//end of document.ready
 
 
-function LoadAllImages()
-{
-   
-}
+
 
 
 
@@ -202,35 +195,7 @@ function ClearImage()
 
 
 
-function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-    $("#list").find(".thumb").remove();
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
 
-        // Only process image files.
-        if (!f.type.match('image.*')) {
-            continue;
-        }
-
-        var reader = new FileReader();
-
-        // Closure to capture the file information.
-        reader.onload = (function (theFile) {
-            return function (e)
-            {
-                // Render thumbnail.
-                var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                                 '" title="', escape(theFile.name), '"/>'].join('');
-                document.getElementById('list').insertBefore(span, null);
-            };
-        })(f);
-
-        // Read in the image file as a data URL.
-        reader.readAsDataURL(f);
-    }
-}
 
 
 
@@ -409,11 +374,12 @@ function BindAsyncDesigner(boutiqueid) {
 }
 
 
-function GetAllProductImages(Product) {//dgdfgfd/dsfdsfds
-
+function GetAllProductImages(Productid) {//dgdfgfd/dsfdsfds
+    var Product = new Object();
+    Product.ProductID = Productid;
     var ds = {};
     var table = {};
-    var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductImages");
     table = JSON.parse(ds.d);
     return table;

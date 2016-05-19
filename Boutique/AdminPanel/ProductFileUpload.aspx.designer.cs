@@ -22,13 +22,13 @@ namespace Boutique.AdminPanel {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// productfileUpload control.
+        /// fileupload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload productfileUpload;
+        protected global::System.Web.UI.WebControls.FileUpload fileupload;
         
         /// <summary>
         /// UploadButton control.
@@ -47,5 +47,14 @@ namespace Boutique.AdminPanel {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFile;
+        
+        /// <summary>
+        /// imgprvw control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgprvw;
     }
 }

@@ -19,23 +19,23 @@ namespace Boutique.AdminPanel
         protected void UploadButton_Click(object sender, EventArgs e)
         {
             System.IO.Stream myStream;
-            if (productfileUpload.HasFile)
+            if (fileupload.HasFile)
             {
                 try
                 {
-                    Product prodobj = new Product(); 
-                    string filename = Path.GetFileName(productfileUpload.FileName);
+                    Product prodobj = new Product();
+                    string filename = Path.GetFileName(fileupload.FileName);
 
                     prodobj.ProductID = "8c9b8e83-dc8f-48d7-994b-8688516a8771";
                   
                     if (!string.IsNullOrEmpty(filename))
                     {
 
-                        prodobj.ImageFile = new byte[productfileUpload.FileContent.Length];
+                        prodobj.ImageFile = new byte[fileupload.FileContent.Length];
 
-                        myStream = productfileUpload.FileContent;
+                        myStream = fileupload.FileContent;
 
-                        myStream.Read(prodobj.ImageFile, 0, (int)productfileUpload.FileContent.Length);
+                        myStream.Read(prodobj.ImageFile, 0, (int)fileupload.FileContent.Length);
 
                         prodobj.IsMain = true;
                         prodobj.InsertProductImage();

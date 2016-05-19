@@ -1135,5 +1135,52 @@ namespace Boutique.DAL
 
         #endregion GetAllProductImages
 
+
+        #region GetProductImage
+
+         public byte[] GetProductImage()
+         {
+             if (ImageID == "")
+             {
+                 throw new Exception("ImageID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlDataReader rd = null;
+             byte[] imageproduct=null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetProductImage]";
+                 cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+                 rd = cmd.ExecuteReader();
+                 if ((rd.Read()) && (rd.HasRows) && (rd["Image"] != DBNull.Value))
+                 {
+                     imageproduct = (byte[])rd["Image"];
+                 }
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     rd.Close();
+                     dcon.DisconectDB();
+                 }
+             }
+             return imageproduct;
+            
+         }
+        #endregion GetProductImage
+
     }
 }

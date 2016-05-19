@@ -12,7 +12,27 @@
 
 
     <script src="../Scripts/UserJS/Product.js"></script>
-
+    
+    <script>
+        function BindAllImages(Records) {
+            //$("#UsersTable").find(".odd").remove();
+            //  $("#UsersTable").find(".userrows").remove();
+            //$.each(Records, function (index, Records) {
+            //    var ima=Records.ImageID;
+            //    // ../ImageHandler/ImageServiceHandler.ashx
+            //    //  alert(Records);
+            //    // var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            //    // $("#UsersTable").append(html);
+            //    debugger;
+               
+            //})
+            var ima = '61e6f0dc-366b-4963-9859-6108cbbc89e0';
+            debugger;
+           // span.innerHTML = ['<img class="thumb" src='<%%>' title="', escape(theFile.name), '"/>'].join('');
+            //document.getElementById('list').insertBefore(span, null);
+            document.getElementById("imageview").src = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+ima;
+        }
+    </script>
 
      <div id="content" class="span10">
 
@@ -194,23 +214,21 @@
 
 						</div>
               </div>
-                    <div class="span5" style="height:553px;overflow:auto;background-color:lightyellow;">
+                    <div class="span5" style="height:553px;overflow:auto;">
                         <div class="form-horizontal">
                                 <div class="control-group">
                                 </div>
                               <div class="control-group">
-                         
-                          
-                          <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 370px; height: 200px;"></iframe> 
-                       
-						
+                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:350px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
+                       				
                             </div>
                                
 
 
                         </div>
                         <div>
-                             <output id="listAll"></output>
+                             <output id="list"></output>
+                            <img id="imageview" src="" />
                         </div>
                     </div>
                         </div>
