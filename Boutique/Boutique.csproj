@@ -142,6 +142,7 @@
     <Content Include="Home\images\social.jpg" />
     <Content Include="Home\images\testrimonials.jpg" />
     <Content Include="Home\images\testrimonials1.jpg" />
+    <Content Include="Home\images\why.jpg" />
     <Content Include="Home\js\engine.js" />
     <Content Include="Home\js\html5shiv.js" />
     <Content Include="Home\js\init.js" />
