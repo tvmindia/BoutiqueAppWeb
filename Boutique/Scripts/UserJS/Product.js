@@ -93,8 +93,7 @@
              //  result = UpdateCategory(Category);
             //}
            // BindAsyncCategoryTable(boutiqueid);
-           
-        }
+           }
 
     })
 
@@ -165,45 +164,31 @@
         }
     })
 
-  
-
-
-
-
-
-
 });//end of document.ready
 
 
+
+function addAnother(Records) {
+    var ol = document.getElementById("olpreview");
+    var li = document.createElement("li");
+    var children = ol.children.length + 1
+    li.setAttribute("id", Records.ImageID)
+    img1 = document.createElement('img');
+    img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
+    img1.alt = "image" + children;
+    img1.className = "thumb";
+    li.appendChild(img1);
+    ol.appendChild(li)
+  }
 
 
 
 
 function ClearImage()
 {
-    
     document.getElementById("productfile").value = "";
-    
     $("#list").find(".thumb").remove();
-   
-    //$('#productfile')[0].files;
-    //document.getElementById('productfile').parentNode.innerHTML = document.getElementById('productfile').parentNode.innerHTML;
-   
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ }
 //---getting data as json-----//
 function getJsonData(data, page) {
     var jsonResult = {};
@@ -265,76 +250,6 @@ function BindAsyncCategory(boutiqueid) {
     }
 }
 
-
-function BindCategoryDropDown(dd,Records,indx)
-{
-
-    //var options = [], key, value;
- //   for (var i = 0; i < Records.length; i++) {
-
-   
-        //$('#selectCategories_chzn').append(
-        //                        $('<option></option>')
-        //                              .val(Records[i].BoutiqueID)
-        //                              .html(Records[i].Name)
-        //                              .attr("selected", "selected"));
-        //$("#selectCategories_chzn").trigger("liszt:updated");
-
-
-
-      //  alert(i);
-       
-        //  $('#selectCategories').append($('<option></option>').val(Records.BoutiqueID).html(Records.Name));
-        //$("select").append("<option value=" + value + ">" + value + "<option>");
-        //$('#selectCategories_chzn').append("<option value='" + Records[i].BoutiqueID + "'>" + Records[i].Name + "</option>");
-       
-   // }
-    //$('.chzn-drop').chosen().trigger("chosen:updated");
-   // Event.fire($('#selectCategories_chzn'), "chosen:updated");
-    //$('#slt').append(option);
-   // dd.append(option);
-    
-   //$("#selectCategories").get(0).options.length = 0;
-   //$("#selectCategories").get(0).options[0] = new Option("Select Categories", "-1");
-    //var cadena = "";
-    //for (var i = 0; i < Records.length; i++)
-    //{
-    //    alert(i);
-    //cadena += "<option class=catrows SELECTED value='" + Records[i]["BoutiqueID"] + "'>" + Records[i]["Name"] + "</option>\n";
-    //}
-    //dd.append(cadena);
-
-    //$.each(Records, function (index, Records) {
-      //  alert(Records.Name);
-       // $("#selectCategories").get(0).options[$("#selectCategories").get(0).options.length] = new Option(Records.BoutiqueID, Records.Name);
-        //$("#selectCategories").get(0).options[$("#selectCategories").get(0).options.length] = new Option(Records.BoutiqueID, Records.Name);
-        // var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-        //$("#UsersTable").append(html);
-   // })
-
-    //$.each(Records, function (index, item) {
-    //    $("#selectCategories").get(0).options[$("#selectCategories").get(0).options.length] = new Option(item.BoutiqueID, item.Name);
-    //});
-
-            
-            //var cadena = "";
-            //var myflag = false;
-            //for (var i = 0; i < Records.length; i++) {
-            //    if (myflag == true) {
-            //        cadena += "<option class=catrows SELECTED value='" + Records[i]["BoutiqueID"] + "'>" + Records[i]["Name"] + "</option>\n";
-            //        myflag = false;
-            //    }
-            //    else {
-            //        cadena += "<option class=catrows value='" + Records[i]["BoutiqueID"] + "'>" + Records[i]["Name"] + "</option>\n";
-            //    }
-            //    if (Records[i]["id"] == indx) {
-            //        myflag = true;
-            //    }
-            //}
-            //dd.append(cadena);
-           
- 
-}
 
 function BindDesignerDropDown(dd, Records, indx)
 {

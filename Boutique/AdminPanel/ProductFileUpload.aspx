@@ -12,7 +12,8 @@
     <script src="../Scripts/jquery-1.9.1.min.js"></script>
    <script src="../Scripts/UserJS/ProductFileUpload.js"></script>
     <link href="../CSS/bootstrap.min.css" rel="stylesheet" />
-    <link href="../CSS/CustomCSS/ProductFileUpload.css" rel="stylesheet" />
+   <link href="../CSS/CustomCSS/ProductFileUpload.css" rel="stylesheet" />
+   <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <script>
         function showimagepreview(input) {
             
@@ -54,7 +55,7 @@
         <asp:Button runat="server" id="UploadButton" text="Upload"  onclick="UploadButton_Click" />
     <asp:label runat="server" ID="lblFile"/>
 
-         <img id="imgprvw" runat="server" src="" alt="uploaded image preview"/>
+         <img id="imgprvw" runat="server" src="" alt=""/>
     </div>
     </form>
 </body>

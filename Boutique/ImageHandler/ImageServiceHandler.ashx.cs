@@ -19,7 +19,7 @@ namespace Boutique.ImageHandler
 
           public void ProcessRequest(HttpContext context)
           {
-         try
+            try
             {
                 context.Response.ContentType = "image/jpeg";
 
@@ -31,8 +31,7 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
-                        System.Drawing.Image proimg = System.Drawing.Image.FromStream(memoryStream);
-                      //  Image proimg = Image.FromStream(memoryStream);
+                        Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
 

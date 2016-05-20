@@ -17,20 +17,19 @@
         function BindAllImages(Records) {
             //$("#UsersTable").find(".odd").remove();
             //  $("#UsersTable").find(".userrows").remove();
-            //$.each(Records, function (index, Records) {
-            //    var ima=Records.ImageID;
-            //    // ../ImageHandler/ImageServiceHandler.ashx
-            //    //  alert(Records);
-            //    // var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-            //    // $("#UsersTable").append(html);
-            //    debugger;
+            $.each(Records, function (index, Records) {
+                debugger;
+                // var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                //$("#UsersTable").append(html);
+                addAnother(Records);
                
-            //})
-            var ima = '61e6f0dc-366b-4963-9859-6108cbbc89e0';
-            debugger;
+               
+            })
+           // var ima = '5aa45c5c-79da-40fe-8de8-aa6830b5e74f';
+           
            // span.innerHTML = ['<img class="thumb" src='<%%>' title="', escape(theFile.name), '"/>'].join('');
             //document.getElementById('list').insertBefore(span, null);
-            document.getElementById("imageview").src = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+ima;
+            //document.getElementById("imageview").src = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+ima;
         }
     </script>
 
@@ -130,7 +129,7 @@
 							
 						</div>
 					</div>
-					<div class="span6"  style="height:553px;overflow:auto;" >
+					<div class="span5"  style="height:553px;overflow:auto;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 
@@ -197,7 +196,7 @@
                                <div class="control-group">
                                 <label class="control-label" for="selectError1">Categories</label>
                                 <div class="controls">
-                                <select class="input-xlarge ddlcategories" multiple="multiple" id="idDdlCategories">
+                                <select class="input-large ddlcategories" multiple="multiple" id="idDdlCategories">
                             
                                 </select>
                                 </div>
@@ -214,22 +213,20 @@
 
 						</div>
               </div>
-                    <div class="span5" style="height:553px;overflow:auto;">
+                    <div class="span6" style="height:600px;overflow:auto;">
                         <div class="form-horizontal">
                                 <div class="control-group">
                                 </div>
                               <div class="control-group">
-                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:350px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
-                       				
-                            </div>
-                               
-
-
+                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:250px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
+                       		 
+                                  <ol id="olpreview">
+                                    
+                                  </ol>
+                              </div>
+                        
                         </div>
-                        <div>
-                             <output id="list"></output>
-                            <img id="imageview" src="" />
-                        </div>
+                       
                     </div>
                         </div>
                    
