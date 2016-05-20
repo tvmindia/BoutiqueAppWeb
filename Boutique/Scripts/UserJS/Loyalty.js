@@ -53,13 +53,12 @@
             return false;
         }
     })
-        
+    //Entering purchase amount-------------
     var CurrentLoyalty;
     var CurrentPurchase;
     var redeemablePoints;
     var totalPoints;
-
-    //Entering purchase amount-------------
+   
     $('#txtcurrentPurchase').on('input', function (e) {
         if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
             CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
@@ -117,7 +116,6 @@
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase;
                 var Points = totalPoints;
-             //   $("#netAmount").text(commaSeparateNumber(Amount));
                 $("#netAmount").text((Amount).toLocaleString('en-IN'));
                 $("#netPoints").text(Points);
             }
@@ -131,62 +129,72 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            var purchaseAmount=$('#txtcurrentPurchase').val();
 
-            $("#txtDescription").val($("#txtDescription").val().trim());
-            var result = "";
-            var Notification = new Object();
-            Notification.NotificationID = $("#hdfNotificationID").val();
-            Notification.BoutiqueID = boutiqueid;
-            if ($("#txtTitle").val() != "") {
-                Notification.Title = $("#txtTitle").val();
-            }
-            else {
-                alert("Please enter title.");
-                return;
-            }
-            if ($("#dateStartDate").val() != "") {
-                Notification.StartDate = $("#dateStartDate").val();
-            }
-            else {
-                alert("Please select start date.");
-                return;
-            }
-            if ($("#dateEndDate").val() != "") {
-                Notification.EndDate = $("#dateEndDate").val();
-            }
-            else {
-                alert("Please select end date.");
-                return;
-            }
-            if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
-                alert("End date should be after the starting date.");
-                return;
-            }
-            Notification.Description = $("#txtDescription").val();
-            Notification.ProductID = $(".products").val();
-            Notification.CategoryCode = $(".categories").val();
+            var Loyalty = new Object();
 
-            result = InsertNotification(Notification);
+            if ($("#txtcurrentPurchase").val() != "") {
+                Loyalty.purchaseAmount = $('#txtcurrentPurchase').val();
+                }
+            else {
+                    alert("Please enter purchase amount.");
+                    return;
+            }
+
+            Loyalty.UserID = $('#hdfUserID').val();
+
+            if ($("#radioYes").parent().hasClass('checked')) {
+                if (confirm("Redeem and make transaction?") == true) {
+                    Loyalty.Redeem = true;
+                }
+                else {
+                    return;
+                }
+            }
+            else if ($("#radioNo").parent().hasClass('checked')) {
+                if (confirm("Purchase without redeeming?") == true) {
+                    Loyalty.Redeem = false;
+                }
+                else {
+                    return;
+                }
+            }
+            else {
+                alert("Please select whether to redeem or not.");
+                return;
+            }
+
+            Loyalty.BoutiqueID = boutiqueid;
+                        
+            result = MakeTransaction(Loyalty);
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                BindNotificationsTable(boutiqueid);
-                $("#txtTitle").val("");
-                $("#txtDescription").val("");
-                $("#dateStartDate").val("");
-                $("#dateEndDate").val("");
-                $(".submitDetails").text("Save");
-                $("#editLabel").text("New Notification");
-                $("#hdfNotificationID").val('');
-                $(".products").select2("val", "");
-                $(".categories").select2("val", "");
+                //Clearing fields
+                $("#txtUserName").text('');
+                $("#txtMobile").text('');
+                $("#txtLoyalCardNo").text('');
+                $("#txtLoyaltyPoints").text('');
+                $("#hdfUserID").val('');
+                $('#txtcurrentPurchase').val('');
+                $("#radioYes").parent().removeClass('checked');
+                $("#radioNo").parent().removeClass('checked');
+                $("#existingPoints").text('');
+                $("#pointsFromThisPurchase").text('');
+                $("#totalPoints").text('');
+                $("#redeemablePoints").text('');
+                $("#netAmount").text('');
+                $("#netPoints").text('');
+                CurrentLoyalty = 0;
+                CurrentPurchase = 0;
+                redeemablePoints = 0;
+                totalPoints = 0;
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
             }
-            //Scroll page
+
+            // Scroll page
             var offset = $('#rowfluidDiv').offset();
             offset.left -= 20;
             offset.top -= 20;
@@ -238,6 +246,14 @@ function GetUserDetails(User) {
     var data = "{'userObj':" + JSON.stringify(User) + "}";
     ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetUserByID");
     table = JSON.parse(ds.d);
+    return table;
+}
+//------------Saving--------------------
+function MakeTransaction(Loyalty) {
+    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Loyalty.aspx/MakeTransaction");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
     return table;
 }
 //---getting data as json-----//

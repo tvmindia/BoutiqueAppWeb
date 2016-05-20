@@ -88,5 +88,74 @@ namespace Boutique.AdminPanel
             return jsonResult; //Converting to Json
         }
         #endregion
+
+        #region Save transaction
+        /// <summary>
+        /// Calculating loyalty and saving it
+        /// </summary>
+        /// <param name="loyaltyObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string MakeTransaction(DAL.Loyalty loyaltyObj)
+        {
+            string status = null;
+            try
+            {               
+                 int purchaseAmount=loyaltyObj.purchaseAmount;
+                //Getting loyalty settings
+                 DataTable loyaltySettings = loyaltyObj.GetLoyaltySettings();
+                 int MONEY_TO_POINT_VALUE = Int32.Parse(loyaltySettings.Rows[0]["MoneyToPoint"].ToString());
+                 int MIN_AMOUNT_TO_REDEEM = Int32.Parse(loyaltySettings.Rows[0]["MinAmountForRedeem"].ToString());
+                 int MAX_DISCOUNT_PERCENTAGE = Int32.Parse(loyaltySettings.Rows[0]["MaxDiscountPercentage"].ToString());
+                //Getting Loyalty points of user
+                 Users userObj = new Users();
+                 userObj.BoutiqueID = loyaltyObj.BoutiqueID;
+                 userObj.UserID = loyaltyObj.UserID;
+                 DataSet ds = userObj.SelectUserByUserID();
+                 int loyaltypoints = Int32.Parse((ds.Tables[0].Rows[0]["LoyaltyPoints"]== DBNull.Value) ? "0" : ds.Tables[0].Rows[0]["LoyaltyPoints"].ToString());
+                 
+                //Points Calculations 
+                 int pointsFromThisPurchase = purchaseAmount * MONEY_TO_POINT_VALUE / 100;
+                 int totalPoints = loyaltypoints + pointsFromThisPurchase;
+                 int Points;
+                 if(loyaltyObj.Redeem){
+                                     int redeemablePoints;
+                                     if (purchaseAmount >= MIN_AMOUNT_TO_REDEEM)
+                                     {
+                                         int max = purchaseAmount * MAX_DISCOUNT_PERCENTAGE / 100; //maximum discountable amount
+                                         if (loyaltypoints >= max)
+                                         {
+                                             redeemablePoints = max;
+                                         }
+                                         else
+                                         {
+                                             redeemablePoints = loyaltypoints;
+                                         }
+                                     }
+                                     else
+                                     {
+                                         redeemablePoints = 0;
+                                     }
+                         Points = totalPoints - redeemablePoints;
+                 }
+                 else{
+                         Points = totalPoints;              
+                 }
+                //Inserting ponits to database
+                 loyaltyObj.LoyaltyCardNo = ds.Tables[0].Rows[0]["LoyaltyCardNo"].ToString();
+                 loyaltyObj.Points = Points;
+                        status = loyaltyObj.UpdateLoyaltyPoints().ToString();               
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+        #endregion
     }
 }

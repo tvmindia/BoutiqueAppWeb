@@ -31,6 +31,26 @@
             <li><a href="#">Loyalty</a></li>
         </ul>
 
+        <%--Alert boxes --%>
+         <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
+				<div class="box span12">
+
+                    <div class="box-content alerts">
+						<div class="alert alert-error" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>						
+					</div>
+
+                </div>
+            </div>
+		
+	     <%--Alert boxes --%>
+
         <div class="row-fluid sortable">
             <div class="box span12">
                 <div class="box-header">
@@ -197,9 +217,10 @@
 
             
             <footer class="InnerFooter">
-                <button type="submit" class="btn btn-primary">Save changes</button>
-                <button class="btn">Cancel</button>
-
+                
+                <a class="btn btn-primary submitDetails" href="#">Save</></a>
+							
+                           <a class="btn Cancel">Cancel</a>
             </footer>
             </div>
         </div>
