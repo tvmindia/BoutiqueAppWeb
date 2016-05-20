@@ -16,7 +16,29 @@
     <script src="js/init.js"></script>
     <script src="js/engine.js"></script>
 
+    
     <script>
+        //var message[2]=
+        var showText = function (target, message, index, interval) {
+            if (index < message.length) {
+                $('#<%=lblmsges.ClientID%>').fadeOut('slow',
+                    function () {
+                        document.getElementById("<%=lblmsges.ClientID%>").innerHTML = (message[index++]);
+                        $('#<%=lblmsges.ClientID%>').fadeIn('slow')
+                    });
+                              
+                setTimeout(function () { showText(target, message, index, interval); }, interval);
+            }
+            else {
+                showPage();
+            }
+        }
+        $(function () {
+
+            showText("#msg", ['Hi', 'B e W e D o ', 'personalized channel','brand building', 'loading...'], 0, 2000);
+
+        });
+
 
         function sendmail() {
 
@@ -50,6 +72,7 @@
 
             <style>
                
+               
             </style>
 
 
@@ -60,6 +83,7 @@
 </head>
 <body class="landing">
 
+    <div id="ActualPage" style="display:none">
     <!-- Header -->
     <header id="header" style="position: fixed!important; z-index: 99999!important" class="navbar">
         <h1><a onclick="SmoothScroll('#banner')">B e W e D o</a></h1>
@@ -404,6 +428,12 @@
             </div>
         </div>
     </footer>
+        </div>
+
+        <div id="loading" class="loadingClass">
+        <div id="msg"class="msgClass">
+            <asp:Label ID="lblmsges" runat="server" Text="" Width="500px" style="text-align:center"></asp:Label></div>
+    </div>
 
 </body>
 </html>

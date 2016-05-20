@@ -45,4 +45,10 @@ function SmoothScroll(hash) {
     $('html,body').animate({ scrollTop: $(hash).offset().top })
 }
 
-
+function showPage(){
+  
+    // alert("ready");
+    $('#loading').fadeOut('slow', function () { $('#ActualPage').fadeIn('slow') });
+    //document.getElementById('loading').style.display="none";
+    //document.getElementById('ActualPage').style.display = "";
+}
