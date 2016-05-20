@@ -35,7 +35,7 @@
         }
         $(function () {
 
-            showText("#msg", ['Hi', 'B e W e D o ', 'personalized channel','brand building', 'loading...'], 0, 2000);
+            showText("#msg", ['Hi', 'B e W e D o ', 'personalized channel', 'loading...'], 0, 2000);
 
         });
 
@@ -126,7 +126,9 @@
                 </li>
             </ul>
         </div>
-
+        <br />
+        <br />
+         <br />
     </section>
 
 
