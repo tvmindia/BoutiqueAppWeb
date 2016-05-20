@@ -23,6 +23,7 @@
             if (index < message.length) {
                 $('#<%=lblmsges.ClientID%>').fadeOut('slow',
                     function () {
+                        if (index == message.length - 1) { document.getElementById("<%=lblmsges.ClientID%>").style.font.fontsize='15px;'}
                         document.getElementById("<%=lblmsges.ClientID%>").innerHTML = (message[index++]);
                         $('#<%=lblmsges.ClientID%>').fadeIn('slow')
                     });
@@ -35,7 +36,7 @@
         }
         $(function () {
 
-            showText("#msg", ['Hi', 'B e W e D o ', 'personalized channel', 'loading...'], 0, 2000);
+            showText("#msg", ['Hi','B e W e D o ', 'think like customer','l o a d i n g . . . .',''], 0, 2000);
 
         });
 
