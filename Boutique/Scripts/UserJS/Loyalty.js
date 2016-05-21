@@ -1,14 +1,23 @@
 ﻿$("document").ready(function (e) {
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
 
-    var MIN_AMOUNT_TO_REDEEM = 500;
-    var MAX_DISCOUNT_PERCENTAGE=50;
-    var MONEY_TO_POINT_VALUE=10;
+    //var MIN_AMOUNT_TO_REDEEM = 500;
+    //var MAX_DISCOUNT_PERCENTAGE=50;
+    //var MONEY_TO_POINT_VALUE=10;
 
+    //Customers table--------
     BindUserTable(boutiqueid);
     $('#UsersTable').DataTable( {
         "bPaginate": false,             //removing paging
-    } );
+    });
+
+    //Loyalty settings loading------
+    LoadLoyaltySettings(boutiqueid);
+    var MIN_AMOUNT_TO_REDEEM = $("#hdfMIN_AMOUNT_TO_REDEEM").val();;
+    var MAX_DISCOUNT_PERCENTAGE = $("#hdfMAX_DISCOUNT_PERCENTAGE").val();;
+    var MONEY_TO_POINT_VALUE = $("#hdfMONEY_TO_POINT_VALUE").val();;
+ 
+   
 
     //Selecting user--------
     $(".userselect").live(
@@ -204,6 +213,38 @@
             });
         }
     })
+    //Cancel button-----------
+    $(".Cancel").live({
+        click: function (e) {
+            //Clearing fields
+            $("#txtUserName").text('');
+            $("#txtMobile").text('');
+            $("#txtLoyalCardNo").text('');
+            $("#txtLoyaltyPoints").text('');
+            $("#hdfUserID").val('');
+            $('#txtcurrentPurchase').val('');
+            $("#radioYes").parent().removeClass('checked');
+            $("#radioNo").parent().removeClass('checked');
+            $("#existingPoints").text('');
+            $("#pointsFromThisPurchase").text('');
+            $("#totalPoints").text('');
+            $("#redeemablePoints").text('');
+            $("#netAmount").text('');
+            $("#netPoints").text('');
+            CurrentLoyalty = 0;
+            CurrentPurchase = 0;
+            redeemablePoints = 0;
+            totalPoints = 0;
+            // Scroll page
+            var offset = $('#customers').offset();
+            offset.left -= 20;
+            offset.top -= 20;
+            $('html, body').animate({
+                scrollTop: offset.top,
+                scrollLeft: offset.left
+            });
+        }
+    })
 });
 
 //------------User details table------------
@@ -228,6 +269,29 @@ function FillUserTable(Records) {
         var html = '<tr UserID="' + Records.UserID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center">' + Records.LoyaltyCardNo + '</td><td class="center"><a class="btn btn-success userselect" href="#"><i class="halflings-icon white eye-open"></i></a></td></tr>';
         //<a class="btn btn-info" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a>
         $("#UsersTable").append(html);
+    });
+}
+//------------Load Loyalty settings------------
+function LoadLoyaltySettings(boutiqueid) {
+    var jsonResult = {};
+    jsonResult = GetLoyaltySettings(boutiqueid);
+    if (jsonResult != undefined) {
+       SetLoyaltySettings(jsonResult);
+    }
+}
+function GetLoyaltySettings(boutiqueid) {
+    var ds = {};
+    var table = {};
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetLoyaltySettings");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function SetLoyaltySettings(Records) {
+    $.each(Records, function (index, Records) {
+        $("#hdfMIN_AMOUNT_TO_REDEEM").val(Records.MinAmountForRedeem);
+        $("#hdfMAX_DISCOUNT_PERCENTAGE").val(Records.MaxDiscountPercentage);
+        $("#hdfMONEY_TO_POINT_VALUE").val(Records.MoneyToPoint);
     });
 }
 //------------Details screen populating---------------

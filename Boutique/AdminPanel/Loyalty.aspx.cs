@@ -54,6 +54,43 @@ namespace Boutique.AdminPanel
         }
         #endregion
 
+        #region Get loyalty settings
+        /// <summary>
+        /// To get loyalty settings of a boutique
+        /// </summary>
+        /// <param name="Boutiqueid"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetLoyaltySettings(string Boutiqueid)
+        {
+            string jsonResult = null;
+            DataSet ds = new DataSet();
+            DAL.Loyalty loyaltyObj = new DAL.Loyalty();
+            loyaltyObj.BoutiqueID = Boutiqueid;
+            ds.Tables.Add(loyaltyObj.GetLoyaltySettings());
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+        #endregion
+
         #region Select a User
         /// <summary>
         /// To get a specific user details

@@ -51,7 +51,7 @@
 		
 	     <%--Alert boxes --%>
 
-        <div class="row-fluid sortable">
+        <div class="row-fluid sortable" id="customers">
             <div class="box span12">
                 <div class="box-header">
                     <h2>Customers</h2>
@@ -229,6 +229,9 @@
     </div>
 
     <input type="hidden" id="hdfUserID" value="" />
+    <input type="hidden" id="hdfMIN_AMOUNT_TO_REDEEM" value="" />
+    <input type="hidden" id="hdfMAX_DISCOUNT_PERCENTAGE" value="" />
+    <input type="hidden" id="hdfMONEY_TO_POINT_VALUE" value="" />
 
 
 
