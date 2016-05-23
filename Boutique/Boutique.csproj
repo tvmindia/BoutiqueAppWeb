@@ -131,6 +131,7 @@
     <Content Include="Home\images\bokeh_car_lights_bg.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg4.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg5.jpg" />
+    <Content Include="Home\images\boutiquelaunch.jpg" />
     <Content Include="Home\images\contact.jpg" />
     <Content Include="Home\images\dark_tint.png" />
     <Content Include="Home\images\engine.png" />
