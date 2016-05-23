@@ -214,5 +214,14 @@ namespace Boutique.DAL
 
         #endregion
 
+        //============Loyalty Related Calculations from Loyalty Log=============
+        //*    
+        //*    Credit points x Money point value = Actual Purchase Amount
+        //*    AmountPaid + Debit Ponit          = Actual Purchase Amount
+        //*
+        //*    Old Loyalty Point = Loyalty Point + Debit Ponits - Credit Points 
+        //*
+        //======================================================================
+
     }
 }
