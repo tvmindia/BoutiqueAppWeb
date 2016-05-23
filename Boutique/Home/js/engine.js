@@ -28,8 +28,11 @@ function checkScroll() {
 
     if ($(window).scrollTop() > startY) {
         $('.navbar').addClass("scrolled");
+        $('.arrows').hide();
+        
     } else {
         $('.navbar').removeClass("scrolled");
+        $('.arrows').show();
     }
 }
 

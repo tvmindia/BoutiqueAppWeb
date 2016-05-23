@@ -104,6 +104,7 @@
                 <!--	<li><a href="#" class="button special">Sign Up</a></li>-->
             </ul>
         </nav>
+
     </header>
 
     <!-- Banner -->
@@ -113,15 +114,21 @@
             <h2 id="bannerName">B e W e D o</h2>
             <p id="bannerCaption">Better We Do !</p>                
               <h3 id="bannerDetailCaption">Some nice Caption goes here about bewedo</h3>
+          
         </div>
 
       
      
         <br />
          <br />
+         
     </section>
 
-
+  <svg class="arrows">
+							<<%--path class="a1" d="M0 0 L30 32 L60 0"></path>--%>
+							<path class="a2" d="M0 20 L30 52 L60 20"></path>
+							<path class="a3" d="M0 40 L30 72 L60 40"></path>
+						</svg>
 
     <section id="About" class="wrapper about special">
         <div class="container">
@@ -429,6 +436,6 @@
         <div id="msg"class="msgClass">
             <asp:Label ID="lblmsges" runat="server" Text="" Width="500px" style="text-align:center"></asp:Label></div>
     </div>
-
+   
 </body>
 </html>
