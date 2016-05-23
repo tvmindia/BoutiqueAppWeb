@@ -1,5 +1,13 @@
 ﻿$("document").ready(function (e) {
     //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+
+    $("#olpreview").sortable({
+
+        update: function( event, ui ) {}//when li image is reordered
+    });
+    $("#olpreview").disableSelection();
+
+
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
    
     var imageids = {};
@@ -164,11 +172,16 @@
         }
     })
 
+
+    $('input[type="checkbox"]').on('change', function () {
+        $('input[type="checkbox"]').not(this).prop('checked', false);
+    });
+
 });//end of document.ready
 
 
 
-function addAnother(Records) {
+function MultiImageBind(Records) {
     var ol = document.getElementById("olpreview");
     var li = document.createElement("li");
     var children = ol.children.length + 1
@@ -177,8 +190,36 @@ function addAnother(Records) {
     img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
     img1.alt = "image" + children;
     img1.className = "thumb";
+ 
     li.appendChild(img1);
-    ol.appendChild(li)
+    var spn = document.createElement('span');
+    spn.innerHTML = "Is Main?";
+    spn.className = "cnt-label";
+
+    var spacespan = document.createElement('span');
+    spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
+
+    var chk = document.createElement('input');
+    chk.type = 'checkbox';
+    chk.className = "chkbox";
+    chk.name = "mainpix";
+
+
+    var spacespan1 = document.createElement('span');
+    spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;";
+
+    var btndelete = document.createElement('input');
+    btndelete.type = 'button';
+    btndelete.value = "Delete";
+    btndelete.className = "btn1";
+    
+    li.appendChild(spn);
+    li.appendChild(spacespan);
+    li.appendChild(chk);
+    li.appendChild(spacespan1);
+    li.appendChild(btndelete);
+  
+    ol.appendChild(li);
   }
 
 

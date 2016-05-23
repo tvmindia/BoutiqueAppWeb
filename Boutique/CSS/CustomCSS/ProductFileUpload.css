@@ -1,7 +1,28 @@
 ﻿img
 {
-    height:140px;
-    width:auto;
+    height:120px;
+    width:200px;
     overflow-x:hidden!important;
     overflow-y:hidden!important;
 }
+
+.btn1,
+label.choose:before {
+    height:30px;
+  background: none repeat scroll 0 0 #00B7CD;
+  border: 0 none;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: 'Altis_Book';
+  font-size: 16px;
+  padding: 3px 15px;
+ 
+
+  
+}
+label.choose:before {
+     height:30px;
+  content: 'Choose file';
+  padding: 3px 6px;
+  position: absolute;
+} 

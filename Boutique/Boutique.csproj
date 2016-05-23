@@ -222,6 +222,7 @@
     <Content Include="img\ui-icons_888888_256x240.png" />
     <Content Include="img\ui-icons_cd0a0a_256x240.png" />
     <Content Include="img\uploadify-cancel.png" />
+    <Content Include="img\vertical-drag-xxl.png" />
     <Content Include="Master\AdminLayout.Master" />
     <Content Include="font\fontawesome-webfont-0.eot" />
     <Content Include="font\fontawesome-webfont-62877.eot" />

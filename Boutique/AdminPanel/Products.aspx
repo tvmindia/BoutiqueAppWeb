@@ -15,21 +15,14 @@
     
     <script>
         function BindAllImages(Records) {
-            //$("#UsersTable").find(".odd").remove();
-            //  $("#UsersTable").find(".userrows").remove();
+         
             $.each(Records, function (index, Records) {
-                debugger;
-                // var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-                //$("#UsersTable").append(html);
-                addAnother(Records);
+            
+                MultiImageBind(Records);
                
                
             })
-           // var ima = '5aa45c5c-79da-40fe-8de8-aa6830b5e74f';
-           
-           // span.innerHTML = ['<img class="thumb" src='<%%>' title="', escape(theFile.name), '"/>'].join('');
-            //document.getElementById('list').insertBefore(span, null);
-            //document.getElementById("imageview").src = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+ima;
+        
         }
     </script>
 
@@ -136,13 +129,7 @@
 
                         
                         	
-                              <div class="control-group">
-								<label class="control-label">Is Main Picture?</label>
-								<div class="controls">
-								  <label class="checkbox inline">
-									<input type="checkbox" id="chkIsMainPicture" value="option1"/>Yes</label>
-		    					  </div>
-							  </div>
+                             
 							  <div class="control-group">
 							
 								  <label class="control-label" for="focusedInput">Name</label>
@@ -216,11 +203,14 @@
                     <div class="span6" style="height:600px;overflow:auto;">
                         <div class="form-horizontal">
                                 <div class="control-group">
+                                   
                                 </div>
+                            
+
                               <div class="control-group">
                                <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:250px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
                        		 
-                                  <ol id="olpreview">
+                                  <ol id="olpreview" style="list-style-type:none;">
                                     
                                   </ol>
                               </div>
