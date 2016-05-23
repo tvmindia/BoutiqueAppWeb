@@ -1,10 +1,6 @@
 ﻿$("document").ready(function (e) {
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
-
-    //var MIN_AMOUNT_TO_REDEEM = 500;
-    //var MAX_DISCOUNT_PERCENTAGE=50;
-    //var MONEY_TO_POINT_VALUE=10;
-
+    
     //Customers table--------
     BindUserTable(boutiqueid);
     $('#UsersTable').DataTable( {
@@ -72,27 +68,28 @@
         if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
             CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
             CurrentPurchase = parseInt($('#txtcurrentPurchase').val());
+            //Points calculation
             var pointsFromThisPurchase = Math.floor(CurrentPurchase * MONEY_TO_POINT_VALUE / 100);
             totalPoints = CurrentLoyalty + pointsFromThisPurchase;
-            if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {
-                var max = CurrentPurchase * MAX_DISCOUNT_PERCENTAGE / 100; //maximum discountable amount
-                if (CurrentLoyalty >= max) {
-                    redeemablePoints = max;
+            if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {                  //minimum purchase amount should be satisfied
+                var max = CurrentPurchase * MAX_DISCOUNT_PERCENTAGE / 100;  //maximum discountable amount
+                if (CurrentLoyalty >= max) {                                
+                    redeemablePoints = max;                                 //Avoiding debiting poits more that maximum discountable
                 }
                 else {
-                    redeemablePoints = CurrentLoyalty;
+                    redeemablePoints = CurrentLoyalty;                      //Debiting full loyalty points
                 }
             }
             else {
                 redeemablePoints = 0
             }
             redeemablePoints = Math.floor(redeemablePoints);
-
+            //Clearing fields
             $("#radioYes").parent().removeClass('checked');
             $("#radioNo").parent().removeClass('checked');
             $("#netAmount").text('');
             $("#netPoints").text('');
-
+            //Showing calculations
             $("#existingPoints").text(CurrentLoyalty);
             $("#pointsFromThisPurchase").text(pointsFromThisPurchase);
             $("#totalPoints").text(totalPoints);
@@ -100,7 +97,7 @@
         }
     });
 
-    $('#txtcurrentPurchase').blur(function () {
+    $('#txtcurrentPurchase').blur(function () {             //Validation
         if (!$.isNumeric($('#txtcurrentPurchase').val()) || ($('#txtcurrentPurchase').val()<0)) {
             $('#txtcurrentPurchase').val('0');
         }
@@ -267,7 +264,6 @@ function FillUserTable(Records) {
     $("tbody#userrows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
         var html = '<tr UserID="' + Records.UserID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center">' + Records.LoyaltyCardNo + '</td><td class="center"><a class="btn btn-success userselect" href="#"><i class="halflings-icon white eye-open"></i></a></td></tr>';
-        //<a class="btn btn-info" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a>
         $("#UsersTable").append(html);
     });
 }
@@ -291,7 +287,8 @@ function SetLoyaltySettings(Records) {
     $.each(Records, function (index, Records) {
         $("#hdfMIN_AMOUNT_TO_REDEEM").val(Records.MinAmountForRedeem);
         $("#hdfMAX_DISCOUNT_PERCENTAGE").val(Records.MaxDiscountPercentage);
-        $("#hdfMONEY_TO_POINT_VALUE").val(Records.MoneyToPoint);
+        $("#hdfMONEY_TO_POINT_VALUE").val(Records.MoneyToPoint); 
+        $("#loyaltySettingsInfo").text("Min Amount to Redeem: " + Records.MinAmountForRedeem + "\t|\tMax Discount Percentage: " + Records.MaxDiscountPercentage + "%\t|\tMoney to Point percentage: " + Records.MoneyToPoint+"%");
     });
 }
 //------------Details screen populating---------------

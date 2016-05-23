@@ -12,15 +12,7 @@
 
     <link href="../CSS/CustomCSS/Loyalty.css" rel="stylesheet" />
     <script src="../Scripts/UserJS/Loyalty.js"></script>
-    <style>
-        label.control-label {
-            cursor: default !important;
-        }
-
-        label {
-            cursor: default !important;
-        }
-    </style>
+   
     <div id="content" class="span10">
         <ul class="breadcrumb">
             <li>
@@ -61,7 +53,6 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                     </div>
                 </div>
-                <%-- style="min-height:50px; max-height:350px; overflow-y:scroll; margin-bottom: 20px" --%>
                 <div class="box-content">
                     <%--<table class="table table-striped table-bordered bootstrap-datatable datatable" id="UsersTable">--%>
                     <table class="table table-striped table-bordered  bootstrap-datatable" id="UsersTable">
@@ -87,15 +78,10 @@
         <div class="row-fluid" id="DetailSection">
             <div class="box span12">
                 <div class="box-header">
-                    <h2>Details</h2>
-                    <%--	<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
-						</div>--%>
+                    <h2>Details</h2>                   
                 </div>
                 <div class="box-content" style="overflow: auto;">
-                    <div class="form-horizontal" style="margin-left:3%">
+                    <div class="form-horizontal">
                         <%--<fieldset>--%>
 
                         <div class="span12">
@@ -144,35 +130,35 @@
                                   
                                     <tbody>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Loyalty Points
+                                            <td colspan="2" class="fullRow">Loyalty Points
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Existing Points
                                             </td>
-                                            <td style="text-align: right" id="existingPoints">
+                                            <td class="NumberRight" id="existingPoints">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Points from this purchase
                                             </td>
-                                            <td style="text-align: right" id="pointsFromThisPurchase">
+                                            <td class="NumberRight" id="pointsFromThisPurchase">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Total Points
                                             </td>
-                                            <td style="text-align: right" id="totalPoints">
+                                            <td class="NumberRight" id="totalPoints">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Redeem Points
+                                            <td colspan="2" class="fullRow">Redeem Points
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Redeemable Points
                                             </td>
-                                            <td style="text-align: right" id="redeemablePoints">
+                                            <td class="NumberRight" id="redeemablePoints">
                                             </td>
                                         </tr>
                                         <tr>
@@ -186,19 +172,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" style="background-color:#f9f9f9;font-weight: bold">Net
+                                            <td colspan="2" class="fullRow">Net
                                             </td>
                                         </tr>
                                         <tr style="font-size:large;font-weight: bold">
                                             <td>Amount
                                             </td>
-                                            <td id="netAmount" style="text-align: right">
+                                            <td id="netAmount" class="NumberRight">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Balance Points
                                             </td>
-                                            <td id="netPoints" style="text-align: right">
+                                            <td id="netPoints" class="NumberRight">
                                             </td>
                                         </tr>
                                     </tbody>
@@ -225,6 +211,9 @@
             </div>
         </div>
 
+        <div class="BottomRightInfo" id="loyaltySettingsInfo">
+
+        </div>
 
     </div>
 

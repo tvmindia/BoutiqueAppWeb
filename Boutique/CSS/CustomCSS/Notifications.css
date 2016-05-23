@@ -19,3 +19,7 @@
 .TableLayout{
     min-height:50px; max-height:350px; overflow-y:scroll; margin-bottom: 20px;
 }
+label.control-label {
+    cursor: default!important;
+
+}

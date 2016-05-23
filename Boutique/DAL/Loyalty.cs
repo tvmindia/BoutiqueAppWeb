@@ -66,6 +66,26 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public int Amount
+        {
+            get;
+            set;
+        }
+        public int DebitPoints
+        {
+            get;
+            set;
+        }
+        public int CreditPoints
+        {
+            get;
+            set;
+        }
+        public int MoneyValuePercentage
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Methods
@@ -113,7 +133,7 @@ namespace Boutique.DAL
 
         #region Update Loyalty points
         /// <summary>
-        /// to edit the loyalty points table details
+        /// to edit the loyalty points table details and inseting loyalty change log
         /// </summary>
         /// <returns>status</returns>
         public Int16 UpdateLoyaltyPoints()
@@ -126,8 +146,21 @@ namespace Boutique.DAL
             {
                 throw new Exception("BoutiqueID is Empty!!");
             }
+            if (UserID == "")
+            {
+                throw new Exception("UserID is Empty!!");
+            }
+            if (Points == 0)
+            {
+                throw new Exception("Points is Empty!!");
+            }
+            if (MoneyValuePercentage == 0)
+            {
+                throw new Exception("MoneyValuePercentage is Empty!!");
+            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
+            SqlCommand cmd2 = null;
             SqlParameter outParameter = null;
             try
             {
@@ -140,13 +173,28 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@LoyaltyCardNO", SqlDbType.BigInt).Value = Int64.Parse(LoyaltyCardNo);
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@Points", SqlDbType.Int).Value = Points;
-                cmd.Parameters.Add("@ValidityDate", SqlDbType.DateTime).Value = ValidityDate;
+                //cmd.Parameters.Add("@ValidityDate", SqlDbType.DateTime).Value = ValidityDate;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
+
+                cmd2 = new SqlCommand();
+                cmd2.Connection = dcon.SQLCon;
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.CommandText = "[InsertLoyaltyLog]";
+                cmd2.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                cmd2.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd2.Parameters.Add("@AmountPaid", SqlDbType.BigInt).Value = Amount;
+                cmd2.Parameters.Add("@DebitPoints", SqlDbType.Int).Value = DebitPoints;
+                cmd2.Parameters.Add("@CreditPoints", SqlDbType.Int).Value = CreditPoints;
+                cmd2.Parameters.Add("@LoyaltyPoints", SqlDbType.Int).Value = Points;
+                cmd2.Parameters.Add("@MoneyValuePercentage", SqlDbType.Int).Value = MoneyValuePercentage;
+                cmd2.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;           //Updating person creates log
+                cmd2.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd2.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -161,11 +209,19 @@ namespace Boutique.DAL
             }
             //update success or failure
             return Int16.Parse(outParameter.Value.ToString());
-
         }
         #endregion
 
         #endregion
+
+        //============Loyalty Related Calculations from Loyalty Log=============
+        //*    
+        //*    Credit points x Money point value = Actual Purchase Amount
+        //*    AmountPaid + Debit Ponit          = Actual Purchase Amount
+        //*
+        //*    Old Loyalty Point = Loyalty Point + Debit Ponits - Credit Points 
+        //*
+        //======================================================================
 
     }
 }
