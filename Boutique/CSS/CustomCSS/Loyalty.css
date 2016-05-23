@@ -22,33 +22,28 @@
     font-weight: bold;
 }
 
+.form-horizontal{
+    margin-left:3%;
+}
 
-input[type=checkbox].css-checkbox {
-							position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
-						}
+label.control-label {
+            cursor: default !important;
+        }
 
-						input[type=checkbox].css-checkbox + label.css-label {
-							padding-left:37px;
-							height:32px; 
-							display:inline-block;
-							line-height:32px;
-							background-repeat:no-repeat;
-							background-position: 0 0;
-							font-size:32px;
-							vertical-align:middle;
-							cursor:pointer;
+        label {
+            cursor: default !important;
+        }
 
-						}
+.fullRow{
+    background-color:#f9f9f9;
+    font-weight: bold;
+}
+.NumberRight{
+    text-align: right !important;
+}
+.BottomRightInfo{
+    text-align:right;
+    font-size:smaller;
+}
 
-						input[type=checkbox].css-checkbox:checked + label.css-label {
-							background-position: 0 -32px;
-						}
-						label.css-label {
-				background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_8605db33aebe753301df087837c14053.png);
-				-webkit-touch-callout: none;
-				-webkit-user-select: none;
-				-khtml-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-			}
+

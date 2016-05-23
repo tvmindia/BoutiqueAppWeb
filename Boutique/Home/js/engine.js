@@ -28,8 +28,11 @@ function checkScroll() {
 
     if ($(window).scrollTop() > startY) {
         $('.navbar').addClass("scrolled");
+        $('.arrows').hide();
+        
     } else {
         $('.navbar').removeClass("scrolled");
+        $('.arrows').show();
     }
 }
 
@@ -48,7 +51,15 @@ function SmoothScroll(hash) {
 function showPage(){
   
     // alert("ready");
-    $('#loading').fadeOut('slow', function () { $('#ActualPage').fadeIn('slow') });
-    //document.getElementById('loading').style.display="none";
-    //document.getElementById('ActualPage').style.display = "";
+    $('#loading').fadeOut('slow', function () { $('#ActualPage').fadeIn('slow', function () { showCaptions(); }) });
+    
+}
+
+function showCaptions() {
+
+    $('#bannerName').fadeIn(1500)
+    $('#bannerCaption').fadeIn(1200, function () { $('#bannerDetailCaption').fadeIn(2300) })
+   
+     
+    
 }

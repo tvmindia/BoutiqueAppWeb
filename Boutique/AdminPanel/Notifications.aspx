@@ -7,9 +7,7 @@
     <script src="../Scripts/UserJS/Notification.js"></script>
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script> 
-    <style>
-        label.control-label {cursor: default!important;}
-    </style>
+   
      <div id="content" class="span10">
          	<ul class="breadcrumb">
 				<li>

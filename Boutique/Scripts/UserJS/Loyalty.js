@@ -1,14 +1,19 @@
 ﻿$("document").ready(function (e) {
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
-
-    var MIN_AMOUNT_TO_REDEEM = 500;
-    var MAX_DISCOUNT_PERCENTAGE=50;
-    var MONEY_TO_POINT_VALUE=10;
-
+    
+    //Customers table--------
     BindUserTable(boutiqueid);
     $('#UsersTable').DataTable( {
         "bPaginate": false,             //removing paging
-    } );
+    });
+
+    //Loyalty settings loading------
+    LoadLoyaltySettings(boutiqueid);
+    var MIN_AMOUNT_TO_REDEEM = $("#hdfMIN_AMOUNT_TO_REDEEM").val();;
+    var MAX_DISCOUNT_PERCENTAGE = $("#hdfMAX_DISCOUNT_PERCENTAGE").val();;
+    var MONEY_TO_POINT_VALUE = $("#hdfMONEY_TO_POINT_VALUE").val();;
+ 
+   
 
     //Selecting user--------
     $(".userselect").live(
@@ -53,38 +58,38 @@
             return false;
         }
     })
-        
+    //Entering purchase amount-------------
     var CurrentLoyalty;
     var CurrentPurchase;
     var redeemablePoints;
     var totalPoints;
-
-    //Entering purchase amount-------------
+   
     $('#txtcurrentPurchase').on('input', function (e) {
         if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
             CurrentLoyalty = parseInt($('#txtLoyaltyPoints').text());
             CurrentPurchase = parseInt($('#txtcurrentPurchase').val());
+            //Points calculation
             var pointsFromThisPurchase = Math.floor(CurrentPurchase * MONEY_TO_POINT_VALUE / 100);
             totalPoints = CurrentLoyalty + pointsFromThisPurchase;
-            if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {
-                var max = CurrentPurchase * MAX_DISCOUNT_PERCENTAGE / 100; //maximum discountable amount
-                if (CurrentLoyalty >= max) {
-                    redeemablePoints = max;
+            if (CurrentPurchase >= MIN_AMOUNT_TO_REDEEM) {                  //minimum purchase amount should be satisfied
+                var max = CurrentPurchase * MAX_DISCOUNT_PERCENTAGE / 100;  //maximum discountable amount
+                if (CurrentLoyalty >= max) {                                
+                    redeemablePoints = max;                                 //Avoiding debiting poits more that maximum discountable
                 }
                 else {
-                    redeemablePoints = CurrentLoyalty;
+                    redeemablePoints = CurrentLoyalty;                      //Debiting full loyalty points
                 }
             }
             else {
                 redeemablePoints = 0
             }
             redeemablePoints = Math.floor(redeemablePoints);
-
+            //Clearing fields
             $("#radioYes").parent().removeClass('checked');
             $("#radioNo").parent().removeClass('checked');
             $("#netAmount").text('');
             $("#netPoints").text('');
-
+            //Showing calculations
             $("#existingPoints").text(CurrentLoyalty);
             $("#pointsFromThisPurchase").text(pointsFromThisPurchase);
             $("#totalPoints").text(totalPoints);
@@ -92,7 +97,7 @@
         }
     });
 
-    $('#txtcurrentPurchase').blur(function () {
+    $('#txtcurrentPurchase').blur(function () {             //Validation
         if (!$.isNumeric($('#txtcurrentPurchase').val()) || ($('#txtcurrentPurchase').val()<0)) {
             $('#txtcurrentPurchase').val('0');
         }
@@ -117,7 +122,6 @@
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase;
                 var Points = totalPoints;
-             //   $("#netAmount").text(commaSeparateNumber(Amount));
                 $("#netAmount").text((Amount).toLocaleString('en-IN'));
                 $("#netPoints").text(Points);
             }
@@ -131,63 +135,105 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            var purchaseAmount=$('#txtcurrentPurchase').val();
 
-            $("#txtDescription").val($("#txtDescription").val().trim());
-            var result = "";
-            var Notification = new Object();
-            Notification.NotificationID = $("#hdfNotificationID").val();
-            Notification.BoutiqueID = boutiqueid;
-            if ($("#txtTitle").val() != "") {
-                Notification.Title = $("#txtTitle").val();
-            }
-            else {
-                alert("Please enter title.");
-                return;
-            }
-            if ($("#dateStartDate").val() != "") {
-                Notification.StartDate = $("#dateStartDate").val();
-            }
-            else {
-                alert("Please select start date.");
-                return;
-            }
-            if ($("#dateEndDate").val() != "") {
-                Notification.EndDate = $("#dateEndDate").val();
-            }
-            else {
-                alert("Please select end date.");
-                return;
-            }
-            if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
-                alert("End date should be after the starting date.");
-                return;
-            }
-            Notification.Description = $("#txtDescription").val();
-            Notification.ProductID = $(".products").val();
-            Notification.CategoryCode = $(".categories").val();
+            var Loyalty = new Object();
 
-            result = InsertNotification(Notification);
+            if ($("#txtcurrentPurchase").val() != "") {
+                Loyalty.purchaseAmount = $('#txtcurrentPurchase').val();
+                }
+            else {
+                    alert("Please enter purchase amount.");
+                    return;
+            }
+
+            Loyalty.UserID = $('#hdfUserID').val();
+
+            if ($("#radioYes").parent().hasClass('checked')) {
+                if (confirm("Redeem and make transaction?") == true) {
+                    Loyalty.Redeem = true;
+                }
+                else {
+                    return;
+                }
+            }
+            else if ($("#radioNo").parent().hasClass('checked')) {
+                if (confirm("Purchase without redeeming?") == true) {
+                    Loyalty.Redeem = false;
+                }
+                else {
+                    return;
+                }
+            }
+            else {
+                alert("Please select whether to redeem or not.");
+                return;
+            }
+
+            Loyalty.BoutiqueID = boutiqueid;
+                        
+            result = MakeTransaction(Loyalty);
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                BindNotificationsTable(boutiqueid);
-                $("#txtTitle").val("");
-                $("#txtDescription").val("");
-                $("#dateStartDate").val("");
-                $("#dateEndDate").val("");
-                $(".submitDetails").text("Save");
-                $("#editLabel").text("New Notification");
-                $("#hdfNotificationID").val('');
-                $(".products").select2("val", "");
-                $(".categories").select2("val", "");
+                //Clearing fields
+                $("#txtUserName").text('');
+                $("#txtMobile").text('');
+                $("#txtLoyalCardNo").text('');
+                $("#txtLoyaltyPoints").text('');
+                $("#hdfUserID").val('');
+                $('#txtcurrentPurchase').val('');
+                $("#radioYes").parent().removeClass('checked');
+                $("#radioNo").parent().removeClass('checked');
+                $("#existingPoints").text('');
+                $("#pointsFromThisPurchase").text('');
+                $("#totalPoints").text('');
+                $("#redeemablePoints").text('');
+                $("#netAmount").text('');
+                $("#netPoints").text('');
+                CurrentLoyalty = 0;
+                CurrentPurchase = 0;
+                redeemablePoints = 0;
+                totalPoints = 0;
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
             }
-            //Scroll page
+
+            // Scroll page
             var offset = $('#rowfluidDiv').offset();
+            offset.left -= 20;
+            offset.top -= 20;
+            $('html, body').animate({
+                scrollTop: offset.top,
+                scrollLeft: offset.left
+            });
+        }
+    })
+    //Cancel button-----------
+    $(".Cancel").live({
+        click: function (e) {
+            //Clearing fields
+            $("#txtUserName").text('');
+            $("#txtMobile").text('');
+            $("#txtLoyalCardNo").text('');
+            $("#txtLoyaltyPoints").text('');
+            $("#hdfUserID").val('');
+            $('#txtcurrentPurchase').val('');
+            $("#radioYes").parent().removeClass('checked');
+            $("#radioNo").parent().removeClass('checked');
+            $("#existingPoints").text('');
+            $("#pointsFromThisPurchase").text('');
+            $("#totalPoints").text('');
+            $("#redeemablePoints").text('');
+            $("#netAmount").text('');
+            $("#netPoints").text('');
+            CurrentLoyalty = 0;
+            CurrentPurchase = 0;
+            redeemablePoints = 0;
+            totalPoints = 0;
+            // Scroll page
+            var offset = $('#customers').offset();
             offset.left -= 20;
             offset.top -= 20;
             $('html, body').animate({
@@ -218,8 +264,31 @@ function FillUserTable(Records) {
     $("tbody#userrows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
         var html = '<tr UserID="' + Records.UserID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center">' + Records.LoyaltyCardNo + '</td><td class="center"><a class="btn btn-success userselect" href="#"><i class="halflings-icon white eye-open"></i></a></td></tr>';
-        //<a class="btn btn-info" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger" href="#"><i class="halflings-icon white trash"></i></a>
         $("#UsersTable").append(html);
+    });
+}
+//------------Load Loyalty settings------------
+function LoadLoyaltySettings(boutiqueid) {
+    var jsonResult = {};
+    jsonResult = GetLoyaltySettings(boutiqueid);
+    if (jsonResult != undefined) {
+       SetLoyaltySettings(jsonResult);
+    }
+}
+function GetLoyaltySettings(boutiqueid) {
+    var ds = {};
+    var table = {};
+    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetLoyaltySettings");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function SetLoyaltySettings(Records) {
+    $.each(Records, function (index, Records) {
+        $("#hdfMIN_AMOUNT_TO_REDEEM").val(Records.MinAmountForRedeem);
+        $("#hdfMAX_DISCOUNT_PERCENTAGE").val(Records.MaxDiscountPercentage);
+        $("#hdfMONEY_TO_POINT_VALUE").val(Records.MoneyToPoint); 
+        $("#loyaltySettingsInfo").text("Min Amount to Redeem: " + Records.MinAmountForRedeem + "\t|\tMax Discount Percentage: " + Records.MaxDiscountPercentage + "%\t|\tMoney to Point percentage: " + Records.MoneyToPoint+"%");
     });
 }
 //------------Details screen populating---------------
@@ -238,6 +307,14 @@ function GetUserDetails(User) {
     var data = "{'userObj':" + JSON.stringify(User) + "}";
     ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetUserByID");
     table = JSON.parse(ds.d);
+    return table;
+}
+//------------Saving--------------------
+function MakeTransaction(Loyalty) {
+    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Loyalty.aspx/MakeTransaction");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
     return table;
 }
 //---getting data as json-----//
