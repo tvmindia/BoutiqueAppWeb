@@ -157,16 +157,16 @@ namespace Boutique.AdminPanel
                  int Points;
                  if(loyaltyObj.Redeem){
                                      int redeemablePoints;
-                                     if (purchaseAmount >= MIN_AMOUNT_TO_REDEEM)
+                                     if (purchaseAmount >= MIN_AMOUNT_TO_REDEEM)                    //minimum purchase amount should be satisfied
                                      {
-                                         int max = purchaseAmount * MAX_DISCOUNT_PERCENTAGE / 100; //maximum discountable amount
+                                         int max = purchaseAmount * MAX_DISCOUNT_PERCENTAGE / 100;  //maximum discountable amount
                                          if (loyaltypoints >= max)
                                          {
-                                             redeemablePoints = max;
+                                             redeemablePoints = max;                                //Avoiding debiting poits more that maximum discountable
                                          }
                                          else
                                          {
-                                             redeemablePoints = loyaltypoints;
+                                             redeemablePoints = loyaltypoints;                      //Debiting full loyalty points
                                          }
                                      }
                                      else
@@ -174,13 +174,21 @@ namespace Boutique.AdminPanel
                                          redeemablePoints = 0;
                                      }
                          Points = totalPoints - redeemablePoints;
+                         loyaltyObj.Amount=purchaseAmount - redeemablePoints;                       //Discounting
+                         loyaltyObj.DebitPoints = redeemablePoints;
                  }
-                 else{
-                         Points = totalPoints;              
+                 else{//Withount Discounting
+                         Points = totalPoints;
+                         loyaltyObj.Amount = purchaseAmount;                            
+                         loyaltyObj.DebitPoints = 0;
                  }
                 //Inserting ponits to database
-                 loyaltyObj.LoyaltyCardNo = ds.Tables[0].Rows[0]["LoyaltyCardNo"].ToString();
+                 loyaltyObj.CreditPoints = pointsFromThisPurchase;
                  loyaltyObj.Points = Points;
+                 loyaltyObj.MoneyValuePercentage = MONEY_TO_POINT_VALUE;
+
+                 loyaltyObj.LoyaltyCardNo = ds.Tables[0].Rows[0]["LoyaltyCardNo"].ToString();
+                
                         status = loyaltyObj.UpdateLoyaltyPoints().ToString();               
 
             }

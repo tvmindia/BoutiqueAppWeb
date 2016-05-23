@@ -21,3 +21,29 @@
     font-size:large;
     font-weight: bold;
 }
+
+.form-horizontal{
+    margin-left:3%;
+}
+
+label.control-label {
+            cursor: default !important;
+        }
+
+        label {
+            cursor: default !important;
+        }
+
+.fullRow{
+    background-color:#f9f9f9;
+    font-weight: bold;
+}
+.NumberRight{
+    text-align: right !important;
+}
+.BottomRightInfo{
+    text-align:right;
+    font-size:smaller;
+}
+
+
