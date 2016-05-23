@@ -15,31 +15,55 @@
 				<li><a href="#">Loyalty Settings</a></li>
 			</ul>
 
+         <%--Alert boxes --%>
+         <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
+				<div class="box span12">
 
+                    <div class="box-content alerts">
+						<div class="alert alert-error" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Operation Not Successfull.</strong> 
+						</div>
+						<div class="alert alert-success" style="display:none;">
+						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Successfull.</strong> 
+						</div>						
+					</div>
+
+                </div>
+            </div>		
+	     <%--Alert boxes --%>
 
          <div class="row-fluid">
-             <div class="box span12">
+             <div class="box span6">
                 <div class="box-header">
-						<h2>Percentage Point Value</h2>
-						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
-						</div>
+						<h2>Loyalty Settings</h2>
 					</div>
-            	<div class="box-content" style="height:115px;">
-                    <div class="form-horizontal">
-                       
+            	<div class="box-content" >
+                    <div class="form-horizontal" style="margin-top:3%" >                     
 
-                          <div class="control-group">
+                        <div class="control-group">
 							
-								  <label class="control-label" for="focusedInput">Points Percentage</label>
-								<div class="controls">
+								  <label class="span8" for="focusedInput">Money to Points Percentage</label>
+								<div class="span4">								                            
+                                     <input class="input-mini focused" id="txtMoneyToPointPercentage" type="number"/><span> %</span>
+								</div>
+						</div>
+                        <div class="control-group">
+							
+								  <label class="span8" for="focusedInput">Minimum Purchase Amount for Redeem</label>
+								<div class="span4">
 								                            
-                                     <input class="input-mini focused" id="txtLoyaltyPointPercentage" type="text"/><span> %</span>
+                                     <input class="input-mini focused" id="txtMinPurchaseAmount" type="number"/>
 								</div>
+						</div>
+                        <div class="control-group">
+							
+								  <label class="span8" for="focusedInput">Maximum Discount Percentage</label>
+								<div class="span4">								                            
+                                     <input class="input-mini focused" id="txtMaxDiscountPercentage" type="number"/><span> %</span>
 								</div>
-
+						</div>
                     </div>
                 </div>
 
