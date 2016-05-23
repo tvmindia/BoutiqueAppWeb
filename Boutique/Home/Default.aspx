@@ -19,6 +19,7 @@
     
     <script>
         //var message[2]=
+        var speed = 1500;
         var showText = function (target, message, index, interval) {
             if (index < message.length) {
                 $('#<%=lblmsges.ClientID%>').fadeOut('slow',
@@ -36,7 +37,8 @@
         }
         $(function () {
 
-            showText("#msg", [ 'B e W e D o ', 'think like customer', ''], 0, 2000);
+            showText("#msg", ['Hi', 'think like customer'], 0, speed);
+            
 
         });
 
@@ -45,7 +47,7 @@
 
             document.getElementById("<%=lblmsg.ClientID%>").innerHTML = 'Sending...'
 
-                PageMethods.sendMail(document.getElementById("<%=name.ClientID%>").value, document.getElementById("<%=message.ClientID%>").value, document.getElementById("<%=email.ClientID%>").value, document.getElementById("<%=mobile.ClientID%>").value, OnSuccess, onError);
+            PageMethods.sendMail(document.getElementById("<%=name.ClientID%>").value, document.getElementById("<%=message.ClientID%>").value, document.getElementById("<%=email.ClientID%>").value, document.getElementById("<%=mobile.ClientID%>").value, document.getElementById("<%=boutique.ClientID%>").value, OnSuccess, onError);
 
                 function OnSuccess(response, userContext, methodName) {
 
@@ -54,6 +56,7 @@
                     document.getElementById("<%=message.ClientID%>").value = '';
                     document.getElementById("<%=email.ClientID%>").value = '';
                     document.getElementById("<%=mobile.ClientID%>").value = '';
+                    document.getElementById("<%=boutique.ClientID%>").value = '';
                 }
                 function onError(response, userContext, methodName) {
 
@@ -90,16 +93,14 @@
         <h1><a onclick="SmoothScroll('#banner')">B e W e D o</a></h1>
         <nav id="nav">
             <ul>
-                <li><a onclick="SmoothScroll('#banner')">Home</a></li>
-                <li><a onclick="SmoothScroll('#About')">About</a></li>
-                   <li><a onclick="SmoothScroll('#why')">Why</a></li>
-                <li><a onclick="SmoothScroll('#howitworks')">How It Works</a></li>
-                <li><a onclick="SmoothScroll('#social')">Social</a></li>
-                <li><a onclick="SmoothScroll('#testrimonials')">Stories</a></li>
+                
+                 
+                <li><a onclick="SmoothScroll('#About')">More</a></li>
+                
                 <li><a>
-                    <div onclick="SmoothScroll('#contact')">Contact</div>
+                    <div onclick="SmoothScroll('#contact')" class="button special">Get Started</div>
                 </a></li>
-                <li><a onclick="SmoothScroll('#footer')">Clients</a></li>
+            
                 <!--	<li><a href="#" class="button special">Sign Up</a></li>-->
             </ul>
         </nav>
@@ -109,25 +110,13 @@
     <section id="banner">
 
         <div id="solgan1">
-            <h2>B e W e D o</h2>
-            <p>Better We Do !</p>
-            <ul class="actions">
-                <li>
-                    <!--<a href="#" class="button big">Lorem ipsum dolor</a>-->
-                </li>
-            </ul>
+            <h2 id="bannerName">B e W e D o</h2>
+            <p id="bannerCaption">Better We Do !</p>                
+              <h3 id="bannerDetailCaption">Some nice Caption goes here about bewedo</h3>
         </div>
 
-        <div id="slogan2">
-            <h2>B e W e D o</h2>
-            <p>Your Apps Back Bone !</p>
-            <ul class="actions">
-                <li>
-                    <!--<a href="#" class="button big">Lorem ipsum dolor</a>-->
-                </li>
-            </ul>
-        </div>
-        <br />
+      
+     
         <br />
          <br />
     </section>
@@ -328,8 +317,8 @@
     <section id="contact" class="wrapper contact special">
         <div class="container">
             <header class="major">
-                <h2>Contact</h2>
-                <p>To know more about the engine , pricing and offers</p>
+                <h2>Get Started</h2>
+                <p>Please give your details below, we will contact you to take you online !</p>
             </header>
         </div>
         <div class="container 50%">
@@ -339,14 +328,17 @@
                     <div class="6u 12u$(small)">
                         <input name="name" id="name" value="" placeholder="Name" type="text" runat="server" />
                     </div>
-                    <div class="6u$ 12u$(small)">
+                     <div class="6u 12u$(small)">
+                        <input name="boutique" id="boutique" value="" placeholder="boutique name" type="text" runat="server" />
+                    </div>
+                    <div class="6u 12u$(small)">
                         <input name="email" id="email" value="" placeholder="Email" type="email" runat="server" />
                     </div>
-                    <div class="12u$">
+                    <div class="6u$ 12u$(small)">
                         <input name="mobile" id="mobile" value="" placeholder="mobile" type="text" runat="server" />
                     </div>
                     <div class="12u$">
-                        <textarea name="message" id="message" placeholder="Message" rows="5" runat="server"></textarea>
+                        <textarea name="message" id="message" placeholder="Message (optional) " rows="5" runat="server"></textarea>
                     </div>
                     <div class="12u$">
                         <ul class="actions">

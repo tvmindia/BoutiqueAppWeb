@@ -19,14 +19,15 @@ namespace BoutiqueWebsite
 
 
         [WebMethod]
-        public static string sendMail(string name, string msg, string email,string mobile)
+        public static string sendMail(string name, string msg, string email,string mobile,string boutiquename)
         {
             try
             {
 
-            
-            if (email.Trim()=="" || msg.Trim() =="" || name.Trim()=="" ) {
-                return "Fill all the fields";
+
+                if (email.Trim() == "" || boutiquename.Trim() == "" || name.Trim() == "")
+                {
+                return "Oh ! Some fields are not filled yet !";
             
             }
        
@@ -41,6 +42,7 @@ namespace BoutiqueWebsite
 
 
             string message = "<table style='width:70%'><tr><td>From </td><td>: </td><td>" + name + "</td></tr>";
+            message = message + "<tr><td>Boutique</td><td> :</td> <td>" + boutiquename + "</td></tr>";
             message = message + "<tr><td>Email</td><td> :</td> <td>" + email + "</td></tr>";
             message = message + "<tr><td>Mobile</td><td> :</td><td> " + mobile + "</td></tr>";
             message = message + "<tr><td>Date</td><td> :</td><td> " + CurrentTime + "</td></tr>";
