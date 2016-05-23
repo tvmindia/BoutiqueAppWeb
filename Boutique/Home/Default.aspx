@@ -36,7 +36,7 @@
         }
         $(function () {
 
-            showText("#msg", ['Hi','B e W e D o ', 'think like customer','l o a d i n g . . . .',''], 0, 2000);
+            showText("#msg", [ 'B e W e D o ', 'think like customer', ''], 0, 2000);
 
         });
 
