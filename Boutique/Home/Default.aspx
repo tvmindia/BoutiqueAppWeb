@@ -135,8 +135,8 @@
     <section id="why" class="wrapper why special">
         <div class="container">
             <header class="major">
-                <h2>Why ?</h2>
-                <p>Why you need own app ?</p>
+                <h2>Why you need own app ?</h2>
+             
             </header>
 
             <div class="row 150%">
@@ -144,13 +144,13 @@
                 <div class="12u$ 12u$(medium)">
                     <section class="">
                         <header class="major">
-                        <p>Be Visible to Customers at All Times</p>
-                        <p>Create a personal Marketing Channel</p>
-                        <p>Provide Value to Your Customers</p>
-                        <p>Build Brand and Recognition</p>
-                        <p>Improve Customer Engagement</p>
-                          <p>Stand Out From the Competition</p>
-                          <p>Cultivate Customer Loyalty</p>
+                        <p class="left">Be Visible to Customers at All Times</p>
+                        <p class="left">Create a personal Marketing Channel</p>
+                        <p class="left">Provide Value to Your Customers</p>
+                        <p class="left">Build Brand and Recognition</p>
+                        <p class="right">Improve Customer Engagement</p>
+                          <p  class="right">Stand Out From the Competition</p>
+                          <p  class="right">Cultivate Customer Loyalty</p>
                          
                     </header>
                     </section>
