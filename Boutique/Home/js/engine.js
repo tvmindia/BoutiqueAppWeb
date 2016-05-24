@@ -24,7 +24,7 @@ $(window).bind('scroll', checkScroll);
 
 function checkScroll() {
 
-    var startY = $('.navbar').height() * 1.4; //The point where the navbar changes in px
+    var startY = $('.navbar').height() * 6; //The point where the navbar changes in px
 
     if ($(window).scrollTop() > startY) {
         $('.navbar').addClass("scrolled");
