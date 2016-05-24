@@ -9,7 +9,7 @@ function update() {
         $(this).css('backgroundPosition', '50% ' + Math.round((height - pos) * velocity) + 'px');
     });
 
-    $('.social').each(function () {
+    $('.why').each(function () {
         var $element = $(this);
         // subtract some from the height b/c of the padding
         var height = $element.height() - 30;
@@ -63,3 +63,4 @@ function showCaptions() {
      
     
 }
+

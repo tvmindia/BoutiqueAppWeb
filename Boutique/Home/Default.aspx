@@ -14,6 +14,7 @@
     <script src="js/skel.min.js"></script>
     <script src="js/skel-layers.min.js"></script>
     <script src="js/init.js"></script>
+   
     <script src="js/engine.js"></script>
 
     
@@ -37,7 +38,7 @@
         }
         $(function () {
 
-            showText("#msg", ['Hi', 'think like customer'], 0, speed);
+            showText("#msg", ['Hi', 'think like customer !'], 0, speed);
             
 
         });
@@ -95,7 +96,7 @@
             <ul>
                 
                  
-                <li><a onclick="SmoothScroll('#About')">More</a></li>
+                <li><a onclick="SmoothScroll('#why')">More</a></li>
                 
                 <li><a>
                     <div onclick="SmoothScroll('#contact')" class="button special">Get Started</div>
@@ -130,7 +131,37 @@
 							<path class="a3" d="M0 40 L30 72 L60 40"></path>
 						</svg>
 
-    <section id="About" class="wrapper about special">
+   
+    <section id="why" class="wrapper why special">
+        <div class="container">
+            <header class="major">
+                <h2>Why ?</h2>
+                <p>Why you need own app ?</p>
+            </header>
+
+            <div class="row 150%">
+
+                <div class="12u$ 12u$(medium)">
+                    <section class="">
+                        <header class="major">
+                        <p>Be Visible to Customers at All Times</p>
+                        <p>Create a personal Marketing Channel</p>
+                        <p>Provide Value to Your Customers</p>
+                        <p>Build Brand and Recognition</p>
+                        <p>Improve Customer Engagement</p>
+                          <p>Stand Out From the Competition</p>
+                          <p>Cultivate Customer Loyalty</p>
+                         
+                    </header>
+                    </section>
+                    
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+<%-- <section id="About" class="wrapper about special">
         <div class="container">
             <header class="major">
                 <h2>About</h2>
@@ -151,57 +182,12 @@
                     <header class="major">
                         <p>Thats the   -BeWeDo-   ENGINE concept all about !</p>
                     </header>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
+                   
                 </div>
 
             </div>
         </div>
-    </section>
-    <section id="why" class="wrapper why special">
-        <div class="container">
-            <header class="major">
-                <h2>Why ?</h2>
-                <p>Why you need own app ?</p>
-            </header>
-
-            <div class="row 150%">
-
-                <div class="12u$ 12u$(medium)">
-                    <section class="">
-                        <p>
-                           Statistics show that the average Indian youth spends more than two hours a day (!) on his or her mobile device. 
-                            While probably only a handful of applications make up the bulk of this total usage,
-                             it doesn’t change the fact that each user has to unlock, scroll, and scan their device for the apps they’re looking for.
-                             Being “in the way” can be an advantage to your company, as our mind unconsciously does record every image and text (or well-designed app icon!) 
-                            it comes across — even if it happens unnoticed.
-                        </p>
-                        <p>
-                          Apps serve many functions: they can provide general info, prices, booking forms, search features, user accounts, messengers, news feeds, and much more.
-                        One of the biggest benefits of having a mobile app is that all the information you’d like to provide to your customers – including special sales and promotions – is right at their fingertips. Through push notifications you’re getting even closer to a direct interaction, and can easily remind customers about your products and services whenever it makes sense.
-
-                        </p>
-                        <p>
-                            Talking about on-hand information, how about digitalizing that loyalty program you have in place? Instead of sticking to the old point-collection card, make it possible for your customers to collect their rewards via your mobile app. The result? More downloads and more return customers.
-                        </p>
-                    </section>
-                    <header class="major">
-                        <p>Be Visible to Customers at All Times</p>
-                        <p>Create a Direct Marketing Channel</p>
-                        <p>Provide Value to Your Customers</p>
-                        <p>Build Brand and Recognition</p>
-                        <p>Improve Customer Engagement</p>
-                          <p>Stand Out From the Competition</p>
-                          <p>Cultivate Customer Loyalty</p>
-                         
-                    </header>
-
-                </div>
-
-            </div>
-        </div>
-    </section>
-
+    </section>--%>
     <!-- One -->
     <section id="howitworks" class="wrapper howitworks special">
         <div class="container">
@@ -211,21 +197,21 @@
             </header>
             <div class="row 150%">
                 <div class="4u 12u$(medium)">
-                    <section class="box">
+                    <section class="box card">
                         <i class="icon big rounded color1 fa-cloud"></i>
                         <h3>Build Your App</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim quam consectetur quibusdam magni minus aut modi aliquid.</p>
                     </section>
                 </div>
                 <div class="4u 12u$(medium)">
-                    <section class="box">
+                    <section class="box card">
                         <i class="icon big rounded color9 fa-desktop"></i>
                         <h3>Share it with customers</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ullam consequatur repellat debitis maxime.</p>
                     </section>
                 </div>
                 <div class="4u$ 12u$(medium)">
-                    <section class="box">
+                    <section class="box card">
                         <i class="icon big rounded color6 fa-rocket"></i>
                         <h3>Bring Business</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eaque eveniet, nesciunt molestias. Ipsam, voluptate vero.</p>

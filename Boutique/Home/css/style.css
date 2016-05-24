@@ -20,14 +20,14 @@
     z-index: 99;
     text-align: center;
     vertical-align: middle;
-    font-size: 35px;
+    font-size: 45px;
     color: orange !important;
     text-decoration: underline;
     font-weight: bold;
 }
             .msgClass {
             position: absolute;
-            top: 40%;
+            top: 50%;
             left: 30%;
             text-align:center;
             }
@@ -1085,6 +1085,9 @@ z-index:9999;
     -webkit-animation: zoom 15s infinite;
     animation: zoom 15s infinite;
      background-attachment: fixed;
+
+     
+
 }
 
     #banner :last-child {
@@ -1097,6 +1100,10 @@ z-index:9999;
         line-height: 1.25em;
         margin: 0 0 0.5em 0;
         padding: 0;
+
+        
+
+
     }
      #banner h3 {
         color: #ffffff;
@@ -1529,3 +1536,25 @@ z-index:9999;
 	animation-delay:0s;
 	-webkit-animation-delay:0s; /* Safari 和 Chrome */
 }
+
+.card {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+   background:rgba(255, 255, 240, 0.85);
+   /*margin:50px;*/
+   padding:30px;
+   border-radius:10px;
+  
+}
+
+.card1 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+   background:rgba(0, 0, 0, 0.45);
+   /*margin:50px;*/
+   padding:30px;
+   border-radius:10px;
+  
+}
+
+
+
+
