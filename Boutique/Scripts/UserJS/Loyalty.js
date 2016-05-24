@@ -136,6 +136,10 @@
             $('.alert-success').hide();
             $('.alert-error').hide();
 
+            if ($('#hdfUserID').val()== '') {
+                return;
+            }
+
             var Loyalty = new Object();
 
             if ($("#txtcurrentPurchase").val() != "") {

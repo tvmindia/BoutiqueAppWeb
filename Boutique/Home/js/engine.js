@@ -9,7 +9,7 @@ function update() {
         $(this).css('backgroundPosition', '50% ' + Math.round((height - pos) * velocity) + 'px');
     });
 
-    $('.social').each(function () {
+    $('.why').each(function () {
         var $element = $(this);
         // subtract some from the height b/c of the padding
         var height = $element.height() - 30;
@@ -24,7 +24,7 @@ $(window).bind('scroll', checkScroll);
 
 function checkScroll() {
 
-    var startY = $('.navbar').height() * 1.4; //The point where the navbar changes in px
+    var startY = $('.navbar').height() * 6; //The point where the navbar changes in px
 
     if ($(window).scrollTop() > startY) {
         $('.navbar').addClass("scrolled");
@@ -63,3 +63,4 @@ function showCaptions() {
      
     
 }
+
