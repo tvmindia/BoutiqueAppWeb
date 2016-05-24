@@ -86,6 +86,16 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public int MinAmountForRedeem
+        {
+            get;
+            set;
+        }
+        public int MaxDiscountPercentage
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Methods
@@ -195,6 +205,67 @@ namespace Boutique.DAL
                 cmd2.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;           //Updating person creates log
                 cmd2.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd2.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //update success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion
+
+        #region Update Loyalty Settings
+        /// <summary>
+        /// to edit the loyalty settings table
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 UpdateLoyaltySettings()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (MoneyValuePercentage <= 0 || MoneyValuePercentage >100)
+            {
+                throw new Exception("MoneyValuePercentage is invalid!!");
+            }
+            if (MinAmountForRedeem < 0)
+            {
+                throw new Exception("MinAmountForRedeem is invalid!!");
+            }
+            if (MaxDiscountPercentage <= 0 || MaxDiscountPercentage>100)
+            {
+                throw new Exception("MaxDiscountPercentage is invalid!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateLoyaltySettings]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@MoneyToPoint", SqlDbType.Int).Value = MoneyValuePercentage;
+                cmd.Parameters.Add("@MinAmountForRedeem", SqlDbType.Int).Value = MinAmountForRedeem;
+                cmd.Parameters.Add("@MaxDiscountPercentage", SqlDbType.Int).Value = MaxDiscountPercentage;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

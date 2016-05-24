@@ -12,6 +12,7 @@
     <script src="../Scripts/jquery-1.9.1.min.js"></script>
    <script src="../Scripts/UserJS/ProductFileUpload.js"></script>
     <link href="../CSS/bootstrap.min.css" rel="stylesheet" />
+    <link href="../CSS/style.css" rel="stylesheet" />
    <link href="../CSS/CustomCSS/ProductFileUpload.css" rel="stylesheet" />
    <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <script>
@@ -49,13 +50,29 @@
         }
 
     </script>
+    <style>
+
+   select, input[type="file"] 
+   {
+    height: 30px;
+    line-height: 30px;
+}
+
+    </style>
     <form id="form1" runat="server">
     <div class="span4">
+        <div>
+
+       <label class="choose">
         <asp:fileupload runat="server" onchange="OnUpload();showimagepreview(this);" ID="fileupload"></asp:fileupload>
-        <asp:Button runat="server" id="UploadButton" text="Upload"  onclick="UploadButton_Click" />
+       </label>
+       
     <asp:label runat="server" ID="lblFile"/>
 
          <img id="imgprvw" runat="server" src="" alt=""/>
+          
+             <asp:Button CssClass="btn1" runat="server" id="UploadButton" text="Upload"  onclick="UploadButton_Click" />
+            </div>
     </div>
     </form>
 </body>

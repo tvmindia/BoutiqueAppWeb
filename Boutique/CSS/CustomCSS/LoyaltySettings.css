@@ -11,6 +11,13 @@
 
 .InnerFooter
 {
-    background-color:#B8D0E8;
-    
+    background-color:#B8D0E8;    
 }
+label.control-label {
+            cursor: default !important;
+            width: initial !important;
+        }
+
+        label {
+            cursor: default !important;
+        }
