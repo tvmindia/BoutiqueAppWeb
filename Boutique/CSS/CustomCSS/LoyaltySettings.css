@@ -21,3 +21,6 @@ label.control-label {
         label {
             cursor: default !important;
         }
+.TableLayout{
+    min-height:50px; max-height:350px; overflow-y:scroll; margin-bottom: 20px;
+}

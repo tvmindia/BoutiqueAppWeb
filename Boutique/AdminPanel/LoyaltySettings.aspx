@@ -76,14 +76,6 @@
          </div>
 
 
-
-         <div class="span12" style="height:20px;">
-
-         </div>
-
-
-
-
          <div class="row-fluid sortable">	
 				<div class="box span12">
 					<div class="box-header">
@@ -94,60 +86,25 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content">
-						<table class="table table-bordered table-striped table-condensed">
-							  <thead>
-								  <tr>
-									  <th>Debit Points</th>
-									  <th>Credit Points</th>
-									  <th>Money Value</th>
-									  <th>Status</th>                                          
-								  </tr>
-							  </thead>   
-							  <tbody>
-								<tr>
-									<td>45</td>
-									<td class="center">35</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>55</td>
-									<td class="center">12</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-important">Banned</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>65</td>
-									<td class="center">20</td>
-									<td class="center">Admin</td>
-									<td class="center">
-										<span class="label">Inactive</span>
-									</td>                                        
-								</tr>
-								<tr>
-									<td>75</td>
-									<td class="center">30</td>
-									<td class="center">Member</td>
-									<td class="center">
-										<span class="label label-warning">Pending</span>
-									</td>                                       
-								</tr>
-								<tr>
-									<td>85</td>
-									<td class="center">89</td>
-									<td class="center">Staff</td>
-									<td class="center">
-										<span class="label label-success">Active</span>
-									</td>                                        
-								</tr>                                   
-							  </tbody>
-						 </table>  
-						 <div class="pagination pagination-centered">
+					<div class="box-content TableLayout">
+						<table class="table table-striped table-bordered  bootstrap-datatable" id="LoyaltyLogTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>                                
+                                <th>Loyalty Card No</th>
+                                <th>Mobile</th>
+                                <th>Amount Paid</th>
+                                <th>Debit Points</th>
+                                <th>Credit Points</th>
+                                <th>Loyalty Points</th>
+                                <th>Money to Point Percentage</th>
+                                <th>Date</th>                                
+                            </tr>
+                        </thead>
+                        <tbody id="rows">
+                        </tbody>
+                    </table>  
+						 <%--<div class="pagination pagination-centered">
 						  <ul>
 							<li><a href="#">Prev</a></li>
 							<li class="active">
@@ -158,12 +115,12 @@
 							<li><a href="#">4</a></li>
 							<li><a href="#">Next</a></li>
 						  </ul>
-						</div>     
+						</div>  --%>   
 					</div>
 				</div><!--/span-->
-			</div><!--/row-->
+			</div>
          
-         <div class="row-fluid sortable" id="customers">
+        <%-- <div class="row-fluid sortable" id="customers">
             <div class="box span12">
                 <div class="box-header">
                     <h2>Customers</h2>
@@ -184,7 +141,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
 
      </div>
