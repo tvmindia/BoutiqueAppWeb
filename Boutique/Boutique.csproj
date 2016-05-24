@@ -175,6 +175,7 @@
     <Content Include="img\close-button-white.png" />
     <Content Include="img\close-button.png" />
     <Content Include="img\crop.gif" />
+    <Content Include="img\defaultimages.jpg" />
     <Content Include="img\dialogs.png" />
     <Content Include="img\gallery\photo10.jpg" />
     <Content Include="img\gallery\photo11.jpg" />

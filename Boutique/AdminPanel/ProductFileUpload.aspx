@@ -22,7 +22,7 @@
                 var filerdr = new FileReader();
                 filerdr.onload = function (e) {
 
-                    $('#<%=imgprvw.ClientID %>').attr('src', e.target.result);
+                    $('#imgprvw').attr('src', e.target.result);
 
                 }
                 filerdr.readAsDataURL(input.files[0]);
@@ -49,6 +49,15 @@
             return true;
         }
 
+        function imageChoose()
+        {
+            
+            var lblmsg = document.getElementById("<%=lblFile.ClientID%>");
+            lblmsg.innerHTML = '';
+            $('#<%=fileupload.ClientID%>').click();
+            
+        }
+
     </script>
     <style>
 
@@ -56,6 +65,8 @@
    {
     height: 30px;
     line-height: 30px;
+    display:none;
+
 }
 
     </style>
@@ -68,9 +79,7 @@
        </label>
        
     <asp:label runat="server" ID="lblFile"/>
-
-         <img id="imgprvw" runat="server" src="" alt=""/>
-          
+         <img id="imgprvw" onclick="imageChoose();" src="../img/defaultimages.jpg" alt="Click here to Upload Image"/>
              <asp:Button CssClass="btn1" runat="server" id="UploadButton" text="Upload"  onclick="UploadButton_Click" />
             </div>
     </div>
