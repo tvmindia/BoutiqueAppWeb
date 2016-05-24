@@ -2,10 +2,13 @@
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
     LoadLoyaltySettings(boutiqueid);
     //Log table--------
+    
     BindLoyaltyLogTable(boutiqueid);
-    //$('#LoyaltyLogTable').DataTable({
-    //    "bPaginate": false,             //removing paging
-    //});
+    
+    $('#LoyaltyLogTable').DataTable({        
+        "aaSorting": [[8,'desc']],      //Sort with Date coloumn
+        "bPaginate": false,             //removing paging
+    });
 
     $('#txtMoneyToPointPercentage').blur(function () {             //Validation
         if (!$.isNumeric($('#txtMoneyToPointPercentage').val()) || ($('#txtMoneyToPointPercentage').val() < 0)) {
@@ -175,7 +178,11 @@ function ConvertJsonToDate(jsonDate) {
                       "Aug", "Sep", "Oct",
                       "Nov", "Dec"
         ];
-        var result = day + '-' + monthNames[month] + '-' + year;
+        var hour = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var result = day + '-' + monthNames[month] + '-' + year ;
+        var time = currentTime.toLocaleTimeString().toLowerCase();
+        result += "\t|\t" + time;
         return result;
     }
 }
