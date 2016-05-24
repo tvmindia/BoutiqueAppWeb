@@ -140,7 +140,6 @@ namespace Boutique.DAL
         }
         #endregion
 
-
         #region Update Loyalty points
         /// <summary>
         /// to edit the loyalty points table details and inseting loyalty change log
@@ -280,6 +279,46 @@ namespace Boutique.DAL
             }
             //update success or failure
             return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion
+
+        #region Get Loyalty Log
+        public DataTable GetLoyaltyLog()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetLoyaltyLogByBoutiqueID]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
         }
         #endregion
 

@@ -1,11 +1,11 @@
 ﻿$("document").ready(function (e) {
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
     LoadLoyaltySettings(boutiqueid);
-    //Customers table--------
-    BindUserTable(boutiqueid);
-    $('#UsersTable').DataTable({
-        "bPaginate": false,             //removing paging
-    });
+    //Log table--------
+    BindLoyaltyLogTable(boutiqueid);
+    //$('#LoyaltyLogTable').DataTable({
+    //    "bPaginate": false,             //removing paging
+    //});
 
     $('#txtMoneyToPointPercentage').blur(function () {             //Validation
         if (!$.isNumeric($('#txtMoneyToPointPercentage').val()) || ($('#txtMoneyToPointPercentage').val() < 0)) {
@@ -122,27 +122,27 @@ function InsertLoyaltySettings(Loyalty) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
-//------------User details table------------
-function BindUserTable(boutiqueid) {
+//------------Loyalty Log details table------------
+function BindLoyaltyLogTable(boutiqueid) {
     var jsonResult = {};
-    jsonResult = GetAllUsers(boutiqueid);
+    jsonResult = GetLoyaltyLog(boutiqueid);
     if (jsonResult != undefined) {
-        FillUserTable(jsonResult);
+        FillLoyaltyLogTable(jsonResult);
     }
 }
-function GetAllUsers(boutiqueid) {
+function GetLoyaltyLog(boutiqueid) {
     var ds = {};
     var table = {};
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetAllUsers");
+    ds = getJsonData(data, "../AdminPanel/LoyaltySettings.aspx/GetLoyaltyLog");
     table = JSON.parse(ds.d);
     return table;
 }
-function FillUserTable(Records) {
-    $("tbody#userrows tr").remove();            //Remove all existing rows for refreshing
+function FillLoyaltyLogTable(Records) {
+    $("tbody#rows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
-        var html = '<tr UserID="' + Records.UserID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center">' + Records.LoyaltyCardNo + '</td><td class="center"><a class="btn btn-success userselect" href="#"><i class="halflings-icon white eye-open"></i></a></td></tr>';
-        $("#UsersTable").append(html);
+        var html='<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID +'"><td>'+Records.Name+'</td><td>'+ Records.LoyaltyCardNo +'</td><td>'+ Records.Mobile +'</td><td>'+ Records.AmountPaid +'</td><td>'+ Records.DebitPoints +'</td><td>'+ Records.CreditPoints +'</td><td>'+ Records.LoyaltyPoints + '</td><td>'+ Records.MoneyValuePercentage +'</td><td>'+ ConvertJsonToDate(Records.CreatedDate)+'</td></tr>';
+        $("#LoyaltyLogTable").append(html);
     });
 }
 //---getting data as json-----//
