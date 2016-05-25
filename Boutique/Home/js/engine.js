@@ -64,3 +64,17 @@ function showCaptions() {
     
 }
 
+
+
+function getstated() {
+
+    window.location='getstarted.aspx'
+
+}
+
+
+function gohome() {
+
+    window.location = 'default.aspx'
+
+}

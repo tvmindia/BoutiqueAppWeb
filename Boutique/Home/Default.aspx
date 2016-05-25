@@ -20,7 +20,7 @@
     
     <script>
         //var message[2]=
-        var speed = 1500;
+        var speed = 500;
         var showText = function (target, message, index, interval) {
             if (index < message.length) {
                 $('#<%=lblmsges.ClientID%>').fadeOut('slow',
@@ -38,33 +38,11 @@
         }
         $(function () {
 
-            showText("#msg", ['Hi', 'think like customer !'], 0, speed);
+            showText("#msg", [''], 0, speed);
             
 
         });
-
-
-        function sendmail() {
-
-            document.getElementById("<%=lblmsg.ClientID%>").innerHTML = 'Sending...'
-
-            PageMethods.sendMail(document.getElementById("<%=name.ClientID%>").value, document.getElementById("<%=message.ClientID%>").value, document.getElementById("<%=email.ClientID%>").value, document.getElementById("<%=mobile.ClientID%>").value, document.getElementById("<%=boutique.ClientID%>").value, OnSuccess, onError);
-
-                function OnSuccess(response, userContext, methodName) {
-
-                    document.getElementById("<%=lblmsg.ClientID%>").innerHTML = response;
-                    document.getElementById("<%=name.ClientID%>").value = '';
-                    document.getElementById("<%=message.ClientID%>").value = '';
-                    document.getElementById("<%=email.ClientID%>").value = '';
-                    document.getElementById("<%=mobile.ClientID%>").value = '';
-                    document.getElementById("<%=boutique.ClientID%>").value = '';
-                }
-                function onError(response, userContext, methodName) {
-
-                }
-
-            }
-
+ 
 
 
 
@@ -99,7 +77,7 @@
                 <li><a onclick="SmoothScroll('#why')">More</a></li>
                 
                 <li><a>
-                    <div onclick="SmoothScroll('#contact')" class="button special">Get Started</div>
+                    <div onclick="getstated()" class="button special">Get Started</div>
                 </a></li>
             
                 <!--	<li><a href="#" class="button special">Sign Up</a></li>-->
@@ -299,54 +277,14 @@
 
                 <ul class="actions">
                     <li>
-                        <a href="#" class="button big">See Video</a>
+                        <div onclick="getstated();" class="button big">Get Started</div>
                     </li>
                 </ul>
             </footer>
         </div>
     </section>
 
-    <!-- Three -->
-    <section id="contact" class="wrapper contact special">
-        <div class="container">
-            <header class="major">
-                <h2>Get Started</h2>
-                <p>Please give your details below, we will contact you to take you online !</p>
-            </header>
-        </div>
-        <div class="container 50%">
-            <form action="#" method="post" runat="server">
-                <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true" EnablePartialRendering="true" EnableCdn="true"></asp:ScriptManager>
-                <div class="row uniform">
-                    <div class="6u 12u$(small)">
-                        <input name="name" id="name" value="" placeholder="Name" type="text" runat="server" />
-                    </div>
-                     <div class="6u 12u$(small)">
-                        <input name="boutique" id="boutique" value="" placeholder="boutique name" type="text" runat="server" />
-                    </div>
-                    <div class="6u 12u$(small)">
-                        <input name="email" id="email" value="" placeholder="Email" type="email" runat="server" />
-                    </div>
-                    <div class="6u$ 12u$(small)">
-                        <input name="mobile" id="mobile" value="" placeholder="mobile" type="text" runat="server" />
-                    </div>
-                    <div class="12u$">
-                        <textarea name="message" id="message" placeholder="Message (optional) " rows="5" runat="server"></textarea>
-                    </div>
-                    <div class="12u$">
-                        <ul class="actions">
-                            <li>
-                                <asp:Button ID="sndmsg" runat="server" Text="Send Message" class="special big" OnClientClick="sendmail();return false;" />
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h2>
-                    <asp:Label ID="lblmsg" runat="server" Text="" ForeColor="DarkOrange"></asp:Label></h2>
-            </form>
-        </div>
-    </section>
+    
 
     <!-- Footer -->
     <footer id="footer">
