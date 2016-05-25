@@ -51,7 +51,8 @@ function SmoothScroll(hash) {
 function showPage(){
   
     // alert("ready");
-    $('#loading').fadeOut('fast', function () { $('#ActualPage').fadeIn('slow', function () { showCaptions(); }) });
+    $('#ActualPage').fadeIn('slow');
+    $('#loading').fadeOut('slow', function () {  showCaptions(); });
     
 }
 
