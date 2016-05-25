@@ -45,5 +45,11 @@ label.control-label {
     text-align:right;
     font-size:smaller;
 }
+.TableLayout{
+    min-height:50px;
+    max-height:350px;
+    overflow-y:scroll;
+    margin-bottom: 20px;
+}
 
 

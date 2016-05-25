@@ -43,6 +43,10 @@ input[type="checkbox"].chkbox
     min-height: 20px!important;
     cursor:pointer!important;
     line-height: normal!important;
+    position:relative;
+    bottom:0;
+    left:0;
+    right:0;
 }
 
 .thumb:hover
@@ -69,4 +73,32 @@ label.choose:before {
 
   
 }
+ol#olpreview 
+{
+    display:inline-block;
+    vertical-align:auto;
+    width:450px;
+}
+
+    ol#olpreview li {
+        width: 75px;
+        height: 105px !important;
+        padding: 0 0 0 15px;
+        float: left;
+    }
+
+
+
+
+.close-btn {
+    background-color: red!important;
+    /*border: 2px solid #c2c2c2!important;*/
+    border-radius: 0px!important;
+    padding: 2px!important;
+    position: relative!important;
+    top: 3px!important;
+}
+
+
+
 

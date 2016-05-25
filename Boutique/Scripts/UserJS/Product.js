@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
     //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
-
+   //disables the div containing image upload and image list
     $("#olpreview").sortable({
 
         update: function( event, ui ) {}//when li image is reordered
@@ -79,84 +79,85 @@
                 }
              
                 result = InsertProduct(Product);
-              
-                 if (result[0].status == "1") {
-                     $("#hdfproductID").val(result[0].ProductID);
-                     $('#rowfluidDiv').show();
-                     $('.alert-success').show();
-                 }
-                 if (result[0].status != "1") {
-                     $('#rowfluidDiv').show();
-                     $('.alert-error').show();
-                 }
-                 return false;
-           
             }
-            //if ($(".AddProduct").text() == "Modify") {
-            //    var Category = new Object();
-            //    Category.BoutiqueID = boutiqueid;
-            //    Category.CategoryID = $("#hdfCategoryID").val();
-            //    Category.CategoryCode = $("#txtCatCode").val();
-            //    Category.CategoryName = $("#txtCategoryName").val();
-             //  result = UpdateCategory(Category);
-            //}
-           // BindAsyncCategoryTable(boutiqueid);
+            if ($(".AddProduct").text() == "Modify") {
+                var Product = new Object();
+                Product.BoutiqueID = boutiqueid;
+                Product.CategoryID = $("#hdfCategoryID").val();
+                Product.CategoryCode = $("#txtCatCode").val();
+                Product.CategoryName = $("#txtCategoryName").val();
+                alert("fix update");
+               // result = UpdateProduct(Product);
+            }
+
+            if (result[0].status == "1") {
+                $("#hdfproductID").val(result[0].ProductID);
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $(".AddProduct").text("Modify");
+                document.getElementById('imageupGallery').style.display = 'block';
+            }
+            if (result[0].status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+            }
+            return false;
            }
-
+         
     })
 
-    $(".AddProductimage").live({
-        click: function (e) {// submit button click
+    //$(".AddProductimage").live({
+    //    click: function (e) {// submit button click
 
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-            var imgresult = "";
-            //imageupload
-            var _URL = window.URL || window.webkitURL;
-           var formData = new FormData();
-            var file, img;
+    //        $('#rowfluidDiv').hide();
+    //        $('.alert-success').hide();
+    //        $('.alert-error').hide();
+    //        var imgresult = "";
+    //        //imageupload
+    //        var _URL = window.URL || window.webkitURL;
+    //       var formData = new FormData();
+    //        var file, img;
            
 
-            if ((file = $('#productfile')[0].files[0])) {
-                img = new Image();
-                img.onload = function () {
-                    var image = $('#productfile')[0].files[0];
+    //        if ((file = $('#productfile')[0].files[0])) {
+    //            img = new Image();
+    //            img.onload = function () {
+    //                var image = $('#productfile')[0].files[0];
                   
                   
-                    formData.append('files', image, '8c9b8e83-dc8f-48d7-994b-8688516a8771,' + file.name);
+    //                formData.append('files', image, '8c9b8e83-dc8f-48d7-994b-8688516a8771,' + file.name);
                  
-                  //  formData.append('file', $('#productfile')[0].files[0]);
-                    //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
-                };
-                img.onerror = function () {
-                    alert("Not a valid file:" + file.type);
-                };
-                img.src = _URL.createObjectURL(file);
-            }
+    //              //  formData.append('file', $('#productfile')[0].files[0]);
+    //                //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+    //            };
+    //            img.onerror = function () {
+    //                alert("Not a valid file:" + file.type);
+    //            };
+    //            img.src = _URL.createObjectURL(file);
+    //        }
         
-            //imageupload
-           // formData.append('prod', 88888);
-          //  formData.append('ismain', 77777);
-            postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+    //        //imageupload
+    //       // formData.append('prod', 88888);
+    //      //  formData.append('ismain', 77777);
+    //        postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
 
-              //  result = InsertProduct(Product);
+    //          //  result = InsertProduct(Product);
 
-                if (result[0].status == "1") {
-                    $("#hdfproductID").val(result[0].ProductID);
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                }
-                if (result[0].status != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                }
+    //            if (result[0].status == "1") {
+    //                $("#hdfproductID").val(result[0].ProductID);
+    //                $('#rowfluidDiv').show();
+    //                $('.alert-success').show();
+    //            }
+    //            if (result[0].status != "1") {
+    //                $('#rowfluidDiv').show();
+    //                $('.alert-error').show();
+    //            }
                
-                return false;
+    //            return false;
 
-        }
+    //    }
 
-    })
+    //})
    
     $(".CancelProduct").live({
         click: function (e) {// Clear controls
@@ -185,16 +186,16 @@ function MultiImageBind(Records) {
     var ol = document.getElementById("olpreview");
     var li = document.createElement("li");
     var children = ol.children.length + 1
-    li.setAttribute("id", Records.ImageID)
+    li.setAttribute("id", Records.ImageID);
+   
     img1 = document.createElement('img');
     img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
     img1.alt = "image" + children;
     img1.className = "thumb";
  
     li.appendChild(img1);
-    var spn = document.createElement('span');
-    spn.innerHTML = "Is Main?";
-    spn.className = "cnt-label";
+   // var nextline = document.createElement('p');
+    
 
     var spacespan = document.createElement('span');
     spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
@@ -204,21 +205,32 @@ function MultiImageBind(Records) {
     chk.className = "chkbox";
     chk.name = "mainpix";
 
-
     var spacespan1 = document.createElement('span');
-    spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;";
+    spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
+    //<span class="close-btn"><a href="#">X</a></span>
+    var deletespan = document.createElement('span');
+    deletespan.type = 'span';
+    deletespan.className = "close-btn";
+  
+    var deleteanchor = document.createElement('a');
+    deleteanchor.type = 'a';
+    deleteanchor.innerHTML = "x";
+    deleteanchor.href = "#";
 
-    var btndelete = document.createElement('input');
-    btndelete.type = 'button';
-    btndelete.value = "Delete";
-    btndelete.className = "btn1";
+    var zoomicon = document.createElement('span');
+    zoomicon.type = 'span';
+
     
-    li.appendChild(spn);
+    
+    
     li.appendChild(spacespan);
     li.appendChild(chk);
+ 
+   // li.appendChild(nextline);
+    //li.appendChild(btndelete);
+    li.appendChild(deletespan);
+    li.lastChild.appendChild(deleteanchor);
     li.appendChild(spacespan1);
-    li.appendChild(btndelete);
-  
     ol.appendChild(li);
   }
 
