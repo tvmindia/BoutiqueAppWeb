@@ -169,7 +169,7 @@ namespace Boutique.DAL
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
                 SqlDataAdapter sda = null;
-                DataTable dt = null;
+               
                 SqlParameter outParameter = null;
                 try
                 {

@@ -117,15 +117,27 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public int OrderNo
+        {
+            get;
+            set;
+        }
+        public string[] ImageInfo
+        {
+            get;
+            set;
+        }
         #endregion productImagesproperties
 
         #region Methods
 
         #region Constructors
-        public Product()
-        {
+           public Product()//default constructor
+           {
 
-        }
+           }
+       
             public Product(string ProductID,string BoutiqueID)
             {
                 this.ProductID = ProductID;
@@ -246,6 +258,7 @@ namespace Boutique.DAL
         /// <returns>status</returns>
             public Int16 UpdateProduct()
             {
+                
                 if (ProductID == "")
                 {
                     throw new Exception("ProductID is Empty!!");
@@ -261,8 +274,22 @@ namespace Boutique.DAL
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
                 SqlParameter outParameter = null;
+                string imaginfo = "";
+                string com = "";
                 try
                 {
+                    if(ImageInfo!=null)
+                    {
+                        for(int i=0;i<ImageInfo.Length;i++)
+                        {
+                            //imaginfo = imaginfo + ImageInfo[i].ToString();
+
+                            imaginfo = imaginfo + com + ImageInfo[i].ToString();
+                            com = ",";
+                        
+                        }
+                       imaginfo= imaginfo + ",";
+                    }
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
@@ -278,7 +305,8 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                    cmd.Parameters.Add("@ImageInfo", SqlDbType.VarChar, -1).Value = imaginfo;
+                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
@@ -1041,7 +1069,8 @@ namespace Boutique.DAL
         #endregion CategoryMethods
 
         #region ProductImageMethods
-        public Int16 InsertProductImage()
+            #region InsertProductImage
+            public Int16 InsertProductImage()
         {
             if (ProductID == "")
             {
@@ -1083,13 +1112,12 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
-       
+            #endregion InsertProductImage
 
+            #endregion ProductImageMethods
 
-        #endregion ProductImageMethods
-
-        #region GetAllProductImages
-        public DataSet GetAllProductImages()
+            #region GetAllProductImages
+            public DataSet GetAllProductImages()
         {
 
             if (ProductID == "")

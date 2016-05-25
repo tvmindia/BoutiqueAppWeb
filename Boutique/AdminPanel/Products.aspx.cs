@@ -48,7 +48,34 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize(prodList);
         }
         #endregion InsertProduct
-          
+
+        #region UpdateProduct
+        [System.Web.Services.WebMethod]
+        public static string UpdateProduct(Product productObj)
+        {
+            List<Product> prodList = new List<Product>();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (productObj.BoutiqueID != "")
+                {
+                    //returns status and productid
+                    productObj.status = productObj.UpdateProduct().ToString();
+                    
+                    prodList.Add(productObj);
+
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return jsSerializer.Serialize(prodList);
+         }
+        #endregion UpdateProduct
+
         #region InsertProductImage
         //[System.Web.Services.WebMethod]
         public string InsertProductImage()
