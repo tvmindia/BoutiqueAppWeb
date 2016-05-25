@@ -9,12 +9,12 @@ function update() {
         $(this).css('backgroundPosition', '50% ' + Math.round((height - pos) * velocity) + 'px');
     });
 
-    $('.why').each(function () {
-        var $element = $(this);
-        // subtract some from the height b/c of the padding
-        var height = $element.height() - 30;
-        $(this).css('backgroundPosition', '50% ' + Math.round((height - pos) * velocity) + 'px');
-    });
+    //$('.why').each(function () {
+    //    var $element = $(this);
+    //    // subtract some from the height b/c of the padding
+    //    var height = $element.height() - 30;
+    //    $(this).css('backgroundPosition', '50% ' + Math.round((height - pos) * velocity) + 'px');
+    //});
 
 };
 
@@ -51,7 +51,8 @@ function SmoothScroll(hash) {
 function showPage(){
   
     // alert("ready");
-    $('#loading').fadeOut('slow', function () { $('#ActualPage').fadeIn('slow', function () { showCaptions(); }) });
+    $('#ActualPage').fadeIn('slow');
+    $('#loading').fadeOut('slow', function () {  showCaptions(); });
     
 }
 
@@ -64,3 +65,17 @@ function showCaptions() {
     
 }
 
+
+
+function getstated() {
+
+    window.location='getstarted.aspx'
+
+}
+
+
+function gohome() {
+
+    window.location = 'default.aspx'
+
+}
