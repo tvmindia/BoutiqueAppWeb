@@ -35,7 +35,7 @@
              }
 
 
-             var speed = 500;
+             var speed = 200;
              var showText = function (target, message, index, interval) {
                  if (index < message.length) {
                      $('#<%=lblmsges.ClientID%>').fadeOut('slow',
@@ -133,7 +133,7 @@
         </div>
     </section>
         </div>
-    <div id="loading" class="loadingClass">
+    <div id="loading" class="loadingClass blue">
         <div id="msg"class="msgClass">
             <asp:Label ID="lblmsges" runat="server" Text="" Width="500px" style="text-align:center"></asp:Label></div>
     </div>

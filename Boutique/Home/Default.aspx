@@ -20,7 +20,7 @@
     
     <script>
         //var message[2]=
-        var speed = 500;
+        var speed = 200;
         var showText = function (target, message, index, interval) {
             if (index < message.length) {
                 $('#<%=lblmsges.ClientID%>').fadeOut('slow',
@@ -110,7 +110,7 @@
 						</svg>
 
    
-    <section id="why" class="wrapper why special">
+    <section id="why" class="wrapper why special moonrise">
         <div class="container">
             <header class="major">
                 <h2>Why you need own app ?</h2>
@@ -167,7 +167,7 @@
         </div>
     </section>--%>
     <!-- One -->
-    <section id="howitworks" class="wrapper howitworks special">
+    <section id="howitworks" class="wrapper howitworks special jonquil">
         <div class="container">
             <header class="major">
                 <h2>How It Works</h2>
@@ -218,14 +218,7 @@
                                  quality projects at significantly reduced costs. Our products or solutions provide our customers latest and cost effective IT practices 
                                  to derive maximum benefits and be successful in their business.
                         </p>
-                        <p>
-                            Our team comprises of people with profound experience in IT 
-                                 industry in many domain there by providing latest innovative IT solutions for various industries
-                                 . We are a software consulting & solutioning company offering development, software integration and offshore outsourcing services. 
-                                 Our business approach combines the most strategic aspects of both onshore and offshore models providing our clients with the highest 
-                                 quality projects at significantly reduced costs. Our products or solutions provide our customers latest and cost effective IT practices 
-                                 to derive maximum benefits and be successful in their business.
-                        </p>
+                       
                     </section>
                     <header class="major">
                         <p>&nbsp;</p>
@@ -289,7 +282,7 @@
     <!-- Footer -->
     <footer id="footer">
         <div class="container">
-            <section class="links">
+          <%--  <section class="links">
                 <div class="row">
 
                     <section class="4u 8u$(medium) 12u$(small)">
@@ -326,7 +319,7 @@
                     </section>
 
                 </div>
-            </section>
+            </section>--%>
             <div class="row">
                 <div class="8u 12u$(medium)">
                     <ul class="copyright">
@@ -356,7 +349,7 @@
     </footer>
         </div>
 
-        <div id="loading" class="loadingClass">
+        <div id="loading" class="loadingClass black">
         <div id="msg"class="msgClass">
             <asp:Label ID="lblmsges" runat="server" Text="" Width="500px" style="text-align:center"></asp:Label></div>
     </div>

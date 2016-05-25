@@ -24,7 +24,37 @@
     color: orange !important;
     text-decoration: underline;
     font-weight: bold;
+
+        
+
+
+        
 }
+
+.loadingClass.orange {
+    background: #D38312; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #D38312 , #A83279); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #D38312 , #A83279); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.loadingClass.blue {
+    
+
+background: #83a4d4; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #83a4d4 , #b6fbff); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #83a4d4 , #b6fbff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+}
+
+.loadingClass.black {
+    
+
+background: #283048; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #283048 , #859398); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #283048 , #859398); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+}
+
             .msgClass {
     position: absolute;
   left:30%;
@@ -1198,17 +1228,13 @@ z-index:9999;
         color: #333333;
         background-position: center center;
         background-size: 100% 100%;
-        background-image: url(../images/social.jpg);
+       background-image: url(../images/dark_tint.png), url(../images/why.jpg);
         background-repeat: no-repeat;
-        background:
-        /* top, transparent red, faked with gradient */
-        linear-gradient( rgba(56, 59, 67, 0.37), rgba(56, 59, 67, 0.17) ),
-        /* bottom, image */
-        url(../images/social.jpg);
+       
         width: 100%;
         background-size: cover;
         color:white;
-        background-attachment: fixed;
+        
     }
        .wrapper.social h2 {
             color: white;
@@ -1222,9 +1248,10 @@ z-index:9999;
         }
 
     .wrapper.howitworks {
-        background-color: #ADD43C;
+        /*background-color: #ADD43C;*/
         border-bottom: 1px solid rgba(144, 144, 144, 0.25);
         border-top: 1px solid rgba(144, 144, 144, 0.25);
+       
     }
 
 
@@ -1271,10 +1298,10 @@ z-index:9999;
 
 
             .wrapper.why {
-       color: #fff!important;
+       color: orange!important;
         border-bottom: 1px solid rgba(144, 144, 144, 0.25);
         border-top: 1px solid rgba(144, 144, 144, 0.25);
-        background-image: url(../images/dark_tint.png), url(../images/why.jpg);
+        /*background-image: url(../images/dark_tint.png), url(../images/why.jpg);*/
         background-position: center center;
         background-size: cover;
         color: #ffffff;
@@ -1288,15 +1315,15 @@ z-index:9999;
     }
 
         .wrapper.why h2 {
-            color: white;
+            color: #0C0B09;
         }
 
         .wrapper.why h2, h4 {
-            color: #F5F5F5;
+            color: #0C0B09;
         }
 
         .wrapper.why p {
-            color: white;
+            color: #0C0B09;
         }
 
 
@@ -1564,4 +1591,31 @@ z-index:9999;
 .right {
     text-align:right;
     padding-right:15%;
+}
+
+.purpleOrange {
+    
+
+background: #7b4397; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #7b4397 , #dc2430); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #7b4397 , #dc2430); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+}
+
+.jonquil {
+    
+
+background: #FFEEEE; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #FFEEEE , #DDEFBB); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #FFEEEE , #DDEFBB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+}
+
+.moonrise {
+    
+
+background: #DAE2F8; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #DAE2F8 , #D6A4A4); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #DAE2F8 , #D6A4A4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
 }
