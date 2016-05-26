@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Services;
 using Boutique.DAL;
 using System.Data;
+using System.Collections;
+using System.IO;
+using System.Drawing;
 
 namespace Boutique.WebServices
 {
@@ -43,6 +46,50 @@ namespace Boutique.WebServices
 
                 //-----------inserting product view log--------
                 product.InsertProductViewLog(userID);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        /// <summary>
+        /// To get images of a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string ProductImages(string productID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                //------Getting product details-----
+                Product product = new Product();
+                product.ProductID = productID;
+                product.BoutiqueID = boutiqueID;
+                dt = product.GetAllProductImages().Tables[0];
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                //ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                //imgFileTypeCols.Add("FileType");
+
+                //return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, true);
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, false);
             }
             catch (Exception ex)
             {
@@ -516,70 +563,96 @@ namespace Boutique.WebServices
         /// <param name="imgFileTypeCol">Coloumn names array that contain file type</param>
         /// <param name="isThumb">Optional parameter to say whether the thumbnail is enough for calling function</param>
         /// <returns>ds in JSON format with links to images that are temporarly stored in server folder</returns>
-        //public String getDbDataAsJSON(DataSet ds, ArrayList imgColName, ArrayList imgFileNameCol, ArrayList imgFileTypeCol, Boolean isThumb = false)
-        //{
-        //    try
-        //    {
-        //        DataTable dt = ds.Tables[0];
-        //        String filePath = Server.MapPath("~/tempImages/");
+        public String getDbDataAsJSON(DataTable dt, ArrayList imgColName, ArrayList imgFileNameCol,  Boolean isThumb = false)
+        {
+            try
+            {
+               // DataTable dt = ds.Tables[0];
+                String filePath = Server.MapPath("~/MediaUploader/");
 
-        //        System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-        //        List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-        //        Dictionary<string, object> row;
-        //        foreach (DataRow dr in dt.Rows)
-        //        {
-        //            row = new Dictionary<string, object>();
-        //            //adding data in JSON
-        //            foreach (DataColumn col in dt.Columns)
-        //            {
-        //                if (!imgColName.Contains(col.ColumnName))
-        //                {
-        //                    row.Add(col.ColumnName, dr[col]);
-        //                }
-        //            }
-        //            //adding image details in JSON
-        //            for (int i = 0; i < imgColName.Count; i++)
-        //            {
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    //adding data in JSON
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        if (!imgColName.Contains(col.ColumnName))
+                        {
+                            row.Add(col.ColumnName, dr[col]);
+                        }
+                    }
+                    //adding image details in JSON
+                    for (int i = 0; i < imgColName.Count; i++)
+                    {
 
-        //                if (dr[imgColName[i] as string] != DBNull.Value)
-        //                {
-        //                    String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_");
-        //                    if (!System.IO.File.Exists(fileURL))
-        //                    {
-        //                        byte[] buffer= (byte[])dr[imgColName[i] as string];
-        //                            System.IO.File.WriteAllBytes(fileURL, buffer);
-        //                    }
-        //                    row.Add(imgColName[i] as string, fileURL);
-        //                }
+                        if (dr[imgColName[i] as string] != DBNull.Value)
+                        {
+                            //String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_");
+                            String fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_");// +".jpg";
+                            if (!System.IO.File.Exists(fileURL))
+                            {
+                                byte[] buffer;
+                                if (isThumb)
+                                {
+                                    buffer = MakeThumbnail((byte[])dr[imgColName[i] as string], 400);//images are converted to thumbnails
+                                    System.IO.File.WriteAllBytes(fileURL, buffer);
+                                }
+                                else
+                                {
+                                    buffer = (byte[])dr[imgColName[i] as string];
+                                    System.IO.File.WriteAllBytes(fileURL, buffer);
+                                }
+                                
+                            }
+                            row.Add(imgColName[i] as string, fileURL);
+                        }
 
-        //            }
-        //            rows.Add(row);
-        //        }
+                    }
+                    rows.Add(row);
+                }
 
-        //        this.Context.Response.ContentType = "";
+                this.Context.Response.ContentType = "";
 
-        //        return serializer.Serialize(rows);
+                return serializer.Serialize(rows);
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Return error message
-        //        DataSet dsError = new DataSet();
-        //        DataTable ErrorMsg = new DataTable();
-        //        ErrorMsg.Columns.Add("Flag", typeof(Boolean));
-        //        ErrorMsg.Columns.Add("Message", typeof(String));
-        //        DataRow dr = ErrorMsg.NewRow();
-        //        dr["Flag"] = false;
-        //        dr["Message"] = ex.Message;
-        //        ErrorMsg.Rows.Add(dr);
-        //        dsError.Tables.Add(ErrorMsg);
-        //        return getDbDataAsJSON(dsError);
-        //    }
-        //    finally
-        //    {
+            }
+            catch (Exception ex)
+            {
+                //Return error message               
+                DataTable ErrorMsg = new DataTable();
+                ErrorMsg.Columns.Add("Flag", typeof(Boolean));
+                ErrorMsg.Columns.Add("Message", typeof(String));
+                DataRow dr = ErrorMsg.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                ErrorMsg.Rows.Add(dr);
+                return getDbDataAsJSON(ErrorMsg);
+            }
+            finally
+            {
 
-        //    }
-        //}
-        #endregion JSON converter   
+            }
+        }
+        #endregion JSON converter 
+
+        #region Utility Functions
+        //----------------------------Function to make image thumbnail---------------------------------------------------
+        public static byte[] MakeThumbnail(byte[] myImage, int thumbWidth)
+        {
+            Image img = Image.FromStream(new MemoryStream(myImage));
+            int originalHeigth=img.Size.Height;
+            int originalWidth=img.Size.Width;
+            int thumbHeight = originalHeigth * thumbWidth / originalWidth;
+            using (MemoryStream ms = new MemoryStream())
+            using (Image thumbnail = img.GetThumbnailImage(thumbWidth, thumbHeight, null, new IntPtr()))
+            {
+                thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+        #endregion Utility Functions
     }
 }
