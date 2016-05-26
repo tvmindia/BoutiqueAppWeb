@@ -83,13 +83,12 @@ namespace Boutique.WebServices
                 //Giving coloumns of image details
                 ArrayList imgColNames = new ArrayList();
                 ArrayList imgFileNameCols = new ArrayList();
-                //ArrayList imgFileTypeCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
                 imgColNames.Add("Image");
                 imgFileNameCols.Add("ImageID");
-                //imgFileTypeCols.Add("FileType");
+                imgFileTypeCols.Add("FileType");
 
-                //return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, true);
-                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, false);
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, true);
             }
             catch (Exception ex)
             {
@@ -563,7 +562,7 @@ namespace Boutique.WebServices
         /// <param name="imgFileTypeCol">Coloumn names array that contain file type</param>
         /// <param name="isThumb">Optional parameter to say whether the thumbnail is enough for calling function</param>
         /// <returns>ds in JSON format with links to images that are temporarly stored in server folder</returns>
-        public String getDbDataAsJSON(DataTable dt, ArrayList imgColName, ArrayList imgFileNameCol,  Boolean isThumb = false)
+        public String getDbDataAsJSON(DataTable dt, ArrayList imgColName, ArrayList imgFileNameCol, ArrayList imgFileTypeCol, Boolean isThumb = false)
         {
             try
             {
@@ -590,8 +589,7 @@ namespace Boutique.WebServices
 
                         if (dr[imgColName[i] as string] != DBNull.Value)
                         {
-                            //String fileURL = filePath + DateTime.Now.ToString("ddHHmmssfff") + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_");
-                            String fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_");// +".jpg";
+                            String fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_") + dr[imgFileTypeCol[i] as string].ToString();
                             if (!System.IO.File.Exists(fileURL))
                             {
                                 byte[] buffer;
