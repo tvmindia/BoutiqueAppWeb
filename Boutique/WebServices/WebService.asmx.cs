@@ -79,7 +79,7 @@ namespace Boutique.WebServices
                 Product product = new Product();
                 product.ProductID = productID;
                 product.BoutiqueID = boutiqueID;
-                dt = product.GetAllProductImages().Tables[0];
+                dt = product.GetProductImagesForMobile();
                 //Giving coloumns of image details
                 ArrayList imgColNames = new ArrayList();
                 ArrayList imgFileNameCols = new ArrayList();
