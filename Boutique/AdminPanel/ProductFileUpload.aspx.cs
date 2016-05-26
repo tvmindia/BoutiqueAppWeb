@@ -25,12 +25,16 @@ namespace Boutique.AdminPanel
                 {
                     Product prodobj = new Product();
                     string filename = Path.GetFileName(fileupload.FileName);
-
-                    prodobj.ProductID = "8c9b8e83-dc8f-48d7-994b-8688516a8771";
                   
-                    if (!string.IsNullOrEmpty(filename))
-                    {
 
+                   
+                  if((hdfchildproductID.Value.ToString().Trim()!="")&&(hdfchildBoutiqueID.Value.ToString().Trim()!=""))
+                  {
+                     prodobj.ProductID = hdfchildproductID.Value.ToString().Trim();
+                     prodobj.BoutiqueID = hdfchildBoutiqueID.Value.ToString().Trim();
+                     if (!string.IsNullOrEmpty(filename))
+                     {
+                        prodobj.FileType = Path.GetExtension(filename);
                         prodobj.ImageFile = new byte[fileupload.FileContent.Length];
 
                         myStream = fileupload.FileContent;
@@ -43,7 +47,16 @@ namespace Boutique.AdminPanel
 
                    
                         lblFile.Text = "Upload status: File uploaded!";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadAllImagesBind", "parent.BindAllImages();", true);
+
+
+
                     }
+                       }
+                    else
+                  {
+                      lblFile.Text = "Upload status: Not uploaded!";
+                  }
                 }
                 catch (Exception ex)
                 {

@@ -16,14 +16,38 @@
    <link href="../CSS/CustomCSS/ProductFileUpload.css" rel="stylesheet" />
    <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <script>
+
+
+        $("document").ready(function (e) {
+            //parent.BindAllImages();
+           
+        });//end of document.ready
+
+        function gethiddenvalueparent()
+        {
+            var produid = parent.document.getElementById('hdfproductID').value;
+            var boutiqid = parent.document.getElementById('hdfBoutiqueID').value;
+            var obj = document.getElementById("<%=fileupload.ClientID%>");
+            if ((boutiqid !='')&&(produid != '') && (obj.value != ''))
+            {
+                
+                document.getElementById('hdfchildBoutiqueID').value = boutiqid;
+                document.getElementById('hdfchildproductID').value = produid;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+     
+
         function showimagepreview(input) {
-            
-            if (input.files && input.files[0]) {
+         
+              if (input.files && input.files[0]) {
                 var filerdr = new FileReader();
                 filerdr.onload = function (e) {
-
                     $('#imgprvw').attr('src', e.target.result);
-
                 }
                 filerdr.readAsDataURL(input.files[0]);
             }
@@ -80,8 +104,12 @@
        
     <asp:label runat="server" ID="lblFile"/>
          <img id="imgprvw" onclick="imageChoose();" src="../img/defaultimages.jpg" alt="Click here to Upload Image"/>
-             <asp:Button CssClass="btn1" runat="server" id="UploadButton" text="Upload"  onclick="UploadButton_Click" />
+             <asp:Button CssClass="btn1" runat="server" id="UploadButton" text="Upload" OnClientClick="return gethiddenvalueparent();" onclick="UploadButton_Click" />
             </div>
+       <%-- <input type="hidden" id="hdfchildproductID" runat="server" value=""/>--%>
+     
+        <asp:HiddenField ClientIDMode="Static" ID="hdfchildproductID" runat="server" />
+        <asp:HiddenField ClientIDMode="Static" ID="hdfchildBoutiqueID" runat="server" />
     </div>
     </form>
 </body>
