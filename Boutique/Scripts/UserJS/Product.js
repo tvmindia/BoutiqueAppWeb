@@ -1,6 +1,7 @@
 ﻿$("document").ready(function (e) {
     //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
-   //disables the div containing image upload and image list
+    //disables the div containing image upload and image list
+    document.getElementById('imageupGallery').style.display = 'block';
     $("#olpreview").sortable({
 
         update: function( event, ui ) {}//when li image is reordered
@@ -79,28 +80,82 @@
                 }
              
                 result = InsertProduct(Product);
+                if (result[0].status == "1") {
+                    $("#hdfproductID").val(result[0].ProductID);
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                    $(".AddProduct").text("Modify");
+                   
+                }
+                if (result[0].status != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                }
             }
             if ($(".AddProduct").text() == "Modify") {
-                var Product = new Object();
-                Product.BoutiqueID = boutiqueid;
-                Product.CategoryID = $("#hdfCategoryID").val();
-                Product.CategoryCode = $("#txtCatCode").val();
-                Product.CategoryName = $("#txtCategoryName").val();
-                alert("fix update");
-               // result = UpdateProduct(Product);
+                debugger;
+                if ($("#hdfproductID").val() != '') {
+
+                    var Product = new Object();
+                    Product.ProductID = $("#hdfproductID").val();
+                    Product.BoutiqueID = boutiqueid;
+                    Product.Name = $("#txtName").val();
+                    Product.Description = $("#txtDescription").val();
+                    Product.Price = $("#txtPrice").val();
+
+                    if ($("input[name=optionsRadiosOutStock]:checked")) {
+                        Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
+                    }
+                    if ($("input[name=optionsRadiosActive]:checked")) {
+                        Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
+                    }
+                    var Categ = $("#idDdlCategories").val();
+                    var com = "";
+                    Product.Categories = "";
+                    for (var i = 0; i < Categ.length; i++) {
+                        Product.Categories = Product.Categories + com + Categ[i].toString();
+                        com = ",";
+                    }
+
+                    if ($("#idDdlDesigners").val() != null) {
+                        Product.DesignerID = $("#idDdlDesigners").val();
+                    }
+                    else {
+                        Product.DesignerID = "";
+                    }
+
+                  
+                    //productimage id and order number
+                    var ImageInfo = [];
+                    var idval, orderno;
+                    $('#olpreview li').each(function (index) {
+                        //val.push($(this).attr('id'));
+                        var idval = $(this).attr('id');
+                        orderno = index;
+                        ImageInfo.push(idval);
+                    });
+                    Product.ImageInfo = ImageInfo;
+                    //productimage id and order number
+                    result = UpdateProduct(Product);
+                    if (result[0].status == "1") {
+                        $("#hdfproductID").val(result[0].ProductID);
+                        $('#rowfluidDiv').show();
+                        $('.alert-success').show();
+                        $(".AddProduct").text("Modify");
+                        //document.getElementById('imageupGallery').style.display = 'block';
+                    }
+                    if (result[0].status != "1") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                    }
+                }
+                else
+                {
+                    alert("Productid is missing for update");
+                }
             }
 
-            if (result[0].status == "1") {
-                $("#hdfproductID").val(result[0].ProductID);
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $(".AddProduct").text("Modify");
-                document.getElementById('imageupGallery').style.display = 'block';
-            }
-            if (result[0].status != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-            }
+           
             return false;
            }
          
@@ -216,17 +271,11 @@ function MultiImageBind(Records) {
     deleteanchor.type = 'a';
     deleteanchor.innerHTML = "x";
     deleteanchor.href = "#";
-
     var zoomicon = document.createElement('span');
     zoomicon.type = 'span';
-
-    
-    
-    
     li.appendChild(spacespan);
     li.appendChild(chk);
- 
-   // li.appendChild(nextline);
+    //li.appendChild(nextline);
     //li.appendChild(btndelete);
     li.appendChild(deletespan);
     li.lastChild.appendChild(deleteanchor);
@@ -378,6 +427,15 @@ function InsertProduct(Product)
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
 
     jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/InsertProduct");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+function UpdateProduct(Product)
+{
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/UpdateProduct");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
