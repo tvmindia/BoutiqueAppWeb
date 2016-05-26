@@ -857,6 +857,7 @@ input[type="button"],
     text-align: center;
     text-decoration: none;
     white-space: nowrap;
+     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
     input[type="submit"]:hover,
@@ -1059,8 +1060,8 @@ z-index:9999;
                 }
 
                 #header nav > ul > li .button {
-                    background-color: #fff;
-                    color: #444 !important;
+                    background-color: orange;
+                    color: white !important;
                     height: 2.15em;
                     line-height: 2.15em;
                     margin-bottom: 0;
@@ -1129,6 +1130,7 @@ z-index:9999;
         line-height: 1.25em;
         margin: 0 0 0.5em 0;
         padding: 0;
+        text-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.53);
 
         
 
@@ -1140,11 +1142,13 @@ z-index:9999;
         line-height: 1.25em;
         margin: 0 0 0.5em 0;
         padding: 0;
+         text-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.53);
     }
 
     #banner p {
         font-size: 1.5em;
         margin-bottom: 1.75em;
+         text-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.53);
     }
 
 
@@ -1253,7 +1257,9 @@ z-index:9999;
         border-top: 1px solid rgba(144, 144, 144, 0.25);
        
     }
-
+     .wrapper.howitworks h2 {
+              text-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.10);
+        }
 
         .wrapper.howitworks .box {
             background-color: #fff;
@@ -1316,6 +1322,7 @@ z-index:9999;
 
         .wrapper.why h2 {
             color: #0C0B09;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.10);
         }
 
         .wrapper.why h2, h4 {

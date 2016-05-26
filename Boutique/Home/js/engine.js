@@ -79,3 +79,20 @@ function gohome() {
     window.location = 'default.aspx'
 
 }
+
+function animateColor() {
+    $(this).animate({
+        'borderBottomColor': '#2E9ECE',
+        'color': '#2E9ECE'
+    }, 'slow');
+
+}
+function animateColorBack() {
+    $(this).animate({
+        'borderBottomColor': '#FFDF85',
+        'color': '#FEFEFE'
+    }, 'slow');
+
+}
+
+

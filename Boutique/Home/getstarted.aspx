@@ -77,7 +77,7 @@
 <body>
     <div id="ActualPage" style="display:none">
     <header id="header" style="position: fixed!important; z-index: 99999!important" class="navbar">
-        <h1><a onclick="gohome()">B e W e D o</a></h1>
+        <h1><a onclick="gohome()">T i q u e s I n n</a></h1>
         <nav id="nav">
             <ul>
                 

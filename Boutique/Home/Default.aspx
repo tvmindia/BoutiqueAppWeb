@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>B e W e D o Official</title>
+    <title>T i q u e s I n n Official</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -69,7 +69,7 @@
     <div id="ActualPage" style="display:none">
     <!-- Header -->
     <header id="header" style="position: fixed!important; z-index: 99999!important" class="navbar">
-        <h1><a onclick="SmoothScroll('#banner')">B e W e D o</a></h1>
+        <h1><a onclick="SmoothScroll('#banner')">T i q u e s I n n</a></h1>
         <nav id="nav">
             <ul>
                 
@@ -90,9 +90,9 @@
     <section id="banner">
 
         <div id="solgan1">
-            <h2 id="bannerName">B e W e D o</h2>
-            <p id="bannerCaption">Better We Do !</p>                
-              <h3 id="bannerDetailCaption">Some nice Caption goes here about bewedo</h3>
+            <h2 id="bannerName">T i q u e s I n n</h2>
+            <p id="bannerCaption">Boutiques In Person !</p>                
+              <h3 id="bannerDetailCaption">Some nice Caption goes here about TiquesInn</h3>
           
         </div>
 
@@ -158,7 +158,7 @@
                         </p>
                     </section>
                     <header class="major">
-                        <p>Thats the   -BeWeDo-   ENGINE concept all about !</p>
+                        <p>Thats the   -TiquesInn-   ENGINE concept all about !</p>
                     </header>
                    
                 </div>
@@ -323,7 +323,7 @@
             <div class="row">
                 <div class="8u 12u$(medium)">
                     <ul class="copyright">
-                        <li>&copy; B e W e D o. All rights reserved.</li>
+                        <li>&copy; T i q u e s I n n. All rights reserved.</li>
                         <li>a <a href="http://thrithvam.com">thrithvam technology</a> design</li>
 
                     </ul>
