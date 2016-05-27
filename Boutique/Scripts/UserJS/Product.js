@@ -1,7 +1,15 @@
 ﻿$("document").ready(function (e) {
-    //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+
+
+
+    
+   
     //disables the div containing image upload and image list
     document.getElementById('imageupGallery').style.display = 'block';
+    var prodid = '8c9b8e83-dc8f-48d7-994b-8688516a8771'//$("#hdfproductID").val();
+    var boutiqid = '470a044a-4dba-4770-bca7-331d2c0834ae'//$("#hdfBoutiqueID").val();
+    BindAllProductImages(prodid, boutiqid);
+
     $("#olpreview").sortable({
 
         update: function( event, ui ) {}//when li image is reordered
@@ -10,16 +18,12 @@
 
 
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+     $("#hdfBoutiqueID").val(boutiqueid);
    
-    var imageids = {};
-   
-    imageids = GetAllProductImages('8c9b8e83-dc8f-48d7-994b-8688516a8771');
-    BindAllImages(imageids);
+     BindAllImages();//list li of product images when images uploaded
 
 
-   
 
-   
     $(".ddlcategories").select2({
         placeholder: "Choose Categories",
         allowClear: true,
@@ -32,11 +36,6 @@
         ,placeholder: "Select a Designer"
     });
 
-
-    
-    
-   
-  
     $(".AddProduct").live({
         click: function (e) {// submit button click
             
@@ -52,7 +51,6 @@
                 Product.Name = $("#txtName").val();
                 Product.Description = $("#txtDescription").val();
                 Product.Price = $("#txtPrice").val();
-             
                 if ($("input[name=optionsRadiosOutStock]:checked"))
                 {
                  Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
@@ -80,20 +78,10 @@
                 }
              
                 result = InsertProduct(Product);
-                if (result[0].status == "1") {
-                    $("#hdfproductID").val(result[0].ProductID);
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                    $(".AddProduct").text("Modify");
-                   
-                }
-                if (result[0].status != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                }
+               
             }
             if ($(".AddProduct").text() == "Modify") {
-                debugger;
+              
                 if ($("#hdfproductID").val() != '') {
 
                     var Product = new Object();
@@ -138,23 +126,62 @@
                     //productimage id and order number
                     result = UpdateProduct(Product);
                     if (result[0].status == "1") {
-                        $("#hdfproductID").val(result[0].ProductID);
+                       
                         $('#rowfluidDiv').show();
                         $('.alert-success').show();
                         $(".AddProduct").text("Modify");
                         //document.getElementById('imageupGallery').style.display = 'block';
+                        // Scroll page
+                        var offset = $('#rowfluidDiv').offset();
+                        offset.left -= 20;
+                        offset.top -= 20;
+                        $('html, body').animate({
+                            scrollTop: offset.top,
+                            scrollLeft: offset.left
+                        });
                     }
                     if (result[0].status != "1") {
                         $('#rowfluidDiv').show();
                         $('.alert-error').show();
+                        // Scroll page
+                        var offset = $('#rowfluidDiv').offset();
+                        offset.left -= 20;
+                        offset.top -= 20;
+                        $('html, body').animate({
+                            scrollTop: offset.top,
+                            scrollLeft: offset.left
+                        });
                     }
                 }
-                else
-                {
-                    alert("Productid is missing for update");
-                }
+                
             }
+            if (result[0].status == "1") {
+                $("#hdfproductID").val(result[0].ProductID);
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $(".AddProduct").text("Modify");
+                // Scroll page
+                var offset = $('#rowfluidDiv').offset();
+                offset.left -= 20;
+                offset.top -= 20;
+                $('html, body').animate({
+                    scrollTop: offset.top,
+                    scrollLeft: offset.left
+                });
 
+            }
+            if (result[0].status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                // Scroll page
+                var offset = $('#rowfluidDiv').offset();
+                offset.left -= 20;
+                offset.top -= 20;
+                $('html, body').animate({
+                    scrollTop: offset.top,
+                    scrollLeft: offset.left
+                });
+            }
            
             return false;
            }
@@ -216,7 +243,7 @@
    
     $(".CancelProduct").live({
         click: function (e) {// Clear controls
-            Cleardsfs();
+            clearProductControls();
             return false;
         }
     })
@@ -236,13 +263,61 @@
 });//end of document.ready
 
 
+function BindAllImages()
+{
+    var boutiqid = $("#hdfBoutiqueID").val();
+    var prodid = $("#hdfproductID").val();
+    if ((prodid != '') && (boutiqid != '')) {
+
+        var Product = new Object();
+        Product.ProductID = prodid;
+        Product.BoutiqueID = boutiqid;
+
+        var imageids = {};
+        imageids = GetAllProductImages(Product);
+
+        $("#olpreview").find(".liclas").remove();
+        $.each(imageids, function (index, Records) {
+            MultiImageBind(Records);
+        })
+
+    }
+}
+
+function gethiddenvalue()
+{
+    var prod = $("#hdfproductID").val();
+    return prod;
+}
+
+function BindAllProductImages(prodid, boutiqid) {
+    var imagedivholder = $('#productimagehold');
+  
+    if ((prodid != '') && (boutiqid !=''))
+    {
+        var Product = new Object();
+        Product.ProductID = prodid;
+        Product.BoutiqueID = boutiqid;
+
+      var imageids = {};
+      imageids = GetAllProductImages(Product);
+     // $("#olpreview").find(".liclas").remove();
+      $.each(imageids, function (index, Records)
+      {
+          var html = '<div class="masonry-thumb"><a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">   <img class="grayscale" src="../img/gallery/photo10.jpg" alt="Sample Image 1" /></a><div class="productDetailsdiv">albert</div></div>';
+       imagedivholder.append(html);
+    
+      })
+    }
+
+}
 
 function MultiImageBind(Records) {
     var ol = document.getElementById("olpreview");
     var li = document.createElement("li");
     var children = ol.children.length + 1
     li.setAttribute("id", Records.ImageID);
-   
+    li.setAttribute("class", "liclas");
     img1 = document.createElement('img');
     img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
     img1.alt = "image" + children;
@@ -250,23 +325,18 @@ function MultiImageBind(Records) {
  
     li.appendChild(img1);
    // var nextline = document.createElement('p');
-    
-
-    var spacespan = document.createElement('span');
+     var spacespan = document.createElement('span');
     spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
-
     var chk = document.createElement('input');
     chk.type = 'checkbox';
     chk.className = "chkbox";
     chk.name = "mainpix";
-
     var spacespan1 = document.createElement('span');
     spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
     //<span class="close-btn"><a href="#">X</a></span>
     var deletespan = document.createElement('span');
     deletespan.type = 'span';
     deletespan.className = "close-btn";
-  
     var deleteanchor = document.createElement('a');
     deleteanchor.type = 'a';
     deleteanchor.innerHTML = "x";
@@ -391,9 +461,8 @@ function BindAsyncDesigner(boutiqueid) {
 }
 
 
-function GetAllProductImages(Productid) {//dgdfgfd/dsfdsfds
-    var Product = new Object();
-    Product.ProductID = Productid;
+function GetAllProductImages(Product) {
+   
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -409,8 +478,7 @@ function GetAllCategories(boutiqueid) {
     var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
     ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
     table = JSON.parse(ds.d);
-   
-    return table;
+     return table;
 }
 function GetAllDesigners(boutiqueid) {
 
@@ -425,7 +493,6 @@ function GetAllDesigners(boutiqueid) {
 function InsertProduct(Product)
 {
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
-
     jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/InsertProduct");
     var table = {};
     table = JSON.parse(jsonResult.d);
@@ -440,3 +507,25 @@ function UpdateProduct(Product)
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
+
+function clearProductControls() {
+    $("#txtName").val('');
+    $("#txtDescription").val('');
+    $("#txtPrice").val('');
+    $(".ddlcategories").select2("val", "");
+    $(".ddlDesigners").select2("val", "");
+    $('#OptisOutOfStockNo').parent().addClass('checked');
+    $("#OptisOutOfStockYes").parent().removeClass('checked');
+    $('#OptIsActiveYes').parent().addClass('checked');
+    $("#OptIsActiveNo").parent().removeClass('checked');
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $("#hdfproductID").val('');
+    $(".AddProduct").text("Save");//button text change
+    $("#olpreview").find(".liclas").remove();//image list hide
+}
+
+
+

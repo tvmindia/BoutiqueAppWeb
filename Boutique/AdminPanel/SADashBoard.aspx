@@ -327,12 +327,9 @@
 						</div>
                          </div>
                                <footer class="InnerFooter">
-                        
-							<%--	<button type="submit" class="btn btn-primary Addboutique">Save changes</button>--%>
-                                     <a class="btn btn-primary AddAdmin" href="#">Save</></a>
-                                    <a class="btn CancelAdClear">Cancel</a>
-                                  
-						       </footer> 
+                                <a class="btn btn-primary AddAdmin" href="#">Save</></a>
+                                <a class="btn CancelAdClear">Cancel</a>
+             			       </footer> 
                        	</div>
                  
 			         </div>

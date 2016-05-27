@@ -128,6 +128,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string FileType
+        {
+            get;
+            set;
+        }
         #endregion productImagesproperties
 
         #region Methods
@@ -514,8 +519,7 @@ namespace Boutique.DAL
                         cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
-                    sda.Fill(dt);
-                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                    sda.Fill(dt);                    
                     return dt;
                 }
                 catch (Exception ex)
@@ -1071,10 +1075,14 @@ namespace Boutique.DAL
         #region ProductImageMethods
             #region InsertProductImage
             public Int16 InsertProductImage()
-        {
+            {
             if (ProductID == "")
             {
                 throw new Exception("ProductID is Empty!!");
+            }
+            if(BoutiqueID== "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
             }
 
             dbConnection dcon = null;
@@ -1091,6 +1099,8 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
                 cmd.Parameters.Add("@IsMain", SqlDbType.Bit).Value = IsMain;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@FileType", SqlDbType.VarChar, 5).Value = FileType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
@@ -1118,11 +1128,16 @@ namespace Boutique.DAL
 
             #region GetAllProductImages
             public DataSet GetAllProductImages()
-        {
+            {
 
             if (ProductID == "")
             {
                 throw new Exception("ProductID is Empty!!");
+            }
+
+            if(BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
             }
 
             dbConnection dcon = null;
@@ -1139,6 +1154,7 @@ namespace Boutique.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[GetAllProductImages]";
                     cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
@@ -1162,6 +1178,56 @@ namespace Boutique.DAL
         }
 
         #endregion GetAllProductImages
+
+            #region Get Product Images for mobile
+        /// <summary>
+        /// Product images with varbinary files
+        /// </summary>
+        /// <returns></returns>
+            public DataTable GetProductImagesForMobile()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                if (ProductID == "")
+                {
+                    throw new Exception("ProductID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataTable dt = null;
+                SqlDataAdapter sda = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetProductImagesForMobile]";
+                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                return dt;
+            }
+            #endregion
 
 
         #region GetProductImage

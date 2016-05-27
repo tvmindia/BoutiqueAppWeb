@@ -14,16 +14,7 @@
     <script src="../Scripts/UserJS/Product.js"></script>
     
     <script>
-        function BindAllImages(Records) {
-         
-            $.each(Records, function (index, Records) {
-            
-                MultiImageBind(Records);
-               
-               
-            })
-        
-        }
+       
     </script>
 
      <div id="content" class="span10">
@@ -48,30 +39,17 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<div class="masonry-gallery">
-									<div id="image-1" class="masonry-thumb">
-								         <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="../img/gallery/photo10.jpg">   <img class="grayscale" src="../img/gallery/photo10.jpg" alt="Sample Image 1" /></a>
-						        	</div>
-									<div id="image-2" class="masonry-thumb">
+						<div class="imageholder" id="productimagehold">
+									
+								<!--<div id="image-2" class="masonry-thumb">
 								         <a style="background:url(../img/gallery/photo11.jpg)" title="Sample Image 2" href="../img/gallery/photo11.jpg"> <img class="grayscale" src="../img/gallery/photo11.jpg" alt="Sample Image 11" /></a>
 							       </div>
-							       <div id="image-3" class="masonry-thumb">
-								         <a style="background:url(../img/gallery/photo3.jpg)" title="Sample Image 3" href="../img/gallery/photo3.jpg"> <img class="grayscale" src="../img/gallery/photo3.jpg" alt="Sample Image 3" /></a>
-						           </div>
-								   <div id="image-4" class="masonry-thumb">
-          
-								         <a style="background:url(../img/gallery/photo6.jpg)" title="Sample Image 4" href="../img/gallery/photo6.jpg"> <img class="grayscale" src="../img/gallery/photo6.jpg" alt="Sample Image 6" /></a>
-						        	</div>
-								   <div id="image-5" class="masonry-thumb">
-								        <a style="background:url(../img/gallery/photo7.jpg)" title="Sample Image 5" href="../img/gallery/photo7.jpg"> <img class="grayscale" src="../img/gallery/photo7.jpg" alt="Sample Image 7" /></a>
-						          </div>
-
-                                   <div id="image-6" class="masonry-thumb">
+							 
+                                    <div id="image-6" class="masonry-thumb">
 								        <a style="background:url(../img/gallery/photo8.jpg)" title="Sample Image 6" href="../img/gallery/photo8.jpg"> <img class="grayscale" src="../img/gallery/photo8.jpg" alt="Sample Image 6" /></a>
-						          </div>
-														
-														
-					</div>
+						          </div>-->
+					
+				    	</div>
 					</div>
 				</div><!--/span-->
 			
@@ -209,7 +187,7 @@
                             
 
                               <div class="control-group">
-                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:185px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
+                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
                        		 
                                   <ol id="olpreview" style="list-style:none;">
                                     
@@ -232,4 +210,5 @@
          </div>
      </div>
      <input type="hidden" id="hdfproductID" value=""/>
+    <input type="hidden" id="hdfBoutiqueID" value="" />
 </asp:Content>
