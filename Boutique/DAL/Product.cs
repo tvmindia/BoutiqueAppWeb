@@ -519,8 +519,7 @@ namespace Boutique.DAL
                         cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
-                    sda.Fill(dt);
-                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                    sda.Fill(dt);                    
                     return dt;
                 }
                 catch (Exception ex)

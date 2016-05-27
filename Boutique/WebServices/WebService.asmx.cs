@@ -39,10 +39,13 @@ namespace Boutique.WebServices
 
                 //---------Getting favorite information-----                
                 DataTable favInfo=product.FavoriteInfo(userID);
-                dt.Columns.Add("FavCount", typeof(int));
-                dt.Columns.Add("isFav", typeof(Boolean));
-                dt.Rows[0]["FavCount"] = favInfo.Rows[0]["FavCount"];
-                dt.Rows[0]["isFav"] = favInfo.Rows[0]["isFav"];
+                if (favInfo.Rows.Count != 0)                    //product has any user favorite information or not
+                {
+                    dt.Columns.Add("FavCount", typeof(int));
+                    dt.Columns.Add("isFav", typeof(Boolean));
+                    dt.Rows[0]["FavCount"] = favInfo.Rows[0]["FavCount"];
+                    dt.Rows[0]["isFav"] = favInfo.Rows[0]["isFav"];
+                }
 
                 //-----------inserting product view log--------
                 product.InsertProductViewLog(userID);
