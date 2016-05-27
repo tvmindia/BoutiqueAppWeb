@@ -55,20 +55,20 @@
 							
 							<div class="input-prepend" title="Username">
 								<span class="add-on"><i class="halflings-icon user"></i></span>
-								<input class="input-large span10" name="username" id="username" type="text" placeholder="type username"/>
+								<input class="input-large span10" name="username" id="username"  runat="server" type="text" placeholder="Username"/>
 							</div>
 							<div class="clearfix"></div>
 
 							<div class="input-prepend" title="Password">
 								<span class="add-on"><i class="halflings-icon lock"></i></span>
-								<input class="input-large span10" name="password" id="password" type="password" placeholder="type password"/>
+								<input class="input-large span10" name="password" id="password" runat="server" type="password" placeholder="Password"/>
 							</div>
 							<div class="clearfix"></div>
 							
 							<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
 
 							<div class="button-login">	
-								<button type="submit" class="btn btn-primary">Login</button>
+								<button type="submit" class="btn btn-primary loginbtn">Login</button>
 							</div>
 							<div class="clearfix"></div>
 					</form>
@@ -86,8 +86,7 @@
 		</div><!--/fluid-row-->
 	
 	<!-- start: JavaScript-->
-
-		<script src="../Scripts/jquery-1.9.1.min.js"></script>
+<script src="../Scripts/jquery-1.9.1.min.js"></script>
 <script src="../Scripts/jquery-migrate-1.0.0.min.js"></script>
 <script src="../Scripts/jquery-ui-1.10.0.custom.min.js"></script>
 <script src="../Scripts/jquery.ui.touch-punch.js"></script>
@@ -117,7 +116,14 @@
 <script src="../Scripts/counter.js"></script>
 <script src="../Scripts/retina.js"></script>
 <script src="../Scripts/custom.js"></script>
+
+
+<link href="../CSS/CustomCSS/Login.css" rel="stylesheet" />
+<script src="../Scripts/UserJS/Login.js"></script>
+
 	<!-- end: JavaScript-->
    
 </body>
 </html>
+
+
