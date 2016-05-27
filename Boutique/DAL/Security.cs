@@ -32,19 +32,17 @@ namespace Boutique.DAL
 
             #endregion Global Variables
 
-            #region Properties
+            #region Properties          
+           
+            private string BoutiqueName;
+            private Guid Boutique_ID;
 
-            private string userN;
-            private string GroupName;
-            private Guid Group_ID;
-            private string ClinicName;
-            private Guid Clinic_ID;
             private Boolean isValidUser;
+            private string userN;
 
-            private Guid User_ID;
+            private string RoleName;
             public string userName
             {
-
                 get
                 {
                     return userN;
@@ -54,56 +52,30 @@ namespace Boutique.DAL
             {
                 get
                 {
-
                     return isValidUser;
                 }
-
             }
-
-            public string Clinic
-            {
-
-                get
-                {
-                    return ClinicName;
-                }
-            }
-            public string Group
-            {
-
-                get
-                {
-                    return GroupName;
-                }
-            }
-
-
-            public Guid ClinicID
-            {
-
-                get
-                {
-                    return Clinic_ID;
-                }
-            }
-
-            public Guid GroupID
-            {
-
-                get
-                {
-                    return Group_ID;
-                }
-            }
-
-            public Guid UserID
+            public string Boutique
             {
                 get
                 {
-                    return User_ID;
+                    return BoutiqueName;
                 }
             }
-
+            public Guid BoutiqueID
+            {
+                get
+                {
+                    return Boutique_ID;
+                }
+            }        
+            public string Role
+            {
+                get
+                {
+                    return RoleName;
+                }
+            }
             /// <summary>
             /// User id of logined user
             /// </summary>
@@ -112,7 +84,6 @@ namespace Boutique.DAL
                 get;
                 set;
             }
-
 
             #endregion Properties
 
@@ -126,20 +97,19 @@ namespace Boutique.DAL
                 {
                     string Name = dt.Rows[0]["LoginName"].ToString();
                     string Passwd = dt.Rows[0]["Password"].ToString();
-                    bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
+                  //  bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
 
-                    if (userName == Name && (CryptObj.Encrypt(password) == Passwd) && Active == true)
+                    //if (userName == Name && (CryptObj.Encrypt(password) == Passwd) && Active == true)
+
+                    if (userName == Name && password == Passwd)
                     {
                         isValidUser = true;
                         userN = userName;
 
-                        ClinicName = dt.Rows[0]["Clinic Name"].ToString();
-                        Clinic_ID = new Guid(dt.Rows[0]["Clinic ID"].ToString());
+                        BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
+                        Boutique_ID = new Guid(dt.Rows[0]["BoutiqueID"].ToString());
 
-                        GroupName = dt.Rows[0]["Group Name"].ToString();
-                        Group_ID = new Guid(dt.Rows[0]["Group ID"].ToString());
-
-                        User_ID = new Guid(dt.Rows[0]["UserID"].ToString());
+                        RoleName = dt.Rows[0]["RoleName"].ToString();
                     }
 
                     else
@@ -175,7 +145,7 @@ namespace Boutique.DAL
                 catch (Exception ex)
                 {
                     //var page = HttpContext.Current.CurrentHandler as Page;
-                    ////eObj.ErrorData(ex, page);
+                    //eObj.ErrorData(ex, page);
 
                     //eObj.Description = ex.Message;
                     //eObj.Module = Module;

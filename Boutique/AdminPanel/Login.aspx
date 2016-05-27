@@ -32,7 +32,7 @@
 	
 		
 	<!-- start: Favicon -->
-	<link rel="shortcut icon" href="img/favicon.ico">
+	<link rel="shortcut icon" href="img/favicon.ico"/>
 	<!-- end: Favicon -->
 	
 			<style type="text/css">
@@ -45,13 +45,13 @@
 					
 			<div class="row-fluid">
 				<div class="login-box">
-					<div class="icons">
+					<%--<div class="icons">
 						<a href="index.html"><i class="halflings-icon home"></i></a>
 						<a href="#"><i class="halflings-icon cog"></i></a>
-					</div>
+					</div>--%>
 					<h2>Login to your account</h2>
-					<form class="form-horizontal" action="index.html" method="post">
-						<fieldset>
+					<form class="form-horizontal" runat="server">
+						
 							
 							<div class="input-prepend" title="Username">
 								<span class="add-on"><i class="halflings-icon user"></i></span>
@@ -65,14 +65,14 @@
 							</div>
 							<div class="clearfix"></div>
 							
-							<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
+							<%--<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>--%>
 
 							<div class="button-login">	
-								<button type="submit" class="btn btn-primary loginbtn">Login</button>
+								<button type="submit" id="btnlogin" class="btn btn-primary loginbtn">Login</button>
 							</div>
 							<div class="clearfix"></div>
 					</form>
-					<hr>
+				 
 					<h3>Forgot Password?</h3>
 					<p>
 						No problem, <a href="#">click here</a> to get a new password.

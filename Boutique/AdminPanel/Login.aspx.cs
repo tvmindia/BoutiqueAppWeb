@@ -30,14 +30,20 @@ namespace Boutique.AdminPanel
 
                     if (UA.ValidUser)
                     {
-                    //    if (Session[constants.LoginSession] != null)
-                    //    {
-                    //        Session.Remove(constants.LoginSession);
-                    //    }
+                        if (Session[constants.LoginSession] != null)
+                        {
+                            Session.Remove(constants.LoginSession);
+                        }
 
-                    //    Session.Add(constants.LoginSession, UA);
-                    //    Response.Redirect(constants.HomePage);
-
+                        Session.Add(constants.LoginSession, UA);
+                        if (UA.Role == "SAdmin")
+                        {
+                            Response.Redirect(constants.SAHomePage);
+                        }
+                        else
+                        {
+                            Response.Redirect(constants.HomePage);
+                        }
                     }
 
 
@@ -45,7 +51,6 @@ namespace Boutique.AdminPanel
                 }
                 else
                 {
-
                     //lblmsg.Text = Messages.LoginFailed;
                 }
 

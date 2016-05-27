@@ -6,10 +6,10 @@
     $(".loginbtn").live({
         click: function (e) {// Clear controls
 
-         
+         debugger;
           
           //  ClearCategoryControls();
-            return false;
+         return true;
         }
     })
 
