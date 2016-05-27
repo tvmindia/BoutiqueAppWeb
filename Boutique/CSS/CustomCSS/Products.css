@@ -99,6 +99,17 @@ ol#olpreview
     top: 3px!important;
 }
 
+.masonry-thumb
+{
+     height: 275px;
+     width:240px;
+     padding-left:5px;
+     padding-right:5px;
+     padding-bottom:5px;
+     padding-top:5px;
+
+}
+
 
 
 
