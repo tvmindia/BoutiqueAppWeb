@@ -753,7 +753,7 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[GetProductsByCategory]";
-                    cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar,10).Value = Guid.Parse(this.CategoryCode);
+                    cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 10).Value = CategoryCode;
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();

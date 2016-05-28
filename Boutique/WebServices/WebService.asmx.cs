@@ -91,7 +91,7 @@ namespace Boutique.WebServices
                 imgFileNameCols.Add("ImageID");
                 imgFileTypeCols.Add("FileType");
 
-                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, true);
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
             }
             catch (Exception ex)
             {
@@ -160,6 +160,15 @@ namespace Boutique.WebServices
                 products.CategoryCode = CategoryCode;
                 products.BoutiqueID = boutiqueID;
                 dt = products.GetProductsByCategory();
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("Name");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
             }
             catch (Exception ex)
             {
