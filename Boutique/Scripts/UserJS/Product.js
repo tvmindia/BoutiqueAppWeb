@@ -1,22 +1,17 @@
 ﻿$("document").ready(function (e) {
-
-
-
-    
-   
     //disables the div containing image upload and image list
     document.getElementById('imageupGallery').style.display = 'block';
     var prodid = '8c9b8e83-dc8f-48d7-994b-8688516a8771'//$("#hdfproductID").val();
     var boutiqid = '470a044a-4dba-4770-bca7-331d2c0834ae'//$("#hdfBoutiqueID").val();
     BindAllProductImages(prodid, boutiqid);
 
+
+
     $("#olpreview").sortable({
 
         update: function( event, ui ) {}//when li image is reordered
     });
     $("#olpreview").disableSelection();
-
-
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
      $("#hdfBoutiqueID").val(boutiqueid);
    
@@ -292,22 +287,25 @@ function gethiddenvalue()
 
 function BindAllProductImages(prodid, boutiqid) {
     var imagedivholder = $('#productimagehold');
-  
+ 
     if ((prodid != '') && (boutiqid !=''))
     {
         var Product = new Object();
         Product.ProductID = prodid;
         Product.BoutiqueID = boutiqid;
 
-      var imageids = {};
-      imageids = GetAllProductImages(Product);
+      var totalimages = {};
+      totalimages = GetAllProductImages(Product);
      // $("#olpreview").find(".liclas").remove();
-      $.each(imageids, function (index, Records)
-      {
-          var html = '<div class="masonry-thumb"><a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">   <img class="grayscale" src="../img/gallery/photo10.jpg" alt="Sample Image 1" /></a><div class="productDetailsdiv">albert</div></div>';
-       imagedivholder.append(html);
-    
-      })
+          
+      for (var i = 0; i < totalimages.length; i++) {
+         var html=('<div class="masonry-thumb">'
+            +'  <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
+            +'<img id="img'+i+'" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID='+totalimages[i].ImageID+'">'
+          + '</a><div class="productDetailsdiv">albert</div></div>');
+        // '+'"../ImageHandler/ImageServiceHandler.ashx?ImageID="'+totalimages[i].ImageID
+          imagedivholder.append(html);
+      }
     }
 
 }

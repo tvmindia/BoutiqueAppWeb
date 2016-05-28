@@ -23,7 +23,7 @@ namespace Boutique.ImageHandler
             {
                 context.Response.ContentType = "image/jpeg";
 
-                if (context.Request.QueryString["ImageID"] != null)
+                if ((context.Request.QueryString["ImageID"] != null)&&(context.Request.QueryString["ImageID"] != ""))
                 {
                     Product productObj = new Product();
                     productObj.ImageID = context.Request.QueryString["ImageID"];

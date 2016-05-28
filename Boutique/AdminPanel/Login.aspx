@@ -7,15 +7,13 @@
    
 
     <!-- start: Meta -->
-	<meta charset="utf-8">
+	<meta charset="utf-8"/>
 	<title>Boutique</title>
-	
-	
 	
 	<!-- end: Meta -->
 	
 	<!-- start: Mobile Specific -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<!-- end: Mobile Specific -->
 	
 	
@@ -26,10 +24,7 @@
     <link href="../CSS/style-responsive.css" rel="stylesheet" />
     <link href="../CSS/googleapiFont.css" rel="stylesheet" />
 	<!-- end: CSS -->
-	
-	
-
-	
+		
 		
 	<!-- start: Favicon -->
 	<link rel="shortcut icon" href="img/favicon.ico"/>
@@ -65,7 +60,7 @@
 							</div>
 							<div class="clearfix"></div>
 							
-							<%--<label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>--%>
+							  <asp:Label class="errormsg"  ID="lblmsg" runat="server" Text=""></asp:Label>
 
 							<div class="button-login">	
 								<button type="submit" id="btnlogin" class="btn btn-primary loginbtn">Login</button>
