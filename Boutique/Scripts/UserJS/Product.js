@@ -6,13 +6,25 @@
     BindAllProductImages(prodid, boutiqid);
 
 
+    //prduct galler slide effect-masonry
+    var $mars= $('.imageholder').masonry(
+            {
+                itemSelector: '.masonry-thumb',
+                isInitLayout: false
+            });
+
+   $mars.imagesLoaded().progress(function () {
+       $mars.masonry('layout');
+    });
+    //prduct galler slide effect
+
 
     $("#olpreview").sortable({
 
         update: function( event, ui ) {}//when li image is reordered
     });
     $("#olpreview").disableSelection();
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
      $("#hdfBoutiqueID").val(boutiqueid);
    
      BindAllImages();//list li of product images when images uploaded
@@ -291,18 +303,18 @@ function BindAllProductImages(prodid, boutiqid) {
     if ((prodid != '') && (boutiqid !=''))
     {
         var Product = new Object();
-        Product.ProductID = prodid;
+      
         Product.BoutiqueID = boutiqid;
 
       var totalimages = {};
-      totalimages = GetAllProductImages(Product);
+      totalimages = GetAllProductsImageDetailsunderBoutique(Product);
      // $("#olpreview").find(".liclas").remove();
           
       for (var i = 0; i < totalimages.length; i++) {
          var html=('<div class="masonry-thumb">'
             +'  <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
             +'<img id="img'+i+'" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID='+totalimages[i].ImageID+'">'
-          + '</a><div class="productDetailsdiv">albert</div></div>');
+          + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span><span>' + totalimages[i].IsOutOfStock + '</span><span>' + totalimages[i].IsActive + '</span></div></div>');
         // '+'"../ImageHandler/ImageServiceHandler.ashx?ImageID="'+totalimages[i].ImageID
           imagedivholder.append(html);
       }
@@ -457,7 +469,15 @@ function BindAsyncDesigner(boutiqueid) {
 
     }
 }
+function GetAllProductsImageDetailsunderBoutique(Product) {
 
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductMainImages");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 function GetAllProductImages(Product) {
    
@@ -524,6 +544,7 @@ function clearProductControls() {
     $(".AddProduct").text("Save");//button text change
     $("#olpreview").find(".liclas").remove();//image list hide
 }
+
 
 
 
