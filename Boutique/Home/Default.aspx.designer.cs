@@ -13,6 +13,15 @@ namespace BoutiqueWebsite {
     public partial class Default {
         
         /// <summary>
+        /// lblCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCaption;
+        
+        /// <summary>
         /// lblmsges control.
         /// </summary>
         /// <remarks>

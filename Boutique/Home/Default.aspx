@@ -43,9 +43,39 @@
 
         });
  
+        var scrollSpeed = 10000;
+        var scrollBanner = function (captions, captionIndex) {
+            if (captionIndex < captions.length) {
+
+              //  $('#banner').removeClass('banner' + (+(captionIndex) + 1));
+               // $('#banner').addClass('banner' + (captionIndex));
+
+                $('#<%=lblCaption.ClientID%>').fadeOut(1200,
+                   function () {
+
+                       document.getElementById("<%=lblCaption.ClientID%>").innerHTML = (captions[captionIndex++]);
+                       $('#<%=lblCaption.ClientID%>').fadeIn(2300, function () {
+
+                           setTimeout(function () { scrollBanner(captions, captionIndex); }, scrollSpeed);
+                       })
+                   });
+
+               
 
 
+            }
+            else {
 
+              //  $('#banner').removeClass('banner' + (captionIndex));
+               // $('#banner').addClass('banner0');
+                startScroll();
+            }
+        }
+
+        function startScroll() {
+
+            scrollBanner(['Not just a pretty face,&nbsp;&nbsp;&nbsp;It is sophisticated, &nbsp;&nbsp;&nbsp;Do it simple !', 'In-Store experience    takes the centre stage', 'The  personal  bonding  Wins  Customers  for  life'], 0)
+        }
 
     </script>
 
@@ -87,12 +117,13 @@
     </header>
 
     <!-- Banner -->
-    <section id="banner">
+    <section id="banner" class="banner0">
 
         <div id="solgan1">
             <h2 id="bannerName">T i q u e s I n n</h2>
             <p id="bannerCaption">Boutiques In Person !</p>                
-              <h3 id="bannerDetailCaption">Some nice Caption goes here about TiquesInn</h3>
+              <h3 id="bannerDetailCaption">
+                  <asp:Label ID="lblCaption" runat="server" Text=""></asp:Label></h3>
           
         </div>
 
