@@ -38,7 +38,7 @@ namespace Boutique.Master
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            LoginName.Text = UA.Role;
+            LoginName.Text = UA.userName;
 
         }
 
