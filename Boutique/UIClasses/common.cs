@@ -49,7 +49,27 @@ namespace Boutique.UIClasses
             }
         }
 
+
+
+
         #region PageUrl
+
+
+        public string LoginPage
+        {
+            get
+            {
+                return "Login.aspx";
+            }
+        }
+                
+        public string UnderConstruction
+        {
+            get
+            {
+                return "UnderConstruction.aspx";
+            }
+        }
 
         public string SaDashBoardPage
         {
@@ -223,11 +243,24 @@ namespace Boutique.UIClasses
         {
             get
             {
-                return "Admin";
+                return "Administrator";
             }
         }
 
         #endregion Roles
+
+
+
+
+
+        public string GetCurrentPageName(HttpRequest Request)
+        {
+            string sPath = Request.Url.AbsolutePath;
+            System.IO.FileInfo oInfo = new System.IO.FileInfo(sPath);
+            string sRet = oInfo.Name;
+            return sRet;
+        }
+
 
 
 
