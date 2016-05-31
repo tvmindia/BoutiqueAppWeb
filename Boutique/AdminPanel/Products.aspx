@@ -14,7 +14,8 @@
     <script src="../Scripts/UserJS/Product.js"></script>
     
     <script>
-       
+        
+
     </script>
 
      <div id="content" class="span10">

@@ -91,7 +91,7 @@ namespace Boutique.WebServices
                 imgFileNameCols.Add("ImageID");
                 imgFileTypeCols.Add("FileType");
 
-                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, true);
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
             }
             catch (Exception ex)
             {
@@ -143,6 +143,50 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+        #region Products by category
+        /// <summary>
+        /// Webservice to get products under a category
+        /// </summary>
+        /// <param name="boutiqueID">to know which boutique</param>
+        /// <param name="CategoryCode">category code</param>
+        /// <returns>product details as Json</returns>
+        [WebMethod]
+        public string ProductsByCategory(string CategoryCode,string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product products= new Product();
+                products.CategoryCode = CategoryCode;
+                products.BoutiqueID = boutiqueID;
+                dt = products.GetProductsByCategory();
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("Name");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion 
         #endregion
 
         #region Boutique

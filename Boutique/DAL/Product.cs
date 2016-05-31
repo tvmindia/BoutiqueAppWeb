@@ -393,7 +393,6 @@ namespace Boutique.DAL
             /// <returns>Datatable of details</returns>
             public DataTable GetProductByProductID()
             {
-                // TODO: add product view information to that table too: in the case of mobile app
                 if (ProductID == "")
                 {
                     throw new Exception("ProductID is Empty!!");
@@ -444,7 +443,6 @@ namespace Boutique.DAL
         /// <param name="userID">to store which user has visited the product details. Can be "" </param>
             public void InsertProductViewLog(string userID)
             {
-                // TODO: add product view information to that table too: in the case of mobile app
                 if (ProductID == "")
                 {
                     throw new Exception("ProductID is Empty!!");
@@ -726,6 +724,56 @@ namespace Boutique.DAL
                 return ds;
             }
         #endregion GetAllProductsOutOfStock
+
+            #region Get products under a category
+        /// <summary>
+        /// To get all the products under a category
+        /// </summary>
+        /// <returns></returns>
+            public DataTable GetProductsByCategory()
+            {
+                if (CategoryCode == "")
+                {
+                    throw new Exception("CategoryCode is Empty!!");
+                }
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlDataAdapter sda = null;
+                DataTable dt = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetProductsByCategory]";
+                    cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 10).Value = CategoryCode;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    sda.SelectCommand = cmd;
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                    return dt;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+            }
+            #endregion
         #endregion Methods
 
 
@@ -1179,8 +1227,55 @@ namespace Boutique.DAL
 
         #endregion GetAllProductImages
 
+            #region GetAllProductMainImagesDetails
+            public DataSet GetAllProductMainImagesDetails()
+            {
+
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetAllProductImageMainDetailsByBoutiqueid]";
+                 
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
+
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                return ds;
+            }
+            #endregion GetAllProductMainImagesDetails
+
             #region Get Product Images for mobile
-        /// <summary>
+            /// <summary>
         /// Product images with varbinary files
         /// </summary>
         /// <returns></returns>

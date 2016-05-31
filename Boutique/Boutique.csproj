@@ -242,6 +242,8 @@
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
+    <Content Include="Scripts\imagesloaded.pkgd.min.js" />
+    <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
@@ -291,10 +293,8 @@
     <Content Include="Scripts\jquery.flot.resize.min.js" />
     <Content Include="Scripts\jquery.flot.stack.js" />
     <Content Include="Scripts\jquery.gritter.min.js" />
-    <Content Include="Scripts\jquery.imagesloaded.js" />
     <Content Include="Scripts\jquery.iphone.toggle.js" />
     <Content Include="Scripts\jquery.knob.modified.js" />
-    <Content Include="Scripts\jquery.masonry.min.js" />
     <Content Include="Scripts\jquery.noty.js" />
     <Content Include="Scripts\jquery.raty.min.js" />
     <Content Include="Scripts\jquery.sparkline.min.js" />
@@ -405,6 +405,7 @@
     </Compile>
     <Compile Include="Home\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
