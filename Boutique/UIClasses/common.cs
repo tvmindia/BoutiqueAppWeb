@@ -242,7 +242,7 @@ namespace Boutique.UIClasses
         {
             get
             {
-                return "SAdmin";
+                return "SuperAdmin";
             }
         }
         public string Administrator
