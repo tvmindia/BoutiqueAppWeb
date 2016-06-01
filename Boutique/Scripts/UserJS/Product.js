@@ -285,16 +285,82 @@
 
 });//end of document.ready
 
-function BindProductTextBoxes() {
-    var p = $(this).attr('pname');
-    alert(p);
-       // $("#txtCatCode").val(Records.CategoryCode);
-       // $("#txtCategoryName").val(Records.Name);
-       // $("#hdfCategoryID").val(Records.CategoryID);
+function BindProductTextBoxes(thisobject) {
+    var productname = $(thisobject).attr('pname');
+    var pdescription = $(thisobject).attr('pdescription');
+    var pprice = $(thisobject).attr('pprice');
+    var isoutstock = $(thisobject).attr('isoutstock');
+    var isactive = $(thisobject).attr('isactive');
+    var categories = $(thisobject).attr('categories');
+    var designers = $(thisobject).attr('designers');
+
+
+
+    $("#txtName").val(productname);
+    $("#txtDescription").val(pdescription);
+    $("#txtPrice").val(pprice);
+    $("#txtPrice").val(pprice);
   
-       // $(".AddCategory").text("Modify");
+    if (isoutstock=='true')
+    {
+      
+       // $('#OptisOutOfStockNo').parent().addClass('checked');
+        $("#OptisOutOfStockNo").parent().removeClass('checked');
+        $('#OptisOutOfStockYes').parent().addClass('checked');
+    }
+    if (isoutstock=='false')
+    {
+      
+        $("#OptisOutOfStockYes").parent().removeClass('checked');
+        $('#OptisOutOfStockNo').parent().addClass('checked');
+    }
+
+      if (isactive=='true')
+      {
+      
+        $("#OptIsActiveNo").parent().removeClass('checked');
+        $('#OptIsActiveYes').parent().addClass('checked');
+     
+      }
+      if(isactive=='false')
+      {
+       
+        $("#OptIsActiveYes").parent().removeClass('checked');
+        $('#OptIsActiveNo').parent().addClass('checked');
+      }
+
+      if (categories != '')
+      {
+          var catarray = categories.split(',');
+      }
+    
+
+    $(".AddProduct").text("Modify");
+   
+   
 }
 
+function BindAllProductImages(prodid, boutiqid) {
+    var imagedivholder = $('#productimagehold');
+ 
+    if ((prodid != '') && (boutiqid !=''))
+    {
+        var Product = new Object();
+        Product.BoutiqueID = boutiqid;
+        var totalimages = {};
+        totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+        // $("#olpreview").find(".liclas").remove();
+          
+        for (var i = 0; i < totalimages.length; i++) {
+            var html = ('<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
+        +'  <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
+        +'<img id="img'+i+'" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID='+totalimages[i].ImageID+'">'
+        + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>');
+            imagedivholder.append(html);
+        }
+    }
+
+}
 
 
 function BindAllImages()
@@ -324,29 +390,6 @@ function gethiddenvalue()
     return prod;
 }
 
-function BindAllProductImages(prodid, boutiqid) {
-    var imagedivholder = $('#productimagehold');
- 
-    if ((prodid != '') && (boutiqid !=''))
-    {
-        var Product = new Object();
-      
-        Product.BoutiqueID = boutiqid;
-
-      var totalimages = {};
-      totalimages = GetAllProductsImageDetailsunderBoutique(Product);
-     // $("#olpreview").find(".liclas").remove();
-          
-            for (var i = 0; i < totalimages.length; i++) {
-                var html = ('<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
-            +'  <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
-            +'<img id="img'+i+'" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID='+totalimages[i].ImageID+'">'
-            + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span><span>' + totalimages[i].IsOutOfStock + '</span><span>' + totalimages[i].IsActive + '</span></div></div>');
-            imagedivholder.append(html);
-      }
-    }
-
-}
 
 function MultiImageBind(Records) {
     var ol = document.getElementById("olpreview");
