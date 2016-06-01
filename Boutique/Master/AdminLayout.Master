@@ -361,10 +361,10 @@
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li id ="Li_SaDashBoard" runat="server"><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
                         <li id ="Li_DashBoard" runat="server"><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-				 <%--	    <li id ="Profile" runat="server"><a href="Profile.aspx"><i class=""></i><span class="hidden-tablet">✎ Profile</span></a></li>
-						<li id ="People" runat="server"><a href="People.aspx"><i class=""></i><span class="hidden-tablet">👨 People</span></a></li>--%>
-                        	<li><a href="Profile.aspx"><i class=""></i><span class="hidden-tablet">✎ Profile</span></a></li>
-						<li><a href="People.aspx"><i class=""></i><span class="hidden-tablet">👨 People</span></a></li>
+				 	    <li id ="Li_Profile" runat="server"><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet"> Profile</span></a></li>
+						<li id ="Li_People" runat="server"><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet"> People</span></a></li>
+                       <%-- 	<li><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet">Profile</span></a></li>
+						<li><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet">People</span></a></li>--%>
 
 						<li id ="Li_Category" runat="server"><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
 						<li id ="Li_Products" runat="server"><a href="Products.aspx"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>		
