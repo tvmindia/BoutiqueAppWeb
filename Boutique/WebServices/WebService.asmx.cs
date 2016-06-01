@@ -165,7 +165,7 @@ namespace Boutique.WebServices
                 ArrayList imgFileNameCols = new ArrayList();
                 ArrayList imgFileTypeCols = new ArrayList();
                 imgColNames.Add("Image");
-                imgFileNameCols.Add("Name");
+                imgFileNameCols.Add("ImageID");
                 imgFileTypeCols.Add("FileType");
 
                 return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
