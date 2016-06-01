@@ -48,7 +48,6 @@ namespace Boutique.Master
 
             //try
             //{
-
                 string currRole = UA.Role;
                 string currPage = Const.GetCurrentPageName(Request);
                 string From = "?From=";
@@ -61,6 +60,7 @@ namespace Boutique.Master
 
                     if (currPage.ToUpper() == Const.SaDashBoardPage.ToUpper() )
                     {
+                      
                         Response.Redirect(Const.LoginPage);
 
                     }                        
@@ -74,13 +74,14 @@ namespace Boutique.Master
                     Li_Products.Visible = false;
                     Li_Notifications.Visible = false;
                     Li_LoyaltySettings.Visible = false;
+                    Li_People.Visible = false;
+                    Li_Profile.Visible = false;
 
                     currPage=currPage.ToUpper();
 
-                    if (currPage == Const.SaDashBoardPage.ToUpper() || currPage == Const.CategoryPage.ToUpper() || currPage == Const.Products.ToUpper() || currPage == Const.NotificationsPage.ToUpper() || currPage == Const.LoyaltySettingsPage.ToUpper())
-                    {
-                        Response.Redirect(Const.LoginPage);
-                      
+                    if (currPage == Const.SaDashBoardPage.ToUpper() || currPage == Const.CategoryPage.ToUpper() || currPage == Const.ProductsPage.ToUpper() || currPage == Const.NotificationsPage.ToUpper() || currPage == Const.LoyaltySettingsPage.ToUpper() ||currPage==Const.PeoplePage.ToUpper()||currPage==Const.ProfilePage.ToUpper() )
+                    { 
+                        Response.Redirect(Const.LoginPage);                      
                     }                                  
 
                 }

@@ -33,7 +33,6 @@ namespace Boutique.UIClasses
                 return "../AdminPanel/Login.aspx";
             }
         }
-
         public string SAHomePage
         {
             get
@@ -50,10 +49,7 @@ namespace Boutique.UIClasses
         }
 
 
-
-
         #region PageUrl
-
 
         public string LoginPage
         {
@@ -61,16 +57,21 @@ namespace Boutique.UIClasses
             {
                 return "Login.aspx";
             }
-        }
-                
-        public string UnderConstruction
+        }                
+        public string UnderConstructionPage
         {
             get
             {
                 return "UnderConstruction.aspx";
             }
         }
-
+        public string AccessDeniedPage
+        {
+            get
+            {
+                return "AccessDenied.aspx";
+            }
+        }
         public string SaDashBoardPage
         {
             get
@@ -217,6 +218,13 @@ namespace Boutique.UIClasses
                 return "Profile";
             }
         }
+        public string AccessDenied
+        {
+            get
+            {
+                return "AccessDenied";
+            }
+        }
 
         #endregion PagesName
 
@@ -230,7 +238,6 @@ namespace Boutique.UIClasses
                 return "Manager";
             }
         }
-
         public string SuperAdministrator
         {
             get
@@ -238,7 +245,6 @@ namespace Boutique.UIClasses
                 return "SAdmin";
             }
         }
-
         public string Administrator
         {
             get
@@ -248,8 +254,6 @@ namespace Boutique.UIClasses
         }
 
         #endregion Roles
-
-
 
 
 
