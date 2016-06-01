@@ -108,11 +108,8 @@
 
                         <div class="control-group">
                         </div>
-                        	
-                             
-							  <div class="control-group">
-							
-								  <label class="control-label" for="focusedInput">Name</label>
+                    		  <div class="control-group">
+				    			  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
 								  <input class="input-large focused" id="txtName" type="text"/>
 								</div>

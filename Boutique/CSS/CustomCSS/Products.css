@@ -98,17 +98,25 @@ ol#olpreview
     position: relative!important;
     top: 3px!important;
 }
+img{
+    height:307px;
+    width:auto;
+}
 
 .masonry-thumb
 {
      border:2px solid pink;
      height: auto;
-     width:240px;
-     padding-left:5px;
-     padding-right:5px;
-     padding-bottom:5px;
-     padding-top:5px;
-     position:relative;
+     width:220px;
+    
+    /*padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;*/
+    padding: 5px 5px 5px 5px;
+    position:relative;
+     margin:1px 2px 1px 1px;
+     cursor:pointer;
 }
 
 .imageholder
