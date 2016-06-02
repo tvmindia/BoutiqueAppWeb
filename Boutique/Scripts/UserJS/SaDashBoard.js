@@ -1,4 +1,13 @@
 ﻿$("document").ready(function (e) {
+
+    $(".ddlDesigners").select2({
+
+        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+       , allowClear: true
+       , placeholder: "Select a Boutique"
+    });
+
+
     $("#hdfBoutiqueID").val('');
 
     //BindAsyncBoutiqueDropDown();
@@ -170,6 +179,17 @@
 
 });//document.ready
 
+
+
+function BindAsyncBoutiques() {
+    var jsonResult = {};
+    var Boutiques = new Object();
+    jsonResult = GetAllBoutiques(Boutiques);
+    if (jsonResult != undefined) {
+        return jsonResult;
+     }
+}
+
 //---getting data as json-----//
 function getJsonData(data, page) {
     var jsonResult = {};
@@ -191,6 +211,17 @@ function getJsonData(data, page) {
     return jsonResult;
 }
 //---end of getting data as json -----//
+
+
+function GetAllBoutiques(Designers) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'designersObj':" + JSON.stringify(Designers) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesignerIDAndName");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 function  InsertBoutique(Boutique)
 {
@@ -227,11 +258,11 @@ function InsertAdmin(Admin) {
 
 }
 
-function GetAllBoutiques() {
+function GetAllBoutiques(Boutiques) {
     var ds = {};
     var table = {};
-    var data = "{}";
-    ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/GetAllBoutiques");
+    var data = "{'boutiquesObj':" + JSON.stringify(Boutiques) + "}";
+    ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/GetAllBoutiquesIDAndName");
     table = JSON.parse(ds.d);
     return table;
 }

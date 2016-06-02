@@ -13,7 +13,7 @@ namespace Boutique.AdminPanel
 
     public partial class SaDashBoard : System.Web.UI.Page
     {
-      private Boutiques boutiqueObj = new Boutiques();
+        private Boutiques boutiqueObj = new Boutiques();
         Users userObj = new Users();
         protected void Page_Load(object sender, EventArgs e)
         {

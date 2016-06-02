@@ -281,14 +281,14 @@
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 
-                             <div class="control-group">
-								<label class="control-label" for="selectError">Boutiques</label>
+                          
+
+                              <div class="control-group">
+								<label class="control-label" for="selectError3">Boutiques</label>
 								<div class="controls">
-                                 
-                                       <select class="input-large ddlboutiques" multiple="multiple" id="idDdlboutiques">
-                                            <option value="-1">Choose Boutiques</option>
-                            
-                                </select>
+								   <select class="ddlboutiques" id="idDdlboutiques">
+                                     <option></option>
+                                   </select>
 								</div>
 							  </div>
 
