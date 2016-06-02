@@ -226,5 +226,5 @@ function ClearCategoryControls()
     $('.alert-success').hide();
     $('.alert-error').hide();
     $(".AddCategory").text("Save");
-    //$("#txtCatCode").attr('disabled', false);
+   
 }

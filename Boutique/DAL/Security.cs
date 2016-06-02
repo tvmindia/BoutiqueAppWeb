@@ -41,6 +41,7 @@ namespace Boutique.DAL
             private string userN;
 
             private string RoleName;
+
             public string userName
             {
                 get
@@ -75,7 +76,10 @@ namespace Boutique.DAL
                 {
                     return RoleName;
                 }
+            
             }
+
+
             /// <summary>
             /// User id of logined user
             /// </summary>

@@ -2112,6 +2112,15 @@ fieldset[disabled] .btn-link:focus {
 	float: left;
 }
 
+
+.login-box .errormsg {
+	margin-top: 20px;
+	margin-left: 20px;
+	align-self:center;
+    color:red;
+}
+
+
 .login-box .button-login {
 	margin-top: 20px;
 	margin-right: 20px;

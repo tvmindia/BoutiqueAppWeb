@@ -29,7 +29,7 @@ namespace Boutique.Master
                 Response.Redirect(Const.LoginPageURL);
 
             }
-            //AccessCheck();
+            AccessCheck();
 
 
         }
@@ -38,69 +38,107 @@ namespace Boutique.Master
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            LoginName.Text = UA.userName;
 
         }
 
 
-        //public void AccessCheck()
-        //{
+        public void AccessCheck()
+        {
 
-        //    try
-        //    {
-
-        //        List<string> currRole = new List<string>();
-        //        currRole = UA.GetRoleName1(UA.userName);
-        //        string currPage = Const.GetCurrentPageName(Request);
-        //        string From = "?From=";
-        //        string redirectURL = "";
-
-        //        if (currRole.Count == 0) { Response.Redirect(Const.AccessDeniedURL); }
-
-        //        if (currPage != Const.AccessDenied)
-        //        {
-        //            if (currPage == Const.PatientPage) { }
-        //            if (currPage == Const.TokenPage) { }
-        //            if (currPage == Const.DoctorPage)
-        //            {
-        //                if (!currRole.Contains(Const.RoleDoctor))
-        //                {
-        //                    From = From + Const.Doctor;
-        //                    redirectURL = Const.AccessDeniedURL + From;
-        //                }
-        //            }
-        //            if (currPage == Const.PharmacyPage) { }
-        //            if (currPage == Const.StockPage) { }
-        //            if (currPage == Const.AdminPage)
-        //            {
-        //                if (!(currRole.Contains(Const.RoleDoctor) | currRole.Contains(Const.RoleAdministrator)))
-        //                {
-        //                    From = From + Const.Admin;
-        //                    redirectURL = Const.AccessDeniedURL + From;
-        //                }
-        //            }
-        //            if (currPage == Const.MasterPage)
-        //            {
-        //                if (!(currRole.Contains(Const.RoleAdministrator)))
-        //                {
-        //                    From = From + Const.Admin;
-        //                    redirectURL = Const.AccessDeniedURL + From;
-        //                }
-        //            }
+            //try
+            //{
+                string currRole = UA.Role;
+                string currPage = Const.GetCurrentPageName(Request);
+                string From = "?From=";
+                string redirectURL = "";
 
 
+                if (currRole == Const.Administrator)
+                {
+                    Li_SaDashBoard.Visible = false;
 
-        //            if (redirectURL != "") { Response.Redirect(redirectURL, true); }
+                    if (currPage.ToUpper() == Const.SaDashBoardPage.ToUpper() )
+                    {
+                      
+                        Response.Redirect(Const.LoginPage);
+
+                    }                        
+
+                }
+                else if (currRole == Const.Manager)
+                {
+                    
+                    Li_SaDashBoard.Visible = false;
+                    Li_Category.Visible = false;
+                    //Li_Products.Visible = false;
+                    //Li_Notifications.Visible = false;
+                    Li_LoyaltySettings.Visible = false;
+                    Li_People.Visible = false;
+                    Li_Profile.Visible = false;
+
+                    currPage=currPage.ToUpper();
+
+                    if (currPage == Const.SaDashBoardPage.ToUpper() || currPage == Const.CategoryPage.ToUpper() || currPage == Const.LoyaltySettingsPage.ToUpper() ||currPage==Const.PeoplePage.ToUpper()||currPage==Const.ProfilePage.ToUpper() )
+                    { 
+                        Response.Redirect(Const.LoginPage);                      
+                    }                                  
+
+                }
+                else
+                {
+
+                }
+
+
+                //if (currRole.Count == 0) { Response.Redirect(Const.UnderConstruction;) }
+
+                //if (currPage != Const.AccessDenied)
+                //{
+                //    if (currPage == Const.PatientPage) { }
+                //    if (currPage == Const.TokenPage) { }
+                //    if (currPage == Const.DoctorPage)
+                //    {
+                //        if (!currRole.Contains(Const.RoleDoctor))
+                //        {
+                //            From = From + Const.Doctor;
+                //            redirectURL = Const.AccessDeniedURL + From;
+                //        }
+                //    }
+                //    if (currPage == Const.PharmacyPage) { }
+                //    if (currPage == Const.StockPage) { }
+                //    if (currPage == Const.AdminPage)
+                //    {
+                //        if (!(currRole.Contains(Const.RoleDoctor) | currRole.Contains(Const.RoleAdministrator)))
+                //        {
+                //            From = From + Const.Admin;
+                //            redirectURL = Const.AccessDeniedURL + From;
+                //        }
+                //    }
+                //    if (currPage == Const.MasterPage)
+                //    {
+                //        if (!(currRole.Contains(Const.RoleAdministrator)))
+                //        {
+                //            From = From + Const.Admin;
+                //            redirectURL = Const.AccessDeniedURL + From;
+                //        }
+                //    }
 
 
 
-        //        }
+                //    if (redirectURL != "") { Response.Redirect(redirectURL, true); }
 
-        //    }
-        //    catch (Exception)
-        //    {
 
-        //        //   Response.Redirect(Const.AccessDeniedURL);
-        //    }
-        //}
+
+                //}
+
+            //}
+            //catch (Exception ex)
+            //{
+
+               
+                //   Response.Redirect(Const.AccessDeniedURL);
+            //}
+        }
     }
 }

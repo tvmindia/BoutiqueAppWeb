@@ -103,7 +103,7 @@
        </label>
        
     <asp:label runat="server" ID="lblFile"/>
-         <img id="imgprvw" onclick="imageChoose();" src="../img/defaultimages.jpg" alt="Click here to Upload Image"/>
+         <img id="imgprvw" onclick="imageChoose();" style="height:150px;width:150px;" src="../img/defaultimages.jpg" alt="Click here to Upload Image"/>
              <asp:Button CssClass="btn1" runat="server" id="UploadButton" text="Upload" OnClientClick="return gethiddenvalueparent();" onclick="UploadButton_Click" />
             </div>
        <%-- <input type="hidden" id="hdfchildproductID" runat="server" value=""/>--%>

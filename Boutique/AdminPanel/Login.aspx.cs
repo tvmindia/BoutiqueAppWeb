@@ -36,7 +36,7 @@ namespace Boutique.AdminPanel
                         }
 
                         Session.Add(constants.LoginSession, UA);
-                        if (UA.Role == "SAdmin")
+                        if (UA.Role == constants.SuperAdministrator)
                         {
                             Response.Redirect(constants.SAHomePage);
                         }
@@ -46,12 +46,17 @@ namespace Boutique.AdminPanel
                         }
                     }
 
-
+                    else
+                    {
+                        //lblmsg.Text = Messages.LoginFailed;
+                        lblmsg.Text = "Login Failed";
+                    }
 
                 }
                 else
                 {
                     //lblmsg.Text = Messages.LoginFailed;
+                    lblmsg.Text = "Login Failed";
                 }
 
 

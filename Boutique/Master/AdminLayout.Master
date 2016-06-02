@@ -30,8 +30,8 @@
 <script src="../Scripts/jquery.iphone.toggle.js"></script>
 <script src="../Scripts/jquery.uploadify-3.1.min.js"></script>
 <script src="../Scripts/jquery.gritter.min.js"></script>
-<script src="../Scripts/jquery.imagesloaded.js"></script>
-<script src="../Scripts/jquery.masonry.min.js"></script>
+<script src="../Scripts/imagesloaded.pkgd.min.js"></script>
+<script src="../Scripts/masonry.pkgd.min.js"></script>
 <script src="../Scripts/jquery.knob.modified.js"></script>
 <script src="../Scripts/jquery.sparkline.min.js"></script>
 <script src="../Scripts/counter.js"></script>
@@ -329,7 +329,7 @@
 						<!-- start: User Dropdown -->
 						<li class="dropdown">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="halflings-icon white user"></i> Super Admin
+								<i class="halflings-icon white user"></i> <asp:Label runat="server" ID="LoginName" Text=""></asp:Label>
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
@@ -337,7 +337,7 @@
  									<span>Account Settings</span>
 								</li>
 								<li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
-								<li><a href="login.html"><i class="halflings-icon off"></i> Logout</a></li>
+								<li><a href="../AdminPanel/Login.aspx"><i class="halflings-icon off"></i>Logout</a></li>
 							</ul>
 						</li>
 						<!-- end: User Dropdown -->
@@ -359,16 +359,27 @@
 			
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
-                        <li><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-						<li><a href="Profile.aspx"><i class=""></i><span class="hidden-tablet">✎ Profile</span></a></li>
-						<li><a href="People.aspx"><i class=""></i><span class="hidden-tablet">👨 People</span></a></li>
-						<li><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
+						<li id ="Li_SaDashBoard" runat="server"><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
+                        <li id ="Li_DashBoard" runat="server"><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+				 	    <li id ="Li_Profile" runat="server"><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet"> Profile</span></a></li>
+						<li id ="Li_People" runat="server"><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet"> People</span></a></li>
+                       <%-- 	<li><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet">Profile</span></a></li>
+						<li><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet">People</span></a></li>--%>
+
+						<li id ="Li_Category" runat="server"><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
+						<li id ="Li_Products" runat="server"><a href="Products.aspx"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>		
+						<li id ="Li_Notifications" runat="server"><a href="Notifications.aspx"><i class="icon-edit"></i><span class="hidden-tablet"> Notifications</span></a></li>
+						<li id ="Li_Loyalty" runat="server"><a href="Loyalty.aspx"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
+						<li id ="Li_LoyaltySettings" runat="server"><a href="LoyaltySettings.aspx"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>
+					
+						
+                      
+					
+					<%--	<li><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
 						<li><a href="Products.aspx"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>		
 						<li><a href="Notifications.aspx"><i class="icon-edit"></i><span class="hidden-tablet"> Notifications</span></a></li>
 						<li><a href="Loyalty.aspx"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
-						<li><a href="LoyaltySettings.aspx"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>
-						
+						<li><a href="LoyaltySettings.aspx"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>--%>
 						
                        
 					</ul>
