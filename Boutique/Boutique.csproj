@@ -63,6 +63,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminPanel\AccessDenied.aspx" />
     <Content Include="AdminPanel\Category.aspx" />
     <Content Include="AdminPanel\DashBoard.aspx" />
     <Content Include="AdminPanel\Login.aspx" />
@@ -310,6 +311,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminPanel\AccessDenied.aspx.cs">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\AccessDenied.aspx.designer.cs">
+      <DependentUpon>AccessDenied.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\Category.aspx.cs">
       <DependentUpon>Category.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
