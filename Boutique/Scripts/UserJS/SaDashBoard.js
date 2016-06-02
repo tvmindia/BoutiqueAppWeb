@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
 
-    $(".ddlDesigners").select2({
+    $(".ddlboutiques").select2({
 
         data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
        , allowClear: true
@@ -141,7 +141,14 @@
           
             var result = "";
             var Admin = new Object();
-            Admin.BoutiqueID = $('.selectpicker').selectpicker('val');//"470a044a-4dba-4770-bca7-331d2c0834ae";
+            if ($("#idDdlboutiques").val() != null) {
+                Admin.BoutiqueID = $("#idDdlboutiques").val();
+            }
+            else {
+                Admin.BoutiqueID = "";
+            }
+
+           
             Admin.Name = $("#txtUserName").val();
             
             Admin.Mobile = $("#txtMobile").val();
@@ -184,7 +191,7 @@
 function BindAsyncBoutiques() {
     var jsonResult = {};
     var Boutiques = new Object();
-    jsonResult = GetAllBoutiques(Boutiques);
+    jsonResult = GetAllBoutiquesIDandName(Boutiques);
     if (jsonResult != undefined) {
         return jsonResult;
      }
@@ -258,11 +265,20 @@ function InsertAdmin(Admin) {
 
 }
 
-function GetAllBoutiques(Boutiques) {
+function GetAllBoutiquesIDandName(Boutiques) {
     var ds = {};
     var table = {};
     var data = "{'boutiquesObj':" + JSON.stringify(Boutiques) + "}";
-    ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/GetAllBoutiquesIDAndName");
+    ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/GetAllBoutiqueIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetAllBoutiques() {
+    var ds = {};
+    var table = {};
+    var data = "{}";
+    ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/GetAllBoutiques");
     table = JSON.parse(ds.d);
     return table;
 }

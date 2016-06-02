@@ -366,15 +366,15 @@ namespace Boutique.DAL
         #region GetAllBoutiqueIDAndName
         public DataSet GetAllBoutiqueIDAndName()
         {
+
+           
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter sda = null;
-            Guid _boutiqueid = Guid.Empty;
+          
             try
             {
-             
-               
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();

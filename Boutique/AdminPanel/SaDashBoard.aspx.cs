@@ -20,8 +20,9 @@ namespace Boutique.AdminPanel
 
         }
         #region webmethods
-        [System.Web.Services.WebMethod]
+       
         #region GetAllBoutiques
+         [System.Web.Services.WebMethod]
         public static string GetAllBoutiques()
         {
             string jsonResult = null;
@@ -173,16 +174,35 @@ namespace Boutique.AdminPanel
         }
         #endregion BindBoutiqueDetails
 
-
+        #region GetAllBoutiqueIDandName
+        [System.Web.Services.WebMethod]
+        public static string GetAllBoutiqueIDandName(Boutiques boutiquesObj)
+        {
+              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+              DataSet ds = null;
+              ds = boutiquesObj.GetAllBoutiqueIDAndName();
+              //Converting to Json
+              List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+              Dictionary<string, object> childRow;
+              if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+          
+          
+        }
+        #endregion GetAllBoutiqueIDandName
         #endregion webmethods
-        #region Methods
-
-       
-        public void show()
-{
-
-}
-        #endregion Methods
+      
 
 
         #region events
