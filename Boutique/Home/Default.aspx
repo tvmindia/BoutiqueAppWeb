@@ -141,7 +141,7 @@
 						</svg>
 
    
-    <section id="why" class="wrapper why special moonrise">
+    <section id="why" class="wrapper white special iphoneBack">
         <div class="container">
             <header class="major">
                 <h2>Why you need own app ?</h2>
@@ -198,7 +198,7 @@
         </div>
     </section>--%>
     <!-- One -->
-    <section id="howitworks" class="wrapper howitworks special jonquil">
+    <section id="howitworks" class="wrapper gray special">
         <div class="container">
             <header class="major">
                 <h2>How It Works</h2>
@@ -230,7 +230,7 @@
         </div>
     </section>
 
-    <section id="social" class="wrapper social special">
+    <section id="social" class="wrapper white special jonquil">
         <div class="container">
             <header class="major">
                 <h2>Social Media</h2>
@@ -265,7 +265,7 @@
     </section>
 
     <!-- Two -->
-    <section id="testrimonials" class="wrapper testrimonials special">
+    <section id="testrimonials" class="wrapper gray special">
         <div class="container">
             <header class="major">
                 <h2>Stories</h2>

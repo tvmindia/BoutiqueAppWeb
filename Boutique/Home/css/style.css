@@ -1446,6 +1446,72 @@ z-index:9999;
             color: #444;
         }
 
+
+
+.wrapper.white {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(144, 144, 144, 0.25);
+    border-top: 1px solid rgba(144, 144, 144, 0.25);
+    background-position: right bottom;
+    width: 100%;
+    color: #7E3D14!important;
+}
+       .wrapper.white h2 {
+    color: #333333;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.10);
+}
+        .wrapper.white h2, h4 {
+     color: #333333!important;
+}
+          .wrapper.white p {
+            
+              color: #333333!important;
+        }
+
+
+          .wrapper.gray {
+    background-color: #F7F7F7;
+    border-bottom: 1px solid rgba(144, 144, 144, 0.15);
+    
+    border-top: 1px solid rgba(144, 144, 144, 0.15);
+    background-position: center center;
+    width: 100%;
+    color: #339966;
+}
+       .wrapper.gray h2 {
+    color: #333333;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0.10);
+}
+        .wrapper.gray h2, h4 {
+     color: #333333!important;
+}
+          .wrapper.gray p {
+            
+              color: #333333!important;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Footer */
 
 #footer {
@@ -1640,4 +1706,11 @@ background: #DAE2F8; /* fallback for old browsers */
 background: -webkit-linear-gradient(to left, #DAE2F8 , #D6A4A4); /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to left, #DAE2F8 , #D6A4A4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         
+}
+
+.iphoneBack {
+
+        background-image: linear-gradient( rgba(255, 255, 240, 0.75), rgba(255, 255, 240, 0.75) ), url(../images/samsung.jpg);
+        background-repeat: no-repeat;
+        background-size:cover;
 }

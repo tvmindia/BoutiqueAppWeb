@@ -18,63 +18,63 @@ namespace BoutiqueWebsite
 
 
 
-        [WebMethod]
-        public static string sendMail(string name, string msg, string email,string mobile,string boutiquename)
-        {
-            try
-            {
+        //[WebMethod]
+        //public static string sendMail(string name, string msg, string email,string mobile,string boutiquename)
+        //{
+        //    try
+        //    {
 
 
-                if (email.Trim() == "" || boutiquename.Trim() == "" || name.Trim() == "")
-                {
-                return "Oh ! Some fields are not filled yet !";
+        //        if (email.Trim() == "" || boutiquename.Trim() == "" || name.Trim() == "")
+        //        {
+        //        return "Oh ! Some fields are not filled yet !";
             
-            }
+        //    }
        
-            DateTime CurrentTime = DateTime.Now;
-            MailMessage Msg = new MailMessage();
+        //    DateTime CurrentTime = DateTime.Now;
+        //    MailMessage Msg = new MailMessage();
 
 
-            // Sender e-mail address.
-            Msg.From = new MailAddress("contact.bewedo@gmail.com");
-            // Recipient e-mail address.
-            Msg.To.Add("contact.bewedo@gmail.com");
+        //    // Sender e-mail address.
+        //    Msg.From = new MailAddress("tiquesinn@gmail.com");
+        //    // Recipient e-mail address.
+        //    Msg.To.Add("tiquesinn@gmail.com");
 
 
-            string message = "<table style='width:70%'><tr><td>From </td><td>: </td><td>" + name + "</td></tr>";
-            message = message + "<tr><td>Boutique</td><td> :</td> <td>" + boutiquename + "</td></tr>";
-            message = message + "<tr><td>Email</td><td> :</td> <td>" + email + "</td></tr>";
-            message = message + "<tr><td>Mobile</td><td> :</td><td> " + mobile + "</td></tr>";
-            message = message + "<tr><td>Date</td><td> :</td><td> " + CurrentTime + "</td></tr>";
+        //    string message = "<table style='width:70%'><tr><td>From </td><td>: </td><td>" + name + "</td></tr>";
+        //    message = message + "<tr><td>Boutique</td><td> :</td> <td>" + boutiquename + "</td></tr>";
+        //    message = message + "<tr><td>Email</td><td> :</td> <td>" + email + "</td></tr>";
+        //    message = message + "<tr><td>Mobile</td><td> :</td><td> " + mobile + "</td></tr>";
+        //    message = message + "<tr><td>Date</td><td> :</td><td> " + CurrentTime + "</td></tr>";
 
-            message = message + "<tr><td>Question </td><td>:</td><td> " + msg + "</td></tr></table>";
-
-
-
-            Msg.Subject = "Contact Us - Question from " + name;
-            Msg.Body = message;
-            Msg.IsBodyHtml = true;
+        //    message = message + "<tr><td>Question </td><td>:</td><td> " + msg + "</td></tr></table>";
 
 
 
-            // your remote SMTP server IP.
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.Credentials = new System.Net.NetworkCredential("contact.bewedo@gmail.com", "bewedopassword");
-            smtp.EnableSsl = true;
-            smtp.Send(Msg);
-            Msg = null;
-            return "Thank you  , we will get back to you soon !";
-            }
-            catch (Exception ex)
-            {
+        //    Msg.Subject = "Contact Us - Question from " + name;
+        //    Msg.Body = message;
+        //    Msg.IsBodyHtml = true;
 
-                return "Server Busy ! Try Again ! (" + ex.GetHashCode() + ")";
-            }
+
+
+        //    // your remote SMTP server IP.
+        //    SmtpClient smtp = new SmtpClient();
+        //    smtp.Host = "smtp.gmail.com";
+        //    smtp.Port = 587;
+        //    smtp.Credentials = new System.Net.NetworkCredential("tiquesinn@gmail.com", "tiquesinnpassword");//bewedopassword
+        //    smtp.EnableSsl = true;
+        //    smtp.Send(Msg);
+        //    Msg = null;
+        //    return "Thank you  , we will get back to you soon !";
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return "Server Busy ! Try Again ! (" + ex.GetHashCode() + ")";
+        //    }
                  
         
-        }
+        //}
 
         protected void sndmsg_Click(object sender, EventArgs e)
         {
