@@ -16,22 +16,15 @@
    <link href="../CSS/CustomCSS/ProductFileUpload.css" rel="stylesheet" />
    <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <script>
-
-
-        $("document").ready(function (e) {
-            //parent.BindAllImages();
-           
-        });//end of document.ready
-
         function gethiddenvalueparent()
         {
             var produid = parent.document.getElementById('hdfproductID').value;
-            var boutiqid = parent.document.getElementById('hdfBoutiqueID').value;
+           
             var obj = document.getElementById("<%=fileupload.ClientID%>");
-            if ((boutiqid !='')&&(produid != '') && (obj.value != ''))
+            if ((produid != '') && (obj.value != ''))
             {
                 
-                document.getElementById('hdfchildBoutiqueID').value = boutiqid;
+               
                 document.getElementById('hdfchildproductID').value = produid;
                 return true;
             }

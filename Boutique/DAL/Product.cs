@@ -229,7 +229,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     outstatus = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                     outproductid = cmd.Parameters.Add("@OutProductID", SqlDbType.UniqueIdentifier);
@@ -311,9 +311,8 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
                     cmd.Parameters.Add("@ImageInfo", SqlDbType.VarChar, -1).Value = imaginfo;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                     outParameter.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
@@ -826,17 +825,21 @@ namespace Boutique.DAL
         #endregion GetAllCategories
 
 #region GetAllCategoryIDAndName
-        public DataSet GetAllCategoryIDAndName(string boutiqueID)
+        public DataSet GetAllCategoryIDAndName()
             {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
                 DataSet ds = null;
                 SqlDataAdapter sda = null;
-                Guid _boutiqueid = Guid.Empty;
+              
                 try
                 {
-                    _boutiqueid = Guid.Parse(boutiqueID);
-                    if (_boutiqueid != Guid.Empty)
+
+                    if (BoutiqueID != "")
                     {
                         dcon = new dbConnection();
                         dcon.GetDBConnection();
@@ -844,7 +847,7 @@ namespace Boutique.DAL
                         cmd.Connection = dcon.SQLCon;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "[GetAllCategoryIDAndName]";
-                        cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                        cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                         sda = new SqlDataAdapter();
                         sda.SelectCommand = cmd;
                         ds = new DataSet();

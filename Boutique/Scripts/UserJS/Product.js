@@ -1,22 +1,20 @@
 ﻿$("document").ready(function (e) {
     //disables the div containing image upload and image list
     document.getElementById('imageupGallery').style.display = 'block';
-    var prodid = '8c9b8e83-dc8f-48d7-994b-8688516a8771'//$("#hdfproductID").val();
-    var boutiqid = '470a044a-4dba-4770-bca7-331d2c0834ae'//$("#hdfBoutiqueID").val();
-    BindAllProductImages(prodid, boutiqid);
-
-
+    //var prodid = '8c9b8e83-dc8f-48d7-994b-8688516a8771'//$("#hdfproductID").val();
+    //var boutiqid = '470a044a-4dba-4770-bca7-331d2c0834ae'//$("#hdfBoutiqueID").val();
+    //$("#hdfBoutiqueID").val(boutiqueid);
+    BindAllProductImages();//binds masanory gallery with product under current boutique
     //prduct galler slide effect-masonry
     var $mars= $('.imageholder').masonry(
             {
                 itemSelector: '.masonry-thumb',
                 isInitLayout: false
             });
-
-   $mars.imagesLoaded().progress(function () {
-       $mars.masonry('layout');
+     $mars.imagesLoaded().progress(function (){
+     $mars.masonry('layout');
     });
-    //prduct galler slide effect
+    //prduct gallery slide effect
 
 
     $("#olpreview").sortable({
@@ -24,8 +22,8 @@
         update: function( event, ui ) {}//when li image is reordered
     });
     $("#olpreview").disableSelection();
-     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
-     $("#hdfBoutiqueID").val(boutiqueid);
+    
+    
    
      BindAllImages();//list li of product images when images uploaded
 
@@ -34,11 +32,11 @@
     $(".ddlcategories").select2({
         placeholder: "Choose Categories",
         allowClear: true,
-        data: BindAsyncCategory(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
+        data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
     });
     $(".ddlDesigners").select2({
       
-        data: BindAsyncDesigner(boutiqueid)//Designer dropdown binds only with id and text[key:value] mandatory
+        data: BindAsyncDesigner()//Designer dropdown binds only with id and text[key:value] mandatory
         ,allowClear: true
         ,placeholder: "Select a Designer"
     });
@@ -54,7 +52,6 @@
             if ($(".AddProduct").text() == "Save") {
               
                 var Product = new Object();
-                Product.BoutiqueID = boutiqueid;
                 Product.Name = $("#txtName").val();
                 Product.Description = $("#txtDescription").val();
                 Product.Price = $("#txtPrice").val();
@@ -93,7 +90,7 @@
 
                     var Product = new Object();
                     Product.ProductID = $("#hdfproductID").val();
-                    Product.BoutiqueID = boutiqueid;
+                  
                     Product.Name = $("#txtName").val();
                     Product.Description = $("#txtDescription").val();
                     Product.Price = $("#txtPrice").val();
@@ -137,6 +134,7 @@
                         $('#rowfluidDiv').show();
                         $('.alert-success').show();
                         $(".AddProduct").text("Modify");
+                        BindAllProductImages();
                         //document.getElementById('imageupGallery').style.display = 'block';
                         // Scroll page
                         var offset = $('#rowfluidDiv').offset();
@@ -332,47 +330,42 @@ function BindProductTextBoxes(thisobject) {
       if (categories != '')
       {
           var catarray = categories.split(',');
+          for(var i=0;i<catarray.length;i++)
+          {
+              $(".ddlcategories").select2("val", catarray[i]);
+          }
       }
-    
-
     $(".AddProduct").text("Modify");
-   
-   
-}
+ }
 
-function BindAllProductImages(prodid, boutiqid) {
-    var imagedivholder = $('#productimagehold');
- 
-    if ((prodid != '') && (boutiqid !=''))
-    {
+function BindAllProductImages() {
+        var imagedivholder = $('#productimagehold');
         var Product = new Object();
-        Product.BoutiqueID = boutiqid;
+        //inserts from code behind
         var totalimages = {};
         totalimages = GetAllProductsImageDetailsunderBoutique(Product);
-        // $("#olpreview").find(".liclas").remove();
+        $("#productimagehold").find(".masonry-thumb").remove();
           
-        for (var i = 0; i < totalimages.length; i++) {
-            var html = ('<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
+        for (var i = 0; i < totalimages.length; i++)
+        {
+        var html = ('<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
         +'  <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
         +'<img id="img'+i+'" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID='+totalimages[i].ImageID+'">'
         + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>');
-            imagedivholder.append(html);
+        imagedivholder.append(html);
         }
-    }
 
 }
 
 
 function BindAllImages()
 {
-    var boutiqid = $("#hdfBoutiqueID").val();
+    //var boutiqid = $("#hdfBoutiqueID").val();
     var prodid = $("#hdfproductID").val();
-    if ((prodid != '') && (boutiqid != '')) {
+    if (prodid != '') {
 
         var Product = new Object();
         Product.ProductID = prodid;
-        Product.BoutiqueID = boutiqid;
-
         var imageids = {};
         imageids = GetAllProductImages(Product);
 
@@ -493,10 +486,12 @@ function postBlobAjax(formData, page)
 //post File/blog to Server
 
 
-function BindAsyncCategory(boutiqueid) {
+function BindAsyncCategory() {
     var jsonResult = {};
-    jsonResult = GetAllCategories(boutiqueid);
-    if (jsonResult != undefined) {
+    var Product = new Object();
+    jsonResult = GetAllCategories(Product);
+    if (jsonResult != undefined)
+    {
         return jsonResult;
     }
 }
@@ -528,9 +523,10 @@ function BindDesignerDropDown(dd, Records, indx)
 
 }
 
-function BindAsyncDesigner(boutiqueid) {
+function BindAsyncDesigner() {
     var jsonResult = {};
-    jsonResult = GetAllDesigners(boutiqueid);
+    var Designers = new Object();
+    jsonResult = GetAllDesigners(Designers);
     if (jsonResult != undefined) {
         return jsonResult;
        // $("#selectError3Cat").find
@@ -549,7 +545,6 @@ function GetAllProductsImageDetailsunderBoutique(Product) {
 }
 
 function GetAllProductImages(Product) {
-   
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -558,20 +553,19 @@ function GetAllProductImages(Product) {
     return table;
 }
 
-function GetAllCategories(boutiqueid) {
-
+function GetAllCategories(Product) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
     ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
     table = JSON.parse(ds.d);
-     return table;
+    return table;
 }
-function GetAllDesigners(boutiqueid) {
+function GetAllDesigners(Designers) {
 
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'designersObj':" + JSON.stringify(Designers) + "}";
     ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesignerIDAndName");
     table = JSON.parse(ds.d);
     return table;

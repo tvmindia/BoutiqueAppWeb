@@ -20,18 +20,22 @@ namespace Boutique.AdminPanel
         #region Methods
         #region GetAllCategories
         [System.Web.Services.WebMethod]
-        public static string GetAllCategoryIDandName(string Boutiqueid)
+        public static string GetAllCategoryIDandName(Product productObj)
         {
-            DataSet ds = null;
-            Product productObj = new Product();
-            ds = productObj.GetAllCategoryIDAndName(Boutiqueid);
-            string json;
-            //Converting to Json
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            if(UA.BoutiqueID != "")
             {
+                productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetAllCategoryIDAndName();
+                //Converting to Json
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if(ds.Tables[0].Rows.Count > 0)
+                {
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     childRow = new Dictionary<string, object>();
@@ -43,9 +47,10 @@ namespace Boutique.AdminPanel
                 }
             }
             return jsSerializer.Serialize(parentRow);
+            }
 
+            return jsSerializer.Serialize("");
           
-            //return json = JsonConvert.SerializeObject(ds.Tables[0]);
             //Converting to Json
         }
 

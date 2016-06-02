@@ -220,30 +220,38 @@ namespace Boutique.AdminPanel
 
         #region GetAllDesignerIDAndName
         [System.Web.Services.WebMethod]
-        public static string GetAllDesignerIDAndName(string Boutiqueid)
+        public static string GetAllDesignerIDAndName(Designers designersObj)
         {
-            DataTable dt = null;
-            Designers designerObj = new Designers();
-            designerObj.BoutiqueID = Boutiqueid;
-            dt = designerObj.GetAllDesignerIDAndName();
-            //Converting to Json
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (dt.Rows.Count > 0)
+            if (UA.BoutiqueID != "")
             {
-                foreach (DataRow row in dt.Rows)
+                designersObj.BoutiqueID = UA.BoutiqueID;
+                DataTable dt = null;
+
+                dt = designersObj.GetAllDesignerIDAndName();
+                //Converting to Json
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (dt.Rows.Count > 0)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in dt.Columns)
+                    foreach (DataRow row in dt.Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
+                return jsSerializer.Serialize(parentRow);
+                //Converting to Json
             }
-            return jsSerializer.Serialize(parentRow);
             //Converting to Json
+            return jsSerializer.Serialize("");
         }
         #endregion GetAllDesignerIDAndName
 

@@ -35,13 +35,10 @@ namespace Boutique.DAL
             #region Properties          
            
             private string BoutiqueName;
-            private Guid Boutique_ID;
-
+            private string Boutique_ID;
             private Boolean isValidUser;
             private string userN;
-
             private string RoleName;
-
             public string userName
             {
                 get
@@ -63,7 +60,7 @@ namespace Boutique.DAL
                     return BoutiqueName;
                 }
             }
-            public Guid BoutiqueID
+            public string BoutiqueID
             {
                 get
                 {
@@ -90,6 +87,12 @@ namespace Boutique.DAL
             }
 
             #endregion Properties
+            #region UserAuthendication default constructor
+            public UserAuthendication()
+            {
+
+            }
+            #endregion UserAuthendication default constructor
 
             #region User Authentication
             public UserAuthendication(String userName, String password)
@@ -111,7 +114,7 @@ namespace Boutique.DAL
                         userN = userName;
 
                         BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
-                        Boutique_ID = new Guid(dt.Rows[0]["BoutiqueID"].ToString());
+                        Boutique_ID = dt.Rows[0]["BoutiqueID"].ToString();
 
                         RoleName = dt.Rows[0]["RoleName"].ToString();
                     }
