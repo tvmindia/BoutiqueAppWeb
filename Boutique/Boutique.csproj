@@ -117,7 +117,6 @@
     <Content Include="CSS\uploadify.css" />
     <Content Include="font\glyphicons-regular.svg" />
     <Content Include="font\glyphiconshalflings-regular.svg" />
-    <Content Include="AdminPanel\AccessDenied.aspx" />
     <Content Include="General\UnderConstruction.aspx" />
     <Content Include="Home\css\font-awesome.min.css" />
     <Content Include="Home\css\skel.css" />
@@ -139,23 +138,26 @@
     <Content Include="Home\images\contact.jpg" />
     <Content Include="Home\images\dark_tint.png" />
     <Content Include="Home\images\engine.png" />
+    <Content Include="Home\images\iphone.png" />
     <Content Include="Home\images\pic02.jpg" />
     <Content Include="Home\images\pic03.jpg" />
     <Content Include="Home\images\pic04.jpg" />
     <Content Include="Home\images\pic07.jpg" />
     <Content Include="Home\images\pic08.jpg" />
     <Content Include="Home\images\profile_placeholder.gif" />
+    <Content Include="Home\images\samsung.jpg" />
     <Content Include="Home\images\social.jpg" />
     <Content Include="Home\images\testrimonials.jpg" />
     <Content Include="Home\images\testrimonials1.jpg" />
     <Content Include="Home\images\why.jpg" />
+    <Content Include="Home\images\why1.jpg" />
     <Content Include="Home\js\engine.js" />
     <Content Include="Home\js\html5shiv.js" />
     <Content Include="Home\js\init.js" />
     <Content Include="Home\js\jquery.min.js" />
     <Content Include="Home\js\skel-layers.min.js" />
     <Content Include="Home\js\skel.min.js" />
-    <Content Include="img\403.png" />
+    <Content Include="Home\mailTemplates\ContactUs.html" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />
@@ -244,8 +246,6 @@
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
-    <Content Include="Scripts\imagesloaded.pkgd.min.js" />
-    <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
@@ -295,8 +295,10 @@
     <Content Include="Scripts\jquery.flot.resize.min.js" />
     <Content Include="Scripts\jquery.flot.stack.js" />
     <Content Include="Scripts\jquery.gritter.min.js" />
+    <Content Include="Scripts\jquery.imagesloaded.js" />
     <Content Include="Scripts\jquery.iphone.toggle.js" />
     <Content Include="Scripts\jquery.knob.modified.js" />
+    <Content Include="Scripts\jquery.masonry.min.js" />
     <Content Include="Scripts\jquery.noty.js" />
     <Content Include="Scripts\jquery.raty.min.js" />
     <Content Include="Scripts\jquery.sparkline.min.js" />
@@ -395,13 +397,6 @@
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\Security.cs" />
     <Compile Include="DAL\Users.cs" />
-    <Compile Include="AdminPanel\AccessDenied.aspx.cs">
-      <DependentUpon>AccessDenied.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AdminPanel\AccessDenied.aspx.designer.cs">
-      <DependentUpon>AccessDenied.aspx</DependentUpon>
-    </Compile>
     <Compile Include="General\UnderConstruction.aspx.cs">
       <DependentUpon>UnderConstruction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

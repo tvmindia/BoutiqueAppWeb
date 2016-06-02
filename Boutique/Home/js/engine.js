@@ -59,9 +59,9 @@ function showPage(){
 function showCaptions() {
 
     $('#bannerName').fadeIn(1500)
-    $('#bannerCaption').fadeIn(1200, function () {  startScroll(); });
+    $('#bannerCaption').fadeIn(1200);
     $('#bannerDetailCaption').show();
-    
+      startScroll();
      
     
 }

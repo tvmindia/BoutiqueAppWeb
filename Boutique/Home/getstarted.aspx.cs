@@ -35,11 +35,11 @@ namespace Boutique.Home
 
 
                 // Sender e-mail address.
-                Msg.From = new MailAddress("contact.bewedo@gmail.com");
+                Msg.From = new MailAddress("tiquesinn@gmail.com");
                 // Recipient e-mail address.
-                Msg.To.Add("contact.bewedo@gmail.com");
+                Msg.To.Add("tiquesinn@gmail.com");
 
-
+                
                 string message = "<table style='width:70%'><tr><td>From </td><td>: </td><td>" + name + "</td></tr>";
                 message = message + "<tr><td>Boutique</td><td> :</td> <td>" + boutiquename + "</td></tr>";
                 message = message + "<tr><td>Email</td><td> :</td> <td>" + email + "</td></tr>";
@@ -60,7 +60,7 @@ namespace Boutique.Home
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("contact.bewedo@gmail.com", "bewedopassword");
+                smtp.Credentials = new System.Net.NetworkCredential("tiquesinn@gmail.com", "tiquesinnpassword");//bewedopassword
                 smtp.EnableSsl = true;
                 smtp.Send(Msg);
                 Msg = null;

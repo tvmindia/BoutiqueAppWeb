@@ -84,7 +84,7 @@
 
 
 
-         <div class="row-fluid">
+         <div id="NewNotification" runat="server" class="row-fluid">
 
                   <div class="box span6">
 
