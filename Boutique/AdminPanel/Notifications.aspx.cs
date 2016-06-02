@@ -12,9 +12,18 @@ namespace Boutique.AdminPanel
 {
     public partial class Notifications : System.Web.UI.Page
     {
+
+        DAL.Security.UserAuthendication UA;
+        UIClasses.Const Const = new UIClasses.Const();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
+            if(UA.Role==Const.Manager)
+            {
+                NewNotification.Visible = false;
+            }
 
         }
 
