@@ -71,11 +71,11 @@
                      
           
 					<div class="box-header">
-						<h2>  All Boutiques</h2>
+						<h2><span class="break"></span>All Boutiques</h2>
 						<div class="box-icon">
-							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
+							<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>style="height:350px;overflow:auto;"--%>
+							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
 						</div>
 					</div>
 					<div class="box-content" style="min-height:50px; max-height:350px; overflow:scroll;">
