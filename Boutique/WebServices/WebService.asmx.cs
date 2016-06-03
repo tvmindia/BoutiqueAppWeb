@@ -234,6 +234,7 @@ namespace Boutique.WebServices
         /// <param name="dob"></param>
         /// <param name="anniversary"></param>
         /// <param name="gender"></param>
+        /// <param name="referral">Referral loyalty number. sent "null" if there is none</param>
         /// <returns>flag and message. Then OTP number and Loyalty Card Number. also UserID for activation</returns>
         [WebMethod]
         public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary, string referral)
@@ -261,6 +262,10 @@ namespace Boutique.WebServices
                 else
                 {
                     user.Anniversary = "";
+                }
+                if (referral == "null")
+                {
+                    referral = "";                          //App can't sent empty string
                 }
                 user.Gender = gender;
                 user.IsActive = true;
