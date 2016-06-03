@@ -70,7 +70,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string NewBoutique(Boutiques boutiqueobj)
         {
-            string status=null;        
+           string status=null;        
            if(boutiqueobj.BoutiqueID == null)
            {
                status= boutiqueobj.NewBoutique().ToString();
