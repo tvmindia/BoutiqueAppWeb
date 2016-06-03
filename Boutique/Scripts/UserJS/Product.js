@@ -26,7 +26,11 @@
     
    
      BindAllImages();//list li of product images when images uploaded
-
+     $(".ddlrelateproducts").select2({
+         placeholder: "Choose Related Products",
+         allowClear: true,
+         data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
+     });
 
 
     $(".ddlcategories").select2({
@@ -34,6 +38,7 @@
         allowClear: true,
         data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
     });
+
     $(".ddlDesigners").select2({
       
         data: BindAsyncDesigner()//Designer dropdown binds only with id and text[key:value] mandatory
@@ -495,6 +500,14 @@ function BindAsyncCategory() {
         return jsonResult;
     }
 }
+function BindAsyncRelatedProducts() {
+    var jsonResult = {};
+    var Product = new Object();
+    jsonResult = GetAllRelatedProducts(Product);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
 
 
 function BindDesignerDropDown(dd, Records, indx)
@@ -558,6 +571,15 @@ function GetAllCategories(Product) {
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetAllRelatedProducts(Product) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllRelatedProductsIDandName");
     table = JSON.parse(ds.d);
     return table;
 }

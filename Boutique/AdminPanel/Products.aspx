@@ -126,6 +126,12 @@
 								  <input class="input-large focused" id="txtPrice" type="text"/>
 								</div>
 								</div>
+                             <div class="control-group">
+								 <label class="control-label" for="focusedInput">Discount</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtDiscount" type="text"/>
+								</div>
+								</div>
                               <div class="control-group">
 								<label class="control-label">Is OutofStock</label>
 								<div class="controls">
@@ -163,6 +169,14 @@
                                 <select class="input-large ddlcategories" multiple="multiple" id="idDdlCategories">
                             
                                 </select>
+                                </div>
+                            </div>
+
+                             <div class="control-group">
+                                <label class="control-label" for="selectError1">Related Products</label>
+                                <div class="controls">
+                                    <select class="input-large ddlrelateproducts" multiple="multiple" id="idDdlrelateproducts">
+                                    </select>
                                 </div>
                             </div>
                           

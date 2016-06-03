@@ -1,8 +1,8 @@
 ﻿$("document").ready(function (e) {
 
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+   
 
-    BindAsyncCategoryTable(boutiqueid);
+    BindAsyncCategoryTable();
 
 
     $(".catdelete").live(
@@ -31,7 +31,7 @@
 
                 }
 
-                BindAsyncCategoryTable(boutiqueid);
+                BindAsyncCategoryTable();
                 $("#txtCatCode").val('');
                 $("#txtCategoryName").val('');
                 $(".AddCategory").text("Save");
@@ -90,7 +90,7 @@
                 Category.CategoryName = $("#txtCategoryName").val();
                 result = UpdateCategory(Category);
             }
-            BindAsyncCategoryTable(boutiqueid);
+            BindAsyncCategoryTable();
 
 
             if (result == "1") {
@@ -142,7 +142,7 @@ function getJsonData(data, page) {
 //---end of getting data as json -----//
 
 
-function BindAsyncCategoryTable(boutiqueid)
+function BindAsyncCategoryTable()
 {
     var jsonResult = {};
     var Product = new Object();
