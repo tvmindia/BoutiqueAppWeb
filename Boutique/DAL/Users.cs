@@ -291,7 +291,6 @@ namespace Boutique.DAL
             SqlParameter outParameter = null;
             SqlParameter outParameter2 = null;
             SqlParameter outParameter3 = null;
-            Guid _boutiqued = Guid.Empty;
             try
             {
                     dcon = new dbConnection();
@@ -304,7 +303,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
                     cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqued;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     if (DOB != "") cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
                     if (Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
