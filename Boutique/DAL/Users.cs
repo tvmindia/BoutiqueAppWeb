@@ -271,6 +271,81 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
+        /// <summary>
+        /// Adding new user with a referral.
+        /// </summary>
+        /// <param name="referral">referral loyalty card number</param>
+        /// <returns></returns>
+        public Int16 AddNewUser(string referral)
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (Mobile == "")
+            {
+                throw new Exception("Mobile is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            SqlParameter outParameter2 = null;
+            SqlParameter outParameter3 = null;
+            Guid _boutiqued = Guid.Empty;
+            try
+            {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[AddingNewUser]";
+                    cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
+                    cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
+                    cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqued;
+                    if (DOB != "") cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
+                    if (Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
+                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;
+                    cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
+                    cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 6).Value = Gender;
+                    cmd.Parameters.Add("@Referral", SqlDbType.BigInt).Value = Int64.Parse(referral);
+                    outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                    outParameter2 = cmd.Parameters.Add("@LoyalyCardNumber", SqlDbType.BigInt);
+                    outParameter3 = cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier);
+                    outParameter.Direction = ParameterDirection.Output;
+                    outParameter2.Direction = ParameterDirection.Output;
+                    outParameter3.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+              
+            }
+
+            catch (SqlException ex)
+            {   //------------------Mobile number already exist exception
+                if (ex.Number == 2627) throw new Exception("This Mobile number is already registered!! Please login"); //Unique Constraint violation
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            LoyaltyCardNo = Int64.Parse(outParameter2.Value.ToString());
+            UserID = outParameter3.Value.ToString();
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
         #endregion AddNewUser
 
         #region User Activation
