@@ -175,6 +175,19 @@
          }
      })
 
+    $(".CancelAdmin").live({
+             
+        click: function (e) {// Clear controls
+             clearAdminControls();
+        }
+    })
+
+    $(".CancelManager").live({
+        click: function (e) {// Clear controls
+            clearManagerControls();
+        }
+    })
+
 
     $(".CancelUser").live({
         click: function (e) {// Clear controls
@@ -195,6 +208,7 @@
         }
     })
 
+
     $(".AddOwner").live({
         click: function (e) {// submit button click
             $('#rowfluidDiv').hide();
@@ -202,6 +216,9 @@
             $('.alert-error').hide();
             var result = "";
             var Owners = new Object();
+
+
+
             if ($("#hdfUserID").val() != "")
             {
                 Owners.UserID = $("#hdfUserID").val();
@@ -447,6 +464,35 @@ function InsertDesigner(Designer)
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
+}
+
+function clearManagerControls() {
+    $("#txtManagerName").val('');
+    $("#txtManagerMobile").val('');
+    $("#txtManagerLoginName").val('');
+    $("#txtManagerPass").val('');
+    $("#txtManagerConPass").val('');
+    $("#txtManagerEmail").val('');
+    $("#chkActiveManager").val('');   
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $(".AddManager").text("Save");
+}
+
+function clearAdminControls() {
+
+    $("#txtAdminName").val('');
+    $("#txtMobileAdmin").val('');
+    $("#txtAdminLoginName").val('');
+    $("#txtAdminPass").val('');
+    $("#txtAdminConPass").val('');
+    $("#txtAdminEmail").val('');
+    $("#chkActiveAdmin").val('');
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $(".AddAdmin").text("Save");
 }
 
 function clearOwnerControls()

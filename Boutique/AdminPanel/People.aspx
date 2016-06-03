@@ -160,7 +160,7 @@
                         </div>
                       <footer class="InnerFooter">
                                 <a class="btn btn-primary AddAdmin" href="#">Save</></a>
-                                <a class="btn CancelAdClear">Cancel</a>
+                                <a class="btn CancelAdmin">Cancel</a>
              			       </footer> 
 
                 </div>
@@ -302,8 +302,8 @@
                              
                         </div>
                       <footer class="InnerFooter">
-                                <a class="btn btn-primary AddAdmin" href="#">Save</></a>
-                                <a class="btn CancelAdClear">Cancel</a>
+                                <a class="btn btn-primary AddManager" href="#">Save</></a>
+                                <a class="btn CancelManager">Cancel</a>
              			       </footer> 
 
                 </div>
@@ -355,157 +355,9 @@
 
            
         </div>
+   
 
         <div class="row-fluid" style="height:10px"></div>
-
-        <div class="row-fluid">
-
-            <div class="box-header">
-                <h2>Owner</h2>
-                <div class="box-icon">
-                    <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
-                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                    <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
-                </div>
-            </div>
-            <div class="box-content">
-
-
-                <div class="box span6">
-                    <div class="box-header">
-                        <h2>New Owner</h2>
-                        <div class="box-icon">
-                            <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
-                            <%-- <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
-                            <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
-                        </div>
-                    </div>
-                    <div class="box-content" style="height: 438px; overflow: auto;">
-                        <div class="form-horizontal">
-                            <%--<fieldset>--%>
-                            <div class="control-group">
-
-                                <label class="control-label" for="focusedInput">Name</label>
-                                <div class="controls">
-                                    <input class="input-large focused" id="txtOwnerName" type="text" />
-                                </div>
-                            </div>
-
-
-                            <div class="control-group">
-                                <label class="control-label" for="focusedInput">Address</label>
-                                <div class="controls">
-                                    <textarea class="form-control" style="max-width: 68%" rows="4" id="txtOwnerAddress"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label" for="focusedInput">Phone</label>
-                                <div class="controls">
-                                    <input class="input-large focused" id="txtPhone" type="text" />
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label" for="focusedInput">Email</label>
-                                <div class="controls">
-                                    <input class="input-large focused" id="txtOwnerEmail" type="text" />
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <label class="control-label" for="date01">DOB</label>
-                                <div class="controls">
-                                    <input type="text" class="input-large datepicker" id="DOBDate" value="" />
-                                </div>
-                            </div>
-
-
-
-                            <div class="control-group">
-                                <label class="control-label">Gender</label>
-                                <div class="controls">
-                                    <label class="radio">
-                                        <input type="radio" name="optionsRadios" id="radioMale" value="option1" checked="" />
-                                        Male
-                                    </label>
-                                    <div style="clear: both"></div>
-                                    <label class="radio">
-                                        <input type="radio" name="optionsRadios" id="radioFemale" value="option2" />
-                                        Female
-                                    </label>
-                                </div>
-                            </div>
-
-
-
-                            <div class="control-group">
-                                <label class="control-label" for="focusedInput">Profile</label>
-                                <div class="controls">
-                                    <textarea class="form-control" style="max-width: 68%" rows="4" id="txtProfile"></textarea>
-                                </div>
-                            </div>
-
-
-
-
-
-                        </div>
-
-
-                        <%--</fieldset>--%>
-                    </div>
-
-                    <footer class="InnerFooter">
-                        <a class="btn btn-primary AddOwner" href="#">Save</></a>
-
-                        <a class="btn CancelOwner">Cancel</a>
-
-                    </footer>
-                </div>
-
-                <%--Grid Owners--%>
-                <div class="box span6">
-                    <div class="box-header">
-                        <h2>Current Owners</h2>
-                        <div class="box-icon">
-                            <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
-                            <%--  <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
-                            <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
-                        </div>
-                    </div>
-                    <div class="box-content" style="height: 492px; overflow: auto;">
-                        <table class="table table-condensed" id="OwnerTable">
-                            <thead>
-                                <tr>
-                                    <th>Owner Name</th>
-                                    <th>Mobile</th>
-                                    <th>Email</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                        <%-- <div class="pagination pagination-centered">
-						  <ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active">
-							  <a href="#">1</a>
-							</li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						  </ul>
-						</div>     --%>
-                    </div>
-                </div>
-                <%--  Grid Owners--%>
-            </div>
-        </div>
-
-          <div class="row-fluid" style="height:10px"></div>
 
         <div class="row-fluid">
 

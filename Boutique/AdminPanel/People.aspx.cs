@@ -40,13 +40,22 @@ namespace Boutique.AdminPanel
      
         #endregion DeleteOwner
 
-        #region NewOwner
+        #region InsertOwner
+
         [System.Web.Services.WebMethod]
         public static string InsertOwner(Owners ownersObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+
+
             string status = null;
             try
             {
+                ownersObj.BoutiqueID = UA.BoutiqueID;
 
                 if (ownersObj.OwnerID != null)
                 {
@@ -70,6 +79,7 @@ namespace Boutique.AdminPanel
             return status;
         }
         #endregion NewOwner
+
         #region GetOwner
         [System.Web.Services.WebMethod]
         public static string GetOwner(Owners ownersObj)
