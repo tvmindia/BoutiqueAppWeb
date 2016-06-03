@@ -566,7 +566,7 @@ function GetAllDesigners(Designers) {
     var ds = {};
     var table = {};
     var data = "{'designersObj':" + JSON.stringify(Designers) + "}";
-    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllBoutiqueIDandName");
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesignerIDAndName");
     table = JSON.parse(ds.d);
     return table;
 }

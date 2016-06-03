@@ -8,33 +8,35 @@
     $(".catdelete").live(
     {
         click: function (e) {
-
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            var jsonResult = {};
-            editedrow = $(this).closest('tr');
-            var Category = new Object();
-            Category.BoutiqueID = boutiqueid;
-            Category.CategoryID = editedrow.attr("CategoryID");
-            Category.CategoryCode = editedrow.attr("CategCode");
-            result = DeleteCategory(Category);
-            if (result == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
+            if (confirm("You are about to Delete Category!..")) {
 
-            }
-            if (result != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
+                var jsonResult = {};
+                editedrow = $(this).closest('tr');
+                var Category = new Object();
+                Category.BoutiqueID = boutiqueid;
+                Category.CategoryID = editedrow.attr("CategoryID");
+                Category.CategoryCode = editedrow.attr("CategCode");
+                result = DeleteCategory(Category);
+                if (result == "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
 
+                }
+                if (result != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+
+                }
+
+                BindAsyncCategoryTable(boutiqueid);
+                $("#txtCatCode").val('');
+                $("#txtCategoryName").val('');
+                $(".AddCategory").text("Save");
+                $("#hdfCategoryID").val('');
             }
-           
-            BindAsyncCategoryTable(boutiqueid);
-            $("#txtCatCode").val('');
-            $("#txtCategoryName").val('');
-            $(".AddCategory").text("Save");
-            $("#hdfCategoryID").val('');
             return false;
         }
     })
@@ -143,18 +145,19 @@ function getJsonData(data, page) {
 function BindAsyncCategoryTable(boutiqueid)
 {
     var jsonResult = {};
-    jsonResult = GetAllCategories(boutiqueid);
+    var Product = new Object();
+    jsonResult = GetAllCategories(Product);
     if (jsonResult != undefined) {
         BindCategoryTable(jsonResult);
     }
 }
 
 
-function GetAllCategories(boutiqueid) {
+function GetAllCategories(Product) {
 
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
     ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategories");
     table = JSON.parse(ds.d);
     return table;

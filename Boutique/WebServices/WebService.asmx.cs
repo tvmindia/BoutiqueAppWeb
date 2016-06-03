@@ -125,7 +125,7 @@ namespace Boutique.WebServices
             {
                 Product product = new Product();
                 product.BoutiqueID = boutiqueID;
-                dt = product.GetAllCategories(boutiqueID).Tables[0];
+                dt = product.GetAllCategories().Tables[0];
             }
             catch (Exception ex)
             {
