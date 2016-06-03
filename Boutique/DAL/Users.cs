@@ -222,17 +222,14 @@ namespace Boutique.DAL
                     cmd = new SqlCommand();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[AddNewUser]";
+                    cmd.CommandText = "[AddingNewUser]";
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
                     cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqued;
                     if (DOB != "") cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value =DateTime.Parse(DOB);
-                    if (Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
-                   
-                   
-                   
+                    if (Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);  
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;
                     cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
@@ -310,7 +307,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;
                     cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 6).Value = Gender;
-                    cmd.Parameters.Add("@Referral", SqlDbType.BigInt).Value = Int64.Parse(referral);
+                    if (referral != "") cmd.Parameters.Add("@Referral", SqlDbType.BigInt).Value = Int64.Parse(referral);
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                     outParameter2 = cmd.Parameters.Add("@LoyalyCardNumber", SqlDbType.BigInt);
                     outParameter3 = cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier);
