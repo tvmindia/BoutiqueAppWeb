@@ -236,7 +236,7 @@ namespace Boutique.WebServices
         /// <param name="gender"></param>
         /// <returns>flag and message. Then OTP number and Loyalty Card Number. also UserID for activation</returns>
         [WebMethod]
-        public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary)
+        public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary, string referral)
         {
             DataTable dt = new DataTable();
             try
@@ -267,7 +267,7 @@ namespace Boutique.WebServices
                 user.CreatedBy = "User";
                 user.CreatedDate = DateTime.Now;
                 user.IsAdmin = false;
-                user.AddNewUser();
+                user.AddNewUser(referral);
 
                 
                 dt.Columns.Add("Flag", typeof(Boolean));

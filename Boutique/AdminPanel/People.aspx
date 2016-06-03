@@ -1,6 +1,35 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="People.aspx.cs" Inherits="Boutique.AdminPanel.People" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <script>
+        function PassowrdEqualityCheck1() {
+            debugger;
+           // if (document.getElementById('txtAdminConPass').value != "")
+          //  {
+                if (document.getElementById('txtAdminPass').value != document.getElementById('txtAdminConPass').value) {
+                    document.getElementById('txtAdminConPass').className = "alert alert-error";
+                }
+
+                else {
+                    document.getElementById('txtAdminConPass').className = "alert alert-success";
+                }
+           // }
+        }
+        function PassowrdEqualityCheck() {
+            debugger;
+            if (document.getElementById('txtManagerPass').value != document.getElementById('txtManagerConPass').value) {
+                document.getElementById('txtManagerConPass').className = "alert alert-error";
+            }
+
+            else {
+                document.getElementById('txtManagerConPass').className = "alert alert-success";
+            }
+
+        }
+
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/People.css" rel="stylesheet" />
@@ -43,7 +72,291 @@
 
         <%--Alert boxes --%>
 
+
+        <div class="row-fluid">
+
+            <div class="box-header">
+                <h2>Administrator</h2>
+                <div class="box-icon">
+                    <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
+                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                    <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="box span6">
+                    <div class="box-header">
+                        <h2>New Administrator</h2>
+                        <div class="box-icon">
+                            <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
+                            <%-- <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+                            <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+                        </div>
+                    </div>
+
+                   <div class="box-content" style="height:438px;">
+						<div class="form-horizontal">
+							<%--<fieldset>--%>
+
+							  <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Name</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminName" type="text"/>
+								</div>
+								</div>
+							
+							  <div class="control-group">
+								 <label class="control-label" for="focusedInput">Mobile</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtMobileAdmin" type="text"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">LoginName</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminLoginName" type="text"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Password</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminPass" type="password"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Confirm Password</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminConPass" onkeyup="PassowrdEqualityCheck1();" type="password"/>
+								</div>
+								</div>
+
+
+                              <div class="control-group">
+								 <label class="control-label" for="focusedInput">Email</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminEmail" type="text"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+								<label class="control-label">Is Acitive?</label>
+								<div class="controls">
+								  <label class="checkbox inline">
+									<input type="checkbox" id="chkActiveAdmin" checked/>Yes</label>
+								
+								</div>
+							  </div>
+                            
+						</div>
+                        
+                             
+                        </div>
+                      <footer class="InnerFooter">
+                                <a class="btn btn-primary AddAdmin" href="#">Save</></a>
+                                <a class="btn CancelAdClear">Cancel</a>
+             			       </footer> 
+
+                </div>
+
+                <%--  Grid User--%>
+
+                <div class="box span6">
+                    <div class="box-header">
+                        <h2>Current Administrator</h2>
+                        <div class="box-icon">
+                            <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
+                            <%--   <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+                            <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+                        </div>
+                    </div>
+                    <div class="box-content" style="height: 490px; overflow: auto;">
+                        <table class="table table-condensed" id="AdministratorTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th style="width: 105px;">Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <%-- <div class="pagination pagination-centered">
+						  <ul>
+							<li><a href="#">Prev</a></li>
+							<li class="active">
+							  <a href="#">1</a>
+							</li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">Next</a></li>
+						  </ul>
+						</div>     --%>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
            
+        </div>
+
+        <div class="row-fluid" style="height:10px"></div>
+
+        <div class="row-fluid">
+
+            <div class="box-header">
+                <h2>Manager</h2>
+                <div class="box-icon">
+                    <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
+                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                    <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="box span6">
+                    <div class="box-header">
+                        <h2>New Manager</h2>
+                        <div class="box-icon">
+                            <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
+                            <%-- <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+                            <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+                        </div>
+                    </div>
+
+                   <div class="box-content" style="height:438px;">
+						<div class="form-horizontal">
+							<%--<fieldset>--%>
+
+                
+							  <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Name</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtManagerName" type="text"/>
+								</div>
+								</div>
+							
+							  <div class="control-group">
+								 <label class="control-label" for="focusedInput">Mobile</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtManagerMobile" type="text"/>
+								</div>
+								</div>
+
+                             <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">LoginName</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtManagerLoginName" type="text"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Password</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtManagerPass" type="password"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Confirm Password</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtManagerConPass" onkeyup="PassowrdEqualityCheck();" type="password"/>
+								</div>
+								</div>
+
+
+                              <div class="control-group">
+								 <label class="control-label" for="focusedInput">Email</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtManagerEmail" type="text"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+								<label class="control-label">Is Acitive?</label>
+								<div class="controls">
+								  <label class="checkbox inline">
+									<input type="checkbox" id="chkActiveManager" checked/>Yes</label>
+								
+								</div>
+							  </div>
+                            
+						</div>
+                        
+                             
+                        </div>
+                      <footer class="InnerFooter">
+                                <a class="btn btn-primary AddAdmin" href="#">Save</></a>
+                                <a class="btn CancelAdClear">Cancel</a>
+             			       </footer> 
+
+                </div>
+
+                <%--  Grid User--%>
+
+                <div class="box span6">
+                    <div class="box-header">
+                        <h2>Current Managers</h2>
+                        <div class="box-icon">
+                            <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
+                            <%--   <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+                            <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+                        </div>
+                    </div>
+                    <div class="box-content" style="height: 490px; overflow: auto;">
+                        <table class="table table-condensed" id="ManagerTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th style="width: 105px;">Actions</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <%-- <div class="pagination pagination-centered">
+						  <ul>
+							<li><a href="#">Prev</a></li>
+							<li class="active">
+							  <a href="#">1</a>
+							</li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">Next</a></li>
+						  </ul>
+						</div>     --%>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+           
+        </div>
+
+        <div class="row-fluid" style="height:10px"></div>
 
         <div class="row-fluid">
 
@@ -192,6 +505,8 @@
             </div>
         </div>
 
+          <div class="row-fluid" style="height:10px"></div>
+
         <div class="row-fluid">
 
             <div class="box-header">
@@ -291,6 +606,8 @@
                 <%--  Grid Designers--%>
             </div>
         </div>
+
+          <div class="row-fluid" style="height:10px"></div>
 
         <div class="row-fluid">
 
