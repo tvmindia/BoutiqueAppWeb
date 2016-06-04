@@ -28,7 +28,6 @@
                return false;
            }
        })
-
    
     $(".useredit").live(
        {
@@ -78,8 +77,6 @@
          }
      })
 
-
-
     $(".userdelete").live(
        {
            click: function (e) {
@@ -109,7 +106,6 @@
                return false;
            }
        })
-
 
     $(".ownerdelete").live(
       {
@@ -209,37 +205,81 @@
     })
 
 
-    $(".AddOwner").live({
+    //$(".AddOwner").live({
+    //    click: function (e) {// submit button click
+    //        $('#rowfluidDiv').hide();
+    //        $('.alert-success').hide();
+    //        $('.alert-error').hide();
+    //        var result = "";
+    //        var Owners = new Object();
+
+
+
+    //        if ($("#hdfUserID").val() != "")
+    //        {
+    //            Owners.UserID = $("#hdfUserID").val();
+    //        }
+    //        else {
+    //            alert("Please Select A User..");
+    //            return;
+    //        }
+    //        Owners.BoutiqueID = boutiqueid;
+    //        Owners.Name = $("#txtOwnerName").val();
+    //        Owners.Address = $("#txtOwnerAddress").val();
+    //        Owners.Phone = $("#txtPhone").val();
+    //        Owners.Email = $("#txtOwnerEmail").val();
+    //        Owners.DOB = $("#DOBDate").val();
+           
+    //        Owners.Gender = "Male";
+
+    //        Owners.Profile = $("#txtProfile").val();
+    //        Owners.OwnerID = $("#hdfOwnerID").val();
+          
+    //        result = InsertOwner(Owners);
+    //        if (result == "1") {
+    //            $('#rowfluidDiv').show();
+    //            $('.alert-success').show();
+    //        }
+    //        if (result != "1") {
+    //            $('#rowfluidDiv').show();
+    //            $('.alert-error').show();
+    //        }
+
+    //    }
+    //})
+
+    $(".AddAdmin").live({
         click: function (e) {// submit button click
+
+            debugger;
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+
             var result = "";
-            var Owners = new Object();
+            var Admin = new Object();
 
-
-
-            if ($("#hdfUserID").val() != "")
-            {
-                Owners.UserID = $("#hdfUserID").val();
+            Admin.AdminID = $("#hdfAdminID").val();
+           
+            Admin.Name = $("#txtAdminName").val();
+            Admin.Mobile = $("#txtMobileAdmin").val();
+            Admin.LoginName = $("#txtAdminLoginName").val();
+            Admin.Password = $("#txtAdminConPass").val();
+            Admin.Email = $("#txtAdminEmail").val();
+            Admin.DOB = $("#dateDOB").val();
+            Admin.Anniversary = $("#dateAnniversary").val();
+            
+            // 
+            if ($('#chkActiveAdmin').is(':checked')) {
+                Admin.IsActive = "true";
             }
             else {
-                alert("Please Select A User..");
-                return;
+                Admin.IsActive = "false";
             }
-            Owners.BoutiqueID = boutiqueid;
-            Owners.Name = $("#txtOwnerName").val();
-            Owners.Address = $("#txtOwnerAddress").val();
-            Owners.Phone = $("#txtPhone").val();
-            Owners.Email = $("#txtOwnerEmail").val();
-            Owners.DOB = $("#DOBDate").val();
-           
-            Owners.Gender = "Male";
-
-            Owners.Profile = $("#txtProfile").val();
-            Owners.OwnerID = $("#hdfOwnerID").val();
-          
-            result = InsertOwner(Owners);
+         
+         
+            result = InsertAdmin(Admin);
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
@@ -251,7 +291,6 @@
 
         }
     })
-
 
     $(".AddUser").live({
         click: function (e) {// submit button click
@@ -455,6 +494,21 @@ function InsertUser(User) {
     return table;
 
 }
+
+//Written by gibin
+function InsertAdmin(Admin) {
+
+    var data = "{'AdminObj':" + JSON.stringify(Admin) + "}";
+
+    jsonResult = getJsonData(data, "../AdminPanel/People.aspx/AddAdmin");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
+}
+
+
+
 
 function InsertDesigner(Designer)
 {
