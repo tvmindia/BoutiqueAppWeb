@@ -15,14 +15,22 @@ namespace Boutique.AdminPanel
 {
     public partial class Login : System.Web.UI.Page
     {
+        UIClasses.Const constants = new UIClasses.Const();
         protected void Page_Load(object sender, EventArgs e)
         {
+            string log = Request.QueryString["Session"];
+            if (log == "Logout")
+            {
+                Session.Remove(constants.LoginSession);
+                Session.Clear();
+                Response.Redirect("Login.aspx");
+            }
             if (IsPostBack)
             {
 
                 if (username.Value.ToString().Trim() != "")
                 {
-                    UIClasses.Const constants = new UIClasses.Const();
+                   
 
                   
 

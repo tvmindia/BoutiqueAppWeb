@@ -64,6 +64,20 @@
                                      <input class="input-mini focused" id="txtMaxDiscountPercentage" type="number"/><span> %</span>
 								</div>
 						</div>
+                         <div class="control-group">
+							
+								  <label class="span8" for="focusedInput">Initial Loyalty Points on customer registration</label>
+								<div class="span4">								                            
+                                     <input class="input-mini focused" id="txtInitialLoyaltyPoints" type="number"/>
+								</div>
+						</div>
+                         <div class="control-group">
+							
+								  <label class="span8" for="focusedInput">Referral benifit points</label>
+								<div class="span4">								                            
+                                     <input class="input-mini focused" id="txtReferralbenifitpoints" type="number"/>
+								</div>
+						</div>
                     </div>
                 </div>
 
