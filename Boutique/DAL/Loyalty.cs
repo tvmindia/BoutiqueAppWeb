@@ -96,6 +96,16 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public int InitialLoyaltyPoints
+        {
+            get;
+            set;
+        }
+        public int Referralbenifitpoints
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Methods
@@ -159,14 +169,14 @@ namespace Boutique.DAL
             {
                 throw new Exception("UserID is Empty!!");
             }
-            if (Points == 0)
+            if (Points == null)
             {
                 throw new Exception("Points is Empty!!");
             }
-            if (MoneyValuePercentage == 0)
+            if (MoneyValuePercentage == null)
             {
                 throw new Exception("MoneyValuePercentage is Empty!!");
-            }
+            }            
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlCommand cmd2 = null;
@@ -244,6 +254,14 @@ namespace Boutique.DAL
             {
                 throw new Exception("MaxDiscountPercentage is invalid!!");
             }
+            if (InitialLoyaltyPoints == null)
+            {
+                throw new Exception("InitialLoyaltyPoints is Empty!!");
+            }
+            if (Referralbenifitpoints == null)
+            {
+                throw new Exception("Referralbenifitpoints is Empty!!");
+            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
@@ -259,6 +277,8 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@MoneyToPoint", SqlDbType.Int).Value = MoneyValuePercentage;
                 cmd.Parameters.Add("@MinAmountForRedeem", SqlDbType.Int).Value = MinAmountForRedeem;
                 cmd.Parameters.Add("@MaxDiscountPercentage", SqlDbType.Int).Value = MaxDiscountPercentage;
+                cmd.Parameters.Add("@InitialLoyaltyPoints", SqlDbType.Int).Value = InitialLoyaltyPoints;
+                cmd.Parameters.Add("@Referralbenifitpoints", SqlDbType.Int).Value = Referralbenifitpoints;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 

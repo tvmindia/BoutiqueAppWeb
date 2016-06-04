@@ -31,6 +31,16 @@
             $('#txtMaxDiscountPercentage').val('100');
         }
     });
+    $('#txtInitialLoyaltyPoints').blur(function () {             //Validation
+        if (!$.isNumeric($('#txtInitialLoyaltyPoints').val()) || ($('#txtInitialLoyaltyPoints').val() < 0)) {
+            $('#txtInitialLoyaltyPoints').val('0');
+        }
+    });
+    $('#txtReferralbenifitpoints').blur(function () {             //Validation
+        if (!$.isNumeric($('#txtReferralbenifitpoints').val()) || ($('#txtReferralbenifitpoints').val() < 0)) {
+            $('#txtReferralbenifitpoints').val('0');
+        }
+    });
     //Save settings button---------
     $(".saveSettings").live(
     {
@@ -60,6 +70,20 @@
             }
             else {
                 alert("Please enter Maximum Discount Percentage.");
+                return;
+            }
+            if ($("#txtInitialLoyaltyPoints").val() != "") {
+                Loyalty.InitialLoyaltyPoints = $("#txtInitialLoyaltyPoints").val();
+            }
+            else {
+                alert("Please enter Initial Loyalty Points.");
+                return;
+            }
+            if ($("#txtReferralbenifitpoints").val() != "") {
+                Loyalty.Referralbenifitpoints = $("#txtReferralbenifitpoints").val();
+            }
+            else {
+                alert("Please enter Referral benifit points.");
                 return;
             }
 
@@ -114,7 +138,9 @@ function SetLoyaltySettings(Records) {
     $.each(Records, function (index, Records) {
         $("#txtMinPurchaseAmount").val(Records.MinAmountForRedeem);
         $("#txtMaxDiscountPercentage").val(Records.MaxDiscountPercentage);
-        $("#txtMoneyToPointPercentage").val(Records.MoneyToPoint);        
+        $("#txtMoneyToPointPercentage").val(Records.MoneyToPoint);
+        $("#txtInitialLoyaltyPoints").val(Records.InitialLoyaltyPoints);
+        $("#txtReferralbenifitpoints").val(Records.ReferralBenefitPoints);
     });
 }
 //------------Update Loyalty Settings------------
