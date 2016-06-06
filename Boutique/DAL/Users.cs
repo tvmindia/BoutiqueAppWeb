@@ -619,8 +619,8 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
-                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 20).Value = Password;
-                // cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 20).Value = CryptObj.Encrypt(Password);
+              
+                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = CryptObj.Encrypt(Password);
 
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;

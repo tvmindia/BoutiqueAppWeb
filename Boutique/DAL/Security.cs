@@ -97,18 +97,18 @@ namespace Boutique.DAL
             #region User Authentication
             public UserAuthendication(String userName, String password)
             {
-                //object o = CryptObj.Encrypt(password);
+                             
                 DataTable dt = GetLoginDetails(userName);
 
                 if (dt.Rows.Count > 0)
                 {
                     string Name = dt.Rows[0]["LoginName"].ToString();
                     string Passwd = dt.Rows[0]["Password"].ToString();
-                  //  bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
+                  bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
 
-                    //if (userName == Name && (CryptObj.Encrypt(password) == Passwd) && Active == true)
+                  if (userName == Name && (CryptObj.Encrypt(password) == Passwd) && Active == true)
 
-                    if (userName == Name && password == Passwd)
+                  //  if (userName == Name && password == Passwd)
                     {
                         isValidUser = true;
                         userN = userName;
