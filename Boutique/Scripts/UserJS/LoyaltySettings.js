@@ -170,7 +170,7 @@ function GetLoyaltyLog(boutiqueid) {
 function FillLoyaltyLogTable(Records) {
     $("tbody#rows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
-        var html='<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID +'"><td>'+Records.Name+'</td><td>'+ Records.LoyaltyCardNo +'</td><td>'+ Records.Mobile +'</td><td>'+ Records.AmountPaid +'</td><td>'+ Records.DebitPoints +'</td><td>'+ Records.CreditPoints +'</td><td>'+ Records.LoyaltyPoints + '</td><td>'+ Records.MoneyValuePercentage +'</td><td>'+ ConvertJsonToDate(Records.CreatedDate)+'</td></tr>';
+        var html = '<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td>' + Records.LoyaltyCardNo + '</td><td>' + Records.Mobile + '</td><td>' + (Records.AmountPaid != null ? Records.AmountPaid : "-") + '</td><td>' + (Records.DebitPoints != null ? Records.DebitPoints : "-") + '</td><td>' + (Records.CreditPoints != null ? Records.CreditPoints : "-") + '</td><td>' + Records.LoyaltyPoints + '</td><td>' + (Records.MoneyValuePercentage != null ? Records.MoneyValuePercentage : "-") + '</td><td>' + ConvertJsonToDate(Records.CreatedDate) + '</td><td>' + (Records.Remarks!=null?Records.Remarks:"-") + '</td></tr>';
         $("#LoyaltyLogTable").append(html);
     });
 }
