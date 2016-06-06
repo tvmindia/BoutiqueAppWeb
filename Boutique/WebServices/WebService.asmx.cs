@@ -159,10 +159,10 @@ namespace Boutique.WebServices
                 Product products= new Product();
                 products.CategoryCode = CategoryCode;
                 products.BoutiqueID = boutiqueID;
-                if (userID == "null")
-                {
-                    userID = "";
-                }
+                //if (userID == "null")
+                //{
+                //    userID = "";
+                //}
                 dt = products.GetProductsByCategory(userID);
                 //Giving coloumns of image details
                 ArrayList imgColNames = new ArrayList();
