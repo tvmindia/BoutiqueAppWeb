@@ -326,7 +326,6 @@ namespace Boutique.AdminPanel
         }
         #endregion GetDesigner
 
-
         #region DeleteDesigner
         [System.Web.Services.WebMethod]
         public static string DeleteDesigner(Designers designerObj)  
@@ -349,5 +348,42 @@ namespace Boutique.AdminPanel
             return status;
         }
         #endregion DeleteDesigner
+
+        #region AddUserAdminRoles
+
+        [System.Web.Services.WebMethod]
+        public static string AddAdmin(Users AdminObj)
+        {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            AdminObj.BoutiqueID = UA.BoutiqueID;
+            AdminObj.CreatedBy = UA.userName;
+            AdminObj.RoleName = Const.Administrator;
+            AdminObj.CreatedDate = DateTime.Now;
+
+
+
+            string status = null;
+            if (AdminObj.UserID == null)
+            {
+                status = AdminObj.AddNewUser().ToString();
+                status = AdminObj.AddNewAdmin().ToString();
+                status = AdminObj.AddNewRole().ToString();
+            }
+            else
+            {
+                status = AdminObj.EditUser(AdminObj.UserID).ToString();
+            }
+
+           
+
+
+            return status;
+        }
+        #endregion  AddUserAdminRoles
+
     }
 }

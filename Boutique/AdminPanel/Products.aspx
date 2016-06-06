@@ -101,7 +101,7 @@
 							
 						</div>
 					</div>
-					<div class="span5"  style="height:500px;overflow:auto;" >
+					<div class="span6"  style="height:500px;overflow:auto;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 
@@ -191,7 +191,7 @@
 
 						</div>
               </div>
-                    <div class="span6" id="imageupGallery" style="height:500px;overflow:auto;box-shadow:0px 0px 1px 1px rgb(39, 41, 38);display:none;">
+                    <div class="span5" id="imageupGallery" style="height:500px;overflow:auto;box-shadow:1px 1px 1px #888888;display:none;">
                         <div class="form-horizontal">
                                 <div class="control-group">
                                    

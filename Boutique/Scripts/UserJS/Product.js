@@ -6,14 +6,17 @@
     //$("#hdfBoutiqueID").val(boutiqueid);
     BindAllProductImages();//binds masanory gallery with product under current boutique
     //prduct galler slide effect-masonry
+    var galerydiv = $('.imageholder');
     var $mars= $('.imageholder').masonry(
             {
                 itemSelector: '.masonry-thumb',
                 isInitLayout: false
             });
+     galerydiv.hide();
      $mars.imagesLoaded().progress(function (){
      $mars.masonry('layout');
-    });
+     });
+    
     //prduct gallery slide effect
 
 
@@ -26,11 +29,11 @@
     
    
      BindAllImages();//list li of product images when images uploaded
-     $(".ddlrelateproducts").select2({
-         placeholder: "Choose Related Products",
-         allowClear: true,
-         data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
-     });
+     //$(".ddlrelateproducts").select2({
+     //    placeholder: "Choose Related Products",
+     //    allowClear: true,
+     //    data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
+     //});
 
 
     $(".ddlcategories").select2({
@@ -149,6 +152,7 @@
                             scrollTop: offset.top,
                             scrollLeft: offset.left
                         });
+                      
                     }
                     if (result[0].status != "1") {
                         $('#rowfluidDiv').show();
@@ -166,6 +170,7 @@
                 
             }
             if (result[0].status == "1") {
+             
                 $("#hdfproductID").val(result[0].ProductID);
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
@@ -283,8 +288,8 @@
         return false;
         }
     })
-
-
+//image galery show after all images loaded in masonary
+    galerydiv.show();
 
 });//end of document.ready
 
@@ -296,38 +301,32 @@ function BindProductTextBoxes(thisobject) {
     var isactive = $(thisobject).attr('isactive');
     var categories = $(thisobject).attr('categories');
     var designers = $(thisobject).attr('designers');
-
-
-
     $("#txtName").val(productname);
     $("#txtDescription").val(pdescription);
     $("#txtPrice").val(pprice);
     $("#txtPrice").val(pprice);
-  
     if (isoutstock=='true')
     {
-      
+  
        // $('#OptisOutOfStockNo').parent().addClass('checked');
         $("#OptisOutOfStockNo").parent().removeClass('checked');
         $('#OptisOutOfStockYes').parent().addClass('checked');
     }
     if (isoutstock=='false')
     {
-      
         $("#OptisOutOfStockYes").parent().removeClass('checked');
         $('#OptisOutOfStockNo').parent().addClass('checked');
     }
 
       if (isactive=='true')
       {
-      
         $("#OptIsActiveNo").parent().removeClass('checked');
         $('#OptIsActiveYes').parent().addClass('checked');
      
       }
       if(isactive=='false')
       {
-       
+     
         $("#OptIsActiveYes").parent().removeClass('checked');
         $('#OptIsActiveNo').parent().addClass('checked');
       }
@@ -359,6 +358,26 @@ function BindAllProductImages() {
         + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>');
         imagedivholder.append(html);
         }
+
+}
+
+function BindAllProductImagesForEventLoad() {
+   // var imagedivholder = $('#productimagehold');
+    var Product = new Object();
+    var html='';
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+    $("#productimagehold").find(".masonry-thumb").remove();
+
+        for (var i = 0; i < totalimages.length; i++) {
+        html += '<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
+        + '  <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
+        + '<img id="img' + i + '" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
+        + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>';
+       // imagedivholder.append(html);
+        }
+        return html;
 
 }
 
@@ -450,7 +469,6 @@ function getJsonData(data, page) {
         async: false,
         contentType: "application/json; charset=utf-8",
         dataType: "json"
-
     }).done(function (data) {
 
         //$("#loadingimage").hide();
@@ -547,7 +565,8 @@ function BindAsyncDesigner() {
 
     }
 }
-function GetAllProductsImageDetailsunderBoutique(Product) {
+function GetAllProductsImageDetailsunderBoutique(Product)
+{
 
     var ds = {};
     var table = {};
@@ -557,8 +576,8 @@ function GetAllProductsImageDetailsunderBoutique(Product) {
     return table;
 }
 
-function GetAllProductImages(Product) {
-    var ds = {};
+function GetAllProductImages(Product)
+{   var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductImages");
