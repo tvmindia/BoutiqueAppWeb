@@ -248,6 +248,7 @@
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
+    <Content Include="Scripts\imagezoom.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\UserJS\Category.js" />

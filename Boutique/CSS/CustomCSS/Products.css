@@ -99,19 +99,26 @@ ol#olpreview
     top: 3px!important;
 }
 img{
-    height:235px;
+    height:165px;
     width:auto;
-}
+   
+ }
+.masonry-thumb > img
+ {
+     width: 100%;
 
+}
 .masonry-thumb
 {
      border:2px solid pink;
-     height: auto;
-     width:200px;
+     height: 229px;
+     width:119px;
      padding: 5px 5px 5px 5px;
      position:relative;
-     margin:10px 0px 1px 30px;/*top,right,bottom,left*/
+     margin:10px 0px 1px 8px;/*top,right,bottom,left*/
      cursor:pointer;
+     overflow: hidden;
+
 }
 
 .imageholder

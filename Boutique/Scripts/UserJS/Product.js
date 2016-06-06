@@ -307,7 +307,6 @@ function BindProductTextBoxes(thisobject) {
     $("#txtPrice").val(pprice);
     if (isoutstock=='true')
     {
-  
        // $('#OptisOutOfStockNo').parent().addClass('checked');
         $("#OptisOutOfStockNo").parent().removeClass('checked');
         $('#OptisOutOfStockYes').parent().addClass('checked');
@@ -317,12 +316,10 @@ function BindProductTextBoxes(thisobject) {
         $("#OptisOutOfStockYes").parent().removeClass('checked');
         $('#OptisOutOfStockNo').parent().addClass('checked');
     }
-
-      if (isactive=='true')
+    if (isactive=='true')
       {
         $("#OptIsActiveNo").parent().removeClass('checked');
-        $('#OptIsActiveYes').parent().addClass('checked');
-     
+        $('#OptIsActiveYes').parent().addClass('checked'); 
       }
       if(isactive=='false')
       {
@@ -354,7 +351,7 @@ function BindAllProductImages() {
         {
         var html = ('<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
         +'  <a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
-        +'<img id="img'+i+'" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID='+totalimages[i].ImageID+'">'
+        + '<img id="img' + i + '" class="grayscale" data-imagezoom="true"  data-magnification="10" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
         + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>');
         imagedivholder.append(html);
         }

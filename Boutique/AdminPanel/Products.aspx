@@ -5,6 +5,8 @@
      <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
+    <script src="../Scripts/imagezoom.js"></script>
+
     <%--<link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet"/>--%>
     <%--<script src="../Scripts/jasny-bootstrap.min.js"></script>--%>
     <%-- <script src="../Scripts/bootstrap-select-1.6.3.js"></script>--%>
@@ -40,7 +42,7 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<div class="imageholder" id="productimagehold">
+						<div class="imageholder" style="width:100%;" id="productimagehold">
 									
 								<!--<div id="image-2" class="masonry-thumb">
 								         <a style="background:url(../img/gallery/photo11.jpg)" title="Sample Image 2" href="../img/gallery/photo11.jpg"> <img class="grayscale" src="../img/gallery/photo11.jpg" alt="Sample Image 11" /></a>
@@ -172,13 +174,13 @@
                                 </div>
                             </div>
 
-                             <div class="control-group">
+                          <%--   <div class="control-group">
                                 <label class="control-label" for="selectError1">Related Products</label>
                                 <div class="controls">
                                     <select class="input-large ddlrelateproducts" multiple="multiple" id="idDdlrelateproducts">
                                     </select>
                                 </div>
-                            </div>
+                            </div>--%>
                           
                               <div class="control-group">
 								<label class="control-label" for="selectError3">Designed By</label>
