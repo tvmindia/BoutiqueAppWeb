@@ -136,16 +136,16 @@ namespace Boutique.DAL
         #region Methods
 
         #region SelectAllUsers
-        public DataSet SelectAllUsers(string boutiqueID)
+        public DataSet SelectAllUsers()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter sda = null;
-            Guid _boutiqueid = Guid.Empty;
+          ;
             try
             {
-                _boutiqueid = Guid.Parse(boutiqueID);
+                Guid _boutiqueid = Guid.Parse(BoutiqueID);
                 if (_boutiqueid != Guid.Empty)
                 {
                     dcon = new dbConnection();
@@ -587,6 +587,51 @@ namespace Boutique.DAL
         }
         #endregion DeleteBoutique
 
+        #region SelectAdmins
+        public DataTable GetAdmins()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable ds = null;
+            SqlDataAdapter sda = null;
+            ;
+            try
+            {
+                Guid _boutiqueid = Guid.Parse(BoutiqueID);
+                if (_boutiqueid != Guid.Empty)
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectAllAdminsByBoutiqueID]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    cmd.Parameters.Add("@RoleName", SqlDbType.NVarChar, 25).Value =RoleName;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataTable();
+
+                    sda.Fill(ds);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion SelectAllUsers
 
         #region AddAdmin
 

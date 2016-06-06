@@ -21,6 +21,10 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteOwner(Owners ownersObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
             string status = null;
             try
             {
@@ -85,6 +89,12 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetOwner(Owners ownersObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+
             DataTable dt= null;
             dt = ownersObj.GetOwner();
             //Converting to Json
@@ -119,6 +129,12 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetUser(Users userobj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+
             DataSet ds = null;
             ds = userobj.SelectUserByUserID();
             //Converting to Json
@@ -153,6 +169,12 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteUser(Users userObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+
+
             string status = null;
             try
             {
@@ -174,6 +196,13 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllOwners(string Boutiqueid)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+
+
             DataTable dt = null;
             Owners ownersObj = new Owners();
             ownersObj.BoutiqueID = Boutiqueid;
@@ -201,12 +230,17 @@ namespace Boutique.AdminPanel
 
         #region GetAllDesigners
         [System.Web.Services.WebMethod]
-        public static string GetAllDesigners(string Boutiqueid)
+        public static string GetAllDesigners(Designers Designerobj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+
             DataTable dt = null;
-            Designers designerObj=new Designers();
-            designerObj.BoutiqueID = Boutiqueid;
-            dt = designerObj.GetAllDesigners();
+
+            Designerobj.BoutiqueID = UA.BoutiqueID;
+            dt = Designerobj.GetAllDesigners();
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -270,6 +304,11 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertDesigner(Designers designerObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
             string status = null;
             try
             {
@@ -301,6 +340,12 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetDesigner(Designers designerobj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+
+
             DataTable dt = null;
             dt = designerobj.GetDesigner();
             //Converting to Json
@@ -331,12 +376,13 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteDesigner(Designers designerObj)  
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
             string status = null;
             try
             {
-
                 status = designerObj.DeleteDesigner().ToString();
-
             }
             catch (Exception)
             {
@@ -350,6 +396,8 @@ namespace Boutique.AdminPanel
         }
         #endregion DeleteDesigner
 
+        //
+
         #region AddUserAdminRoles
 
         [System.Web.Services.WebMethod]
@@ -360,6 +408,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
             AdminObj.BoutiqueID = UA.BoutiqueID;
             AdminObj.CreatedBy = UA.userName;
             AdminObj.RoleName = Const.Administrator;
@@ -388,8 +437,44 @@ namespace Boutique.AdminPanel
         }
         #endregion  AddUserManagerRoles
 
+        #region GetAdministrator
+        [System.Web.Services.WebMethod]
+        public static string GetAllAdmins(Users Adminsobj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
 
-        #region AddUserAdminRoles
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            Adminsobj.BoutiqueID = UA.BoutiqueID;
+            Adminsobj.RoleName = Const.Administrator;
+            DataTable dt = null;
+            dt = Adminsobj.GetAdmins();
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+
+            }
+
+
+            return jsSerializer.Serialize(parentRow);
+            //Converting to Json
+        }
+        #endregion GetAdministrator
+                
+        #region AddUserManagerRoles
 
         [System.Web.Services.WebMethod]
         public static string AddManager(Users ManagerObj)
@@ -425,6 +510,42 @@ namespace Boutique.AdminPanel
         }
         #endregion  AddUserManagerObjRoles
 
+        #region GetManagers
+        [System.Web.Services.WebMethod]
+        public static string GetAllManager(Users Managerobj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            Managerobj.BoutiqueID = UA.BoutiqueID;
+            Managerobj.RoleName = Const.Manager;
+            DataTable dt = null;
+            dt = Managerobj.GetAdmins();
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+
+            }
+
+
+            return jsSerializer.Serialize(parentRow);
+            //Converting to Json
+        }
+        #endregion GetManagers
 
     }
 }

@@ -25,12 +25,18 @@ namespace Boutique.AdminPanel
         /// <param name="Boutiqueid"></param>
         /// <returns></returns>
         [System.Web.Services.WebMethod]
-        public static string GetAllUsers(string Boutiqueid)
+        public static string GetAllUsers(Users Usersobj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            Usersobj.BoutiqueID = UA.BoutiqueID;
+
             string jsonResult = null;
             DataSet ds = null;
-            Users usersWebObj = new Users();
-            ds = usersWebObj.SelectAllUsers(Boutiqueid);
+
+            ds = Usersobj.SelectAllUsers();
 
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();

@@ -1,10 +1,13 @@
 ﻿$("document").ready(function (e) {
 
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+   // var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
 
-    BindAsyncUserTable(boutiqueid);
-    BindAsyncOwnerTable(boutiqueid);
-    BindAsycDesignerTable(boutiqueid);
+    BindAsyncUserTable();
+ //   BindAsyncOwnerTable(boutiqueid);
+    BindAsycDesignerTable();
+    BindAsyncAdminsTable();
+    BindAsyncManagersTable();
+
 
     $(".owneredit").live(
        {
@@ -439,22 +442,87 @@ function getJsonData(data, page) {
 }
 //---end of getting data as json -----//
 
-function BindAsyncUserTable(boutiqueid)
+function BindAsyncUserTable()
 {
     var jsonResult = {};
-    jsonResult = GetAllUsers(boutiqueid);
+    var Users = new Object();
+    jsonResult = GetAllUsers(Users);
     if (jsonResult != undefined) {
         BindUserTable(jsonResult);
     }
 }
 
-function BindAsycDesignerTable(boutiqueid)
+function BindAsycDesignerTable()
 {
     var jsonResult = {};
-    jsonResult = GetAllDesigners(boutiqueid);
+    var Designer = new Object();
+    jsonResult = GetAllDesigners(Designer);
     if (jsonResult != undefined) {
         BindDesignerTable(jsonResult);
     }
+}
+
+
+function BindAsyncAdminsTable() {
+    var jsonResult = {};
+    var Admins = new Object();
+    jsonResult = GetAllAdmins(Admins);
+    if (jsonResult != undefined) {
+        BindAdminsTable(jsonResult);
+    }
+}
+
+
+function BindAdminsTable(Records) {
+    //$("#UsersTable").find(".odd").remove();
+    $("#AdministratorTable").find(".userrows").remove();
+    $.each(Records, function (index, Records) {
+        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#AdministratorTable").append(html);
+    })
+
+}
+
+
+function BindAsyncManagersTable() {
+    var jsonResult = {};
+    var Manager = new Object();
+    jsonResult = GetAllManager(Manager);
+    if (jsonResult != undefined) {
+        BindManagerTable(jsonResult);
+    }
+}
+
+
+function BindManagerTable(Records) {
+    //$("#UsersTable").find(".odd").remove();
+    $("#ManagerTable").find(".userrows").remove();
+    $.each(Records, function (index, Records) {
+        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#ManagerTable").append(html);
+    })
+
+}
+
+function GetAllManager(Manager) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'Managerobj':" + JSON.stringify(Manager) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllManager");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
+function GetAllAdmins(Admins) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'Adminsobj':" + JSON.stringify(Admins) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllAdmins");
+    table = JSON.parse(ds.d);
+    return table;
 }
 
 
@@ -512,16 +580,16 @@ function BindDesignerTable(Records)
 {
     $("#DesignerTable").find(".designerrows").remove();
     $.each(Records, function (index, Records) {
-        var html = '<tr class="designerrows" designerID="' + Records.DesignerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Profile + '</td><td class="center"><a class="btn btn-info designeredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger designerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="designerrows" designerID="' + Records.DesignerID + '"><td>' + Records.Name + '</td>	<td class="center">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td class="center">' + Records.Profile + '</td><td class="center"><a class="btn btn-info designeredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger designerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#DesignerTable").append(html);
     })
 }
 
-function GetAllUsers(boutiqueid) {
+function GetAllUsers(Users) {
 
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'Usersobj':" + JSON.stringify(Users) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsersByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
@@ -788,11 +856,11 @@ function DeleteDesigner(Designer)
 }
 
 
-function GetAllDesigners(boutiqueid) {
+function GetAllDesigners(Designer) {
 
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'Designerobj':" + JSON.stringify(Designer) + "}";
     ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesigners");
     table = JSON.parse(ds.d);
     return table;
