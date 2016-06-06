@@ -112,7 +112,8 @@
                                 <th>Credit Points</th>
                                 <th>Loyalty Points</th>
                                 <th>Money to Point Percentage</th>
-                                <th>Date</th>                                
+                                <th>Date</th>
+                                <th>Remarks</th>                               
                             </tr>
                         </thead>
                         <tbody id="rows">
