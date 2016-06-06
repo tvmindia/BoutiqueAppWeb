@@ -623,7 +623,7 @@ namespace Boutique.WebServices
             try
             {
                // DataTable dt = ds.Tables[0];
-                String filePath = Server.MapPath("~/MediaUploader/");
+                String filePath = Server.MapPath("~/Media/");
 
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
