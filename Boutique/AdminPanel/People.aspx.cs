@@ -14,6 +14,7 @@ namespace Boutique.AdminPanel
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+           
 
         }
         #region DeleteOwner
@@ -369,6 +370,8 @@ namespace Boutique.AdminPanel
             string status = null;
             if (AdminObj.UserID == null)
             {
+
+
                 status = AdminObj.AddNewUser().ToString();
                 status = AdminObj.AddNewAdmin().ToString();
                 status = AdminObj.AddNewRole().ToString();
@@ -383,7 +386,45 @@ namespace Boutique.AdminPanel
 
             return status;
         }
-        #endregion  AddUserAdminRoles
+        #endregion  AddUserManagerRoles
+
+
+        #region AddUserAdminRoles
+
+        [System.Web.Services.WebMethod]
+        public static string AddManager(Users ManagerObj)
+        {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            ManagerObj.BoutiqueID = UA.BoutiqueID;
+            ManagerObj.CreatedBy = UA.userName;
+            ManagerObj.RoleName = Const.Manager;
+            ManagerObj.CreatedDate = DateTime.Now;
+
+
+
+            string status = null;
+            if (ManagerObj.UserID == null)
+            {
+                status = ManagerObj.AddNewUser().ToString();
+                status = ManagerObj.AddNewAdmin().ToString();
+                status = ManagerObj.AddNewRole().ToString();
+            }
+            else
+            {
+                status = ManagerObj.EditUser(ManagerObj.UserID).ToString();
+            }
+
+
+
+
+            return status;
+        }
+        #endregion  AddUserManagerObjRoles
+
 
     }
 }

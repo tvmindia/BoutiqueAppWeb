@@ -292,6 +292,51 @@
         }
     })
 
+
+    $(".AddManager").live({
+        click: function (e) {// submit button click
+
+            debugger;
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+
+            var result = "";
+            var Manager = new Object();
+
+            Manager.AdminID = $("#hdfManagerID").val();
+
+            Manager.Name = $("#txtManagerName").val();
+            Manager.Mobile = $("#txtManagerMobile").val();
+            Manager.LoginName = $("#txtManagerLoginName").val();
+            Manager.Password = $("#txtManagerConPass").val();
+            Manager.Email = $("#txtManagerEmail").val();
+            Manager.DOB = $("#dateDOB").val();
+            Manager.Anniversary = $("#dateAnniversary").val();
+
+            // 
+            if ($('#chkActiveManager').is(':checked')) {
+                Manager.IsActive = "true";
+            }
+            else {
+                Manager.IsActive = "false";
+            }
+
+
+            result = InsertManager(Manager);
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+            }
+
+        }
+    })
+
     $(".AddUser").live({
         click: function (e) {// submit button click
             $('#rowfluidDiv').hide();
@@ -330,8 +375,6 @@
 
         }
     })
-
-
 
 
     $(".AddDesigner").live({
@@ -507,6 +550,18 @@ function InsertAdmin(Admin) {
 
 }
 
+function InsertManager(Manager) {
+
+    debugger;
+
+    var data = "{'ManagerObj':" + JSON.stringify(Manager) + "}";
+
+    jsonResult = getJsonData(data, "../AdminPanel/People.aspx/AddManager");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
+}
 
 
 
