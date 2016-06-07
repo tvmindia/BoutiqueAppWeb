@@ -178,29 +178,39 @@ namespace Boutique.AdminPanel
 
         #region GetAllProductIDandName
         [System.Web.Services.WebMethod]
-        public static string GetAllProductIDandName(string Boutiqueid)
+        public static string GetAllProductIDandName(Product productObj)
         {
-            DataSet ds = null;
-            Product productObj = new Product();
-            ds = productObj.GetAllProductIDAndName(Boutiqueid);
-            
-            //Converting to Json
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            if (UA.BoutiqueID != "")
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                productObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+
+                ds = productObj.GetAllProductIDAndName();
+
+                //Converting to Json
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
+                return jsSerializer.Serialize(parentRow);
             }
-            return jsSerializer.Serialize(parentRow);
+            return jsSerializer.Serialize("");
         }
 
         #endregion GetAllProductIDandName
