@@ -1,37 +1,34 @@
 ﻿$("document").ready(function (e) {
-
-   // var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+  
+    //BIND REGION
 
     BindAsyncUserTable();
- //   BindAsyncOwnerTable(boutiqueid);
     BindAsycDesignerTable();
     BindAsyncAdminsTable();
     BindAsyncManagersTable();
+  
+    //EDIT REGION
 
+    $(".adminedit").live(
+    {
 
-    $(".owneredit").live(
-       {
-           click: function (e) {
-               $('#rowfluidDiv').hide();
-               $('.alert-success').hide();
-               $('.alert-error').hide();
-               var jsonResult = {};
-               editedrow = $(this).closest('tr');
-               var Owners = new Object();
-               Owners.BoutiqueID = boutiqueid;
-               Owners.UserID = editedrow.attr("userID");
-               Owners.OwnerID = editedrow.attr("ownerID");
-               jsonResult = GetOwner(Owners);
-               if (jsonResult != undefined) {
+        click: function (e) {
+            debugger;
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var jsonResult = {};
+            editedrow = $(this).closest('tr');
+            var Admin = new Object();
+            Admin.UserID = editedrow.attr("userID");
+            jsonResult = GetAdmin(Admin);
+            if (jsonResult != undefined) {
+                BindAdminTextBoxes(jsonResult);
+            }
+            return false;
+        }
+    })
 
-                   BindOwnerTextBoxes(jsonResult);
-               }
-
-
-               return false;
-           }
-       })
-   
     $(".useredit").live(
        {
            click: function (e) {
@@ -41,17 +38,12 @@
                $('.alert-error').hide();
                var jsonResult = {};
                editedrow = $(this).closest('tr');
-               var User = new Object();
-               User.BoutiqueID = boutiqueid;
-               User.UserID = editedrow.attr("userID");
-               
+               var User = new Object();              
+               User.UserID = editedrow.attr("userID");               
                jsonResult = GetUser(User);
                if (jsonResult != undefined) {
-
                    BindUserTextBoxes(jsonResult);
                }
-
-
                return false;
            }
        })
@@ -65,10 +57,8 @@
              $('.alert-error').hide();
              var jsonResult = {};
              editedrow = $(this).closest('tr');
-             var Designer = new Object();
-             Designer.BoutiqueID = boutiqueid;
+             var Designer = new Object();            
              Designer.DesignerID = editedrow.attr("designerID");
-
              jsonResult = GetDesigner(Designer);
              if (jsonResult != undefined) {
 
@@ -79,6 +69,9 @@
              return false;
          }
      })
+
+
+    //DELETE REGION
 
     $(".userdelete").live(
        {
@@ -91,17 +84,16 @@
                var jsonResult = {};
                editedrow = $(this).closest('tr');
                var User = new Object();
-               User.BoutiqueID = boutiqueid;
                User.UserID = editedrow.attr("userID");
                jsonResult = DeleteUser(User);
                if (jsonResult != undefined) {
                    if (jsonResult == "1") {
-                       BindAsyncUserTable(boutiqueid)//Gridbind
+                       BindAsyncUserTable()//Gridbind
                        $('#rowfluidDiv').show();
                        $('.alert-success').show();
                    }
                    if (jsonResult != "1") {
-                       BindAsyncUserTable(boutiqueid)//Gridbind
+                       BindAsyncUserTable()//Gridbind
                        $('#rowfluidDiv').show();
                        $('.alert-error').show();
                    }
@@ -110,62 +102,85 @@
            }
        })
 
-    $(".ownerdelete").live(
-      {
-          click: function (e) {
+    $(".admindelete").live(
+    {
+        click: function (e) {
 
-             
-           
-              $('#rowfluidDiv').hide();
-              $('.alert-success').hide();
-              $('.alert-error').hide();
-              var jsonResult = {};
-              editedrow = $(this).closest('tr');
-              var Owners = new Object();
-              Owners.BoutiqueID = boutiqueid;
-              Owners.UserID = editedrow.attr("userID");
-              Owners.OwnerID = editedrow.attr("ownerID");
-              jsonResult = DeleteOwner(Owners);
-              if (jsonResult != undefined) {
-                  if (jsonResult == "1") {
-                      BindAsyncOwnerTable(boutiqueid)//Gridbind
-                      $('#rowfluidDiv').show();
-                      $('.alert-success').show();
-                  }
-                  if (jsonResult != "1") {
-                      BindAsyncOwnerTable(boutiqueid)//Gridbind
-                      $('#rowfluidDiv').show();
-                      $('.alert-error').show();
-                  }
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var jsonResult = {};
+            editedrow = $(this).closest('tr');
+            var Admin= new Object();
+            Admin.AdminID = editedrow.attr("AdminID");
+            jsonResult = DeleteAdmin(Admin);
+            if (jsonResult != undefined) {
+                if (jsonResult == "1") {
+                    BindAsyncAdminsTable();//Gridbind
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                }
+                if (jsonResult != "1") {
+                    BindAsyncAdminsTable();//Gridbind
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                }
+            }
+            return false;
+        }
+    })
+
+    $(".managerdelete").live(
+  {
+      click: function (e) {
+
+
+          $('#rowfluidDiv').hide();
+          $('.alert-success').hide();
+          $('.alert-error').hide();
+          var jsonResult = {};
+          editedrow = $(this).closest('tr');
+          var Manager = new Object();
+          Manager.AdminID = editedrow.attr("AdminID");
+          jsonResult = DeleteManager(Manager); 
+          if (jsonResult != undefined) {
+              if (jsonResult == "1") {
+                  BindAsyncAdminsTable();//Gridbind
+                  $('#rowfluidDiv').show();
+                  $('.alert-success').show();
               }
-              return false;
+              if (jsonResult != "1") {
+                  BindAsyncAdminsTable();//Gridbind
+                  $('#rowfluidDiv').show();
+                  $('.alert-error').show();
+              }
           }
-      })
+          return false;
+      }
+  })
 
     $(".designerdelete").live(
      {
          click: function (e) {
-
-
 
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
              var jsonResult = {};
              editedrow = $(this).closest('tr');
-             var Designer = new Object();
-             Designer.BoutiqueID = boutiqueid;
+             var Designer = new Object();            
              Designer.DesignerID = editedrow.attr("designerID");
            
              jsonResult = DeleteDesigner(Designer);
              if (jsonResult != undefined) {
                  if (jsonResult == "1") {
-                     BindAsycDesignerTable(boutiqueid)//Gridbind
+                     BindAsycDesignerTable()//Gridbind
                      $('#rowfluidDiv').show();
                      $('.alert-success').show();
                  }
                  if (jsonResult != "1") {
-                     BindAsycDesignerTable(boutiqueid)//Gridbind
+                     BindAsycDesignerTable()//Gridbind
                      $('#rowfluidDiv').show();
                      $('.alert-error').show();
                  }
@@ -173,6 +188,8 @@
              return false;
          }
      })
+
+    //cancel REGION
 
     $(".CancelAdmin").live({
              
@@ -187,19 +204,11 @@
         }
     })
 
-
     $(".CancelUser").live({
         click: function (e) {// Clear controls
             clearUserControls();
         }
-    })
-
-    $(".CancelOwner").live({
-        click: function (e) {// Clear controls
-            clearOwnerControls();
-        }
-    })
-   
+    })   
 
     $(".CancelDesigner").live({
         click: function (e) {// Clear controls
@@ -208,48 +217,8 @@
     })
 
 
-    //$(".AddOwner").live({
-    //    click: function (e) {// submit button click
-    //        $('#rowfluidDiv').hide();
-    //        $('.alert-success').hide();
-    //        $('.alert-error').hide();
-    //        var result = "";
-    //        var Owners = new Object();
-
-
-
-    //        if ($("#hdfUserID").val() != "")
-    //        {
-    //            Owners.UserID = $("#hdfUserID").val();
-    //        }
-    //        else {
-    //            alert("Please Select A User..");
-    //            return;
-    //        }
-    //        Owners.BoutiqueID = boutiqueid;
-    //        Owners.Name = $("#txtOwnerName").val();
-    //        Owners.Address = $("#txtOwnerAddress").val();
-    //        Owners.Phone = $("#txtPhone").val();
-    //        Owners.Email = $("#txtOwnerEmail").val();
-    //        Owners.DOB = $("#DOBDate").val();
-           
-    //        Owners.Gender = "Male";
-
-    //        Owners.Profile = $("#txtProfile").val();
-    //        Owners.OwnerID = $("#hdfOwnerID").val();
-          
-    //        result = InsertOwner(Owners);
-    //        if (result == "1") {
-    //            $('#rowfluidDiv').show();
-    //            $('.alert-success').show();
-    //        }
-    //        if (result != "1") {
-    //            $('#rowfluidDiv').show();
-    //            $('.alert-error').show();
-    //        }
-
-    //    }
-    //})
+   
+    //ADD ADMIN
 
     $(".AddAdmin").live({
         click: function (e) {// submit button click
@@ -378,8 +347,7 @@
 
         }
     })
-
-
+    
     $(".AddDesigner").live({
         click: function (e) {// submit button click
             $('#rowfluidDiv').hide();
@@ -462,7 +430,6 @@ function BindAsycDesignerTable()
     }
 }
 
-
 function BindAsyncAdminsTable() {
     var jsonResult = {};
     var Admins = new Object();
@@ -477,7 +444,7 @@ function BindAdminsTable(Records) {
     //$("#UsersTable").find(".odd").remove();
     $("#AdministratorTable").find(".userrows").remove();
     $.each(Records, function (index, Records) {
-        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#AdministratorTable").append(html);
     })
 
@@ -498,10 +465,20 @@ function BindManagerTable(Records) {
     //$("#UsersTable").find(".odd").remove();
     $("#ManagerTable").find(".userrows").remove();
     $.each(Records, function (index, Records) {
-        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#ManagerTable").append(html);
     })
 
+}
+
+function GetAllDesigners(Designer) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'Designerobj':" + JSON.stringify(Designer) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesigners");
+    table = JSON.parse(ds.d);
+    return table;
 }
 
 function GetAllManager(Manager) {
@@ -514,7 +491,6 @@ function GetAllManager(Manager) {
     return table;
 }
 
-
 function GetAllAdmins(Admins) {
 
     var ds = {};
@@ -525,17 +501,6 @@ function GetAllAdmins(Admins) {
     return table;
 }
 
-
-function InsertOwner(Owners)
-{
-    var data = "{'ownersObj':" + JSON.stringify(Owners) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/People.aspx/InsertOwner");
-    var table = {};
-    table = JSON.parse(jsonResult.d);
-    return table;
-}
-
-
 function BindUserTable(Records) {
     //$("#UsersTable").find(".odd").remove();
     $("#UsersTable").find(".userrows").remove();
@@ -545,36 +510,6 @@ function BindUserTable(Records) {
     })
 
 }
-function BindAsyncOwnerTable(boutiqueid)
-{
-   
-    var jsonResult = {};
-    jsonResult = GetAllOwners(boutiqueid);
-    if (jsonResult != undefined) {
-        BindOwnerTable(jsonResult);
-    }
-
-}
-
-function GetAllOwners(boutiqueid)
-{
-    var ds = {};
-    var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
-    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllOwners");
-    table = JSON.parse(ds.d);
-    return table;
-}
-
-function BindOwnerTable(Records)
-{
-    $("#OwnerTable").find(".ownerrows").remove();
-    $.each(Records, function (index, Records) {
-        var html = '<tr class="ownerrows" userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info owneredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger ownerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-        $("#OwnerTable").append(html);
-    })
-}
-
 
 function BindDesignerTable(Records)
 {
@@ -672,24 +607,6 @@ function clearAdminControls() {
     $(".AddAdmin").text("Save");
 }
 
-function clearOwnerControls()
-{
-
-    $('#rowfluidDiv').hide();
-    $('.alert-success').hide();
-    $('.alert-error').hide();
-    $("#txtOwnerName").val('');
-    $("#txtOwnerAddress").val('');
-    $("#txtPhone").val('');
-    $("#txtOwnerEmail").val('');
-    $("#DOBDate").val('');
-  //  $("#radioMale").val('');
-    $("#txtProfile").val('');
-    $("#hdfOwnerID").val('');
-    $(".AddOwner").text("Save");
-}
-
-
 function clearUserControls() {
     $("#txtName").val('');
     $("#txtMobile").val('');
@@ -727,11 +644,11 @@ function GetUser(User) {
     return table;
 }
 
-function GetOwner(Owner) {
+function GetAdmin(Admin) {
     var ds = {};
     var table = {};
-    var data = "{'ownersObj':" + JSON.stringify(Owner) + "}";
-    ds = getJsonData(data, "../AdminPanel/People.aspx/GetOwner");
+    var data = "{'Adminobj':" + JSON.stringify(Admin) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAdmin");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -745,10 +662,8 @@ function GetDesigner(Designer) {
     return table;
 }
 
-
 function BindUserTextBoxes(Records)
-{
-    
+{    
     $.each(Records, function (index, Records) {
       
       
@@ -780,26 +695,43 @@ function BindUserTextBoxes(Records)
     $(".AddUser").text("Modify");
 }
 
-
-function BindOwnerTextBoxes(Records)
-{
+function BindAdminTextBoxes(Records) {
     $.each(Records, function (index, Records) {
 
-        $("#txtOwnerName").val(Records.Name);
-        $("#txtOwnerAddress").val(Records.Address);
-        $("#txtPhone").val(Records.Mobile);
-        $("#txtOwnerEmail").val(Records.Email);
-        $("#DOBDate").val(ConvertJsonToDate(Records.DOB));
-        $("#radioMale").val();
-        $("#txtProfile").val(Records.Profile);
-        $("#hdfOwnerID").val(Records.OwnerID);
+
+        $("#txtAdminName").val(Records.Name);
+        $("#txtMobileAdmin").val(Records.Mobile);
+        $("#txtAdminEmail").val(Records.Email);    
+        $("#txtAdminLoginName").val(Records.LoginName);
+     
+       
+       
+      
+
+        if (Records.Active = 'true') {
+            // $("#chkActive").attr('checked', 'checked');
+            // $(".chkActive").attr("checked", "checked
+            $("#chkActiveAdmin").prop('checked', true);
+
+        }
+        else {
+            // $("#chkActive").removeAttr('checked');
+            $("#chkActiveAdmin").prop('checked', false);
+        }
+        $("#chkActive").val(Records.IsActive);
+        $("#txtCaption").val(Records.Caption);
+     
+     
+        $("#hdfUserID").val(Records.UserID);
+        $("#hdfCardNo").val(Records.LoyaltyCardNo);
+        $("#hdfBoutiqueID").val(Records.BoutiqueID);
     })
-    $(".AddOwner").text("Modify");
+    $(".AddAdmin").text("Modify");
 }
+
 
 function BindDesignerTextBoxes(Records)
 {
-
     $.each(Records, function (index, Records) {
 
         $("#txtDesignerName").val(Records.Name);
@@ -807,7 +739,6 @@ function BindDesignerTextBoxes(Records)
         $("#txtDesignerProfile").val(Records.Profile);
         $("#hdfDesignerID").val(Records.DesignerID);
     })
-
     $(".AddDesigner").text("Modify");
 }
 
@@ -835,15 +766,23 @@ function DeleteUser(User)
     return table;
 }
 
-function DeleteOwner(Owner) {
+function DeleteAdmin(Admin) {
     var ds = {};
     var table = {};
-    var data = "{'ownersObj':" + JSON.stringify(Owner) + "}";
-    ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteOwner");
+    var data = "{'AdminObj':" + JSON.stringify(Admin) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteAdmin");
     table = JSON.parse(ds.d);
     return table;
 }
 
+function DeleteManager(Manager) {
+    var ds = {};
+    var table = {};
+    var data = "{'AdminObj':" + JSON.stringify(Manager) + "}";
+    ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteAdmin");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 function DeleteDesigner(Designer)
 {
@@ -851,17 +790,6 @@ function DeleteDesigner(Designer)
     var table = {};
     var data = "{'designerObj':" + JSON.stringify(Designer) + "}";
     ds = getJsonData(data, "../AdminPanel/People.aspx/DeleteDesigner");
-    table = JSON.parse(ds.d);
-    return table;
-}
-
-
-function GetAllDesigners(Designer) {
-
-    var ds = {};
-    var table = {};
-    var data = "{'Designerobj':" + JSON.stringify(Designer) + "}";
-    ds = getJsonData(data, "../AdminPanel/People.aspx/GetAllDesigners");
     table = JSON.parse(ds.d);
     return table;
 }

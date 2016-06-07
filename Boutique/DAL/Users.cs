@@ -229,7 +229,6 @@ namespace Boutique.DAL
         }
         #endregion SelectUser
 
-
         #region AddNewUser
         /// <summary>
         /// Create a new user
@@ -585,9 +584,9 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
-        #endregion DeleteBoutique
+        #endregion DeleteUser
 
-        #region SelectAdmins
+        #region SelectAdminsByRole
         public DataTable GetAdmins()
         {
             dbConnection dcon = null;
@@ -631,7 +630,7 @@ namespace Boutique.DAL
             }
             return ds;
         }
-        #endregion SelectAllUsers
+        #endregion SelectAdminsByRole
 
         #region AddAdmin
 
@@ -700,6 +699,101 @@ namespace Boutique.DAL
         }
 
         #endregion AddAdmin
+
+        #region DeleteAdmin
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name=userObj></param>
+        /// <returns></returns>
+        public Int16 DeleteAdmin()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteAdmin]";//sp not created
+                cmd.Parameters.Add("@AdminID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(AdminID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion DeleteAdmin
+
+        #region SelectAdminsbyuserId
+        public DataSet SelectAdminByUserID()
+        {
+            if (UserID == "")
+            {
+                throw new Exception("UserID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectAdminsByUserID]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such ID"); }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion SelectAdminsbyuserId
+
 
         #region AddRole
 
