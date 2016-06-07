@@ -117,6 +117,7 @@
     <Content Include="CSS\uniform.default.css" />
     <Content Include="CSS\uploadify.css" />
     <Content Include="CSS\viewbox.css" />
+    <Content Include="Default.aspx" />
     <Content Include="font\glyphicons-regular.svg" />
     <Content Include="font\glyphiconshalflings-regular.svg" />
     <Content Include="General\UnderConstruction.aspx" />
@@ -151,6 +152,7 @@
     <Content Include="Home\images\social.jpg" />
     <Content Include="Home\images\testrimonials.jpg" />
     <Content Include="Home\images\testrimonials1.jpg" />
+    <Content Include="Home\images\underconstruction.jpg" />
     <Content Include="Home\images\why.jpg" />
     <Content Include="Home\images\why1.jpg" />
     <Content Include="Home\js\engine.js" />
@@ -407,6 +409,13 @@
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\Security.cs" />
     <Compile Include="DAL\Users.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="General\UnderConstruction.aspx.cs">
       <DependentUpon>UnderConstruction.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
