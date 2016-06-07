@@ -922,30 +922,33 @@ namespace Boutique.DAL
         #endregion GetAllRelatedProductIDAndName
 
         #region GetAllProductIDAndName
-        public DataSet GetAllProductIDAndName(string boutiqueID)
+        public DataSet GetAllProductIDAndName()
         {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter sda = null;
-            Guid _boutiqueid = Guid.Empty;
+           
             try
             {
-                _boutiqueid = Guid.Parse(boutiqueID);
-                if (_boutiqueid != Guid.Empty)
-                {
+             
+              
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[GetAllProductIDAndName]";
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
                     sda.Fill(ds);
-                }
+               
             }
 
             catch (Exception ex)
