@@ -22,7 +22,7 @@
 <body style="overflow:hidden;">
     <section id="underConstruction" class="underConstruction0">
           <h2 id="underConstructionCaption1">T i q u e s I n n</h2>
-         <br />
+      
         <h3 id="underConstructionCaption3">is getting ready ! </h3>
             <p id="underConstructionCaption2">Launching Soon</p> 
                   
