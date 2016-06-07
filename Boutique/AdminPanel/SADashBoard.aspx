@@ -12,7 +12,7 @@
    
     
     <div id="content" class="span10">
-			
+		
 			
 			<ul class="breadcrumb">
 				<li>
@@ -23,6 +23,7 @@
 				<li><a href="#">Dashboard</a></li>
 			</ul>
      <%--   Report tiles--%>
+        	 <div class="row-fluid"><span class="headerStyle">SA Dashboard</span></div>
 			<div class="row-fluid">	
 
 				<a class="quick-button metro yellow span2">

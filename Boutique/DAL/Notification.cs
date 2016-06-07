@@ -179,17 +179,16 @@ namespace Boutique.DAL
         /// </summary>
         /// <param name="boutiqueID"></param>
         /// <returns></returns>
-        public DataSet SelectAllNotifications(string boutiqueID)
+        public DataSet SelectAllNotifications()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
             SqlDataAdapter sda = null;
-            Guid _boutiqueid = Guid.Empty;
+            Guid boutiqueid = Guid.Parse(BoutiqueID);
             try
-            {
-                _boutiqueid = Guid.Parse(boutiqueID);
-                if (_boutiqueid != Guid.Empty)
+            {              
+                if (boutiqueid != Guid.Empty)
                 {
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
@@ -197,7 +196,7 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[SelectAllNotificationsByBoutiqueID]";
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = boutiqueid;
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();

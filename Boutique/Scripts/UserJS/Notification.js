@@ -1,17 +1,18 @@
 ﻿$("document").ready(function (e) {
 
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
-    BindNotificationsTable(boutiqueid);
+ 
+    BindNotificationsTable();
+
     //Edit region drop downs-------------
     $(".products").select2({
         placeholder: "Choose related product",
         allowClear: true,
-        data: BindProductDropdown(boutiqueid)
+        data: BindProductDropdown()
     });
     $(".categories").select2({
         allowClear: true,
         placeholder: "Choose related category",        
-        data: BindCategoryDropdown(boutiqueid)//category dropdown binds only with id and text[key:value] mandatory
+        data: BindCategoryDropdown()//category dropdown binds only with id and text[key:value] mandatory
     });
     //Edit button--------
     $(".notificationedit").live(
@@ -24,7 +25,7 @@
             var jsonResult = {};
             editedrow = $(this).closest('tr');
             var Notification = new Object();
-            Notification.BoutiqueID = boutiqueid;
+           
             Notification.NotificationID = editedrow.attr("NotificationID");
             jsonResult = GetNotification(Notification);
             if (jsonResult != undefined) {
@@ -53,7 +54,7 @@
             var result = "";
             var Notification = new Object();
             Notification.NotificationID=$("#hdfNotificationID").val();
-            Notification.BoutiqueID = boutiqueid;
+           
             if ($("#txtTitle").val() != "") {
                 Notification.Title = $("#txtTitle").val();
             }
@@ -87,7 +88,7 @@
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                BindNotificationsTable(boutiqueid);
+                BindNotificationsTable();
                 $("#txtTitle").val("");
                 $("#txtDescription").val("");
                 $("#dateStartDate").val("");
@@ -124,7 +125,7 @@
                 var jsonResult = {};
                 editedrow = $(this).closest('tr');
                 var Notification = new Object();
-                Notification.BoutiqueID = boutiqueid;
+            
                 Notification.NotificationID = editedrow.attr("NotificationID");
                 result = DeleteNotification(Notification);
                 if (result == "1") {
@@ -136,7 +137,7 @@
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                 }
-                BindNotificationsTable(boutiqueid);
+                BindNotificationsTable();
                 $("#txtTitle").val("");
                 $("#txtDescription").val("");
                 $("#dateStartDate").val("");
@@ -173,22 +174,27 @@
         }
     })
 });
+
 //------------Notification details table------------
-function BindNotificationsTable(boutiqueid) {
+
+function BindNotificationsTable() {
     var jsonResult = {};
-    jsonResult = GetAllNotifications(boutiqueid);
+    var Notify = new Object();
+    jsonResult = GetAllNotifications(Notify);
     if (jsonResult != undefined) {
         FillNotificationTable(jsonResult);
     }
 }
-function GetAllNotifications(boutiqueid) {
+
+function GetAllNotifications(Notify) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'NotifyObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetAllNotifications");
     table = JSON.parse(ds.d);
     return table;
 }
+
 function FillNotificationTable(Records) {
     $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
@@ -196,33 +202,36 @@ function FillNotificationTable(Records) {
         $("#NotificationTable").append(html);
     })
 }
+
 //------------Dropdowns-----------------
-function BindProductDropdown(boutiqueid) {
+function BindProductDropdown() {
     var jsonResult = {};
-    jsonResult = GetAllProducts(boutiqueid);
+    var Notify = new Object();
+    jsonResult = GetAllProducts(Notify);
     if (jsonResult != undefined) {
         return jsonResult;
     }
 }
-function GetAllProducts(boutiqueid) {
+function GetAllProducts(Notify) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
     table = JSON.parse(ds.d);
     return table;
 }
-function BindCategoryDropdown(boutiqueid) {
+function BindCategoryDropdown() {
     var jsonResult = {};
-    jsonResult = GetAllCategories(boutiqueid);
+    var Notify = new Object();
+    jsonResult = GetAllCategories(Notify);
     if (jsonResult != undefined) {
         return jsonResult;
     }
 }
-function GetAllCategories(boutiqueid) {
+function GetAllCategories(Notify) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
     table = JSON.parse(ds.d);
     return table;

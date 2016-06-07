@@ -70,6 +70,7 @@
     <Content Include="AdminPanel\Loyalty.aspx" />
     <Content Include="AdminPanel\LoyaltySettings.aspx" />
     <Content Include="AdminPanel\Notifications.aspx" />
+    <Content Include="AdminPanel\OrderStatus.aspx" />
     <Content Include="AdminPanel\People.aspx" />
     <Content Include="AdminPanel\ProductFileUpload.aspx" />
     <Content Include="AdminPanel\Products.aspx" />
@@ -254,12 +255,14 @@
     <Content Include="Scripts\jquery.viewbox.min.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\UserJS\AdminLayout.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
     <Content Include="Scripts\UserJS\Login.js" />
     <Content Include="Scripts\UserJS\Loyalty.js" />
     <Content Include="Scripts\UserJS\LoyaltySettings.js" />
     <Content Include="Scripts\UserJS\Notification.js" />
+    <Content Include="Scripts\UserJS\OrderStatus.js" />
     <Content Include="Scripts\UserJS\People.js" />
     <Content Include="Scripts\UserJS\Product.js" />
     <Content Include="Scripts\UserJS\ProductFileUpload.js" />
@@ -364,6 +367,13 @@
     <Compile Include="AdminPanel\Notifications.aspx.designer.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPanel\OrderStatus.aspx.cs">
+      <DependentUpon>OrderStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\OrderStatus.aspx.designer.cs">
+      <DependentUpon>OrderStatus.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\People.aspx.cs">
       <DependentUpon>People.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -405,6 +415,7 @@
     <Compile Include="DAL\Designers.cs" />
     <Compile Include="DAL\Loyalty.cs" />
     <Compile Include="DAL\Notification.cs" />
+    <Compile Include="DAL\Order.cs" />
     <Compile Include="DAL\Owners.cs" />
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\Security.cs" />
