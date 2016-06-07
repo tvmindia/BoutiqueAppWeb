@@ -1,9 +1,9 @@
 ﻿$("document").ready(function (e) {
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
-    LoadLoyaltySettings(boutiqueid);
+    debugger;
+    LoadLoyaltySettings();
     //Log table--------
     
-    BindLoyaltyLogTable(boutiqueid);
+    BindLoyaltyLogTable();
     
     $('#LoyaltyLogTable').DataTable({        
         "aaSorting": [[8,'desc']],      //Sort with Date coloumn
@@ -50,7 +50,7 @@
             $('.alert-error').hide();
             var result = "";
             var Loyalty = new Object();
-            Loyalty.BoutiqueID = boutiqueid;
+           
             if ($("#txtMoneyToPointPercentage").val() != "") {
                 Loyalty.MoneyValuePercentage = $("#txtMoneyToPointPercentage").val();
             }
@@ -91,7 +91,7 @@
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                LoadLoyaltySettings(boutiqueid);
+                LoadLoyaltySettings();
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
@@ -114,22 +114,25 @@
             $('.alert-success').hide();
             $('.alert-error').hide();
             //Clearing fields to old values
-            LoadLoyaltySettings(boutiqueid);
+            LoadLoyaltySettings();
         }
     })
 });
 //------------Load Loyalty settings------------
-function LoadLoyaltySettings(boutiqueid) {
+function LoadLoyaltySettings() {
+    debugger;
     var jsonResult = {};
-    jsonResult = GetLoyaltySettings(boutiqueid);
+    var Loyalty = new Object();
+    jsonResult = GetLoyaltySettings(Loyalty);
     if (jsonResult != undefined) {
         SetLoyaltySettings(jsonResult);
     }
 }
-function GetLoyaltySettings(boutiqueid) {
+function GetLoyaltySettings(Loyalty) {
+    debugger;
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
     ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetLoyaltySettings");
     table = JSON.parse(ds.d);
     return table;
@@ -152,22 +155,26 @@ function InsertLoyaltySettings(Loyalty) {
     return table;
 }
 //------------Loyalty Log details table------------
-function BindLoyaltyLogTable(boutiqueid) {
+function BindLoyaltyLogTable() {
+    debugger;
     var jsonResult = {};
-    jsonResult = GetLoyaltyLog(boutiqueid);
+    var Loyalty = new Object();
+    jsonResult = GetLoyaltyLog(Loyalty);
     if (jsonResult != undefined) {
         FillLoyaltyLogTable(jsonResult);
     }
 }
-function GetLoyaltyLog(boutiqueid) {
+function GetLoyaltyLog(Loyalty) {
+    debugger;
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
     ds = getJsonData(data, "../AdminPanel/LoyaltySettings.aspx/GetLoyaltyLog");
     table = JSON.parse(ds.d);
     return table;
 }
 function FillLoyaltyLogTable(Records) {
+    debugger;
     $("tbody#rows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
         var html = '<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td>' + Records.LoyaltyCardNo + '</td><td>' + Records.Mobile + '</td><td>' + (Records.AmountPaid != null ? Records.AmountPaid : "-") + '</td><td>' + (Records.DebitPoints != null ? Records.DebitPoints : "-") + '</td><td>' + (Records.CreditPoints != null ? Records.CreditPoints : "-") + '</td><td>' + Records.LoyaltyPoints + '</td><td>' + (Records.MoneyValuePercentage != null ? Records.MoneyValuePercentage : "-") + '</td><td>' + ConvertJsonToDate(Records.CreatedDate) + '</td><td>' + (Records.Remarks!=null?Records.Remarks:"-") + '</td></tr>';

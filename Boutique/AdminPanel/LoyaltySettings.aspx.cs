@@ -26,6 +26,11 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateLoyaltySettings(DAL.Loyalty loyaltyObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            loyaltyObj.BoutiqueID = UA.BoutiqueID;
             string status = null;
             try
             {
@@ -58,12 +63,17 @@ namespace Boutique.AdminPanel
         /// <param name="Boutiqueid"></param>
         /// <returns></returns>
         [System.Web.Services.WebMethod]
-        public static string GetLoyaltyLog(string Boutiqueid)
+        public static string GetLoyaltyLog(DAL.Loyalty loyaltyObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            loyaltyObj.BoutiqueID = UA.BoutiqueID;
+            
             string jsonResult = null;
             DataSet ds = new DataSet();
-            DAL.Loyalty loyaltyObj = new DAL.Loyalty();
-            loyaltyObj.BoutiqueID = Boutiqueid;
+
             ds.Tables.Add(loyaltyObj.GetLoyaltyLog());
 
             //Converting to Json

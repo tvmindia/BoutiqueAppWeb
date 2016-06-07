@@ -1,5 +1,5 @@
 ﻿$("document").ready(function (e) {
-
+    parent.document.title = "SA Dashboard";
     $(".ddlboutiques").select2({
 
         data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory

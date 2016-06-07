@@ -1,4 +1,4 @@
-﻿$("document").ready(function (e) {
+﻿ $("document").ready(function (e) {
     //disables the div containing image upload and image list
     document.getElementById('imageupGallery').style.display = 'block';
     //var prodid = '8c9b8e83-dc8f-48d7-994b-8688516a8771'//$("#hdfproductID").val();
@@ -137,11 +137,20 @@
                     //productimage id and order number
                     var ImageInfo = [];
                     var idval, orderno;
+                    var mainpicture;
                     $('#olpreview li').each(function (index) {
                         //val.push($(this).attr('id'));
+
                         var idval = $(this).attr('id');
                         orderno = index;
                         ImageInfo.push(idval);
+                        debugger;
+                        if (document.getElementById("chkbox").checked)
+                        {
+                            mainpicture = $(this).attr('id');
+                        }
+
+                        
                     });
                     Product.ImageInfo = ImageInfo;
                     //productimage id and order number
@@ -370,13 +379,13 @@ function BindAllProductImages() {
         var totalimages = {};
         totalimages = GetAllProductsImageDetailsunderBoutique(Product);
         $("#productimagehold").find(".masonry-thumb").remove();
-          
+     
         for (var i = 0; i < totalimages.length; i++)
         {
-         var html = ('<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
           + '  <a class="image-link" title="" href="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
          + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
-         + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>');
+         + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div></div>');
          imagedivholder.append(html);
         }
 }
@@ -447,6 +456,7 @@ function MultiImageBind(Records) {
     chk.type = 'checkbox';
     chk.className = "chkbox";
     chk.name = "mainpix";
+    chk.id = "";
     var spacespan1 = document.createElement('span');
     spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
     //<span class="close-btn"><a href="#">X</a></span>

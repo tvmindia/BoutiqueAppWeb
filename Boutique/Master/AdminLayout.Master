@@ -37,6 +37,7 @@
 <script src="../Scripts/counter.js"></script>
 <script src="../Scripts/retina.js"></script>
 <script src="../Scripts/custom.js"></script>
+<script src="../Scripts/UserJS/AdminLayout.js"></script>
     <%-- first test till above --%>
 
 
@@ -47,7 +48,7 @@
     </asp:ContentPlaceHolder>
     <!-- start: Meta -->
 	<meta charset="utf-8"/>
-	<title>Boutique</title>
+	<title></title>
 	<meta name="description" content="Boutique Admin Panel"/>
 	<meta name="author" content="Albert Thomson"/>
 	<meta name="keyword" content="Boutique, Fashion, Style, Trend"/>
@@ -359,10 +360,10 @@
 			
 				<div class="nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li id ="Li_SaDashBoard" runat="server"><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
-                        <li id ="Li_DashBoard" runat="server"><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-				 	    <li id ="Li_Profile" runat="server"><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet">Boutique Profile</span></a></li>
-						<li id ="Li_People" runat="server"><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet"> People</span></a></li>
+						<li class="navTitle" id ="Li_SaDashBoard" runat="server"><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
+                        <li class="navTitle" id ="Li_DashBoard" runat="server"><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+				 	    <li class="navTitle" id ="Li_Profile" runat="server"><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet">Boutique Profile</span></a></li>
+						<li class="navTitle" id ="Li_People" runat="server"><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet"> People</span></a></li>
                        <%-- 	<li><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet">Profile</span></a></li>
 						<li><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet">People</span></a></li>--%>
 
