@@ -137,19 +137,18 @@
                     //productimage id and order number
                     var ImageInfo = [];
                     var idval, orderno;
-                    var mainpicture;
+                   
                     $('#olpreview li').each(function (index) {
                         //val.push($(this).attr('id'));
-
                         var idval = $(this).attr('id');
                         orderno = index;
                         ImageInfo.push(idval);
                         debugger;
-                        if (document.getElementById("chkbox").checked)
+                        if (document.getElementById("chkmain" + index).checked)
                         {
-                            mainpicture = $(this).attr('id');
+                            Product.MainImageID = idval;
                         }
-
+                      
                         
                     });
                     Product.ImageInfo = ImageInfo;
@@ -424,7 +423,7 @@ function BindAllImages()
 
         $("#olpreview").find(".liclas").remove();
         $.each(imageids, function (index, Records) {
-            MultiImageBind(Records);
+            MultiImageBind(Records,index);
         })
 
     }
@@ -437,7 +436,7 @@ function gethiddenvalue()
 }
 
 
-function MultiImageBind(Records) {
+function MultiImageBind(Records,index) {
     var ol = document.getElementById("olpreview");
     var li = document.createElement("li");
     var children = ol.children.length + 1
@@ -449,14 +448,14 @@ function MultiImageBind(Records) {
     img1.className = "thumb";
  
     li.appendChild(img1);
-   // var nextline = document.createElement('p');
+    // var nextline = document.createElement('p');
      var spacespan = document.createElement('span');
     spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
     var chk = document.createElement('input');
     chk.type = 'checkbox';
     chk.className = "chkbox";
     chk.name = "mainpix";
-    chk.id = "";
+    chk.id = "chkmain" + index;
     var spacespan1 = document.createElement('span');
     spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
     //<span class="close-btn"><a href="#">X</a></span>

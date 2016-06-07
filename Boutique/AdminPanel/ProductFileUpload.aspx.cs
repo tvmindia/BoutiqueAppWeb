@@ -38,7 +38,7 @@ namespace Boutique.AdminPanel
                         prodobj.ImageFile = new byte[fileupload.FileContent.Length];
                         myStream = fileupload.FileContent;
                         myStream.Read(prodobj.ImageFile, 0, (int)fileupload.FileContent.Length);
-                        prodobj.IsMain = true;
+                     
                         prodobj.InsertProductImage();
                         lblFile.Text = "Upload status: File uploaded!";
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadAllImagesBind", "parent.BindAllImages();", true);
