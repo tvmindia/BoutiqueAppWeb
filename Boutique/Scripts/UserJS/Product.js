@@ -1,4 +1,6 @@
-﻿ $("document").ready(function (e) {
+﻿$("document").ready(function (e) {
+    parent.document.title = "Products";
+
     //disables the div containing image upload and image list
     document.getElementById('imageupGallery').style.display = 'block';
     //var prodid = '8c9b8e83-dc8f-48d7-994b-8688516a8771'//$("#hdfproductID").val();
