@@ -35,7 +35,7 @@
 		
 	     <%--//END   Alert boxes --%>
 
-        <div class="row-fluid sortable" id="customers">
+        <div class="row-fluid sortable" id="Orders">
             <div class="box span12">
                 <div class="box-header">
                     <h2>Orders</h2>
