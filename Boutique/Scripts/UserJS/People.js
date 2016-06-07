@@ -13,7 +13,7 @@
     {
 
         click: function (e) {
-            debugger;
+            
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -32,7 +32,7 @@
       {
 
           click: function (e) {
-              debugger;
+            
               $('#rowfluidDiv').hide();
               $('.alert-success').hide();
               $('.alert-error').hide();
@@ -120,7 +120,6 @@
                return false;
            }
        })
-
     $(".admindelete").live(
     {
         click: function (e) {
@@ -149,7 +148,6 @@
             return false;
         }
     })
-
     $(".managerdelete").live(
   {
       click: function (e) {
@@ -178,7 +176,6 @@
           return false;
       }
   })
-
     $(".designerdelete").live(
      {
          click: function (e) {
@@ -215,32 +212,27 @@
              clearAdminControls();
         }
     })
-
     $(".CancelManager").live({
         click: function (e) {// Clear controls
             clearManagerControls();
         }
     })
-
     $(".CancelUser").live({
         click: function (e) {// Clear controls
             clearUserControls();
         }
     })   
-
     $(".CancelDesigner").live({
         click: function (e) {// Clear controls
             clearDesignerControls();
         }
     })
-   
+
     //ADD ADMIN
 
     $(".AddAdmin").live({
         click: function (e) {// submit button click
-
-            debugger;
-
+         
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -279,13 +271,10 @@
 
         }
     })
-
-
     $(".AddManager").live({
         click: function (e) {// submit button click
 
-            debugger;
-
+       
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -324,7 +313,6 @@
 
         }
     })
-
     $(".AddUser").live({
         click: function (e) {// submit button click
             $('#rowfluidDiv').hide();
@@ -362,8 +350,7 @@
             }
 
         }
-    })
-    
+    })    
     $(".AddDesigner").live({
         click: function (e) {// submit button click
             $('#rowfluidDiv').hide();
@@ -397,9 +384,7 @@
             }
 
         }
-    })
-
-    
+    })    
 });//end of document.ready
 
 
@@ -424,7 +409,20 @@ function getJsonData(data, page) {
     });
     return jsonResult;
 }
-//---end of getting data as json -----//
+
+function ConvertJsonToDate(jsonDate) {
+    if (jsonDate != null) {
+        var dateString = jsonDate.substr(6);
+        // "\/Date(1455561000000)\/".substr(6);
+        var currentTime = new Date(parseInt(dateString));
+        var month = currentTime.getMonth() + 1;
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        var date = day + "/" + month + "/" + year;
+        return date;
+    }
+}
+
 
 function BindAsyncUserTable()
 {
@@ -455,16 +453,6 @@ function BindAsyncAdminsTable() {
     }
 }
 
-function BindAdminsTable(Records) {
-    //$("#UsersTable").find(".odd").remove();
-    $("#AdministratorTable").find(".userrows").remove();
-    $.each(Records, function (index, Records) {
-        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-        $("#AdministratorTable").append(html);
-    })
-
-}
-
 function BindAsyncManagersTable() {
     var jsonResult = {};
     var Manager = new Object();
@@ -474,14 +462,15 @@ function BindAsyncManagersTable() {
     }
 }
 
-function BindManagerTable(Records) {
-    //$("#UsersTable").find(".odd").remove();
-    $("#ManagerTable").find(".userrows").remove();
-    $.each(Records, function (index, Records) {
-        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-        $("#ManagerTable").append(html);
-    })
 
+function GetAllUsers(Users) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'Usersobj':" + JSON.stringify(Users) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsersByBoutiqueID");
+    table = JSON.parse(ds.d);
+    return table;
 }
 
 function GetAllDesigners(Designer) {
@@ -514,6 +503,7 @@ function GetAllAdmins(Admins) {
     return table;
 }
 
+
 function BindUserTable(Records) {
     //$("#UsersTable").find(".odd").remove();
     $("#UsersTable").find(".userrows").remove();
@@ -533,15 +523,28 @@ function BindDesignerTable(Records)
     })
 }
 
-function GetAllUsers(Users) {
+function BindManagerTable(Records) {
+    //$("#UsersTable").find(".odd").remove();
+    $("#ManagerTable").find(".userrows").remove();
+    $.each(Records, function (index, Records) {
+        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#ManagerTable").append(html);
+    })
 
-    var ds = {};
-    var table = {};
-    var data = "{'Usersobj':" + JSON.stringify(Users) + "}";
-    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsersByBoutiqueID");
-    table = JSON.parse(ds.d);
-    return table;
 }
+
+function BindAdminsTable(Records) {
+    //$("#UsersTable").find(".odd").remove();
+    $("#AdministratorTable").find(".userrows").remove();
+    $.each(Records, function (index, Records) {
+        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#AdministratorTable").append(html);
+    })
+
+}
+
+
+
 
 function InsertUser(User) {
    
@@ -567,8 +570,7 @@ function InsertAdmin(Admin) {
 
 function InsertManager(Manager) {
 
-    debugger;
-
+ 
     var data = "{'ManagerObj':" + JSON.stringify(Manager) + "}";
 
     jsonResult = getJsonData(data, "../AdminPanel/People.aspx/AddManager");
@@ -587,6 +589,7 @@ function InsertDesigner(Designer)
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
 
 function clearManagerControls() {
     $("#txtManagerName").val('');
@@ -644,6 +647,7 @@ function clearDesignerControls()
 
 }
 
+
 function GetUser(User) {
     var ds = {};
     var table = {};
@@ -670,6 +674,7 @@ function GetDesigner(Designer) {
     table = JSON.parse(ds.d);
     return table;
 }
+
 
 function BindUserTextBoxes(Records)
 {    
@@ -776,19 +781,6 @@ function BindDesignerTextBoxes(Records)
     $(".AddDesigner").text("Modify");
 }
 
-function ConvertJsonToDate(jsonDate)
-{
-    if (jsonDate != null) {
-        var dateString = jsonDate.substr(6);
-        // "\/Date(1455561000000)\/".substr(6);
-        var currentTime = new Date(parseInt(dateString));
-        var month = currentTime.getMonth() + 1;
-        var day = currentTime.getDate();
-        var year = currentTime.getFullYear();
-        var date = day + "/" + month + "/" + year;
-        return date;
-    }
-}
 
 function DeleteUser(User)
 {
