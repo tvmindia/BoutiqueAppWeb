@@ -66,6 +66,14 @@ function showCaptions() {
     
 }
 
+function showUConstructionCaptions() {
+
+    $('#underConstructionCaption1').fadeIn(1500, function () { $('#underConstructionCaption3').fadeIn(1200); })
+   
+    
+
+
+}
 
 
 function getstated() {

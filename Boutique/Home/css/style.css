@@ -1202,6 +1202,89 @@ z-index:9999;
     }
 }
 
+
+
+
+
+/* under construction */
+
+#underConstruction {
+  
+    background-position: center center;
+    background-size: cover;
+    color: #ffffff;
+    padding: 14em 14em 14em;
+    text-align: center;
+    /*-webkit-animation: zoom 15s infinite;
+    animation: zoom 15s infinite;*/
+     background-attachment: fixed;
+
+  
+
+}
+
+.underConstruction0 {
+      background-image: url(../images/dark_tint.png), url(../images/underconstruction.jpg);
+}
+
+ 
+    #underConstruction :last-child {
+        margin-bottom: 0;
+    }
+
+    #underConstruction h2 {
+        color: #ffffff;
+        font-size: 4em;
+        line-height: 1.25em;
+        margin: 0 0 0.5em 0;
+        padding: 0;
+        text-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.53);
+
+        
+
+
+    }
+     #underConstruction h3 {
+        color: #ffffff;
+        font-size: 2.5em;
+        line-height: 1.25em;
+        margin: 0 0 0.5em 0;
+        padding: 0;
+         text-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.53);
+         font-weight:200;
+    }
+
+    #underConstruction p {
+        font-size: 1.5em;
+        margin-bottom: 1.75em;
+         text-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.53);
+    }
+
+
+#underConstructionCaption1 {
+      display:none
+}
+
+ #underConstructionCaption2 {
+      display:none
+}
+ #underConstructionCaption3 {
+      display:none
+}
+      
+/*-----------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
 .line {
     border-top-style: solid;
     border-top-width: thin;
