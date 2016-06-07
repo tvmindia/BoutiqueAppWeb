@@ -70,6 +70,7 @@
     <Content Include="AdminPanel\Loyalty.aspx" />
     <Content Include="AdminPanel\LoyaltySettings.aspx" />
     <Content Include="AdminPanel\Notifications.aspx" />
+    <Content Include="AdminPanel\OrderStatus.aspx" />
     <Content Include="AdminPanel\People.aspx" />
     <Content Include="AdminPanel\ProductFileUpload.aspx" />
     <Content Include="AdminPanel\Products.aspx" />
@@ -363,6 +364,13 @@
     </Compile>
     <Compile Include="AdminPanel\Notifications.aspx.designer.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\OrderStatus.aspx.cs">
+      <DependentUpon>OrderStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\OrderStatus.aspx.designer.cs">
+      <DependentUpon>OrderStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\People.aspx.cs">
       <DependentUpon>People.aspx</DependentUpon>

@@ -372,7 +372,7 @@
 						<li id ="Li_Loyalty" runat="server"><a href="Loyalty.aspx"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
 						<li id ="Li_LoyaltySettings" runat="server"><a href="LoyaltySettings.aspx"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>
 					
-						
+						<li id ="Li_OrderStatus" runat="server"><a href="#"><i class="icon-shopping-cart"></i><span class="hidden-tablet">Order Status</span></a></li>
                       
 					
 					<%--	<li><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
