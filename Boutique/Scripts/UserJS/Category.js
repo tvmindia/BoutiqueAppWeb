@@ -16,7 +16,7 @@
                 var jsonResult = {};
                 editedrow = $(this).closest('tr');
                 var Category = new Object();
-                Category.BoutiqueID = boutiqueid;
+            
                 Category.CategoryID = editedrow.attr("CategoryID");
                 Category.CategoryCode = editedrow.attr("CategCode");
                 result = DeleteCategory(Category);
@@ -44,14 +44,14 @@
     $(".categoryedit").live(
     {
         click: function (e) {
-           
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
             var jsonResult = {};
             editedrow = $(this).closest('tr');
             var Category = new Object();
-            Category.BoutiqueID = boutiqueid;
+           
             Category.CategoryID = editedrow.attr("CategoryID");
             jsonResult = GetCategory(Category);
             if (jsonResult != undefined) {
@@ -76,7 +76,7 @@
                
                 
                 var Category = new Object();
-                Category.BoutiqueID = boutiqueid;
+              
                 Category.CategoryCode = $("#txtCatCode").val();
                 Category.CategoryName = $("#txtCategoryName").val();
                 result = InsertCategory(Category);
@@ -84,7 +84,7 @@
             if ($(".AddCategory").text() == "Modify")
             {
                 var Category = new Object();
-                Category.BoutiqueID = boutiqueid;
+               
                 Category.CategoryID = $("#hdfCategoryID").val();
                 Category.CategoryCode = $("#txtCatCode").val();
                 Category.CategoryName = $("#txtCategoryName").val();

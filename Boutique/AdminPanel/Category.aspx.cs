@@ -95,11 +95,16 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllCategoryIDandName
 
-        #region GetCategory
+        #region GetCategoryByCategoryCode
 
         [System.Web.Services.WebMethod]
         public static string GetCategoryByCategoryCode(Product categoryObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            categoryObj.BoutiqueID = UA.BoutiqueID;
             DataSet ds = null;
             ds=categoryObj.GetCategory();
 
@@ -131,6 +136,10 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertCategory(Product categoryObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            categoryObj.BoutiqueID = UA.BoutiqueID;
              string status=null;
              try
              {
@@ -171,6 +180,10 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteCategory(Product categoryObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            categoryObj.BoutiqueID = UA.BoutiqueID;
             string status = null;
             try
             {
@@ -184,6 +197,7 @@ namespace Boutique.AdminPanel
             return status;
         }
         #endregion DeleteCategory
+
         #endregion Methods
 
     }
