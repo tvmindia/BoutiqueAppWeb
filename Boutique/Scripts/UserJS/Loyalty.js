@@ -2,7 +2,7 @@
     var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
     
     //Customers table--------
-    BindUserTable(boutiqueid);
+    BindUserTable();
     $('#UsersTable').DataTable( {
         "bPaginate": false,             //removing paging
     });
@@ -249,17 +249,18 @@
 });
 
 //------------User details table------------
-function BindUserTable(boutiqueid) {
+function BindUserTable() {
     var jsonResult = {};
-    jsonResult = GetAllUsers(boutiqueid);
+    var Users = new Object();
+    jsonResult = GetAllUsers(Users);
     if (jsonResult != undefined) {
         FillUserTable(jsonResult);
     }
 }
-function GetAllUsers(boutiqueid) {
+function GetAllUsers(Users) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'Usersobj':" + JSON.stringify(Users) + "}";
     ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetAllUsers");
     table = JSON.parse(ds.d);
     return table;
@@ -267,7 +268,7 @@ function GetAllUsers(boutiqueid) {
 function FillUserTable(Records) {
     $("tbody#userrows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
-        var html = '<tr UserID="' + Records.UserID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center">' + Records.LoyaltyCardNo + '</td><td class="center"><a class="btn btn-success userselect" href="#"><i class="halflings-icon white eye-open"></i></a></td></tr>';
+        var html = '<tr UserID="' + (Records.UserID != null ? Records.UserID : "-") + '" BoutiqueID="' +( Records.BoutiqueID != null ? Records.BoutiqueID : "-" )+ '"><td>' +( Records.Name != null ? Records.Name : "-") + '</td><td class="center">' +( Records.Mobile != null ? Records.Mobile : "-") + '</td><td class="center">' + (Records.Email != null ? Records.Email : "-") + '</td><td class="center">' + (Records.LoyaltyCardNo != null ? Records.LoyaltyCardNo : "-") + '</td><td class="center"><a class="btn btn-success userselect" href="#"><i class="halflings-icon white eye-open"></i></a></td></tr>';
         $("#UsersTable").append(html);
     });
 }

@@ -159,10 +159,6 @@ namespace Boutique.WebServices
                 Product products= new Product();
                 products.CategoryCode = CategoryCode;
                 products.BoutiqueID = boutiqueID;
-                if (userID == "null")
-                {
-                    userID = "";
-                }
                 dt = products.GetProductsByCategory(userID);
                 //Giving coloumns of image details
                 ArrayList imgColNames = new ArrayList();
@@ -251,33 +247,14 @@ namespace Boutique.WebServices
                 user.Name = name;
                 user.Mobile = mobile;
                 user.Email = email;
-                if (dob != "null")
-                {
-                    user.DOB = dob;
-                }
-                else
-                {
-                    user.DOB = "";
-                }
-                if (anniversary != "null")
-                {
-                    user.Anniversary = anniversary;
-                }
-                else
-                {
-                    user.Anniversary = "";
-                }
-                if (referral == "null")
-                {
-                    referral = "";                          //App can't sent empty string
-                }
+                user.DOB = dob;
+                user.Anniversary = anniversary;
                 user.Gender = gender;
                 user.IsActive = true;
                 user.CreatedBy = "User";
                 user.CreatedDate = DateTime.Now;
                 user.IsAdmin = false;
                 user.AddNewUser(referral);
-
                 
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));
@@ -623,7 +600,7 @@ namespace Boutique.WebServices
             try
             {
                // DataTable dt = ds.Tables[0];
-                String filePath = Server.MapPath("~/MediaUploader/");
+                String filePath = Server.MapPath("~/Media/");
 
                 System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
                 List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();

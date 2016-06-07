@@ -24,12 +24,17 @@ namespace Boutique.AdminPanel
         #region WebMethods
         #region SelectAllUsers
         [System.Web.Services.WebMethod]
-        public static string SelectAllUsersByBoutiqueID(string Boutiqueid)
+        public static string SelectAllUsersByBoutiqueID(Users Usersobj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            Usersobj.BoutiqueID = UA.BoutiqueID;
             string jsonResult = null;
             DataSet ds = null;
-            Users userObj = new Users();
-            ds = userObj.SelectAllUsers(Boutiqueid);
+
+            ds = Usersobj.SelectAllUsers();
             //
         
 
