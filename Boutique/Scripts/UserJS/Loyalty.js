@@ -1,5 +1,5 @@
 ﻿$("document").ready(function (e) {
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+   
     
     //Customers table--------
     BindUserTable();
@@ -8,7 +8,7 @@
     });
 
     //Loyalty settings loading------
-    LoadLoyaltySettings(boutiqueid);
+    LoadLoyaltySettings();
     var MIN_AMOUNT_TO_REDEEM = $("#hdfMIN_AMOUNT_TO_REDEEM").val();;
     var MAX_DISCOUNT_PERCENTAGE = $("#hdfMAX_DISCOUNT_PERCENTAGE").val();;
     var MONEY_TO_POINT_VALUE = $("#hdfMONEY_TO_POINT_VALUE").val();;
@@ -26,7 +26,7 @@
             var jsonResult = {};
             editedrow = $(this).closest('tr');
             var User = new Object();
-            User.BoutiqueID = boutiqueid;
+         
             User.UserID = editedrow.attr("UserID");
             jsonResult = GetUserDetails(User);
             if (jsonResult != undefined) {
@@ -173,7 +173,7 @@
                 return;
             }
 
-            Loyalty.BoutiqueID = boutiqueid;
+         
                         
             result = MakeTransaction(Loyalty);
             if (result == "1") {
@@ -273,17 +273,18 @@ function FillUserTable(Records) {
     });
 }
 //------------Load Loyalty settings------------
-function LoadLoyaltySettings(boutiqueid) {
+function LoadLoyaltySettings() {
     var jsonResult = {};
-    jsonResult = GetLoyaltySettings(boutiqueid);
+    var loyalty = new Object();
+    jsonResult = GetLoyaltySettings(loyalty);
     if (jsonResult != undefined) {
        SetLoyaltySettings(jsonResult);
     }
 }
-function GetLoyaltySettings(boutiqueid) {
+function GetLoyaltySettings(loyalty) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'loyaltyObj':" + JSON.stringify(loyalty) + "}";
     ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetLoyaltySettings");
     table = JSON.parse(ds.d);
     return table;

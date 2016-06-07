@@ -67,12 +67,16 @@ namespace Boutique.AdminPanel
         /// <param name="Boutiqueid"></param>
         /// <returns></returns>
         [System.Web.Services.WebMethod]
-        public static string GetLoyaltySettings(string Boutiqueid)
+        public static string GetLoyaltySettings(DAL.Loyalty loyaltyObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            loyaltyObj.BoutiqueID = UA.BoutiqueID;
             string jsonResult = null;
-            DataSet ds = new DataSet();
-            DAL.Loyalty loyaltyObj = new DAL.Loyalty();
-            loyaltyObj.BoutiqueID = Boutiqueid;
+            DataSet ds = new DataSet();          
+           
             ds.Tables.Add(loyaltyObj.GetLoyaltySettings());
 
             //Converting to Json
@@ -106,6 +110,13 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetUserByID(Users userObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            userObj.BoutiqueID = UA.BoutiqueID;
+
             string jsonResult = null;
             DataSet ds = null;
             ds = userObj.SelectUserByUserID();
@@ -141,6 +152,11 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string MakeTransaction(DAL.Loyalty loyaltyObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            loyaltyObj.BoutiqueID = UA.BoutiqueID;
             string status = null;
             try
             {               
@@ -152,7 +168,7 @@ namespace Boutique.AdminPanel
                  int MAX_DISCOUNT_PERCENTAGE = Int32.Parse(loyaltySettings.Rows[0]["MaxDiscountPercentage"].ToString());
                 //Getting Loyalty points of user
                  Users userObj = new Users();
-                 userObj.BoutiqueID = loyaltyObj.BoutiqueID;
+                 userObj.BoutiqueID = UA.BoutiqueID;
                  userObj.UserID = loyaltyObj.UserID;
                  DataSet ds = userObj.SelectUserByUserID();
                  int loyaltypoints = Int32.Parse((ds.Tables[0].Rows[0]["LoyaltyPoints"]== DBNull.Value) ? "0" : ds.Tables[0].Rows[0]["LoyaltyPoints"].ToString());
