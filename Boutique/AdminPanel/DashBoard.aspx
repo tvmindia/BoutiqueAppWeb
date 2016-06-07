@@ -17,6 +17,9 @@
 				</li>
 				<li><a href="#">Dashboard</a></li>
 			</ul>
+          <div class="row-fluid"><span class="headerStyle">DashBoard</span></div>
+          <div class="row-fluid" style="height:3px;"></div>
+
         <div class="span12" style="align-content:center;">
             
             <img id="tiqueImage" src="../Home/images/Background.jpg" style="height:550px;" />

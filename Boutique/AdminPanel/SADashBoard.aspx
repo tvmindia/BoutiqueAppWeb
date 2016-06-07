@@ -23,8 +23,10 @@
 				<li><a href="#">Dashboard</a></li>
 			</ul>
      <%--   Report tiles--%>
-        	 <div class="row-fluid"><span class="headerStyle">SA Dashboard</span></div>
-			<div class="row-fluid">	
+        	<div class="row-fluid"><span class="headerStyle">SA DashBoard</span></div>
+             <div class="row-fluid" style="height:3px;"></div>
+
+			 <div class="row-fluid">	
 
 				<a class="quick-button metro yellow span2">
 					<i class="icon-group"></i>
