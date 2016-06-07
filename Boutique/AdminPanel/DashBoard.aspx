@@ -2,13 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    
      <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
      <script src="../Scripts/UserJS/DashBoard.js"></script>
-
-
-
-
+    
     <div id="content" class="span10">
 			
 			
@@ -20,6 +17,10 @@
 				</li>
 				<li><a href="#">Dashboard</a></li>
 			</ul>
+        <div class="span12" style="align-content:center;">
+            
+            <img src="../Home/images/Background.jpg" style="height:550px;" />
+        </div>
      <%--   Report tiles--%>
 				<div class="row-fluid">	
 
@@ -51,7 +52,7 @@
 				</a>
 				<a class="quick-button metro black span2" href="Loyalty.aspx">
 					<i class="icon-calendar"></i>
-					<p>Installed</p>
+					<p>App Usage</p>
                     <span class="badge" id="InstalledBadge">0</span>
 				</a>
 				
@@ -61,10 +62,10 @@
      <%--   Report tiles--%>
              <div class="span12" style="height:20px;">
 
-</div>
+             </div>
 		
 			
-			<div class="row-fluid">
+		     <%--	<div class="row-fluid">
 				
 			
 				
@@ -121,7 +122,7 @@
 					</div>
 				</div><!--/span-->
 
-			</div>
+			</div>--%>
 			
 		
 			
