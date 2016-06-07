@@ -1,9 +1,11 @@
 ﻿$("document").ready(function (e) {
-    
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
    
+    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+    var TiqueImage = document.getElementById("tiqueImage");
+    TiqueImage.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueID="+boutiqueid;
     BindTileValues(boutiqueid);
-
+    
+    
 
 
 

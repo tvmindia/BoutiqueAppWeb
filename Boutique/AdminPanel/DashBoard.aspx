@@ -19,7 +19,7 @@
 			</ul>
         <div class="span12" style="align-content:center;">
             
-            <img src="../Home/images/Background.jpg" style="height:550px;" />
+            <img id="tiqueImage" src="../Home/images/Background.jpg" style="height:550px;" />
         </div>
      <%--   Report tiles--%>
 				<div class="row-fluid">	

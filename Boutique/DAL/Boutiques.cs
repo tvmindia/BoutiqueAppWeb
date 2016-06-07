@@ -406,6 +406,49 @@ namespace Boutique.DAL
         }
         #endregion GetAllBoutiqueIDAndName
 
+        #region GetBoutiqueImage
+
+        public byte[] GetBoutiqueImage()
+        {
+         
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataReader rd = null;
+            byte[] imageproduct = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectBoutiqueByBoutiqueID]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                rd = cmd.ExecuteReader();
+                if ((rd.Read()) && (rd.HasRows) && (rd["Image"] != DBNull.Value))
+                {
+                    imageproduct = (byte[])rd["Image"];
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    rd.Close();
+                    dcon.DisconectDB();
+                }
+            }
+            return imageproduct;
+
+        }
+        #endregion GetBoutiqueImage
+
 
         #endregion Methods
 
