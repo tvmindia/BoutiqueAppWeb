@@ -25,12 +25,12 @@
 
 				<a class="quick-button metro yellow span2" href="People.aspx">
 					<i class="icon-group"></i>
-					<p>Users</p>
+					<p>App Users</p>
 					<span class="badge" id="UsersBadge">0</span>
 				</a>
                     <a class="quick-button metro green span2" href="Products.aspx">
 					<i class="icon-tags"></i>
-					<p>Total Products</p>
+					<p>Products</p>
                    <span class="badge" id="TotalProductsBadge">0</span>
 				</a>
 				<a class="quick-button metro red span2" href="Notifications.aspx">
@@ -40,7 +40,7 @@
 				</a>
 				<a class="quick-button metro blue span2" href="Products.aspx">
 					<i class="icon-shopping-cart"></i>
-					<p>Visits</p>
+					<p>Trends</p>
 					<span class="badge" id="VisitsBadge">0</span>
 				</a>
 				

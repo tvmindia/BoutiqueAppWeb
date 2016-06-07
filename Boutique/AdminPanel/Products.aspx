@@ -5,14 +5,8 @@
      <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
-    <script src="../Scripts/imagezoom.js"></script>
-
-    <%--<link href="../CSS/jasny-bootstrap.min.css" rel="stylesheet"/>--%>
-    <%--<script src="../Scripts/jasny-bootstrap.min.js"></script>--%>
-    <%-- <script src="../Scripts/bootstrap-select-1.6.3.js"></script>--%>
-   
-
-
+    <link href="../CSS/viewbox.css" rel="stylesheet" />
+    <script src="../Scripts/jquery.viewbox.min.js"></script>
     <script src="../Scripts/UserJS/Product.js"></script>
     
     <script>
@@ -51,6 +45,15 @@
                                     <div id="image-6" class="masonry-thumb">
 								        <a style="background:url(../img/gallery/photo8.jpg)" title="Sample Image 6" href="../img/gallery/photo8.jpg"> <img class="grayscale" src="../img/gallery/photo8.jpg" alt="Sample Image 6" /></a>
 						          </div>-->
+
+                            <!-- Use invisible wraper to hide popup window content -->
+                           <div style="display:none;">
+	                       <div id="popup">
+		                   <h3>Popup content</h3>
+		                       <p>Some text for popup window.</p>
+		                       <p><button type="button" class="close-button">Close</button></p>
+	                      </div>
+                          </div>
 					
 				    	</div>
 					</div>

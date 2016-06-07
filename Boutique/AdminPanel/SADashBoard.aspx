@@ -27,12 +27,12 @@
 
 				<a class="quick-button metro yellow span2">
 					<i class="icon-group"></i>
-					<p>Users</p>
+					<p>App Users</p>
 					<span class="badge">237</span>
 				</a>
                     <a class="quick-button metro green span2">
 					<i class="icon-tags"></i>
-					<p>Total Boutiques</p>
+					<p>Boutiques</p>
 				</a>
 				<a class="quick-button metro red span2">
 					<i class="icon-comments-alt"></i>
@@ -47,7 +47,7 @@
 				
 				<a class="quick-button metro pink span2">
 					<i class="icon-ambulance"></i>
-					<p>Errors</p>
+					<p>Exceptions</p>
 					<span class="badge">88</span>
 				</a>
 				<a class="quick-button metro black span2">
@@ -65,7 +65,7 @@
 
 
             
-                 <div class="row-fluid sortable">		
+                 <div class="row-fluid">		
                         
 			    	<div class="box span12">
                      
@@ -73,9 +73,9 @@
 					<div class="box-header">
 						<h2><span class="break"></span>All Boutiques</h2>
 						<div class="box-icon">
-							<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
+							
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+							
 						</div>
 					</div>
 					<div class="box-content" style="min-height:50px; max-height:350px; overflow:scroll;">

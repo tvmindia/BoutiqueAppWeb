@@ -35,6 +35,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public int Discount
+        {
+            get;
+            set;
+        }
         public Boolean IsOutOfStock
         {
             get;
@@ -225,6 +230,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                     cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
+                    cmd.Parameters.Add("@Discount", SqlDbType.Int).Value = Discount;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
@@ -306,6 +312,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                     cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
+                    cmd.Parameters.Add("@Discount", SqlDbType.Int).Value = Discount;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
