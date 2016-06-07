@@ -28,6 +28,25 @@
             return false;
         }
     })
+    $(".manageredit").live(
+      {
+
+          click: function (e) {
+              debugger;
+              $('#rowfluidDiv').hide();
+              $('.alert-success').hide();
+              $('.alert-error').hide();
+              var jsonResult = {};
+              editedrow = $(this).closest('tr');
+              var Admin = new Object();
+              Admin.UserID = editedrow.attr("userID");
+              jsonResult = GetAdmin(Admin);
+              if (jsonResult != undefined) {
+                  BindManagerTextBoxes(jsonResult);
+              }
+              return false;
+          }
+      })
 
     $(".useredit").live(
        {
@@ -191,8 +210,7 @@
 
     //cancel REGION
 
-    $(".CancelAdmin").live({
-             
+    $(".CancelAdmin").live({             
         click: function (e) {// Clear controls
              clearAdminControls();
         }
@@ -215,8 +233,6 @@
             clearDesignerControls();
         }
     })
-
-
    
     //ADD ADMIN
 
@@ -439,7 +455,6 @@ function BindAsyncAdminsTable() {
     }
 }
 
-
 function BindAdminsTable(Records) {
     //$("#UsersTable").find(".odd").remove();
     $("#AdministratorTable").find(".userrows").remove();
@@ -450,7 +465,6 @@ function BindAdminsTable(Records) {
 
 }
 
-
 function BindAsyncManagersTable() {
     var jsonResult = {};
     var Manager = new Object();
@@ -459,7 +473,6 @@ function BindAsyncManagersTable() {
         BindManagerTable(jsonResult);
     }
 }
-
 
 function BindManagerTable(Records) {
     //$("#UsersTable").find(".odd").remove();
@@ -541,7 +554,6 @@ function InsertUser(User) {
 
 }
 
-//Written by gibin
 function InsertAdmin(Admin) {
 
     var data = "{'AdminObj':" + JSON.stringify(Admin) + "}";
@@ -565,8 +577,6 @@ function InsertManager(Manager) {
     return table;
 
 }
-
-
 
 function InsertDesigner(Designer)
 {
@@ -633,7 +643,6 @@ function clearDesignerControls()
     $(".AddDesigner").text("Save");
 
 }
-
 
 function GetUser(User) {
     var ds = {};
@@ -703,10 +712,6 @@ function BindAdminTextBoxes(Records) {
         $("#txtMobileAdmin").val(Records.Mobile);
         $("#txtAdminEmail").val(Records.Email);    
         $("#txtAdminLoginName").val(Records.LoginName);
-     
-       
-       
-      
 
         if (Records.Active = 'true') {
             // $("#chkActive").attr('checked', 'checked');
@@ -718,8 +723,8 @@ function BindAdminTextBoxes(Records) {
             // $("#chkActive").removeAttr('checked');
             $("#chkActiveAdmin").prop('checked', false);
         }
-        $("#chkActive").val(Records.IsActive);
-        $("#txtCaption").val(Records.Caption);
+        $("#chkActiveAdmin").val(Records.IsActive);
+       // $("#txtCaption").val(Records.Caption);
      
      
         $("#hdfUserID").val(Records.UserID);
@@ -729,6 +734,35 @@ function BindAdminTextBoxes(Records) {
     $(".AddAdmin").text("Modify");
 }
 
+function BindManagerTextBoxes(Records) {
+    $.each(Records, function (index, Records) {
+
+
+        $("#txtManagerName").val(Records.Name);
+        $("#txtManagerMobile").val(Records.Mobile);
+        $("#txtManagerEmail").val(Records.Email);
+        $("#txtManagerLoginName").val(Records.LoginName);
+
+        if (Records.Active = 'true') {
+            // $("#chkActive").attr('checked', 'checked');
+            // $(".chkActive").attr("checked", "checked
+            $("#chkActiveManager").prop('checked', true);
+
+        }
+        else {
+            // $("#chkActive").removeAttr('checked');
+            $("#chkActiveManager").prop('checked', false);
+        }
+        $("#chkActiveManager").val(Records.IsActive);
+        //$("#txtCaption").val(Records.Caption);
+
+
+        $("#hdfUserID").val(Records.UserID);
+        $("#hdfCardNo").val(Records.LoyaltyCardNo);
+        $("#hdfBoutiqueID").val(Records.BoutiqueID);
+    })
+    $(".AddManager").text("Modify");
+}
 
 function BindDesignerTextBoxes(Records)
 {
