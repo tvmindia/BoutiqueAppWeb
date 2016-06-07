@@ -36,6 +36,12 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertNotification(Notification notificationObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            notificationObj.BoutiqueID = UA.BoutiqueID;
+
             string status = null;
             try
             {
@@ -67,12 +73,19 @@ namespace Boutique.AdminPanel
         /// <param name="Boutiqueid"></param>
         /// <returns></returns>
         [System.Web.Services.WebMethod]
-        public static string GetAllNotifications(string Boutiqueid)
+        public static string GetAllNotifications(Notification NotifyObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             string jsonResult = null;
             DataSet ds = null;
-            Notification notificationWebObj = new Notification();
-            ds = notificationWebObj.SelectAllNotifications(Boutiqueid);
+
+            NotifyObj.BoutiqueID = UA.BoutiqueID;
+
+            ds = NotifyObj.SelectAllNotifications();
 
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -110,7 +123,7 @@ namespace Boutique.AdminPanel
         }
         #endregion
 
-        #region Get a Notification
+        #region GetNotificationbyID
         /// <summary>
         /// To get a specifica notification details for the editing purpose
         /// </summary>
@@ -119,6 +132,13 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetNotificationByID(Notification notificationObj)
         {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            notificationObj.BoutiqueID = UA.BoutiqueID;
+             
             string jsonResult = null;
             DataSet ds = null;
             ds = notificationObj.GetNotification();
@@ -154,6 +174,14 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteNotification(Notification notificationObj)
         {
+
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            notificationObj.BoutiqueID = UA.BoutiqueID;
+
             string status = null;
             try
             {

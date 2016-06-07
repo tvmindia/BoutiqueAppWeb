@@ -22,6 +22,7 @@ namespace Boutique.AdminPanel
         #endregion Events
 
         #region WebMethods
+
         #region SelectAllUsers
         [System.Web.Services.WebMethod]
         public static string SelectAllUsersByBoutiqueID(Users Usersobj)
@@ -121,12 +122,18 @@ namespace Boutique.AdminPanel
         #region SelectAllNotifications
 
          [System.Web.Services.WebMethod]
-         public static string SelectAllNotificationsByBoutiqueID(string Boutiqueid)
+         public static string SelectAllNotificationsByBoutiqueID(Notification NotifyObj)
          {
+
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+             NotifyObj.BoutiqueID = UA.BoutiqueID;
+
              string jsonResult = null;
              DataSet ds = null;
-             Notification notificationObj = new Notification();
-             ds = notificationObj.SelectAllNotifications(Boutiqueid);
+             ds = NotifyObj.SelectAllNotifications();
              //Converting to Json
              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
              List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
