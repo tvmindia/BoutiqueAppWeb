@@ -51,7 +51,7 @@
 				</a>
 				<a class="quick-button metro black span2" href="Loyalty.aspx">
 					<i class="icon-calendar"></i>
-					<p>Installed</p>
+					<p>App Usage</p>
                     <span class="badge" id="InstalledBadge">0</span>
 				</a>
 				
