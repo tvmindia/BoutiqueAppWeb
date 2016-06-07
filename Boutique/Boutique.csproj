@@ -261,6 +261,7 @@
     <Content Include="Scripts\UserJS\Loyalty.js" />
     <Content Include="Scripts\UserJS\LoyaltySettings.js" />
     <Content Include="Scripts\UserJS\Notification.js" />
+    <Content Include="Scripts\UserJS\OrderStatus.js" />
     <Content Include="Scripts\UserJS\People.js" />
     <Content Include="Scripts\UserJS\Product.js" />
     <Content Include="Scripts\UserJS\ProductFileUpload.js" />
@@ -413,6 +414,7 @@
     <Compile Include="DAL\Designers.cs" />
     <Compile Include="DAL\Loyalty.cs" />
     <Compile Include="DAL\Notification.cs" />
+    <Compile Include="DAL\Order.cs" />
     <Compile Include="DAL\Owners.cs" />
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\Security.cs" />
