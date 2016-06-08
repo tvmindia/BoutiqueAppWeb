@@ -280,6 +280,7 @@
     <Content Include="Home\fonts\fontawesome-webfont.ttf" />
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
+    <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -465,6 +466,9 @@
     </Compile>
     <Compile Include="ImageHandler\ImageServiceHandler.ashx.cs">
       <DependentUpon>ImageServiceHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageHandler\PhotoUploadHandler.ashx.cs">
+      <DependentUpon>PhotoUploadHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Master\AdminLayout.Master.cs">
       <DependentUpon>AdminLayout.Master</DependentUpon>

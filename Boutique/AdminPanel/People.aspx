@@ -415,7 +415,8 @@
                              <div class="control-group">
                                 <label class="control-label" for="focusedInput">Photo</label>
                                 <div class="controls">
-                                    <iframe id="IframeProjectSwitching" src="PhotoUploader.aspx" style="width: 300px;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
+                                  <%--  <iframe id="IframeProjectSwitching" src="PhotoUploader.aspx" style="width: 250px;min-height:195px;max-height:350px;overflow-y:hidden;overflow-x:hidden;border:none"></iframe> --%>
+                                    <input id="fileUpload" type="file" size="60" name="myfile"/>
                                 </div>
                             </div>
                         </div>
@@ -484,7 +485,7 @@
             <div class="box-content">
                 <div class="box span6">
                     <div class="box-header">
-                        <h2>New User</h2>
+                        <h2>Edit User</h2>
                         <div class="box-icon">
                             <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
                             <%-- <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
