@@ -412,7 +412,12 @@
                                 </div>
                             </div>
 
-
+                             <div class="control-group">
+                                <label class="control-label" for="focusedInput">Photo</label>
+                                <div class="controls">
+                                    <iframe id="IframeProjectSwitching" src="PhotoUploader.aspx" style="width: 300px;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
+                                </div>
+                            </div>
                         </div>
 
                     </div>

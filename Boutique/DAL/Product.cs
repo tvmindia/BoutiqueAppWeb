@@ -604,7 +604,7 @@ namespace Boutique.DAL
             #endregion
 
             #region GetAllProducts
-            public DataSet GetAllProducts(string boutiqueID)
+            public DataSet GetAllProducts()
             {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -613,7 +613,7 @@ namespace Boutique.DAL
             Guid _boutiqueid = Guid.Empty;
             try
             {
-                _boutiqueid = Guid.Parse(boutiqueID);
+                _boutiqueid = Guid.Parse(BoutiqueID);
                 if (_boutiqueid != Guid.Empty)
                 {
                     dcon = new dbConnection();
@@ -649,7 +649,7 @@ namespace Boutique.DAL
         #endregion GetAllProducts
 
             #region SelectAllProductViewDetails
-            public DataSet SelectAllProductViewDetails(string boutiqueID)
+            public DataSet SelectAllProductViewDetails()
             {
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
@@ -658,7 +658,7 @@ namespace Boutique.DAL
                 Guid _boutiqueid = Guid.Empty;
                 try
                 {
-                    _boutiqueid = Guid.Parse(boutiqueID);
+                    _boutiqueid = Guid.Parse(BoutiqueID);
                     if (_boutiqueid != Guid.Empty)
                     {
                         dcon = new dbConnection();
@@ -742,7 +742,7 @@ namespace Boutique.DAL
         /// To get all the products under a category
         /// </summary>
         /// <returns></returns>
-            public DataTable GetProductsByCategory(string userID)
+            public DataTable GetProductsByCategory(string userID,int countLimit=0)
             {
                 if (CategoryCode == "")
                 {
@@ -768,6 +768,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 10).Value = CategoryCode;
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                     if (userID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                    if (countLimit > 0) cmd.Parameters.Add("@CountLimit", SqlDbType.Int).Value = countLimit;
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);

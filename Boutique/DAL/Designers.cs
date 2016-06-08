@@ -55,6 +55,16 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string FileType
+        {
+            get;
+            set;
+        }
+        public byte[] ImageFile
+        {
+            get;
+            set;
+        }
 
         #endregion Properties
 

@@ -72,6 +72,7 @@
     <Content Include="AdminPanel\Notifications.aspx" />
     <Content Include="AdminPanel\OrderStatus.aspx" />
     <Content Include="AdminPanel\People.aspx" />
+    <Content Include="AdminPanel\PhotoUploader.aspx" />
     <Content Include="AdminPanel\ProductFileUpload.aspx" />
     <Content Include="AdminPanel\Products.aspx" />
     <Content Include="AdminPanel\Profile.aspx" />
@@ -90,6 +91,7 @@
     <Content Include="CSS\CustomCSS\Notifications.css" />
     <Content Include="CSS\CustomCSS\OrderStatus.css" />
     <Content Include="CSS\CustomCSS\People.css" />
+    <Content Include="CSS\CustomCSS\PhotoUploader.css" />
     <Content Include="CSS\CustomCSS\ProductFileUpload.css" />
     <Content Include="CSS\CustomCSS\Products.css" />
     <Content Include="CSS\CustomCSS\Profile.css" />
@@ -266,6 +268,7 @@
     <Content Include="Scripts\UserJS\Notification.js" />
     <Content Include="Scripts\UserJS\OrderStatus.js" />
     <Content Include="Scripts\UserJS\People.js" />
+    <Content Include="Scripts\UserJS\PhotoUploader.js" />
     <Content Include="Scripts\UserJS\Product.js" />
     <Content Include="Scripts\UserJS\ProductFileUpload.js" />
     <Content Include="Scripts\UserJS\Profile.js" />
@@ -382,6 +385,13 @@
     </Compile>
     <Compile Include="AdminPanel\People.aspx.designer.cs">
       <DependentUpon>People.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\PhotoUploader.aspx.cs">
+      <DependentUpon>PhotoUploader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\PhotoUploader.aspx.designer.cs">
+      <DependentUpon>PhotoUploader.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\ProductFileUpload.aspx.cs">
       <DependentUpon>ProductFileUpload.aspx</DependentUpon>

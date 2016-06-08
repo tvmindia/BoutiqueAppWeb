@@ -74,12 +74,12 @@ namespace Boutique.Master
                     //Li_Products.Visible = false;
                     //Li_Notifications.Visible = false;
                     Li_LoyaltySettings.Visible = false;
-                    Li_People.Visible = false;
-                    Li_Profile.Visible = false;
+                    //Li_People.Visible = false;
+                    //Li_Profile.Visible = false;
 
                     currPage=currPage.ToUpper();
 
-                    if (currPage == Const.SaDashBoardPage.ToUpper() || currPage == Const.CategoryPage.ToUpper() || currPage == Const.LoyaltySettingsPage.ToUpper() ||currPage==Const.PeoplePage.ToUpper()||currPage==Const.ProfilePage.ToUpper() )
+                    if (currPage == Const.SaDashBoardPage.ToUpper() || currPage == Const.CategoryPage.ToUpper() || currPage == Const.LoyaltySettingsPage.ToUpper() ) // ||currPage==Const.PeoplePage.ToUpper()||currPage==Const.ProfilePage.ToUpper()
                     { 
                         Response.Redirect(Const.LoginPage);                      
                     }                                  

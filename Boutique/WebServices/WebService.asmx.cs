@@ -151,7 +151,7 @@ namespace Boutique.WebServices
         /// <param name="CategoryCode">category code</param>
         /// <returns>product details as Json</returns>
         [WebMethod]
-        public string ProductsByCategory(string CategoryCode,string boutiqueID, string userID)
+        public string ProductsByCategory(string CategoryCode,string boutiqueID, string userID,string limit)
         {
             DataTable dt = new DataTable();
             try
@@ -159,7 +159,10 @@ namespace Boutique.WebServices
                 Product products= new Product();
                 products.CategoryCode = CategoryCode;
                 products.BoutiqueID = boutiqueID;
-                dt = products.GetProductsByCategory(userID);
+                if(limit!="")
+                    dt = products.GetProductsByCategory(userID,int.Parse(limit));
+                else
+                    dt = products.GetProductsByCategory(userID);
                 //Giving coloumns of image details
                 ArrayList imgColNames = new ArrayList();
                 ArrayList imgFileNameCols = new ArrayList();
