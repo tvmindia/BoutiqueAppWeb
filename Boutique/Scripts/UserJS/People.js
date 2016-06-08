@@ -1,7 +1,7 @@
 ﻿$("document").ready(function (e) {
 
     parent.document.title = "People";
-  
+    $('.AddUser').hide();
     //BIND REGION
 
     BindAsyncUserTable();
@@ -53,7 +53,8 @@
     $(".useredit").live(
        {
            click: function (e) {
-            
+               $('.AddUser').show();
+               $(".AddUser").text("Save");
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -325,32 +326,33 @@
             var User = new Object();
            
             User.UserID = $("#hdfUserID").val();
-            User.BoutiqueID = boutiqueid;
-            User.Name = $("#txtName").val();
-            User.Mobile = $("#txtMobile").val();
-            User.Email = $("#txtEmail").val();
-            User.LoyaltyCardNo = parseInt($("#hdfCardNo").val(), 10); // you want to use radix 10
-            // so you get a decimal number even with a leading 0 and an old browser
-            
-            // 
-            if ($('#chkActive').is(':checked')) {
-                User.IsActive = "true";
-            }
-            else {
-                User.IsActive = "false";
-            }
-            User.DOB = $("#dateDOB").val();
-            User.Anniversary = $("#dateAnniversary").val();
-            result = InsertUser(User);
-            if (result == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-            }
-            if (result != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-            }
+            if (User.UserID != null) {
+                User.BoutiqueID = boutiqueid;
+                User.Name = $("#txtName").val();
+                User.Mobile = $("#txtMobile").val();
+                User.Email = $("#txtEmail").val();
+                User.LoyaltyCardNo = parseInt($("#hdfCardNo").val(), 10); // you want to use radix 10
+                // so you get a decimal number even with a leading 0 and an old browser
 
+                // 
+                if ($('#chkActive').is(':checked')) {
+                    User.IsActive = "true";
+                }
+                else {
+                    User.IsActive = "false";
+                }
+                User.DOB = $("#dateDOB").val();
+                User.Anniversary = $("#dateAnniversary").val();
+                result = InsertUser(User);
+                if (result == "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                }
+                if (result != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                }
+            }
         }
     })    
     $(".AddDesigner").live({
@@ -367,29 +369,102 @@
             }
           
           
-            Designer.BoutiqueID = boutiqueid;
+           
             Designer.Name = $("#txtDesignerName").val();
             Designer.Mobile = $("#txtDesignerMobile").val();
             Designer.Profile = $("#txtDesignerProfile").val();
                               
           
             result = InsertDesigner(Designer);
+            debugger;
+            var imgresult = "";
+            //imageupload
+            var _URL = window.URL || window.webkitURL;
+            var formData = new FormData();
+            var file, img;
+
+
+            if ((file = $('#fileUpload')[0].files[0])) {
+                img = new Image();
+                img.onload = function () {
+                    var image = $('#fileUpload')[0].files[0];
+
+
+                    formData.append('files', image, file.name);
+                    formData.append('',Designer.DesignerID);
+                    //  formData.append('file', $('#productfile')[0].files[0]);
+                    //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                };
+              //  img.onerror = function () {
+                 //   alert("Not a valid file:" + file.type);
+              //  };
+                // img.src = _URL.createObjectURL(file);
+                var image = $('#fileUpload')[0].files[0];
+               formData.append('files', image, file.name);
+
+
+            }
+
+            //imageupload
+            // formData.append('prod', 88888);
+            //  formData.append('ismain', 77777);
+          postBlobAjax(formData, "../AdminPanel/People.aspx/InserDesignerImage");
+           // var HttpContext = new Object();
+          //  HttpContext.files = formData;
+          //  var data = "{'context':" + JSON.stringify(HttpContext) + "}";
+
+           // jsonResult = getJsonData(data, "../AdminPanel/People.aspx/InserDesignerImage");
+           // getJsonData()
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
-                BindAsycDesignerTable(boutiqueid);
+                BindAsycDesignerTable();
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
-                BindAsycDesignerTable(boutiqueid);
+                BindAsycDesignerTable();
             }
 
         }
-    })    
+    })
+
 });//end of document.ready
 
+//post File/blog to Server
 
+function postBlobAjax(formData, page) {
+    //debugger;
+    //var request = new XMLHttpRequest();
+    //request.open("POST", page);
+    //request.send(formData);
+    $.ajax({
+        type: "POST",
+        url: "../ImageHandler/PhotoUploadHandler.ashx",
+        contentType: false,
+        headers: { 'Cache-Control': 'no-cache' },
+        async: false,
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        traditional: true,
+
+        success: function (data) {
+            if (status != 'error') {
+                //var my_path = "MediaUploader/" + status;
+                // $("#myUploadedImg").attr("src", my_path);
+                alert(data);
+            }
+        },
+        processData: false,
+       
+        error: function () {
+            alert("Whoops something went wrong!");
+        }
+    });
+}
+//post File/blog to Server
 
 //---getting data as json-----//
 function getJsonData(data, page) {
@@ -708,7 +783,7 @@ function BindUserTextBoxes(Records)
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
     })
-    $(".AddUser").text("Modify");
+   
 }
 
 function BindAdminTextBoxes(Records) {
