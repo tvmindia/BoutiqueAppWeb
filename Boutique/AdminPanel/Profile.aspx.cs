@@ -144,7 +144,16 @@ namespace Boutique.AdminPanel
             string status = null;
             try
             {
+                Users obj = new Users();
                 ownersObj.BoutiqueID = UA.BoutiqueID;
+                obj.BoutiqueID = UA.BoutiqueID;
+                obj.Name = ownersObj.Name;
+                obj.Mobile = ownersObj.Phone;
+                obj.Email = ownersObj.Email;
+                obj.DOB = ownersObj.DOB;
+                obj.Gender = ownersObj.Gender;
+                obj.CreatedBy = UA.userName;
+                
 
                 if (ownersObj.OwnerID != null)
                 {
@@ -153,6 +162,12 @@ namespace Boutique.AdminPanel
                 }
                 else
                 {
+                   
+                    obj.AddNewUser();
+
+                    ownersObj.UserID=obj.UserID;
+                    
+
                     status = ownersObj.InsertOwner().ToString();
                 }
 
