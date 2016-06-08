@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Boutique
+namespace Boutique.AdminPanel
 {
 
 
-    public partial class ImageFileUploader
+    public partial class PhotoUploader
     {
 
         /// <summary>

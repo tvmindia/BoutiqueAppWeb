@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ImageFileUploader.aspx.cs" Inherits="Boutique.ImageFileUploader" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PhotoUploader.aspx.cs" Inherits="Boutique.AdminPanel.PhotoUploader" %>
 
 <!DOCTYPE html>
 
