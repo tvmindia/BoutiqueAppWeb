@@ -390,7 +390,7 @@ namespace Boutique.DAL
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);
-                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                   // if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
                     return dt;
                 }
                 catch (Exception ex)
