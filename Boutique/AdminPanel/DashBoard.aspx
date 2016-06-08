@@ -1,13 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="DashBoard.aspx.cs" Inherits="Boutique.AdminPanel.DashBoard" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" EnableEventValidation="true" CodeBehind="DashBoard.aspx.cs" Inherits="Boutique.AdminPanel.DashBoard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     
      <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
      <script src="../Scripts/UserJS/DashBoard.js"></script>
     
     <div id="content" class="span10">
-			
+			 
 			
 			<ul class="breadcrumb">
 				<li>
@@ -53,7 +56,7 @@
 					<p>Not in Stock</p>
 					<span class="badge" id="NotInStockBadge">0</span>
 				</a>
-				<a class="quick-button metro black span2" href="Loyalty.aspx">
+				<a class="quick-button metro black span2" href="https://play.google.com" target="_blank">
 					<i class="icon-calendar"></i>
 					<p>App Usage</p>
                     <span class="badge" id="InstalledBadge">0</span>
@@ -134,6 +137,6 @@
 	</div>
 
         
-		
-	
+		   <input type="hidden" id="hdnBoutiqueID"  runat="server"  value="" />
+ 
 </asp:Content>
