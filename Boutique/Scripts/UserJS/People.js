@@ -1,4 +1,6 @@
 ﻿$("document").ready(function (e) {
+
+    parent.document.title = "People";
   
     //BIND REGION
 

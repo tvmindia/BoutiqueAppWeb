@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="OrderStatus.aspx.cs" Inherits="Boutique.AdminPanel.OrderStatus" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/UserJS/OrderStatus.js"></script>
+    <link href="../CSS/CustomCSS/OrderStatus.css" rel="stylesheet" />
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -14,6 +15,9 @@
             </li>
             <li><a href="#">Order Status</a></li>
         </ul>
+
+        <div class="row-fluid"><span class="headerStyle">Order Status</span></div>
+          <div class="row-fluid" style="height:3px;"></div>
 
         <%--Alert boxes --%>
          <div class="row-fluid" id="rowfluidDiv" style="display:none;">	

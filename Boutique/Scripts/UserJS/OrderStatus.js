@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
-
-    debugger;
+    parent.document.title = "Order Status";
+   
 
     BindOrdersTable();
 

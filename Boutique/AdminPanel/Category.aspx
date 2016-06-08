@@ -15,7 +15,8 @@
 				</li>
 				<li><a href="#">Category</a></li>
 			</ul>
-
+          <div class="row-fluid"><span class="headerStyle">Category</span></div>
+          <div class="row-fluid" style="height:3px;"></div>
           
           <div class="row-fluid">
 

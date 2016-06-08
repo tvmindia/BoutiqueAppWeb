@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
 
- 
+    parent.document.title = "Notifications";
     BindNotificationsTable();
 
     //Edit region drop downs-------------

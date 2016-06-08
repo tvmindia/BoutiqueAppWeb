@@ -1,5 +1,5 @@
 ﻿$("document").ready(function (e) {
-   
+    parent.document.title = "Loyalty";
     
     //Customers table--------
     BindUserTable();

@@ -22,6 +22,9 @@
             </li>
             <li><a href="#">Loyalty</a></li>
         </ul>
+         <div class="row-fluid"><span class="headerStyle">Loyalty</span></div>
+          <div class="row-fluid" style="height:3px;"></div>
+
 
         <%--Alert boxes --%>
          <div class="row-fluid" id="rowfluidDiv" style="display:none;">	

@@ -1,5 +1,6 @@
 ﻿$("document").ready(function (e) {
-    debugger;
+    parent.document.title = "Loyalty Settings";
+   
     LoadLoyaltySettings();
     //Log table--------
     
