@@ -1,15 +1,42 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = "DashBoard";
-    var boutiqueid = '470a044a-4dba-4770-bca7-331d2c0834ae';
+    debugger;
+     
+   var boutique_id = getboutiqueID();  
+
     var TiqueImage = document.getElementById("tiqueImage");
-    TiqueImage.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueID="+boutiqueid;
-    BindTileValues(boutiqueid);
+    TiqueImage.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueID=" + boutique_id;
+    BindTileValues();
     
     
 
 
 
 });//end of document.ready
+
+
+function getboutiqueID() {
+    debugger;
+    var table = {};
+    var boutique = new Object();
+    table = GetBoutique_id(boutique);
+    return table;
+  
+  
+}
+
+function GetBoutique_id(boutique)
+{
+    debugger;
+
+    var ds = {};
+    var table = {};
+    var data = "{'boutiqueObj':" + JSON.stringify(boutique) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/BoutiqueID");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 
 
 
@@ -35,58 +62,64 @@ function getJsonData(data, page) {
 }
 //---end of getting data as json -----//
 
-function BindTileValues(boutiqueid)//common tiles
+function BindTileValues()//common tiles
 {
     
-    BindUserTile(boutiqueid);//usertile
-    BindTotalProducts(boutiqueid);//totalboutiques
-    BindNotifications(boutiqueid);
-    BindVisits(boutiqueid);
-    BindOutOfStock(boutiqueid);
-    BindAppInstalled(boutiqueid)
+    BindUserTile();//usertile
+    BindTotalProducts();//totalboutiques
+    BindNotifications();
+    BindVisits();
+    BindOutOfStock();
+  //  BindAppInstalled()
 
 }
-function BindUserTile(boutiqueid)
+function BindUserTile()
 {
     var table = {};
-    table=GetAllUsers(boutiqueid);
+    var User = new Object();
+    table = GetAllUsers(User);
     $("#UsersBadge").text(table.length);
     BindDashBoardListUser(table);
 }
 
-function BindTotalProducts(boutiqueid)
+function BindTotalProducts()
 {
     var table = {};
-    table = GetAllProducts(boutiqueid);
+    var Products = new Object();
+    table = GetAllProducts(Products);
     $("#TotalProductsBadge").text(table.length);
     BindDashBoardProducts(table);
 }
 
-  function BindNotifications(boutiqueid)
+  function BindNotifications()
   {
       var table = {};
-      table = GetAllNotifications(boutiqueid);
+      var Notifications = new Object();
+      table = GetAllNotifications(Notifications);
       $("#NotificationBadge").text(table.length);
       BindDashBoardNotifications(table);
   }
 
-  function BindVisits(boutiqueid)
+  function BindVisits()
   {
       var table = {};
-      table = GetAllVisits(boutiqueid);
+      var Visits = new Object();
+      table = GetAllVisits(Visits);
       $("#VisitsBadge").text(table.length);
   }
-  function BindOutOfStock(boutiqueid)
+  function BindOutOfStock()
   {
       var table = {};
-      table = GetAllOutOfStock(boutiqueid);
+      var Products = new Object();
+      table = GetAllOutOfStock(Products);
       $("#NotInStockBadge").text(table.length);
   }
 
-  function BindAppInstalled(boutiqueid)
+  function BindAppInstalled()
   {
       var table = {};
-      table = GetAppInstalledDetails(boutiqueid);
+      var AppIntall = new Object();
+      table = GetAppInstalledDetails(AppIntall);
       $("#InstalledBadge").text(table.length);
   }
 
@@ -135,59 +168,59 @@ function BindTotalProducts(boutiqueid)
   }
 
 
-function GetAllUsers(boutiqueid) {
+  function GetAllUsers(User) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'Usersobj':" + JSON.stringify(User) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsersByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
 }
 
-function GetAllProducts(boutiqueid)
+  function GetAllProducts(Products)
 {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'productObj':" + JSON.stringify(Products) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllProductsByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
 }
 
-function GetAllNotifications(boutiqueid)
+  function GetAllNotifications(Notifications)
 {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'NotifyObj':" + JSON.stringify(Notifications) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllNotificationsByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
 }
 
-function GetAllVisits(boutiqueid)
+  function GetAllVisits(Visits)
 {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'productObj':" + JSON.stringify(Visits) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllProductViewDetailsByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
 }
 
-function GetAllOutOfStock(boutiqueid) {
+  function GetAllOutOfStock(Products) {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'productObj':" + JSON.stringify(Products) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllProductOutOfStock");
     table = JSON.parse(ds.d);
     return table;
 }
 
-function GetAppInstalledDetails(boutiqueid)
+  function GetAppInstalledDetails(AppIntall)
 {
     var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'AppIntallObj':" + JSON.stringify(AppIntall) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllAppInstalled");
     table = JSON.parse(ds.d);
     return table;

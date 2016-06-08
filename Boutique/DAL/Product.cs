@@ -604,7 +604,7 @@ namespace Boutique.DAL
             #endregion
 
             #region GetAllProducts
-            public DataSet GetAllProducts(string boutiqueID)
+            public DataSet GetAllProducts()
             {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -613,7 +613,7 @@ namespace Boutique.DAL
             Guid _boutiqueid = Guid.Empty;
             try
             {
-                _boutiqueid = Guid.Parse(boutiqueID);
+                _boutiqueid = Guid.Parse(BoutiqueID);
                 if (_boutiqueid != Guid.Empty)
                 {
                     dcon = new dbConnection();
@@ -649,7 +649,7 @@ namespace Boutique.DAL
         #endregion GetAllProducts
 
             #region SelectAllProductViewDetails
-            public DataSet SelectAllProductViewDetails(string boutiqueID)
+            public DataSet SelectAllProductViewDetails()
             {
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
@@ -658,7 +658,7 @@ namespace Boutique.DAL
                 Guid _boutiqueid = Guid.Empty;
                 try
                 {
-                    _boutiqueid = Guid.Parse(boutiqueID);
+                    _boutiqueid = Guid.Parse(BoutiqueID);
                     if (_boutiqueid != Guid.Empty)
                     {
                         dcon = new dbConnection();
