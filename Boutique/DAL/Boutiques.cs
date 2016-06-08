@@ -423,7 +423,7 @@ namespace Boutique.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[SelectBoutiqueByBoutiqueID]";
+                cmd.CommandText = "[SelectImageByBoutiqueID]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 rd = cmd.ExecuteReader();
                 if ((rd.Read()) && (rd.HasRows) && (rd["Image"] != DBNull.Value))
