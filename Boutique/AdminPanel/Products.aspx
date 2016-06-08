@@ -25,6 +25,9 @@
 				<li><a href="#">Products</a></li>
 			</ul>
 
+         <div class="row-fluid"><span class="headerStyle">Products</span></div>
+          <div class="row-fluid" style="height:3px;"></div>
+
 
            <%--Gallery--%>
            <div class="row-fluid sortable">

@@ -22,6 +22,19 @@ namespace Boutique.ImageHandler
             try
             {
                 context.Response.ContentType = "image/jpeg";
+                if ((context.Request.QueryString["BoutiqueID"] != null) && (context.Request.QueryString["BoutiqueID"] != ""))
+                {
+                    DAL.Boutiques BouObj = new DAL.Boutiques();
+                    BouObj.BoutiqueID = context.Request.QueryString["BoutiqueID"];
+                    byte[] productimg = BouObj.GetBoutiqueImage();
+                    if (productimg != null)
+                    {
+                        MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        Image proimg = Image.FromStream(memoryStream);
+                        proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+                    }
+
+                }
 
                 if ((context.Request.QueryString["ImageID"] != null)&&(context.Request.QueryString["ImageID"] != ""))
                 {

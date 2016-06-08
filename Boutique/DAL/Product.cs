@@ -122,6 +122,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string MainImageID
+        {
+            get;
+            set;
+        }
 
         public int OrderNo
         {
@@ -318,6 +323,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
                     cmd.Parameters.Add("@ImageInfo", SqlDbType.VarChar, -1).Value = imaginfo;
+                    cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainImageID);
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
@@ -1174,7 +1180,7 @@ namespace Boutique.DAL
 
         #endregion CategoryMethods
 
-        #region ProductImageMethods
+           #region ProductImageMethods
             #region InsertProductImage
             public Int16 InsertProductImage()
             {
@@ -1200,7 +1206,7 @@ namespace Boutique.DAL
                 cmd.CommandText = "InsertProductImages";
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
-                cmd.Parameters.Add("@IsMain", SqlDbType.Bit).Value = IsMain;
+               
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@FileType", SqlDbType.VarChar, 5).Value = FileType;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";

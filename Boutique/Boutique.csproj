@@ -135,6 +135,7 @@
     <Content Include="Home\getstarted.aspx" />
     <Content Include="Home\images\about.jpg" />
     <Content Include="Home\images\about1.jpg" />
+    <Content Include="Home\images\Background.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg4.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg5.jpg" />
@@ -156,6 +157,7 @@
     <Content Include="Home\images\underconstruction.jpg" />
     <Content Include="Home\images\why.jpg" />
     <Content Include="Home\images\why1.jpg" />
+    <Content Include="Home\js\bootstrap.min.js" />
     <Content Include="Home\js\engine.js" />
     <Content Include="Home\js\html5shiv.js" />
     <Content Include="Home\js\init.js" />
@@ -255,7 +257,6 @@
     <Content Include="Scripts\jquery.viewbox.min.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
-    <Content Include="Scripts\UserJS\AdminLayout.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
     <Content Include="Scripts\UserJS\Login.js" />
