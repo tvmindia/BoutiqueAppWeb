@@ -35,7 +35,7 @@
               var jsonResult = {};
               editedrow = $(this).closest('tr');
               var Owners = new Object();
-              Owners.BoutiqueID = boutiqueid;
+             
               Owners.UserID = editedrow.attr("userID");
               Owners.OwnerID = editedrow.attr("ownerID");
               jsonResult = DeleteOwner(Owners);
@@ -64,7 +64,7 @@
                  var jsonResult = {};
                  editedrow = $(this).closest('tr');
                  var Owners = new Object();
-                 Owners.BoutiqueID = boutiqueid;
+                 
                  Owners.UserID = editedrow.attr("userID");
                  Owners.OwnerID = editedrow.attr("ownerID");
                  jsonResult = GetOwner(Owners);
@@ -132,7 +132,7 @@
                 alert("Please Select A User..");
                 return;
             }
-            Owners.BoutiqueID = boutiqueid;
+         
             Owners.Name = $("#txtOwnerName").val();
             Owners.Address = $("#txtOwnerAddress").val();
             Owners.Phone = $("#txtPhone").val();
