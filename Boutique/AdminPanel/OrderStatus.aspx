@@ -54,8 +54,8 @@
                             <tr>
                                 <th>OrderNo</th>
                                 <th>OrderDescription</th>
-                                <th>OrderDate</th>
-                                <th>Expected Delivery Date</th>
+                               <%-- <th>OrderDate</th>
+                                <th>Expected Delivery Date</th>--%>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -67,9 +67,101 @@
             
         </div>
       
-        <div class="BottomRightInfo" id="loyaltySettingsInfo">
+             <div id="NewOrder" runat="server" class="row-fluid">
 
-        </div>
+                  <div class="box span6">
+
+                  
+                  <div class="box-header">
+						<h2 id="editLabel">New Order</h2>
+						<div class="box-icon">
+							
+						</div>
+					</div>
+					<div class="box-content"  style="height:503px;overflow:auto;" >
+						<div class="form-horizontal">
+
+							<%--<fieldset>--%>
+							<div class="control-group">
+
+                                  
+
+							
+								  <label class="control-label" for="focusedInput">OrderNo</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtOrderNo" type="text"/>
+								</div>
+								</div>
+
+							<div class="control-group">
+								 <label class="control-label" for="focusedInput">Order Description</label>
+								<div class="controls">
+								  <textarea class="form-control" style="max-width:68%" rows="4" id="txtDescription"></textarea>
+								</div>
+								</div>
+
+                            <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Order Date</label>
+								<div class="controls">
+								   <label class="control-label" id="dateOrderDate" />
+								</div>
+								</div>
+
+                            <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Planned Delivery Date</label>
+								<div class="controls">
+                                    <label class="control-label" id="datePlannedDeliveryDate" />
+								  
+								</div>
+								</div>
+
+                            <div class="control-group">
+							  <label class="control-label" for="date01">Forecast Delivery Date</label>
+							  <div class="controls">
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white"  class="input-large datepicker" id="dateForecastDeliveryDate" value=""/>
+							  </div>
+							</div>
+
+                            <div class="control-group">
+							  <label class="control-label" for="date01">Order Ready Date</label>
+							  <div class="controls">
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white" class="input-large datepicker" id="dateOrderReadyDate" value=""/>
+							  </div>
+							</div>
+						
+                            <div class="control-group">
+							  <label class="control-label" for="date01">Actual Delivery Date</label>
+							  <div class="controls">
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white" class="input-large datepicker" id="dateActualDeliveryDate" value=""/>
+							  </div>
+							</div>
+                           
+                            <div class="control-group">
+							  <label class="control-label" for="date01">Total Order Amount</label>
+							  <div class="controls">
+								<input class="input-large focused" id="txtTotalOrderAmount" type="number" min="0" />
+							  </div>
+							</div>
+
+
+					 </div>
+						
+					        
+						
+						</div>
+
+                        <footer class="InnerFooter">
+                       
+                            <a class="btn btn-primary submitDetails" href="#">Save</></a>
+							
+                           <a class="btn Cancel">Cancel</a>
+                         </footer>
+
+              </div>
+
+          </div>
 
     </div>
 

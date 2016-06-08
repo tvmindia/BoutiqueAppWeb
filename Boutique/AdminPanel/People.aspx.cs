@@ -200,6 +200,27 @@ namespace Boutique.AdminPanel
         }
         #endregion InsertDesigner
 
+        #region InserDesignerImage
+        [System.Web.Services.WebMethod]
+        public static string InserDesignerImage(HttpContext context)
+        {
+            string image = null;
+           // string dirFullPath = HttpContext.Current.Server.MapPath("~/MediaUploader/");
+            string[] files;
+            string s ="";
+            int numFiles;
+            //files = System.IO.Directory.GetFiles(dirFullPath);
+            numFiles = 5;
+            numFiles = numFiles + 1;
+            string str_image = "";
+            HttpPostedFile file = HttpContext.Current.Request.Files[s];
+            string fileName = file.FileName;
+            string fileExtension = file.ContentType;
+            string[] words = fileName.Split(',');
+            return image;
+        }
+        #endregion InserDesignerImage
+
         #region GetDesigner
         [System.Web.Services.WebMethod]
         public static string GetDesigner(Designers designerobj)

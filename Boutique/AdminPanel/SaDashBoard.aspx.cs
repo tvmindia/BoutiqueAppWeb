@@ -70,6 +70,12 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string NewBoutique(Boutiques boutiqueobj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            boutiqueobj.BoutiqueID = UA.BoutiqueID;
+
            string status=null;        
            if(boutiqueobj.BoutiqueID == null)
            {
@@ -77,17 +83,24 @@ namespace Boutique.AdminPanel
            }
            else
            {
-               status=boutiqueobj.EditBoutique(boutiqueobj.BoutiqueID).ToString();
+               status=boutiqueobj.EditBoutique().ToString();
            }
 
 
            return status;
         }
         #endregion NewBoutique
+
         #region NewAdmin
         [System.Web.Services.WebMethod]
         public static string NewAdmin(Users userObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            userObj.BoutiqueID = UA.BoutiqueID;
+
             string status = null;
             if(userObj.UserID==null)
             {
@@ -104,13 +117,19 @@ namespace Boutique.AdminPanel
 
         #region DeleteBoutique
          [System.Web.Services.WebMethod]
-        public static string DeleteBoutique(string Boutiqueid)
+        public static string DeleteBoutique(Boutiques boutiqueObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            boutiqueObj.BoutiqueID = UA.BoutiqueID;
+
             string status = null;
             try
             {
-                Boutiques boutiqueObj = new Boutiques();
-                status = boutiqueObj.DeleteBoutique(Boutiqueid).ToString();
+               
+                status = boutiqueObj.DeleteBoutique().ToString();
             }
              catch(Exception)
             {
@@ -126,15 +145,18 @@ namespace Boutique.AdminPanel
 
         #region BindBoutiqueDetails
         [System.Web.Services.WebMethod]
-        public static string BindBoutiqueDetails(string Boutiqueid)
+         public static string BindBoutiqueDetails(Boutiques boutiqueObj)
         {
             string jsResult=null;
             try
             {
-               
+                DAL.Security.UserAuthendication UA;
+                UIClasses.Const Const = new UIClasses.Const();
+
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
                 DataSet ds = null;
-                Boutiques boutiqueObj = new Boutiques();
-                ds = boutiqueObj.GetBoutique(Boutiqueid);
+                
+                ds = boutiqueObj.GetBoutique();
                 if ((ds.Tables[0].Rows.Count > 0) && (ds != null))
                 {
 
@@ -201,6 +223,7 @@ namespace Boutique.AdminPanel
           
         }
         #endregion GetAllBoutiqueIDandName
+
         #endregion webmethods
       
 

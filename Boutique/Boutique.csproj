@@ -91,6 +91,7 @@
     <Content Include="CSS\CustomCSS\Notifications.css" />
     <Content Include="CSS\CustomCSS\OrderStatus.css" />
     <Content Include="CSS\CustomCSS\People.css" />
+    <Content Include="CSS\CustomCSS\PhotoUploader.css" />
     <Content Include="CSS\CustomCSS\ProductFileUpload.css" />
     <Content Include="CSS\CustomCSS\Products.css" />
     <Content Include="CSS\CustomCSS\Profile.css" />
@@ -168,6 +169,7 @@
     <Content Include="Home\js\skel-layers.min.js" />
     <Content Include="Home\js\skel.min.js" />
     <Content Include="Home\mailTemplates\ContactUs.html" />
+    <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />
@@ -268,6 +270,7 @@
     <Content Include="Scripts\UserJS\Notification.js" />
     <Content Include="Scripts\UserJS\OrderStatus.js" />
     <Content Include="Scripts\UserJS\People.js" />
+    <Content Include="Scripts\UserJS\PhotoUploader.js" />
     <Content Include="Scripts\UserJS\Product.js" />
     <Content Include="Scripts\UserJS\ProductFileUpload.js" />
     <Content Include="Scripts\UserJS\Profile.js" />
@@ -280,6 +283,7 @@
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
+    <None Include="Properties\PublishProfiles\web publish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -464,6 +468,10 @@
     </Compile>
     <Compile Include="ImageHandler\ImageServiceHandler.ashx.cs">
       <DependentUpon>ImageServiceHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageHandler\PhotoUploadHandler.ashx.cs">
+      <DependentUpon>PhotoUploadHandler.ashx</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Master\AdminLayout.Master.cs">
       <DependentUpon>AdminLayout.Master</DependentUpon>

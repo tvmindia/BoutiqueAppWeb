@@ -160,7 +160,7 @@ namespace Boutique.DAL
         /// </summary>
         /// <param name="boutiqueID"></param>
         /// <returns>"One boutique details"</returns>
-        public DataSet GetBoutique(string boutiqueID)
+        public DataSet GetBoutique()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -169,7 +169,7 @@ namespace Boutique.DAL
             Guid _boutiqueid = Guid.Empty;
             try
             {
-                _boutiqueid = Guid.Parse(boutiqueID);
+                _boutiqueid = Guid.Parse(BoutiqueID);
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -258,7 +258,7 @@ namespace Boutique.DAL
         #endregion NewBoutique
 
         #region EditBoutique
-        public Int16 EditBoutique(string boutiqueID)
+        public Int16 EditBoutique()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -266,7 +266,7 @@ namespace Boutique.DAL
             Guid _boutiqueid = Guid.Empty;
             try
             {
-                _boutiqueid = Guid.Parse(boutiqueID);
+                _boutiqueid = Guid.Parse(BoutiqueID);
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
@@ -323,7 +323,7 @@ namespace Boutique.DAL
         /// </summary>
         /// <param name="BoutiqueID"></param>
         /// <returns></returns>
-        public Int16 DeleteBoutique(string boutiqueID)
+        public Int16 DeleteBoutique()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -331,7 +331,7 @@ namespace Boutique.DAL
             Guid _boutiqueid = Guid.Empty;
             try
             {
-                _boutiqueid = Guid.Parse(boutiqueID);
+                _boutiqueid = Guid.Parse(BoutiqueID);
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();

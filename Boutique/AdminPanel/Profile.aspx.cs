@@ -18,6 +18,87 @@ namespace Boutique.AdminPanel
 
         }
 
+        #region NewBoutique
+        [System.Web.Services.WebMethod]
+        public static string NewBoutique(Boutiques boutiqueObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            boutiqueObj.BoutiqueID = UA.BoutiqueID;
+
+            string status = null;
+            if (boutiqueObj.BoutiqueID == null)
+            {
+               // status = boutiqueobj.NewBoutique().ToString();
+            }
+            else
+            {
+                status = boutiqueObj.EditBoutique().ToString();
+            }
+
+
+            return status;
+        }
+        #endregion NewBoutique
+
+        #region BindBoutiqueDetails
+        [System.Web.Services.WebMethod]
+        public static string BindBoutiqueDetails(Boutiques boutiqueObj)
+        {
+            string jsResult = null;
+            try
+            {
+
+                DAL.Security.UserAuthendication UA;
+                UIClasses.Const Const = new UIClasses.Const();
+
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                boutiqueObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+               
+                ds = boutiqueObj.GetBoutique();
+                if ((ds.Tables[0].Rows.Count > 0) && (ds != null))
+                {
+
+                    //Converting to Json
+
+                    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                        jsResult = jsSerializer.Serialize(parentRow);
+
+                    }
+
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            return jsResult;
+        }
+        #endregion BindBoutiqueDetails
+
         #region DeleteOwner
         [System.Web.Services.WebMethod]
         public static string DeleteOwner(Owners ownersObj)
@@ -26,6 +107,8 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            ownersObj.BoutiqueID = UA.BoutiqueID;
+
             string status = null;
             try
             {
@@ -61,7 +144,16 @@ namespace Boutique.AdminPanel
             string status = null;
             try
             {
+                Users obj = new Users();
                 ownersObj.BoutiqueID = UA.BoutiqueID;
+                obj.BoutiqueID = UA.BoutiqueID;
+                obj.Name = ownersObj.Name;
+                obj.Mobile = ownersObj.Phone;
+                obj.Email = ownersObj.Email;
+                obj.DOB = ownersObj.DOB;
+                obj.Gender = ownersObj.Gender;
+                obj.CreatedBy = UA.userName;
+                
 
                 if (ownersObj.OwnerID != null)
                 {
@@ -70,6 +162,12 @@ namespace Boutique.AdminPanel
                 }
                 else
                 {
+                   
+                    obj.AddNewUser();
+
+                    ownersObj.UserID=obj.UserID;
+                    
+
                     status = ownersObj.InsertOwner().ToString();
                 }
 
@@ -93,8 +191,8 @@ namespace Boutique.AdminPanel
 
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
-
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            ownersObj.BoutiqueID = UA.BoutiqueID;
 
             DataTable dt = null;
             dt = ownersObj.GetOwner();
@@ -128,7 +226,7 @@ namespace Boutique.AdminPanel
 
         #region GetAllOwners
         [System.Web.Services.WebMethod]
-        public static string GetAllOwners(string Boutiqueid)
+        public static string GetAllOwners(Owners OwnerObj)
         {
 
             DAL.Security.UserAuthendication UA;
@@ -138,9 +236,9 @@ namespace Boutique.AdminPanel
 
 
             DataTable dt = null;
-            Owners ownersObj = new Owners();
-            ownersObj.BoutiqueID = Boutiqueid;
-            dt = ownersObj.GetAllOwners();
+
+            OwnerObj.BoutiqueID = UA.BoutiqueID;
+            dt = OwnerObj.GetAllOwners();
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

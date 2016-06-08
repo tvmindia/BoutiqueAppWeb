@@ -1,13 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="DashBoard.aspx.cs" Inherits="Boutique.AdminPanel.DashBoard" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" EnableEventValidation="true" CodeBehind="DashBoard.aspx.cs" Inherits="Boutique.AdminPanel.DashBoard" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+  
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     
      <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
      <script src="../Scripts/UserJS/DashBoard.js"></script>
     
     <div id="content" class="span10">
-			
+			 
 			
 			<ul class="breadcrumb">
 				<li>
@@ -20,9 +23,9 @@
           <div class="row-fluid"><span class="headerStyle">DashBoard</span></div>
           <div class="row-fluid" style="height:3px;"></div>
 
-        <div class="span12" style="align-content:center;">
+        <div class="span12" style="align-content:center;width:100%;">
             
-            <img id="tiqueImage" src="../Home/images/Background.jpg" style="height:550px;" />
+            <img id="tiqueImage" src="../Home/images/Background.jpg" style="height:350px;width:95%;" />
         </div>
      <%--   Report tiles--%>
 				<div class="row-fluid">	
@@ -53,7 +56,7 @@
 					<p>Not in Stock</p>
 					<span class="badge" id="NotInStockBadge">0</span>
 				</a>
-				<a class="quick-button metro black span2" href="Loyalty.aspx">
+				<a class="quick-button metro black span2" href="https://play.google.com" target="_blank">
 					<i class="icon-calendar"></i>
 					<p>App Usage</p>
                     <span class="badge" id="InstalledBadge">0</span>
@@ -68,11 +71,57 @@
              </div>
 		
 			
-		     <%--	<div class="row-fluid">
+		    	<div class="row-fluid">
 				
 			
+				<div class="widget span12" ondesktop="span12" ontablet="span12" style="border:2px solid #2D89EF;box-shadow:grey 1px 6px 15px 1px;">
+                   <h2>
+                   <span class="glyphicons turtle">
+                   <i></i>
+                   </span>
+                   TiquesInn Fans
+                   </h2> 
+                   <hr style="background-color:royalblue;"/>
+                   <div class="content">
+                   <div id="facebookChart" style="height: 300px; padding: 0px; position: relative;">
+                   <canvas class="base" width="815" height="300"></canvas>
+                   <canvas class="overlay" width="815" height="300" style="position: absolute; left: 0px; top: 0px;"></canvas>
+                   <div class="tickLabels" style="font-size:smaller">
+                   <div class="xAxis x1Axis" style="color:#545454">
+                   <div class="tickLabel" style="position:absolute;text-align:center;left:55px;top:280px;width:73px">5</div>
+                   <div class="tickLabel" style="position:absolute;text-align:center;left:199px;top:280px;width:73px">10</div>
+                   <div class="tickLabel" style="position:absolute;text-align:center;left:343px;top:280px;width:73px">15</div>
+                   <div class="tickLabel" style="position:absolute;text-align:center;left:487px;top:280px;width:73px">20</div>
+                   <div class="tickLabel" style="position:absolute;text-align:center;left:631px;top:280px;width:73px">25</div>
+                   <div class="tickLabel" style="position:absolute;text-align:center;left:775px;top:280px;width:73px">30</div>
+                    </div>
+                   <div class="yAxis y1Axis" style="color:#545454">
+                   <div class="tickLabel" style="position:absolute;text-align:right;top:265px;right:1024px;width:19px;">0</div>
+                   <div class="tickLabel" style="position:absolute;text-align:right;top:175px;right:1024px;width:19px">50</div>
+                   <div class="tickLabel" style="position:absolute;text-align:right;top:84px;right:1024px;width:19px">100</div>
+                   <div class="tickLabel" style="position:absolute;text-align:right;top:-6px;right:1024px;width:19px">150</div>
+                   </div>
+                   </div>
+                   <div class="legend">
+                   <div style="position: absolute; width: 46px; height: 22px; top: 9px; right: 9px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div>
+                   <table style="position:absolute;top:9px;right:9px;;font-size:smaller;color:#545454">
+                   <tbody>
+                   <tr>
+                   <td class="legendColorBox">
+                   <div style="border:1px solid #ccc;padding:1px">
+                   <div style="width:4px;height:0;border:5px solid rgb(59,89,152);overflow:hidden"></div>
+                   </div>
+                   </td>
+                   <td class="legendLabel">Fans</td>
+                   </tr>
+                   </tbody>
+                   </table>
+                   </div>
+                   </div>
+                   </div>
+                   </div>				
 				
-				<div class="box black span4" onTablet="span6" onDesktop="span4">
+				 <%--<div class="box black span4" onTablet="span6" onDesktop="span4">
 					<div class="box-header">
 						<h2><i class="halflings-icon white user"></i><span class="break"></span>Last Users</h2>
 						<div class="box-icon">
@@ -123,9 +172,9 @@
 							
 						</ul>
 					</div>
-				</div><!--/span-->
+				</div><!--/span-->--%>
 
-			</div>--%>
+			</div>
 			
 		
 			
@@ -134,6 +183,6 @@
 	</div>
 
         
-		
-	
+		   <input type="hidden" id="hdnBoutiqueID"  runat="server"  value="" />
+ 
 </asp:Content>

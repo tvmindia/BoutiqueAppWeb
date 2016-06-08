@@ -12,16 +12,47 @@ namespace Boutique.AdminPanel
 {
     public partial class DashBoard : System.Web.UI.Page
     {
+        UIClasses.Const Const = new UIClasses.Const();
+        DAL.Security.UserAuthendication UA;
+       
 
         #region Events
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
+            
+
+            hdnBoutiqueID.Value = UA.BoutiqueID;
+
         }
 
         #endregion Events
 
+       
+
         #region WebMethods
+  
+
+        #region BoutiqueID
+
+        [System.Web.Services.WebMethod]
+        public static string BoutiqueID()
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string B_ID = UA.BoutiqueID;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            return jsSerializer.Serialize(B_ID);
+
+        }
+
+
+        #endregion 
 
         #region SelectAllUsers
         [System.Web.Services.WebMethod]
@@ -81,12 +112,16 @@ namespace Boutique.AdminPanel
 
         #region SelectAllProducts
          [System.Web.Services.WebMethod]
-        public static string SelectAllProductsByBoutiqueID(string Boutiqueid)
+        public static string SelectAllProductsByBoutiqueID( Product productObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            productObj.BoutiqueID = UA.BoutiqueID;
             string jsonResult = null;
             DataSet ds = null;
-            Product productObj = new Product();
-            ds = productObj.GetAllProducts(Boutiqueid);
+           
+            ds = productObj.GetAllProducts();
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -117,7 +152,6 @@ namespace Boutique.AdminPanel
            //Converting to Json 
         }
         #endregion SelectAllProducts
-
 
         #region SelectAllNotifications
 
@@ -173,12 +207,17 @@ namespace Boutique.AdminPanel
 
         #region SelectAllProductViewDetails
          [System.Web.Services.WebMethod]
-         public static string SelectAllProductViewDetailsByBoutiqueID(string Boutiqueid)
+         public static string SelectAllProductViewDetailsByBoutiqueID(Product productObj)
          {
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+             productObj.BoutiqueID = UA.BoutiqueID;
+
              string jsonResult = null;
              DataSet ds = null;
-             Product productObj = new Product();
-             ds = productObj.SelectAllProductViewDetails(Boutiqueid);
+             
+             ds = productObj.SelectAllProductViewDetails();
              //Converting to Json
              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
              List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -218,12 +257,17 @@ namespace Boutique.AdminPanel
 
         #region SelectAllProductOutOfStock
          [System.Web.Services.WebMethod]
-         public static string SelectAllProductOutOfStock(string Boutiqueid)
+         public static string SelectAllProductOutOfStock(Product productObj)
          {
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+             productObj.BoutiqueID = UA.BoutiqueID;
+
              string jsonResult = null;
              DataSet ds = null;
-             Product productObj = new Product();
-             ds = productObj.SelectAllProductViewDetails(Boutiqueid);
+            
+             ds = productObj.SelectAllProductViewDetails();
              //Converting to Json
              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
              List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -263,13 +307,16 @@ namespace Boutique.AdminPanel
         
         #region SelectAllAppInstalled
          [System.Web.Services.WebMethod]
-         public static string SelectAllAppInstalled(string Boutiqueid)
+         public static string SelectAllAppInstalled(AppInstallationLog AppIntallObj)
          {
              string jsonResult = null;
              DataSet ds = null;
-             AppInstallationLog appInstallLogObj = new AppInstallationLog();
-             appInstallLogObj.BoutiqueID = Boutiqueid;
-             ds = appInstallLogObj.GetAllAppInstallation();
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            
+             AppIntallObj.BoutiqueID = UA.BoutiqueID;
+             ds = AppIntallObj.GetAllAppInstallation();
              //Converting to Json
              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
              List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
