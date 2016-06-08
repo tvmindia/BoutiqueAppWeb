@@ -206,7 +206,7 @@ namespace Boutique.WebServices
             {
                 Boutiques boutique = new Boutiques();
                 boutique.BoutiqueID = boutiqueID;
-                dt = boutique.GetBoutique(boutiqueID).Tables[0];
+                dt = boutique.GetBoutique().Tables[0];
             }
             catch (Exception ex)
             {
