@@ -742,7 +742,7 @@ namespace Boutique.DAL
         /// To get all the products under a category
         /// </summary>
         /// <returns></returns>
-            public DataTable GetProductsByCategory(string userID)
+            public DataTable GetProductsByCategory(string userID,int countLimit=0)
             {
                 if (CategoryCode == "")
                 {
@@ -768,6 +768,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 10).Value = CategoryCode;
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                     if (userID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                    if (countLimit > 0) cmd.Parameters.Add("@CountLimit", SqlDbType.Int).Value = countLimit;
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);
