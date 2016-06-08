@@ -281,6 +281,7 @@
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
+    <None Include="Properties\PublishProfiles\web publish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
