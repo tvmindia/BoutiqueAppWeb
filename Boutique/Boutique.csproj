@@ -168,6 +168,7 @@
     <Content Include="Home\js\skel-layers.min.js" />
     <Content Include="Home\js\skel.min.js" />
     <Content Include="Home\mailTemplates\ContactUs.html" />
+    <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />
@@ -280,7 +281,6 @@
     <Content Include="Home\fonts\fontawesome-webfont.ttf" />
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
-    <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -469,6 +469,7 @@
     </Compile>
     <Compile Include="ImageHandler\PhotoUploadHandler.ashx.cs">
       <DependentUpon>PhotoUploadHandler.ashx</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Master\AdminLayout.Master.cs">
       <DependentUpon>AdminLayout.Master</DependentUpon>
