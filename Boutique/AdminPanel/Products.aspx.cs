@@ -24,9 +24,12 @@ namespace Boutique.AdminPanel
       
 
         #region InsertProduct
+       
         [System.Web.Services.WebMethod]
+       
         public static string InsertProduct(Product productObj)
         {
+          
             List<Product> prodList = new List<Product>();
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -72,7 +75,6 @@ namespace Boutique.AdminPanel
                     productObj.UpdatedBy = UA.userName;
                     //returns status and productid
                     productObj.status = productObj.UpdateProduct().ToString();
-                    
                     prodList.Add(productObj);
 
 
