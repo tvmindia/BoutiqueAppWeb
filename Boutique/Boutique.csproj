@@ -166,6 +166,7 @@
     <Content Include="Home\js\skel-layers.min.js" />
     <Content Include="Home\js\skel.min.js" />
     <Content Include="Home\mailTemplates\ContactUs.html" />
+    <Content Include="ImageFileUploader.aspx" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />
@@ -452,6 +453,13 @@
     </Compile>
     <Compile Include="Home\getstarted.aspx.designer.cs">
       <DependentUpon>getstarted.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageFileUploader.aspx.cs">
+      <DependentUpon>ImageFileUploader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImageFileUploader.aspx.designer.cs">
+      <DependentUpon>ImageFileUploader.aspx</DependentUpon>
     </Compile>
     <Compile Include="ImageHandler\ImageServiceHandler.ashx.cs">
       <DependentUpon>ImageServiceHandler.ashx</DependentUpon>
