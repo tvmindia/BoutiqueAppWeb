@@ -73,9 +73,52 @@
 				</li>
 				<li><a href="#">Products</a></li>
 			</ul>
-
+           <%--Header--%>
          <div class="row-fluid"><span class="headerStyle">Products</span></div>
           <div class="row-fluid" style="height:3px;"></div>
+           <%--Header--%>
+
+           <%--Tab Content--%>
+         	<div class="row-fluid">
+				
+				<div class="box span12">
+					<div class="box-header">
+						<h2><i class="halflings-icon th"></i><span class="break"></span>Tabs</h2>
+					</div>
+					<div class="box-content">
+						<ul class="nav tab-menu nav-tabs" id="myTab">
+							<li class="active"><a href="#info">Info</a></li>
+							<li><a href="#custom">Custom</a></li>
+							<li><a href="#messages">Messages</a></li>
+						</ul>
+						 
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane active" id="info">
+								<p>
+
+									Outofstocks.   
+								</p>
+
+							</div>
+							<div class="tab-pane" id="custom">
+								<p>
+							   new offers
+								</p>
+							</div>
+							<div class="tab-pane" id="messages">
+								<p>
+									all products under boutique.
+								</p>
+								
+							</div>
+						</div>
+					</div>
+				</div><!--/span-->
+			
+			   </div>	
+		  <%--Tab Content--%>
+
+	        
 
 
            <%--Gallery--%>
@@ -189,6 +232,7 @@
 								</div>
 								</div>
                               <div class="control-group">
+                                 
 								<label class="control-label">Is OutofStock</label>
 								<div class="controls">
 								  <label class="radio">

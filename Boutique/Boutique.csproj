@@ -217,6 +217,8 @@
     <Content Include="img\glyphicons_halflings.svg" />
     <Content Include="img\icons-big.png" />
     <Content Include="img\icons-small.png" />
+    <Content Include="img\offersticker\offer.png" />
+    <Content Include="img\offersticker\specialofffer.png" />
     <Content Include="img\progress.gif" />
     <Content Include="img\quicklook-bg.png" />
     <Content Include="img\quicklook-icons.png" />

@@ -44,7 +44,6 @@ namespace Boutique.AdminPanel
                     productObj.CreatedBy = UA.userName;
                    //returns status and productid
                     productObj.status = productObj.InsertProduct().ToString();
-                  
                     prodList.Add(productObj);
                     
                    
@@ -54,8 +53,11 @@ namespace Boutique.AdminPanel
             {
 
             }
+
+          
             return jsSerializer.Serialize(prodList);
         }
+
         #endregion InsertProduct
 
         #region UpdateProduct
@@ -100,8 +102,36 @@ namespace Boutique.AdminPanel
 
         #endregion InsertProductImage
 
+        #region DeleteProudctImage
+        [System.Web.Services.WebMethod]
+        public static string DeleteProudctImage(Product productObj)
+        {
+
+           
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA.BoutiqueID != "")
+                {
+                    productObj.BoutiqueID = UA.BoutiqueID;
+                    //returns status and productid
+                    productObj.status = productObj.DeleteProudctImage().ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return jsSerializer.Serialize(productObj);
+        }
+        #endregion DeleteProudctImage
+
         #region GetAllProductMainImages
-         [System.Web.Services.WebMethod]
+        [System.Web.Services.WebMethod]
         public static string GetAllProductMainImages(Product productObj)
         {
             DAL.Security.UserAuthendication UA;

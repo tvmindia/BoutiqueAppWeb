@@ -1474,5 +1474,54 @@ namespace Boutique.DAL
          }
         #endregion GraphData
 
+
+         #region DeleteProudctImage
+
+         public Int16 DeleteProudctImage()
+         {
+             if (ImageID == "")
+             {
+                 throw new Exception("ImageID is Empty!!");
+             }
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlDataAdapter sda = null;
+             SqlParameter outParameter = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 sda = new SqlDataAdapter();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[DeleteProductImage]";
+                 cmd.Parameters.Add("@ProductImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //delete success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+
+         }
+         #endregion DeleteProudctImage
+
     }
 }
