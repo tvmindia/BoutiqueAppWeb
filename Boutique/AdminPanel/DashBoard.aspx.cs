@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -365,8 +366,31 @@ namespace Boutique.AdminPanel
              JavaScriptSerializer jsSerializer = new JavaScriptSerializer();           
              mainObj.BoutiqueID = UA.BoutiqueID.ToString();
              DataSet ds = null;
-             ds = mainObj.GetProductDetails();
+             string[] filePaths = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Media/GraphPic/"));
+             foreach (string filePath in filePaths)
+                 File.Delete(filePath);    
+             ds = mainObj.GetProductDetails();           
+             for(int i=0;i<ds.Tables[0].Rows.Count;i++)
+             {
+                 DataRow dr= ds.Tables[0].Rows[i];
+                 mainObj.ImageID = dr[4].ToString();
+                 byte[] ImgBack = mainObj.GetProductImage();  //Function Call to Get Patient Details
 
+                 string fileExtension = ".Jpeg";
+                 string str_image = "Tiquepic_" + i.ToString() + fileExtension;
+                 string filePath = HttpContext.Current.Server.MapPath("~/Media/GraphPic/");
+                 string XfileURL =str_image.Trim();
+                 string fileURL = filePath + XfileURL.Trim();
+                
+
+                 if (!System.IO.File.Exists(fileURL))
+                 {
+
+                     System.IO.File.WriteAllBytes(fileURL, ImgBack);
+                 }
+                 
+                
+             }
              List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
              Dictionary<string, object> childRow;
 
@@ -384,8 +408,7 @@ namespace Boutique.AdminPanel
              }
 
              return jsSerializer.Serialize(parentRow);
-             //}
-             //return jsSerializer.Serialize("");
+            
          }
 
          #endregion GetAllProductImages 

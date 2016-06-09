@@ -266,28 +266,24 @@ function BindTotalProducts()
           tooltip: {
               useHTML: true,
               headerFormat: '<span style="font-size:11px;color:#EB3C00;">{series.name}</span><br>',
-              pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f} Views</b><br/>Prod No:{point.id}<br/><img src="../Home/images/iphone.png" border="0" height="100" width="100">',
-          //    formatter: function() {
-
-          //        return '<img src="/your/image/path/' + this.series.name + '.png" />' + '<b>' + this.point.y + '</b>';
-          //    }
-          //}
+              pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f} Views</b><br/>Prod No:{point.id}<br/><img src="../Media/GraphPic/Tiquepic_{point.Imagenum}.jpeg" style="border:0;height:120px;width:auto;">',
+                
           },
           series: [{
 
               name: 'TiquesInn',
               colorByPoint: true,
               data: [
-                  { name: imageids[0].Name, y: imageids[0].prductcounts, id: imageids[0].ProductNo },
-                  { name: imageids[1].Name, y: imageids[1].prductcounts, id: imageids[1].ProductNo },
-                  { name: imageids[2].Name, y: imageids[2].prductcounts, id: imageids[2].ProductNo },
-                  { name: imageids[3].Name, y: imageids[3].prductcounts, id: imageids[3].ProductNo },
-                  { name: imageids[4].Name, y: imageids[4].prductcounts, id: imageids[4].ProductNo },
-                  { name: imageids[5].Name, y: imageids[5].prductcounts, id: imageids[5].ProductNo },
-                  { name: imageids[6].Name, y: imageids[6].prductcounts, id: imageids[6].ProductNo },
-                  { name: imageids[7].Name, y: imageids[7].prductcounts, id: imageids[7].ProductNo },
-                  { name: imageids[8].Name, y: imageids[8].prductcounts, id: imageids[8].ProductNo },
-                  { name: imageids[9].Name, y: imageids[9].prductcounts, id: imageids[9].ProductNo }
+                  { name: imageids[0].Name, y: imageids[0].prductcounts, id: imageids[0].ProductNo, Imagenum:0 },
+                  { name: imageids[1].Name, y: imageids[1].prductcounts, id: imageids[1].ProductNo, Imagenum:1 },
+                  { name: imageids[2].Name, y: imageids[2].prductcounts, id: imageids[2].ProductNo, Imagenum:2 },
+                  { name: imageids[3].Name, y: imageids[3].prductcounts, id: imageids[3].ProductNo, Imagenum:3 },
+                  { name: imageids[4].Name, y: imageids[4].prductcounts, id: imageids[4].ProductNo, Imagenum:4 },
+                  { name: imageids[5].Name, y: imageids[5].prductcounts, id: imageids[5].ProductNo, Imagenum:5 },
+                  { name: imageids[6].Name, y: imageids[6].prductcounts, id: imageids[6].ProductNo, Imagenum:6 },
+                  { name: imageids[7].Name, y: imageids[7].prductcounts, id: imageids[7].ProductNo, Imagenum:7 },
+                  { name: imageids[8].Name, y: imageids[8].prductcounts, id: imageids[8].ProductNo, Imagenum:8 },
+                  { name: imageids[9].Name, y: imageids[9].prductcounts, id: imageids[9].ProductNo, Imagenum:9 }
               ]
 
           }]
