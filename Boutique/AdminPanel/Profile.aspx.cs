@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -13,8 +14,18 @@ namespace Boutique.AdminPanel
 {
     public partial class Profile : System.Web.UI.Page
     {
+        DAL.Security.UserAuthendication UA;
+        UIClasses.Const Const = new UIClasses.Const();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
+
+        
+            if (UA.Role == Const.Manager)
+            {
+                NewOwner.Visible = false;
+            }
 
         }
 
@@ -253,11 +264,32 @@ namespace Boutique.AdminPanel
                         childRow.Add(col.ColumnName, row[col]);
                     }
                     parentRow.Add(childRow);
-                }
-            }
+                }             
+            }        
             return jsSerializer.Serialize(parentRow);
             //Converting to Json
         }
         #endregion GetAllOwners
+
+
+        #region Role
+
+        [System.Web.Services.WebMethod]
+        public static string Role()
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            string B_ID = UA.Role;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            return jsSerializer.Serialize(B_ID);
+
+        }
+
+
+        #endregion 
     }
 }

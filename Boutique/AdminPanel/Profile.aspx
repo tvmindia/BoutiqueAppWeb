@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="Boutique.AdminPanel.Profile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <link href="../CSS/CustomCSS/Profile.css" rel="stylesheet" />
@@ -171,14 +173,14 @@
                 <h2>Owner</h2>
                 <div class="box-icon">
                     <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
-                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+                   <%-- <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
                     <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                 </div>
             </div>
             <div class="box-content">
 
 
-                <div class="box span6">
+                <div id="NewOwner" runat="server" class="box span6">
                     <div class="box-header">
                         <h2>New Owner</h2>
                         <div class="box-icon">
@@ -283,14 +285,14 @@
                     </div>
                     <div class="box-content" style="height: 492px; overflow: auto;">
                         <table class="table table-condensed" id="OwnerTable">
-                            <thead>
+                         <%--   <thead>
                                 <tr>
                                     <th>Owner Name</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
                                     <th>Actions</th>
                                 </tr>
-                            </thead>
+                            </thead>--%>
                             <tbody>
                             </tbody>
                         </table>
@@ -314,5 +316,6 @@
 
     </div>
      <input type="hidden" id="hdfBoutiqueID" value=""/>
+     <input type="hidden" id="hdfRole" value=""/>
 
 </asp:Content>
