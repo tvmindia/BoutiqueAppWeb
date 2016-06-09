@@ -113,15 +113,16 @@
                         return;
                     }
 
-                    if ($("#txtPlannedDeliveryDate").val().trim() != "") {
+                    if ($("#txtPlannedDeliveryDate").val().trim() != "")
+                    {
                         Order.PlannedDeliveryDate = $("#txtPlannedDeliveryDate").val();
-                        Order.ForecastDeliveryDate = $("#txtPlannedDeliveryDate").val()
+                        //Order.ForecastDeliveryDate = $("#txtPlannedDeliveryDate").val()
 
                     }
-                    else {
-                        alert("Please select planeed delivery date.");
-                        return;
-                    }
+                    //else {
+                    //    alert("Please select planeed delivery date.");
+                    //    return;
+                    //}
 
                   
               }
@@ -131,21 +132,28 @@
                 else  //Update
                 {
                     Order.OrderID = $("#hdfOrderID").val();
-                    Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
-                    Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
+                   
                     Order.OrderReadyDate = $("#dateOrderReadyDate").val();
                 }
 
                 var TotalAmount =parseInt ($("#txtTotalOrderAmount").val()); 
                
-                if (isNaN(TotalAmount)) {
-                    alert("Please enter total amount");
-                    return;
+                if (isNaN(TotalAmount))
+                {
+                    Order.TotalOrderAmount  = 0;
+                    //alert("Please enter total amount");
+                    //return;
+                }
+                else
+                {
+                    Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
                 }
 
 
+                Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
+                Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
                 Order.OrderDescription = $("#txtDescription").val();
-                Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
+               
                
                 result = InsertOrUpdateOrder(Order);
 
@@ -167,8 +175,9 @@
                     $(".submitDetails").text("Save");
                     $("#editLabel").text("New Order");
 
-                    BindOrdersTable();
+                    BindOrdersTable(); //To bind table with new or modified entry
 
+ //---------Manage Control hide and show
                     $("#OrderNoDiv").hide();
                     $("#lblOrderNo").hide();
 
@@ -215,6 +224,7 @@
                 $(".submitDetails").text("Save");
                 $("#editLabel").text("New Order");
 
+ //---------Manage Control hide and show
                 $("#OrderNoDiv").hide();
                 $("#lblOrderNo").hide();
 
@@ -291,8 +301,8 @@ function BindControlsWithOrderDetails(Records)
         $("#hdfOrderID").val(Records.OrderID);
 
     });
-    $(".submitDetails").text("Modify");
-    $("#editLabel").text("Modify Order");
+    $(".submitDetails").text("Save");
+    $("#editLabel").text("Edit Order");
 }
 
 

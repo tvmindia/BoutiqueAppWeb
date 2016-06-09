@@ -239,20 +239,26 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar,-1).Value = OrderDescription;
-               
-                cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = ForecastDeliveryDate;
 
-                
-                cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value = OrderReadyDate;
-                cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value = ActualDeliveryDate;
-                //cmd.Parameters.AddWithValue("@ActualDeliveryDate", ActualDeliveryDate ?? SqlString.Null);
+                if (ForecastDeliveryDate != string.Empty && ForecastDeliveryDate != null)
+                {
+                    cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(ForecastDeliveryDate); 
+                }
 
+                if (OrderReadyDate != string.Empty && OrderReadyDate != null)
+                {
+                    cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value =  DateTime.Parse(OrderReadyDate); 
+                }
+
+                if (ActualDeliveryDate != string.Empty &&  ActualDeliveryDate != null)
+                {
+                    cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value =  DateTime.Parse(ActualDeliveryDate);
+                }
 
                 cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                //cmd.Parameters.Add("@OrderNo", SqlDbType.Int).Value = OrderNo;
-
+               
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -304,10 +310,13 @@ namespace Boutique.DAL
 
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar, -1).Value = OrderDescription;
-                cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime).Value = OrderDate;
+                cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime).Value =  DateTime.Parse(OrderDate);
 
-                cmd.Parameters.Add("@PlannedDeliveryDate", SqlDbType.DateTime).Value = PlannedDeliveryDate;
-                cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = ForecastDeliveryDate;
+                if (PlannedDeliveryDate != string.Empty && PlannedDeliveryDate != null )
+                {
+                    cmd.Parameters.Add("@PlannedDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(PlannedDeliveryDate);
+                    cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(PlannedDeliveryDate);
+                }
 
                 //cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value = ActualDeliveryDate;
                 //cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value = OrderReadyDate;
