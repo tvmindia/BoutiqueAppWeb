@@ -1,11 +1,8 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = "Profile"; 
-
    
-    debugger;
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
-    debugger;
 
     BindAsyncOwnerTable();
     var jsonResult = {};
@@ -119,7 +116,6 @@
             }    
     })
 
-
     $(".AddOwner").live({
         click: function (e) {
 
@@ -162,25 +158,18 @@
         }
     })
 
-
-
 });//end of document.ready
 
 
-function getRole() {
-
-    debugger;
+function getRole() { 
     var table = {};
     var Role = new Object();
     table = GetLogin_Role(Role);
     return table;
-
-
 }
-function GetLogin_Role(Role) {
-    debugger;
 
-    var ds = {};
+function GetLogin_Role(Role) {
+     var ds = {};
     var table = {};
     var data = "{'boutiqueObj':" + JSON.stringify(Role) + "}";
     ds = getJsonData(data, "../AdminPanel/Profile.aspx/Role");
@@ -228,7 +217,6 @@ function GetBoutiques() {
     table = JSON.parse(ds.d);
     return table;
 }
-
 
 function BindBoutiqueTextBoxes(Records) {
     $.each(Records, function (index, Records) {
@@ -297,7 +285,7 @@ function clearOwnerControls() {
 } 
 
 function BindOwnerTable(Records) {
-    debugger;
+ 
     $("#OwnerTable").find(".ownerrows").remove();   
    
     var checkrole = $('#hdfRole').val(); 
@@ -328,13 +316,10 @@ function BindAsyncOwnerTable() {
 
     var jsonResult = {};
     var Owner = new Object();
-
     jsonResult = GetAllOwners(Owner);
-    if (jsonResult != undefined) {
-        debugger;
+    if (jsonResult != undefined) {     
         BindOwnerTable(jsonResult);
     }
-
 }
 
 function InsertOwner(Owners) {

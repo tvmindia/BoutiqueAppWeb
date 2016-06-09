@@ -25,6 +25,8 @@ namespace Boutique.AdminPanel
             if (UA.Role == Const.Manager)
             {
                 NewOwner.Visible = false;
+                footer.Visible = false;
+
             }
 
         }
