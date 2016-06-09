@@ -145,6 +145,7 @@
     <Content Include="Home\images\boutiquelaunch.jpg" />
     <Content Include="Home\images\contact.jpg" />
     <Content Include="Home\images\dark_tint.png" />
+    <Content Include="Home\images\Deleteicon1.png" />
     <Content Include="Home\images\engine.png" />
     <Content Include="Home\images\iphone.png" />
     <Content Include="Home\images\pic02.jpg" />
@@ -171,6 +172,7 @@
     <Content Include="Home\js\skel-layers.min.js" />
     <Content Include="Home\js\skel.min.js" />
     <Content Include="Home\mailTemplates\ContactUs.html" />
+    <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />
@@ -284,6 +286,7 @@
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
+    <None Include="Properties\PublishProfiles\web publish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -468,6 +471,10 @@
     </Compile>
     <Compile Include="ImageHandler\ImageServiceHandler.ashx.cs">
       <DependentUpon>ImageServiceHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ImageHandler\PhotoUploadHandler.ashx.cs">
+      <DependentUpon>PhotoUploadHandler.ashx</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Master\AdminLayout.Master.cs">
       <DependentUpon>AdminLayout.Master</DependentUpon>

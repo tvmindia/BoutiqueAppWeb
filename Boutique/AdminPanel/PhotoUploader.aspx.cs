@@ -30,7 +30,7 @@ namespace Boutique.AdminPanel
                     string filename = Path.GetFileName(fileupload.FileName);
                         if (!string.IsNullOrEmpty(filename))
                         {
-                            desingerObj.FileType = Path.GetExtension(filename);
+                           
                             desingerObj.ImageFile = new byte[fileupload.FileContent.Length];
                             myStream = fileupload.FileContent;
                             myStream.Read(desingerObj.ImageFile, 0, (int)fileupload.FileContent.Length);

@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+  
      <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
@@ -13,7 +14,55 @@
         
 
     </script>
+    <style>
+        .thumb:hover{
+            border:2px solid #ffd800;
+            
+        }
+          .thumb 
+        {/*for image uploader preview html 5*/
+        height: 155px;
+        width:120px;
+        border: 1px solid #000;
+        margin: 10px 5px 0 0;   
+        }
+           .Maindiv{
+           float: inherit;
+           display: inline-flex;
+           width: 100%;
+           flex-flow: wrap;
+           margin:10px 10px 10px 10px;
+        }
+ input[type="checkbox"].checkDes
+{
+    vertical-align: middle!important;
+    display: inline-block!important;
+    margin-bottom: 0!important;
+    min-height: 30px!important;
+    cursor:pointer!important;
+    line-height: normal!important;
+    position:relative;
+    bottom:164px;
+    left:77px;
+    /*transform:scale(2);*/
+    
+}
 
+    input[type="image"].imgdelete{
+             bottom: 140px;
+             left: 97px;
+             position: relative;
+
+         }
+
+    .imgpreviewdiv{
+        height: 200px;
+        width:120px;
+        padding-left:10px;
+      }
+
+
+        </style>
      <div id="content" class="span10">
 
          <ul class="breadcrumb">
@@ -38,7 +87,7 @@
 							
 						</div>
 					</div>
-					<div class="box-content">
+				    	<div class="box-content">
 						<div class="imageholder" style="width:100%;" id="productimagehold">
 									
 								<!--<div id="image-2" class="masonry-thumb">
@@ -51,11 +100,10 @@
 
                             <!-- Use invisible wraper to hide popup window content -->
                            <div style="display:none;">
-	                       <div id="popup">
-		                   <h3>Popup content</h3>
-		                       <p>Some text for popup window.</p>
-		                       <p><button type="button" class="close-button">Close</button></p>
-	                      </div>
+	                       <div id="popup" style="max-height:680px;overflow-y:auto;">
+		                       <h3>Popup content</h3>
+		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
+		                   </div>
                           </div>
 					
 				    	</div>
@@ -209,9 +257,11 @@
                               <div class="control-group">
                                <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
                        		 
-                                  <ol id="olpreview" style="list-style:none;">
-                                    
-                                  </ol>
+                                 
+                                  <div id="Preview" class="Maindiv">
+
+                                  </div>
+
                               </div>
                         
                         </div>
