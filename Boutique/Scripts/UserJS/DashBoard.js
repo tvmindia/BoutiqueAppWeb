@@ -1,17 +1,14 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = "DashBoard";
-    debugger;
+ 
      
-   var boutique_id = getboutiqueID();  
+    var boutique_id = getboutiqueID();  
 
     var TiqueImage = document.getElementById("tiqueImage");
     TiqueImage.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueID=" + boutique_id;
     BindTileValues();
+    BindAllImages();
     
-    
-
-
-
 });//end of document.ready
 
 
@@ -224,4 +221,88 @@ function BindTotalProducts()
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllAppInstalled");
     table = JSON.parse(ds.d);
     return table;
-}
+  }
+
+  function BindAllImages() {
+   
+      var imageids = {};
+      imageids = GetAllProductImages();
+      
+      var options = {
+
+          chart: {
+              renderTo: 'container',
+              type: 'column'
+          },
+          title: {
+              text: 'Trending Products'
+          },
+          subtitle: {
+              text: ''
+          },
+          xAxis: {
+              type: 'category',
+
+          },
+          yAxis: {
+              title: {
+                  text: 'Product View Count'
+              }
+
+          },
+          legend: {
+              enabled: false
+          },
+          plotOptions: {
+              series: {
+                  borderWidth: 0,
+                  dataLabels: {
+                      enabled: true,
+                      format: '{point.y:.f} Views'
+                  }
+              }
+          },
+
+          tooltip: {
+              useHTML: true,
+              headerFormat: '<span style="font-size:11px;color:#EB3C00;">{series.name}</span><br>',
+              pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f} Views</b><br/>Prod No:{point.id}<br/><img src="../Home/images/iphone.png" border="0" height="100" width="100">',
+          //    formatter: function() {
+
+          //        return '<img src="/your/image/path/' + this.series.name + '.png" />' + '<b>' + this.point.y + '</b>';
+          //    }
+          //}
+          },
+          series: [{
+
+              name: 'TiquesInn',
+              colorByPoint: true,
+              data: [
+                  { name: imageids[0].Name, y: imageids[0].prductcounts, id: imageids[0].ProductNo },
+                  { name: imageids[1].Name, y: imageids[1].prductcounts, id: imageids[1].ProductNo },
+                  { name: imageids[2].Name, y: imageids[2].prductcounts, id: imageids[2].ProductNo },
+                  { name: imageids[3].Name, y: imageids[3].prductcounts, id: imageids[3].ProductNo },
+                  { name: imageids[4].Name, y: imageids[4].prductcounts, id: imageids[4].ProductNo },
+                  { name: imageids[5].Name, y: imageids[5].prductcounts, id: imageids[5].ProductNo },
+                  { name: imageids[6].Name, y: imageids[6].prductcounts, id: imageids[6].ProductNo },
+                  { name: imageids[7].Name, y: imageids[7].prductcounts, id: imageids[7].ProductNo },
+                  { name: imageids[8].Name, y: imageids[8].prductcounts, id: imageids[8].ProductNo },
+                  { name: imageids[9].Name, y: imageids[9].prductcounts, id: imageids[9].ProductNo }
+              ]
+
+          }]
+      };
+ 
+      var chart = new Highcharts.Chart(options);
+
+  }
+  function GetAllProductImages() {
+      
+      var ds = {};
+      var table = {};
+      var data = {};
+      ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetAllProductImages");
+      table = JSON.parse(ds.d);
+      return table;
+  }
+  

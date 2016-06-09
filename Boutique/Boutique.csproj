@@ -145,6 +145,7 @@
     <Content Include="Home\images\boutiquelaunch.jpg" />
     <Content Include="Home\images\contact.jpg" />
     <Content Include="Home\images\dark_tint.png" />
+    <Content Include="Home\images\Deleteicon1.png" />
     <Content Include="Home\images\engine.png" />
     <Content Include="Home\images\iphone.png" />
     <Content Include="Home\images\pic02.jpg" />
@@ -161,7 +162,10 @@
     <Content Include="Home\images\why.jpg" />
     <Content Include="Home\images\why1.jpg" />
     <Content Include="Home\js\bootstrap.min.js" />
+    <Content Include="Home\js\data.js" />
+    <Content Include="Home\js\drilldown.js" />
     <Content Include="Home\js\engine.js" />
+    <Content Include="Home\js\highcharts.js" />
     <Content Include="Home\js\html5shiv.js" />
     <Content Include="Home\js\init.js" />
     <Content Include="Home\js\jquery.min.js" />

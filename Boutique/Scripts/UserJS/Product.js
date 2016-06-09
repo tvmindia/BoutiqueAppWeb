@@ -1,13 +1,18 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = "Products";
+    $('.image-link').viewbox({
+        margin: 20,
+        resizeDuration: 300,
+        openDuration: 200,
+        closeDuration: 200,
+        closeButton: true,
+        closeOnSideClick: true,
+      
 
-    //disables the div containing image upload and image list
+        });
+   
     document.getElementById('imageupGallery').style.display = 'block';
-    //var prodid = '8c9b8e83-dc8f-48d7-994b-8688516a8771'//$("#hdfproductID").val();
-    //var boutiqid = '470a044a-4dba-4770-bca7-331d2c0834ae'//$("#hdfBoutiqueID").val();
-    //$("#hdfBoutiqueID").val(boutiqueid);
     BindAllProductImages();//binds masanory gallery with product under current boutique
-    //prduct galler slide effect-masonry
     var galerydiv = $('.imageholder');
     var $mars= $('.imageholder').masonry(
             {
@@ -29,11 +34,11 @@
 
 
 
-    $("#olpreview").sortable({
+     $("#Preview").sortable({
 
-        update: function( event, ui ) {}//when li image is reordered
+        update: function( event, ui ) {}//when div image is reordered
     });
-    $("#olpreview").disableSelection();
+     $("#Preview").disableSelection();
     
     
    
@@ -140,13 +145,14 @@
                     var ImageInfo = [];
                     var idval, orderno;
                    
-                    $('#olpreview li').each(function (index) {
+                    $('#Preview div').each(function (index) {
                         //val.push($(this).attr('id'));
                         var idval = $(this).attr('id');
                         orderno = index;
                         ImageInfo.push(idval);
                         debugger;
-                        if (document.getElementById("chkmain" + index).checked)
+                        var chkflag= document.getElementById("checkDes" + index).checked;
+                        if (chkflag==true)
                         {
                             Product.MainImageID = idval;
                         }
@@ -274,7 +280,20 @@
     //    }
 
     //})
-   
+    
+    $(".imgdelete").live({
+        click: function (e) {// Clear controls
+            if (confirm("You are about to Delete Image!.."))
+            {
+                var Product = new Object();
+                Product.ImageID = $(this).attr('id');
+                alert(Product.ImageID);
+               // DeleteProuductImage(Product);
+            }
+            return false;
+        }
+    })
+
     $(".CancelProduct").live({
         click: function (e) {// Clear controls
             clearProductControls();
@@ -291,7 +310,9 @@
 
 
     $('input[type="checkbox"]').on('change', function () {
+
         $('input[type="checkbox"]').not(this).prop('checked', false);
+
     });
 
 
@@ -312,13 +333,20 @@
     galerydiv.show();
 
     $(".image-link").on('click', function () {
-        //imagezoombox
-         var vb = $('#popup').viewbox();
-         vb.trigger('viewbox.open');
-     //   debugger;
-      //  $('.image-link').viewbox();
+        debugger;
+       // var TiqueImage = document.getElementById("tiqueImage");
+        //TiqueImage.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueID=" + boutiqueid;
 
-        return false;
+
+        var imageid = $(this).attr('ImageID');
+        var imgcntrol = $('#imgzoom');
+        imgcntrol[0].src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + imageid;
+
+        //imagezoombox
+        var vb = $('#popup').viewbox();
+        vb.trigger('viewbox.open');
+        // $('.image-link').viewbox();
+        // return false;
     });
    
 
@@ -384,8 +412,8 @@ function BindAllProductImages() {
         for (var i = 0; i < totalimages.length; i++)
         {
             var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
-          + '  <a class="image-link" title="" href="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
-         + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
+          + '<a class="image-link" ImageID="'+ totalimages[i].ImageID+'">'
+         + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
          + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div></div>');
          imagedivholder.append(html);
         }
@@ -423,7 +451,7 @@ function BindAllImages()
         var imageids = {};
         imageids = GetAllProductImages(Product);
 
-        $("#olpreview").find(".liclas").remove();
+        $("#Preview").find(".imgpreviewdiv").remove();
         $.each(imageids, function (index, Records) {
             MultiImageBind(Records,index);
         })
@@ -438,46 +466,71 @@ function gethiddenvalue()
 }
 
 
-function MultiImageBind(Records,index) {
-    var ol = document.getElementById("olpreview");
-    var li = document.createElement("li");
-    var children = ol.children.length + 1
-    li.setAttribute("id", Records.ImageID);
-    li.setAttribute("class", "liclas");
+function MultiImageBind(Records, index) {
+
+    var divPre = document.getElementById("Preview");
+    divPre.className = 'Maindiv';
+    var div = document.createElement("div");
+    //var children = ol.children.length + 1
+    div.setAttribute("id", Records.ImageID);
+    div.setAttribute("class", "imgpreviewdiv");
     img1 = document.createElement('img');
     img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
-    img1.alt = "image" + children;
     img1.className = "thumb";
- 
-    li.appendChild(img1);
-    // var nextline = document.createElement('p');
-     var spacespan = document.createElement('span');
-    spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
+    div.appendChild(img1);
     var chk = document.createElement('input');
     chk.type = 'checkbox';
-    chk.className = "chkbox";
-    chk.name = "mainpix";
-    chk.id = "chkmain" + index;
-    var spacespan1 = document.createElement('span');
-    spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
-    //<span class="close-btn"><a href="#">X</a></span>
-    var deletespan = document.createElement('span');
-    deletespan.type = 'span';
-    deletespan.className = "close-btn";
-    var deleteanchor = document.createElement('a');
-    deleteanchor.type = 'a';
-    deleteanchor.innerHTML = "x";
-    deleteanchor.href = "#";
-    var zoomicon = document.createElement('span');
-    zoomicon.type = 'span';
-    li.appendChild(spacespan);
-    li.appendChild(chk);
-    //li.appendChild(nextline);
-    //li.appendChild(btndelete);
-    li.appendChild(deletespan);
-    li.lastChild.appendChild(deleteanchor);
-    li.appendChild(spacespan1);
-    ol.appendChild(li);
+    chk.className = 'checkDes';
+    chk.id = 'checkDes' + index;
+    var del = document.createElement('input');
+    del.className = 'imgdelete';
+    del.type = 'image';
+    del.src = '../Home/images/Deleteicon1.png';
+    div.appendChild(del);
+    divPre.appendChild(div);
+    div.appendChild(chk);
+
+
+    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    //var ol = document.getElementById("olpreview");
+    //var li = document.createElement("li");
+    //var children = ol.children.length + 1
+    //li.setAttribute("id", Records.ImageID);
+    //li.setAttribute("class", "liclas");
+    //img1 = document.createElement('img');
+    //img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
+    //img1.alt = "image" + children;
+    //img1.className = "thumb";
+ 
+    //li.appendChild(img1);
+    //// var nextline = document.createElement('p');
+    // var spacespan = document.createElement('span');
+    //spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
+    //var chk = document.createElement('input');
+    //chk.type = 'checkbox';
+    //chk.className = "chkbox";
+    //chk.name = "mainpix";
+    //chk.id = "chkmain" + index;
+    //var spacespan1 = document.createElement('span');
+    //spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
+    ////<span class="close-btn"><a href="#">X</a></span>
+    //var deletespan = document.createElement('span');
+    //deletespan.type = 'span';
+    //deletespan.className = "close-btn";
+    //var deleteanchor = document.createElement('a');
+    //deleteanchor.type = 'a';
+    //deleteanchor.innerHTML = "x";
+    //deleteanchor.href = "#";
+    //var zoomicon = document.createElement('span');
+    //zoomicon.type = 'span';
+    //li.appendChild(spacespan);
+    //li.appendChild(chk);
+    ////li.appendChild(nextline);
+    ////li.appendChild(btndelete);
+    //li.appendChild(deletespan);
+    //li.lastChild.appendChild(deleteanchor);
+    //li.appendChild(spacespan1);
+    //ol.appendChild(li);
   }
 
 
@@ -660,6 +713,15 @@ function UpdateProduct(Product)
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
+function DeleteProuductImage(Product) {
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/DeleteProudctImage");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
 
 
 function clearProductControls() {
