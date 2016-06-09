@@ -120,11 +120,10 @@
 
                     }
                     //else {
-                    //    alert("Please select planeed delivery date.");
+                    //    alert("Please select planned delivery date.");
                     //    return;
                     //}
 
-                  
               }
 
  //------* END  *---------//
@@ -148,7 +147,6 @@
                 {
                     Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
                 }
-
 
                 Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
                 Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();

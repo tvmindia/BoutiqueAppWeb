@@ -116,6 +116,10 @@ namespace Boutique.DAL
         #region Methods
 
         #region Select All Orders
+        /// <summary>
+        /// To select all orders
+        /// </summary>
+        /// <returns>Dataset</returns>
         public DataSet SelectAllOrders()
         {
             dbConnection dcon = null;
@@ -162,9 +166,9 @@ namespace Boutique.DAL
 
         #region Get Order Details By OrderID
         /// <summary>
-        /// To get details of a specific notification
+        /// To get details of order details by orderid
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Dataset</returns>
         public DataSet GetOrderDetailsByOrderID()
         {
             if (BoutiqueID == string.Empty)
@@ -212,7 +216,7 @@ namespace Boutique.DAL
 
         #region Edit Order Details
         /// <summary>
-        /// to edit the Notification details
+        /// to edit the order details by orderid
         /// </summary>
         /// <returns>status</returns>
         public Int16 UpdateOrderDetailsByOrderID()
@@ -282,7 +286,7 @@ namespace Boutique.DAL
 
         #region New Order
         /// <summary>
-        /// to insert a new notification into database
+        /// to insert a new order into database
         /// </summary>
         /// <returns>status</returns>
         public Int16 InsertOrder()
@@ -348,6 +352,201 @@ namespace Boutique.DAL
         #endregion New Order
 
         #endregion Methods
+
+    }
+
+    public class OrderItem
+    {
+        #region Constructor
+
+        public OrderItem(string orderID)
+        {
+            OrderID = orderID;
+        }
+
+        #endregion Constructor
+
+        #region Global Variables
+
+        #endregion Global Variables
+
+        #region Public Properties
+
+        public string OrderID
+        {
+            get;
+            set;
+        }
+
+        public string CustomerRemarks
+        {
+            get;
+            set;
+        }
+
+        public string CreatedBy
+        {
+            get;
+            set;
+        }
+
+        public string CreatedDate
+        {
+            get;
+            set;
+        }
+
+        public string ProductID
+        {
+            get;
+            set;
+        }
+
+
+        #endregion Public Properties
+
+        #region New Order Item
+        /// <summary>
+        /// to insert a new notification into database
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 InsertOrderItem()
+        {
+            if (OrderID == string.Empty)
+            {
+                throw new Exception("OrderID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertOrderItem]";
+
+                cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
+                cmd.Parameters.Add("@CustomerRemarks", SqlDbType.NVarChar, -1).Value = CustomerRemarks;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion New Order Item
+
+        #region Get Order Item Details By OrderID
+        /// <summary>
+        /// To get details of order details by orderid
+        /// </summary>
+        /// <returns>Dataset</returns>
+        public DataSet GetOrderItemsByOrderID()
+        {
+            if (OrderID == string.Empty)
+            {
+                throw new Exception("OrderID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataSet ds = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectOrderItemsByOrderID]";
+                cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OrderID);
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such item"); }
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+        }
+        #endregion Get Order Item Details By OrderID
+
+        #region Delete An OrderItem
+        /// <summary>
+        /// To delete a orderitem by product id
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 DeleteOrderItemByProductID()
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+          
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteOrderItemByProductID]";
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //delete success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion Delete An OrderItem
 
     }
 }
