@@ -3,6 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../Scripts/UserJS/OrderStatus.js"></script>
     <link href="../CSS/CustomCSS/OrderStatus.css" rel="stylesheet" />
+    <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <script src="../Scripts/select2.min.js"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -169,7 +171,78 @@
         </div>
 
 
-        <div class="row-fluid sortable" id="OrderItem">
+        <div id="Div1" runat="server" class="row-fluid">
+
+            
+
+            <div class="box span12">
+                <div class="box-header">
+                    <h2 id="editLabel1">Items</h2>
+                    <div class="box-icon">
+                    </div>
+                </div>
+
+                <div class="box-content " style="height: 310px; overflow: auto;">
+                    <div class="form-horizontal">
+
+                        <%--FIRST HALF--%>
+
+                        <div class="span6">
+
+                             <div class="control-group">
+								<label class="control-label" for="products">Product</label>
+								<div class="controls">
+								  <select class="products" >
+                                      <option></option>
+								  </select>
+								</div>
+							  </div>
+                    </div>
+
+                        <%-- END FIRST HALF--%>
+
+                        <%--SECOND HALF--%>
+
+                        <div class="span6">
+                             <div class="control-group">
+								<label class="control-label" for="Remarks">Remarks</label>
+								<div class="controls">
+								   <textarea class="form-control" style="max-width: 68%" rows="4" id="txtRemarks"></textarea>
+                                      
+								</div>
+							  </div>
+                           
+
+                        </div>
+
+                        <%--END SECOND HALF--%>
+
+                        
+                            <div class="box-content TableLayout">
+
+                    <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
+                       
+                        <tbody id="OrderItemRows">
+                        </tbody>
+                    </table>
+
+
+                </div>
+                       
+
+                    </div>
+
+                </div>
+
+                <footer class="InnerFooter">
+                    <a class="btn btn-primary AddItem" href="#">Save</></a>
+                    <a class="btn CancelItem">Cancel</a>
+                </footer>
+            </div>
+           
+        </div>
+
+        <%--<div class="row-fluid box" id="OrderItem">
             <div class=" span12">
                 <div class="box-header">
                     <h2>Items</h2>
@@ -186,9 +259,40 @@
 
 
                 </div>
-            </div>
+                <div class="form-horizontal">
 
-        </div>
+                    <div class="span6">
+
+                 <div class="control-group">
+								<label class="control-label" for="products">Product</label>
+								<div class="controls">
+								  <select class="products" >
+                                      <option></option>
+								  </select>
+								</div>
+							  </div>
+                    </div>
+                     <div class="span6">
+
+                    <div class="control-group">
+								<label class="control-label" for="Remarks">Remarks</label>
+								<div class="controls">
+								   <textarea class="form-control" style="max-width: 68%" rows="4" id="txtRemarks"></textarea>
+                                      
+								</div>
+							  </div>
+                         </div>
+                    </div>
+
+                     <footer class="InnerFooter">
+                     <a class="btn btn-primary AddOrderItem" href="#">Save</></a>
+							
+                          <a class="btn CancelOrderItem">Cancel</a>
+                    <a >Cancel</a>
+                </footer>
+            </div>
+           
+        </div>--%>
 
 
         

@@ -3,6 +3,11 @@
    
     parent.document.title = "Order Status";
    
+    $(".products").select2({
+        placeholder: "Choose related product",
+        allowClear: true,
+        data: BindProductDropdown()
+    });
 
     BindOrdersTable();
 
@@ -406,7 +411,26 @@ function DeleteOrderItem(Order) {
 
 //END Delete
 
+//Bind Product Dropdown
 
+function BindProductDropdown() {
+    debugger;
+
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllProducts(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+function GetAllProducts(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 //------------- *  General Functions *-----------------//
 
