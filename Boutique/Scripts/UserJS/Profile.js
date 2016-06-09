@@ -1,8 +1,10 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = "Profile"; 
+   
+    var LoginUserRole = getRole();
+    $('#hdfRole').val(LoginUserRole);
 
     BindAsyncOwnerTable();
-
     var jsonResult = {};
     jsonResult = GetBoutiques();
     if (jsonResult != undefined) {
@@ -114,7 +116,6 @@
             }    
     })
 
-
     $(".AddOwner").live({
         click: function (e) {
 
@@ -157,9 +158,24 @@
         }
     })
 
-
-
 });//end of document.ready
+
+
+function getRole() { 
+    var table = {};
+    var Role = new Object();
+    table = GetLogin_Role(Role);
+    return table;
+}
+
+function GetLogin_Role(Role) {
+     var ds = {};
+    var table = {};
+    var data = "{'boutiqueObj':" + JSON.stringify(Role) + "}";
+    ds = getJsonData(data, "../AdminPanel/Profile.aspx/Role");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 //---getting data as json-----//
 function getJsonData(data, page) {
@@ -202,7 +218,6 @@ function GetBoutiques() {
     return table;
 }
 
-
 function BindBoutiqueTextBoxes(Records) {
     $.each(Records, function (index, Records) {
         $("#txtAppVersion").val(Records.AppVersion);
@@ -238,9 +253,6 @@ function clearControls() {
     $('#rowfluidDiv').hide();
 }
 
-
-
-
 function BindOwnerTextBoxes(Records) {
     $.each(Records, function (index, Records) {
 
@@ -256,7 +268,6 @@ function BindOwnerTextBoxes(Records) {
     $(".AddOwner").text("Modify");
 }
 
-
 function clearOwnerControls() {
 
     $('#rowfluidDiv').hide();
@@ -271,27 +282,44 @@ function clearOwnerControls() {
     $("#txtProfile").val('');
     $("#hdfOwnerID").val('');
     $(".AddOwner").text("Save");
-}
-
+} 
 
 function BindOwnerTable(Records) {
-    $("#OwnerTable").find(".ownerrows").remove();
-    $.each(Records, function (index, Records) {
+ 
+    $("#OwnerTable").find(".ownerrows").remove();   
+   
+    var checkrole = $('#hdfRole').val(); 
+    if (checkrole == 'Manager')
+    {
+        var html = '<thead><tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr></thead>';
+        $("#OwnerTable").append(html);
+        $.each(Records, function (index, Records)
+        {          
+        var html = '<tr class="ownerrows" userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
+        $("#OwnerTable").append(html);
+        })
+    }
+    else
+    {
+        var html = '<thead><tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr></thead>';
+        $("#OwnerTable").append(html);
+        $.each(Records, function (index, Records)
+        {
         var html = '<tr class="ownerrows" userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info owneredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger ownerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#OwnerTable").append(html);
-    })
+        })       
+    }
+
 }
 
 function BindAsyncOwnerTable() {
 
     var jsonResult = {};
     var Owner = new Object();
-
     jsonResult = GetAllOwners(Owner);
-    if (jsonResult != undefined) {
+    if (jsonResult != undefined) {     
         BindOwnerTable(jsonResult);
     }
-
 }
 
 function InsertOwner(Owners) {
