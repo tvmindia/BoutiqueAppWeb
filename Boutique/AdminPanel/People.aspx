@@ -417,6 +417,14 @@
                                 <div class="controls">
                                   <%--  <iframe id="IframeProjectSwitching" src="PhotoUploader.aspx" style="width: 250px;min-height:195px;max-height:350px;overflow-y:hidden;overflow-x:hidden;border:none"></iframe> --%>
                                     <input id="fileUpload" type="file" size="60" name="myfile"/>
+                                    
+                                </div>
+                            </div>
+
+
+                             <div class="control-group">
+                                <div class="controls">
+                                   <output id="list" class="listClass"></output>
                                 </div>
                             </div>
                         </div>
