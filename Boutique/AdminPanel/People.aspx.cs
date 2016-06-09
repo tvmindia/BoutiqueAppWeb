@@ -172,54 +172,58 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             designerObj.BoutiqueID = UA.BoutiqueID;
-
-            string status = null;
+        
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer(); 
+            
             try
             {
 
                 if (designerObj.DesignerID != null)
                 {
-                    status = designerObj.UpdateDesigner().ToString();
+
+                    designerObj.UpdatedBy = UA.userName;
+                    designerObj.status = designerObj.UpdateDesigner().ToString();
 
                 }
                 else
                 {
-                    status = designerObj.InsertDesigner().ToString();
+                    designerObj.CreatedBy = UA.userName;
+                     designerObj.status = designerObj.InsertDesigner().ToString();
                 }
 
             }
             catch (Exception)
             {
-                status = "500";//Exception of foreign key
+                designerObj.status = "500";//Exception of foreign key
             }
             finally
             {
 
             }
-            return status;
+            return jsSerializer.Serialize(designerObj); 
         }
         #endregion InsertDesigner
 
-        #region InserDesignerImage
-        [System.Web.Services.WebMethod]
-        public static string InserDesignerImage(HttpContext context)
-        {
-            string image = null;
-           // string dirFullPath = HttpContext.Current.Server.MapPath("~/MediaUploader/");
-            string[] files;
-            string s ="";
-            int numFiles;
-            //files = System.IO.Directory.GetFiles(dirFullPath);
-            numFiles = 5;
-            numFiles = numFiles + 1;
-            string str_image = "";
-            HttpPostedFile file = HttpContext.Current.Request.Files[s];
-            string fileName = file.FileName;
-            string fileExtension = file.ContentType;
-            string[] words = fileName.Split(',');
-            return image;
-        }
-        #endregion InserDesignerImage
+        //#region InserDesignerImage
+        //[System.Web.Services.WebMethod]
+        //public static string InserDesignerImage(HttpContext context)
+        //{
+        //    string image = null;
+        //   // string dirFullPath = HttpContext.Current.Server.MapPath("~/MediaUploader/");
+        //    string[] files;
+        //    string s ="";
+        //    int numFiles;
+        //    //files = System.IO.Directory.GetFiles(dirFullPath);
+        //    numFiles = 5;
+        //    numFiles = numFiles + 1;
+        //    string str_image = "";
+        //    HttpPostedFile file = HttpContext.Current.Request.Files[s];
+        //    string fileName = file.FileName;
+        //    string fileExtension = file.ContentType;
+        //    string[] words = fileName.Split(',');
+        //    return image;
+        //}
+        //#endregion InserDesignerImage
 
         #region GetDesigner
         [System.Web.Services.WebMethod]
@@ -237,7 +241,7 @@ namespace Boutique.AdminPanel
             //Converting to Json
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
+            Dictionary<string, object> childRow,designerimageIsnull;
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow row in dt.Rows)
@@ -252,7 +256,9 @@ namespace Boutique.AdminPanel
 
             }
 
-
+            designerimageIsnull = new Dictionary<string, object>();
+            designerimageIsnull.Add("IsDesignerImageNull",designerobj.IsDesignerImageNull);
+            parentRow.Add(designerimageIsnull);
             return jsSerializer.Serialize(parentRow);
             //Converting to Json
         }
