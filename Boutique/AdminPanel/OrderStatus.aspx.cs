@@ -67,6 +67,88 @@ namespace Boutique.AdminPanel
 
         #endregion  Get All Orders
 
+        #region Get Order Details By OrderID
+        /// <summary>
+        /// To get specific order details by orderid for the editing purpose
+        /// </summary>
+        /// <param name="OrderID"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetOrderDetailsByOrderID(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            OrderObj.BoutiqueID = UA.BoutiqueID;
+
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = OrderObj.GetOrderDetailsByOrderID();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion Get Order Details By OrderID
+
+        #region Add OR Edit Order
+        /// <summary>
+        /// If notification id is an empty string it will do inserting, otherwise updating
+        /// </summary>
+        /// <param name="OrderObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string InsertOrUpdateOrder(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            OrderObj.BoutiqueID = UA.BoutiqueID;
+            OrderObj.CreatedBy = UA.userName;
+            OrderObj.UpdatedBy = UA.userName;
+
+
+            string status = null;
+            try
+            {
+                if (OrderObj.OrderID == string.Empty || OrderObj.OrderID == null)
+                {
+                    status = OrderObj.InsertOrder().ToString();
+                }
+                else
+                {
+                    status = OrderObj.UpdateOrderDetailsByOrderID().ToString();
+                }
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+        #endregion Add OR Edit Order
 
         #endregion Methods
 

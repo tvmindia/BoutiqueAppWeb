@@ -59,7 +59,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="userrows">
+                        <tbody id="OrderRows">
                         </tbody>
                     </table>
                 </div>
@@ -69,29 +69,33 @@
       
              <div id="NewOrder" runat="server" class="row-fluid">
 
-                  <div class="box span6">
+                  <div class="box span12">
 
-                  
+                 
                   <div class="box-header">
 						<h2 id="editLabel">New Order</h2>
 						<div class="box-icon">
 							
 						</div>
 					</div>
-					<div class="box-content"  style="height:503px;overflow:auto;" >
+
+				  <div class="box-content "  style="height:290px;overflow:auto;" >
 						<div class="form-horizontal">
 
-							<%--<fieldset>--%>
-							<div class="control-group">
-
-                                  
-
 							
+							
+
+                             <div class="span6">
+
+                                 <div class="control-group" id="OrderNoDiv" style="display:none;" >
+
 								  <label class="control-label" for="focusedInput">OrderNo</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtOrderNo" type="text"/>
+                                       <label class="control-label" id="lblOrderNo" style="display:none;"/>
+								 
 								</div>
 								</div>
+
 
 							<div class="control-group">
 								 <label class="control-label" for="focusedInput">Order Description</label>
@@ -104,7 +108,11 @@
 							
 								  <label class="control-label" for="focusedInput">Order Date</label>
 								<div class="controls">
-								   <label class="control-label" id="dateOrderDate" />
+                                    <input type="text" readonly="readonly" style="cursor:default; background-color:white"  class="input-large datepicker" id="txtOrderDate" value=""/>
+                                   
+
+								   <label class="control-label" id="dateOrderDate" style="display:none;"/>
+                                    
 								</div>
 								</div>
 
@@ -112,47 +120,56 @@
 							
 								  <label class="control-label" for="focusedInput">Planned Delivery Date</label>
 								<div class="controls">
-                                    <label class="control-label" id="datePlannedDeliveryDate" />
-								  
+                                      <input type="text" readonly="readonly" style="cursor:default; background-color:white"  class="input-large datepicker" id="txtPlannedDeliveryDate" value=""/>
+                                    
+
+                                    <label class="control-label" id="datePlannedDeliveryDate" style="display:none;" />
+								 
 								</div>
 								</div>
 
-                            <div class="control-group">
-							  <label class="control-label" for="date01">Forecast Delivery Date</label>
-							  <div class="controls">
-								<input type="text" readonly="readonly" style="cursor:default; background-color:white"  class="input-large datepicker" id="dateForecastDeliveryDate" value=""/>
-							  </div>
-							</div>
-
-                            <div class="control-group">
-							  <label class="control-label" for="date01">Order Ready Date</label>
-							  <div class="controls">
-								<input type="text" readonly="readonly" style="cursor:default; background-color:white" class="input-large datepicker" id="dateOrderReadyDate" value=""/>
-							  </div>
-							</div>
-						
-                            <div class="control-group">
-							  <label class="control-label" for="date01">Actual Delivery Date</label>
-							  <div class="controls">
-								<input type="text" readonly="readonly" style="cursor:default; background-color:white" class="input-large datepicker" id="dateActualDeliveryDate" value=""/>
-							  </div>
-							</div>
-                           
-                            <div class="control-group">
+                                  <div class="control-group">
 							  <label class="control-label" for="date01">Total Order Amount</label>
 							  <div class="controls">
 								<input class="input-large focused" id="txtTotalOrderAmount" type="number" min="0" />
 							  </div>
 							</div>
 
+                                 </div>
 
+                             <div class="span6" >
+
+                            <div class="control-group" id="ForecastDiv" style="display:none;">
+							  <label class="control-label" for="date01">Forecast Delivery Date</label>
+							  <div class="controls">
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white;"  class="input-large datepicker" id="dateForecastDeliveryDate" value=""/>
+							  </div>
+							</div>
+
+                            <div class="control-group" id="OrderReadyDiv" style="display:none;">
+							  <label class="control-label" for="date01">Order Ready Date</label>
+							  <div class="controls">
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white;" class="input-large datepicker" id="dateOrderReadyDate" value=""/>
+							  </div>
+							</div>
+						
+                            <div class="control-group" id="ActualDeliveryDiv" style="display:none;">
+							  <label class="control-label" for="date01">Actual Delivery Date</label>
+							  <div class="controls">
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white;" class="input-large datepicker" id="dateActualDeliveryDate" value=""/>
+							  </div>
+							</div>
+                           
+                           
+
+                                 </div>
 					 </div>
 						
 					        
 						
 						</div>
-
-                        <footer class="InnerFooter">
+                     
+                  <footer class="InnerFooter">
                        
                             <a class="btn btn-primary submitDetails" href="#">Save</></a>
 							
@@ -164,5 +181,8 @@
           </div>
 
     </div>
+
+
+     <input type="hidden" id="hdfOrderID" />
 
 </asp:Content>
