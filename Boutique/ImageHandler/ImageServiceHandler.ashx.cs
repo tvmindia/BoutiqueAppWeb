@@ -19,6 +19,7 @@ namespace Boutique.ImageHandler
 
           public void ProcessRequest(HttpContext context)
           {
+             
             try
             {
                 context.Response.ContentType = "image/jpeg";
@@ -41,6 +42,21 @@ namespace Boutique.ImageHandler
                     Product productObj = new Product();
                     productObj.ImageID = context.Request.QueryString["ImageID"];
                     byte[] productimg=productObj.GetProductImage();
+                    if (productimg != null)
+                    {
+                        MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        Image proimg = Image.FromStream(memoryStream);
+                        proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+                    }
+
+                }
+
+                if ((context.Request.QueryString["DesignerID"] != null) && (context.Request.QueryString["DesignerID"] != ""))
+                {
+                    Designers designObj = new Designers();
+                    designObj.DesignerID = context.Request.QueryString["DesignerID"];
+                   // designObj.BoutiqueID = context.Request.QueryString["DesinerBoutiqueID"];
+                    byte[] productimg = designObj.GetDesignerImage();
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);

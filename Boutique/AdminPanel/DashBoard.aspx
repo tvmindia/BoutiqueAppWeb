@@ -4,7 +4,12 @@
   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+    <style>
+        .highcharts-tooltip>span {
+          height:200px;
+          width:auto;
+          }
+    </style>
     
     <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
     <script src="../Home/js/data.js"></script>

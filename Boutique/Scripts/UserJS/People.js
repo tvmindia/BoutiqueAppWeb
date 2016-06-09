@@ -4,6 +4,16 @@
     $('.AddUser').hide();
     //BIND REGION
 
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+
+
+        document.getElementById('fileUpload').addEventListener('change', handleFileSelect, false);
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+
+
     BindAsyncUserTable();
     BindAsycDesignerTable();
     BindAsyncAdminsTable();
@@ -77,15 +87,20 @@
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
-             var jsonResult = {};
+         
+            
              editedrow = $(this).closest('tr');
              var Designer = new Object();            
              Designer.DesignerID = editedrow.attr("designerID");
-             jsonResult = GetDesigner(Designer);
-             if (jsonResult != undefined) {
-
-                 BindDesignerTextBoxes(jsonResult);
+             debugger;
+             var jsonResult = GetDesigner(Designer);
+             var ImageIsNull = jsonResult[1].IsDesignerImageNull;
+             if (jsonResult[0] != undefined) {
+              
+                 BindDesignerTextBoxes(jsonResult[0]);
+                 GetDesignerImage(Designer.DesignerID, ImageIsNull)
              }
+
 
 
              return false;
@@ -186,22 +201,24 @@
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
-             var jsonResult = {};
-             editedrow = $(this).closest('tr');
-             var Designer = new Object();            
-             Designer.DesignerID = editedrow.attr("designerID");
-           
-             jsonResult = DeleteDesigner(Designer);
-             if (jsonResult != undefined) {
-                 if (jsonResult == "1") {
-                     BindAsycDesignerTable()//Gridbind
-                     $('#rowfluidDiv').show();
-                     $('.alert-success').show();
-                 }
-                 if (jsonResult != "1") {
-                     BindAsycDesignerTable()//Gridbind
-                     $('#rowfluidDiv').show();
-                     $('.alert-error').show();
+             if (confirm("You are about to Delete Category!..")) {
+                 var jsonResult = {};
+                 editedrow = $(this).closest('tr');
+                 var Designer = new Object();
+                 Designer.DesignerID = editedrow.attr("designerID");
+
+                 jsonResult = DeleteDesigner(Designer);
+                 if (jsonResult != undefined) {
+                     if (jsonResult == "1") {
+                         BindAsycDesignerTable()//Gridbind
+                         $('#rowfluidDiv').show();
+                         $('.alert-success').show();
+                     }
+                     if (jsonResult != "1") {
+                         BindAsycDesignerTable()//Gridbind
+                         $('#rowfluidDiv').show();
+                         $('.alert-error').show();
+                     }
                  }
              }
              return false;
@@ -376,51 +393,58 @@
                               
           
             result = InsertDesigner(Designer);
-            debugger;
-            var imgresult = "";
-            //imageupload
-            var _URL = window.URL || window.webkitURL;
-            var formData = new FormData();
-            var file, img;
+            if (result.DesignerID != null) {
+               
+                var imgresult = "";
+                //imageupload
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var file, img;
 
 
-            if ((file = $('#fileUpload')[0].files[0])) {
-                img = new Image();
-                img.onload = function () {
+                if ((file = $('#fileUpload')[0].files[0])) {
+                    img = new Image();
+                    img.onload = function () {
+                        var image = $('#fileUpload')[0].files[0];
+
+
+                        formData.append('files', image, file.name);
+                        formData.append('', Designer.DesignerID);
+                        //  formData.append('file', $('#productfile')[0].files[0]);
+                        //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                    };
+                    //  img.onerror = function () {
+                    //   alert("Not a valid file:" + file.type);
+                    //  };
+                    // img.src = _URL.createObjectURL(file);
                     var image = $('#fileUpload')[0].files[0];
-
-
                     formData.append('files', image, file.name);
-                    formData.append('',Designer.DesignerID);
-                    //  formData.append('file', $('#productfile')[0].files[0]);
-                    //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
-                };
-              //  img.onerror = function () {
-                 //   alert("Not a valid file:" + file.type);
-              //  };
-                // img.src = _URL.createObjectURL(file);
-                var image = $('#fileUpload')[0].files[0];
-               formData.append('files', image, file.name);
+                    formData.append('DesignerId',result.DesignerID);
+                    formData.append('BoutiqueId', result.BoutiqueID);
+                    formData.append('Name', result.Name);
+                    formData.append('profile', result.Profile);
+                    formData.append('mobile', result.Mobile);
+                    formData.append('updatedBy', result.userName)
+                    
+                }
 
-
+                //imageupload
+                // formData.append('prod', 88888);
+                //  formData.append('ismain', 77777);
+                postBlobAjax(formData, "../AdminPanel/People.aspx/InserDesignerImage");
             }
-
-            //imageupload
-            // formData.append('prod', 88888);
-            //  formData.append('ismain', 77777);
-          postBlobAjax(formData, "../AdminPanel/People.aspx/InserDesignerImage");
            // var HttpContext = new Object();
           //  HttpContext.files = formData;
           //  var data = "{'context':" + JSON.stringify(HttpContext) + "}";
 
            // jsonResult = getJsonData(data, "../AdminPanel/People.aspx/InserDesignerImage");
            // getJsonData()
-            if (result == "1") {
+            if (result.status == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
                 BindAsycDesignerTable();
             }
-            if (result != "1") {
+            if (result.status != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
                 BindAsycDesignerTable();
@@ -454,7 +478,7 @@ function postBlobAjax(formData, page) {
             if (status != 'error') {
                 //var my_path = "MediaUploader/" + status;
                 // $("#myUploadedImg").attr("src", my_path);
-                alert(data);
+                //alert(data);
             }
         },
         processData: false,
@@ -465,6 +489,38 @@ function postBlobAjax(formData, page) {
     });
 }
 //post File/blog to Server
+
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    $("#list").find(".thumb").remove();
+    // Loop through the FileList and render image files as thumbnails.
+    var f;
+    f = files[0];
+    //for (var i = 0, f; f = files[i]; i++) {
+
+        // Only process image files.
+        if (!f.type.match('image.*')) {
+            //continue;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                // Render thumbnail.
+                var span = document.createElement('span');
+                span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                                 '" title="', escape(theFile.name), '"/>'].join('');
+                document.getElementById('list').insertBefore(span, null);
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(f);
+    //}
+}
 
 //---getting data as json-----//
 function getJsonData(data, page) {
@@ -719,7 +775,7 @@ function clearDesignerControls()
     $('.alert-success').hide();
     $('.alert-error').hide();
     $("#hdfDesignerID").val('');
-    
+    $("#list").find(".thumb").remove();
     $(".AddDesigner").text("Save");
 
 }
@@ -750,6 +806,28 @@ function GetDesigner(Designer) {
     ds = getJsonData(data, "../AdminPanel/People.aspx/GetDesigner");
     table = JSON.parse(ds.d);
     return table;
+}
+function GetDesignerImage(DesignerID,ImageIsNull) {
+ 
+    if ($("#list").find(".thumb") != null || $("#list").find(".thumb") != 'undefined') {
+        $("#list").find(".thumb").remove();
+    }
+        var span = document.createElement('span');
+        span.innerHTML = ['<img id="designerimage" class="thumb" src="" title=""/>'].join('');
+        document.getElementById('list').insertBefore(span, null);
+
+       var imgdes= document.getElementById('designerimage');
+       imgdes.src = "../ImageHandler/ImageServiceHandler.ashx?DesignerId=" + DesignerID;
+       debugger;
+       if (ImageIsNull == "0")
+       {
+           $("#list").find(".thumb").remove();
+           var span = document.createElement('span');
+           span.innerHTML = ['<img id="designerimage" class="thumb" src="../img/no-user-image.gif" title=""/>'].join('');
+           document.getElementById('list').insertBefore(span, null);
+       }
+    return;
+   
 }
 
 
@@ -846,15 +924,14 @@ function BindManagerTextBoxes(Records) {
     $(".AddManager").text("Modify");
 }
 
-function BindDesignerTextBoxes(Records)
+function BindDesignerTextBoxes(JSONresult)
 {
-    $.each(Records, function (index, Records) {
-
-        $("#txtDesignerName").val(Records.Name);
-        $("#txtDesignerMobile").val(Records.Mobile);
-        $("#txtDesignerProfile").val(Records.Profile);
-        $("#hdfDesignerID").val(Records.DesignerID);
-    })
+   
+    $("#txtDesignerName").val(JSONresult.Name);
+    $("#txtDesignerMobile").val(JSONresult.Mobile);
+    $("#txtDesignerProfile").val(JSONresult.Profile);
+    $("#hdfDesignerID").val(JSONresult.DesignerID);
+  
     $(".AddDesigner").text("Modify");
 }
 
