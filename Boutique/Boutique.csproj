@@ -217,6 +217,7 @@
     <Content Include="img\glyphicons_halflings.svg" />
     <Content Include="img\icons-big.png" />
     <Content Include="img\icons-small.png" />
+    <Content Include="img\no-user-image.gif" />
     <Content Include="img\progress.gif" />
     <Content Include="img\quicklook-bg.png" />
     <Content Include="img\quicklook-icons.png" />

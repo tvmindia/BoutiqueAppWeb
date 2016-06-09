@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using Boutique.DAL;
 
 namespace Boutique.ImageHandler
 {
@@ -15,11 +16,13 @@ namespace Boutique.ImageHandler
 
         public void ProcessRequest(HttpContext context)
         {
-           
-            //Thread.Sleep(1000);
+          Designers designerObj = new Designers();
+        
+            Thread.Sleep(1000);
             context.Response.ContentType = "text/plain";
             try
             {
+               
                // Product prodobj = new Product();
               //  string dirFullPath = HttpContext.Current.Server.MapPath("~/MediaUploader/");
               //  string[] files;
@@ -52,7 +55,21 @@ namespace Boutique.ImageHandler
                       //  prodobj.ImageFile = new byte[file.ContentLength];
                         byte[] myData = new byte[file.ContentLength];
                         file.InputStream.Read(myData, 0, file.ContentLength);
-
+                        string[] desId = context.Request.Form.GetValues("DesignerId");
+                        string[] boutId = context.Request.Form.GetValues("BoutiqueId");
+                        string[] name = context.Request.Form.GetValues("Name");
+                        string[] profile = context.Request.Form.GetValues("profile");
+                        string[] mobile = context.Request.Form.GetValues("mobile");
+                        string[] updatedBy = context.Request.Form.GetValues("updatedBy");
+                        designerObj.Mobile = mobile[0];
+                        designerObj.Profile = profile[0];
+                        designerObj.Name = name[0];
+                        designerObj.DesignerID = desId[0];
+                        designerObj.BoutiqueID = boutId[0];
+                        designerObj.ImageFile = myData;
+                        designerObj.UpdatedBy = updatedBy[0];
+                       // designerObj.DesignerID=
+                        designerObj.UpdateDesigner();
                       //  file.InputStream.Read(prodobj.ImageFile, 0, file.ContentLength);
                         // prodobj.ProductID=Product.ProductID
 

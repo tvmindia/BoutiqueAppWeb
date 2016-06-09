@@ -168,6 +168,31 @@
 
         </div>
 
+
+        <div class="row-fluid sortable" id="OrderItem">
+            <div class=" span12">
+                <div class="box-header">
+                    <h2>Items</h2>
+                    <div class="box-icon">
+                    </div>
+                </div>
+                <div class="box-content TableLayout">
+
+                    <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
+                       
+                        <tbody id="OrderItemRows">
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+        
+
     </div>
 
     <input type="hidden" id="hdfOrderID" />  

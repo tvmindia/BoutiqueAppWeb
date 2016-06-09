@@ -70,6 +70,7 @@
                 jsonResult = GetOrderDetailsByOrderID(Order);
                 if (jsonResult != undefined) {
                     BindControlsWithOrderDetails(jsonResult);
+                    BindOrderItemsList(Order);
                 }
                 //Scroll page
                 var offset = $('#editLabel').offset();
@@ -239,6 +240,50 @@
 
 //---------------    END : Cancel Click       -------------
 
+//---------- Delete Button Click---------
+        $(".OrderItemDelete").live(
+        {
+            click: function (e) {
+
+                $('#rowfluidDiv').hide();
+                $('.alert-success').hide();
+                $('.alert-error').hide();
+                if (confirm("Do you want to delete this item ?") == true) {
+                    var jsonResult = {};
+                    editedrow = $(this).closest('tr');
+                    var Order = new Object();
+
+                    Order.ProductID = editedrow.attr("ProductID");
+                    Order.OrderID = editedrow.attr("OrderID");
+
+                    result = DeleteOrderItem(Order);
+                    if (result == "1") {
+
+                        BindOrderItemsList(Order);
+
+                        //$('#rowfluidDiv').show();
+                        //$('.alert-success').show();
+
+                    }
+                    if (result != "1") {
+
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                    }
+                    
+                    //Scroll page
+                    //var offset = $('#rowfluidDiv').offset();
+                    //offset.left -= 20;
+                    //offset.top -= 20;
+                    //$('html, body').animate({
+                    //    scrollTop: offset.top,
+                    //    scrollLeft: offset.left
+                    //});
+                }
+                return false;
+            }
+        })
+//----------END: Delete Button Click---------
 });
 
 
@@ -298,13 +343,69 @@ function BindControlsWithOrderDetails(Records)
 
         $("#hdfOrderID").val(Records.OrderID);
 
+       
+
     });
     $(".submitDetails").text("Save");
     $("#editLabel").text("Edit Order");
 }
 
 
+
+function BindOrderItemsList(Order) {
+
+    debugger;
+    var jsonResult = {};
+   
+    jsonResult = GetOrderItemsByOrderID(Order);
+    if (jsonResult != undefined) {
+        FillOrderItemsTable(jsonResult);
+    }
+}
+
+//---* Get the orderITEM datatable in form of JSON *--//
+
+function GetOrderItemsByOrderID(Order) {
+    var ds = {};
+    var table = {};
+    var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetOrderItemDetailsByOrderID");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+//Fill OrderITEM table 
+function FillOrderItemsTable(Records) {
+    $("tbody#OrderItemRows tr").remove();            //Remove all existing rows for refreshing
+    $.each(Records, function (index, Records) {
+
+        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="'+(Records.OrderID != null ? Records.OrderID :"-") +'"><td style="width:20%"+">' + (Records.Product != null ? Records.Product : "-") + '</td><td style="width:20%">' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+       
+
+        $("#OrderItemTable").append(html);
+    });
+}
+
+
+
+
 //------------- *END :  Functions Work On Edit Click  *-----------------//
+
+//Delete
+
+function DeleteOrderItem(Order) {
+    debugger;
+
+    var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
+
+    var jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/DeleteOrderItem");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+//END Delete
+
 
 
 //------------- *  General Functions *-----------------//

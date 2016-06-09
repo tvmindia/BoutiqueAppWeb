@@ -110,6 +110,19 @@ namespace Boutique.DAL
             get;
             set;
         }
+//----- * Order Item properties *---------//
+
+        public string CustomerRemarks
+        {
+            get;
+            set;
+        }
+
+        public string ProductID
+        {
+            get;
+            set;
+        }
 
         #endregion Public Properties
 
@@ -351,59 +364,9 @@ namespace Boutique.DAL
         }
         #endregion New Order
 
-        #endregion Methods
 
-    }
+//----------Order Item Metods -------------//
 
-    public class OrderItem
-    {
-        #region Constructor
-
-        public OrderItem(string orderID)
-        {
-            OrderID = orderID;
-        }
-
-        #endregion Constructor
-
-        #region Global Variables
-
-        #endregion Global Variables
-
-        #region Public Properties
-
-        public string OrderID
-        {
-            get;
-            set;
-        }
-
-        public string CustomerRemarks
-        {
-            get;
-            set;
-        }
-
-        public string CreatedBy
-        {
-            get;
-            set;
-        }
-
-        public string CreatedDate
-        {
-            get;
-            set;
-        }
-
-        public string ProductID
-        {
-            get;
-            set;
-        }
-
-
-        #endregion Public Properties
 
         #region New Order Item
         /// <summary>
@@ -430,10 +393,11 @@ namespace Boutique.DAL
                 cmd.CommandText = "[InsertOrderItem]";
 
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 cmd.Parameters.Add("@CustomerRemarks", SqlDbType.NVarChar, -1).Value = CustomerRemarks;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                
+
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -483,7 +447,7 @@ namespace Boutique.DAL
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
-                if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such item"); }
+                //if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such item"); }
                 return ds;
             }
             catch (Exception ex)
@@ -511,7 +475,7 @@ namespace Boutique.DAL
             {
                 throw new Exception("ProductID is Empty!!");
             }
-          
+
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlDataAdapter sda = null;
@@ -527,7 +491,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteOrderItemByProductID]";
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
-                
+
                 outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -548,5 +512,9 @@ namespace Boutique.DAL
         }
         #endregion Delete An OrderItem
 
+        #endregion Methods
+
     }
+
+    
 }
