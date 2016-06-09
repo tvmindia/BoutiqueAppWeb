@@ -1,5 +1,9 @@
 ﻿$("document").ready(function (e) {
-    parent.document.title = "Profile"; 
+    parent.document.title = "Profile";
+
+    $('#OwnerTable').DataTable({       
+        "bPaginate": false,             //Search and Paging implementation
+    });
    
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
@@ -43,12 +47,12 @@
               jsonResult = DeleteOwner(Owners);
               if (jsonResult != undefined) {
                   if (jsonResult == "1") {
-                      BindAsyncOwnerTable(boutiqueid)//Gridbind
+                      BindAsyncOwnerTable()//Gridbind
                       $('#rowfluidDiv').show();
                       $('.alert-success').show();
                   }
                   if (jsonResult != "1") {
-                      BindAsyncOwnerTable(boutiqueid)//Gridbind
+                      BindAsyncOwnerTable()//Gridbind
                       $('#rowfluidDiv').show();
                       $('.alert-error').show();
                   }
@@ -286,26 +290,30 @@ function clearOwnerControls() {
 
 function BindOwnerTable(Records) {
  
-    $("#OwnerTable").find(".ownerrows").remove();   
+  
    
     var checkrole = $('#hdfRole').val(); 
     if (checkrole == 'Manager')
     {
-        var html = '<thead><tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr></thead>';
-        $("#OwnerTable").append(html);
-        $.each(Records, function (index, Records)
+        $("tbody#ownerrows tr").remove();
+      $("thead#thead tr").remove();
+      var html = ' <tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr> ';
+      $("#thead").append(html);
+        $.each(Records, function (index,Records)
         {          
-        var html = '<tr class="ownerrows" userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
+            var html = '<tr userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + (Records.Email == null ? "-": Records.Email) + '</td></tr>';
         $("#OwnerTable").append(html);
         })
     }
     else
     {
-        var html = '<thead><tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr></thead>';
-        $("#OwnerTable").append(html);
-        $.each(Records, function (index, Records)
+        $("tbody#ownerrows tr").remove();
+       $("thead#thead tr").remove();
+       var html = ' <tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr> ';
+       $("#thead").append(html);
+        $.each(Records, function (index,Records)
         {
-        var html = '<tr class="ownerrows" userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info owneredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger ownerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info owneredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger ownerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#OwnerTable").append(html);
         })       
     }
