@@ -61,6 +61,16 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string status
+        {
+            get;
+            set;
+        }
+        public int IsDesignerImageNull
+        {
+            get;
+            set;
+        }
 
         #endregion Properties
 
@@ -131,7 +141,7 @@ namespace Boutique.DAL
                 }
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
-                SqlParameter outParameter = null;
+                SqlParameter outParameter,outDesignerID = null;
                 try
                 {
                     dcon = new dbConnection();
@@ -146,11 +156,13 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                    cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
-
+                  
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                     outParameter.Direction = ParameterDirection.Output;
+                    outDesignerID = cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier);
+                    outDesignerID.Direction = ParameterDirection.Output;
                     cmd.ExecuteNonQuery();
+                    DesignerID = outDesignerID.Value.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -202,6 +214,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
 
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                     outParameter.Direction = ParameterDirection.Output;
@@ -224,8 +237,52 @@ namespace Boutique.DAL
             }
             #endregion Edit Designer
 
+            #region GetDesignerImage
+
+            public byte[] GetDesignerImage()
+            {
+
+
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlDataReader rd = null;
+                byte[] imageproduct = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectDesignerImage]";
+                    
+                    cmd.Parameters.Add("@DesignerId", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
+                    rd = cmd.ExecuteReader();
+                    if ((rd.Read()) && (rd.HasRows) && (rd["Image"] != DBNull.Value))
+                    {
+                        imageproduct = (byte[])rd["Image"];
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        rd.Close();
+                        dcon.DisconectDB();
+                    }
+                }
+                return imageproduct;
+
+            }
+            #endregion DesignerImage
+
             #region Delete a Designer
-        /// <summary>
+            /// <summary>
         /// To delete a designer by designer id
         /// </summary>
         /// <returns>status</returns>
@@ -372,6 +429,8 @@ namespace Boutique.DAL
                 SqlCommand cmd = null;
                 SqlDataAdapter sda = null;
                 DataTable dt = null;
+                SqlParameter outParameter = null;
+                
                 try
                 {
                     dcon = new dbConnection();
@@ -382,7 +441,11 @@ namespace Boutique.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[SelectDesignerByDesignerID]";
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.DesignerID);
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID); 
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    outParameter = cmd.Parameters.Add("@flag", SqlDbType.Int);
+                    outParameter.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                    IsDesignerImageNull = Convert.ToInt32(outParameter.Value);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);

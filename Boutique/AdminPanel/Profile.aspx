@@ -284,17 +284,17 @@
                             <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                         </div>
                     </div>
-                    <div class="box-content" style="height: 492px; overflow: auto;">
-                        <table class="table table-condensed" id="OwnerTable">
-                            <%--   <thead>
+                    <div class="box-content TableLayout" style="height: 492px; overflow: auto;">
+                        <table class="table table-striped table-bordered  bootstrap-datatable" id="OwnerTable">
+                               <thead>
                                 <tr>
                                     <th>Owner Name</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
-                                    <th>Actions</th>
+                                    <th>Actions</th> 
                                 </tr>
-                            </thead>--%>
-                            <tbody>
+                            </thead>
+                            <tbody id="ownerrows">
                             </tbody>
                         </table>
                         <%-- <div class="pagination pagination-centered">
