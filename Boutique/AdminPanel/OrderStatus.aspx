@@ -77,7 +77,7 @@
                     </div>
                 </div>
 
-                <div class="box-content " style="height: 310px; overflow: auto;">
+                <div class="box-content " style="height: 100%; overflow: auto;">
                     <div 
                         class="form-horizontal">
 
@@ -160,34 +160,19 @@
                         <%--END SECOND HALF--%>
                     </div>
 
-                </div>
+                   </div>
 
-                <footer class="InnerFooter">
-                    <a class="btn btn-primary submitDetails" href="#">Save</></a>
-                    <a class="btn Cancel">Cancel</a>
-                </footer>
-            </div>
-
-        </div>
+                  
 
 
-        <div id="Div1" runat="server" class="row-fluid">
+                <h2 id="NewItem"><u>New Item</u></h2>
+                     <div class="span12">
 
-            
-
-            <div class="box span12">
-                <div class="box-header">
-                    <h2 id="editLabel1">Items</h2>
-                    <div class="box-icon">
-                    </div>
-                </div>
-
-                <div class="box-content " style="height: 310px; overflow: auto;">
-                    <div class="form-horizontal">
+                          
 
                         <%--FIRST HALF--%>
 
-                        <div class="span6">
+                        <div class="span3">
 
                              <div class="control-group">
 								<label class="control-label" for="products">Product</label>
@@ -217,8 +202,11 @@
 
                         <%--END SECOND HALF--%>
 
-                        
-                            <div class="box-content TableLayout">
+                    </div>
+
+
+
+            <div class="box-content TableLayout">
 
                     <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
                        
@@ -228,6 +216,41 @@
 
 
                 </div>
+
+
+
+             
+
+                <footer class="InnerFooter">
+                    <a class="btn btn-primary submitDetails" href="#">Save</></a>
+                    <a class="btn Cancel">Cancel</a>
+                </footer>
+            </div>
+        
+
+
+          
+        </div>
+
+
+        <%--<div id="Div1" runat="server" class="row-fluid">
+
+            
+
+            <div class="box span12">
+                <div class="box-header">
+                    <h2 id="editLabel1">Items</h2>
+                    <div class="box-icon">
+                    </div>
+                </div>
+
+                <div class="box-content " style="height: 10%; overflow: auto;">
+                    <div class="form-horizontal">
+
+                      
+
+                        
+                            
                        
 
                     </div>
@@ -240,7 +263,7 @@
                 </footer>
             </div>
            
-        </div>
+        </div>--%>
 
         <%--<div class="row-fluid box" id="OrderItem">
             <div class=" span12">

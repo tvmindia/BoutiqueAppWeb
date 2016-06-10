@@ -196,7 +196,7 @@ namespace Boutique.AdminPanel
         }
         #endregion Get Order Details By OrderID
 
-        #region Delete a notification
+        #region Delete an OrderItem
         /// <summary>
         /// To delete a orderitem by product id
         /// </summary>
@@ -226,9 +226,43 @@ namespace Boutique.AdminPanel
             }
             return status;
         }
-        #endregion
+        #endregion Delete an OrderItem
 
-//--------END OrderItems
+        #region Add  Order Item
+        /// <summary>
+        /// If notification id is an empty string it will do inserting, otherwise updating
+        /// </summary>
+        /// <param name="OrderObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string InsertOrderItem(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+         
+            OrderObj.CreatedBy = UA.userName;
+            OrderObj.UpdatedBy = UA.userName;
+
+            string status = null;
+            try
+            {
+                status = OrderObj.InsertOrderItem().ToString();
+               
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+        #endregion Add  Order Item
+
+        //--------END OrderItems
 
         #endregion Methods
 
