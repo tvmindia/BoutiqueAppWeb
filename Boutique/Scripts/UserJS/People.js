@@ -591,15 +591,15 @@ function GetAllAdmins(Admins) {
 
 
 function BindUserTable(Records) {
-    debugger;
+  
     var checkrole = $('#hdfRole').val();
     if (checkrole == Roles.Manager) {
-        debugger;
+    
         $("thead#Usersthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
         $("#Usersthead").append(html);
         $("tbody#Designerrows tr").remove();
-        debugger;
+    
         $.each(Records, function (index, Records) {
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
             $("#UsersTable").append(html);
@@ -609,7 +609,7 @@ function BindUserTable(Records) {
     {
         $("tbody#Designerrows tr").remove();
         $.each(Records, function (index, Records) {
-            debugger;
+         
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
             $("#UsersTable").append(html);
         })
@@ -622,7 +622,7 @@ function BindDesignerTable(Records)
 {
     var checkrole = $('#hdfRole').val();
     if (checkrole == Roles.Manager) {
-        debugger;
+    
         $("thead#Designthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
         $("#Designthead").append(html);
@@ -633,7 +633,7 @@ function BindDesignerTable(Records)
         })
     }
     else {
-        debugger;
+    
         $("tbody#Designerrows tr").remove();
         $.each(Records, function (index, Records) {
             var html = '<tr designerID="' + Records.DesignerID + '"><td>' + Records.Name + '</td>	<td class="center">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td class="center">' + Records.Profile + '</td><td class="center"><a class="btn btn-info designeredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger designerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
@@ -644,10 +644,10 @@ function BindDesignerTable(Records)
 }
 
 function BindManagerTable(Records) {
-    debugger;
+  
     var checkrole = $('#hdfRole').val();
     if (checkrole == Roles.Manager) {
-        debugger;
+     
         $("thead#managerthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Email</th></tr> ';
         $("#managerthead").append(html);
@@ -659,7 +659,7 @@ function BindManagerTable(Records) {
     }
     else
     {
-        debugger;
+      
         $("tbody#Managerrows tr").remove();
         $.each(Records, function (index, Records) {
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
