@@ -17,7 +17,7 @@ namespace Boutique.ImageHandler
         public void ProcessRequest(HttpContext context)
         {
           Designers designerObj = new Designers();
-        
+          Boutiques boutiqueObj = new Boutiques();
             Thread.Sleep(1000);
             context.Response.ContentType = "text/plain";
             try
@@ -31,7 +31,10 @@ namespace Boutique.ImageHandler
                // numFiles = files.Length;
                 //numFiles = numFiles + 1;
                 string str_image = "";
-
+                byte[] logo=null;
+                byte[] image = null;
+                string result="";
+                string id = "";
                 foreach (string s in context.Request.Files)
                 {
                     HttpPostedFile file = context.Request.Files[s];
@@ -53,23 +56,73 @@ namespace Boutique.ImageHandler
 
                         //  Product prodobj;
                       //  prodobj.ImageFile = new byte[file.ContentLength];
-                        byte[] myData = new byte[file.ContentLength];
-                        file.InputStream.Read(myData, 0, file.ContentLength);
-                        string[] desId = context.Request.Form.GetValues("DesignerId");
-                        string[] boutId = context.Request.Form.GetValues("BoutiqueId");
-                        string[] name = context.Request.Form.GetValues("Name");
-                        string[] profile = context.Request.Form.GetValues("profile");
-                        string[] mobile = context.Request.Form.GetValues("mobile");
-                        string[] updatedBy = context.Request.Form.GetValues("updatedBy");
-                        designerObj.Mobile = mobile[0];
-                        designerObj.Profile = profile[0];
-                        designerObj.Name = name[0];
-                        designerObj.DesignerID = desId[0];
-                        designerObj.BoutiqueID = boutId[0];
-                        designerObj.ImageFile = myData;
-                        designerObj.UpdatedBy = updatedBy[0];
-                       // designerObj.DesignerID=
-                        designerObj.UpdateDesigner();
+                        if (context.Request.Form.GetValues("DesignerId") != null)
+                        {
+                            byte[] myData = new byte[file.ContentLength];
+                            file.InputStream.Read(myData, 0, file.ContentLength);
+                            string[] desId = context.Request.Form.GetValues("DesignerId");
+                            string[] boutId = context.Request.Form.GetValues("BoutiqueId");
+                            string[] name = context.Request.Form.GetValues("Name");
+                            string[] profile = context.Request.Form.GetValues("profile");
+                            string[] mobile = context.Request.Form.GetValues("mobile");
+                            string[] updatedBy = context.Request.Form.GetValues("updatedBy");
+                            designerObj.Mobile = mobile[0];
+                            designerObj.Profile = profile[0];
+                            designerObj.Name = name[0];
+                            designerObj.DesignerID = desId[0];
+                            designerObj.BoutiqueID = boutId[0];
+                            designerObj.ImageFile = myData;
+                            designerObj.UpdatedBy = updatedBy[0];
+                            // designerObj.DesignerID=
+                            designerObj.UpdateDesigner();
+                        }
+
+                        if (context.Request.Form.GetValues("BoutiqueId") != null)
+                        {
+                            id = context.Request.Form.GetValues("BoutiqueId").ToString();
+                            if (context.Request.Files[s] == context.Request.Files["logofiles"])
+                            {
+                                logo = new byte[file.ContentLength];
+                                file.InputStream.Read(logo, 0, file.ContentLength);
+                            }
+                            if (context.Request.Files[s] == context.Request.Files["imagefiles"])
+                            {
+                                image = new byte[file.ContentLength];
+                                file.InputStream.Read(image, 0, file.ContentLength);
+                            }
+                            boutiqueObj.boutiqueLogo = logo;
+                            boutiqueObj.boutiqueImage = image;
+                            string[] boutiqueID = context.Request.Form.GetValues("BoutiqueId");
+                            string[] appVersion = context.Request.Form.GetValues("AppVersion");
+                            string[] name = context.Request.Form.GetValues("Name");
+                            string[] startedYear = context.Request.Form.GetValues("StartYear");
+                            string[] aboutUs = context.Request.Form.GetValues("AboutUs");
+                            string[] caption = context.Request.Form.GetValues("Caption");
+                            string[] location = context.Request.Form.GetValues("Location");
+                            string[] address = context.Request.Form.GetValues("Address");
+                            string[] phone = context.Request.Form.GetValues("Phone");
+                            string[] timing = context.Request.Form.GetValues("Timing");
+                            string[] workingDays = context.Request.Form.GetValues("WorkingDays");
+                            string[] fbLink = context.Request.Form.GetValues("FbLink");
+                            string[] instagramLink = context.Request.Form.GetValues("InstagramLink");
+                            string[] longitude = context.Request.Form.GetValues("Longitude");
+                            string[] latitude=context.Request.Form.GetValues("Latitude");
+                            boutiqueObj.BoutiqueID = boutiqueID[0];
+                            boutiqueObj.AppVersion = appVersion[0];
+                            boutiqueObj.Name = name[0];
+                            boutiqueObj.StartedYear = startedYear[0];
+                            boutiqueObj.AboutUs = aboutUs[0];
+                            boutiqueObj.Caption = caption[0];
+                            boutiqueObj.Location = location[0];
+                            boutiqueObj.Address = address[0];
+                            boutiqueObj.Phone = phone[0];
+                            boutiqueObj.Timing = timing[0];
+                            boutiqueObj.WorkingDays = workingDays[0];
+                            boutiqueObj.FbLink = fbLink[0];
+                            boutiqueObj.InstagramLink = instagramLink[0];
+                            boutiqueObj.Longitude = longitude[0];
+                            boutiqueObj.Latitude = latitude[0];
+                        }
                       //  file.InputStream.Read(prodobj.ImageFile, 0, file.ContentLength);
                         // prodobj.ProductID=Product.ProductID
 
@@ -83,9 +136,13 @@ namespace Boutique.ImageHandler
 
                     }
                 }
+                if (context.Request.Form.GetValues("BoutiqueId") != null)
+                {
+                  result= boutiqueObj.EditBoutique().ToString();
+                }
                 //  database record update logic here  ()
-
-                context.Response.Write(str_image);
+                context.Response.Write(result);
+                //context.Response.Write(str_image);
             }
             catch (Exception ac)
             {

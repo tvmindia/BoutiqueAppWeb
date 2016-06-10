@@ -37,6 +37,20 @@ namespace Boutique.ImageHandler
 
                 }
 
+                if ((context.Request.QueryString["BoutiqueLogoID"] != null) && (context.Request.QueryString["BoutiqueLogoID"] != ""))
+                {
+                    DAL.Boutiques BouObj = new DAL.Boutiques();
+                    BouObj.BoutiqueID = context.Request.QueryString["BoutiqueLogoID"];
+                    byte[] productimg = BouObj.GetBoutiqueLogo();
+                    if (productimg != null)
+                    {
+                        MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        Image proimg = Image.FromStream(memoryStream);
+                        proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+                    }
+
+                }
+
                 if ((context.Request.QueryString["ImageID"] != null)&&(context.Request.QueryString["ImageID"] != ""))
                 {
                     Product productObj = new Product();

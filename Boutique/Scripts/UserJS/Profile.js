@@ -1,19 +1,25 @@
 ﻿$("document").ready(function (e) {
-    parent.document.title = "Profile";
+    parent.document.title = "Boutique Profile";
 
-    $('#OwnerTable').DataTable({       
-        "bPaginate": false,             //Search and Paging implementation
-    });
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.     
+        document.getElementById('imageUpload').addEventListener('change', handleFileSelect, false);
+        document.getElementById('logoUpload').addEventListener('change', handleLogoSelect, false);
+    }
    
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
 
     BindAsyncOwnerTable();
+    $('#OwnerTable').DataTable({
+        "bPaginate": false,             //Search and Paging implementation
+    });
     var jsonResult = {};
     jsonResult = GetBoutiques();
     if (jsonResult != undefined) {
 
         BindBoutiqueTextBoxes(jsonResult);
+        GetBoutiqueImageAndLogo(jsonResult[0].BoutiqueID)
     }
 
     $(".CancelClear").live({
@@ -93,31 +99,79 @@
             $('.alert-error').hide();
             var boutiquid = $("#hdfBoutiqueID").val();
             var result = "";
-            var Boutique = new Object();          
+            var Boutique = new Object();
 
-                Boutique.AppVersion = $("#txtAppVersion").val();
-                Boutique.Name = $("#txtBouquetName").val();
-                Boutique.StartedYear = $("#txtStartYear").val();
-                Boutique.AboutUs = $("#txtAboutus").val();
-                Boutique.Caption = $("#txtCaption").val();
-                Boutique.Location = $("#txtLocation").val();
-                Boutique.Address = $("#txtAddress").val();
-                Boutique.Phone = $("#txtPhone").val();
-                Boutique.Timing = $("#txtTimings").val();
-                Boutique.WorkingDays = $("#txtWorkingDays").val();
-                Boutique.FbLink = $("#txtFacebooklink").val();
-                Boutique.InstagramLink = $("#txtInstatgramlink").val();
+            Boutique.AppVersion = $("#txtAppVersion").val();
+            Boutique.Name = $("#txtBouquetName").val();
+            Boutique.StartedYear = $("#txtStartYear").val();
+            Boutique.AboutUs = $("#txtAboutus").val();
+            Boutique.Caption = $("#txtCaption").val();
+            Boutique.Location = $("#txtLocation").val();
+            Boutique.Address = $("#txtAddress").val();
+            Boutique.Phone = $("#txtPhone").val();
+            Boutique.Timing = $("#txtTimings").val();
+            Boutique.WorkingDays = $("#txtWorkingDays").val();
+            Boutique.FbLink = $("#txtFacebooklink").val();
+            Boutique.InstagramLink = $("#txtInstatgramlink").val();
+            Boutique.Latitude = $("#txtLatitude").val();
+            Boutique.Longitude = $("#txtLongitude").val();
+            debugger;
+            //result = InsertBoutique(Boutique);
+            if (boutiquid != null) {
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile, logoFile, img;
 
-                result = InsertBoutique(Boutique);
-                if (result == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
+                if ((imagefile = $('#imageUpload')[0].files[0])) {
+                    img = new Image();
+                    img.onload = function () {
+                        var image = $('#imageUpload')[0].files[0];
+                       
+
+                        formData.append('imagefiles', image, imagefile.name);
+                        formData.append('', boutiquid);
+                        //  formData.append('file', $('#productfile')[0].files[0]);
+                        //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                    };
+                    if ((logoFile = $('#logoUpload')[0].files[0])) {
+                        img = new Image();
+                        img.onload = function () {
+                            var logo = $('#logoUpload')[0].files[0];
+
+
+                            formData.append('logofiles', logo, logoFile.name);
+                            formData.append('', boutiquid);
+                            //  formData.append('file', $('#productfile')[0].files[0]);
+                            //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                        };
+                        debugger;
+                        var image = $('#imageUpload')[0].files[0];
+                        
+                        var logo = $('#logoUpload')[0].files[0];
+                        formData.append('imagefiles', image, imagefile.name);
+                        formData.append('logofiles', logo, logoFile.name);
+                        formData.append('Longitude', Boutique.Longitude);
+                        formData.append('Latitude',Boutique.Latitude);
+                        formData.append('BoutiqueId', boutiquid);
+                        formData.append('AppVersion', Boutique.AppVersion);
+                        formData.append('Name', Boutique.Name);
+                        formData.append('StartYear',Boutique.StartedYear);
+                        formData.append('AboutUs',Boutique.AboutUs);
+                        formData.append('Caption',Boutique.Caption);
+                        formData.append('Location',Boutique.Location);
+                        formData.append('Address', Boutique.Address);
+                        formData.append('Phone',Boutique.Phone);
+                        formData.append('Timing',Boutique.Timing);
+                        formData.append('WorkingDays',Boutique.WorkingDays);
+                        formData.append('FbLink',Boutique.FbLink);
+                        formData.append('InstagramLink',Boutique.InstagramLink);
+                    }
+                    postBlobAjax(formData, "../AdminPanel/People.aspx/InsertImage&Logo");
                 }
-                if (result != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                }
-            }    
+                
+            }
+        }
     })
 
     $(".AddOwner").live({
@@ -163,6 +217,116 @@
     })
 
 });//end of document.ready
+
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    $("#imageList").find(".thumb").remove();
+    // Loop through the FileList and render image files as thumbnails.
+    var f;
+    f = files[0];
+    //for (var i = 0, f; f = files[i]; i++) {
+
+    // Only process image files.
+    if (!f.type.match('image.*')) {
+        //continue;
+    }
+
+    var reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function (theFile) {
+        return function (e) {
+            // Render thumbnail.
+            var span = document.createElement('span');
+            span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                             '" title="', escape(theFile.name), '"/>'].join('');
+            document.getElementById('imageList').insertBefore(span, null);
+        };
+    })(f);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(f);
+    //}
+}
+
+
+//post File/blog to Server
+
+function handleLogoSelect(evt) {
+    var files = evt.target.files; // FileList object
+    $("#logoList").find(".logo").remove();
+    // Loop through the FileList and render image files as thumbnails.
+    var f;
+    f = files[0];
+    //for (var i = 0, f; f = files[i]; i++) {
+
+    // Only process image files.
+    if (!f.type.match('image.*')) {
+        //continue;
+    }
+
+    var reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function (theFile) {
+        return function (e) {
+            // Render thumbnail.
+            var span = document.createElement('span');
+            span.innerHTML = ['<img class="logo" src="', e.target.result,
+                             '" title="', escape(theFile.name), '"/>'].join('');
+            document.getElementById('logoList').insertBefore(span, null);
+        };
+    })(f);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(f);
+    //}
+}
+
+
+//post File/blog to Server
+
+function postBlobAjax(formData, page) {
+    
+    //debugger;
+    //var request = new XMLHttpRequest();
+    //request.open("POST", page);
+    //request.send(formData);
+    $.ajax({
+        type: "POST",
+        url: "../ImageHandler/PhotoUploadHandler.ashx",
+        contentType: false,
+        headers: { 'Cache-Control': 'no-cache' },
+        async: false,
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        traditional: true,
+
+        success: function (data) {
+            if (status != 'error') {
+                //var my_path = "MediaUploader/" + status;
+                // $("#myUploadedImg").attr("src", my_path);
+                if (data == "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                }
+                if (data != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                }
+            }
+        },
+        processData: false,
+
+        error: function () {
+            alert("Whoops something went wrong!");
+        }
+    });
+}
+//post File/blog to Server
 
 
 function getRole() { 
@@ -221,24 +385,70 @@ function GetBoutiques() {
     table = JSON.parse(ds.d);
     return table;
 }
+function listToAray(fullString, separator) {
+    var fullArray = [];
 
+    if (fullString !== undefined && fullString!=null) {
+        if (fullString.indexOf(separator) == -1) {
+            fullAray.push(fullString);
+        } else {
+            fullArray = fullString.split(separator);
+        }
+    }
+
+    return fullArray;
+}
 function BindBoutiqueTextBoxes(Records) {
-    $.each(Records, function (index, Records) {
-        $("#txtAppVersion").val(Records.AppVersion);
-        $("#txtBouquetName").val(Records.Name);
-        $("#txtStartYear").val(Records.StartedYear);
-        $("#txtAboutus").val(Records.AboutUs);
-        $("#txtCaption").val(Records.Caption);
-        $("#txtLocation").val(Records.Location);
-        $("#txtAddress").val(Records.Address);
-        $("#txtPhone").val(Records.Phone);
-        $("#txtTimings").val(Records.Timing);
-        $("#txtWorkingDays").val(Records.WorkingDays);
-        $("#txtFacebooklink").val(Records.FBLink);
-        $("#txtInstatgramlink").val(Records.InstagramLink);
-        $("#hdfBoutiqueID").val(Records.BoutiqueID);
-    })
+    //$.each(Records, function (index, Records) {
    
+    var coordinates = Records[0].latlong;
+    var arrayCoordinates = listToAray(coordinates, ',');
+   
+        $("#txtAppVersion").val(Records[0].AppVersion);
+        $("#txtBouquetName").val(Records[0].Name);
+        $("#txtStartYear").val(Records[0].StartedYear);
+        $("#txtAboutus").val(Records[0].AboutUs);
+        $("#txtCaption").val(Records[0].Caption);
+        $("#txtLocation").val(Records[0].Location);
+        $("#txtAddress").val(Records[0].Address);
+        $("#txtPhone").val(Records[0].Phone);
+        $("#txtTimings").val(Records[0].Timing);
+        $("#txtWorkingDays").val(Records[0].WorkingDays);
+        $("#txtFacebooklink").val(Records[0].FBLink);
+        $("#txtInstatgramlink").val(Records[0].InstagramLink);
+        $("#txtLatitude").val(arrayCoordinates[0]);
+        $("#txtLongitude").val(arrayCoordinates[1]);
+        $("#hdfBoutiqueID").val(Records[0].BoutiqueID);
+    //})
+   
+}
+
+function GetBoutiqueImageAndLogo(boutiqueId) {
+    debugger;
+    if ($("#imageList").find(".thumb") != null || $("#imageList").find(".thumb") != 'undefined') {
+        $("#imageList").find(".thumb").remove();
+    }
+    if ($("#logoList").find(".logo") != null || $("#logoList").find(".logo") != 'undefined') {
+        $("#logoList").find(".logo").remove();
+    }
+    var span = document.createElement('span');
+    span.innerHTML = ['<img id="boutiqueImage" class="thumb" src="" title=""/>'].join('');
+    document.getElementById('imageList').insertBefore(span, null);
+    var spanlogo = document.createElement('span');
+    spanlogo.innerHTML = ['<img id="boutiqueLogo" class="logo" src="" title=""/>'].join('');
+    document.getElementById('logoList').insertBefore(spanlogo, null);
+    var imgbtq = document.getElementById('boutiqueImage');
+    var logobtq = document.getElementById('boutiqueLogo');
+    imgbtq.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueId=" + boutiqueId;
+    logobtq.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + boutiqueId;
+    //if (ImageIsNull == "0") {
+    //    $("#list").find(".thumb").remove();
+    //    var span = document.createElement('span');
+    //    span.innerHTML = ['<img id="designerimage" class="thumb" src="../img/no-user-image.gif" title=""/>'].join('');
+    //    document.getElementById('list').insertBefore(span, null);
+    //}
+    return;
+
 }
 
 function clearControls() {
@@ -254,6 +464,10 @@ function clearControls() {
     $("#txtWorkingDays").val('');
     $("#txtFacebooklink").val('');
     $("#txtInstatgramlink").val('');
+    $("#imageList").find(".thumb").remove();
+    $("#logoList").find(".logo").remove();
+    $("#txtLatitude").val('');
+    $("#txtLongitude").val('');
     $('#rowfluidDiv').hide();
 }
 
@@ -321,7 +535,6 @@ function BindOwnerTable(Records) {
 }
 
 function BindAsyncOwnerTable() {
-
     var jsonResult = {};
     var Owner = new Object();
     jsonResult = GetAllOwners(Owner);
