@@ -4,6 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
+    <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Notification.js"></script>
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script> 
@@ -51,8 +52,8 @@
 					</div>
 					<div class="box-content TableLayout" >
                         <%--class="table table-bordered table-striped table-condensed"--%>
-						<table class="table table-condensed" id="NotificationTable">
-							  <thead>
+						<table class="table table-striped table-bordered  bootstrap-datatable" id="NotificationTable">
+							  <thead id="notificationthead">
 								  <tr>
 									  <th>Title</th>
 									  <th>Description</th>
@@ -173,4 +174,6 @@
 
      </div>
     <input type="hidden" id="hdfNotificationID" value=""/>
+      <input type="hidden" id="hdfRole" value="" />
+
 </asp:Content>

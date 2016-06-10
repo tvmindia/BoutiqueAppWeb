@@ -593,7 +593,7 @@ function GetAllAdmins(Admins) {
 function BindUserTable(Records) {
     debugger;
     var checkrole = $('#hdfRole').val();
-    if (checkrole == 'Manager') {
+    if (checkrole == Roles.Manager) {
         debugger;
         $("thead#Usersthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
@@ -621,7 +621,7 @@ function BindUserTable(Records) {
 function BindDesignerTable(Records)
 {
     var checkrole = $('#hdfRole').val();
-    if (checkrole == 'Manager') {
+    if (checkrole == Roles.Manager) {
         debugger;
         $("thead#Designthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
@@ -646,7 +646,7 @@ function BindDesignerTable(Records)
 function BindManagerTable(Records) {
     debugger;
     var checkrole = $('#hdfRole').val();
-    if (checkrole == 'Manager') {
+    if (checkrole == Roles.Manager) {
         debugger;
         $("thead#managerthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Email</th></tr> ';
@@ -672,7 +672,7 @@ function BindManagerTable(Records) {
 function BindAdminsTable(Records) {
    
     var checkrole = $('#hdfRole').val();
-    if (checkrole == 'Manager') {
+    if (checkrole == Roles.Manager) {
 
         $("thead#thead tr").remove();
         var html = '<tr><th>Name</th><th>Mobile</th><th>Email</th></tr> ';

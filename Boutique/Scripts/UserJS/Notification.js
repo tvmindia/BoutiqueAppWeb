@@ -1,7 +1,18 @@
 ﻿$("document").ready(function (e) {
 
     parent.document.title = "Notifications";
+   
+
+    debugger;
+    var LoginUserRole = getRole();
+    $('#hdfRole').val(LoginUserRole);
+    debugger;
+
     BindNotificationsTable();
+
+    $('#NotificationTable').DataTable({
+        "bPaginate": false,             //removing paging
+    });
 
     //Edit region drop downs-------------
     $(".products").select2({
@@ -196,11 +207,40 @@ function GetAllNotifications(Notify) {
 }
 
 function FillNotificationTable(Records) {
-    $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
-    $.each(Records, function (index, Records) {
-        var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info notificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger notificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
-        $("#NotificationTable").append(html);
-    })
+    debugger;
+
+    var checkrole = $('#hdfRole').val();
+    if (checkrole == Roles.Manager) {
+        debugger;
+        $("thead#notificationthead tr").remove();
+        var html = '<tr><th>Title</th> <th>Description</th> <th>Start Date</th> <th>End Date</th></tr> ';
+        $("#notificationthead").append(html);
+
+        $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
+        $.each(Records, function (index, Records) {
+            var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td></tr>'
+            $("#NotificationTable").append(html);
+        })
+
+    }
+    else {
+
+        $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
+        $.each(Records, function (index, Records) {
+            var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info notificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger notificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
+            $("#NotificationTable").append(html);
+        })
+
+    }
+
+
+
+
+
+
+
+
+   
 }
 
 //------------Dropdowns-----------------
