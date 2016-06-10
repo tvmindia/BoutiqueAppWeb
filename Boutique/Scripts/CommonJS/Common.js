@@ -1,4 +1,11 @@
-﻿function getRole() {
+﻿var Roles = {
+    Manager: "Manager",
+    Administrator: "Administrator",   
+    SuperAdmin: "SuperAdmin"
+    }
+
+
+function getRole() {
     var table = {};
     var Role = new Object();
     table = GetLogin_Role(Role);
