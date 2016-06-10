@@ -4,6 +4,9 @@
 
     BindAsyncCategoryTable();
 
+    $('#CategoryTable').DataTable({
+        "bPaginate": false,             //removing paging
+    });
 
     $(".catdelete").live(
     {
@@ -164,7 +167,8 @@ function GetAllCategories(Product) {
 }
 
 function BindCategoryTable(Records) {
-    $("#CategoryTable").find(".categoryrows").remove();
+
+    $("tbody#catrgoryrows tr").remove();
     $.each(Records, function (index, Records) {
         var html = '<tr class="categoryrows" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#CategoryTable").append(html);

@@ -41,18 +41,18 @@ namespace Boutique.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             boutiqueObj.BoutiqueID = UA.BoutiqueID;
 
-            string status = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer(); 
             if (boutiqueObj.BoutiqueID == null)
             {
                // status = boutiqueobj.NewBoutique().ToString();
             }
             else
             {
-                status = boutiqueObj.EditBoutique().ToString();
+              boutiqueObj.status = boutiqueObj.EditBoutique().ToString();
             }
 
 
-            return status;
+            return jsSerializer.Serialize(boutiqueObj);
         }
         #endregion NewBoutique
 

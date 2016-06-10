@@ -103,7 +103,31 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string status
+        {
+            get;
+            set;
+        }
+        public byte[] boutiqueLogo
+        {
+            get;
+            set;
+        }
+        public byte[] boutiqueImage
+        {
+            get;
+            set;
+        }
+        public string Latitude
+        {
+            get;
+            set;
+        }
+        public string Longitude
+        {
+            get;
+            set;
+        }
 
         #endregion properties
 
@@ -264,6 +288,7 @@ namespace Boutique.DAL
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
             Guid _boutiqueid = Guid.Empty;
+            string[] coordinates = {Latitude,Longitude };
             try
             {
                 _boutiqueid = Guid.Parse(BoutiqueID);
@@ -288,6 +313,9 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@latlong", SqlDbType.VarChar, 100).Value = string.Join(",", coordinates);
+                cmd.Parameters.Add("@Logo", SqlDbType.VarBinary).Value = boutiqueLogo;
+                cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = boutiqueImage;
 
 
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
@@ -448,6 +476,49 @@ namespace Boutique.DAL
 
         }
         #endregion GetBoutiqueImage
+
+        #region GetBoutiqueLogo
+
+        public byte[] GetBoutiqueLogo()
+        {
+
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataReader rd = null;
+            byte[] imageproduct = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectLogoByBoutiqueID]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                rd = cmd.ExecuteReader();
+                if ((rd.Read()) && (rd.HasRows) && (rd["Logo"] != DBNull.Value))
+                {
+                    imageproduct = (byte[])rd["Logo"];
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    rd.Close();
+                    dcon.DisconectDB();
+                }
+            }
+            return imageproduct;
+
+        }
+        #endregion GetBoutiqueLogo
 
 
         #endregion Methods

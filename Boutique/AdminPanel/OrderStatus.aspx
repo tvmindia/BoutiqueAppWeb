@@ -5,6 +5,7 @@
     <link href="../CSS/CustomCSS/OrderStatus.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
+   
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -78,6 +79,9 @@
                 </div>
 
                 <div class="box-content " style="height: 100%; overflow: auto;">
+
+                       <div class="span12" >
+
                     <div 
                         class="form-horizontal">
 
@@ -134,24 +138,24 @@
                         <%--SECOND HALF--%>
 
                         <div class="span6">
-                            <div class="control-group" id="ForecastDiv" style="display: none;">
+                            <div class="control-group" id="ForecastDiv" >
                                 <label class="control-label" for="date01">Forecast Delivery Date</label>
                                 <div class="controls">
-                                    <input type="text" readonly="readonly" style="cursor: default; background-color: white;" class="input-large datepicker" id="dateForecastDeliveryDate" value="" />
+                                    <input type="text" readonly="readonly" disabled="disabled" style="cursor: default; background-color: white;" class="input-large datepicker"  id="dateForecastDeliveryDate" value="" />
                                 </div>
                             </div>
 
-                            <div class="control-group" id="OrderReadyDiv" style="display: none;">
+                            <div class="control-group" id="OrderReadyDiv" >
                                 <label class="control-label" for="date01">Order Ready Date</label>
                                 <div class="controls">
-                                    <input type="text" readonly="readonly" style="cursor: default; background-color: white;" class="input-large datepicker" id="dateOrderReadyDate" value="" />
+                                    <input type="text" readonly="readonly" disabled="disabled" style="cursor: default; background-color: white;" class="input-large datepicker" id="dateOrderReadyDate" value="" />
                                 </div>
                             </div>
 
-                            <div class="control-group" id="ActualDeliveryDiv" style="display: none;">
+                            <div class="control-group" id="ActualDeliveryDiv" >
                                 <label class="control-label" for="date01">Actual Delivery Date</label>
                                 <div class="controls">
-                                    <input type="text" readonly="readonly" style="cursor: default; background-color: white;" class="input-large datepicker" id="dateActualDeliveryDate" value="" />
+                                    <input type="text" readonly="readonly" disabled="disabled" style="cursor: default; background-color: white;" class="input-large datepicker" id="dateActualDeliveryDate" value="" />
                                 </div>
                             </div>
 
@@ -160,19 +164,22 @@
                         <%--END SECOND HALF--%>
                     </div>
 
-                   </div>
+                 </div>
 
-                  
+                 
 
+                      <div class="span12" style="border-top:ridge;width:90%">
 
-                <h2 id="NewItem"><u>New Item</u></h2>
+                           <%--<h2 id="NewItem" style="text-align:center">New Item</h2>--%>   
+                      </div>
+                
                      <div class="span12">
 
-                          
+                      
 
                         <%--FIRST HALF--%>
 
-                        <div class="span3">
+                        <div class="span6">
 
                              <div class="control-group">
 								<label class="control-label" for="products">Product</label>
@@ -182,13 +189,13 @@
 								  </select>
 								</div>
 							  </div>
-                    </div>
+                   
 
                         <%-- END FIRST HALF--%>
 
                         <%--SECOND HALF--%>
 
-                        <div class="span6">
+                        
                              <div class="control-group">
 								<label class="control-label" for="Remarks">Remarks</label>
 								<div class="controls">
@@ -197,38 +204,51 @@
 								</div>
 							  </div>
                            
-
-                        </div>
-
                         <%--END SECOND HALF--%>
 
                     </div>
 
+                          <div class="span6">
+                          <div class="box-content TableLayout">
 
-
-            <div class="box-content TableLayout">
-
-                    <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
+                             <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
                        
-                        <tbody id="OrderItemRows">
-                        </tbody>
-                    </table>
+                               
+                                            <tr>
+                                  <th class="fullRow">Product</th>
+                                    <th class="fullRow">Description</th>
+                                                </tr>
+                                           
+
+                                <tbody id="OrderItemRows">
+                                    
+                                        
+                                    
+                                </tbody>
+                            </table>
 
 
                 </div>
+                              </div>
 
 
+                          
 
-             
+
+                          </div>
+
+                      </div>
+
 
                 <footer class="InnerFooter">
                     <a class="btn btn-primary submitDetails" href="#">Save</></a>
                     <a class="btn Cancel">Cancel</a>
                 </footer>
+               
             </div>
         
 
-
+            
           
         </div>
 

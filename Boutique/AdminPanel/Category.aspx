@@ -30,16 +30,16 @@
 							
 						</div>
 					</div>
-					<div class="box-content">
-						<table class="table table-condensed" id="CategoryTable">
-							  <thead>
+					<div class="box-content TableLayout">
+						<table class="table table-striped table-bordered  bootstrap-datatable" id="CategoryTable">
+							  <thead id="Categorythead">
 								  <tr>
                                       <th>Category Code</th>
 									  <th>Category Name</th>
 									  <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
-							  <tbody>
+							  <tbody id="catrgoryrows">
 								
 								
 								

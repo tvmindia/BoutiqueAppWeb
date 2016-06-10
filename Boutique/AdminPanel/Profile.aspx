@@ -13,10 +13,10 @@
                 <a href="DashBoard.aspx">Home</a>
                 <i class="icon-angle-right"></i>
             </li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="#">Boutique Profile</a></li>
         </ul>
 
-        <div class="row-fluid"><span class="headerStyle">Profile</span></div>
+        <div class="row-fluid"><span class="headerStyle">Boutique Profile</span></div>
         <div class="row-fluid" style="height: 3px;"></div>
 
         <%--Alert boxes --%>
@@ -63,6 +63,7 @@
                     <div class="form-horizontal">
                         <%--<fieldset>--%>
                         <div class="span6">
+                            
                         <div class="control-group">
                             
                                 <label class="control-label" for="focusedInput">App Version</label>
@@ -150,7 +151,45 @@
                                     <input class="input-large focused" id="txtInstatgramlink" type="text" />
                                 </div>
                             </div>
-
+<div class="control-group">
+                            
+                                <label class="control-label" for="focusedInput">Latitude</label>
+                                <div class="controls">
+                                    <input class="input-large focused" id="txtLatitude" type="text" />
+                                </div>
+                            </div>
+                               <div class="control-group">
+                            
+                                <label class="control-label" for="focusedInput">Longitude</label>
+                                <div class="controls">
+                                    <input class="input-large focused" id="txtLongitude" type="text" />
+                                </div>
+                            </div>
+                             <div class="control-group">
+                            
+                                <label class="control-label" for="focusedInput">Image</label>
+                                <div class="controls">
+                                   <input id="imageUpload" type="file" size="60" name="myfile"/>
+                                </div>
+                            </div>
+                                <div class="control-group">
+                                <div class="controls">
+                                   <output id="imageList" class="listClass"></output>
+                                </div>
+                            </div>
+                             <div class="control-group">
+                            
+                                <label class="control-label" for="focusedInput">Logo</label>
+                                <div class="controls">
+                                   <input id="logoUpload" type="file" size="60" name="myfile"/>
+                                </div>
+                            </div>
+                                <div class="control-group">
+                                <div class="controls">
+                                   <output id="logoList" class="listClass"></output>
+                                </div>
+                            </div>
+                               
                         </div>
 
 

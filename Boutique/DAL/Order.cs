@@ -316,6 +316,7 @@ namespace Boutique.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
+            SqlParameter ID = null;
             try
             {
                 dcon = new dbConnection();
@@ -345,6 +346,9 @@ namespace Boutique.DAL
 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
+
+                ID = cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier);
+                ID.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -358,8 +362,12 @@ namespace Boutique.DAL
                     dcon.DisconectDB();
                 }
             }
+
             //insert success or failure
+            OrderID = ID.Value != null ? ID.Value.ToString() : "";
+
             return Int16.Parse(outParameter.Value.ToString());
+            //return Guid.Parse(ID.Value.ToString());
 
         }
         #endregion New Order
@@ -375,7 +383,7 @@ namespace Boutique.DAL
         /// <returns>status</returns>
         public Int16 InsertOrderItem()
         {
-            if (OrderID == string.Empty)
+            if (OrderID == string.Empty || OrderID == null)
             {
                 throw new Exception("OrderID is Empty!!");
             }
