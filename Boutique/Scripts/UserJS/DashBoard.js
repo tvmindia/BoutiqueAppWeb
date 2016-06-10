@@ -1,11 +1,13 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = "DashBoard";
- 
-     
+         
     var boutique_id = getboutiqueID();  
-
-    var TiqueImage = document.getElementById("tiqueImage");
-    TiqueImage.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueID=" + boutique_id;
+    var ImageUrl = "url(../ImageHandler/ImageServiceHandler.ashx?BoutiqueID=" + boutique_id+')';
+    //var ImageUrl ="url(../Home/images/Background.jpg)";
+    var TiqueImage = document.getElementById("content1");
+    TiqueImage.style.backgroundImage = ImageUrl;
+    TiqueImage.style.backgroundSize = 'contain';
+    TiqueImage.style.backgroundRepeat = 'no-repeat';  
     BindTileValues();
     BindAllImages();
     
@@ -224,7 +226,7 @@ function BindTotalProducts()
   }
 
   function BindAllImages() {
-   
+      debugger;
       var imageids = {};
       imageids = GetAllProductImages();
       
@@ -288,7 +290,7 @@ function BindTotalProducts()
 
           }]
       };
- 
+      debugger;
       var chart = new Highcharts.Chart(options);
 
   }

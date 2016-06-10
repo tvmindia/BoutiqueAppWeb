@@ -28,12 +28,12 @@
         <div class="row-fluid"><span class="headerStyle">DashBoard</span></div>
         <div class="row-fluid" style="height:3px;"></div>
 
-        <div class="span12" style="align-content:center;width:100%;">
+        <div class="span12" id="content1" style="align-content:center;width:100%;">
             
-        <img id="tiqueImage" src="../Home/images/Background.jpg" style="height:350px;width:95%;" />
-        </div>
+        <%--<img id="tiqueImage" src="../Home/images/Background.jpg" style="height:350px;width:95%;" />--%>
+        
                 <%--   Report tiles--%>
-				<div class="row-fluid">	
+				<div class="row-fluid" style="padding-top:20%;">	
 
 				<a class="quick-button metro yellow span2" href="People.aspx">
 				<i class="icon-group"></i>
@@ -74,9 +74,10 @@
            <div class="span12" style="height:20px;">
            </div>			
 		   <div class="row-fluid">
-           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto;"></div>
 		   </div>
-	       </div>        
+	       </div>
+        </div>        
 		   <input type="hidden" id="hdnBoutiqueID"  runat="server"  value="" />
  
 </asp:Content>
