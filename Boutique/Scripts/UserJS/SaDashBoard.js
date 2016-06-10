@@ -102,6 +102,7 @@
             {
                 Boutique.BoutiqueID = boutiquid;
             }
+
             Boutique.AppVersion = $("#txtAppVersion").val();
             Boutique.Name = $("#txtBouquetName").val();
             Boutique.StartedYear = $("#txtStartYear").val();
