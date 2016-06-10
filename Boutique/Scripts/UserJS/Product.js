@@ -49,7 +49,7 @@
         data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
     });
 
-    $(".ddlDesigners").select2({
+     var $desingnSingle=$(".ddlDesigners").select2({
       
         data: BindAsyncDesigner()//Designer dropdown binds only with id and text[key:value] mandatory
         ,allowClear: true
@@ -417,13 +417,13 @@ function BindProductTextBoxes(thisobject) {
     var isoutstock = $(thisobject).attr('isoutstock');
     var isactive = $(thisobject).attr('isactive');
     var categories = $(thisobject).attr('categories');
-    var designers = $(thisobject).attr('designers');
+    var designerid = $(thisobject).attr('designers');
     var productid = $(thisobject).attr('productid');
     $("#hdfproductID").val(productid);
     $("#txtName").val(productname);
     $("#txtDescription").val(pdescription);
     $("#txtPrice").val(pprice);
-    $("#txtPrice").val(pprice);
+  
     if (isoutstock=='true')
     {
        // $('#OptisOutOfStockNo').parent().addClass('checked');
@@ -450,21 +450,15 @@ function BindProductTextBoxes(thisobject) {
       if (categories != '')
       {
           var catarray = categories.split(',');
-         // for(var i=0;i<catarray.length;i++)
-        //  {
-              // $(".ddlcategories").select2("val", catarray[i]);
-
-          //  $exampleMulti.val(["CA", "AL"]).trigger("change");
-      
-           var $catMulti = $(".ddlcategories").select2();
+          var $catMulti = $(".ddlcategories").select2();
           $catMulti.val(catarray).trigger("change");
-          
-
-         // }
       }
-
-
-    $(".AddProduct").text("Modify");
+      if (designerid != '')
+      {
+          var $desingnSingle = $(".ddlDesigners").select2();
+          $desingnSingle.val(designerid).trigger("change");
+      }
+      //$(".AddProduct").text("Modify");
  }
 
 function BindAllProductImages() {
@@ -477,13 +471,13 @@ function BindAllProductImages() {
      
         for (var i = 0; i < totalimages.length; i++)
         {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
-                
-         + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + '>'
+        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
         + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'                        
-      + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div>'
-      + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-      + '</div>');
+        + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div>'
+        + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+        + '</div>');
+
          imagedivholder.append(html);
         }
 }
