@@ -790,9 +790,7 @@ namespace Boutique.DAL
             #endregion
            #endregion Methods
 
-
-
-            #region CategoryMethods
+        #region CategoryMethods
         
             #region GetAllCategories
             public DataSet GetAllCategories()//for dropdownbind
@@ -1475,7 +1473,7 @@ namespace Boutique.DAL
         #endregion GraphData
 
 
-         #region DeleteProudctImage
+       #region DeleteProudctImage
 
          public Int16 DeleteProudctImage()
          {
@@ -1522,6 +1520,51 @@ namespace Boutique.DAL
 
          }
          #endregion DeleteProudctImage
+
+         #region GetAllProductReviews
+         public DataSet GetAllProductsReviews()
+         {
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+             Guid _boutiqueid = Guid.Empty;
+             try
+             {
+                 _boutiqueid = Guid.Parse(BoutiqueID);
+                 if (_boutiqueid != Guid.Empty)
+                 {
+                     dcon = new dbConnection();
+                     dcon.GetDBConnection();
+                     cmd = new SqlCommand();
+                     cmd.Connection = dcon.SQLCon;
+                     cmd.CommandType = CommandType.StoredProcedure;
+                     cmd.CommandText = "[SelectAllProductReviews]";
+                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                     sda = new SqlDataAdapter();
+                     sda.SelectCommand = cmd;
+                     ds = new DataSet();
+
+                     sda.Fill(ds);
+                 }
+             }
+
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+
+                 }
+             }
+             return ds;
+         }
+         #endregion GetAllProductReviews
 
     }
 }

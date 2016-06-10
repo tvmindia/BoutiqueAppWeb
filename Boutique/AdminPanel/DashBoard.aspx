@@ -30,10 +30,10 @@
 
         <div class="span12" id="content1" style="align-content:center;width:100%;">
             
-        <%--<img id="tiqueImage" src="../Home/images/Background.jpg" style="height:350px;width:95%;" />--%>
+        
         
                 <%--   Report tiles--%>
-				<div class="row-fluid" style="padding-top:20%;">	
+				<div class="row-fluid" style="padding-top:25%;">	
 
 				<a class="quick-button metro yellow span2" href="People.aspx">
 				<i class="icon-group"></i>
@@ -71,10 +71,10 @@
 								
 		   </div>
            <%--   Report tiles--%>
-           <div class="span12" style="height:20px;">
+           <div class="span12" style="height:30px;">
            </div>			
 		   <div class="row-fluid">
-           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto;"></div>
+           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto;padding-top:5%;"></div>
 		   </div>
 	       </div>
         </div>        

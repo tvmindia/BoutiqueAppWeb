@@ -6,8 +6,10 @@
     //var ImageUrl ="url(../Home/images/Background.jpg)";
     var TiqueImage = document.getElementById("content1");
     TiqueImage.style.backgroundImage = ImageUrl;
-    TiqueImage.style.backgroundSize = 'contain';
-    TiqueImage.style.backgroundRepeat = 'no-repeat';  
+    TiqueImage.style.backgroundSize = 'cover';
+    TiqueImage.style.backgroundRepeat = 'no-repeat';
+    TiqueImage.style.backgroundPosition = 'center center';
+
     BindTileValues();
     BindAllImages();//TrendsGraph 
     

@@ -280,6 +280,7 @@
     <Content Include="Scripts\UserJS\PhotoUploader.js" />
     <Content Include="Scripts\UserJS\Product.js" />
     <Content Include="Scripts\UserJS\ProductFileUpload.js" />
+    <Content Include="Scripts\UserJS\ProductReview.js" />
     <Content Include="Scripts\UserJS\Profile.js" />
     <Content Include="Scripts\UserJS\SaDashBoard.js" />
     <Content Include="WebServices\WebService.asmx" />
