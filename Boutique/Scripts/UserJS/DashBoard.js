@@ -9,7 +9,7 @@
     TiqueImage.style.backgroundSize = 'contain';
     TiqueImage.style.backgroundRepeat = 'no-repeat';  
     BindTileValues();
-    BindAllImages();
+    BindAllImages();//TrendsGraph 
     
 });//end of document.ready
 
