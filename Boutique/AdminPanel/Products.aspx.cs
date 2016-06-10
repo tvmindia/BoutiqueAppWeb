@@ -30,7 +30,7 @@ namespace Boutique.AdminPanel
         public static string InsertProduct(Product productObj)
         {
           
-            List<Product> prodList = new List<Product>();
+        
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -44,7 +44,7 @@ namespace Boutique.AdminPanel
                     productObj.CreatedBy = UA.userName;
                    //returns status and productid
                     productObj.status = productObj.InsertProduct().ToString();
-                    prodList.Add(productObj);
+                  
                     
                    
                 }
@@ -54,8 +54,8 @@ namespace Boutique.AdminPanel
 
             }
 
-          
-            return jsSerializer.Serialize(prodList);
+
+            return jsSerializer.Serialize(productObj);
         }
 
         #endregion InsertProduct
@@ -64,7 +64,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateProduct(Product productObj)
         {
-            List<Product> prodList = new List<Product>();
+        
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -77,9 +77,7 @@ namespace Boutique.AdminPanel
                     productObj.UpdatedBy = UA.userName;
                     //returns status and productid
                     productObj.status = productObj.UpdateProduct().ToString();
-                    prodList.Add(productObj);
-
-
+                   
                 }
             }
             catch (Exception)
@@ -87,9 +85,39 @@ namespace Boutique.AdminPanel
 
             }
 
-            return jsSerializer.Serialize(prodList);
+            return jsSerializer.Serialize(productObj);
          }
         #endregion UpdateProduct
+
+
+        #region DeleteProduct
+
+        [System.Web.Services.WebMethod]
+        public static string DeleteProduct(Product productObj)
+        {
+           
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA.BoutiqueID != "")
+                {
+                    productObj.BoutiqueID = UA.BoutiqueID;
+                    productObj.UpdatedBy = UA.userName;
+                    productObj.status = productObj.DeleteProduct().ToString();
+                  
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return jsSerializer.Serialize(productObj);
+        }
+        #endregion DeleteProduct
 
         #region InsertProductImage
         //[System.Web.Services.WebMethod]

@@ -40,7 +40,7 @@ namespace Boutique.AdminPanel
                         myStream.Read(prodobj.ImageFile, 0, (int)fileupload.FileContent.Length);
                      
                         prodobj.InsertProductImage();
-                        lblFile.Text = "Upload status: File uploaded!";
+                       
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "LoadAllImagesBind", "parent.BindAllImages();", true);
                      }
                     }
