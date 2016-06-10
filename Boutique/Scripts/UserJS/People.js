@@ -1,29 +1,50 @@
 ﻿$("document").ready(function (e) {
-
+    
     parent.document.title = "People";
     $('.AddUser').hide();
     //BIND REGION
-
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
-
-
-        document.getElementById('fileUpload').addEventListener('change', handleFileSelect, false);
-    } else {
-        alert('The File APIs are not fully supported in this browser.');
+    
+    var LoginUserRole = getRole();
+    $('#hdfRole').val(LoginUserRole);
+   
+    if (LoginUserRole != 'Manager') {
+     
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // Great success! All the File APIs are supported.     
+            document.getElementById('fileUpload').addEventListener('change', handleFileSelect, false);
+        }
+        else {
+            alert('The File APIs are not fully supported in this browser.');
+        }
     }
 
+  
 
     BindAsyncUserTable();
     BindAsycDesignerTable();
     BindAsyncAdminsTable();
     BindAsyncManagersTable();
+
+    $('#AdministratorTable').DataTable({
+        "bPaginate": false,             //removing paging
+    });
+    $('#ManagerTable').DataTable({
+        "bPaginate": false,             //removing paging
+    });
+    $('#DesignerTable').DataTable({
+        "bPaginate": false,             //removing paging
+    });
+    $('#UsersTable').DataTable({
+        "bPaginate": false,             //removing paging
+    });
+    
+
+
   
     //EDIT REGION
 
     $(".adminedit").live(
     {
-
         click: function (e) {
             
             $('#rowfluidDiv').hide();
@@ -42,7 +63,6 @@
     })
     $(".manageredit").live(
       {
-
           click: function (e) {
             
               $('#rowfluidDiv').hide();
@@ -92,7 +112,7 @@
              editedrow = $(this).closest('tr');
              var Designer = new Object();            
              Designer.DesignerID = editedrow.attr("designerID");
-             debugger;
+         
              var jsonResult = GetDesigner(Designer);
              var ImageIsNull = jsonResult[1].IsDesignerImageNull;
              if (jsonResult[0] != undefined) {
@@ -457,8 +477,24 @@
 
 //post File/blog to Server
 
+function getRole() {
+    var table = {};
+    var Role = new Object();
+    table = GetLogin_Role(Role);
+    return table;
+}
+
+function GetLogin_Role(Role) {
+    var ds = {};
+    var table = {};
+    var data = "{'boutiqueObj':" + JSON.stringify(Role) + "}";
+    ds = getJsonData(data, "../AdminPanel/Profile.aspx/Role");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 function postBlobAjax(formData, page) {
-    //debugger;
+   
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
     //request.send(formData);
@@ -638,41 +674,111 @@ function GetAllAdmins(Admins) {
 
 
 function BindUserTable(Records) {
-    //$("#UsersTable").find(".odd").remove();
-    $("#UsersTable").find(".userrows").remove();
-    $.each(Records, function (index, Records) {
-        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-    $("#UsersTable").append(html);
-    })
+    debugger;
+    var checkrole = $('#hdfRole').val();
+    if (checkrole == 'Manager') {
+        debugger;
+        $("thead#Usersthead tr").remove();
+        var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
+        $("#Usersthead").append(html);
+        $("tbody#Designerrows tr").remove();
+        debugger;
+        $.each(Records, function (index, Records) {
+            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
+            $("#UsersTable").append(html);
+        })
+    }
+    else
+    {
+        $("tbody#Designerrows tr").remove();
+        $.each(Records, function (index, Records) {
+            debugger;
+            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            $("#UsersTable").append(html);
+        })
+
+    }
 
 }
 
 function BindDesignerTable(Records)
 {
-    $("#DesignerTable").find(".designerrows").remove();
-    $.each(Records, function (index, Records) {
-        var html = '<tr class="designerrows" designerID="' + Records.DesignerID + '"><td>' + Records.Name + '</td>	<td class="center">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td class="center">' + Records.Profile + '</td><td class="center"><a class="btn btn-info designeredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger designerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-        $("#DesignerTable").append(html);
-    })
+    var checkrole = $('#hdfRole').val();
+    if (checkrole == 'Manager') {
+        debugger;
+        $("thead#Designthead tr").remove();
+        var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
+        $("#Designthead").append(html);
+        $("tbody#Designerrows tr").remove();
+        $.each(Records, function (index, Records) {
+            var html = '<tr designerID="' + Records.DesignerID + '"><td>' + Records.Name + '</td>	<td class="center">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td class="center">' + Records.Profile + '</td></tr>';
+            $("#DesignerTable").append(html);
+        })
+    }
+    else {
+        debugger;
+        $("tbody#Designerrows tr").remove();
+        $.each(Records, function (index, Records) {
+            var html = '<tr designerID="' + Records.DesignerID + '"><td>' + Records.Name + '</td>	<td class="center">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td class="center">' + Records.Profile + '</td><td class="center"><a class="btn btn-info designeredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger designerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            $("#DesignerTable").append(html);
+        })
+
+    }
 }
 
 function BindManagerTable(Records) {
-    //$("#UsersTable").find(".odd").remove();
-    $("#ManagerTable").find(".userrows").remove();
-    $.each(Records, function (index, Records) {
-        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-        $("#ManagerTable").append(html);
-    })
+    debugger;
+    var checkrole = $('#hdfRole').val();
+    if (checkrole == 'Manager') {
+        debugger;
+        $("thead#managerthead tr").remove();
+        var html = ' <tr><th>Name</th><th>Mobile</th><th>Email</th></tr> ';
+        $("#managerthead").append(html);
+        $("tbody#Managerrows tr").remove();
+        $.each(Records, function (index, Records) {
+            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
+            $("#ManagerTable").append(html);
+        })
+    }
+    else
+    {
+        debugger;
+        $("tbody#Managerrows tr").remove();
+        $.each(Records, function (index, Records) {
+            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            $("#ManagerTable").append(html);
+        })
 
+    }
 }
 
 function BindAdminsTable(Records) {
-    //$("#UsersTable").find(".odd").remove();
-    $("#AdministratorTable").find(".userrows").remove();
-    $.each(Records, function (index, Records) {
-        var html = '<tr class="userrows" userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-        $("#AdministratorTable").append(html);
-    })
+   
+    var checkrole = $('#hdfRole').val();
+    if (checkrole == 'Manager') {
+
+        $("thead#thead tr").remove();
+        var html = '<tr><th>Name</th><th>Mobile</th><th>Email</th></tr> ';
+        $("#thead").append(html);
+        $("tbody#Adminrows tr").remove();
+        
+        $.each(Records, function (index, Records) {
+            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
+            $("#AdministratorTable").append(html);
+        })
+       
+    }
+    else {   
+       
+        $("tbody#Adminrows tr").remove();       
+        $.each(Records, function (index, Records) {
+            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            $("#AdministratorTable").append(html);
+        })
+      
+    }
+  
+  
 
 }
 
@@ -818,7 +924,7 @@ function GetDesignerImage(DesignerID,ImageIsNull) {
 
        var imgdes= document.getElementById('designerimage');
        imgdes.src = "../ImageHandler/ImageServiceHandler.ashx?DesignerId=" + DesignerID;
-       debugger;
+      
        if (ImageIsNull == "0")
        {
            $("#list").find(".thumb").remove();

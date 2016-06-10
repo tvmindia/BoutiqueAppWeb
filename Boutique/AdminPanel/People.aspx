@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <div class="box span6">
+                <div id="NewAdmin" runat="server" class="box span6">
                     <div class="box-header">
                         <h2>New Administrator</h2>
                         <div class="box-icon">
@@ -181,18 +181,18 @@
                             <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                         </div>
                     </div>
-                    <div class="box-content" style="height: 490px; overflow: auto;">
-                        <table class="table table-condensed" id="AdministratorTable">
-                            <thead>
+                    <div class="box-content TableLayout" style="height: 490px; overflow: auto;">
+                        <table class="table table-striped table-bordered  bootstrap-datatable" id="AdministratorTable">
+                            <thead id="thead" >
                                 <tr>
                                     <th>Name</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
-                                    <th style="width: 105px;">Actions</th>
+                                    <th>Actions</th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="Adminrows">
                             </tbody>
                         </table>
                         <%-- <div class="pagination pagination-centered">
@@ -231,7 +231,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <div class="box span6">
+                <div id="NewManager" runat="server" class="box span6">
                     <div class="box-header">
                         <h2>New Manager</h2>
                         <div class="box-icon">
@@ -324,18 +324,18 @@
                             <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                         </div>
                     </div>
-                    <div class="box-content" style="height: 490px; overflow: auto;">
-                        <table class="table table-condensed" id="ManagerTable">
-                            <thead>
+                    <div class="box-content TableLayout" style="height: 490px; overflow: auto;">
+                        <table class="table table-striped table-bordered  bootstrap-datatable" id="ManagerTable">
+                            <thead id="managerthead">
                                 <tr>
                                     <th>Name</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
-                                    <th style="width: 105px;">Actions</th>
+                                    <th>Actions</th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="Managerrows">
                             </tbody>
                         </table>
                         <%-- <div class="pagination pagination-centered">
@@ -376,7 +376,7 @@
             </div>
             <div class="box-content">
 
-                <div class="box span6">
+                <div id="NewDesigner" runat="server" class="box span6">
                     <div class="box-header">
                         <h2>New Designer</h2>
                         <div class="box-icon">
@@ -447,17 +447,17 @@
                             <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                         </div>
                     </div>
-                    <div class="box-content" style="height: 305px; overflow: auto;">
-                        <table class="table table-condensed" id="DesignerTable">
-                            <thead>
+                    <div class="box-content TableLayout " style="height: 305px; overflow: auto;">
+                        <table class="table table-striped table-bordered  bootstrap-datatable" id="DesignerTable">
+                            <thead id="Designthead">
                                 <tr>
-                                    <th style="width: 85px;">Name</th>
-                                    <th style="width: 102px;">Mobile</th>
-                                    <th style="width: 110px;">Profile</th>
-                                    <th style="width: 85px;">Actions</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Profile</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="Designerrows">
                             </tbody>
                         </table>
                         <%-- <div class="pagination pagination-centered">
@@ -491,7 +491,7 @@
                 </div>
             </div>
             <div class="box-content">
-                <div class="box span6">
+                <div id="NewUser" runat="server" class="box span6">
                     <div class="box-header">
                         <h2>Edit User</h2>
                         <div class="box-icon">
@@ -576,9 +576,9 @@
                             <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                         </div>
                     </div>
-                    <div class="box-content" style="height: 490px; overflow: auto;">
-                        <table class="table table-condensed" id="UsersTable">
-                            <thead>
+                    <div class="box-content TableLayout" style="height: 490px; overflow: auto;">
+                        <table class="table table-striped table-bordered  bootstrap-datatable" id="UsersTable">
+                            <thead id="Usersthead">
                                 <tr>
                                     <th>Name</th>
                                     <th>Mobile</th>
@@ -587,7 +587,7 @@
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="Usersrows">
                             </tbody>
                         </table>
                         <%-- <div class="pagination pagination-centered">
@@ -619,7 +619,7 @@
     <input type="hidden" id="hdfBoutiqueID" value="" />
     <input type="hidden" id="hdfUserID" value="" />
     <input type="hidden" id="hdfAdminID" value="" />
-     <input type="hidden" id="hdfManagerID" value="" />
+     <input type="hidden" id="hdfRole" value="" />
     <input type="hidden" id="hdfOwnerID" value="" />
     <input type="hidden" id="hdfCardNo" value="" />
     <input type="hidden" id="hdfDesignerID" value="" />

@@ -12,9 +12,25 @@ namespace Boutique.AdminPanel
 {
     public partial class People : System.Web.UI.Page
     {
+        DAL.Security.UserAuthendication UA;
+        UIClasses.Const Const = new UIClasses.Const();
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
+            if (UA == null)
+            {
+                Response.Redirect(Const.LoginPageURL);
+
+            }
+            if (UA.Role == Const.Manager)
+            {
+                NewAdmin.Visible = false;
+                NewDesigner.Visible = false;
+                NewManager.Visible = false;
+                NewUser.Visible = false;
+
+
+            }
 
         }       
 
