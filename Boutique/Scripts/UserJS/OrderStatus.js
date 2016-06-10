@@ -90,7 +90,47 @@
         })
 //------------END : Edit Button CLick------------//
 
-//------------ Save Button CLick------------//
+        $(".AddItem").live(
+           {
+               click: function (e) {
+
+                   debugger;
+
+                   $('#rowfluidDiv').hide();
+                   $('.alert-success').hide();
+                   $('.alert-error').hide();
+
+                   var result = "";
+                   var Order = new Object();
+
+                   Order.OrderID = $("#hdfOrderID").val();
+                   Order.ProductID = $(".products").val();
+                   Order.CustomerRemarks = $(".txtRemarks").val();
+
+                   result = InsertOrderItem(Order);
+
+                   if (result == "1") {
+                      
+                       BindOrderItemsList(Order);
+                   }
+                   if (result != "1") {
+                       $('#rowfluidDiv').show();
+                       $('.alert-error').show();
+                   }
+                   //Scroll page
+                   var offset = $('#rowfluidDiv').offset();
+                   offset.left -= 20;
+                   offset.top -= 20;
+                   $('html, body').animate({
+                       scrollTop: offset.top,
+                       scrollLeft: offset.left
+                   });
+               }
+           })
+
+
+
+//------------ Order Save Button CLick------------//
 
         $(".submitDetails").live(
         {
@@ -162,8 +202,14 @@
                 result = InsertOrUpdateOrder(Order);
 
                 if (result == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
+                    debugger;
+                    //Order.OrderID = $("#hdfOrderID").val();
+                    Order.ProductID = $(".products").val();
+                    Order.CustomerRemarks = $("#txtRemarks").val();
+
+
+                    //$('#rowfluidDiv').show();
+                    //$('.alert-success').show();
                    
                     $("#txtDescription").val("");
                     $("#txtOrderDate").val("");
@@ -175,7 +221,7 @@
                     $("#dateActualDeliveryDate").val("");
                     $("#txtTotalOrderAmount").val("");
                     $("#hdfOrderID").val("");
-                   
+                    
                     $(".submitDetails").text("Save");
                     $("#editLabel").text("New Order");
 
@@ -194,19 +240,31 @@
                     $("#OrderReadyDiv").hide();
                     $("#ActualDeliveryDiv").hide();
 
+                    result = InsertOrderItem(Order);
+
+                    if (result == "1") {
+
+                        BindOrderItemsList(Order);
+                    }
+                    if (result != "1") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                    }
+
+
                 }
                 if (result != "1") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                 }
                 //Scroll page
-                var offset = $('#rowfluidDiv').offset();
-                offset.left -= 20;
-                offset.top -= 20;
-                $('html, body').animate({
-                    scrollTop: offset.top,
-                    scrollLeft: offset.left
-                });
+                //var offset = $('#rowfluidDiv').offset();
+                //offset.left -= 20;
+                //offset.top -= 20;
+                //$('html, body').animate({
+                //    scrollTop: offset.top,
+                //    scrollLeft: offset.left
+                //});
             }
         })
  //------------END: Save Button CLick------------//
@@ -292,7 +350,20 @@
 });
 
 
-//------------Insert--------------------
+//------------Insert order--------------------
+function InsertOrderItem(Order) {
+    var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/InsertOrderItem");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+
+
+
+
+//------------Insert order--------------------
 function InsertOrUpdateOrder(Order) {
     var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/InsertOrUpdateOrder");
@@ -384,7 +455,7 @@ function FillOrderItemsTable(Records) {
     $("tbody#OrderItemRows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
 
-        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="'+(Records.OrderID != null ? Records.OrderID :"-") +'"><td style="width:20%"+">' + (Records.Product != null ? Records.Product : "-") + '</td><td style="width:20%">' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td style="width:20%"+">' + (Records.Product != null ? Records.Product : "-") + '</td><td style="width:20%">' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
        
 
         $("#OrderItemTable").append(html);
