@@ -364,7 +364,7 @@ namespace Boutique.DAL
                 }
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
-                SqlDataAdapter sda = null;
+              
               
                 SqlParameter outParameter = null;
                 try
@@ -372,7 +372,6 @@ namespace Boutique.DAL
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
-                    sda = new SqlDataAdapter();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[DeleteProduct]";

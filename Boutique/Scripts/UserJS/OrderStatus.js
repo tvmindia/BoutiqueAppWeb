@@ -63,15 +63,26 @@
         $(".OrderEdit").live(
         {
             click: function (e) {
+                debugger;
+
 
                 $('#rowfluidDiv').hide();
                 $('.alert-success').hide();
                 $('.alert-error').hide();
+
+                $("#dateForecastDeliveryDate").removeAttr("disabled");
+                $("#dateOrderReadyDate").removeAttr("disabled");
+                $("#dateActualDeliveryDate").removeAttr("disabled");
+
+                //$("#dateForecastDeliveryDate").addClass("input-large datepicker");
+                 
                 var jsonResult = {};
                 editedrow = $(this).closest('tr');
                 var Order = new Object();
 
                 Order.OrderID = editedrow.attr("OrderID");
+
+
                 jsonResult = GetOrderDetailsByOrderID(Order);
                 if (jsonResult != undefined) {
                     BindControlsWithOrderDetails(jsonResult);
@@ -201,9 +212,9 @@
                
                 result = InsertOrUpdateOrder(Order);
 
-                if (result == "1") {
+                if (result != "") {
                     debugger;
-                    //Order.OrderID = $("#hdfOrderID").val();
+                   
                     Order.ProductID = $(".products").val();
                     Order.CustomerRemarks = $("#txtRemarks").val();
 
@@ -225,7 +236,7 @@
                     $(".submitDetails").text("Save");
                     $("#editLabel").text("New Order");
 
-                    BindOrdersTable(); //To bind table with new or modified entry
+                 
 
  //---------Manage Control hide and show
                     $("#OrderNoDiv").hide();
@@ -236,15 +247,29 @@
                     $("#txtOrderDate").show();
                     $("#txtPlannedDeliveryDate").show();
 
-                    $("#ForecastDiv").hide();
-                    $("#OrderReadyDiv").hide();
-                    $("#ActualDeliveryDiv").hide();
+
+                    $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
+                    $("#dateOrderReadyDate").attr('disabled', 'disabled');
+                    $("#dateActualDeliveryDate").attr('disabled', 'disabled');
+
+
+
+
+                    //$("#ForecastDiv").hide();
+                    //$("#OrderReadyDiv").hide();
+                    //$("#ActualDeliveryDiv").hide();
+
+                    Order.OrderID = result;
 
                     result = InsertOrderItem(Order);
 
-                    if (result == "1") {
+                    if (result == "") {
+                        BindOrdersTable(); //To bind table with new or modified entry
 
                         BindOrderItemsList(Order);
+
+                        $(".products").select2("val", "");
+                        $("#txtRemarks").val("");
                     }
                     if (result != "1") {
                         $('#rowfluidDiv').show();
@@ -295,9 +320,13 @@
                 $("#txtOrderDate").show();
                 $("#txtPlannedDeliveryDate").show();
 
-                $("#ForecastDiv").hide();
-                $("#OrderReadyDiv").hide();
-                $("#ActualDeliveryDiv").hide();
+                $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
+                $("#dateOrderReadyDate").attr('disabled', 'disabled');
+                $("#dateActualDeliveryDate").attr('disabled', 'disabled');
+
+                //$("#ForecastDiv").hide();
+                //$("#OrderReadyDiv").hide();
+                //$("#ActualDeliveryDiv").hide();
             }
         })
 
@@ -402,9 +431,10 @@ function BindControlsWithOrderDetails(Records)
         $("#txtOrderDate").hide();
         $("#txtPlannedDeliveryDate").hide();
 
-        $("#ForecastDiv").show();
-        $("#OrderReadyDiv").show();
-        $("#ActualDeliveryDiv").show();
+       
+        //$("#ForecastDiv").show();
+        //$("#OrderReadyDiv").show();
+        //$("#ActualDeliveryDiv").show();
 
 //------END
         $("#lblOrderNo").text(Records.OrderNo);
@@ -452,14 +482,29 @@ function GetOrderItemsByOrderID(Order) {
 
 //Fill OrderITEM table 
 function FillOrderItemsTable(Records) {
+
+    //var rowExistsOrNot = false;
+
     $("tbody#OrderItemRows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
+
+        debugger;
+
+        //rowExistsOrNot = true;
+
+        
 
         var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td style="width:20%"+">' + (Records.Product != null ? Records.Product : "-") + '</td><td style="width:20%">' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
        
 
         $("#OrderItemTable").append(html);
     });
+
+
+    //if (rowExistsOrNot == false) {
+    //    $("#OrderItemTable th").remove();
+    //}
+
 }
 
 
@@ -485,7 +530,7 @@ function DeleteOrderItem(Order) {
 //Bind Product Dropdown
 
 function BindProductDropdown() {
-    debugger;
+ 
 
     var jsonResult = {};
     var Notify = new Object();

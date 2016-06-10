@@ -122,6 +122,8 @@ namespace Boutique.AdminPanel
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
 
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             OrderObj.BoutiqueID = UA.BoutiqueID;
             OrderObj.CreatedBy = UA.userName;
@@ -134,6 +136,10 @@ namespace Boutique.AdminPanel
                 if (OrderObj.OrderID == string.Empty || OrderObj.OrderID == null)
                 {
                     status = OrderObj.InsertOrder().ToString();
+                    status = OrderObj.OrderID.ToString();
+
+                    return jsSerializer.Serialize(status);
+
                 }
                 else
                 {
@@ -239,6 +245,8 @@ namespace Boutique.AdminPanel
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
+
+
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
          

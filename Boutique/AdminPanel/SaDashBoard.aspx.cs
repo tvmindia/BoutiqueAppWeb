@@ -72,22 +72,28 @@ namespace Boutique.AdminPanel
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
-
+            string status = null;        
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            boutiqueobj.BoutiqueID = UA.BoutiqueID;
+           // boutiqueobj.BoutiqueID = UA.BoutiqueID;
+            if (UA != null)
+            {
 
-           string status=null;        
-           if(boutiqueobj.BoutiqueID == null)
-           {
-               status= boutiqueobj.NewBoutique().ToString();
-           }
-           else
-           {
-               status=boutiqueobj.EditBoutique().ToString();
-           }
+                if (boutiqueobj.BoutiqueID == null)
+                {
+                    status = boutiqueobj.NewBoutique().ToString();
+                }
+                else
+                {
+                    status = boutiqueobj.EditBoutique().ToString();
+                }
 
+            }
+            else { 
+            
+            //redirect to loin
+            }
+            return status;
 
-           return status;
         }
         #endregion NewBoutique
 

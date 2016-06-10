@@ -3,11 +3,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   
-     <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
     <link href="../CSS/viewbox.css" rel="stylesheet" />
     <script src="../Scripts/jquery.viewbox.min.js"></script>
+    <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Product.js"></script>
     
     <script>
@@ -316,7 +317,8 @@
               </div>
               <footer class="InnerFooter">
                           <a class="btn btn-primary AddProduct" href="#">Save</></a>
-							
+                          <a class="btn btn-primary ModifyProduct" href="#"><i class="halflings-icon th"></i>Save</></a>
+						  <a class="btn btn-primary DeleteProduct" href="#">Delete</></a>
                           <a class="btn CancelProduct">Cancel</a>
 						
                      </footer> 
