@@ -7,6 +7,7 @@
         document.getElementById('logoUpload').addEventListener('change', handleLogoSelect, false);
     }
    
+
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
 
@@ -14,13 +15,9 @@
     $('#OwnerTable').DataTable({
         "bPaginate": false,             //Search and Paging implementation
     });
-    var jsonResult = {};
-    jsonResult = GetBoutiques();
-    if (jsonResult != undefined) {
 
-        BindBoutiqueTextBoxes(jsonResult);
-        GetBoutiqueImageAndLogo(jsonResult[0].BoutiqueID)
-    }
+    botiqueProfileLoad();
+   
 
     $(".CancelClear").live({
         click: function (e) {// Clear controls
@@ -93,7 +90,7 @@
     //addboutique
     $(".AddBoutique").live({
         click: function (e) {// submit button click
-
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -176,7 +173,7 @@
 
     $(".AddOwner").live({
         click: function (e) {
-
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -186,11 +183,12 @@
             if ($("#hdfUserID").val() != "")
             {
                 Owners.UserID = $("#hdfUserID").val();
+                Owners.OwnerID = $("#hdfOwnerID").val();
             }
-            else {
-                alert("Please Select A User..");
-                return;
-            }
+            //else {
+            //    alert("Please Select A User..");
+            //    return;
+            //}
          
             Owners.Name = $("#txtOwnerName").val();
             Owners.Address = $("#txtOwnerAddress").val();
@@ -201,7 +199,7 @@
             Owners.Gender = "Male";
 
             Owners.Profile = $("#txtProfile").val();
-            Owners.OwnerID = $("#hdfOwnerID").val();
+          
 
             result = InsertOwner(Owners);
             if (result == "1") {
@@ -213,10 +211,25 @@
                 $('.alert-error').show();
             }
 
+            BindAsyncOwnerTable();
+
         }
     })
 
 });//end of document.ready
+
+
+function botiqueProfileLoad()
+{
+
+    var jsonResult = {};
+    jsonResult = GetBoutiques();
+    if (jsonResult != undefined) {
+
+        BindBoutiqueTextBoxes(jsonResult);
+        GetBoutiqueImageAndLogo(jsonResult[0].BoutiqueID)
+    }
+}
 
 
 function handleFileSelect(evt) {
@@ -285,87 +298,12 @@ function handleLogoSelect(evt) {
 }
 
 
-//post File/blog to Server
-
-function postBlobAjax(formData, page) {
-    
-    //debugger;
-    //var request = new XMLHttpRequest();
-    //request.open("POST", page);
-    //request.send(formData);
-    $.ajax({
-        type: "POST",
-        url: "../ImageHandler/PhotoUploadHandler.ashx",
-        contentType: false,
-        headers: { 'Cache-Control': 'no-cache' },
-        async: false,
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        traditional: true,
-
-        success: function (data) {
-            if (status != 'error') {
-                //var my_path = "MediaUploader/" + status;
-                // $("#myUploadedImg").attr("src", my_path);
-                if (data == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                }
-                if (data != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                }
-            }
-        },
-        processData: false,
-
-        error: function () {
-            alert("Whoops something went wrong!");
-        }
-    });
-}
-//post File/blog to Server
 
 
-function getRole() { 
-    var table = {};
-    var Role = new Object();
-    table = GetLogin_Role(Role);
-    return table;
-}
 
-function GetLogin_Role(Role) {
-     var ds = {};
-    var table = {};
-    var data = "{'boutiqueObj':" + JSON.stringify(Role) + "}";
-    ds = getJsonData(data, "../AdminPanel/Profile.aspx/Role");
-    table = JSON.parse(ds.d);
-    return table;
-}
 
-//---getting data as json-----//
-function getJsonData(data, page) {
-    var jsonResult = {};
-    // $("#loadingimage").show();
-    var req = $.ajax({
-        type: "post",
-        url: page,
-        data: data,
-        delay: 3,
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
 
-    }).done(function (data) {
 
-        //     $("#loadingimage").hide();
-        jsonResult = data;
-    });
-    return jsonResult;
-}
-//---end of getting data as json -----//
 
 function InsertBoutique(Boutique) {
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
@@ -377,6 +315,7 @@ function InsertBoutique(Boutique) {
 }
 
 function GetBoutiques() {
+    debugger;
     var ds = {};
     var Boutique = new Object();
     var table = {};
@@ -385,6 +324,7 @@ function GetBoutiques() {
     table = JSON.parse(ds.d);
     return table;
 }
+
 function listToAray(fullString, separator) {
     var fullArray = [];
 
@@ -398,6 +338,7 @@ function listToAray(fullString, separator) {
 
     return fullArray;
 }
+
 function BindBoutiqueTextBoxes(Records) {
     //$.each(Records, function (index, Records) {
    
@@ -452,23 +393,27 @@ function GetBoutiqueImageAndLogo(boutiqueId) {
 }
 
 function clearControls() {
-    $("#txtAppVersion").val('');
-    $("#txtBouquetName").val('');
-    $("#txtStartYear").val('');
-    $("#txtAboutus").val('');
-    $("#txtCaption").val('');
-    $("#txtLocation").val('');
-    $("#txtAddress").val('');
-    $("#txtPhone").val('');
-    $("#txtTimings").val('');
-    $("#txtWorkingDays").val('');
-    $("#txtFacebooklink").val('');
-    $("#txtInstatgramlink").val('');
-    $("#imageList").find(".thumb").remove();
-    $("#logoList").find(".logo").remove();
-    $("#txtLatitude").val('');
-    $("#txtLongitude").val('');
-    $('#rowfluidDiv').hide();
+    debugger;
+
+    botiqueProfileLoad();
+
+    //$("#txtAppVersion").val('');
+    //$("#txtBouquetName").val('');
+    //$("#txtStartYear").val('');
+    //$("#txtAboutus").val('');
+    //$("#txtCaption").val('');
+    //$("#txtLocation").val('');
+    //$("#txtAddress").val('');
+    //$("#txtPhone").val('');
+    //$("#txtTimings").val('');
+    //$("#txtWorkingDays").val('');
+    //$("#txtFacebooklink").val('');
+    //$("#txtInstatgramlink").val('');
+    //$("#imageList").find(".thumb").remove();
+    //$("#logoList").find(".logo").remove();
+    //$("#txtLatitude").val('');
+    //$("#txtLongitude").val('');
+    //$('#rowfluidDiv').hide();
 }
 
 function BindOwnerTextBoxes(Records) {
@@ -476,12 +421,13 @@ function BindOwnerTextBoxes(Records) {
 
         $("#txtOwnerName").val(Records.Name);
         $("#txtOwnerAddress").val(Records.Address);
-        $("#txtPhone").val(Records.Mobile);
+        $("#txtOwnerPhone").val(Records.Mobile);
         $("#txtOwnerEmail").val(Records.Email);
         $("#DOBDate").val(ConvertJsonToDate(Records.DOB));
         $("#radioMale").val();
         $("#txtProfile").val(Records.Profile);
         $("#hdfOwnerID").val(Records.OwnerID);
+        $("#hdfUserID").val(Records.UserID);
     })
     $(".AddOwner").text("Modify");
 }
@@ -493,7 +439,7 @@ function clearOwnerControls() {
     $('.alert-error').hide();
     $("#txtOwnerName").val('');
     $("#txtOwnerAddress").val('');
-    $("#txtPhone").val('');
+    $("#txtOwnerPhone").val('');
     $("#txtOwnerEmail").val('');
     $("#DOBDate").val('');
     //  $("#radioMale").val('');
@@ -544,6 +490,7 @@ function BindAsyncOwnerTable() {
 }
 
 function InsertOwner(Owners) {
+    debugger;
     var data = "{'ownersObj':" + JSON.stringify(Owners) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/InsertOwner");
     var table = {};

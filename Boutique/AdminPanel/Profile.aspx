@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/Profile.css" rel="stylesheet" />
+    <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Profile.js"></script>
 
     <div id="content" class="span10">
@@ -59,7 +60,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                     </div>
                 </div>
-                <div class="box-content" style="height: 488px; overflow: auto;">
+                <div class="box-content" style="height: 650px; overflow: auto;">
                     <div class="form-horizontal">
                         <%--<fieldset>--%>
                         <div class="span6">
@@ -108,21 +109,12 @@
                                 </div>
                             </div>
 
-                          
-                        </div>
-                        <div class="span6">
-                              <div class="control-group">
+                                <div class="control-group">
                                 <label class="control-label" for="focusedInput">Address</label>
                                 <div class="controls">
                                     <textarea class="form-control" style="max-width: 75%" rows="4" id="txtAddress"></textarea>
                                 </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label" for="focusedInput">Phone</label>
-                                <div class="controls">
-                                    <input class="input-large focused" id="txtPhone" type="text" />
-                                </div>
-                            </div>
+                            </div>                          
 
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Timings</label>
@@ -135,6 +127,17 @@
                                 <label class="control-label" for="focusedInput">Working Days</label>
                                 <div class="controls">
                                     <input class="input-large focused" id="txtWorkingDays" type="text" />
+                                </div>
+                            </div>
+                          
+                        </div>
+
+                        <div class="span6">
+
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Phone</label>
+                                <div class="controls">
+                                    <input class="input-large focused" id="txtPhone" type="text" />
                                 </div>
                             </div>
 
@@ -251,7 +254,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Phone</label>
                                 <div class="controls">
-                                    <input class="input-large focused" id="txtPhone" type="text" />
+                                    <input class="input-large focused" id="txtOwnerPhone" type="text" />
                                 </div>
                             </div>
 
@@ -357,5 +360,7 @@
     </div>
     <input type="hidden" id="hdfBoutiqueID" value="" />
     <input type="hidden" id="hdfRole" value="" />
+     <input type="hidden" id="hdfOwnerID" value="" />
+     <input type="hidden" id="hdfUserID" value="" />
 
 </asp:Content>
