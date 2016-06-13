@@ -9,6 +9,9 @@
       ul.messagesList li span.from {
       padding-left:20px;
       }
+      .ProductImage{
+          height:200px;
+      }
     </style>
     
 
@@ -27,13 +30,13 @@
         <div class="row-fluid">
             <div class="span7">
                 <h1>Product Review</h1>
-                <ul class="messagesList" id="ReviewPreview">
+                <ul class="messagesList" id="ReviewPreview" style="max-height:500px;overflow-y:auto;">
 
                 </ul>
             </div>
             <div class="span5 noMarginLeft">
-                <div class="message dark">
-
+                <div class="message dark" id="ReviewDetails">
+                    <input id="HdnReviewID" type="hidden" />
                 </div>
 
             </div>
