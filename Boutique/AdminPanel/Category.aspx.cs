@@ -161,6 +161,11 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateCategory(Product categoryObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            categoryObj.BoutiqueID = UA.BoutiqueID;
+
             string status = null;
             try
             {
