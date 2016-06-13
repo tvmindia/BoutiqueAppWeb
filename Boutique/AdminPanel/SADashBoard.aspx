@@ -29,10 +29,10 @@
 
 			 <div class="row-fluid">	
 
-				<a class="quick-button metro yellow span2">
+				<a class="quick-button metro yellow span2" onclick="BindAppUsersTile()">
 					<i class="icon-group"></i>
 					<p>App Users</p>
-					<span class="badge">237</span>
+					<span class="badge" id="UsersBadge">0</span>
 				</a>
                     <a class="quick-button metro green span2">
 					<i class="icon-tags"></i>
@@ -52,7 +52,7 @@
 				<a class="quick-button metro pink span2">
 					<i class="icon-ambulance"></i>
 					<p>Exceptions</p>
-					<span class="badge">88</span>
+					<span class="badge" id="Exception">0</span>
 				</a>
 				<a class="quick-button metro black span2">
 					<i class="icon-calendar"></i>
@@ -67,9 +67,47 @@
 
             </div>
 
-
+         <div class="row-fluid" >		
+                        
+			    	<div class="box span12" id="AppUserRowFluid">
+                     
+          
+					<div class="box-header">
+						<h2><span class="break"></span>App Users</h2>
+						<div class="box-icon">
+							
+							<%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+							
+						</div>
+					</div>
+					<div class="box-content TableLayout" style="min-height:50px; max-height:350px; overflow:scroll;">
+						<table id="AppUserTable" class="table table-striped table-bordered  bootstrap-datatable">
+						  <thead>
+							  <tr>
+								  <th>User Name</th>
+                                  <th>Mobile Number</th>
+								  <th>Email</th>
+                                  <%--<th>Gender</th>
+                                  <th>Timing</th>
+								  <th style="width:105px;">Working Days</th>--%>
+								  <th style="width:85px;">Actions</th>
+							  </tr>
+						  </thead>   
+						  <tbody id="AppUserrows">
+							
+							
+						
+							
+						  </tbody>
+					  </table>            
+					</div>
+                      
+                   
+				</div><!--/span-->
+         
+                 </div>
             
-                 <div class="row-fluid">		
+         <div class="row-fluid">		
                         
 			    	<div class="box span12">
                      
@@ -96,6 +134,44 @@
 							  </tr>
 						  </thead>   
 						  <tbody id="Boutiquerows">
+							
+							
+						
+							
+						  </tbody>
+					  </table>            
+					</div>
+                      
+                   
+				</div><!--/span-->
+         
+                 </div>
+
+         <div class="row-fluid" >		
+                        
+			    	<div class="box span12" id="ExcepyionRowFluid">
+                     
+          
+					<div class="box-header">
+						<h2><span class="break"></span>Exception</h2>
+						<div class="box-icon">
+							
+							<%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
+							
+						</div>
+					</div>
+					<div class="box-content TableLayout" style="min-height:50px; max-height:350px; overflow:scroll;">
+						<table id="ExceptionTable" class="table table-striped table-bordered  bootstrap-datatable">
+						  <thead>
+							  <tr>
+								  <th>User Name</th>
+                                  <th>Error Description</th>
+								  <th>Date</th>
+                                  
+								  <th style="width:85px;">Actions</th>
+							  </tr>
+						  </thead>   
+						  <tbody id="Exceptionrows">
 							
 							
 						

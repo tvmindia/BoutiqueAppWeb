@@ -1,4 +1,5 @@
 ﻿$("document").ready(function (e) {
+    BindTiles();
     parent.document.title = "SA Dashboard";
     $(".ddlboutiques").select2({
         data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
@@ -340,8 +341,45 @@ function ClearAdminControls()
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide(); 
- }
+}
+function BindTiles()
+{
+    debugger;
+    //BindAppUsersTile();
+}
+function BindAppUsersTile()
+{
+    debugger;
+    var table = {};
+    var User = new Object();
+    table = GetAllUsers(User);
+    debugger;
+    $("#UsersBadge").text(table.length);
+    BindAppUserTable(table);
+}
+function GetAllUsers(User) {
+    var ds = {};
+    var table = {};
+    var data = "{'Usersobj':" + JSON.stringify(User) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllUsersByBoutiqueID");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function BindAppUserTable(Records) {
 
+    // $("#boutiqueTable").find(".odd").remove();
+    debugger;
+    var AppUserDiv = document.getElementById('AppUserRowFluid');
+    AppUserDiv.style.boxShadow = '0 3px 20px #FFC40D';
+    $("tbody#AppUserrows tr").remove();
+
+    $.each(Records, function (index, Records) {
+        //<td class="center">' + records.gender + '</td><td class="center">' + records.timing + '</td><td class="center">' + records.workingdays + '</td>
+        var html = '<tr class="AppUserrows" UserID="' + Records.UserID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#AppUserTable").append(html);
+    })
+    
+}
 
 
 

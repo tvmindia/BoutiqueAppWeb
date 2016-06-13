@@ -126,23 +126,23 @@ function BindTotalProducts()
 
 
 //listbox
-  function BindDashBoardListUser(Records)
-  {
+  //function binddashboardlistuser(records)
+  //{
    
-      $.each(Records, function (index, Records) {
-          var createdDate = null;
-          if (Records.CreatedDate != null) {
-              var src = Records.CreatedDate;//"/Date(1302589032000+0400)/";
-              src = src.replace(/[^0-9 +]/g, '');
-              var createdDate = new Date(parseInt(src));
-          }
+  //    $.each(records, function (index, records) {
+  //        var createddate = null;
+  //        if (records.createddate != null) {
+  //            var src = records.createddate;//"/date(1302589032000+0400)/";
+  //            src = src.replace(/[^0-9 +]/g, '');
+  //            var createddate = new date(parseint(src));
+  //        }
           
 
-       //   var create = new Date(Records.CreatedDate);
-          var html = '<li class="yellow" Userid="' + Records.UserID + '"><a href="#"></a><span class="break"></span><strong>Name:</strong> ' + Records.Name + '<br/><strong>Since:</strong> <br/>' + createdDate + '<strong>Mobile:</strong> ' + Records.Mobile + '</li>';
-          $(".LastUsers").append(html);
-      })
-  }
+  //     //   var create = new date(records.createddate);
+  //        var html = '<li class="yellow" userid="' + records.userid + '"><a href="#"></a><span class="break"></span><strong>name:</strong> ' + records.name + '<br/><strong>since:</strong> <br/>' + createddate + '<strong>mobile:</strong> ' + records.mobile + '</li>';
+  //        $(".lastusers").append(html);
+  //    })
+  //}
 
   function BindDashBoardProducts(Records)
   {
