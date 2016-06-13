@@ -318,7 +318,9 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
 
+            if (AdminObj.BoutiqueID==null)
             AdminObj.BoutiqueID = UA.BoutiqueID;
+            
             AdminObj.CreatedBy = UA.userName;
             AdminObj.RoleName = Const.Administrator;
             AdminObj.CreatedDate = DateTime.Now;

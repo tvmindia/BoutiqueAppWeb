@@ -1,7 +1,6 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = "SA Dashboard";
     $(".ddlboutiques").select2({
-
         data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
        , allowClear: true
        , placeholder: "Select a Boutique"
@@ -10,57 +9,41 @@
     //dsfdsf
     $("#hdfBoutiqueID").val('');
 
-    //BindAsyncBoutiqueDropDown();
-   
-    
+    //BindAsyncBoutiqueDropDown();  
 
+    BindBoutiqueAsyncLoad();
+    $('#boutiqueTable').DataTable({
+        "bPaginate": false,             //removing paging
+    });
 
-    var jsonResult = {};
-    jsonResult = GetAllBoutiques();
-    if (jsonResult != undefined) {
-        BindBoutiqueTable(jsonResult);
-
-    }
-    //CallingDropDown
-    
-   
-    //CallingDropDown
-   
-    
-   
-    //events
-
-
-    $(".edit").live(
-       {
-           click: function (e) {
+ 
+    $(".edit").live({
+           click: function (e) {   
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
                var jsonResult = {};
                editedrow = $(this).closest('tr');
-               var boutid = editedrow.attr("boutiqueID");
-               jsonResult = GetBoutiques(boutid);
+               var Boutique = new Object();
+               Boutique.BoutiqueID = editedrow.attr("boutiqueID");
+               jsonResult = GetBoutiques(Boutique);
                if (jsonResult != undefined) {
-
                    BindBoutiqueTextBoxes(jsonResult);
-               }
-
-           
+               }           
                return false;
            }
        })
 
-    $(".Delete").live(
-       {
+    $(".Delete").live({
            click: function (e) {
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
-               $('.alert-error').hide();
+               $('.alert-error').hide();            
                var jsonResult = {};
                editedrow = $(this).closest('tr');
-               var boutid = editedrow.attr("boutiqueID");
-               jsonResult = DeleteBoutique(boutid);
+               var Boutique = new Object();
+               Boutique.BoutiqueID = editedrow.attr("boutiqueID");
+               jsonResult = DeleteBoutique(Boutique);
                if (jsonResult != undefined) {
                    if (jsonResult == "1") {
                        BindBoutiqueAsyncLoad();//Gridbind
@@ -84,7 +67,7 @@
     })
     
     $(".CancelAdClear").live({
-        click: function (e) {// Clear controls
+        click: function (e) {// Clear controls            
             ClearAdminControls();
         }
     })
@@ -127,18 +110,21 @@
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
             }
+
+            clearControls();
             
             BindBoutiqueAsyncLoad();//Gridbind
           
         }
     })
-
   
     $(".AddAdmin").live({
         click: function (e) {// submit button click
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+
+            debugger;
           
             var result = "";
             var Admin = new Object();
@@ -151,7 +137,8 @@
 
            
             Admin.Name = $("#txtUserName").val();
-            
+            Admin.LoginName = $("#txtAdminLoginName").val();
+            Admin.Password = $("#txtAdminConPass").val();
             Admin.Mobile = $("#txtMobile").val();
             Admin.Email = $("#txtUserEmail").val();
            // 
@@ -171,6 +158,8 @@
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                 }
+
+                ClearAdminControls();
 
             //var jsonResults = {};
             //jsonResults = GetAllBoutiques();
@@ -198,27 +187,7 @@ function BindAsyncBoutiques() {
      }
 }
 
-//---getting data as json-----//
-function getJsonData(data, page) {
-    var jsonResult = {};
-    // $("#loadingimage").show();
-    var req = $.ajax({
-        type: "post",
-        url: page,
-        data: data,
-        delay: 3,
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
 
-    }).done(function (data) {
-
-//     $("#loadingimage").hide();
-        jsonResult = data;
-    });
-    return jsonResult;
-}
-//---end of getting data as json -----//
 
 
 function GetAllBoutiques(Designers) {
@@ -240,6 +209,7 @@ function  InsertBoutique(Boutique)
     return table;
 
 }
+
 function BindAsyncBoutiqueDropDown() {//&&&&&&&&&&&&&&&&&&
     var jsonResult = {};
     jsonResult = GetAllBoutiquesDropDown();
@@ -247,19 +217,20 @@ function BindAsyncBoutiqueDropDown() {//&&&&&&&&&&&&&&&&&&
         return jsonResult;
     }
 }
-function DeleteBoutique(boutiqueid)
-{
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+
+function DeleteBoutique(Boutique)
+{   
+    var data = "{'boutiquesObj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/DeleteBoutique");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
 }
 
-
 function InsertAdmin(Admin) {
-    var data = "{'userObj':" + JSON.stringify(Admin) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/NewAdmin");
+    debugger;
+    var data = "{'AdminObj':" + JSON.stringify(Admin) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel//People.aspx/AddAdmin");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
@@ -284,10 +255,11 @@ function GetAllBoutiques() {
     return table;
 }
 
-function GetBoutiques(boutiqueid)
-{   var ds = {};
+function GetBoutiques(Boutique)
+{   
+    var ds = {};
     var table = {};
-    var data = "{'Boutiqueid':" + JSON.stringify(boutiqueid) + "}";
+    var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
     ds = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/BindBoutiqueDetails");
     table = JSON.parse(ds.d);
     return table;
@@ -298,32 +270,29 @@ function BindBoutiqueAsyncLoad()
     var jsonResults = {};
     jsonResults = GetAllBoutiques();
     if (jsonResults != undefined) {
-        BindBoutiqueTable(jsonResults);
-             
+        BindBoutiqueTable(jsonResults);             
     }
-
-
 }
 
-
 function BindBoutiqueTable(Records) {
-   // $("#bouquetTable").find(".dataTables_wrapper").remove();
-    //$("#bouquetTable").removeClass("dataTables_wrapper");
-    $("#bouquetTable").find(".odd").remove();
-    $("#bouquetTable").find(".myrows").remove();
+ 
+   // $("#boutiqueTable").find(".odd").remove();
+   
+
+    $("tbody#Boutiquerows tr").remove();
+
     $.each(Records, function (index, Records) {
-      //  var html = '<tr class="row_1" idval="' + Record.id + '"  chid="' + Record.id + '"><td width="15%" align="center" valign="middle"><input type="hidden" class="m-wrap span12 hftxtManuItemId"   id="hftxtManuItemId" value="' + Record.FocusItemManufacture.id + '"><a class="edit" chid="' + Record.id + '" suggestcatlog="' + Record.SuggestedCatlog + '" annualvol="' + Record.AnnualVolume + '" releaseqty="' + Record.ReleaseQuantity + '" targetpriz="' + Record.TargetPrize + '" certificate="' + Record.CertificateId + '" itemDescription="' + Record.ItemDescription + '" href="#">' + Record.SuggestedCatlog + '</a></td><td width="18%" height="20" align="center" valign="middle"><input  type="text" id="txtManuCost' + index + '" class="m-wrap span12 txtManuCost"   placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtLeadTime' + index + '" class="m-wrap span12 txtLeadTime"  placeholder=""></td><td width="14%" height="20" align="center" valign="middle"><input type="text" id="txtToolCharge' + index + '" class="m-wrap span12 txtToolCharge"  placeholder=""></td><td width="14%" align="center" valign="middle"><input type="text" id="txtMinQty' + index + '" class="m-wrap span12 txtMinQty"  placeholder=""></td><td width="11%" align="center" valign="middle"><a class="attachment"><img src="/Contents/assets/img/icn_attachment.png" alt="attachment"></a></td></tr>';
-        var html = '<tr class="myrows" boutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.AppVersion + '</td><td class="center">' + Records.Location + '</td><td class="center">' + Records.Phone + '</td><td class="center">' + Records.Timing + '</td><td class="center">' + Records.WorkingDays + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-       $("#bouquetTable").append(html);
+    
+        var html = '<tr class="Boutiquerows" boutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.AppVersion + '</td><td class="center">' + Records.Location + '</td><td class="center">' + Records.Phone + '</td><td class="center">' + Records.Timing + '</td><td class="center">' + Records.WorkingDays + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        $("#boutiqueTable").append(html);
     })
    
 }
 
-
 function BindBoutiqueTextBoxes(Records)
 {
     $.each(Records, function(index, Records)
-    {
+    {      
         $("#txtAppVersion").val(Records.AppVersion);
         $("#txtBouquetName").val(Records.Name);
         $("#txtStartYear").val(Records.StartedYear);
@@ -360,19 +329,17 @@ function clearControls() {
 }
 
 function ClearAdminControls()
-{
-    $('.selectpicker').selectpicker('val', 'one');
-    $('.selectpicker').selectpicker('refresh');
-    $('.selectpicker').selectpicker();
-
+{  
     $("#txtUserName").val('');
     $("#txtMobile").val('');
+    $("#txtAdminLoginName").val('');
+    $("#txtAdminPass").val('');
+    $("#txtAdminConPass").val('');
     $("#txtUserEmail").val('');
 
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
-    $('.alert-error').hide();
- 
+    $('.alert-error').hide(); 
  }
 
 
