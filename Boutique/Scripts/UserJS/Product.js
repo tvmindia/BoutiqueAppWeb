@@ -10,73 +10,92 @@
         closeDuration: 200,
         closeButton: true,
         closeOnSideClick: true,
-        });
-   
-    document.getElementById('imageupGallery').style.display = 'block';
+    });
+
+    //document.getElementById('imageupGallery').style.display = 'block';
     BindAllProductImages();//binds masanory gallery with product under current boutique
     var galerydiv = $('.imageholder');
-    var $mars= $('.imageholder').masonry(
+    var $mars = $('.imageholder').masonry(
             {
                 itemSelector: '.masonry-thumb',
                 isInitLayout: false
             });
-     galerydiv.hide();
-     $mars.imagesLoaded().progress(function (){
-     $mars.masonry('layout');
-     });
-    
+    galerydiv.hide();
+    $mars.imagesLoaded().progress(function () {
+        $mars.masonry('layout');
+    });
+
+
+    // $('input[type="checkbox"]').on('change', function () {
+
+    //   $('input[type="checkbox"]').not(this).prop('checked', false);
+    //  debugger;
+
+    //  }); 
+
+    //   $('input[type=checkbox]').click(function () {
+    // var chks = document.getElementById('<%= chkRoleInTransaction.ClientID %>').getElementsByTagName('INPUT');
+    ///       debugger;
+    //   var chks = $('.checkDes');
+    // for (i = 0; i < chks.length; i++) {
+    //      chks[i].checked = false;
+    //  }
+    //  if (chks.length > 1)
+    //       $(this)[0].checked = true;
+    //   });
+
+
+
     //prduct gallery slide effect
 
-     $("#Preview").sortable({
+    $("#Preview").sortable({
 
-        update: function( event, ui ) {}//when div image is reordered
+        update: function (event, ui) { }//when div image is reordered
     });
-     $("#Preview").disableSelection();
-    
-    
-   
-     BindAllImages();//list li of product images when images uploaded
-     //$(".ddlrelateproducts").select2({
-     //    placeholder: "Choose Related Products",
-     //    allowClear: true,
-     //    data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
-     //});
+    $("#Preview").disableSelection();
 
 
-     var $catMulti= $(".ddlcategories").select2({
+
+    BindAllImages();//list li of product images when images uploaded
+    //$(".ddlrelateproducts").select2({
+    //    placeholder: "Choose Related Products",
+    //    allowClear: true,
+    //    data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
+    //});
+
+
+    var $catMulti = $(".ddlcategories").select2({
         placeholder: "Choose Categories",
         allowClear: true,
         data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
     });
 
-     var $desingnSingle=$(".ddlDesigners").select2({
-      
+    var $desingnSingle = $(".ddlDesigners").select2({
+
         data: BindAsyncDesigner()//Designer dropdown binds only with id and text[key:value] mandatory
-        ,allowClear: true
-        ,placeholder: "Select a Designer"
+       , allowClear: true
+       , placeholder: "Select a Designer"
     });
 
     $(".AddProduct").live({
         click: function (e) {// submit button click
-            
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
             var result = "";
-           
+
             if ($(".AddProduct").text() == "Save") {
-              
+
                 var Product = new Object();
                 Product.Name = $("#txtName").val();
                 Product.Description = $("#txtDescription").val();
                 Product.Price = $("#txtPrice").val();
                 Product.Discount = $("#txtDiscount").val();
-                if ($("input[name=optionsRadiosOutStock]:checked"))
-                {
-                 Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
+                if ($("input[name=optionsRadiosOutStock]:checked")) {
+                    Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
                 }
-                if ($("input[name=optionsRadiosActive]:checked"))
-                {
+                if ($("input[name=optionsRadiosActive]:checked")) {
                     Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
                 }
                 var Categ = $("#idDdlCategories").val();
@@ -88,20 +107,17 @@
                         com = ",";
                     }
                 }
-                else
-                {
+                else {
                     Product.Categories = "";
                 }
-              
-                if ($("#idDdlDesigners").val() != null)
-                {
+
+                if ($("#idDdlDesigners").val() != null) {
                     Product.DesignerID = $("#idDdlDesigners").val();
                 }
-                else
-                {
+                else {
                     Product.DesignerID = "";
                 }
-             
+
                 result = InsertProduct(Product);
 
                 if (result.status == "1") {
@@ -138,101 +154,97 @@
                 }
             }
             return false;
-           }
-      })
+        }
+    })
 
 
     $(".ModifyProduct").live({
         click: function (e) {
 
-        
-                if ($("#hdfproductID").val() != '') {
 
-                    var Product = new Object();
-                    Product.ProductID = $("#hdfproductID").val();
+            if ($("#hdfproductID").val() != '') {
 
-                    Product.Name = $("#txtName").val();
-                    Product.Description = $("#txtDescription").val();
-                    Product.Price = $("#txtPrice").val();
-                    Product.Discount = $("#txtDiscount").val();
+                var Product = new Object();
+                Product.ProductID = $("#hdfproductID").val();
 
-                    if ($("input[name=optionsRadiosOutStock]:checked")) {
-                        Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
-                    }
-                    if ($("input[name=optionsRadiosActive]:checked")) {
-                        Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
-                    }
-                    var Categ = $("#idDdlCategories").val();
-                    var com = "";
-                    Product.Categories = "";
-                    for (var i = 0; i < Categ.length; i++) {
-                        Product.Categories = Product.Categories + com + Categ[i].toString();
-                        com = ",";
-                    }
+                Product.Name = $("#txtName").val();
+                Product.Description = $("#txtDescription").val();
+                Product.Price = $("#txtPrice").val();
+                Product.Discount = $("#txtDiscount").val();
 
-                    if ($("#idDdlDesigners").val() != null) {
-                        Product.DesignerID = $("#idDdlDesigners").val();
-                    }
-                    else {
-                        Product.DesignerID = "";
-                    }
-
-
-                    //productimage id and order number
-                    var ImageInfo = [];
-                    var idval, orderno;
-
-                    $('#Preview div').each(function (index) {
-                        //val.push($(this).attr('id'));
-                        var idval = $(this).attr('id');
-                        orderno = index;
-                        ImageInfo.push(idval);
-                        debugger;
-                        var chkflag = document.getElementById("checkDes" + index).checked;
-                        if (chkflag == true) {
-                            Product.MainImageID = idval;
-                        }
-
-
-                    });
-                    Product.ImageInfo = ImageInfo;
-                    //productimage id and order number
-                    result = UpdateProduct(Product);
-                    if (result.status == "1") {
-
-                        $('#rowfluidDiv').show();
-                        $('.alert-success').show();
-                       // $(".AddProduct").text("Modify");
-                        BindAllProductImages();
-                        //document.getElementById('imageupGallery').style.display = 'block';
-                        // Scroll page
-                        var offset = $('#rowfluidDiv').offset();
-                        offset.left -= 20;
-                        offset.top -= 20;
-                        $('html, body').animate({
-                            scrollTop: offset.top,
-                            scrollLeft: offset.left
-                        });
-
-                    }
-                    if (result.status != "1") {
-                        $('#rowfluidDiv').show();
-                        $('.alert-error').show();
-                        // Scroll page
-                        var offset = $('#rowfluidDiv').offset();
-                        offset.left -= 20;
-                        offset.top -= 20;
-                        $('html, body').animate({
-                            scrollTop: offset.top,
-                            scrollLeft: offset.left
-                        });
-                    }
+                if ($("input[name=optionsRadiosOutStock]:checked")) {
+                    Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
+                }
+                if ($("input[name=optionsRadiosActive]:checked")) {
+                    Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
+                }
+                var Categ = $("#idDdlCategories").val();
+                var com = "";
+                Product.Categories = "";
+                for (var i = 0; i < Categ.length; i++) {
+                    Product.Categories = Product.Categories + com + Categ[i].toString();
+                    com = ",";
                 }
 
-            
-               
+                if ($("#idDdlDesigners").val() != null) {
+                    Product.DesignerID = $("#idDdlDesigners").val();
+                }
+                else {
+                    Product.DesignerID = "";
+                }
 
-                return false;
+
+                //productimage id and order number
+                var ImageInfo = [];
+                var idval, orderno;
+
+                $('#Preview div').each(function (index) {
+                    //val.push($(this).attr('id'));
+                    var idval = $(this).attr('id');
+                    orderno = index;
+                    ImageInfo.push(idval);
+
+                    var chkflag = document.getElementById("checkDes" + index).checked;
+                    if (chkflag == true) {
+                        Product.MainImageID = idval;
+                    }
+
+
+                });
+                Product.ImageInfo = ImageInfo;
+                //productimage id and order number
+                result = UpdateProduct(Product);
+                if (result.status == "1") {
+
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                    // $(".AddProduct").text("Modify");
+                    BindAllProductImages();
+                    //document.getElementById('imageupGallery').style.display = 'block';
+                    // Scroll page
+                    var offset = $('#rowfluidDiv').offset();
+                    offset.left -= 20;
+                    offset.top -= 20;
+                    $('html, body').animate({
+                        scrollTop: offset.top,
+                        scrollLeft: offset.left
+                    });
+
+                }
+                if (result.status != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    // Scroll page
+                    var offset = $('#rowfluidDiv').offset();
+                    offset.left -= 20;
+                    offset.top -= 20;
+                    $('html, body').animate({
+                        scrollTop: offset.top,
+                        scrollLeft: offset.left
+                    });
+                }
+            }
+            return false;
         }
     })
 
@@ -250,16 +262,16 @@
     //        var _URL = window.URL || window.webkitURL;
     //       var formData = new FormData();
     //        var file, img;
-           
+
 
     //        if ((file = $('#productfile')[0].files[0])) {
     //            img = new Image();
     //            img.onload = function () {
     //                var image = $('#productfile')[0].files[0];
-                  
-                  
+
+
     //                formData.append('files', image, '8c9b8e83-dc8f-48d7-994b-8688516a8771,' + file.name);
-                 
+
     //              //  formData.append('file', $('#productfile')[0].files[0]);
     //                //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
     //            };
@@ -268,7 +280,7 @@
     //            };
     //            img.src = _URL.createObjectURL(file);
     //        }
-        
+
     //        //imageupload
     //       // formData.append('prod', 88888);
     //      //  formData.append('ismain', 77777);
@@ -285,7 +297,7 @@
     //                $('#rowfluidDiv').show();
     //                $('.alert-error').show();
     //            }
-               
+
     //            return false;
 
     //    }
@@ -295,10 +307,39 @@
         click: function (e) {// Delete button click
 
             if (confirm("You are about to Delete the product!..")) {
-                   
+
                 var Product = new Object();
                 Product.ProductID = $("#hdfproductID").val();
-                DeleteProduct(Product);
+                var result = DeleteProduct(Product);
+
+                if (result.status == "1") {
+
+                    BindAllProductImages();
+                    clearProductControls();
+
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+
+                    var offset = $('#rowfluidDiv').offset();
+                    offset.left -= 20;
+                    offset.top -= 20;
+                    $('html, body').animate({
+                        scrollTop: offset.top,
+                        scrollLeft: offset.left
+                    });
+                }
+                if (result.status != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    var offset = $('#rowfluidDiv').offset();
+                    offset.left -= 20;
+                    offset.top -= 20;
+                    $('html, body').animate({
+                        scrollTop: offset.top,
+                        scrollLeft: offset.left
+                    });
+                }
+
 
             }
         }
@@ -311,37 +352,36 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            if (confirm("You are about to Delete Image!.."))
-            {
+            if (confirm("You are about to Delete Image!..")) {
                 var Product = new Object();
                 Product.ImageID = $(this).attr('id');
                 var result = DeleteProuductImage(Product);
                 if (result.status == "1") {
-                 
-                 $('#rowfluidDiv').show();
-                 $('.alert-success').show();
 
-                 var offset = $('#rowfluidDiv').offset();
-                 offset.left -= 20;
-                 offset.top -= 20;
-                 $('html, body').animate({
-                     scrollTop: offset.top,
-                     scrollLeft: offset.left
-                 });
-                 BindAllImages();
-                 }
-                 if (result.status != "1") {
-                  $('#rowfluidDiv').show();
-                  $('.alert-error').show();
-                  var offset = $('#rowfluidDiv').offset();
-                  offset.left -= 20;
-                  offset.top -= 20;
-                  $('html, body').animate({
-                      scrollTop: offset.top,
-                      scrollLeft: offset.left
-                  });
-                  BindAllImages();
-                 }
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+
+                    var offset = $('#rowfluidDiv').offset();
+                    offset.left -= 20;
+                    offset.top -= 20;
+                    $('html, body').animate({
+                        scrollTop: offset.top,
+                        scrollLeft: offset.left
+                    });
+                    BindAllImages();
+                }
+                if (result.status != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    var offset = $('#rowfluidDiv').offset();
+                    offset.left -= 20;
+                    offset.top -= 20;
+                    $('html, body').animate({
+                        scrollTop: offset.top,
+                        scrollLeft: offset.left
+                    });
+                    BindAllImages();
+                }
 
             }
             return false;
@@ -362,50 +402,36 @@
         }
     })
 
-
-    $('input[type="checkbox"]').on('change', function () {
-
-        $('input[type="checkbox"]').not(this).prop('checked', false);
-
-    });
-
-
-
     $(".masonry-thumb").live({
-        click: function (e)
-        {
-       
-        var imageid = $(this).attr('imageid');
-        var p = $(this).attr('pname');
-      
-        BindProductTextBoxes(this);
-        BindAllImages();
-     
-        return false;
+        click: function (e) {
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+
+            var imageid = $(this).attr('imageid');
+            var p = $(this).attr('pname');
+
+            BindProductTextBoxes(this);
+            BindAllImages();
+
+            return false;
         }
     })
-//image galery show after all images loaded in masonary
+    //image galery show after all images loaded in masonary
     galerydiv.show();
 
     $(".image-link").on('click', function () {
-     
-       // var TiqueImage = document.getElementById("tiqueImage");
-        //TiqueImage.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueID=" + boutiqueid;
-
-
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
         var imageid = $(this).attr('ImageID');
         var imgcntrol = $('#imgzoom');
         imgcntrol[0].src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + imageid;
-
-        //imagezoombox
         var vb = $('#popup').viewbox();
         vb.trigger('viewbox.open');
-        // $('.image-link').viewbox();
-        // return false;
-    });
-   
 
-   
+    });
 });//end of document.ready
 
 
@@ -414,6 +440,7 @@ function BindProductTextBoxes(thisobject) {
     var productname = $(thisobject).attr('pname');
     var pdescription = $(thisobject).attr('pdescription');
     var pprice = $(thisobject).attr('pprice');
+    var pdiscount = $(thisobject).attr('discount');
     var isoutstock = $(thisobject).attr('isoutstock');
     var isactive = $(thisobject).attr('isactive');
     var categories = $(thisobject).attr('categories');
@@ -423,88 +450,83 @@ function BindProductTextBoxes(thisobject) {
     $("#txtName").val(productname);
     $("#txtDescription").val(pdescription);
     $("#txtPrice").val(pprice);
-  
-    if (isoutstock=='true')
-    {
-       // $('#OptisOutOfStockNo').parent().addClass('checked');
+    $("#txtDiscount").val(pdiscount);
+    if (isoutstock == 'true') {
+        // $('#OptisOutOfStockNo').parent().addClass('checked');
         $("#OptisOutOfStockNo").parent().removeClass('checked');
         $('#OptisOutOfStockYes').parent().addClass('checked');
     }
-    if (isoutstock=='false')
-    {
+    if (isoutstock == 'false') {
         $("#OptisOutOfStockYes").parent().removeClass('checked');
         $('#OptisOutOfStockNo').parent().addClass('checked');
     }
-    if (isactive=='true')
-      {
+    if (isactive == 'true') {
         $("#OptIsActiveNo").parent().removeClass('checked');
-        $('#OptIsActiveYes').parent().addClass('checked'); 
-      }
-      if(isactive=='false')
-      {
-     
+        $('#OptIsActiveYes').parent().addClass('checked');
+    }
+    if (isactive == 'false') {
+
         $("#OptIsActiveYes").parent().removeClass('checked');
         $('#OptIsActiveNo').parent().addClass('checked');
-      }
-  
-      if (categories != '')
-      {
-          var catarray = categories.split(',');
-          var $catMulti = $(".ddlcategories").select2();
-          $catMulti.val(catarray).trigger("change");
-      }
-      if (designerid != '')
-      {
-          var $desingnSingle = $(".ddlDesigners").select2();
-          $desingnSingle.val(designerid).trigger("change");
-      }
-      //$(".AddProduct").text("Modify");
- }
+    }
+
+    if (categories != '') {
+        var catarray = categories.split(',');
+        var $catMulti = $(".ddlcategories").select2();
+        $catMulti.val(catarray).trigger("change");
+    }
+    if (designerid != '') {
+        var $desingnSingle = $(".ddlDesigners").select2();
+        $desingnSingle.val(designerid).trigger("change");
+    }
+    $('.AddProduct').hide();
+    $('.ModifyProduct').show();//switches button to edit mode
+    $('.DeleteProduct').show();
+}
 
 function BindAllProductImages() {
-        var imagedivholder = $('#productimagehold');
-        var Product = new Object();
-        //inserts from code behind
-        var totalimages = {};
-        totalimages = GetAllProductsImageDetailsunderBoutique(Product);
-        $("#productimagehold").find(".masonry-thumb").remove();
-     
-        for (var i = 0; i < totalimages.length; i++)
-        {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + '>'
-        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-        + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'                        
-        + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div>'
-        + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-        + '</div>');
+    var imagedivholder = $('#productimagehold');
+    var Product = new Object();
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+    $("#productimagehold").find(".masonry-thumb").remove();
 
-         imagedivholder.append(html);
-        }
+    for (var i = 0; i < totalimages.length; i++) {
+
+        var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+    + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+    + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+    + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div>'
+    + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+    + '</div>');
+
+        imagedivholder.append(html);
+    }
 }
 
 //function BindAllProductImagesForEventLoad() {
-    // var imagedivholder = $('#productimagehold');
-    //var Product = new Object();
-    //var html='';
-    //inserts from code behind
-    //var totalimages = {};
-    //totalimages = GetAllProductsImageDetailsunderBoutique(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+// var imagedivholder = $('#productimagehold');
+//var Product = new Object();
+//var html='';
+//inserts from code behind
+//var totalimages = {};
+//totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+//$("#productimagehold").find(".masonry-thumb").remove();
 
-    //    for (var i = 0; i < totalimages.length; i++) {
-    //    html += '<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
-    //    + '<a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
-    //    + '<img id="img' + i + '" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
-    //    + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>';
-    //   // imagedivholder.append(html);
-    //    }
-        //return html;
+//    for (var i = 0; i < totalimages.length; i++) {
+//    html += '<div class="masonry-thumb" productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + '>'
+//    + '<a style="background:url(../img/gallery/photo10.jpg)" title="Sample Image 1" href="">'
+//    + '<img id="img' + i + '" class="grayscale" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '">'
+//    + '</a><div class="productDetailsdiv"><span class="span1">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>' + totalimages[i].Categories + '</span></div></div>';
+//   // imagedivholder.append(html);
+//    }
+//return html;
 
 //}
 
 
-function BindAllImages()
-{
+function BindAllImages() {
     //var boutiqid = $("#hdfBoutiqueID").val();
     var prodid = $("#hdfproductID").val();
     if (prodid != '') {
@@ -516,14 +538,13 @@ function BindAllImages()
 
         $("#Preview").find(".imgpreviewdiv").remove();
         $.each(imageids, function (index, Records) {
-            MultiImageBind(Records,index);
+            MultiImageBind(Records, index);
         })
 
     }
 }
 
-function gethiddenvalue()
-{
+function gethiddenvalue() {
     var prod = $("#hdfproductID").val();
     return prod;
 }
@@ -538,21 +559,44 @@ function MultiImageBind(Records, index) {
     //var children = ol.children.length + 1
     div.setAttribute("id", Records.ImageID);
     div.setAttribute("class", "imgpreviewdiv");
-  
+
     img1 = document.createElement('img');
     img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
     img1.className = "thumb";
     div.appendChild(img1);
+    //<label class="checkbox inline">
+    //<input type="checkbox" id="chkActiveAdmin" checked/>Yes</label>
+    //<label class="checkbox">
+    //<input type="checkbox" id="optionsCheckbox2" value="option1" disabled="">
+    // This is a disabled checkbox
+    //  </label>
+    // var lblchk = document.createElement('label');
+    //lblchk.type = 'label';
+    // lblchk.className = 'checkbox';
+
+
     var chk = document.createElement('input');
     chk.type = 'checkbox';
     chk.className = 'checkDes';
     chk.id = 'checkDes' + index;
+    chk.onclick = 'MainImageClick(this);';
+    chk.setAttribute("onclick", "MainImageClick(\"" + 'checkDes' + index + "\")");
+
+
+
+
     var del = document.createElement('input');
     del.className = 'imgdelete';
     del.type = 'image';
     del.src = '../Home/images/Deleteicon1.png';
     del.id = Records.ImageID;
     div.appendChild(del);
+
+    if (Records.IsMain === true) {
+        chk.checked = true;
+        del.style.visibility = 'hidden';
+    }
+
     divPre.appendChild(div);
     div.appendChild(chk);
 
@@ -567,7 +611,7 @@ function MultiImageBind(Records, index) {
     //img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
     //img1.alt = "image" + children;
     //img1.className = "thumb";
- 
+
     //li.appendChild(img1);
     //// var nextline = document.createElement('p');
     // var spacespan = document.createElement('span');
@@ -597,16 +641,19 @@ function MultiImageBind(Records, index) {
     //li.lastChild.appendChild(deleteanchor);
     //li.appendChild(spacespan1);
     //ol.appendChild(li);
-  }
+}
 
 
+function MainImageClick(currentid) {
+    $('.checkDes').attr('checked', false);
+    $('#' + currentid).attr('checked', true);
+}
 
 
-function ClearImage()
-{
+function ClearImage() {
     document.getElementById("productfile").value = "";
     $("#list").find(".thumb").remove();
- }
+}
 
 
 
@@ -644,8 +691,7 @@ function BindAsyncCategory() {
     var jsonResult = {};
     var Product = new Object();
     jsonResult = GetAllCategories(Product);
-    if (jsonResult != undefined)
-    {
+    if (jsonResult != undefined) {
         return jsonResult;
     }
 }
@@ -659,29 +705,28 @@ function BindAsyncRelatedProducts() {
 }
 
 
-function BindDesignerDropDown(dd, Records, indx)
-{
-    
+function BindDesignerDropDown(dd, Records, indx) {
 
 
-            var cadena = "";
-            var myflag = false;
-            for (var i = 0; i < Records.length; i++) {
-                if (myflag == true) {
-                    cadena += "<option class=catrows SELECTED value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
-                    myflag = false;
-                }
-                else {
-                    cadena += "<option class=catrows value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
-                }
-                if (Records[i]["id"] == indx) {
-                    myflag = true;
-                }
-            }
-            dd.append(cadena);
+
+    var cadena = "";
+    var myflag = false;
+    for (var i = 0; i < Records.length; i++) {
+        if (myflag == true) {
+            cadena += "<option class=catrows SELECTED value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
+            myflag = false;
+        }
+        else {
+            cadena += "<option class=catrows value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
+        }
+        if (Records[i]["id"] == indx) {
+            myflag = true;
+        }
+    }
+    dd.append(cadena);
 
 
-    
+
 
 }
 
@@ -691,13 +736,12 @@ function BindAsyncDesigner() {
     jsonResult = GetAllDesigners(Designers);
     if (jsonResult != undefined) {
         return jsonResult;
-       // $("#selectError3Cat").find
-       // BindDesignerDropDown($("#selectError3Des"), jsonResult, -1);
+        // $("#selectError3Cat").find
+        // BindDesignerDropDown($("#selectError3Des"), jsonResult, -1);
 
     }
 }
-function GetAllProductsImageDetailsunderBoutique(Product)
-{
+function GetAllProductsImageDetailsunderBoutique(Product) {
 
     var ds = {};
     var table = {};
@@ -707,8 +751,8 @@ function GetAllProductsImageDetailsunderBoutique(Product)
     return table;
 }
 
-function GetAllProductImages(Product)
-{   var ds = {};
+function GetAllProductImages(Product) {
+    var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductImages");
@@ -743,8 +787,7 @@ function GetAllDesigners(Designers) {
     return table;
 }
 
-function InsertProduct(Product)
-{
+function InsertProduct(Product) {
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/InsertProduct");
     var table = {};
@@ -752,8 +795,7 @@ function InsertProduct(Product)
     return table;
 }
 
-function UpdateProduct(Product)
-{
+function UpdateProduct(Product) {
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/UpdateProduct");
     var table = {};
@@ -798,6 +840,8 @@ function clearProductControls() {
     $("#hdfproductID").val('');
     //$(".AddProduct").text("Save");//button text change
     $('.DeleteProduct').hide();//hides delete
+    $('.ModifyProduct').hide();
+    $('.AddProduct').show();
     //$("#olpreview").find(".liclas").remove();//image list hide
     $("#Preview").find(".imgpreviewdiv").remove();
 }
