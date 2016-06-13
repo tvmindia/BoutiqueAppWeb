@@ -105,7 +105,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            userObj.BoutiqueID = UA.BoutiqueID;
+           // userObj.BoutiqueID = UA.BoutiqueID;
 
             string status = null;
             if(userObj.UserID==null)
@@ -123,19 +123,19 @@ namespace Boutique.AdminPanel
 
         #region DeleteBoutique
          [System.Web.Services.WebMethod]
-        public static string DeleteBoutique(Boutiques boutiqueObj)
+        public static string DeleteBoutique(Boutiques boutiquesObj)
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            boutiqueObj.BoutiqueID = UA.BoutiqueID;
+         
 
             string status = null;
             try
             {
-               
-                status = boutiqueObj.DeleteBoutique().ToString();
+
+                status = boutiquesObj.DeleteBoutique().ToString();
             }
              catch(Exception)
             {

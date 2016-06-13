@@ -8,6 +8,7 @@
     <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet"/>
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
+    <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/SaDashBoard.js"></script>
    
     
@@ -77,12 +78,12 @@
 						<h2><span class="break"></span>All Boutiques</h2>
 						<div class="box-icon">
 							
-							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+							<%--<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
 							
 						</div>
 					</div>
-					<div class="box-content" style="min-height:50px; max-height:350px; overflow:scroll;">
-						<table id="bouquetTable" class="table table-striped table-bordered">
+					<div class="box-content TableLayout" style="min-height:50px; max-height:350px; overflow:scroll;">
+						<table id="boutiqueTable" class="table table-striped table-bordered  bootstrap-datatable">
 						  <thead>
 							  <tr>
 								  <th>Boutique</th>
@@ -94,7 +95,7 @@
 								  <th style="width:85px;">Actions</th>
 							  </tr>
 						  </thead>   
-						  <tbody>
+						  <tbody id="Boutiquerows">
 							
 							
 						
@@ -158,7 +159,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-			     		        <div class="box-content"  style="height:305px;overflow:auto;" >
+			     		        <div class="box-content"  style="height:438px; overflow:auto;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 							  <div class="control-group">
@@ -280,7 +281,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-                         <div class="box-content" style="height:305px;">
+                         <div class="box-content"  style="height:438px; overflow:auto;">
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 
@@ -307,6 +308,30 @@
 								 <label class="control-label" for="focusedInput">Mobile</label>
 								<div class="controls">
 								  <input class="input-large focused" id="txtMobile" type="text"/>
+								</div>
+								</div>
+
+                             <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">LoginName</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminLoginName" type="text"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Password</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminPass" type="password"/>
+								</div>
+								</div>
+
+                              <div class="control-group">
+							
+								  <label class="control-label" for="focusedInput">Confirm Password</label>
+								<div class="controls">
+								  <input class="input-large focused" id="txtAdminConPass" onkeyup="PassowrdEqualityCheck1();" type="password"/>
 								</div>
 								</div>
 
