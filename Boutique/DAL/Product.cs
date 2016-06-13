@@ -145,10 +145,18 @@ namespace Boutique.DAL
         }
         #endregion productImagesproperties
 
+        #region ProductReviewProperty
+        public string ReviewID
+        {
+            get;
+            set;
+        }
+        #endregion ProductReviewProperty
+
         #region Methods
 
         #region Constructors
-           public Product()//default constructor
+        public Product()//default constructor
            {
 
            }
@@ -1520,7 +1528,7 @@ namespace Boutique.DAL
          }
          #endregion DeleteProudctImage
 
-         #region GetAllProductReviews
+       #region GetAllProductReviews
          public DataSet GetAllProductsReviews()
          {
              dbConnection dcon = null;
@@ -1564,6 +1572,124 @@ namespace Boutique.DAL
              return ds;
          }
          #endregion GetAllProductReviews
+
+        #region GetReviewById
+        public DataSet GetReviewDetailsWithID()
+         {
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+             
+            try 
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectProductReviewsUsingID]";
+                cmd.Parameters.Add("@ReviewID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ReviewID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+         }
+        #endregion GetReviewById
+
+
+
+
+        #region UpdateReviewTable
+        
+        #region UpdateReviewCancelled
+        public void UpdateReviewCancelled()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateCancel]";
+                cmd.Parameters.Add("@ReviewID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ReviewID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@CreatedBY", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+        }
+        #endregion UpdateReviewCancelled
+      
+        #region UpdateReviewIsModarate
+        public void UpdateReviewIsModarate()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateApprove]";
+                cmd.Parameters.Add("@ReviewID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ReviewID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                cmd.Parameters.Add("@ApprovedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+        }
+        #endregion UpdateReviewIsModarate
+        #endregion UpdateReviewTable
 
     }
 }

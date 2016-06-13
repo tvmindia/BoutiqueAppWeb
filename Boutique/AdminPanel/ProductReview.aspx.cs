@@ -29,7 +29,7 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize(B_ID);
 
         }
-        #endregion 
+        #endregion BoutiqueID
 
         #region GetReviewDetails
 
@@ -66,6 +66,84 @@ namespace Boutique.AdminPanel
 
         #endregion GetReviewDetails
 
+        #region GetReviewDetailOnID
+
+        [System.Web.Services.WebMethod]
+        public static string GetReviewDetailOnID(DAL.Product ReviewObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                ReviewObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = ReviewObj.GetReviewDetailsWithID();
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion GetReviewDetailOnID
+
+        #region UpdateReviewModatate
+
+        [System.Web.Services.WebMethod]
+        public static void UpdateReviewModatate(DAL.Product ProductObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                ProductObj.BoutiqueID = UA.BoutiqueID;
+                ProductObj.CreatedBy = UA.userName;
+                ProductObj.UpdateReviewIsModarate();
+
+
+            }
+        }
+
+        #endregion UpdateReviewModatate
+
+        #region UpdateReviewCancelled
+
+        [System.Web.Services.WebMethod]
+        public static void UpdateReviewCancelled(DAL.Product ProductObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                ProductObj.BoutiqueID = UA.BoutiqueID;
+                ProductObj.CreatedBy = UA.userName;
+                ProductObj.UpdateReviewCancelled();
+
+
+            }
+        }
+
+        #endregion UpdateReviewModatate
         #endregion WebMethod
     }
 }

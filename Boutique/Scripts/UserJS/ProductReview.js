@@ -47,12 +47,9 @@ function GetBoutique_id(boutique) {
 }
 
 function BindReview() {
-    debugger;
+ 
     var Reviews = {};
     Reviews = GetAllReviews();
-
-    //$("#olpreview").find(".liclas").remove();
-    debugger;
     var i = 0;
     $.each(Reviews, function (index, Records) {
 
@@ -60,7 +57,7 @@ function BindReview() {
         i = i + 1;
     })
     return false;
-    //}
+    
 }
 function GetAllReviews() {
 
@@ -73,7 +70,7 @@ function GetAllReviews() {
 }
 
 function MultiImageBind(Records, i) {
-    debugger;
+  
     var ul = document.getElementById("ReviewPreview");
     var li = document.createElement("li");
     li.setAttribute("id", Records.ReviewID);
@@ -81,8 +78,8 @@ function MultiImageBind(Records, i) {
     var imgProduct = document.createElement('img');
     imgProduct.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
     imgProduct.className = 'RvPrdImage';
-    imgProduct.style.width = '10%';
-    imgProduct.style.height = '10%';
+    imgProduct.style.width = '50px';
+    imgProduct.style.height = '30px';
     imgProduct.style.border= '2px solid gold';
     li.appendChild(imgProduct);
     var Spanform = document.createElement('span');
@@ -99,7 +96,6 @@ function MultiImageBind(Records, i) {
     Spantitle.innerHTML = "" + Records.ReviewDescription;
     li.appendChild(Spantitle);
     var SpanDate = document.createElement('span');
-
     SpanDate.className = "title";
     SpanDate.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDate(Records.RDate);
     li.appendChild(SpanDate);  
@@ -123,17 +119,71 @@ function ConvertJsonToDate(jsonDate) {
         return result;
     }
 }
-function ShowDetail(id)
+function ShowDetail(ReviewID)
 {
-    debugger;
-    alert(id);
+    
+    var Reviewdivholder = $('#ReviewDetails');
     var ReviewDetailed = {};
-    ReviewDetailed = GetDetails(id);
+    var Product = new Object();
+    Product.ReviewID = ReviewID;
+    ReviewDetailed = GetDetails(Product);
+  
+    $("#ReviewDetails").find("#previewReviewDet").remove();
+    $('#HdnReviewID').val(ReviewDetailed[0].ReviewID);
+    
+    var html = ('<div id="previewReviewDet"><div class="header"><h1>' + ReviewDetailed[0].ReviewDescription + '</h1><div class="from"><i class="halflings-icon user"></i><b>' + ReviewDetailed[0].User_Nam +'</b></div>'
+							+ '<div class="date"><i class="halflings-icon time"></i> Day, <b>'+ConvertJsonToDate(ReviewDetailed[0].RDate)+'</b></div>'
+							+'<div class="menu" style="background-color:red;"></div>'
+							+ '</div><div class="content">'
+                            + '<p>Product No: ' + ReviewDetailed[0].ProductNo + ''
+							+ '<p>User Review: ' + ReviewDetailed[0].ReviewDescription + ''
+                            + '<p>Product Image:'
+                            + '<div><img class="ProductImage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + ReviewDetailed[0].ImageID + '"></img></div>'
+                            +'<div style="height:10%;"></div>'
+                            +'</div><div class="replyForm" style="padding-top:10px;">'
+							+'<fieldset>'
+     						+ '<div class="actions"><button type="submit" class="btn btn-danger" onclick="ReviewClick(1)">REJECT</button>\t<button type="submit" class="btn btn-success" onclick="ReviewClick(2)">APPROVE</button>'
+							+ '</div></fieldset></div></div></div></div>');
+    Reviewdivholder.append(html);
+    }
+
+function GetDetails(Product)
+{
+   
+    var ds = {};
+    var table = {};
+    var data = "{'ReviewObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/ProductReview.aspx/GetReviewDetailOnID");
+    table = JSON.parse(ds.d);
+    return table;
 }
-function GetDetails(id)
+function ReviewClick(Count)
 {
     debugger;
-    ReviewID = id;
+    var Result;
+    var ReviewID = document.getElementById('HdnReviewID').value;
+    if (Count == '1')
+    {
+        var Product = new Object();
+        Product.ReviewID = ReviewID;
+        var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
+        getJsonData(data, "../AdminPanel/ProductReview.aspx/UpdateReviewCancelled");
+        var Reviewdivholder = $('#' + ReviewID);
+        Reviewdivholder.remove();
+        $("#ReviewDetails").find("#previewReviewDet").remove();
+    }
+    else if(Count=='2')
+    {
+        var Product = new Object();
+        Product.ReviewID = ReviewID;
+        var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
+        getJsonData(data, "../AdminPanel/ProductReview.aspx/UpdateReviewModatate");
+        var Reviewdivholder = $('#' + ReviewID);
+        Reviewdivholder.remove();
+        $("#ReviewDetails").find("#previewReviewDet").remove();
+      
+    }
+    
 }
 
 
