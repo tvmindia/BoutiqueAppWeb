@@ -229,9 +229,12 @@
 
 
                 </div>
+
+                              <img src="../img/avatar.jpg" id="ImgProduct"/>
+
                               </div>
 
-
+                         
                           
 
 

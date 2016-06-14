@@ -25,7 +25,7 @@ namespace Boutique.AdminPanel
     {
         #region Methods
 
-//---------* Order 
+        //---------* Order 
 
         #region Get All Orders
         /// <summary>
@@ -158,9 +158,9 @@ namespace Boutique.AdminPanel
         }
         #endregion Add OR Edit Order
 
-//--------END Order
+        //--------END Order
 
-//-------* Order Items
+        //-------* Order Items
 
         #region Get Order Details By OrderID
         /// <summary>
@@ -175,7 +175,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            
+
             string jsonResult = null;
             DataSet ds = null;
             ds = OrderObj.GetOrderItemsByOrderID();
@@ -215,7 +215,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            
+
             string status = null;
             try
             {
@@ -249,7 +249,7 @@ namespace Boutique.AdminPanel
 
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-         
+
             OrderObj.CreatedBy = UA.userName;
             OrderObj.UpdatedBy = UA.userName;
 
@@ -257,7 +257,7 @@ namespace Boutique.AdminPanel
             try
             {
                 status = OrderObj.InsertOrderItem().ToString();
-               
+
             }
             catch (Exception)
             {
@@ -271,6 +271,42 @@ namespace Boutique.AdminPanel
         #endregion Add  Order Item
 
         //--------END OrderItems
+
+
+
+        #region Get Product Image
+        /// <summary>
+        /// To get product image by productID
+        /// </summary>
+        /// <param name="OrderID"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetProductImageByProductID(Order OrderObj)
+        {
+            Product prdctObj = new Product();
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            OrderObj.BoutiqueID = UA.BoutiqueID;
+            prdctObj.BoutiqueID = UA.BoutiqueID;
+            prdctObj.ProductID = OrderObj.ProductID;
+            string ImgID = prdctObj.GetImageIDByProductID();
+
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            return jsSerializer.Serialize(ImgID);
+
+
+        }
+        #endregion Get Product Image
+
+
+
+
 
         #endregion Methods
 
