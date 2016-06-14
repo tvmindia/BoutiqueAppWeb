@@ -15,8 +15,28 @@ namespace Boutique.AdminPanel
     {
         private Boutiques boutiqueObj = new Boutiques();
         Users userObj = new Users();
+        //
+        //FlyCnDAL.Security.UserAuthendication UA_Changed = new FlyCnDAL.Security.UserAuthendication(UA.userName, projectNo,false);
+        //                        if (UA_Changed.ValidUser)
+        //                        {
+        //                            Session[Const.LoginSession]= UA_Changed;                                  
+                                   
+        //                        } 
+        //
         protected void Page_Load(object sender, EventArgs e)
         {
+            if ((Request.QueryString["Session"] != null) && (Request.QueryString["Session"] != ""))
+            {
+                DAL.Security.UserAuthendication UA;              
+                UIClasses.Const Const = new UIClasses.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];               
+                string BoutiqueID = Request.QueryString["Session"].ToString();
+                DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName,BoutiqueID,UA.Boutique,UA.Role);
+                if (UA_Changed.ValidUser)
+                {
+                    Session[Const.LoginSession] = UA_Changed;
+                }
+            }
 
         }
         #region webmethods
@@ -114,6 +134,7 @@ namespace Boutique.AdminPanel
             }
             else
             {
+                userObj.BoutiqueID = UA.BoutiqueID;
                 status = userObj.EditUser(userObj.UserID).ToString();
             }
            

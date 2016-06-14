@@ -66,11 +66,11 @@ function getJsonData(data, page) {
 function BindTileValues()//common tiles
 {
     
-    BindUserTile();//usertile
-    BindTotalProducts();//totalboutiques
-    BindNotifications();
-    BindVisits();
-    BindOutOfStock();
+    //BindUserTile();//usertile
+    //BindTotalProducts();//totalboutiques
+    BindAllTiles();
+   // BindVisits();
+    //BindOutOfStock();
   //  BindAppInstalled()
 
 }
@@ -92,13 +92,19 @@ function BindTotalProducts()
     BindDashBoardProducts(table);
 }
 
-  function BindNotifications()
+function BindAllTiles()
   {
       var table = {};
       var Notifications = new Object();
       table = GetAllNotifications(Notifications);
-      $("#NotificationBadge").text(table.length);
-      BindDashBoardNotifications(table);
+      debugger;
+      $("#TotalProductsBadge").text(table[0].ProductC);
+      $("#UsersBadge").text(table[0].UserC);
+      $("#VisitsBadge").text(table[0].TrendC);
+      $("#NotificationBadge").text(table[0].NotificationC);
+      $("#NotInStockBadge").text(table[0].OutStockC);
+
+     // BindDashBoardNotifications(table);
   }
 
   function BindVisits()
@@ -193,7 +199,7 @@ function BindTotalProducts()
     var ds = {};
     var table = {};
     var data = "{'NotifyObj':" + JSON.stringify(Notifications) + "}";
-    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/SelectAllNotificationsByBoutiqueID");
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/GetCountTiles");
     table = JSON.parse(ds.d);
     return table;
 }

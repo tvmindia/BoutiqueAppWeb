@@ -39,6 +39,7 @@ namespace Boutique.DAL
             private Boolean isValidUser;
             private string userN;
             private string RoleName;
+         
             public string userName
             {
                 get
@@ -60,12 +61,15 @@ namespace Boutique.DAL
                     return BoutiqueName;
                 }
             }
+            
             public string BoutiqueID
             {
                 get
                 {
                     return Boutique_ID;
                 }
+               
+
             }        
             public string Role
             {
@@ -87,6 +91,7 @@ namespace Boutique.DAL
             }
 
             #endregion Properties
+
             #region UserAuthendication default constructor
             public UserAuthendication()
             {
@@ -128,7 +133,14 @@ namespace Boutique.DAL
             }
 
             #endregion  User Authentication
-
+            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam)
+            {
+                Boutique_ID = BoutiqueID;
+                isValidUser = true;
+                userN = userName;
+                BoutiqueName = BoutiqueNam;
+                RoleName = RoleNam;
+            }
             #region Get Login Details
             public DataTable GetLoginDetails(string LoginName)
             {
