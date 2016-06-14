@@ -225,7 +225,7 @@
                      <div class="row-fluid">
                      
 
-        	     	<div class="box span6">
+        	     	<div class="box span6" id="NewBoutiqueSpan">
                       
 				       <div class="box-header">
 						<h2>  New Boutique</h2>
@@ -347,7 +347,7 @@
                      
                          
                     
-                    <div class="box span6">
+                    <div class="box span6" id="NewAdminSpan">
                         
                         <div class="box-header">
 						<h2> New Administrator</h2>

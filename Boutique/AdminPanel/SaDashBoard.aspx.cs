@@ -247,8 +247,6 @@ namespace Boutique.AdminPanel
 
         #endregion webmethods
       
-
-
         #region events
         //protected void NewBoutique_ServerClick(object sender, EventArgs e)
         //{

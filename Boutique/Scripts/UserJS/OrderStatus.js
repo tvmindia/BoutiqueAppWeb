@@ -71,7 +71,7 @@
     $(".OrderEdit").live(
     {
         click: function (e) {
-            debugger;
+           
 
 
             $('#rowfluidDiv').hide();
@@ -113,7 +113,7 @@
        {
            click: function (e) {
 
-               debugger;
+              
 
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
@@ -153,6 +153,8 @@
 
     $(".submitDetails").live(
     {
+      
+
         click: function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -210,12 +212,12 @@
             Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
             Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
             Order.OrderDescription = $("#txtDescription").val();
-
+            Order.UserID = $(".Users").val();
 
             result = InsertOrUpdateOrder(Order);
 
             if (result != "") {
-                debugger;
+                
 
                 Order.ProductID = $(".products").val();
                 Order.CustomerRemarks = $("#txtRemarks").val();
@@ -265,7 +267,7 @@
 
                 result = InsertOrderItem(Order);
 
-                if (result == "") {
+                if (result == "1") {
                     BindOrdersTable(); //To bind table with new or modified entry
 
                     BindOrderItemsList(Order);
@@ -338,19 +340,23 @@
     //Dropdown item cahnge event        
     $('.products').select2()
            .on("change", function (e) {
+              
                debugger;
-
                var productID = $('.products').val();
 
                var Order = new Object();
 
                Order.ProductID = productID;
 
-               var imgID = GetProductImage(Order);
+               if (productID != "") {
 
-               var prdctImg = document.getElementById('ImgProduct');
-               prdctImg.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+imgID;
-               
+
+
+                   var imgID = GetProductImage(Order);
+
+                   var prdctImg = document.getElementById('ImgProduct');
+                   prdctImg.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + imgID;
+               }
 
            })
 
@@ -457,7 +463,7 @@ function GetOrderDetailsByOrderID(Order) {
 function BindControlsWithOrderDetails(Records) {
     $.each(Records, function (index, Records) {
 
-        debugger;
+       
         //---------Manage Control hide and show on edit click 
 
         $("#OrderNoDiv").show();
@@ -483,7 +489,7 @@ function BindControlsWithOrderDetails(Records) {
         $("#dateOrderReadyDate").val(ConvertJsonToDate(Records.OrderReadyDate));
         $("#dateActualDeliveryDate").val(ConvertJsonToDate(Records.ActualDeliveryDate));
         $("#txtTotalOrderAmount").val(Records.TotalOrderAmount);
-
+        $(".Users").val(Records.UserID).trigger("change");
         $("#hdfOrderID").val(Records.OrderID);
 
 
@@ -519,10 +525,15 @@ function GetOrderItemsByOrderID(Order) {
 
 //Fill OrderITEM table 
 function FillOrderItemsTable(Records) {
-
+    debugger;
     //var rowExistsOrNot = false;
 
     $("tbody#OrderItemRows tr").remove();            //Remove all existing rows for refreshing
+
+
+
+    $("#OrderItemTable > tbody").empty();          //Remove all existing rows for refreshing
+
     $.each(Records, function (index, Records) {
 
         debugger;
@@ -552,7 +563,7 @@ function FillOrderItemsTable(Records) {
 //Delete
 
 function DeleteOrderItem(Order) {
-    debugger;
+   
 
     var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
 

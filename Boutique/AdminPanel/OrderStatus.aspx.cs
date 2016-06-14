@@ -204,12 +204,13 @@ namespace Boutique.AdminPanel
                     status = OrderObj.InsertOrder().ToString();
                     status = OrderObj.OrderID.ToString();
 
-                    return jsSerializer.Serialize(status);
+                   
 
                 }
                 else
                 {
                     status = OrderObj.UpdateOrderDetailsByOrderID().ToString();
+                    status = OrderObj.OrderID.ToString();
                 }
 
             }
@@ -220,7 +221,10 @@ namespace Boutique.AdminPanel
             finally
             {
             }
-            return status;
+
+            return jsSerializer.Serialize(status);
+
+            //return status;
         }
         #endregion Add OR Edit Order
 
