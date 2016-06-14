@@ -172,7 +172,10 @@
         }
     })
     
-   
+    $('#AppUserMainDiv').hide();
+    
+    $('#ExceptionMainDiv').hide();
+
 
 
 });//document.ready
@@ -344,23 +347,15 @@ function ClearAdminControls()
 }
 function BindTiles()
 {
-    debugger;
-    //BindAppUsersTile();
+    BindAppUsersTile();
 }
 function BindAppUsersTile()
-{
-   
+{   
     var table = {};
     var User = new Object();
-    table = GetAllUsers(User);
-    
+    table = GetAllUsers(User); 
     $("#UsersBadge").text(table.length);
-    BindAppUserTable(table);
-    
-    $('html, body').animate({
-        scrollTop: $("#AppUserRowFluid").offset().top
-    }, 2000);
-    
+    BindAppUserTable(table);    
 }
 function GetAllUsers(User) {
     var ds = {};
@@ -371,23 +366,45 @@ function GetAllUsers(User) {
     return table;
 }
 function BindAppUserTable(Records) {
-    debugger;
-    var AppUserDiv = document.getElementById('AppUserRowFluid');
-    AppUserDiv.style.boxShadow = '0 3px 20px #FFC40D';
     $("tbody#AppUserrows tr").remove();
-
     $.each(Records, function (index, Records) {
-        var html = '<tr class="AppUserrows" UserID="' + Records.UserID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="AppUserrows" UserID="' + Records.UserID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
         $("#AppUserTable").append(html);
     })
     
 }
-function BindBoutiqueTile() {
+
+function BindBoutique() {
+    $('#AppUserMainDiv').hide();
+    $('#ExceptionMainDiv').hide();
+    $('#AllBoutiquesMainDiv').show();
     var BoutiqueDiv = document.getElementById('BoutiqueRowFluid');
     BoutiqueDiv.style.boxShadow = '0 3px 20px #00A300';
     $('html, body').animate({
         scrollTop: $("#BoutiqueRowFluid").offset().top
-    }, 2000);
+    }, 500);
+}
+function BindUsers()
+{
+    $('#AllBoutiquesMainDiv').hide();
+    $('#ExceptionMainDiv').hide();
+    $('#AppUserMainDiv').show();
+    var AppUserDiv = document.getElementById('AppUserRowFluid');
+    AppUserDiv.style.boxShadow = '0 3px 20px #FFC40D';
+    $('html, body').animate({
+        scrollTop: $("#AppUserRowFluid").offset().top
+    }, 500);
+}
+function BindException()
+{
+    $('#AllBoutiquesMainDiv').hide();
+    $('#AppUserMainDiv').hide();
+    $('#ExceptionMainDiv').show();
+    var AppUserDiv = document.getElementById('ExcepyionRowFluid');
+    AppUserDiv.style.boxShadow = '0 3px 20px #9F00A7';
+    $('html, body').animate({
+        scrollTop: $("#ExcepyionRowFluid").offset().top
+    }, 500);
 }
 
 
