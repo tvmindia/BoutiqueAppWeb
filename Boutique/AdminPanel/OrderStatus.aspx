@@ -98,6 +98,27 @@
                                 </div>
                             </div>
 
+                            
+                          <%--  <div class="control-group">
+								<label class="control-label" for="selectError3">Boutiques</label>
+								<div class="controls">
+								   <select class="ddlboutiques" id="idDdlboutiques">
+                                     <option></option>
+                                   </select>
+								</div>
+							  </div>--%>
+
+
+                               <div class="control-group">
+								<label class="control-label" for="Users">User</label>
+								<div class="controls">
+								  <select class="Users" >
+                                      <option></option>
+								  </select>
+								</div>
+							  </div>
+                   
+
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Order Description</label>
                                 <div class="controls">
@@ -229,9 +250,12 @@
 
 
                 </div>
+
+                              <img src="../img/avatar.jpg" id="ImgProduct"/>
+
                               </div>
 
-
+                         
                           
 
 
