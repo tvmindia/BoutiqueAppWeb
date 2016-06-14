@@ -174,10 +174,9 @@ namespace Boutique.AdminPanel
               if (UA.BoutiqueID != "")
               {
                   productObj.BoutiqueID = UA.BoutiqueID;
-
                   DataSet ds = null;
                   ds = productObj.GetAllProductMainImagesDetails();
-                
+              
                   List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                   Dictionary<string, object> childRow;
 

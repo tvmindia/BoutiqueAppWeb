@@ -85,6 +85,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public Int64 Paginationvalue
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -1315,8 +1320,8 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[GetAllProductImageMainDetailsByBoutiqueid]";
-                 
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();

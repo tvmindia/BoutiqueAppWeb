@@ -367,7 +367,7 @@
 
             BindProductTextBoxes(this);
             BindAllImages();
-
+            AutoScrollToEdit();
             return false;
         }
     })
@@ -659,9 +659,6 @@ function BindAsyncRelatedProducts() {
 
 
 function BindDesignerDropDown(dd, Records, indx) {
-
-
-
     var cadena = "";
     var myflag = false;
     for (var i = 0; i < Records.length; i++) {
@@ -677,10 +674,6 @@ function BindDesignerDropDown(dd, Records, indx) {
         }
     }
     dd.append(cadena);
-
-
-
-
 }
 
 function BindAsyncDesigner() {
@@ -798,6 +791,8 @@ function clearProductControls() {
     //$("#olpreview").find(".liclas").remove();//image list hide
     $("#Preview").find(".imgpreviewdiv").remove();
 }
+
+
 
 
 
