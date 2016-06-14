@@ -84,46 +84,23 @@
 				
 				<div class="box span12">
 					<div class="box-header">
-						<h2><i class="halflings-icon th"></i><span class="break"></span>Tabs</h2>
+						<h2><i class="halflings-icon th"></i><span class="break"></span>Products Gallery</h2>
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li class="active"><a href="#info">Info</a></li>
-							<li><a href="#custom">Custom</a></li>
-							<li><a href="#messages">Messages</a></li>
+							<li class="active"><a href="#newoffers">New Offers</a></li>
+							<li><a href="#trends">Trending</a></li>
+							<li><a href="#outstock">Out of Stocks</a></li>
 						</ul>
 						 
 						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane active" id="info">
+							<div class="tab-pane active" id="newoffers">
 								<p>
 
-									Outofstocks.   
+									New Offers
 								</p>
-
-							</div>
-							<div class="tab-pane" id="custom">
-								<p>
-							   new offers
-								</p>
-							</div>
-							<div class="tab-pane" id="messages">
-								<p>
-									all products under boutique.
-								</p>
-								
-							</div>
-						</div>
-					</div>
-				</div><!--/span-->
-			
-			   </div>	
-		  <%--Tab Content--%>
-
-	        
-
-
-           <%--Gallery--%>
-           <div class="row-fluid sortable">
+                                 <%--Gallery--%>
+           <div class="row-fluid">
 				<div class="box span12">
 					<div class="box-header">
 						<h2> Products</h2>
@@ -156,6 +133,30 @@
 			
 			</div><!--/row-->
            <%--Gallery--%>
+
+							</div>
+							<div class="tab-pane" id="trends">
+								<p>
+							   Trends in Demand
+								</p>
+							</div>
+							<div class="tab-pane" id="outstock">
+								<p>
+									Out of stocks
+								</p>
+								
+							</div>
+						</div>
+					</div>
+				</div><!--/span-->
+			
+			   </div>	
+		  <%--Tab Content--%>
+
+	        
+
+
+          
 
             <%--Alert boxes --%>
             <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
@@ -201,7 +202,7 @@
 							
 						</div>
 					</div>
-					<div class="span6"  style="height:500px;overflow:auto;" >
+					<div class="span6"  style="height:530px;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 
@@ -292,7 +293,7 @@
 
 						</div>
               </div>
-                    <div class="span5" id="imageupGallery" style="height:500px;overflow:auto;box-shadow:1px 1px 1px #888888;display:none;">
+                    <div class="span5" id="imageupGallery" style="max-height:550px;overflow-y:auto;overflow-x:hidden;">
                         <div class="form-horizontal">
                                 <div class="control-group">
                                    
@@ -300,7 +301,7 @@
                             
 
                               <div class="control-group">
-                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width: 400px;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
+                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width:100%;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
                        		 
                                  
                                   <div id="Preview" class="Maindiv">
