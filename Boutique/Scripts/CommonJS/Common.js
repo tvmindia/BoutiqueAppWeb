@@ -86,3 +86,16 @@ function ConvertJsonToDate(jsonDate) {
         return date;
     }
 }
+
+
+function AutoScrollToAlertBox()
+{
+    // Scroll page
+    var offset = $('#rowfluidDiv').offset();
+    offset.left -= 20;
+    offset.top -= 20;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
+}

@@ -129,28 +129,17 @@
                     $('.ModifyProduct').show();//displays editsave button
                     $('.AddProduct').hide();//hides save
                     // Scroll page
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
 
                 }
                 if (result.status != "1") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
 
-
+                   
                     // Scroll page
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
+                    
                 }
             }
             return false;
@@ -222,26 +211,14 @@
                     BindAllProductImages();
                     //document.getElementById('imageupGallery').style.display = 'block';
                     // Scroll page
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
 
                 }
                 if (result.status != "1") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                     // Scroll page
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
                 }
             }
             return false;
@@ -320,24 +297,12 @@
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
 
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
                 }
                 if (result.status != "1") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
                 }
 
 
@@ -361,25 +326,13 @@
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
 
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
                     BindAllImages();
                 }
                 if (result.status != "1") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
-                    var offset = $('#rowfluidDiv').offset();
-                    offset.left -= 20;
-                    offset.top -= 20;
-                    $('html, body').animate({
-                        scrollTop: offset.top,
-                        scrollLeft: offset.left
-                    });
+                    AutoScrollToAlertBox();
                     BindAllImages();
                 }
 
