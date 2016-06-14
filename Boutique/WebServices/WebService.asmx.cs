@@ -18,6 +18,7 @@ namespace Boutique.WebServices
     [System.Web.Script.Services.ScriptService]
     public class WebService : System.Web.Services.WebService
     {
+        Boutique.UIClasses.Const constants = new Boutique.UIClasses.Const();
         #region Products
         /// <summary>
         /// To get a product's details by product id
@@ -527,6 +528,76 @@ namespace Boutique.WebServices
                         dt = notifications.GetNotificationsForApp(notificationIDs);
                     }
                     
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
+        #region Order Status
+        /// <summary>
+        /// Get list of orders
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string Orders(string boutiqueID,string userID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Order order = new Order();
+                order.BoutiqueID = boutiqueID;
+                order.UserID = userID;
+                dt = order.GetOrderDetailsByUserID();
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        /// <summary>
+        /// Product list of an order
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string OrderItems(string boutiqueID, string orderID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Order order = new Order();
+                order.BoutiqueID = boutiqueID;
+                order.OrderID = orderID;
+                dt = order.GetOrderItemsByOrderID().Tables[0];
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
             }
             catch (Exception ex)
             {
