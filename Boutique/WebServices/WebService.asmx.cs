@@ -548,6 +548,12 @@ namespace Boutique.WebServices
         #endregion
 
         #region Order Status
+        /// <summary>
+        /// Get list of orders
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
         [WebMethod]
         public string Orders(string boutiqueID,string userID)
         {
@@ -575,6 +581,12 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+        /// <summary>
+        /// Product list of an order
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         [WebMethod]
         public string OrderItems(string boutiqueID, string orderID)
         {

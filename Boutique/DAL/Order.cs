@@ -236,7 +236,7 @@ namespace Boutique.DAL
         /// <summary>
         /// To get details of order details of a customer
         /// </summary>
-        /// <returns>Dataset</returns>
+        /// <returns>Datatable</returns>
         public DataTable GetOrderDetailsByUserID()
         {
             if (BoutiqueID == string.Empty)
