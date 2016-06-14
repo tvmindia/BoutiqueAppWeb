@@ -99,10 +99,20 @@
                             </div>
 
                             
+                          <%--  <div class="control-group">
+								<label class="control-label" for="selectError3">Boutiques</label>
+								<div class="controls">
+								   <select class="ddlboutiques" id="idDdlboutiques">
+                                     <option></option>
+                                   </select>
+								</div>
+							  </div>--%>
+
+
                                <div class="control-group">
 								<label class="control-label" for="Users">User</label>
 								<div class="controls">
-								  <select class="products" >
+								  <select class="Users" >
                                       <option></option>
 								  </select>
 								</div>
