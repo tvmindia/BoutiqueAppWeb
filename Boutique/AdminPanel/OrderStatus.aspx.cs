@@ -29,6 +29,47 @@ namespace Boutique.AdminPanel
         //---------* Order 
 
 
+        #region Get All UserID and Name
+        [System.Web.Services.WebMethod]
+        public static string GetAllUserIDandName(Users usrObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                usrObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+
+                ds = usrObj.GetAllUserIDAndName();
+
+                //Converting to Json
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion Get All UserID and Name
+
+
+
         //#region Get User Details
 
         //private string GetUserDetails()

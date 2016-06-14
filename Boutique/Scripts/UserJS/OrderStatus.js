@@ -13,7 +13,7 @@
     $(".Users").select2({
         placeholder: "Choose user",
         allowClear: true,
-        data: BindProductDropdown()
+        data: BindUserDropdown()
     });
 
 
@@ -576,6 +576,31 @@ function BindProductDropdown() {
         return jsonResult;
     }
 }
+
+
+function BindUserDropdown() {
+
+
+    var jsonResult = {};
+    var Users = new Object();
+    jsonResult = GetAllUsers(Users);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+
+
+
+function GetAllUsers(Users) {
+    var ds = {};
+    var table = {};
+    var data = "{'usrObj':" + JSON.stringify(Users) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetAllUserIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
 function GetAllProducts(Notify) {
     var ds = {};
     var table = {};
