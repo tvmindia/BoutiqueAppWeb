@@ -9,6 +9,14 @@
         data: BindProductDropdown()
     });
 
+
+    $(".Users").select2({
+        placeholder: "Choose user",
+        allowClear: true,
+        data: BindProductDropdown()
+    });
+
+
     BindOrdersTable();
 
     $('#OrdersTable').DataTable({
@@ -340,6 +348,9 @@
 
                var imgID = GetProductImage(Order);
 
+               var prdctImg = document.getElementById('ImgProduct');
+               prdctImg.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+imgID;
+               
 
            })
 
