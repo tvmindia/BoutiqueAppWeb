@@ -234,12 +234,12 @@
 
                              <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
                        
-                               
+                               <thead>
                                             <tr>
                                   <th class="fullRow">Product</th>
                                     <th class="fullRow">Description</th>
                                                 </tr>
-                                           
+                                           </thead>
 
                                 <tbody id="OrderItemRows">
                                     
@@ -251,7 +251,7 @@
 
                 </div>
 
-                              <img src="../img/avatar.jpg" id="ImgProduct"/>
+                              <img  id="ImgProduct"/>
 
                               </div>
 
@@ -367,5 +367,5 @@
     </div>
 
     <input type="hidden" id="hdfOrderID" />  
-
+      
 </asp:Content>

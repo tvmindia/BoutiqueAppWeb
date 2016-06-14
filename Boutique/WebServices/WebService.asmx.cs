@@ -477,6 +477,7 @@ namespace Boutique.WebServices
                     Designers designer = new Designers();
                     designer.BoutiqueID = boutiqueID;
                     dt = designer.GetAllDesigners();
+                    if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
                 }
                 else if (ownerORdesigner.Equals("owner"))
                 {

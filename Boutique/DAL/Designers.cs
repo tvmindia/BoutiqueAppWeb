@@ -355,8 +355,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
-                    sda.Fill(dt);
-                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                    sda.Fill(dt);                    
                     return dt;
                 }
                 catch (Exception ex)
