@@ -98,6 +98,17 @@
                                 </div>
                             </div>
 
+                            
+                               <div class="control-group">
+								<label class="control-label" for="Users">User</label>
+								<div class="controls">
+								  <select class="products" >
+                                      <option></option>
+								  </select>
+								</div>
+							  </div>
+                   
+
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Order Description</label>
                                 <div class="controls">
