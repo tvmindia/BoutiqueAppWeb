@@ -47,12 +47,12 @@ function GetBoutique_id(boutique) {
 }
 
 function BindReview() {
- 
+  
     var Reviews = {};
     Reviews = GetAllReviews();
     var i = 0;
     $.each(Reviews, function (index, Records) {
-
+       
         MultiImageBind(Records, i);
         i = i + 1;
     })
@@ -60,7 +60,7 @@ function BindReview() {
     
 }
 function GetAllReviews() {
-
+   
     var ds = {};
     var table = {};
     var data = {};

@@ -349,13 +349,18 @@ function BindTiles()
 }
 function BindAppUsersTile()
 {
-    debugger;
+   
     var table = {};
     var User = new Object();
     table = GetAllUsers(User);
-    debugger;
+    
     $("#UsersBadge").text(table.length);
     BindAppUserTable(table);
+    
+    $('html, body').animate({
+        scrollTop: $("#AppUserRowFluid").offset().top
+    }, 2000);
+    
 }
 function GetAllUsers(User) {
     var ds = {};
@@ -366,20 +371,23 @@ function GetAllUsers(User) {
     return table;
 }
 function BindAppUserTable(Records) {
-
-    // $("#boutiqueTable").find(".odd").remove();
     debugger;
     var AppUserDiv = document.getElementById('AppUserRowFluid');
     AppUserDiv.style.boxShadow = '0 3px 20px #FFC40D';
     $("tbody#AppUserrows tr").remove();
 
     $.each(Records, function (index, Records) {
-        //<td class="center">' + records.gender + '</td><td class="center">' + records.timing + '</td><td class="center">' + records.workingdays + '</td>
         var html = '<tr class="AppUserrows" UserID="' + Records.UserID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#AppUserTable").append(html);
     })
     
 }
-
+function BindBoutiqueTile() {
+    var BoutiqueDiv = document.getElementById('BoutiqueRowFluid');
+    BoutiqueDiv.style.boxShadow = '0 3px 20px #00A300';
+    $('html, body').animate({
+        scrollTop: $("#BoutiqueRowFluid").offset().top
+    }, 2000);
+}
 
 

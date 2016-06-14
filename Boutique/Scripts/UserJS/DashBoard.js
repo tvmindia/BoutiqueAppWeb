@@ -80,7 +80,7 @@ function BindUserTile()
     var User = new Object();
     table = GetAllUsers(User);
     $("#UsersBadge").text(table.length);
-    BindDashBoardListUser(table);
+    //BindDashBoardListUser(table);
 }
 
 function BindTotalProducts()
@@ -126,23 +126,23 @@ function BindTotalProducts()
 
 
 //listbox
-  //function binddashboardlistuser(records)
-  //{
+  function Binddashboardlistuser(records)
+  {
    
-  //    $.each(records, function (index, records) {
-  //        var createddate = null;
-  //        if (records.createddate != null) {
-  //            var src = records.createddate;//"/date(1302589032000+0400)/";
-  //            src = src.replace(/[^0-9 +]/g, '');
-  //            var createddate = new date(parseint(src));
-  //        }
+      $.each(records, function (index, records) {
+          var createddate = null;
+          if (records.createddate != null) {
+              var src = records.createddate;//"/date(1302589032000+0400)/";
+              src = src.replace(/[^0-9 +]/g, '');
+              var createddate = new date(parseint(src));
+          }
           
 
-  //     //   var create = new date(records.createddate);
-  //        var html = '<li class="yellow" userid="' + records.userid + '"><a href="#"></a><span class="break"></span><strong>name:</strong> ' + records.name + '<br/><strong>since:</strong> <br/>' + createddate + '<strong>mobile:</strong> ' + records.mobile + '</li>';
-  //        $(".lastusers").append(html);
-  //    })
-  //}
+       //   var create = new date(records.createddate);
+          var html = '<li class="yellow" userid="' + records.userid + '"><a href="#"></a><span class="break"></span><strong>name:</strong> ' + records.name + '<br/><strong>since:</strong> <br/>' + createddate + '<strong>mobile:</strong> ' + records.mobile + '</li>';
+          $(".lastusers").append(html);
+      })
+  }
 
   function BindDashBoardProducts(Records)
   {

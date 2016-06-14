@@ -34,7 +34,7 @@
 					<p>App Users</p>
 					<span class="badge" id="UsersBadge">0</span>
 				</a>
-                    <a class="quick-button metro green span2">
+                    <a class="quick-button metro green span2" onclick="BindBoutiqueTile()">
 					<i class="icon-tags"></i>
 					<p>Boutiques</p>
 				</a>
@@ -109,7 +109,7 @@
             
          <div class="row-fluid">		
                         
-			    	<div class="box span12">
+			    	<div class="box span12" id="BoutiqueRowFluid">
                      
           
 					<div class="box-header">
