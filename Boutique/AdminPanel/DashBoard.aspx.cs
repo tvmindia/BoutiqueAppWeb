@@ -157,7 +157,7 @@ namespace Boutique.AdminPanel
         #region SelectAllNotifications
 
          [System.Web.Services.WebMethod]
-         public static string SelectAllNotificationsByBoutiqueID(Notification NotifyObj)
+         public static string GetCountTiles(Notification NotifyObj)
          {
 
              DAL.Security.UserAuthendication UA;

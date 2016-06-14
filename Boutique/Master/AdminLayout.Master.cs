@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Boutique.DAL;
+using System.Web.UI.HtmlControls;
 
 namespace Boutique.Master
 {
@@ -30,7 +31,26 @@ namespace Boutique.Master
 
             }
             AccessCheck();
+            
+            if(UA.Role==Const.SuperAdministrator)
+            {
+                Boutiques BouObj = new Boutiques();
+                LITiquesList.Visible = true;
+                DataSet ds = new DataSet();
+                ds=BouObj.GetAllBoutiques();
+                foreach(DataRow dr in ds.Tables[0].Rows)
+                {
+                    HtmlGenericControl liElement = new HtmlGenericControl("li");
+                    BoutiqueList.Controls.Add(liElement);
+                    HtmlGenericControl anchor = new HtmlGenericControl("a");
+                    anchor.Attributes.Add("href", "../AdminPanel/SaDashBoard.aspx?Session="+dr["BoutiqueID"].ToString());
+                    anchor.InnerHtml = ""+dr["Name"].ToString();
+                    liElement.Controls.Add(anchor);
 
+                }
+                
+                
+            }
 
         }
 
