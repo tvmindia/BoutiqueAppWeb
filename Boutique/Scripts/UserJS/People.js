@@ -407,6 +407,7 @@
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
                     AutoScrollToAlertBox();
+                    $('.AddUser').hide();
                 }
                 if (result != "1") {
                     BindAsyncUserTable();
@@ -775,6 +776,8 @@ function clearManagerControls() {
     $('.alert-success').hide();
     $('.alert-error').hide();
     $(".AddManager").text("Save");
+    $("#hdfAdminID").val('');
+    $("#hdfUserID").val('');
 }
 
 function clearAdminControls() {
@@ -790,9 +793,12 @@ function clearAdminControls() {
     $('.alert-success').hide();
     $('.alert-error').hide();
     $(".AddAdmin").text("Save");
+    $("#hdfAdminID").val('');
+    $("#hdfUserID").val('');
 }
 
 function clearUserControls() {
+
     $("#txtName").val('');
     $("#txtMobile").val('');
     $("#txtEmail").val('');
@@ -800,9 +806,11 @@ function clearUserControls() {
     $("#dateDOB").val('');
     $("#dateAnniversary").val('');
     $('#rowfluidDiv').hide();
+    $("#hdfUserID").val('');
     $('.alert-success').hide();
     $('.alert-error').hide();
     $(".AddUser").text("Save");
+    $('.AddUser').hide();
 }
 
 function clearDesignerControls() {
