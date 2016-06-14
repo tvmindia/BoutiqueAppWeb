@@ -98,6 +98,27 @@
                                 </div>
                             </div>
 
+                            
+                          <%--  <div class="control-group">
+								<label class="control-label" for="selectError3">Boutiques</label>
+								<div class="controls">
+								   <select class="ddlboutiques" id="idDdlboutiques">
+                                     <option></option>
+                                   </select>
+								</div>
+							  </div>--%>
+
+
+                               <div class="control-group">
+								<label class="control-label" for="Users">User</label>
+								<div class="controls">
+								  <select class="Users" >
+                                      <option></option>
+								  </select>
+								</div>
+							  </div>
+                   
+
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Order Description</label>
                                 <div class="controls">
@@ -213,12 +234,12 @@
 
                              <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
                        
-                               
+                               <thead>
                                             <tr>
                                   <th class="fullRow">Product</th>
                                     <th class="fullRow">Description</th>
                                                 </tr>
-                                           
+                                           </thead>
 
                                 <tbody id="OrderItemRows">
                                     
@@ -229,9 +250,12 @@
 
 
                 </div>
+
+                              <img  id="ImgProduct"/>
+
                               </div>
 
-
+                         
                           
 
 
@@ -343,5 +367,5 @@
     </div>
 
     <input type="hidden" id="hdfOrderID" />  
-
+      
 </asp:Content>

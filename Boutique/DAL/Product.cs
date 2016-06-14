@@ -1696,5 +1696,56 @@ namespace Boutique.DAL
         #endregion UpdateReviewIsModarate
         #endregion UpdateReviewTable
 
+
+        #region Get ImageID By ProductID
+        public string GetImageIDByProductID()
+        {
+            string ImageID = string.Empty;
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+
+            Guid _boutiqueid = Guid.Empty;
+            try
+            {
+                _boutiqueid = Guid.Parse(BoutiqueID);
+                if (_boutiqueid != Guid.Empty)
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetProductImageIDByProductID]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+
+                    object ImgIdObj = cmd.ExecuteScalar();
+                    if (ImgIdObj != null)
+                    {
+                        ImageID = ImgIdObj.ToString();
+
+                    }
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ImageID;
+        }
+        #endregion Get ImageID By ProductID
+
     }
 }

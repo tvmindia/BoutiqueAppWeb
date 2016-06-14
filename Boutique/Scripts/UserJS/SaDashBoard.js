@@ -19,7 +19,8 @@
 
  
     $(".edit").live({
-           click: function (e) {   
+        click: function (e) {
+            debugger;
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -30,8 +31,14 @@
                jsonResult = GetBoutiques(Boutique);
                if (jsonResult != undefined) {
                    BindBoutiqueTextBoxes(jsonResult);
-               }           
+               }
+               var EditDiv = document.getElementById('NewBoutiqueSpan');
+               EditDiv.style.boxShadow = '0 3px 20px #5BC0DE';
+               $('html, body').animate({
+                   scrollTop: $("#NewBoutiqueSpan").offset().top
+               }, 500);
                return false;
+               
            }
        })
 

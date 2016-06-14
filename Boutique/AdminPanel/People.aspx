@@ -3,30 +3,30 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <script>
-        function PassowrdEqualityCheck1() {
-            debugger;
-           // if (document.getElementById('txtAdminConPass').value != "")
-          //  {
-                if (document.getElementById('txtAdminPass').value != document.getElementById('txtAdminConPass').value) {
-                    document.getElementById('txtAdminConPass').className = "alert alert-error";
-                }
+        //function PassowrdEqualityCheck1() {
+        //    debugger;
+        //   // if (document.getElementById('txtAdminConPass').value != "")
+        //  //  {
+        //        if (document.getElementById('txtAdminPass').value != document.getElementById('txtAdminConPass').value) {
+        //            document.getElementById('txtAdminConPass').className = "alert alert-error";
+        //        }
 
-                else {
-                    document.getElementById('txtAdminConPass').className = "alert alert-success";
-                }
-           // }
-        }
-        function PassowrdEqualityCheck() {
-            debugger;
-            if (document.getElementById('txtManagerPass').value != document.getElementById('txtManagerConPass').value) {
-                document.getElementById('txtManagerConPass').className = "alert alert-error";
-            }
+        //        else {
+        //            document.getElementById('txtAdminConPass').className = "alert alert-success";
+        //        }
+        //   // }
+        //}
+        //function PassowrdEqualityCheck() {
+        //    debugger;
+        //    if (document.getElementById('txtManagerPass').value != document.getElementById('txtManagerConPass').value) {
+        //        document.getElementById('txtManagerConPass').className = "alert alert-error";
+        //    }
 
-            else {
-                document.getElementById('txtManagerConPass').className = "alert alert-success";
-            }
+        //    else {
+        //        document.getElementById('txtManagerConPass').className = "alert alert-success";
+        //    }
 
-        }
+        //}
 
     </script>
 
@@ -139,7 +139,7 @@
 							
 								  <label class="control-label" for="focusedInput">Confirm Password</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtAdminConPass" onkeyup="PassowrdEqualityCheck1();" type="password"/>
+								  <input class="input-large focused" id="txtAdminConPass" type="password" onkeyup="PassowrdEqualityCheck1();" />
 								</div>
 								</div>
 
@@ -155,7 +155,7 @@
 								<label class="control-label">Is Acitive?</label>
 								<div class="controls">
 								  <label class="checkbox inline">
-									<input type="checkbox" id="chkActiveAdmin" checked/>Yes</label>
+									<input type="checkbox" id="chkActiveAdmin" checked="checked"/>Yes</label>
 								
 								</div>
 							  </div>
@@ -387,7 +387,7 @@
                         </div>
                     </div>
 
-                    <div class="box-content" style="height: 250px; overflow: auto;">
+                    <div class="box-content" style="height: 438px; overflow: auto;">
                         <div class="form-horizontal">
 
                             <div class="control-group">
@@ -448,7 +448,7 @@
                             <%--<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                         </div>
                     </div>
-                    <div class="box-content TableLayout " style="height: 305px; overflow: auto;">
+                    <div class="box-content TableLayout " style="height: 490px; overflow: auto;">
                         <table class="table table-striped table-bordered  bootstrap-datatable" id="DesignerTable">
                             <thead id="Designthead">
                                 <tr>
@@ -584,7 +584,7 @@
                                     <th>Name</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
-                                    <th style="width: 105px;">Actions</th>
+                                    <th>Actions</th>
 
                                 </tr>
                             </thead>

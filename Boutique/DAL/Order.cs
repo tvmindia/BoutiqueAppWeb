@@ -38,6 +38,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string UserID
+        {
+            get;
+            set;
+        }
 
         public int OrderNo
         {
@@ -227,6 +232,56 @@ namespace Boutique.DAL
         }
         #endregion Get Order Details By OrderID
 
+        #region Get Order Details By userID
+        /// <summary>
+        /// To get details of order details of a customer
+        /// </summary>
+        /// <returns>Datatable</returns>
+        public DataTable GetOrderDetailsByUserID()
+        {
+            if (BoutiqueID == string.Empty)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (UserID == string.Empty)
+            {
+                throw new Exception("UserID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataTable dt = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetOrdersByUserID]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.UserID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+        }
+        #endregion
+
         #region Edit Order Details
         /// <summary>
         /// to edit the order details by orderid
@@ -254,6 +309,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateOrderByOrderID]";
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar,-1).Value = OrderDescription;
 
@@ -327,6 +383,7 @@ namespace Boutique.DAL
                 cmd.CommandText = "[InsertOrder]";
 
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar, -1).Value = OrderDescription;
                 cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime).Value =  DateTime.Parse(OrderDate);
 
