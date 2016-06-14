@@ -15,14 +15,7 @@ namespace Boutique.AdminPanel
     {
         private Boutiques boutiqueObj = new Boutiques();
         Users userObj = new Users();
-        //
-        //FlyCnDAL.Security.UserAuthendication UA_Changed = new FlyCnDAL.Security.UserAuthendication(UA.userName, projectNo,false);
-        //                        if (UA_Changed.ValidUser)
-        //                        {
-        //                            Session[Const.LoginSession]= UA_Changed;                                  
-                                   
-        //                        } 
-        //
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if ((Request.QueryString["Session"] != null) && (Request.QueryString["Session"] != ""))
@@ -36,6 +29,7 @@ namespace Boutique.AdminPanel
                 {
                     Session[Const.LoginSession] = UA_Changed;
                 }
+                Response.Redirect("../AdminPanel/SaDashBoard.aspx");
             }
 
         }
