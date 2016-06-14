@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -26,6 +27,30 @@ namespace Boutique.AdminPanel
         #region Methods
 
         //---------* Order 
+
+
+        //#region Get User Details
+
+        //private string GetUserDetails()
+        //{
+        //    DataTable dt = tokenObj.GetSearchBoxData(); //Function call to get  Search BoxData
+        //    StringBuilder output = new StringBuilder();
+        //    output.Append("[");
+        //    for (int i = 0; i < dt.Rows.Count; ++i)
+        //    {
+        //        output.Append("\"" + dt.Rows[i]["Name"].ToString() + "🏠📰 " + dt.Rows[i]["FileNumber"].ToString() + "|" + dt.Rows[i]["Address"].ToString() + "|" + dt.Rows[i]["Phone"].ToString() + "\"");
+        //        if (i != (dt.Rows.Count - 1))
+        //        {
+        //            output.Append(",");
+        //        }
+        //    }
+        //    output.Append("]");
+        //    return output.ToString();
+        //}
+        //#endregion Get User Details
+
+
+
 
         #region Get All Orders
         /// <summary>
@@ -273,7 +298,6 @@ namespace Boutique.AdminPanel
         //--------END OrderItems
 
 
-
         #region Get Product Image
         /// <summary>
         /// To get product image by productID
@@ -303,7 +327,6 @@ namespace Boutique.AdminPanel
 
         }
         #endregion Get Product Image
-
 
 
 
