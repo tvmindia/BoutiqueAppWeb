@@ -262,10 +262,10 @@ $("document").ready(function (e) {
                     //Order.ForecastDeliveryDate = $("#txtPlannedDeliveryDate").val()
 
                 }
-                //else {
-                //    alert("Please select planned delivery date.");
-                //    return;
-                //}
+                else {
+                    alert("Please select planned delivery date.");
+                    return;
+                }
 
             }
 
@@ -460,6 +460,14 @@ $("document").ready(function (e) {
 
 
                     editedrow.remove();
+
+                    var rowCount = $("#OrderItemTable > tbody > tr").length;
+
+
+                    if (rowCount == 0) {
+                        $('#OrderItemTable').hide();
+                    }
+
                 }
 
 
