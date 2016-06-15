@@ -18,7 +18,7 @@ namespace Boutique.ImageHandler
         {
           Designers designerObj = new Designers();
           Boutiques boutiqueObj = new Boutiques();
-            Thread.Sleep(1000);
+          Thread.Sleep(1000);
             context.Response.ContentType = "text/plain";
             try
             {
@@ -138,6 +138,36 @@ namespace Boutique.ImageHandler
                 }
                 if (context.Request.Form.GetValues("BoutiqueId") != null)
                 {
+                    string[] boutiqueID = context.Request.Form.GetValues("BoutiqueId");
+                    string[] appVersion = context.Request.Form.GetValues("AppVersion");
+                    string[] name = context.Request.Form.GetValues("Name");
+                    string[] startedYear = context.Request.Form.GetValues("StartYear");
+                    string[] aboutUs = context.Request.Form.GetValues("AboutUs");
+                    string[] caption = context.Request.Form.GetValues("Caption");
+                    string[] location = context.Request.Form.GetValues("Location");
+                    string[] address = context.Request.Form.GetValues("Address");
+                    string[] phone = context.Request.Form.GetValues("Phone");
+                    string[] timing = context.Request.Form.GetValues("Timing");
+                    string[] workingDays = context.Request.Form.GetValues("WorkingDays");
+                    string[] fbLink = context.Request.Form.GetValues("FbLink");
+                    string[] instagramLink = context.Request.Form.GetValues("InstagramLink");
+                    string[] longitude = context.Request.Form.GetValues("Longitude");
+                    string[] latitude = context.Request.Form.GetValues("Latitude");
+                    boutiqueObj.BoutiqueID = boutiqueID[0];
+                    boutiqueObj.AppVersion = appVersion[0];
+                    boutiqueObj.Name = name[0];
+                    boutiqueObj.StartedYear = startedYear[0];
+                    boutiqueObj.AboutUs = aboutUs[0];
+                    boutiqueObj.Caption = caption[0];
+                    boutiqueObj.Location = location[0];
+                    boutiqueObj.Address = address[0];
+                    boutiqueObj.Phone = phone[0];
+                    boutiqueObj.Timing = timing[0];
+                    boutiqueObj.WorkingDays = workingDays[0];
+                    boutiqueObj.FbLink = fbLink[0];
+                    boutiqueObj.InstagramLink = instagramLink[0];
+                    boutiqueObj.Longitude = longitude[0];
+                    boutiqueObj.Latitude = latitude[0];
                   result= boutiqueObj.EditBoutique().ToString();
                 }
                 //  database record update logic here  ()

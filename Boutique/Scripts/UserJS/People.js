@@ -185,7 +185,7 @@
             $('.alert-success').hide();
             $('.alert-error').hide();
             if (confirm("You are about to Delete Category!..")) {
-                debugger;
+             
                 var jsonResult = {};
                 editedrow = $(this).closest('tr');
                 var Admin = new Object();

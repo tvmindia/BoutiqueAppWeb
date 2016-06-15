@@ -189,6 +189,7 @@
 //------------Notification details table------------
 
 function BindNotificationsTable() {
+    debugger;
     var jsonResult = {};
     var Notify = new Object();
     jsonResult = GetAllNotifications(Notify);
@@ -198,10 +199,11 @@ function BindNotificationsTable() {
 }
 
 function GetAllNotifications(Notify) {
+    debugger;
     var ds = {};
     var table = {};
     var data = "{'NotifyObj':" + JSON.stringify(Notify) + "}";
-    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetAllNotifications");
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/SelectAllNotificationsByBoutiqueID");
     table = JSON.parse(ds.d);
     return table;
 }

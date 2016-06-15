@@ -89,8 +89,8 @@
 
     //addboutique
     $(".AddBoutique").live({
-        click: function (e) {// submit button click
-            debugger;
+        click: function (e)
+        {// submit button click         
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -111,43 +111,56 @@
             Boutique.FbLink = $("#txtFacebooklink").val();
             Boutique.InstagramLink = $("#txtInstatgramlink").val();
             Boutique.Latitude = $("#txtLatitude").val();
-            Boutique.Longitude = $("#txtLongitude").val();
-            debugger;
-            //result = InsertBoutique(Boutique);
-            if (boutiquid != null) {
+            Boutique.Longitude = $("#txtLongitude").val();        
+
+            if (boutiquid != null)
+            {
                 var imgresult = "";
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
                 var imagefile, logoFile, img;
 
-                if ((imagefile = $('#imageUpload')[0].files[0])) {
+                if ((imagefile = $('#imageUpload')[0].files[0])!=undefined)
+                {
                     img = new Image();
-                    img.onload = function () {
+                    img.onload = function ()
+                    {
                         var image = $('#imageUpload')[0].files[0];
                        
 
                         formData.append('imagefiles', image, imagefile.name);
                         formData.append('', boutiquid);
-                        //  formData.append('file', $('#productfile')[0].files[0]);
-                        //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
+                      
                     };
-                    if ((logoFile = $('#logoUpload')[0].files[0])) {
-                        img = new Image();
-                        img.onload = function () {
-                            var logo = $('#logoUpload')[0].files[0];
-
-
-                            formData.append('logofiles', logo, logoFile.name);
-                            formData.append('', boutiquid);
-                            //  formData.append('file', $('#productfile')[0].files[0]);
-                            //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
-                        };
-                        debugger;
-                        var image = $('#imageUpload')[0].files[0];
-                        
+                }
+                else
+                {
+                    imagefile = "";
+                    //formData.append('imagefiles', imagefile, imagefile.name);
+                    formData.append('imagefiles', imagefile.name);
+                }
+                if ((logoFile = $('#logoUpload')[0].files[0])!=undefined)
+                {
+                    img = new Image();
+                    img.onload = function ()
+                    {
                         var logo = $('#logoUpload')[0].files[0];
-                        formData.append('imagefiles', image, imagefile.name);
+
+
                         formData.append('logofiles', logo, logoFile.name);
+                        formData.append('', boutiquid);
+                       
+                    };
+                }
+                else
+                {
+                    logoFile = "";
+                    //formData.append('logofiles', logo, logoFile.name);
+
+                    formData.append('logofiles',logoFile.name);
+                }
+              
+             
                         formData.append('Longitude', Boutique.Longitude);
                         formData.append('Latitude',Boutique.Latitude);
                         formData.append('BoutiqueId', boutiquid);
@@ -163,10 +176,8 @@
                         formData.append('WorkingDays',Boutique.WorkingDays);
                         formData.append('FbLink',Boutique.FbLink);
                         formData.append('InstagramLink',Boutique.InstagramLink);
-                    }
-                    postBlobAjax(formData, "../AdminPanel/People.aspx/InsertImage&Logo");
-                }
-                
+                   
+                        postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
             }
         }
     })
@@ -298,13 +309,6 @@ function handleLogoSelect(evt) {
 }
 
 
-
-
-
-
-
-
-
 function InsertBoutique(Boutique) {
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/NewBoutique");
@@ -341,7 +345,7 @@ function listToAray(fullString, separator) {
 
 function BindBoutiqueTextBoxes(Records) {
     //$.each(Records, function (index, Records) {
-   
+ 
     var coordinates = Records[0].latlong;
     var arrayCoordinates = listToAray(coordinates, ',');
    
@@ -450,15 +454,15 @@ function clearOwnerControls() {
 
 function BindOwnerTable(Records) {
  
-  
+ 
    
     var checkrole = $('#hdfRole').val(); 
-    if (checkrole == 'Manager')
-    {
-        $("tbody#ownerrows tr").remove();
-      $("thead#thead tr").remove();
+    if (checkrole == Roles.Manager)
+    {     
+        $("thead#Ownerthead tr").remove();
       var html = ' <tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr> ';
-      $("#thead").append(html);
+      $("#Ownerthead").append(html);
+      $("tbody#ownerrows tr").remove();
         $.each(Records, function (index,Records)
         {          
             var html = '<tr userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + (Records.Email == null ? "-": Records.Email) + '</td></tr>';
@@ -466,11 +470,7 @@ function BindOwnerTable(Records) {
         })
     }
     else
-    {
-        $("tbody#ownerrows tr").remove();
-       $("thead#thead tr").remove();
-       var html = ' <tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr> ';
-       $("#thead").append(html);
+    {     
         $.each(Records, function (index,Records)
         {
         var html = '<tr userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info owneredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger ownerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
@@ -481,6 +481,7 @@ function BindOwnerTable(Records) {
 }
 
 function BindAsyncOwnerTable() {
+
     var jsonResult = {};
     var Owner = new Object();
     jsonResult = GetAllOwners(Owner);
@@ -490,7 +491,7 @@ function BindAsyncOwnerTable() {
 }
 
 function InsertOwner(Owners) {
-    debugger;
+  
     var data = "{'ownersObj':" + JSON.stringify(Owners) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/InsertOwner");
     var table = {};

@@ -84,6 +84,7 @@
     <Content Include="CSS\bootstrap.css" />
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\chosen.css" />
+    <Content Include="CSS\Common.css" />
     <Content Include="CSS\CustomCSS\Category.css" />
     <Content Include="CSS\CustomCSS\DashBoard.css" />
     <Content Include="CSS\CustomCSS\Login.css" />
@@ -110,6 +111,7 @@
     <Content Include="CSS\jasny-bootstrap.css.map" />
     <Content Include="CSS\jasny-bootstrap.min.css" />
     <Content Include="CSS\jquery-ui-1.8.21.custom.css" />
+    <Content Include="CSS\jquery.alerts.css" />
     <Content Include="CSS\jquery.cleditor.css" />
     <Content Include="CSS\jquery.gritter.css" />
     <Content Include="CSS\jquery.iphone.toggle.css" />
@@ -267,6 +269,8 @@
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
     <Content Include="Scripts\CommonJS\Common.js" />
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
+    <Content Include="Scripts\jquery.alerts.js" />
+    <Content Include="Scripts\jquery.ui.draggable.js" />
     <Content Include="Scripts\jquery.viewbox.min.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
