@@ -35,7 +35,8 @@
         "bPaginate": false,             //removing paging
     });
     $('#UsersTable').DataTable({
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,            //removing paging        
+        "fnPageChange":"next"   
     });
 
 
