@@ -262,10 +262,10 @@ $("document").ready(function (e) {
                     //Order.ForecastDeliveryDate = $("#txtPlannedDeliveryDate").val()
 
                 }
-                //else {
-                //    alert("Please select planned delivery date.");
-                //    return;
-                //}
+                else {
+                    alert("Please select planned delivery date.");
+                    return;
+                }
 
             }
 
@@ -289,10 +289,19 @@ $("document").ready(function (e) {
                 Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
             }
 
+            if ($(".Users").val() != "") //check if  change for product items (Header only)
+            {
+                Order.UserID = $(".Users").val();
+            }
+            else {
+                alert("Please select a user");
+            }
+
+
             Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
             Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
             Order.OrderDescription = $("#txtDescription").val();
-            Order.UserID = $(".Users").val();
+           
 
             result = InsertOrUpdateOrder(Order);
 
@@ -460,6 +469,14 @@ $("document").ready(function (e) {
 
 
                     editedrow.remove();
+
+                    var rowCount = $("#OrderItemTable > tbody > tr").length;
+
+
+                    if (rowCount == 0) {
+                        $('#OrderItemTable').hide();
+                    }
+
                 }
 
 
