@@ -342,6 +342,14 @@
 							</ul>
 						</li>
 						<!-- end: User Dropdown -->
+                        <li class="dropdown" runat="server" id="LITiquesList" visible="false">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><label>Tiques</label>
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" runat="server" id="BoutiqueList">
+								
+							</ul>
+						</li>
 					</ul>
 				</div>
 				<!-- end: Header Menu -->

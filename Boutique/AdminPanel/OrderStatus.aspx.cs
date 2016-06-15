@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -25,7 +26,72 @@ namespace Boutique.AdminPanel
     {
         #region Methods
 
-//---------* Order 
+        //---------* Order 
+
+
+        #region Get All UserID and Name
+        [System.Web.Services.WebMethod]
+        public static string GetAllUserIDandName(Users usrObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                usrObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+
+                ds = usrObj.GetAllUserIDAndName();
+
+                //Converting to Json
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion Get All UserID and Name
+
+
+
+        //#region Get User Details
+
+        //private string GetUserDetails()
+        //{
+        //    DataTable dt = tokenObj.GetSearchBoxData(); //Function call to get  Search BoxData
+        //    StringBuilder output = new StringBuilder();
+        //    output.Append("[");
+        //    for (int i = 0; i < dt.Rows.Count; ++i)
+        //    {
+        //        output.Append("\"" + dt.Rows[i]["Name"].ToString() + "🏠📰 " + dt.Rows[i]["FileNumber"].ToString() + "|" + dt.Rows[i]["Address"].ToString() + "|" + dt.Rows[i]["Phone"].ToString() + "\"");
+        //        if (i != (dt.Rows.Count - 1))
+        //        {
+        //            output.Append(",");
+        //        }
+        //    }
+        //    output.Append("]");
+        //    return output.ToString();
+        //}
+        //#endregion Get User Details
+
+
+
 
         #region Get All Orders
         /// <summary>
@@ -138,12 +204,13 @@ namespace Boutique.AdminPanel
                     status = OrderObj.InsertOrder().ToString();
                     status = OrderObj.OrderID.ToString();
 
-                    return jsSerializer.Serialize(status);
+                   
 
                 }
                 else
                 {
                     status = OrderObj.UpdateOrderDetailsByOrderID().ToString();
+                    status = OrderObj.OrderID.ToString();
                 }
 
             }
@@ -154,13 +221,16 @@ namespace Boutique.AdminPanel
             finally
             {
             }
-            return status;
+
+            return jsSerializer.Serialize(status);
+
+            //return status;
         }
         #endregion Add OR Edit Order
 
-//--------END Order
+        //--------END Order
 
-//-------* Order Items
+        //-------* Order Items
 
         #region Get Order Details By OrderID
         /// <summary>
@@ -175,7 +245,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            
+
             string jsonResult = null;
             DataSet ds = null;
             ds = OrderObj.GetOrderItemsByOrderID();
@@ -215,7 +285,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            
+
             string status = null;
             try
             {
@@ -249,7 +319,7 @@ namespace Boutique.AdminPanel
 
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-         
+
             OrderObj.CreatedBy = UA.userName;
             OrderObj.UpdatedBy = UA.userName;
 
@@ -257,7 +327,7 @@ namespace Boutique.AdminPanel
             try
             {
                 status = OrderObj.InsertOrderItem().ToString();
-               
+
             }
             catch (Exception)
             {
@@ -271,6 +341,40 @@ namespace Boutique.AdminPanel
         #endregion Add  Order Item
 
         //--------END OrderItems
+
+
+        #region Get Product Image
+        /// <summary>
+        /// To get product image by productID
+        /// </summary>
+        /// <param name="OrderID"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetProductImageByProductID(Order OrderObj)
+        {
+            Product prdctObj = new Product();
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            OrderObj.BoutiqueID = UA.BoutiqueID;
+            prdctObj.BoutiqueID = UA.BoutiqueID;
+            prdctObj.ProductID = OrderObj.ProductID;
+            string ImgID = prdctObj.GetImageIDByProductID();
+
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            return jsSerializer.Serialize(ImgID);
+
+
+        }
+        #endregion Get Product Image
+
+
+
 
         #endregion Methods
 

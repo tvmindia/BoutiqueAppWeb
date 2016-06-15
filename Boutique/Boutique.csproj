@@ -176,6 +176,7 @@
     <Content Include="Home\js\skel.min.js" />
     <Content Include="Home\mailTemplates\ContactUs.html" />
     <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
+    <Content Include="img\ajax-loader.gif" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
     <Content Include="img\avatar.jpg" />

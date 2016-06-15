@@ -304,8 +304,6 @@ namespace Boutique.AdminPanel
             return status;
         }
         #endregion DeleteDesigner
-
-        //
         
         #region AddUserAdminRoles
 
@@ -338,7 +336,12 @@ namespace Boutique.AdminPanel
             }
             else
             {
+                AdminObj.UpdatedBy = UA.userName;
+                AdminObj.UpdatedDate = DateTime.Now;
+
                 status = AdminObj.EditUser(AdminObj.UserID).ToString();
+                status = AdminObj.EditAdmin().ToString(); //update Admin table  
+               
             }
 
            
@@ -386,7 +389,7 @@ namespace Boutique.AdminPanel
         #endregion GetAdministrator
 
         //manager and admins role removes here
-         #region DeleteAdminManager
+        #region DeleteAdminManager
         [System.Web.Services.WebMethod]
         public static string DeleteAdmin(Users AdminObj)  
         {
@@ -397,7 +400,7 @@ namespace Boutique.AdminPanel
             string status = null;
             try
             {
-                //status = AdminObj.DeleteAdmin().ToString();
+                status = AdminObj.DeleteAdmin().ToString();
             }
             catch (Exception)
             {
@@ -409,9 +412,7 @@ namespace Boutique.AdminPanel
             }
             return status;
         }
-        #endregion DeleteDesigner
-
-        //
+        #endregion DeleteDesigner       
 
         #region GetAministratorDetailsbyUserID
         [System.Web.Services.WebMethod]
@@ -481,7 +482,10 @@ namespace Boutique.AdminPanel
             }
             else
             {
+                ManagerObj.UpdatedBy = UA.userName;
+                ManagerObj.UpdatedDate = DateTime.Now;
                 status = ManagerObj.EditUser(ManagerObj.UserID).ToString();
+                status = ManagerObj.EditAdmin().ToString(); //update Admin table  
             }
 
 

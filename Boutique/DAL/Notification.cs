@@ -195,7 +195,7 @@ namespace Boutique.DAL
                     cmd = new SqlCommand();
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[SelectAllNotificationsByBoutiqueID]";
+                    cmd.CommandText = "[GetCountForTiles]";
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = boutiqueid;
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;

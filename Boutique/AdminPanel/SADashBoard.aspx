@@ -28,15 +28,15 @@
              <div class="row-fluid" style="height:3px;"></div>
 
 			 <div class="row-fluid">	
-
-				<a class="quick-button metro yellow span2" onclick="BindAppUsersTile()">
+                 
+                    <a class="quick-button metro green span2" onclick="BindBoutique()">
+					<i class="icon-tags"></i>
+					<p>Boutiques</p>
+				</a>
+				<a class="quick-button metro yellow span2" onclick="BindUsers()">
 					<i class="icon-group"></i>
 					<p>App Users</p>
 					<span class="badge" id="UsersBadge">0</span>
-				</a>
-                    <a class="quick-button metro green span2" onclick="BindBoutiqueTile()">
-					<i class="icon-tags"></i>
-					<p>Boutiques</p>
 				</a>
 				<a class="quick-button metro red span2">
 					<i class="icon-comments-alt"></i>
@@ -49,7 +49,7 @@
 					<span class="badge">13</span>
 				</a>
 				
-				<a class="quick-button metro pink span2">
+				<a class="quick-button metro pink span2" onclick="BindException()">
 					<i class="icon-ambulance"></i>
 					<p>Exceptions</p>
 					<span class="badge" id="Exception">0</span>
@@ -67,7 +67,7 @@
 
             </div>
 
-         <div class="row-fluid" >		
+         <div class="row-fluid" id="AppUserMainDiv">		
                         
 			    	<div class="box span12" id="AppUserRowFluid">
                      
@@ -90,7 +90,7 @@
                                   <%--<th>Gender</th>
                                   <th>Timing</th>
 								  <th style="width:105px;">Working Days</th>--%>
-								  <th style="width:85px;">Actions</th>
+								  <%--<th style="width:85px;">Actions</th>--%>
 							  </tr>
 						  </thead>   
 						  <tbody id="AppUserrows">
@@ -107,7 +107,7 @@
          
                  </div>
             
-         <div class="row-fluid">		
+         <div class="row-fluid" id="AllBoutiquesMainDiv">		
                         
 			    	<div class="box span12" id="BoutiqueRowFluid">
                      
@@ -147,7 +147,7 @@
          
                  </div>
 
-         <div class="row-fluid" >		
+         <div class="row-fluid" id="ExceptionMainDiv">		
                         
 			    	<div class="box span12" id="ExcepyionRowFluid">
                      
@@ -168,7 +168,7 @@
                                   <th>Error Description</th>
 								  <th>Date</th>
                                   
-								  <th style="width:85px;">Actions</th>
+								 <%-- <th style="width:85px;">Actions</th>--%>
 							  </tr>
 						  </thead>   
 						  <tbody id="Exceptionrows">
@@ -225,7 +225,7 @@
                      <div class="row-fluid">
                      
 
-        	     	<div class="box span6">
+        	     	<div class="box span6" id="NewBoutiqueSpan">
                       
 				       <div class="box-header">
 						<h2>  New Boutique</h2>
@@ -347,7 +347,7 @@
                      
                          
                     
-                    <div class="box span6">
+                    <div class="box span6" id="NewAdminSpan">
                         
                         <div class="box-header">
 						<h2> New Administrator</h2>

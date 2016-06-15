@@ -47,6 +47,13 @@ namespace Boutique.UIClasses
                 return "../AdminPanel/DashBoard.aspx";
             }
         }
+        public string NoItems
+        {
+            get
+            {
+                return "No items";
+            }
+        }
 
 
         #region PageUrl

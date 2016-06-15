@@ -15,8 +15,6 @@ namespace Boutique.DAL
 
         #endregion Global Variables
 
-
-
         #region properties
         public string UserID
         {
@@ -508,11 +506,11 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
                 cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
-                cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary); 
-                cmd.Parameters.Add("@LoyaltyCardNo", SqlDbType.BigInt).Value = LoyaltyCardNo;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
-                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                if (DOB != "" && DOB != null) cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
+                if (Anniversary != null && Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
+                //cmd.Parameters.Add("@LoyaltyCardNo", SqlDbType.BigInt).Value = LoyaltyCardNo;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = UpdatedDate;
                 cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
 
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
@@ -700,6 +698,60 @@ namespace Boutique.DAL
 
         #endregion AddAdmin
 
+        #region EditAdmin
+        public Int16 EditAdmin()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+
+
+
+            try
+            {
+
+
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateAdmins]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                cmd.Parameters.Add("@AdminID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(AdminID);
+                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = CryptObj.Encrypt(Password);
+                // cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+
+
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value =UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = UpdatedDate;
+
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+
+
+        }
+        #endregion EditAdmin
+
         #region DeleteAdmin
         /// <summary>
         /// Delete user
@@ -794,7 +846,6 @@ namespace Boutique.DAL
         }
         #endregion SelectAdminsbyuserId
 
-
         #region AddRole
 
         public Int16 AddNewRole()
@@ -849,6 +900,52 @@ namespace Boutique.DAL
         }
         
         #endregion AddRole
+
+        #region Get All UserID And Name
+        public DataSet GetAllUserIDAndName()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllUserIDAndName]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+
+        #endregion Get All UserID And Name
 
         #endregion Methods
     }
