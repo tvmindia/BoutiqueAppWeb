@@ -131,11 +131,11 @@
                                  <div class="row-fluid">
 				              <%--  <div class="box span12">--%>
 				              <%--   	<div class="box-header">
-						<h2> Products</h2>
-						<div class="box-icon">
+						                <h2> Products</h2>
+						                <div class="box-icon">
 							
-						</div>
-					</div>--%>
+					                  	</div>
+				                     	</div>--%>
 				    <%--	<div class="box-content">--%>
 						<div class="imageholder" style="width:100%;" id="productimagehold">
 									
@@ -156,15 +156,16 @@
 		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
 		                   </div>
                           </div>
-                       
-                          <a class="LoadMore"  style="position:absolute;align-content:center;bottom:0;" href="#">Load More Products</></a>
-                        
-					
+                         
 				    	</div>
 					<%--</div>--%>
 				<%--</div><!--/span-->--%>
-			
-			</div>
+			                  <div style="text-align:center;width:100%;position:absolute;bottom:0;">
+                              <a class="LoadMore" id="load_more_button" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                        </div>
+			                 </div>
+                               
                                  <%--Gallery--%>
 
 							</div>

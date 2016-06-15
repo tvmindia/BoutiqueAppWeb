@@ -11,9 +11,9 @@
         closeButton: true,
         closeOnSideClick: true,
     });
-
+   // $("#productimagehold").find(".masonry-thumb").remove();
     //document.getElementById('imageupGallery').style.display = 'block';
-    BindAllProductImages();//binds masanory gallery with product under current boutique
+    BindAllProductImages(0);//binds masanory gallery with product under current boutique
     var galerydiv = $('.imageholder');
     var $mars = $('.imageholder').masonry(
             {
@@ -291,7 +291,7 @@
 
                 if (result.status == "1") {
 
-                    BindAllProductImages();
+                    BindAllProductImages(0);
                     clearProductControls();
 
                     $('#rowfluidDiv').show();
@@ -385,6 +385,19 @@
         vb.trigger('viewbox.open');
 
     });
+
+
+    $("#load_more_button").click(function (e) { //user clicks on button
+        $(this).hide(); //hide load more button on click
+        $('.animation_image').show(); //show loading image
+        BindAllProductImages(20);
+        $('.animation_image').hide();
+        $(this).show();
+
+    });
+
+
+
 });//end of document.ready
 
 
@@ -437,16 +450,24 @@ function BindProductTextBoxes(thisobject) {
     $('.DeleteProduct').show();
 }
 
-function BindAllProductImages() {
+function BindAllProductImages(Pagevalue) {
     var imagedivholder = $('#productimagehold');
     var Product = new Object();
+    if (Pagevalue != undefined)
+    {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else
+    {
+        Product.Paginationvalue = "";
+    }
+    
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllProductsImageDetailsunderBoutique(Product);
-    $("#productimagehold").find(".masonry-thumb").remove();
+    //$("#productimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
-
         var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
     + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
     + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'

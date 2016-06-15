@@ -85,7 +85,7 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public Int64 Paginationvalue
+        public Int64? Paginationvalue
         {
             get;
             set;

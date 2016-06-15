@@ -166,17 +166,13 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
-
-
-
-            
                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
               if (UA.BoutiqueID != "")
               {
                   productObj.BoutiqueID = UA.BoutiqueID;
                   DataSet ds = null;
                   ds = productObj.GetAllProductMainImagesDetails();
-              
+           
                   List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                   Dictionary<string, object> childRow;
 
