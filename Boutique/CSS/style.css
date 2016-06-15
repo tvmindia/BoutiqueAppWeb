@@ -1984,18 +1984,20 @@ fieldset[disabled] .btn-link:focus {
 
 .tab-menu.nav-tabs > li > a:hover {
 	border: none;
+    background-color:#2d89ef;
 	
 }
 
 .tab-menu.nav-tabs > .active > a  {
-  	color: #555555;
+  	color: #fff;
   	cursor: default;
-  	background-color: #fff;
+    
+  	background-color:#2d89ef;
   	border: none;
 }
 
 .tab-menu.nav-tabs > .active > a:hover { 
-	background-color: #fafafa;
+	background-color: #2d89ef;
 }
 
 /* Masonry Gallery

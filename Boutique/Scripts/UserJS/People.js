@@ -26,17 +26,32 @@
     BindAsyncManagersTable();
 
     $('#AdministratorTable').DataTable({
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"           //removing paging
     });
     $('#ManagerTable').DataTable({
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"            //removing paging
     });
     $('#DesignerTable').DataTable({
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"          //removing paging
     });
     $('#UsersTable').DataTable({
-        "bPaginate": true,            //removing paging        
-        "fnPageChange":"next"   
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],        
+
+        "fnPageChange": "next"
     });
 
 
@@ -534,7 +549,6 @@ function handleFileSelect(evt) {
 //---getting data as json-----//
 
 
-
 function BindAsyncUserTable() {
     var jsonResult = {};
     var Users = new Object();
@@ -854,6 +868,7 @@ function GetDesigner(Designer) {
     table = JSON.parse(ds.d);
     return table;
 }
+
 function GetDesignerImage(DesignerID, ImageIsNull) {
 
     if ($("#list").find(".thumb") != null || $("#list").find(".thumb") != 'undefined') {

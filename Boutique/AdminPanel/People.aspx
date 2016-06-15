@@ -2,6 +2,12 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
+    <style>
+        .paginate_disabled_previous {
+        padding-right:5px !important;
+        }
+
+    </style>
     <script>
         //function PassowrdEqualityCheck1() {
         //    debugger;
@@ -87,10 +93,10 @@
                 </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li class="active"> <span class="glyphicon glyphicon-king"></span><a href="#Administrators">Administrators</a></li>
-                        <li><a href="#Managers">Managers</a></li>
-                        <li><a href="#Designers">Designers</a></li>
-                        <li><a href="#Users">Users</a></li>
+                        <li class="icon active"> <a href="#Administrators">♔ Administrators</a></li>
+                        <li><a href="#Managers"><span class="icon-user"></span> Managers</a></li>
+                        <li><a href="#Designers">♝ Designers</a></li>
+                        <li><a href="#Users"> <span class="icon-group"></span>Users</a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -107,7 +113,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 438px;">
+                                        <div class="box-content" style="height: 448px;">
                                             <div class="form-horizontal">
                                                 <%--<fieldset>--%>
 
@@ -186,7 +192,7 @@
                                             <div class="box-icon">
                                             </div>
                                         </div>
-                                        <div class="box-content TableLayout" style="height: 490px; overflow: auto;">
+                                        <div class="box-content TableLayout" style="height: 500px; overflow: auto;">
                                             <table class="table table-striped table-bordered  bootstrap-datatable" id="AdministratorTable">
                                                 <thead id="thead">
                                                     <tr>
@@ -225,7 +231,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 438px;">
+                                        <div class="box-content" style="height: 448px;">
                                             <div class="form-horizontal">
                                                 <%--<fieldset>--%>
 
@@ -305,7 +311,7 @@
                                             <div class="box-icon">
                                             </div>
                                         </div>
-                                        <div class="box-content TableLayout" style="height: 490px; overflow: auto;">
+                                        <div class="box-content TableLayout" style="height: 500px; overflow: auto;">
                                             <table class="table table-striped table-bordered  bootstrap-datatable" id="ManagerTable">
                                                 <thead id="managerthead">
                                                     <tr>
@@ -344,7 +350,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 438px; overflow: auto;">
+                                        <div class="box-content" style="height: 448px; overflow: auto;">
                                             <div class="form-horizontal">
 
                                                 <div class="control-group">
@@ -402,7 +408,7 @@
                                             <div class="box-icon">
                                             </div>
                                         </div>
-                                        <div class="box-content TableLayout " style="height: 490px; overflow: auto;">
+                                        <div class="box-content TableLayout " style="height: 500px; overflow: auto;">
                                             <table class="table table-striped table-bordered  bootstrap-datatable" id="DesignerTable">
                                                 <thead id="Designthead">
                                                     <tr>
@@ -436,7 +442,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 438px; overflow: auto;">
+                                        <div class="box-content" style="height: 448px; overflow: auto;">
                                             <div class="form-horizontal">
                                                 <%--<fieldset>--%>
                                                 <div class="control-group">
@@ -508,7 +514,7 @@
                                             <div class="box-icon">
                                             </div>
                                         </div>
-                                        <div class="box-content TableLayout" style="height: 490px; overflow: auto;">
+                                        <div class="box-content TableLayout" style="height: 500px; overflow: auto;">
                                             <table class="table table-striped table-bordered  bootstrap-datatable" id="UsersTable">
                                                 <thead id="Usersthead">
                                                     <tr>
