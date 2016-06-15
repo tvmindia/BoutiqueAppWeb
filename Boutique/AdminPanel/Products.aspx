@@ -122,7 +122,7 @@
 							<li><a href="#outstock">Out of Stocks</a></li>
 						</ul>
 						 
-						<div id="myTabContent" class="tab-content">
+						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
 							<div class="tab-pane active" id="newproducts">
 								<p>
 									New Products
@@ -160,7 +160,7 @@
 				    	</div>
 					<%--</div>--%>
 				<%--</div><!--/span-->--%>
-			                  <div style="text-align:center;width:100%;position:absolute;bottom:0;">
+			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
                               <a class="LoadMore" id="load_more_button" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>

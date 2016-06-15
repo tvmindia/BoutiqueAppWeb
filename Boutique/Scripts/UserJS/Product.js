@@ -394,6 +394,14 @@
         $('.animation_image').hide();
         $(this).show();
 
+
+        var $mars = $('.imageholder').masonry(
+           {
+               itemSelector: '.masonry-thumb',
+               isInitLayout: false
+           });
+        $mars.masonry('layout');
+
     });
 
 
