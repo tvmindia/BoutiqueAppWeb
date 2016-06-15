@@ -289,10 +289,19 @@ $("document").ready(function (e) {
                 Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
             }
 
+            if ($(".Users").val() != "") //check if  change for product items (Header only)
+            {
+                Order.UserID = $(".Users").val();
+            }
+            else {
+                alert("Please select a user");
+            }
+
+
             Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
             Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
             Order.OrderDescription = $("#txtDescription").val();
-            Order.UserID = $(".Users").val();
+           
 
             result = InsertOrUpdateOrder(Order);
 
