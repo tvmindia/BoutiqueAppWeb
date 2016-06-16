@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-                <div class="box-content " style="height: 100%; overflow: auto;">
+                <div class="box-content " style="height: 100%; overflow:auto;">
 
                        <div class="span12" >
 
@@ -194,7 +194,7 @@
                            <%--<h2 id="NewItem" style="text-align:center">New Item</h2>--%>   
                      
                 
-                     <div class="span12">
+                     <div class="span12" style="width:90%">
 
                          <div class="span3">
 
@@ -213,14 +213,14 @@
                              <div class="control-group">
 								<label class="control-label" for="Remarks">Remarks</label>
 								<div class="controls">
-								   <textarea class="form-control"  style="width:477px" rows="1" id="txtRemarks"></textarea>
+								   <textarea class="form-control"  style="width:100%" rows="1" id="txtRemarks"></textarea>
                                       
 								</div>
 							  </div>
 
                          </div>
 
-                         <div class="span3">
+                         <div class="span2">
 
                              <div style="height:32px"></div>
 
@@ -233,7 +233,7 @@
                           </div>
                        
 
-                    <div class="span12">
+                    <div class="span12" style="width:90%">
 
                          <div class="span3">
 
