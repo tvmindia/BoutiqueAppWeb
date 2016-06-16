@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
 
-    parent.document.title = "People";
+    parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION
 
@@ -155,7 +155,7 @@
                editedrow = $(this).closest('tr');
                var e = editedrow.attr("userID");
                var p = "User";
-               DeleteCustomAlert('Are You Sure?', e, p);                 
+               DeleteCustomAlert('Are You Sure?', e, p);
                return false;
            }
        })
