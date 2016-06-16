@@ -14,6 +14,9 @@
     background-color:#B8D0E8;
     
 }
+ .paginate_disabled_previous {
+        padding-right:5px !important;
+        }
 
 .headerStyle
 {

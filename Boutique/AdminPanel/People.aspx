@@ -1,13 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="People.aspx.cs" Inherits="Boutique.AdminPanel.People" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
-    <style>
-        .paginate_disabled_previous {
-        padding-right:5px !important;
-        }
-
-    </style>
+   
     <script>
         //function PassowrdEqualityCheck1() {
         //    debugger;

@@ -1,5 +1,6 @@
 ﻿$("document").ready(function (e) {
     var boutique_id = getboutiqueID();
+    parent.document.title = Pages.ProductsReview;
     BindReview();
 });//end of document.ready
 

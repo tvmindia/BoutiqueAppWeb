@@ -43,7 +43,7 @@
 	     <%--Alert boxes --%>
        
               <%--  Notification grid--%>
-             	<div class="row-fluid sortable">	
+             	<div class="row-fluid ">	
 				<div class="box span12">
 					<div class="box-header">
 						<h2>Current Notifications</h2>
@@ -51,8 +51,8 @@
 							
 						</div>
 					</div>
-					<div class="box-content TableLayout" >
-                        <%--class="table table-bordered table-striped table-condensed"--%>
+					<div class="box-content " style="height: 500px; overflow:auto; " >
+                         
 						<table class="table table-striped table-bordered  bootstrap-datatable" id="NotificationTable">
 							  <thead id="notificationthead">
 								  <tr>
@@ -67,20 +67,10 @@
 								                  
 							  </tbody>
 						 </table>  
-						<%-- <div class="pagination pagination-centered">
-						  <ul>
-							<li><a href="#">Prev</a></li>
-							<li class="active">
-							  <a href="#">1</a>
-							</li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">Next</a></li>
-						  </ul>
-						</div>  --%>   
+					 
 					</div>
 				</div><!--/span-->
+
 			</div><!--/row-->
 
               <%--  Notification grid--%>

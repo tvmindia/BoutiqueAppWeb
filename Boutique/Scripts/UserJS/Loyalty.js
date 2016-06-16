@@ -1,10 +1,14 @@
 ﻿$("document").ready(function (e) {
-    parent.document.title = "Loyalty";
+    parent.document.title = Pages.Loyalty
     
     //Customers table--------
     BindUserTable();
     $('#UsersTable').DataTable( {
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"
     });
 
     //Loyalty settings loading------
@@ -339,21 +343,4 @@ function getJsonData(data, page) {
         jsonResult = data;
     });
     return jsonResult;
-}
-function ConvertJsonToDate(jsonDate) {
-    if (jsonDate != null) {
-        var dateString = jsonDate.substr(6);
-        var currentTime = new Date(parseInt(dateString));
-        var month = currentTime.getMonth();
-        var day = currentTime.getDate();
-        var year = currentTime.getFullYear();
-        var monthNames = [
-                      "Jan", "Feb", "Mar",
-                      "Apr", "May", "Jun", "Jul",
-                      "Aug", "Sep", "Oct",
-                      "Nov", "Dec"
-        ];
-        var result = day + '-' + monthNames[month] + '-' + year;
-        return result;
-    }
 }

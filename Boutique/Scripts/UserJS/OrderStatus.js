@@ -1,6 +1,6 @@
 ﻿
 $("document").ready(function (e) {
-
+    debugger;
 
     var rowCount = $('#OrderItemTable OrderItemRows tr').length;
 
@@ -10,7 +10,7 @@ $("document").ready(function (e) {
 
 
 
-    parent.document.title = "Order Status";
+    parent.document.title = Pages.OrderStatus;
 
     $(".products").select2({
         placeholder: "Choose related product",
@@ -29,8 +29,10 @@ $("document").ready(function (e) {
     BindOrdersTable();
 
     $('#OrdersTable').DataTable({
-        "bPaginate": false         //Search and Paging implementation
-        //"aaSorting": [[0, 'desc']],      //Sort with Date coloumn
+        "bPaginate": false  ,       //Search and Paging implementation
+        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+        
+
     });
 
     //------------ BINDING  Order details table------------//
@@ -62,15 +64,23 @@ $("document").ready(function (e) {
     //---* Creation of html table from received JSON *--//
 
     function FillOrderTable(Records) {
-        $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
-        $.each(Records, function (index, Records) {
 
+        debugger;
+
+
+        $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
+
+        $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
+
+        $.each(Records, function (index, Records) {
+            debugger
             //var html = '<tr UserID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center">' + (Records.OrderDate != null ? Records.OrderDate : "-") + '</td><td class="center">' + (Records.ForecastDeliveryDate != null ? Records.ForecastDeliveryDate : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger OrderDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
 
             var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
 
             $("#OrdersTable").append(html);
         });
+       
 
     }
 
@@ -105,6 +115,11 @@ $("document").ready(function (e) {
             jsonResult = GetOrderDetailsByOrderID(Order);
             if (jsonResult != undefined) {
                 BindControlsWithOrderDetails(jsonResult);
+
+                $(".products").select2("val", "");
+                document.getElementById('ImgProduct').src = "";
+                $("#txtRemarks").val("");
+
                 BindOrderItemsList(Order);
             }
             //Scroll page
@@ -167,9 +182,14 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
-            debugger;
-            AddToList();
+            if ($(".products").val() != "") //check if  product is selected
+            {
 
+                AddToList();
+            }
+            else {
+                alert("Please select an item ");
+            }
         }
     })
 
@@ -244,6 +264,13 @@ $("document").ready(function (e) {
             var Order = new Object();
 
 
+            if ($(".Users").val() != "") //check if  change for product items (Header only)
+            {
+                Order.UserID = $(".Users").val();
+            }
+            else {
+                alert("Please select a user");
+            }
 
             //------* Create New Order Case *---------//
 
@@ -289,14 +316,6 @@ $("document").ready(function (e) {
                 Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
             }
 
-            if ($(".Users").val() != "") //check if  change for product items (Header only)
-            {
-                Order.UserID = $(".Users").val();
-            }
-            else {
-                alert("Please select a user");
-            }
-
 
             Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
             Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
@@ -318,6 +337,7 @@ $("document").ready(function (e) {
 
                         var productId = $(this).attr("ProductID");
                         var productname = $(this).find('td').eq(0).text();
+
                         var remarks = $(this).find('td').eq(1).text();
 
                             Order.ProductID = productId;
@@ -328,11 +348,23 @@ $("document").ready(function (e) {
                     result = InsertOrderItem(Order);
 
                        
+
                     })
 
                     if (result != "") {
+
+                        $("#OrdersTable").dataTable().fnClearTable();
+                        $("#OrdersTable").dataTable().fnDestroy();
+                      
                         BindOrdersTable(); //To bind table with new or modified entry
 
+                        $('#OrdersTable').DataTable({
+                            "bPaginate": false,       //Search and Paging implementation
+                            "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+
+
+                        });
+                       
                         BindOrderItemsList(Order);
 
                         $(".products").select2("val", "");
@@ -362,7 +394,25 @@ $("document").ready(function (e) {
                 }
                 else {
 
+                    $("#OrdersTable").dataTable().fnClearTable();
+                    $("#OrdersTable").dataTable().fnDestroy();
+
+                    //$('#OrdersTable').DataTable({
+                    //    "bPaginate": true,       //Search and Paging implementation
+                    //    "aaSorting": [[0, 'desc']],      //Sort with Date coloumn
+                    //});
+
+                   
                     BindOrdersTable(); //To bind table with new or modified entry
+
+                    $('#OrdersTable').DataTable({
+                        "bPaginate": false,       //Search and Paging implementation
+                        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+
+
+                    });
+
+
 
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
@@ -533,9 +583,6 @@ function AddToList() {
 
 }
 
-
-
-
 //------------Insert order item--------------------
 function InsertOrderItem(Order) {
     var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
@@ -545,7 +592,6 @@ function InsertOrderItem(Order) {
     return table;
 }
 
-
 //------------Insert order--------------------
 function InsertOrUpdateOrder(Order) {
     var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
@@ -554,8 +600,6 @@ function InsertOrUpdateOrder(Order) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
-
-
 
 //------------- * Functions Work On Edit Click *-----------------//
 
@@ -635,11 +679,7 @@ function FillOrderItemsTable(Records) {
     //var rowExistsOrNot = false;
     $('#OrderItemTable').show();
 
-
-
     $("tbody#OrderItemRows tr").remove();            //Remove all existing rows for refreshing
-
-
 
     $("#OrderItemTable > tbody").empty();          //Remove all existing rows for refreshing
 
@@ -649,7 +689,7 @@ function FillOrderItemsTable(Records) {
 
         //rowExistsOrNot = true;
 
-
+       
 
         var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
