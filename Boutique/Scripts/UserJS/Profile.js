@@ -41,25 +41,10 @@
               $('#rowfluidDiv').hide();
               $('.alert-success').hide();
               $('.alert-error').hide();
-              var jsonResult = {};
               editedrow = $(this).closest('tr');
-              var Owners = new Object();
-             
-              Owners.UserID = editedrow.attr("userID");
-              Owners.OwnerID = editedrow.attr("ownerID");
-              jsonResult = DeleteOwner(Owners);
-              if (jsonResult != undefined) {
-                  if (jsonResult == "1") {
-                      BindAsyncOwnerTable()//Gridbind
-                      $('#rowfluidDiv').show();
-                      $('.alert-success').show();
-                  }
-                  if (jsonResult != "1") {
-                      BindAsyncOwnerTable()//Gridbind
-                      $('#rowfluidDiv').show();
-                      $('.alert-error').show();
-                  }
-              }
+              var e = editedrow.attr("userID");
+              var p = editedrow.attr("ownerID");
+              DeleteCustomAlert('Are You Sure?', e, p);
               return false;
           }
       })
@@ -229,6 +214,26 @@
 
 });//end of document.ready
 
+function DeleteItem(e,p)
+{
+    var jsonResult = {};
+    var Owners = new Object();
+    Owners.UserID = e;
+    Owners.OwnerID = p;
+    jsonResult = DeleteOwner(Owners);
+    if (jsonResult != undefined) {
+        if (jsonResult == "1") {
+            BindAsyncOwnerTable()//Gridbind
+            $('#rowfluidDiv').show();
+            $('.alert-success').show();
+        }
+        if (jsonResult != "1") {
+            BindAsyncOwnerTable()//Gridbind
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+        }
+    }
+}
 
 function botiqueProfileLoad()
 {
