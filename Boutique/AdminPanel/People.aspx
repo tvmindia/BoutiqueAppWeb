@@ -103,7 +103,7 @@
                                 <div class="box-content">
                                     <div id="NewAdmin" runat="server" class="box span6">
                                         <div class="box-header">
-                                            <h2>New Administrator</h2>
+                                            <h2 id="editAdminLabel">New Administrator</h2>
                                             <div class="box-icon">
                                             </div>
                                         </div>
@@ -221,7 +221,7 @@
                                 <div class="box-content">
                                     <div id="NewManager" runat="server" class="box span6">
                                         <div class="box-header">
-                                            <h2>New Manager</h2>
+                                            <h2 id="editManagerLabel">New Manager</h2>
                                             <div class="box-icon">
                                             </div>
                                         </div>
@@ -340,7 +340,7 @@
 
                                     <div id="NewDesigner" runat="server" class="box span6">
                                         <div class="box-header">
-                                            <h2>New Designer</h2>
+                                            <h2 id="editDesignerLabel">New Designer</h2>
                                             <div class="box-icon">
                                             </div>
                                         </div>
