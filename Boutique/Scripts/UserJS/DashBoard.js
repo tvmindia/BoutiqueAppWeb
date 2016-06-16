@@ -236,8 +236,25 @@ function BindAllTiles()
   function BindAllImages() {
       debugger;
       var imageids = {};
-      imageids = GetAllProductImages();
+      var ProductLog = {};
+     
       
+      imageids = GetAllProductImages();
+      //if(imageids.length<9)
+      //    for (var i = imageids.length; i < 10; i++)
+      //    {
+      //        imageids[i].Name = "";
+      //        imageids[i].prductcounts = "";
+      //        imageids[i].ProductNo = "";
+              
+      //    //var Details = new Object();
+      //    //Details.name = imageids[i].Name;
+      //    //Details.y = imageids[i].prductcounts;
+      //    //Details.id = imageids[i].ProductNo;
+      //    //Details.Imagenum = i;
+      //    //ProductLog[i] = Details;
+      //   //ProductLog[i] = { name: imageids[i].Name, y: imageids[i].prductcounts, id: imageids[i].ProductNo, Imagenum: i }
+      //}
       var options = {
 
           chart: {
