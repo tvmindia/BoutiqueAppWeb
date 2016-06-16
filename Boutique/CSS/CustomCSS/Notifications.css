@@ -9,6 +9,9 @@
      /* shadow effect material design*/
 }
 
+  .paginate_disabled_previous {
+        padding-right:5px !important;
+        }
 
 .InnerFooter
 {

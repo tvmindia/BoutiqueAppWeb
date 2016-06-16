@@ -565,6 +565,7 @@ namespace Boutique.WebServices
                 order.BoutiqueID = boutiqueID;
                 order.UserID = userID;
                 dt = order.GetOrderDetailsByUserID();
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
             }
             catch (Exception ex)
             {

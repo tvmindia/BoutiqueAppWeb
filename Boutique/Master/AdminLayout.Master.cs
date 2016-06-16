@@ -24,7 +24,8 @@ namespace Boutique.Master
         {
 
             UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
-
+            lblBoutiqueName.Text = UA.Boutique;
+            lblBoutique.Text = UA.Boutique;
             if (UA == null)
             {
                 Response.Redirect(Const.LoginPageURL);

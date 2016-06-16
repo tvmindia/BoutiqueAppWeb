@@ -17,8 +17,19 @@ var Roles = {
 
 var Pages = {
     People: "People",
-    Boutique: "Boutique Profile",
-    SaDashboard: "SA Dashboard"
+    Profile: "Boutique Profile",
+    SaDashboard: "SA DashBoard",
+    Dashboard: "DashBoard",
+    Category: "Category",
+    Login: "Login",
+    Loyalty: "Loyalty",
+    Notifications: "Notifications",
+    LoyaltySettings: "Loyalty Settings",
+    OrderStatus: "Order Status",
+    Products: "Products",
+    ProductsReview:"Products Review"
+
+
 }
 
 var Messages = {

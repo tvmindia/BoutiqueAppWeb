@@ -1,10 +1,14 @@
 ﻿$("document").ready(function (e) {
-    parent.document.title = "Loyalty";
+    parent.document.title = Pages.Loyalty
     
     //Customers table--------
     BindUserTable();
     $('#UsersTable').DataTable( {
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"
     });
 
     //Loyalty settings loading------

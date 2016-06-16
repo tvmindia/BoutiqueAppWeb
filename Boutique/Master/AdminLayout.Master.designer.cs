@@ -22,6 +22,15 @@ namespace Boutique.Master {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
         
         /// <summary>
+        /// lblBoutique control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBoutique;
+        
+        /// <summary>
         /// LITiquesList control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace Boutique.Master {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl LITiquesList;
+        
+        /// <summary>
+        /// lblBoutiqueName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBoutiqueName;
         
         /// <summary>
         /// BoutiqueList control.

@@ -274,6 +274,7 @@
     <Content Include="Scripts\jquery.viewbox.min.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\UserJS\AdminLayout.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
     <Content Include="Scripts\UserJS\Login.js" />

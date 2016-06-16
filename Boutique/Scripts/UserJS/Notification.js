@@ -1,17 +1,20 @@
 ﻿$("document").ready(function (e) {
 
-    parent.document.title = "Notifications";
-   
+    parent.document.title = Pages.Notifications;  
 
-    debugger;
+ 
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
-    debugger;
+ 
 
     BindNotificationsTable();
 
     $('#NotificationTable').DataTable({
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"
     });
 
     //Edit region drop downs-------------
