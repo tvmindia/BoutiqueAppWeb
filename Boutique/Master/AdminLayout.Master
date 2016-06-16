@@ -64,7 +64,13 @@
     <link href="../CSS/style-responsive.css" rel="stylesheet" />
     <link href="../CSS/googleapiFont.css" rel="stylesheet" />
 	<!-- end: CSS -->
+    <style>
+        li #LITiquesList.dropdown
+        {
+            display:inline!important;
 
+        }
+    </style>
 </head>
 <body>
   <div class="navbar">
@@ -76,7 +82,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="index.html"><span>Boutique</span></a>
+				<a class="brand" href="#"><span><asp:Label runat="server" ID="lblBoutique" Text="Bou"></asp:Label></span></a>
 								
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">
@@ -328,7 +334,7 @@
 							</a>
 						</li>
                          <li class="dropdown" runat="server" id="LITiquesList" visible="false">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="halflings-icon white user"></i><label>Tiques</label>
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="halflings-icon white"></i>&nbsp;<asp:Label runat="server" ID="lblBoutiqueName" Text=""></asp:Label>
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu" runat="server" id="BoutiqueList">
