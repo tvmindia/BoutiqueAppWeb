@@ -2,12 +2,12 @@
 $("document").ready(function (e) {
     debugger;
 
-    var rowCount = $('#OrderItemTable OrderItemRows tr').length;
+    var rowCount = $("#OrderItemTable > tbody > tr").length;
 
     if (rowCount == 0) {
         $('#OrderItemTable').hide();
     }
-
+    alert(rowCount);
 
 
     parent.document.title = Pages.OrderStatus;
@@ -65,15 +65,12 @@ $("document").ready(function (e) {
 
     function FillOrderTable(Records) {
 
-        debugger;
-
-
         $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
 
         $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
 
         $.each(Records, function (index, Records) {
-            debugger
+          
             //var html = '<tr UserID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center">' + (Records.OrderDate != null ? Records.OrderDate : "-") + '</td><td class="center">' + (Records.ForecastDeliveryDate != null ? Records.ForecastDeliveryDate : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger OrderDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
 
             var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
@@ -147,8 +144,8 @@ $("document").ready(function (e) {
 
                 AddToList();
 
-                $(".products").select2("val", "");
-                $("#txtRemarks").val("");
+                //$(".products").select2("val", "");
+                //$("#txtRemarks").val("");
                 $('#ImgProduct').hide();
             }
             else {
@@ -288,7 +285,7 @@ $("document").ready(function (e) {
                 if ($(".products").val() != "") //check if  change for product items (Header only)
                 {
                     $('#OrderItemTable tbody tr').each(function () {
-                        debugger;
+                        
 
                         var productId = $(this).attr("ProductID");
                         var productname = $(this).find('td').eq(0).text();
@@ -305,7 +302,7 @@ $("document").ready(function (e) {
                     })
 
                     if (result != "") {
-
+                        debugger;
                         //Clearing datatables befoe binding with new 
 
                         $("#OrdersTable").dataTable().fnClearTable();
@@ -323,6 +320,8 @@ $("document").ready(function (e) {
 
                         $(".products").select2("val", "");
                         $("#txtRemarks").val("");
+
+                        $("#ImgProduct").show();
 
                         document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
 
@@ -349,6 +348,7 @@ $("document").ready(function (e) {
                        
                 }
                 else {
+                    debugger;
 
                     $("#OrdersTable").dataTable().fnClearTable();
                     $("#OrdersTable").dataTable().fnDestroy();
