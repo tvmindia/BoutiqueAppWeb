@@ -103,7 +103,7 @@
 
                <div class="box span12">
 					<div class="box-header">
-						<h2>New Category</h2>
+						<h2 id="editLabel">New Category</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
@@ -137,7 +137,7 @@
                 				
 
                           <a class="btn btn-primary AddCategory" href="#">Save</></a>
-							
+						 <a class="btn btn-primary ModifyProduct" href="#"><i class="halflings-icon th"></i>Save</></a>
                            <a class="btn CancelCategory">Cancel</a>
 						
                      </footer> 
