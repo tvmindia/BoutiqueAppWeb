@@ -442,7 +442,8 @@ function BindOwnerTextBoxes(Records) {
         $("#hdfOwnerID").val(Records.OwnerID);
         $("#hdfUserID").val(Records.UserID);
     })
-    $(".AddOwner").text("Modify");
+    $(".AddOwner").text("Save");
+    $("#editLabel").text("Edit Owner");
 }
 
 function clearOwnerControls() {
@@ -459,6 +460,7 @@ function clearOwnerControls() {
     $("#txtProfile").val('');
     $("#hdfOwnerID").val('');
     $(".AddOwner").text("Save");
+    $("#editLabel").text("New Owner");
 } 
 
 function BindOwnerTable(Records) {

@@ -203,7 +203,7 @@
                     <%--</fieldset>--%>
                 </div>
                 <footer id="footer" runat="server" class="InnerFooter">
-                    <a class="btn btn-primary AddBoutique" href="#">Modify</></a>
+                    <a class="btn btn-primary AddBoutique" href="#">Save</></a>
                     <a class="btn CancelClear">Cancel</a>
                 </footer>
             </div>
@@ -226,7 +226,7 @@
 
                 <div id="NewOwner" runat="server" class="box span6">
                     <div class="box-header">
-                        <h2>New Owner</h2>
+                        <h2 id="editLabel">New Owner</h2>
                         <div class="box-icon">
                             <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>--%>
                             <%-- <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>--%>
