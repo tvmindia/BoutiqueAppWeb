@@ -340,8 +340,8 @@ function BindNotificationTextBoxes(Records) {
         $(".categories").val(Records.CategoryCode).trigger("change");
         $("#hdfNotificationID").val(Records.NotificationID);
     });
-    $(".submitDetails").text("Modify");
-    $("#editLabel").text("Modify Notification");
+    $(".submitDetails").text("Save");
+    $("#editLabel").text("Edit Notification");
 }
 function GetNotification(Notification) {
     var ds = {};
@@ -360,38 +360,4 @@ function DeleteNotification(Notification)
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
-}
-//---getting data as json-----//
-function getJsonData(data, page) {
-    var jsonResult = {};
-    var req = $.ajax({
-        type: "post",
-        url: page,
-        data: data,
-        delay: 3,
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-
-    }).done(function (data) {
-        jsonResult = data;
-    });
-    return jsonResult;
-}
-function ConvertJsonToDate(jsonDate) {
-    if (jsonDate != null) {
-        var dateString = jsonDate.substr(6);
-        var currentTime = new Date(parseInt(dateString));
-        var month = currentTime.getMonth() ;
-        var day = currentTime.getDate();
-        var year = currentTime.getFullYear();
-        var monthNames = [
-                      "Jan", "Feb", "Mar",
-                      "Apr", "May", "Jun", "Jul",
-                      "Aug", "Sep", "Oct",
-                      "Nov", "Dec"
-        ];       
-        var result = day + '-' + monthNames[month] + '-' + year;
-        return result;
-    }
 }

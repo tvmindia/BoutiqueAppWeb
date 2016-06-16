@@ -4,11 +4,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <link href="../CSS/jquery.alerts.css" rel="stylesheet" />
      <link href="../CSS/CustomCSS/Category.css" rel="stylesheet" />
-    <link href="../CSS/Common.css" rel="stylesheet" />
-    
-     <script src="../Scripts/UserJS/Category.js"></script>
+    <link href="../CSS/Common.css" rel="stylesheet" /> 
     <script src="../Scripts/CommonJS/Common.js"></script>
-    
+      <script src="../Scripts/UserJS/Category.js"></script>
   
      <div id="content" class="span10">
         

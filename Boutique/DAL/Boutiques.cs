@@ -317,8 +317,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Logo", SqlDbType.VarBinary).Value = boutiqueLogo;
                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = boutiqueImage;
 
-
-                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.TinyInt);
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }

@@ -417,9 +417,9 @@ function BindBoutique() {
     $('#AllBoutiquesMainDiv').show();
     var BoutiqueDiv = document.getElementById('BoutiqueRowFluid');
     BoutiqueDiv.style.boxShadow = '0 3px 20px #00A300';
-    $('html, body').animate({
-        scrollTop: $("#BoutiqueRowFluid").offset().top
-    }, 500);
+    //$('html, body').animate({
+    //    scrollTop: $("#BoutiqueRowFluid").offset().top
+    //}, 500);
 }
 function BindUsers()
 {
@@ -428,9 +428,9 @@ function BindUsers()
     $('#AppUserMainDiv').show();
     var AppUserDiv = document.getElementById('AppUserRowFluid');
     AppUserDiv.style.boxShadow = '0 3px 20px #FFC40D';
-    $('html, body').animate({
-        scrollTop: $("#AppUserRowFluid").offset().top
-    }, 500);
+    //$('html, body').animate({
+    //    scrollTop: $("#AppUserRowFluid").offset().top
+    //}, 500);
 }
 function BindException()
 {
@@ -439,9 +439,9 @@ function BindException()
     $('#ExceptionMainDiv').show();
     var AppUserDiv = document.getElementById('ExcepyionRowFluid');
     AppUserDiv.style.boxShadow = '0 3px 20px #9F00A7';
-    $('html, body').animate({
-        scrollTop: $("#ExcepyionRowFluid").offset().top
-    }, 500);
+    //$('html, body').animate({
+    //    scrollTop: $("#ExcepyionRowFluid").offset().top
+    //}, 500);
 }
 
 

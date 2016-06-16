@@ -16,7 +16,6 @@ namespace Boutique.Master
 {
     public partial class AdminLayout : System.Web.UI.MasterPage
     {
-
         DAL.Security.UserAuthendication UA;
         UIClasses.Const Const = new UIClasses.Const();
 
@@ -24,13 +23,15 @@ namespace Boutique.Master
         {
 
             UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
-            lblBoutiqueName.Text = UA.Boutique;
-            lblBoutique.Text = UA.Boutique;
+          
             if (UA == null)
             {
                 Response.Redirect(Const.LoginPageURL);
 
             }
+            lblBoutiqueName.Text = UA.Boutique;
+            lblBoutique.Text = UA.Boutique;
+            imgLogo.ImageUrl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + UA.BoutiqueID;
             AccessCheck();
             
             if(UA.Role==Const.SuperAdministrator)

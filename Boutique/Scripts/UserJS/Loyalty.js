@@ -327,20 +327,4 @@ function MakeTransaction(Loyalty) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
-//---getting data as json-----//
-function getJsonData(data, page) {
-    var jsonResult = {};
-    var req = $.ajax({
-        type: "post",
-        url: page,
-        data: data,
-        delay: 3,
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-
-    }).done(function (data) {
-        jsonResult = data;
-    });
-    return jsonResult;
-}
+ 
