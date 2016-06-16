@@ -20,7 +20,9 @@ $("document").ready(function (e) {
             editedrow = $(this).closest('tr');
             var e = editedrow.attr("CategoryID");
             var p = editedrow.attr("CategCode");
-            DeleteCustomAlert('Are You Sure?', e,p);
+            
+          DeleteCustomAlert('Are You Sure?', e, p);
+           
          
             return false;
         }

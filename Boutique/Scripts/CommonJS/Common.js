@@ -69,7 +69,8 @@ function postBlobAjax(formData, page) {
     });
 }
 
-function DeleteCustomAlert(txt, e, p) {
+function DeleteCustomAlert(txt, e, p) 
+    {
     d = document;
 
     if (d.getElementById("modalContainer")) return;
@@ -110,6 +111,7 @@ function DeleteCustomAlert(txt, e, p) {
 
     alertObj.style.display = "block";
 
+    $("#alertBox").animate({ top: '50px' });
 }
 
 function removeCustomAlert() {
@@ -148,7 +150,7 @@ function CustomAlert(txt) {
     btn.onclick = function () { removeCustomAlert(); return false; }
 
     alertObj.style.display = "block";
-
+    $("#alertBox").animate({ top: '50px' });
 }
 
 
