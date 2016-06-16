@@ -39,6 +39,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/People.css" rel="stylesheet" />
+      <link href="../CSS/Common.css" rel="stylesheet" />
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/People.js"></script>
     <div id="content" class="span10">

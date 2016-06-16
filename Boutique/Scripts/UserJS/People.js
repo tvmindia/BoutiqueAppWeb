@@ -152,60 +152,23 @@
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
-               if (confirm("You are about to Delete Category!..")) {
-                   var jsonResult = {};
-                   editedrow = $(this).closest('tr');
-                   var User = new Object();
-                   User.UserID = editedrow.attr("userID");
-                   jsonResult = DeleteUser(User);
-                   if (jsonResult != undefined) {
-                       if (jsonResult == "1") {
-                           BindAsyncUserTable()//Gridbind
-                           $('#rowfluidDiv').show();
-                           $('.alert-success').show();
-                           AutoScrollToAlertBox();
-                       }
-                       if (jsonResult != "1") {
-                           BindAsyncUserTable()//Gridbind
-                           $('#rowfluidDiv').show();
-                           $('.alert-error').show();
-                           AutoScrollToAlertBox();
-                       }
-                   }
-               }
+               editedrow = $(this).closest('tr');
+               var e = editedrow.attr("userID");
+               var p = "User";
+               DeleteCustomAlert('Are You Sure?', e, p);                 
                return false;
            }
        })
     $(".admindelete").live(
     {
         click: function (e) {
-
-
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
-            $('.alert-error').hide();
-            if (confirm("You are about to Delete Category!..")) {
-             
-                var jsonResult = {};
-                editedrow = $(this).closest('tr');
-                var Admin = new Object();
-                Admin.AdminID = editedrow.attr("AdminID");
-                jsonResult = DeleteAdmin(Admin);
-                if (jsonResult != undefined) {
-                    if (jsonResult == "1") {
-                        BindAsyncAdminsTable();//Gridbind
-                        $('#rowfluidDiv').show();
-                        $('.alert-success').show();
-                        AutoScrollToAlertBox();
-                    }
-                    if (jsonResult != "1") {
-                        BindAsyncAdminsTable();//Gridbind
-                        $('#rowfluidDiv').show();
-                        $('.alert-error').show();
-                        AutoScrollToAlertBox();
-                    }
-                }
-            }
+            $('.alert-error').hide();             
+            editedrow = $(this).closest('tr');
+            var e = editedrow.attr("AdminID");
+            var p = "Admin";
+            DeleteCustomAlert('Are You Sure?', e, p);
             return false;
         }
     })
@@ -215,27 +178,10 @@
           $('#rowfluidDiv').hide();
           $('.alert-success').hide();
           $('.alert-error').hide();
-          if (confirm("You are about to Delete Category!..")) {
-              var jsonResult = {};
-              editedrow = $(this).closest('tr');
-              var Manager = new Object();
-              Manager.AdminID = editedrow.attr("AdminID");
-              jsonResult = DeleteManager(Manager);
-              if (jsonResult != undefined) {
-                  if (jsonResult == "1") {
-                      BindAsyncManagersTable();//Gridbind
-                      $('#rowfluidDiv').show();
-                      $('.alert-success').show();
-                      AutoScrollToAlertBox();
-                  }
-                  if (jsonResult != "1") {
-                      BindAsyncManagersTable();//Gridbind
-                      $('#rowfluidDiv').show();
-                      $('.alert-error').show();
-                      AutoScrollToAlertBox();
-                  }
-              }
-          }
+          editedrow = $(this).closest('tr');
+          var e = editedrow.attr("AdminID");
+          var p = "Manager";
+          DeleteCustomAlert('Are You Sure?', e, p);
           return false;
       }
   })
@@ -246,28 +192,10 @@
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
-             if (confirm("You are about to Delete Category!..")) {
-                 var jsonResult = {};
-                 editedrow = $(this).closest('tr');
-                 var Designer = new Object();
-                 Designer.DesignerID = editedrow.attr("designerID");
-
-                 jsonResult = DeleteDesigner(Designer);
-                 if (jsonResult != undefined) {
-                     if (jsonResult == "1") {
-                         BindAsycDesignerTable()//Gridbind
-                         $('#rowfluidDiv').show();
-                         $('.alert-success').show();
-                         AutoScrollToAlertBox();
-                     }
-                     if (jsonResult != "1") {
-                         BindAsycDesignerTable()//Gridbind
-                         $('#rowfluidDiv').show();
-                         $('.alert-error').show();
-                         AutoScrollToAlertBox();
-                     }
-                 }
-             }
+             editedrow = $(this).closest('tr');
+             var e = editedrow.attr("designerID");
+             var p = "Designer";
+             DeleteCustomAlert('Are You Sure?', e, p);
              return false;
          }
      })
@@ -514,6 +442,93 @@
     })
 
 });//end of document.ready
+
+function DeleteItem(e,p)
+{
+    var jsonResult = {};
+    //editedrow = $(this).closest('tr');
+    if (p == "User")
+    {
+        var User = new Object();
+        User.UserID = e;
+        jsonResult = DeleteUser(User);
+        if (jsonResult != undefined) {
+            if (jsonResult == "1") {
+                BindAsyncUserTable()//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                AutoScrollToAlertBox();
+            }
+            if (jsonResult != "1") {
+                BindAsyncUserTable()//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                AutoScrollToAlertBox();
+            }
+        }
+    }
+    if(p=="Admin")
+    {
+        var Admin = new Object();
+        Admin.AdminID = e;
+        jsonResult = DeleteAdmin(Admin);
+        if (jsonResult != undefined) {
+            if (jsonResult == "1") {
+                BindAsyncAdminsTable();//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                AutoScrollToAlertBox();
+            }
+            if (jsonResult != "1") {
+                BindAsyncAdminsTable();//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                AutoScrollToAlertBox();
+            }
+        }
+    }
+    if(p=="Manager")
+    {
+        var Manager = new Object();
+        Manager.AdminID = e;
+        jsonResult = DeleteManager(Manager);
+        if (jsonResult != undefined) {
+            if (jsonResult == "1") {
+                BindAsyncManagersTable();//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                AutoScrollToAlertBox();
+            }
+            if (jsonResult != "1") {
+                BindAsyncManagersTable();//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                AutoScrollToAlertBox();
+            }
+        }
+    }
+    if(p=="Designer")
+    {
+        var Designer = new Object();
+        Designer.DesignerID = e;
+
+        jsonResult = DeleteDesigner(Designer);
+        if (jsonResult != undefined) {
+            if (jsonResult == "1") {
+                BindAsycDesignerTable()//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                AutoScrollToAlertBox();
+            }
+            if (jsonResult != "1") {
+                BindAsycDesignerTable()//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                AutoScrollToAlertBox();
+            }
+        }
+    }
+}
 
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
