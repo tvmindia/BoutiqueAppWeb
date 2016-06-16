@@ -1,5 +1,5 @@
 ﻿$("document").ready(function (e) {
-    parent.document.title = "Boutique Profile";
+    parent.document.title = Pages.Profile;
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.     
@@ -13,7 +13,11 @@
 
     BindAsyncOwnerTable();
     $('#OwnerTable').DataTable({
-        "bPaginate": false,             //Search and Paging implementation
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"                  //Search and Paging implementation
     });
 
     botiqueProfileLoad();
