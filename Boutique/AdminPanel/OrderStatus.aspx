@@ -46,7 +46,7 @@
         <div class="row-fluid sortable" id="Orders">
             <div class="box span12">
                 <div class="box-header">
-                    <h2>Orders</h2>
+                    <h2>Current Orders</h2>
                     <div class="box-icon">
                     </div>
                 </div>
@@ -196,11 +196,7 @@
                 
                      <div class="span12">
 
-                      
-
-                        <%--FIRST HALF--%>
-
-                        <div class="span6">
+                        <div class="span4">
 
                              <div class="control-group">
 								<label class="control-label" for="products">Product</label>
@@ -211,12 +207,6 @@
 								</div>
 							  </div>
                    
-
-                        <%-- END FIRST HALF--%>
-
-                        <%--SECOND HALF--%>
-
-                        
                              <div class="control-group">
 								<label class="control-label" for="Remarks">Remarks</label>
 								<div class="controls">
@@ -224,13 +214,25 @@
                                       
 								</div>
 							  </div>
-                           
-                        <%--END SECOND HALF--%>
 
-                    </div>
+                             <div class="control-group">
+                                   <a class="addToList">Add To List</a>
+                              </div>
+                       
+                         </div>
 
-                          <div class="span6">
-                          <div class="box-content TableLayout">
+                        <div class="span3">
+                          
+
+                              <img  id="ImgProduct" width="30%" height="30%"/>
+
+                              </div>
+
+                        </div>
+
+                    <div class="span12">
+
+                        <div class="box-content TableLayout">
 
                              <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
                        
@@ -251,15 +253,8 @@
 
                 </div>
 
-                              <img  id="ImgProduct"/>
+                    </div>
 
-                              </div>
-
-                         
-                          
-
-
-                          </div>
 
                       </div>
 

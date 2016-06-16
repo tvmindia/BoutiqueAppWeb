@@ -85,6 +85,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public Int64? Paginationvalue
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -1315,8 +1320,55 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[GetAllProductImageMainDetailsByBoutiqueid]";
-                 
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
+
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                return ds;
+            }
+            #endregion GetAllProductMainImagesDetails
+
+            #region GetAllOutOfStockProductMainImagesDetails
+            public DataSet GetAllOutOfStockProductMainImagesDetails()
+            {
+
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetAllOutOfStockProductImageMainDetailsByBoutiqueid]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();

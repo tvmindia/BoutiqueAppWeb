@@ -79,86 +79,7 @@
           <div class="row-fluid" style="height:3px;"></div>
            <%--Header--%>
 
-           <%--Tab Content--%>
-         	<div class="row-fluid">
-				
-				<div class="box span12">
-					<div class="box-header">
-						<h2><i class="halflings-icon th"></i><span class="break"></span>Products Gallery</h2>
-					</div>
-					<div class="box-content">
-						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li class="active"><a href="#newoffers">New Offers</a></li>
-							<li><a href="#trends">Trending</a></li>
-							<li><a href="#outstock">Out of Stocks</a></li>
-						</ul>
-						 
-						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane active" id="newoffers">
-								<p>
-
-									New Offers
-								</p>
-                                 <%--Gallery--%>
-           <div class="row-fluid">
-				<div class="box span12">
-					<div class="box-header">
-						<h2> Products</h2>
-						<div class="box-icon">
-							
-						</div>
-					</div>
-				    	<div class="box-content">
-						<div class="imageholder" style="width:100%;" id="productimagehold">
-									
-								<!--<div id="image-2" class="masonry-thumb">
-								         <a style="background:url(../img/gallery/photo11.jpg)" title="Sample Image 2" href="../img/gallery/photo11.jpg"> <img class="grayscale" src="../img/gallery/photo11.jpg" alt="Sample Image 11" /></a>
-							       </div>
-							 
-                                    <div id="image-6" class="masonry-thumb">
-								        <a style="background:url(../img/gallery/photo8.jpg)" title="Sample Image 6" href="../img/gallery/photo8.jpg"> <img class="grayscale" src="../img/gallery/photo8.jpg" alt="Sample Image 6" /></a>
-						          </div>-->
-
-                            <!-- Use invisible wraper to hide popup window content -->
-                           <div style="display:none;">
-	                       <div id="popup" style="max-height:680px;overflow-y:auto;">
-		                       <h3>Popup content</h3>
-		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
-		                   </div>
-                          </div>
-					
-				    	</div>
-					</div>
-				</div><!--/span-->
-			
-			</div><!--/row-->
-           <%--Gallery--%>
-
-							</div>
-							<div class="tab-pane" id="trends">
-								<p>
-							   Trends in Demand
-								</p>
-							</div>
-							<div class="tab-pane" id="outstock">
-								<p>
-									Out of stocks
-								</p>
-								
-							</div>
-						</div>
-					</div>
-				</div><!--/span-->
-			
-			   </div>	
-		  <%--Tab Content--%>
-
-	        
-
-
-          
-
-            <%--Alert boxes --%>
+             <%--Alert boxes --%>
             <div class="row-fluid" id="rowfluidDiv" style="display:none;">	
 				<div class="box span12">
 
@@ -184,11 +105,97 @@
 
                 </div>
             </div>
-		
-             <%--Alert boxes --%>
+	        <%--Alert boxes --%>
 
 
-         <div class="row-fluid">
+           <%--Tab Content--%>
+         	<div class="row-fluid">
+				
+				<div class="box span12">
+					<div class="box-header">
+						<h2><i class="halflings-icon th"></i><span class="break"></span>Products Gallery</h2>
+					</div>
+					<div class="box-content">
+						<ul class="nav tab-menu nav-tabs" id="myTab">
+							<li class="active"><a href="#newproducts">New Products</a></li>
+							<li><a href="#trends">Trending</a></li>
+							<li><a href="#outstock">Out of Stocks</a></li>
+						</ul>
+						 
+						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
+							<div class="tab-pane active" id="newproducts">
+								<p>
+									New Products
+								</p>
+                                 <%--Gallery--%>
+                                 <div class="row-fluid">
+				              <%--  <div class="box span12">--%>
+				              <%--   	<div class="box-header">
+						                <h2> Products</h2>
+						                <div class="box-icon">
+							
+					                  	</div>
+				                     	</div>--%>
+				    <%--	<div class="box-content">--%>
+						<div class="imageholder" style="width:100%;" id="productimagehold">
+									
+								<!--<div id="image-2" class="masonry-thumb">
+								         <a style="background:url(../img/gallery/photo11.jpg)" title="Sample Image 2" href="../img/gallery/photo11.jpg"> <img class="grayscale" src="../img/gallery/photo11.jpg" alt="Sample Image 11" /></a>
+							       </div>
+							 
+                                    <div id="image-6" class="masonry-thumb">
+								        <a style="background:url(../img/gallery/photo8.jpg)" title="Sample Image 6" href="../img/gallery/photo8.jpg"> <img class="grayscale" src="../img/gallery/photo8.jpg" alt="Sample Image 6" /></a>
+						          </div>-->
+
+                            <!-- Use invisible wraper to hide popup window content -->
+
+
+                           <div style="display:none;">
+	                       <div id="popup" style="max-height:680px;overflow-y:auto;">
+		                       <h3>Popup content</h3>
+		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
+		                   </div>
+                          </div>
+                         
+				    	</div>
+					<%--</div>--%>
+				<%--</div><!--/span-->--%>
+			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
+                              <a class="LoadMore" id="load_more_button" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                        </div>
+			                 </div>
+                               
+                                 <%--Gallery--%>
+
+							</div>
+							<div class="tab-pane" id="trends">
+								<p>
+							         Trends in Demand
+								</p>
+							</div>
+							<div class="tab-pane" id="outstock">
+								<p>
+									Out of stocks
+								</p>
+								
+							</div>
+						</div>
+					</div>
+				</div><!--/span-->
+			
+			   </div>	
+		  <%--Tab Content--%>
+
+	        
+
+
+          
+
+        
+
+
+         <div class="row-fluid" id="productDetailsDiv">
 
               <div class="box span12">
                   <div class="span12">
@@ -329,3 +336,4 @@
      <input type="hidden" id="hdfproductID" value=""/>
     <input type="hidden" id="hdfBoutiqueID" value="" />
 </asp:Content>
+
