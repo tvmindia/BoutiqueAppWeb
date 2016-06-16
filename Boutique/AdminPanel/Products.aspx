@@ -127,7 +127,7 @@
 								<p>
 									New Products
 								</p>
-                                 <%--Gallery--%>
+                                 <%--Gallery new products--%>
                                  <div class="row-fluid">
 				              <%--  <div class="box span12">--%>
 				              <%--   	<div class="box-header">
@@ -136,7 +136,7 @@
 							
 					                  	</div>
 				                     	</div>--%>
-				    <%--	<div class="box-content">--%>
+				              <%--	<div class="box-content">--%>
 						<div class="imageholder" style="width:100%;" id="productimagehold">
 									
 								<!--<div id="image-2" class="masonry-thumb">
@@ -165,19 +165,75 @@
                               <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
-                               
-                                 <%--Gallery--%>
+                                 <%--Gallery new products--%>
 
 							</div>
 							<div class="tab-pane" id="trends">
 								<p>
 							         Trends in Demand
 								</p>
+
+                                  <%--Gallery Trends--%>
+                                 <div class="row-fluid">
+				           
+					     	<div class="imageholder" style="width:100%;" id="productTrendsimagehold">
+									
+							
+                            <!-- Use invisible wraper to hide popup window content -->
+
+
+                           <div style="display:none;">
+	                       <div id="popuptrends" style="max-height:680px;overflow-y:auto;">
+		                   <h3>Popup content</h3>
+		                   <img id="imgzoomtrends" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
+		                   </div>
+                           </div>
+                         
+				    	</div>
+					<%--</div>--%>
+			      	<%--</div><!--/span-->--%>
+			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
+                              <a class="LoadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                        </div>
+			                 </div>
+                                  <%--Gallery Trends--%>
+
+
 							</div>
 							<div class="tab-pane" id="outstock">
 								<p>
 									Out of stocks
 								</p>
+
+
+                                  <%--Gallery Out of stock--%>
+                                 <div class="row-fluid">
+				           
+					     	<div class="imageholderoutofstock" style="width:100%;" id="productoutofstockimagehold">
+									
+							
+                            <!-- Use invisible wraper to hide popup window content -->
+
+
+                           <div style="display:none;">
+	                       <div id="popupoutofstock" style="max-height:680px;overflow-y:auto;">
+		                   <h3>Popup content</h3>
+		                   <img id="imgzoomoutofstock" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
+		                   </div>
+                           </div>
+                         
+				    	</div>
+					<%--</div>--%>
+			      	<%--</div><!--/span-->--%>
+			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
+                              <a class="LoadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                        </div>
+			                 </div>
+                                  <%--Gallery out of stock--%>
+
+
 								
 							</div>
 						</div>
@@ -204,7 +260,7 @@
 
                   
                     <div class="box-header">
-						<h2>New Products</h2>
+						<h2 id="editLabel">New Products</h2>
 						<div class="box-icon">
 							
 						</div>
