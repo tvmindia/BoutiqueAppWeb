@@ -194,6 +194,8 @@
                     <%--<h2 id="NewItem" style="text-align:center">New Item</h2>--%>
                     <div class="span12" style="width: 90%">
                         <div class="span6">
+                            <h2><u>Product</u></h2>
+                            <br />
                             <div  >
 
                                 <div  >
@@ -201,7 +203,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="products">Product</label>
                                         <div class="controls">
-                                            <select class="products">
+                                            <select style="width: 275px;" class="products">
                                                 <option></option>
                                             </select>
                                             <i class="halflings-icon white trash"></i>
@@ -220,7 +222,7 @@
                                     <div class="control-group">
                                         <label class="control-label" for="Remarks">Remarks</label>
                                         <div class="controls">
-                                            <textarea class="form-control" style="width: 250px; height: 120px" rows="4" id="txtRemarks"></textarea>
+                                            <textarea class="form-control" style="width: 210px; height: 120px" rows="4" id="txtRemarks"></textarea>
                                             <img id="ImgProduct" style="width: 100px; height: 120px;border:none" src="../img/No-Img_Chosen.png"/>
                                         </div>
                                     </div>
@@ -231,10 +233,11 @@
                             </div>
                         </div>
                         <div class="span6">
-
+                            <h2><u>Product Details</u></h2>
+                            <br />
                             <%--<div class="box-content TableLayout">--%>
 
-                            <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
+                            <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable" >
 
                                 <thead>
                                     <tr>

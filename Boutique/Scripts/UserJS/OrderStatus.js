@@ -154,7 +154,6 @@ $("document").ready(function (e) {
    //------------END : Add To List Button CLick------------//
 
 
-
     function ClearControls() {
 
         $("#txtDescription").val("");
@@ -396,6 +395,23 @@ $("document").ready(function (e) {
     })
 
     //---------------    END : Cancel Click       -------------
+
+
+
+    //$('.Users').select2()
+    //      .on("change", function (e) {
+
+    //          debugger;
+
+    //          var data = $('.Users').select2('data')
+    //          var userData = data[0].text;
+
+    //          var user = userData.substr(0, userData.indexOf(','));
+    //          $('.Users').select2('data') = user;
+
+    //      })
+
+
 
 
    //----- Dropdown item cahnge event  : (get Image by product id) ----//      
