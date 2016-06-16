@@ -328,7 +328,7 @@
                     </div>
                     <div class="box-content TableLayout" style="height: 492px; overflow: auto;">
                         <table class="table table-striped table-bordered  bootstrap-datatable" id="OwnerTable">
-                               <thead>
+                               <thead id="Ownerthead">
                                 <tr>
                                     <th>Owner Name</th>
                                     <th>Mobile</th>

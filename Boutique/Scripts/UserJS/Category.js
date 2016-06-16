@@ -1,4 +1,5 @@
-﻿$("document").ready(function (e) {
+﻿
+$("document").ready(function (e) {
     parent.document.title = "Category";
    
 
@@ -10,36 +11,19 @@
 
     $(".catdelete").live(
     {
-        click: function (e) {
+        click: function () {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            if (confirm("You are about to Delete Category!..")) {
-
-                var jsonResult = {};
-                editedrow = $(this).closest('tr');
-                var Category = new Object();
+           
+           
+            editedrow = $(this).closest('tr');
+            var e = editedrow.attr("CategoryID");
+            var p = editedrow.attr("CategCode");
             
-                Category.CategoryID = editedrow.attr("CategoryID");
-                Category.CategoryCode = editedrow.attr("CategCode");
-                result = DeleteCategory(Category);
-                if (result == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-
-                }
-                if (result != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-
-                }
-
-                BindAsyncCategoryTable();
-                $("#txtCatCode").val('');
-                $("#txtCategoryName").val('');
-                $(".AddCategory").text("Save");
-                $("#hdfCategoryID").val('');
-            }
+          DeleteCustomAlert('Are You Sure?', e, p);
+           
+         
             return false;
         }
     })
@@ -121,6 +105,42 @@
 
 
 });//end of document.ready
+
+
+
+function DeleteItem(e,p)
+{
+    var jsonResult = {};
+    //editedrow = $(e).closest('tr');
+    var Category = new Object();
+
+    Category.CategoryID = e;
+    Category.CategoryCode = p;
+    result = DeleteCategory(Category);
+    if (result == "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+
+    }
+    if (result == "2")
+    {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+        $('.alert-error strong').text(Messages.exists);
+  
+    }
+    if (result != "1"&&result!="2") {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+
+    }
+
+    BindAsyncCategoryTable();
+    $("#txtCatCode").val('');
+    $("#txtCategoryName").val('');
+    $(".AddCategory").text("Save");
+    $("#hdfCategoryID").val('');
+}
 
 //---getting data as json-----//
 function getJsonData(data, page) {

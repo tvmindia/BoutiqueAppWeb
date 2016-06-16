@@ -1,9 +1,30 @@
-﻿var Roles = {
+﻿var deleteReturn=false;
+$("document").ready(function (e) {
+ 
+    $(".DialogDeleteYes").live({
+        click: function (e) {// Clear controls
+            deleteReturn = true;
+            //alert(deleteReturn);
+            return true;
+        }
+    })
+});//end of document.ready
+var Roles = {
     Manager: "Manager",
     Administrator: "Administrator",   
     SuperAdmin: "SuperAdmin"
     }
 
+var Pages = {
+    People: "People",
+    Boutique: "Boutique Profile",
+    SaDashboard: "SA Dashboard"
+}
+
+var Messages = {
+    exists: "The operation can’t be completed because the category is in use .",
+    existsBoutique:"The operation can’t be completed because the Boutique is in use ."
+}
 
 function getRole() {
     var table = {};
@@ -23,12 +44,14 @@ function GetLogin_Role(Role) {
 
 function postBlobAjax(formData, page) {
 
+    debugger;
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
     //request.send(formData);
+
     $.ajax({
         type: "POST",
-        url: "../ImageHandler/PhotoUploadHandler.ashx",
+        url: page,
         contentType: false,
         headers: { 'Cache-Control': 'no-cache' },
         async: false,
@@ -52,6 +75,92 @@ function postBlobAjax(formData, page) {
         }
     });
 }
+
+function DeleteCustomAlert(txt, e, p) 
+{
+    debugger;
+    d = document;
+
+    if (d.getElementById("modalContainer")) return;
+
+    mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
+    mObj.id = "modalContainer";
+    mObj.style.height = d.documentElement.scrollHeight + "px";
+
+    alertObj = mObj.appendChild(d.createElement("div"));
+    alertObj.id = "alertBox";
+    if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
+    alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
+    alertObj.style.visiblity = "visible";
+
+    h1 = alertObj.appendChild(d.createElement("h1"));
+    h1.appendChild(d.createTextNode("Delete"));
+
+    msg = alertObj.appendChild(d.createElement("p"));
+    //msg.appendChild(d.createTextNode(txt));
+    msg.innerHTML = txt;
+
+    btn = alertObj.appendChild(d.createElement("a"));
+    btn.id = "closeBtn";
+    btn.className = "btnButton";
+    btn.appendChild(d.createTextNode("No"));
+    btn.href = "#";
+    btn.focus();
+    btn.onclick = function () { removeCustomAlert(); return false; }
+
+    btnYes = alertObj.appendChild(d.createElement("a"));
+    btnYes.id = "DeleteYesBtn";
+    btnYes.className = "btnButton";
+    btnYes.appendChild(d.createTextNode("Yes"));
+    btnYes.href = "#";
+    //btnYes.focus();
+    //debugger;
+    btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+
+    alertObj.style.display = "block";
+
+    $("#alertBox").animate({ top: '50px' });
+}
+
+function removeCustomAlert() {
+    document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
+}
+
+
+function CustomAlert(txt) {
+    d = document;
+
+    if (d.getElementById("modalContainer")) return;
+
+    mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
+    mObj.id = "modalContainer";
+    mObj.style.height = d.documentElement.scrollHeight + "px";
+
+    alertObj = mObj.appendChild(d.createElement("div"));
+    alertObj.id = "alertBox";
+    if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
+    alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
+    alertObj.style.visiblity = "visible";
+
+    h1 = alertObj.appendChild(d.createElement("h1"));
+    h1.appendChild(d.createTextNode("Delete"));
+
+    msg = alertObj.appendChild(d.createElement("p"));
+    //msg.appendChild(d.createTextNode(txt));
+    msg.innerHTML = txt;
+
+    btn = alertObj.appendChild(d.createElement("a"));
+    btn.id = "closeBtn";
+    btn.className = "btnButton";
+    btn.appendChild(d.createTextNode("OK"));
+    btn.href = "#";
+    btn.focus();
+    btn.onclick = function () { removeCustomAlert(); return false; }
+
+    alertObj.style.display = "block";
+    $("#alertBox").animate({ top: '50px' });
+}
+
 
 
 function getJsonData(data, page) {
@@ -99,3 +208,11 @@ function AutoScrollToAlertBox()
         scrollLeft: offset.left
     });
 }
+
+function ConfirmDelete()
+{
+    $('#myDeleteModal').modal('show');
+    var html = '<div class="modal hide fade" id="myDeleteModal" aria-hidden="true" style="display: none;"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">×</button><h3>Delete</h3></div><div class="modal-body"><p>Are You Sure?</p></div><div class="modal-footer"><a href="#" class="btn btn-primary DialogDeleteYes">Yes</a><a href="#" class="btn" data-dismiss="modal">No</a></div></div>';
+    $('#ConfirmDiv').append(html);
+}
+

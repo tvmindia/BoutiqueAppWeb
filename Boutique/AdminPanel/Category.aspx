@@ -2,11 +2,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <link href="../CSS/jquery.alerts.css" rel="stylesheet" />
      <link href="../CSS/CustomCSS/Category.css" rel="stylesheet" />
+    <link href="../CSS/Common.css" rel="stylesheet" />
+    
      <script src="../Scripts/UserJS/Category.js"></script>
-
+    <script src="../Scripts/CommonJS/Common.js"></script>
+    
+  
      <div id="content" class="span10">
-
+        
           <ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
@@ -30,6 +35,7 @@
 							
 						</div>
 					</div>
+                   <div id="ConfirmDiv"></div>
 					<div class="box-content TableLayout">
 						<table class="table table-striped table-bordered  bootstrap-datatable" id="CategoryTable">
 							  <thead id="Categorythead">
@@ -72,8 +78,9 @@
                     <div class="box-content alerts">
 						<div class="alert alert-error" style="display:none;">
 						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
+							<strong id="alert-strong-error">Operation Not Successfull.</strong> 
 						</div>
+                      
 						<div class="alert alert-success" style="display:none;">
 						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
 							<strong>Successfull.</strong> 
@@ -142,5 +149,6 @@
 
      </div>
      <input type="hidden" id="hdfCategoryID" value=""/>
+
 
 </asp:Content>

@@ -7,7 +7,7 @@
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
 
-    if (LoginUserRole != 'Manager') {
+    if (LoginUserRole != Roles.Manager) {
 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             // Great success! All the File APIs are supported.     
@@ -185,7 +185,7 @@
             $('.alert-success').hide();
             $('.alert-error').hide();
             if (confirm("You are about to Delete Category!..")) {
-                debugger;
+             
                 var jsonResult = {};
                 editedrow = $(this).closest('tr');
                 var Admin = new Object();

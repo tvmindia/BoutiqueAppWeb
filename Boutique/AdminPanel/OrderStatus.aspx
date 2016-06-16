@@ -46,7 +46,7 @@
         <div class="row-fluid sortable" id="Orders">
             <div class="box span12">
                 <div class="box-header">
-                    <h2>Orders</h2>
+                    <h2>Current Orders</h2>
                     <div class="box-icon">
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-                <div class="box-content " style="height: 100%; overflow: auto;">
+                <div class="box-content " style="height: 100%; overflow:auto;">
 
                        <div class="span12" >
 
@@ -190,19 +190,15 @@
                  
 
                       <div class="span12" style="border-top:ridge;width:90%">
-
+                          </div>
                            <%--<h2 id="NewItem" style="text-align:center">New Item</h2>--%>   
-                      </div>
+                     
                 
-                     <div class="span12">
+                     <div class="span12" style="width:90%">
 
-                      
+                         <div class="span3">
 
-                        <%--FIRST HALF--%>
-
-                        <div class="span6">
-
-                             <div class="control-group">
+                            <div class="control-group">
 								<label class="control-label" for="products">Product</label>
 								<div class="controls">
 								  <select class="products" >
@@ -210,27 +206,43 @@
 								  </select>
 								</div>
 							  </div>
-                   
+                         </div>
 
-                        <%-- END FIRST HALF--%>
+                         <div class="span6">
 
-                        <%--SECOND HALF--%>
-
-                        
                              <div class="control-group">
 								<label class="control-label" for="Remarks">Remarks</label>
 								<div class="controls">
-								   <textarea class="form-control" style="max-width: 68%" rows="4" id="txtRemarks"></textarea>
+								   <textarea class="form-control"  style="width:100%" rows="1" id="txtRemarks"></textarea>
                                       
 								</div>
 							  </div>
-                           
-                        <%--END SECOND HALF--%>
 
-                    </div>
+                         </div>
 
-                          <div class="span6">
-                          <div class="box-content TableLayout">
+                         <div class="span2">
+
+                             <div style="height:32px"></div>
+
+                             <div class="control-group">
+                                   <a class="addToList">Add To List</a>
+                              </div>
+
+                         </div>
+
+                          </div>
+                       
+
+                    <div class="span12" style="width:90%">
+
+                         <div class="span3">
+
+                               <img  id="ImgProduct" width="30%" height="30%"/>
+                             </div>
+
+                        <div class="span6">
+
+                        <%--<div class="box-content TableLayout">--%>
 
                              <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
                        
@@ -249,17 +261,12 @@
                             </table>
 
 
-                </div>
+                <%--</div>--%>
 
-                              <img  id="ImgProduct"/>
+                        </div>
 
-                              </div>
+                    </div>
 
-                         
-                          
-
-
-                          </div>
 
                       </div>
 

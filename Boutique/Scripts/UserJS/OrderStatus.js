@@ -1,4 +1,13 @@
-﻿$("document").ready(function (e) {
+﻿
+$("document").ready(function (e) {
+
+
+    var rowCount = $('#OrderItemTable OrderItemRows tr').length;
+
+    if (rowCount == 0) {
+        $('#OrderItemTable').hide();
+    }
+
 
 
     parent.document.title = "Order Status";
@@ -20,7 +29,8 @@
     BindOrdersTable();
 
     $('#OrdersTable').DataTable({
-        "bPaginate": false,             //Search and Paging implementation
+        "bPaginate": false         //Search and Paging implementation
+        //"aaSorting": [[0, 'desc']],      //Sort with Date coloumn
     });
 
     //------------ BINDING  Order details table------------//
@@ -61,6 +71,7 @@
 
             $("#OrdersTable").append(html);
         });
+
     }
 
 
@@ -71,7 +82,7 @@
     $(".OrderEdit").live(
     {
         click: function (e) {
-           
+
 
 
             $('#rowfluidDiv').hide();
@@ -113,7 +124,7 @@
        {
            click: function (e) {
 
-              
+
 
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
@@ -148,14 +159,83 @@
        })
 
 
+    //------------ Add To List Button CLick------------//
+
+
+
+    $(".addToList").live(
+    {
+        click: function (e) {
+
+            debugger;
+            AddToList();
+
+        }
+    })
+
+
+
+
+    function ClearControls() {
+
+        $("#txtDescription").val("");
+        $("#txtOrderDate").val("");
+        $("#dateOrderDate").text("");
+        $("#txtPlannedDeliveryDate").val("");
+        $("#datePlannedDeliveryDate").text("");
+        $("#dateForecastDeliveryDate").val("");
+        $("#dateOrderReadyDate").val("");
+        $("#dateActualDeliveryDate").val("");
+        $("#txtTotalOrderAmount").val("");
+        $("#hdfOrderID").val("");
+
+        $(".submitDetails").text("Save");
+        $("#editLabel").text("New Order");
+
+
+
+        //---------Manage Control hide and show
+        $("#OrderNoDiv").hide();
+        $("#lblOrderNo").hide();
+
+        $("#dateOrderDate").hide();
+        $("#datePlannedDeliveryDate").hide();
+        $("#txtOrderDate").show();
+        $("#txtPlannedDeliveryDate").show();
+
+
+        $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
+        $("#dateOrderReadyDate").attr('disabled', 'disabled');
+        $("#dateActualDeliveryDate").attr('disabled', 'disabled');
+
+        //---order item
+        $('#OrderItemTable').hide();
+
+
+        $(".Users").select2("val", "");
+
+        //$("#ForecastDiv").hide();
+        //$("#OrderReadyDiv").hide();
+        //$("#ActualDeliveryDiv").hide();
+    }
+
+
 
     //------------ Order Save Button CLick------------//
 
     $(".submitDetails").live(
     {
-      
-
         click: function (e) {
+
+            debugger;
+
+          
+            //$('#OrderItemTable tr').each(function () {
+            //    debugger;
+            //    var columns = $(this).find('td').cells[0].innerHTML;
+
+            //})
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -163,7 +243,7 @@
             var result = "";
             var Order = new Object();
 
-            debugger;
+
 
             //------* Create New Order Case *---------//
 
@@ -182,10 +262,10 @@
                     //Order.ForecastDeliveryDate = $("#txtPlannedDeliveryDate").val()
 
                 }
-                //else {
-                //    alert("Please select planned delivery date.");
-                //    return;
-                //}
+                else {
+                    alert("Please select planned delivery date.");
+                    return;
+                }
 
             }
 
@@ -209,91 +289,102 @@
                 Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
             }
 
+            if ($(".Users").val() != "") //check if  change for product items (Header only)
+            {
+                Order.UserID = $(".Users").val();
+            }
+            else {
+                alert("Please select a user");
+            }
+
+
             Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
             Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
             Order.OrderDescription = $("#txtDescription").val();
-            Order.UserID = $(".Users").val();
+           
 
             result = InsertOrUpdateOrder(Order);
 
             if (result != "") {
-                
 
-                Order.ProductID = $(".products").val();
-                Order.CustomerRemarks = $("#txtRemarks").val();
+                ClearControls();
 
 
-                //$('#rowfluidDiv').show();
-                //$('.alert-success').show();
+                if ($(".products").val() != "") //check if  change for product items (Header only)
+                {
 
-                $("#txtDescription").val("");
-                $("#txtOrderDate").val("");
-                $("#dateOrderDate").text("");
-                $("#txtPlannedDeliveryDate").val("");
-                $("#datePlannedDeliveryDate").text("");
-                $("#dateForecastDeliveryDate").val("");
-                $("#dateOrderReadyDate").val("");
-                $("#dateActualDeliveryDate").val("");
-                $("#txtTotalOrderAmount").val("");
-                $("#hdfOrderID").val("");
+                    $('#OrderItemTable tbody tr').each(function () {
+                        debugger;
 
-                $(".submitDetails").text("Save");
-                $("#editLabel").text("New Order");
+                        var productId = $(this).attr("ProductID");
+                        var productname = $(this).find('td').eq(0).text();
+                        var remarks = $(this).find('td').eq(1).text();
 
+                            Order.ProductID = productId;
+                            Order.CustomerRemarks = remarks;
 
+                            Order.OrderID = result;
 
-                //---------Manage Control hide and show
-                $("#OrderNoDiv").hide();
-                $("#lblOrderNo").hide();
+                    result = InsertOrderItem(Order);
 
-                $("#dateOrderDate").hide();
-                $("#datePlannedDeliveryDate").hide();
-                $("#txtOrderDate").show();
-                $("#txtPlannedDeliveryDate").show();
+                       
+                    })
 
+                    if (result != "") {
+                        BindOrdersTable(); //To bind table with new or modified entry
 
-                $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
-                $("#dateOrderReadyDate").attr('disabled', 'disabled');
-                $("#dateActualDeliveryDate").attr('disabled', 'disabled');
+                        BindOrderItemsList(Order);
 
+                        $(".products").select2("val", "");
+                        $("#txtRemarks").val("");
 
+                        $('#ImgProduct').hide();
 
+                        $('#OrderItemTable').hide();
 
-                //$("#ForecastDiv").hide();
-                //$("#OrderReadyDiv").hide();
-                //$("#ActualDeliveryDiv").hide();
+                        $('#rowfluidDiv').show();
+                        $('.alert-success').show();
 
-                Order.OrderID = result;
+                        //Scroll page
+                        var offset = $('#rowfluidDiv').offset();
+                        offset.left -= 20;
+                        offset.top -= 20;
+                        $('html, body').animate({
+                            scrollTop: offset.top,
+                            scrollLeft: offset.left
+                        });
+                    }
+                    if (result == "") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                    }
+                       
+                }
+                else {
 
-                result = InsertOrderItem(Order);
-
-                if (result == "1") {
                     BindOrdersTable(); //To bind table with new or modified entry
 
-                    BindOrderItemsList(Order);
-
-                    $(".products").select2("val", "");
-                    $("#txtRemarks").val("");
-                }
-                if (result != "1") {
                     $('#rowfluidDiv').show();
-                    $('.alert-error').show();
+                    $('.alert-success').show();
+
+                    //Scroll page
+                    var offset = $('#rowfluidDiv').offset();
+                    offset.left -= 20;
+                    offset.top -= 20;
+                    $('html, body').animate({
+                        scrollTop: offset.top,
+                        scrollLeft: offset.left
+                    });
                 }
+
 
 
             }
-            if (result != "1") {
+            if (result == "") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
             }
-            //Scroll page
-            //var offset = $('#rowfluidDiv').offset();
-            //offset.left -= 20;
-            //offset.top -= 20;
-            //$('html, body').animate({
-            //    scrollTop: offset.top,
-            //    scrollLeft: offset.left
-            //});
+
         }
     })
     //------------END: Save Button CLick------------//
@@ -301,36 +392,11 @@
     //----------- Cancel button Click -----------
     $(".Cancel").live({
         click: function (e) {// Clear controls
-            $("#txtDescription").val("");
-            $("#txtOrderDate").val("");
-            $("#dateOrderDate").text("");
-            $("#txtPlannedDeliveryDate").val("");
-            $("#datePlannedDeliveryDate").text("");
-            $("#dateForecastDeliveryDate").val("");
-            $("#dateOrderReadyDate").val("");
-            $("#dateActualDeliveryDate").val("");
-            $("#txtTotalOrderAmount").val("");
-            $("#hdfOrderID").val("");
+            ClearControls();
+            $(".products").select2("val", "");
+            document.getElementById('ImgProduct').src = "";
+            $("#txtRemarks").val("");
 
-            $(".submitDetails").text("Save");
-            $("#editLabel").text("New Order");
-
-            //---------Manage Control hide and show
-            $("#OrderNoDiv").hide();
-            $("#lblOrderNo").hide();
-
-            $("#dateOrderDate").hide();
-            $("#datePlannedDeliveryDate").hide();
-            $("#txtOrderDate").show();
-            $("#txtPlannedDeliveryDate").show();
-
-            $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
-            $("#dateOrderReadyDate").attr('disabled', 'disabled');
-            $("#dateActualDeliveryDate").attr('disabled', 'disabled');
-
-            //$("#ForecastDiv").hide();
-            //$("#OrderReadyDiv").hide();
-            //$("#ActualDeliveryDiv").hide();
         }
     })
 
@@ -340,7 +406,9 @@
     //Dropdown item cahnge event        
     $('.products').select2()
            .on("change", function (e) {
-              
+
+               $('#ImgProduct').show();
+
                debugger;
                var productID = $('.products').val();
 
@@ -349,8 +417,7 @@
                Order.ProductID = productID;
 
                if (productID != "") {
-
-
+                   $("#txtRemarks").val("");
 
                    var imgID = GetProductImage(Order);
 
@@ -375,7 +442,7 @@
     $(".OrderItemDelete").live(
     {
         click: function (e) {
-
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -396,11 +463,31 @@
                     //$('.alert-success').show();
 
                 }
-                if (result != "1") {
+
+                if (result == -1) {
+                    debugger;
+
+
+                    editedrow.remove();
+
+                    var rowCount = $("#OrderItemTable > tbody > tr").length;
+
+
+                    if (rowCount == 0) {
+                        $('#OrderItemTable').hide();
+                    }
+
+                }
+
+
+                if (result != "1" &&  result != "-1") {
 
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                 }
+
+               
+
 
                 //Scroll page
                 //var offset = $('#rowfluidDiv').offset();
@@ -418,6 +505,34 @@
 });
 
 
+function AddToList() {
+    debugger;
+
+    $('#OrderItemTable').show();
+
+    var productID = $('.products').val();
+    var OrderID = $("#hdfOrderID").val();
+    var CustomerRemarks = $("#txtRemarks").val();
+
+    var data = $('.products').select2('data')
+    var ProductName = data[0].text;
+    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+
+
+    $("#OrderItemTable").append(html);
+
+
+    //var y = document.getElementById("<%=hdfRemovedIDs.ClientID%>").value;
+
+
+    //var productID = $('.products').val();
+    //document.getElementById("<%=hdfRemovedIDs.ClientID%>").value += (productID + ",");
+    //var x = document.getElementById("<%=hdfRemovedIDs.ClientID%>").value;
+
+    //alert(x);
+
+}
+
 
 
 
@@ -431,9 +546,6 @@ function InsertOrderItem(Order) {
 }
 
 
-
-
-
 //------------Insert order--------------------
 function InsertOrUpdateOrder(Order) {
     var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
@@ -442,10 +554,6 @@ function InsertOrUpdateOrder(Order) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
-
-
-
-
 
 
 
@@ -463,7 +571,7 @@ function GetOrderDetailsByOrderID(Order) {
 function BindControlsWithOrderDetails(Records) {
     $.each(Records, function (index, Records) {
 
-       
+
         //---------Manage Control hide and show on edit click 
 
         $("#OrderNoDiv").show();
@@ -499,8 +607,6 @@ function BindControlsWithOrderDetails(Records) {
     $("#editLabel").text("Edit Order");
 }
 
-
-
 function BindOrderItemsList(Order) {
 
     debugger;
@@ -527,6 +633,9 @@ function GetOrderItemsByOrderID(Order) {
 function FillOrderItemsTable(Records) {
     debugger;
     //var rowExistsOrNot = false;
+    $('#OrderItemTable').show();
+
+
 
     $("tbody#OrderItemRows tr").remove();            //Remove all existing rows for refreshing
 
@@ -542,28 +651,31 @@ function FillOrderItemsTable(Records) {
 
 
 
-        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td style="width:20%"+">' + (Records.Product != null ? Records.Product : "-") + '</td><td style="width:20%">' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
 
         $("#OrderItemTable").append(html);
     });
 
 
+    var rowCount = $("#OrderItemTable > tbody > tr").length;
+
+
+    if (rowCount == 0) {
+        $('#OrderItemTable').hide();
+    }
     //if (rowExistsOrNot == false) {
     //    $("#OrderItemTable th").remove();
     //}
 
 }
 
-
-
-
 //------------- *END :  Functions Work On Edit Click  *-----------------//
 
 //Delete
 
 function DeleteOrderItem(Order) {
-   
+
 
     var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
 
@@ -588,7 +700,6 @@ function BindProductDropdown() {
     }
 }
 
-
 function BindUserDropdown() {
 
 
@@ -600,8 +711,6 @@ function BindUserDropdown() {
     }
 }
 
-
-
 function GetAllUsers(Users) {
     var ds = {};
     var table = {};
@@ -610,7 +719,6 @@ function GetAllUsers(Users) {
     table = JSON.parse(ds.d);
     return table;
 }
-
 
 function GetAllProducts(Notify) {
     var ds = {};
