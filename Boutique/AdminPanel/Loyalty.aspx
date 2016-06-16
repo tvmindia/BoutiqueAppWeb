@@ -11,6 +11,7 @@
 
 
     <link href="../CSS/CustomCSS/Loyalty.css" rel="stylesheet" />
+    <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Loyalty.js"></script>
    
     <div id="content" class="span10">
@@ -56,7 +57,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                     </div>
                 </div>
-                <div class="box-content TableLayout">
+                <div class="box-content  " style="height: 500px; overflow:auto; " >
                     <%--<table class="table table-striped table-bordered bootstrap-datatable datatable" id="UsersTable">--%>
                     <table class="table table-striped table-bordered  bootstrap-datatable" id="UsersTable">
                         <thead>

@@ -70,6 +70,12 @@
             display:inline!important;
 
         }
+.AdminLogoClass
+{
+width:25px;
+height:25px;
+}
+
     </style>
 </head>
 <body>
@@ -82,7 +88,9 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="#"><span><asp:Label runat="server" ID="lblBoutique" Text="Bou"></asp:Label></span></a>
+				<a class="brand" href="#"><span>
+                    <asp:Image ID="imgLogo" runat="server" CssClass="AdminLogoClass"/>
+                    <asp:Label runat="server" ID="lblBoutique" Text="Bou"></asp:Label></span></a>
 								
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">

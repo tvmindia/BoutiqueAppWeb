@@ -3,7 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/LoyaltySettings.css" rel="stylesheet" />
+
+    <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/LoyaltySettings.js"></script>
+
      <div id="content" class="span10">
 
          <ul class="breadcrumb">
@@ -104,7 +107,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content TableLayout">
+					<div class="box-content ">
 						<table class="table table-striped table-bordered  bootstrap-datatable" id="LoyaltyLogTable">
                         <thead>
                             <tr>

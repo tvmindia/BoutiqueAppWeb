@@ -1,12 +1,16 @@
 ﻿
 $("document").ready(function (e) {
-    parent.document.title = "Category";
+    parent.document.title = Pages.Category;
    
 
     BindAsyncCategoryTable();
 
     $('#CategoryTable').DataTable({
-        "bPaginate": false,             //removing paging
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next"          //removing paging
     });
 
     $(".catdelete").live(
