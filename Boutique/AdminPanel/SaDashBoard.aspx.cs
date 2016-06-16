@@ -20,11 +20,18 @@ namespace Boutique.AdminPanel
         {
             if ((Request.QueryString["Session"] != null) && (Request.QueryString["Session"] != ""))
             {
-                DAL.Security.UserAuthendication UA;              
+                Boutiques BouObj = new Boutiques();
+                DataSet ds;
+                DAL.Security.UserAuthendication UA;
                 UIClasses.Const Const = new UIClasses.Const();
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];               
-                string BoutiqueID = Request.QueryString["Session"].ToString();
-                DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName,BoutiqueID,UA.Boutique,UA.Role);
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                string BoutiqID = Request.QueryString["Session"].ToString();
+                BouObj.BoutiqueID = BoutiqID;
+                ds = BouObj.GetBoutique();
+
+                DataRow dr = ds.Tables[0].Rows[0];
+                string BoutiqueName = dr["Name"].ToString();
+                DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, BoutiqID, BoutiqueName, UA.Role);
                 if (UA_Changed.ValidUser)
                 {
                     Session[Const.LoginSession] = UA_Changed;
