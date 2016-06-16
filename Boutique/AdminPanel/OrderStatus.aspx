@@ -5,7 +5,7 @@
     <link href="../CSS/CustomCSS/OrderStatus.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
-   
+    <script src="../Scripts/CommonJS/Common.js"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

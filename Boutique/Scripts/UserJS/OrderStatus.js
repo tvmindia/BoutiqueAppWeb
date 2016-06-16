@@ -1,6 +1,6 @@
 ﻿
 $("document").ready(function (e) {
-
+    debugger;
 
     var rowCount = $('#OrderItemTable OrderItemRows tr').length;
 
@@ -10,7 +10,7 @@ $("document").ready(function (e) {
 
 
 
-    parent.document.title = "Order Status";
+    parent.document.title = Pages.OrderStatus;
 
     $(".products").select2({
         placeholder: "Choose related product",
@@ -68,9 +68,9 @@ $("document").ready(function (e) {
         debugger;
 
 
-        //$("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
+        $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
 
-        //$("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
+        $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
 
         $.each(Records, function (index, Records) {
             debugger
@@ -353,14 +353,17 @@ $("document").ready(function (e) {
 
                     if (result != "") {
 
-                        
-
-
-                        //$("#OrdersTable").dataTable();
-
+                        $("#OrdersTable").dataTable().fnClearTable();
+                        $("#OrdersTable").dataTable().fnDestroy();
                       
                         BindOrdersTable(); //To bind table with new or modified entry
 
+                        $('#OrdersTable').DataTable({
+                            "bPaginate": false,       //Search and Paging implementation
+                            "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+
+
+                        });
                        
                         BindOrderItemsList(Order);
 
@@ -394,13 +397,22 @@ $("document").ready(function (e) {
                     $("#OrdersTable").dataTable().fnClearTable();
                     $("#OrdersTable").dataTable().fnDestroy();
 
-                    $('#OrdersTable').DataTable({
-                        "bPaginate": false,       //Search and Paging implementation
-                        "aaSorting": [[0, 'desc']],      //Sort with Date coloumn
-                    });
+                    //$('#OrdersTable').DataTable({
+                    //    "bPaginate": true,       //Search and Paging implementation
+                    //    "aaSorting": [[0, 'desc']],      //Sort with Date coloumn
+                    //});
 
                    
                     BindOrdersTable(); //To bind table with new or modified entry
+
+                    $('#OrdersTable').DataTable({
+                        "bPaginate": false,       //Search and Paging implementation
+                        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+
+
+                    });
+
+
 
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
