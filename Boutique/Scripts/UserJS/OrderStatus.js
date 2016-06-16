@@ -117,7 +117,7 @@ $("document").ready(function (e) {
                 BindControlsWithOrderDetails(jsonResult);
 
                 $(".products").select2("val", "");
-                document.getElementById('ImgProduct').src = "";
+                document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
                 $("#txtRemarks").val("");
 
                 BindOrderItemsList(Order);
@@ -324,7 +324,9 @@ $("document").ready(function (e) {
                         $(".products").select2("val", "");
                         $("#txtRemarks").val("");
 
-                        $('#ImgProduct').hide();
+                        document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
+
+                        //$('#ImgProduct').hide();
 
                         $('#OrderItemTable').hide();
 
@@ -388,7 +390,7 @@ $("document").ready(function (e) {
         click: function (e) {// Clear controls
             ClearControls();
             $(".products").select2("val", "");
-            document.getElementById('ImgProduct').src = "";
+            document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
             $("#txtRemarks").val("");
 
         }

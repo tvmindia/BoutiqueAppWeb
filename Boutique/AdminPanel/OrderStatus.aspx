@@ -221,7 +221,7 @@
                                         <label class="control-label" for="Remarks">Remarks</label>
                                         <div class="controls">
                                             <textarea class="form-control" style="width: 250px; height: 120px" rows="4" id="txtRemarks"></textarea>
-                                            <img id="ImgProduct" style="width: 100px; height: 120px;border:none" />
+                                            <img id="ImgProduct" style="width: 100px; height: 120px;border:none" src="../img/No-Img_Chosen.png"/>
                                         </div>
                                     </div>
                                 </div>
