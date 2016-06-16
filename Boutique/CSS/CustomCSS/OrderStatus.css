@@ -68,7 +68,7 @@ label.control-label {
 }
 
 
-.addToList
+/*.addToList
  {
     height:33px;
   background: none repeat scroll 0 0 #5bc0de;
@@ -79,4 +79,17 @@ label.control-label {
   font-size: 16px;
   padding: 3px 15px;
 
-}
+}*/
+
+  .addBtn {
+  
+
+  font-weight:bold;
+   color: black;
+  	background-color: #a7a9aa;
+  	border-color: #a7a9aa;
+
+
+   }    
+  
+  

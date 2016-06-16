@@ -2,13 +2,12 @@
 $("document").ready(function (e) {
     debugger;
 
-    var rowCount = $('#OrderItemTable OrderItemRows tr').length;
+    var rowCount = $("#OrderItemTable > tbody > tr").length;
 
     if (rowCount == 0) {
         $('#OrderItemTable').hide();
     }
-
-
+   
 
     parent.document.title = Pages.OrderStatus;
 
@@ -65,15 +64,12 @@ $("document").ready(function (e) {
 
     function FillOrderTable(Records) {
 
-        debugger;
-
-
         $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
 
         $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
 
         $.each(Records, function (index, Records) {
-            debugger
+          
             //var html = '<tr UserID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center">' + (Records.OrderDate != null ? Records.OrderDate : "-") + '</td><td class="center">' + (Records.ForecastDeliveryDate != null ? Records.ForecastDeliveryDate : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger OrderDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
 
             var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
@@ -92,8 +88,6 @@ $("document").ready(function (e) {
     $(".OrderEdit").live(
     {
         click: function (e) {
-
-
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -117,7 +111,7 @@ $("document").ready(function (e) {
                 BindControlsWithOrderDetails(jsonResult);
 
                 $(".products").select2("val", "");
-                document.getElementById('ImgProduct').src = "";
+                document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
                 $("#txtRemarks").val("");
 
                 BindOrderItemsList(Order);
@@ -135,50 +129,10 @@ $("document").ready(function (e) {
     })
     //------------END : Edit Button CLick------------//
 
-    $(".AddItem").live(
-       {
-           click: function (e) {
-
-
-
-               $('#rowfluidDiv').hide();
-               $('.alert-success').hide();
-               $('.alert-error').hide();
-
-               var result = "";
-               var Order = new Object();
-
-               Order.OrderID = $("#hdfOrderID").val();
-               Order.ProductID = $(".products").val();
-               Order.CustomerRemarks = $(".txtRemarks").val();
-
-               result = InsertOrderItem(Order);
-
-               if (result == "1") {
-
-                   BindOrderItemsList(Order);
-               }
-               if (result != "1") {
-                   $('#rowfluidDiv').show();
-                   $('.alert-error').show();
-               }
-               //Scroll page
-               var offset = $('#rowfluidDiv').offset();
-               offset.left -= 20;
-               offset.top -= 20;
-               $('html, body').animate({
-                   scrollTop: offset.top,
-                   scrollLeft: offset.left
-               });
-           }
-       })
-
-
+   
     //------------ Add To List Button CLick------------//
 
-
-
-    $(".addToList").live(
+    $(".addBtn").live(
     {
         click: function (e) {
 
@@ -186,6 +140,10 @@ $("document").ready(function (e) {
             {
 
                 AddToList();
+
+                $(".products").select2("val", "");
+                $("#txtRemarks").val("");
+                $('#ImgProduct').hide();
             }
             else {
                 alert("Please select an item ");
@@ -193,7 +151,7 @@ $("document").ready(function (e) {
         }
     })
 
-
+   //------------END : Add To List Button CLick------------//
 
 
     function ClearControls() {
@@ -249,20 +207,12 @@ $("document").ready(function (e) {
 
             debugger;
 
-          
-            //$('#OrderItemTable tr').each(function () {
-            //    debugger;
-            //    var columns = $(this).find('td').cells[0].innerHTML;
-
-            //})
-
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
 
             var result = "";
             var Order = new Object();
-
 
             if ($(".Users").val() != "") //check if  change for product items (Header only)
             {
@@ -272,7 +222,7 @@ $("document").ready(function (e) {
                 alert("Please select a user");
             }
 
-            //------* Create New Order Case *---------//
+ //------* Create New Order Case *---------//
 
             if ($("#hdfOrderID").val() == "") {
 
@@ -296,7 +246,7 @@ $("document").ready(function (e) {
 
             }
 
-                //------* END  *---------//
+   //------* END  *---------//
 
             else  //Update
             {
@@ -328,12 +278,12 @@ $("document").ready(function (e) {
 
                 ClearControls();
 
+                var rowCount = $("#OrderItemTable > tbody > tr").length;
 
-                if ($(".products").val() != "") //check if  change for product items (Header only)
+                if (rowCount > 0) //check if  change for product items (Header only)
                 {
-
                     $('#OrderItemTable tbody tr').each(function () {
-                        debugger;
+                        
 
                         var productId = $(this).attr("ProductID");
                         var productname = $(this).find('td').eq(0).text();
@@ -347,11 +297,11 @@ $("document").ready(function (e) {
 
                     result = InsertOrderItem(Order);
 
-                       
-
                     })
 
                     if (result != "") {
+                        debugger;
+                        //Clearing datatables befoe binding with new 
 
                         $("#OrdersTable").dataTable().fnClearTable();
                         $("#OrdersTable").dataTable().fnDestroy();
@@ -362,7 +312,6 @@ $("document").ready(function (e) {
                             "bPaginate": false,       //Search and Paging implementation
                             "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
 
-
                         });
                        
                         BindOrderItemsList(Order);
@@ -370,7 +319,11 @@ $("document").ready(function (e) {
                         $(".products").select2("val", "");
                         $("#txtRemarks").val("");
 
-                        $('#ImgProduct').hide();
+                        $("#ImgProduct").show();
+
+                        document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
+
+                        //$('#ImgProduct').hide();
 
                         $('#OrderItemTable').hide();
 
@@ -393,25 +346,18 @@ $("document").ready(function (e) {
                        
                 }
                 else {
+                    debugger;
 
                     $("#OrdersTable").dataTable().fnClearTable();
                     $("#OrdersTable").dataTable().fnDestroy();
 
-                    //$('#OrdersTable').DataTable({
-                    //    "bPaginate": true,       //Search and Paging implementation
-                    //    "aaSorting": [[0, 'desc']],      //Sort with Date coloumn
-                    //});
-
-                   
                     BindOrdersTable(); //To bind table with new or modified entry
 
                     $('#OrdersTable').DataTable({
                         "bPaginate": false,       //Search and Paging implementation
                         "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
 
-
                     });
-
 
 
                     $('#rowfluidDiv').show();
@@ -426,8 +372,6 @@ $("document").ready(function (e) {
                         scrollLeft: offset.left
                     });
                 }
-
-
 
             }
             if (result == "") {
@@ -444,7 +388,7 @@ $("document").ready(function (e) {
         click: function (e) {// Clear controls
             ClearControls();
             $(".products").select2("val", "");
-            document.getElementById('ImgProduct').src = "";
+            document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
             $("#txtRemarks").val("");
 
         }
@@ -453,7 +397,24 @@ $("document").ready(function (e) {
     //---------------    END : Cancel Click       -------------
 
 
-    //Dropdown item cahnge event        
+
+    //$('.Users').select2()
+    //      .on("change", function (e) {
+
+    //          debugger;
+
+    //          var data = $('.Users').select2('data')
+    //          var userData = data[0].text;
+
+    //          var user = userData.substr(0, userData.indexOf(','));
+    //          $('.Users').select2('data') = user;
+
+    //      })
+
+
+
+
+   //----- Dropdown item cahnge event  : (get Image by product id) ----//      
     $('.products').select2()
            .on("change", function (e) {
 
@@ -486,6 +447,8 @@ $("document").ready(function (e) {
         return table;
 
     }
+
+    //END
 
 
     //---------- Delete Button Click---------
@@ -715,7 +678,6 @@ function FillOrderItemsTable(Records) {
 //Delete
 
 function DeleteOrderItem(Order) {
-
 
     var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
 

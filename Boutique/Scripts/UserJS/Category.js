@@ -4,7 +4,7 @@ $("document").ready(function (e) {
    
 
     BindAsyncCategoryTable();
-
+    $(".ModifyProduct").hide();
     $('#CategoryTable').DataTable({
         "bPaginate": true,
         "iDisplayLength": 6,
@@ -39,6 +39,7 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+            $(".AddCategory").hide();
             var jsonResult = {};
             editedrow = $(this).closest('tr');
             var Category = new Object();
@@ -72,15 +73,15 @@ $("document").ready(function (e) {
                 Category.CategoryName = $("#txtCategoryName").val();
                 result = InsertCategory(Category);
             }
-            if ($(".AddCategory").text() == "Modify")
-            {
-                var Category = new Object();
+            //if ($(".AddCategory").text() == "Modify")
+            //{
+            //    var Category = new Object();
                
-                Category.CategoryID = $("#hdfCategoryID").val();
-                Category.CategoryCode = $("#txtCatCode").val();
-                Category.CategoryName = $("#txtCategoryName").val();
-                result = UpdateCategory(Category);
-            }
+            //    Category.CategoryID = $("#hdfCategoryID").val();
+            //    Category.CategoryCode = $("#txtCatCode").val();
+            //    Category.CategoryName = $("#txtCategoryName").val();
+            //    result = UpdateCategory(Category);
+            //}
             BindAsyncCategoryTable();
 
 
@@ -98,8 +99,17 @@ $("document").ready(function (e) {
         }
        
     })
+    $(".ModifyProduct").live({
+        click: function (e) {// submit button click
+            var Category = new Object();
 
+            Category.CategoryID = $("#hdfCategoryID").val();
+            Category.CategoryCode = $("#txtCatCode").val();
+            Category.CategoryName = $("#txtCategoryName").val();
+            result = UpdateCategory(Category);
 
+        }
+})
     $(".CancelCategory").live({
         click: function (e) {// Clear controls
             ClearCategoryControls();
@@ -146,27 +156,7 @@ function DeleteItem(e,p)
     $("#hdfCategoryID").val('');
 }
 
-//---getting data as json-----//
-function getJsonData(data, page) {
-    var jsonResult = {};
-    // $("#loadingimage").show();
-    var req = $.ajax({
-        type: "post",
-        url: page,
-        data: data,
-        delay: 3,
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
 
-    }).done(function (data) {
-
-        //     $("#loadingimage").hide();
-        jsonResult = data;
-    });
-    return jsonResult;
-}
-//---end of getting data as json -----//
 
 
 function BindAsyncCategoryTable()
@@ -245,7 +235,8 @@ function BindCategoryTextBoxes(Records) {
 
     })
   //  $("#txtCatCode").attr('disabled', true);
-    $(".AddCategory").text("Modify");
+    $(".ModifyProduct").show();
+    $("#editLabel").text("Edit Category");
 }
 
 
@@ -257,5 +248,7 @@ function ClearCategoryControls()
     $('.alert-success').hide();
     $('.alert-error').hide();
     $(".AddCategory").text("Save");
-   
+    $("#editLabel").text("New Category");
+    $(".AddCategory").show();
+    $(".ModifyProduct").hide();
 }

@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
 
-    parent.document.title = "Products";
+    parent.document.title = Pages.Products;
     $('.ModifyProduct').hide();//hides edit button
     $('.DeleteProduct').hide();//hides delete button
     $('.image-link').viewbox({
@@ -25,6 +25,16 @@
         $mars.masonry('layout');
     });
 
+    BindAllProductImagesOutOfStock(0);
+    var galleryoutofstockdiv = $('.imageholderoutofstock');
+    var $marsoutofstock = $('.imageholderoutofstock').masonry({
+        itemSelector: '.masonry-thumb',
+        isInitLayout: false
+    });
+    galleryoutofstockdiv.hide();
+    $marsoutofstock.imagesLoaded().progress(function () {
+        $marsoutofstock.masonry('layout');
+    });
 
     // $('input[type="checkbox"]').on('change', function () {
 
@@ -228,58 +238,7 @@
 
 
 
-    //$(".AddProductimage").live({
-    //    click: function (e) {// submit button click
-
-    //        $('#rowfluidDiv').hide();
-    //        $('.alert-success').hide();
-    //        $('.alert-error').hide();
-    //        var imgresult = "";
-    //        //imageupload
-    //        var _URL = window.URL || window.webkitURL;
-    //       var formData = new FormData();
-    //        var file, img;
-
-
-    //        if ((file = $('#productfile')[0].files[0])) {
-    //            img = new Image();
-    //            img.onload = function () {
-    //                var image = $('#productfile')[0].files[0];
-
-
-    //                formData.append('files', image, '8c9b8e83-dc8f-48d7-994b-8688516a8771,' + file.name);
-
-    //              //  formData.append('file', $('#productfile')[0].files[0]);
-    //                //postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
-    //            };
-    //            img.onerror = function () {
-    //                alert("Not a valid file:" + file.type);
-    //            };
-    //            img.src = _URL.createObjectURL(file);
-    //        }
-
-    //        //imageupload
-    //       // formData.append('prod', 88888);
-    //      //  formData.append('ismain', 77777);
-    //        postBlobAjax(formData, "../ImageHandler/ImageServiceHandler.ashx");
-
-    //          //  result = InsertProduct(Product);
-
-    //            if (result[0].status == "1") {
-    //                $("#hdfproductID").val(result[0].ProductID);
-    //                $('#rowfluidDiv').show();
-    //                $('.alert-success').show();
-    //            }
-    //            if (result[0].status != "1") {
-    //                $('#rowfluidDiv').show();
-    //                $('.alert-error').show();
-    //            }
-
-    //            return false;
-
-    //    }
-
-    //})
+   
     $(".DeleteProduct").live({
         click: function (e) {// Delete button click
 
@@ -373,6 +332,7 @@
     })
     //image galery show after all images loaded in masonary
     galerydiv.show();
+    galleryoutofstockdiv.show();
 
     $(".image-link").on('click', function () {
         $('#rowfluidDiv').hide();
@@ -420,6 +380,7 @@ function BindProductTextBoxes(thisobject) {
     var categories = $(thisobject).attr('categories');
     var designerid = $(thisobject).attr('designers');
     var productid = $(thisobject).attr('productid');
+    $("#editLabel").text("Edit Product");
     $("#hdfproductID").val(productid);
     $("#txtName").val(productname);
     $("#txtDescription").val(pdescription);
@@ -457,6 +418,34 @@ function BindProductTextBoxes(thisobject) {
     $('.ModifyProduct').show();//switches button to edit mode
     $('.DeleteProduct').show();
 }
+
+function BindAllProductImagesOutOfStock(Pagevalue) {
+    var imagedivholder = $('#productoutofstockimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllOutOfStockProductsImageDetailsunderBoutique(Product);
+    //$("#productimagehold").find(".masonry-thumb").remove();
+
+    for (var i = 0; i < totalimages.length; i++) {
+        var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+    + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+    + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+    + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div>'
+    + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+    + '</div>');
+
+        imagedivholder.append(html);
+    }
+}
+
 
 function BindAllProductImages(Pagevalue) {
     var imagedivholder = $('#productimagehold');
@@ -726,6 +715,16 @@ function GetAllProductsImageDetailsunderBoutique(Product) {
     return table;
 }
 
+function GetAllOutOfStockProductsImageDetailsunderBoutique(Product) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllOutOfStockProductMainImages");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 function GetAllProductImages(Product) {
     var ds = {};
     var table = {};
@@ -817,6 +816,7 @@ function clearProductControls() {
     $('.DeleteProduct').hide();//hides delete
     $('.ModifyProduct').hide();
     $('.AddProduct').show();
+    $("#editLabel").text("New Product");
     //$("#olpreview").find(".liclas").remove();//image list hide
     $("#Preview").find(".imgpreviewdiv").remove();
 }

@@ -101,7 +101,7 @@
             Boutique.InstagramLink = $("#txtInstatgramlink").val();
             Boutique.Latitude = $("#txtLatitude").val();
             Boutique.Longitude = $("#txtLongitude").val();        
-
+            debugger;
             if (boutiquid != null)
             {
                 var imgresult = "";
@@ -112,15 +112,15 @@
                 if ((imagefile = $('#imageUpload')[0].files[0])!=undefined)
                 {
                     img = new Image();
-                    img.onload = function ()
-                    {
+                    //img.onload = function ()
+                    //{
                         var image = $('#imageUpload')[0].files[0];
                        
 
                         formData.append('imagefiles', image, imagefile.name);
                         formData.append('', boutiquid);
                       
-                    };
+                    //};
                 }
                 else
                 {
@@ -131,15 +131,15 @@
                 if ((logoFile = $('#logoUpload')[0].files[0])!=undefined)
                 {
                     img = new Image();
-                    img.onload = function ()
-                    {
+                    //img.onload = function ()
+                    //{
                         var logo = $('#logoUpload')[0].files[0];
 
 
                         formData.append('logofiles', logo, logoFile.name);
                         formData.append('', boutiquid);
                        
-                    };
+                    //};
                 }
                 else
                 {
@@ -148,8 +148,8 @@
 
                     formData.append('logofiles',logoFile.name);
                 }
-              
-             
+                        //var logo = $('#logoUpload')[0].files[0];
+                        //formData.append('logofiles', logo, logoFile.name);
                         formData.append('Longitude', Boutique.Longitude);
                         formData.append('Latitude',Boutique.Latitude);
                         formData.append('BoutiqueId', boutiquid);
@@ -442,7 +442,8 @@ function BindOwnerTextBoxes(Records) {
         $("#hdfOwnerID").val(Records.OwnerID);
         $("#hdfUserID").val(Records.UserID);
     })
-    $(".AddOwner").text("Modify");
+    $(".AddOwner").text("Save");
+    $("#editLabel").text("Edit Owner");
 }
 
 function clearOwnerControls() {
@@ -459,6 +460,7 @@ function clearOwnerControls() {
     $("#txtProfile").val('');
     $("#hdfOwnerID").val('');
     $(".AddOwner").text("Save");
+    $("#editLabel").text("New Owner");
 } 
 
 function BindOwnerTable(Records) {
