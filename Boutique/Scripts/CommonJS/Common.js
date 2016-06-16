@@ -197,13 +197,18 @@ function getJsonData(data, page) {
 function ConvertJsonToDate(jsonDate) {
     if (jsonDate != null) {
         var dateString = jsonDate.substr(6);
-        // "\/Date(1455561000000)\/".substr(6);
         var currentTime = new Date(parseInt(dateString));
-        var month = currentTime.getMonth() + 1;
+        var month = currentTime.getMonth();
         var day = currentTime.getDate();
         var year = currentTime.getFullYear();
-        var date = day + "/" + month + "/" + year;
-        return date;
+        var monthNames = [
+                      "Jan", "Feb", "Mar",
+                      "Apr", "May", "Jun", "Jul",
+                      "Aug", "Sep", "Oct",
+                      "Nov", "Dec"
+        ];
+        var result = day + '-' + monthNames[month] + '-' + year;
+        return result;
     }
 }
 

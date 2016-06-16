@@ -11,6 +11,7 @@
 
 
     <link href="../CSS/CustomCSS/Loyalty.css" rel="stylesheet" />
+    <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Loyalty.js"></script>
    
     <div id="content" class="span10">
