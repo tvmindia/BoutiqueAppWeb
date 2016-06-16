@@ -38,8 +38,8 @@
    <div class="container-fluid-full">
 		<div class="row-fluid">
 					
-			<div class="row-fluid">
-				<div class="login-box">
+			<div class="row-fluid" id="loginRowFluid">
+				<div class="login-box" id="LoginBoxDiv">
 					<%--<div class="icons">
 						<a href="index.html"><i class="halflings-icon home"></i></a>
 						<a href="#"><i class="halflings-icon cog"></i></a>
@@ -70,7 +70,7 @@
 				 
 					<h3>Forgot Password?</h3>
 					<p>
-						No problem, <a href="#">click here</a> to get a new password.
+						No problem, <a href="#" onclick="ForgotPassword()">click here</a> to get a new password.
 					</p>	
 				</div><!--/span-->
 			</div><!--/row-->
@@ -110,9 +110,9 @@
 <script src="../Scripts/jquery.sparkline.min.js"></script>
 <script src="../Scripts/counter.js"></script>
 <script src="../Scripts/retina.js"></script>
-<script src="../Scripts/custom.js"></script>
+	<!--<script src="../Scripts/custom.js"></script>-->
 
-
+    <script src="../Scripts/CommonJS/Common.js"></script>
 <link href="../CSS/CustomCSS/Login.css" rel="stylesheet" />
 <script src="../Scripts/UserJS/Login.js"></script>
 

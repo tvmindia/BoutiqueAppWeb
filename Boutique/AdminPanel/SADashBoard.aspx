@@ -229,7 +229,7 @@
         	     	<div class="box span6" id="NewBoutiqueSpan">
                       
 				       <div class="box-header">
-						<h2>  New Boutique</h2>
+						<h2 id="editLabel">  New Boutique</h2>
 						<div class="box-icon">
 							<%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>

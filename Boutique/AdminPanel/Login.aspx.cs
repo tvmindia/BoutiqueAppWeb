@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Boutique.DAL;
+using Messages = Boutique.UIClasses.common;
 
 namespace Boutique.AdminPanel
 {
@@ -71,5 +72,153 @@ namespace Boutique.AdminPanel
             }
 
         }
+
+        #region SendVerificationCode
+
+        [System.Web.Services.WebMethod]
+
+        public static string VerificationCodeEmit(Security LoginObj)
+        {
+
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            string username = string.Empty;
+            string BoutiqueName = string.Empty;
+            string msg = string.Empty;
+                    
+
+            try
+            {
+                                   
+                        //----------*Add verification code*------------//
+                        
+                        Random random = new Random();
+                        int verificationCode = 0;
+                        DataTable dtUsr = LoginObj.GetUserDetailsByEmailID();
+
+                        foreach (DataRow dr in dtUsr.Rows)
+                        {
+                            Guid boutiqueid = Guid.Parse(dr["BoutiqueID"].ToString());
+                            LoginObj.BoutiqueID = boutiqueid;
+                            LoginObj.LoginName = dr["LoginName"].ToString();
+                            verificationCode = random.Next(1000, 10000);
+                            LoginObj.VerifyCode = verificationCode.ToString();
+                            LoginObj.AddVerificationCode();
+                        }
+                        //----------*Get verification code*------------//
+
+                        DataTable dtCode = LoginObj.GetUserVerificationCodeByEmailID();
+
+                        foreach (DataRow dr in dtCode.Rows)
+                        {
+                            verificationCode = Convert.ToInt32(dr["VerificationCode"]);
+                            username = (dr["LoginName"]).ToString();
+                            //BoutiqueName = (dr["Name"]).ToString();
+                            msg = "<body><p>Your verification code with login name " + username + " is <font color='red'>" + verificationCode + "</font></p><p>" + msg + "</p></body>";
+                        }
+
+                        if (msg != string.Empty)
+                        {
+                            //-- Area of verification code will be displayed and email area will be hidden
+
+                            //Code.Style.Add("display", "block");
+                            //email.Style.Add("display", "none");
+                            //instruction.Visible = true;
+                            //instruction.InnerText = Messages.EmailInstruction + txtEmail.Value;
+
+                            //mailObj.Email = txtEmail.Value;
+                            LoginObj.msg = msg;
+                            LoginObj.SendEmail();
+
+                        } 
+                
+                    }
+                
+            
+            catch (Exception)
+            {
+                return "false";
+            }
+
+
+            return "True";
+        }
+
+        #endregion SendVerificationCode
+
+        #region Verify Code
+        [System.Web.Services.WebMethod]
+
+        public static string VerifyCode(Security LoginObj)
+        {
+            int verificationCode = 0;
+            string UserID = string.Empty;
+            DateTime vcCreatedTime;
+
+            bool Verified = false;
+            bool TimeExpired = false;
+
+            try
+            {
+                //userObj.Email = txtEmail.Value;
+
+
+                DataTable dtCode = LoginObj.GetUserVerificationCodeByEmailID();
+
+                foreach (DataRow dr in dtCode.Rows)
+                {
+
+                    verificationCode = Convert.ToInt32(dr["VerificationCode"]);
+                    vcCreatedTime = Convert.ToDateTime(dr["VerificatinCreatedTime"]);
+                    UserID = dr["UserID"].ToString();
+
+                    DateTime CurrentTime = DateTime.Now;
+                    if ((CurrentTime - vcCreatedTime) < TimeSpan.FromDays(1))
+                    {
+
+                        if (verificationCode.ToString() == LoginObj.VerifyCode)
+                        {
+                            Verified = Verified | true;
+                            break;
+                        }
+                    }
+
+                    else
+                    {
+                        TimeExpired = TimeExpired | true;
+                    }
+
+                }
+
+
+                if (Verified)
+                {
+                    if (TimeExpired == false)
+                    {
+                        //Response.Redirect("../Login/Reset.aspx?UserID=" + UserID, false);
+                    }
+                    else
+                    {
+                        //lblError.Text = Messages.TimeExpired;
+                    }
+                }
+
+                else
+                {
+                    //lblError.Text = Messages.IncorrectVerificationCode;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //lblError.Text = ex.Message;
+            }
+            return "True";
+
+        }
+        #endregion Verify Code
+
     }
 }

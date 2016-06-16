@@ -348,7 +348,9 @@ function BindBoutiqueTextBoxes(Records)
         $("#txtInstatgramlink").val(Records.InstagramLink);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
        })
-    $(".AddBoutique").text("Modify");
+    $(".AddBoutique").text("Save");
+    $("#editLabel").text("Edit Boutique");
+
 }
 
 function clearControls() {
@@ -366,6 +368,7 @@ function clearControls() {
     $("#txtInstatgramlink").val('');
     $("#hdfBoutiqueID").val('');
     $(".AddBoutique").text("Save");
+    $("#editLabel").text("New Boutique");
     $('#rowfluidDiv').hide();
 }
 

@@ -1,6 +1,6 @@
 ﻿#region Namespaces
 
- 
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +12,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using Boutique.DAL;
+using System.Net.Mail;
 
 #endregion Namespaces
 
@@ -32,14 +33,14 @@ namespace Boutique.DAL
 
             #endregion Global Variables
 
-            #region Properties          
-           
+            #region Properties
+
             private string BoutiqueName;
             private string Boutique_ID;
             private Boolean isValidUser;
             private string userN;
             private string RoleName;
-         
+
             public string userName
             {
                 get
@@ -61,23 +62,23 @@ namespace Boutique.DAL
                     return BoutiqueName;
                 }
             }
-            
+
             public string BoutiqueID
             {
                 get
                 {
                     return Boutique_ID;
                 }
-               
 
-            }        
+
+            }
             public string Role
             {
                 get
                 {
                     return RoleName;
                 }
-            
+
             }
 
 
@@ -102,18 +103,18 @@ namespace Boutique.DAL
             #region User Authentication
             public UserAuthendication(String userName, String password)
             {
-                             
+
                 DataTable dt = GetLoginDetails(userName);
 
                 if (dt.Rows.Count > 0)
                 {
                     string Name = dt.Rows[0]["LoginName"].ToString();
                     string Passwd = dt.Rows[0]["Password"].ToString();
-                  bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
+                    bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
 
-                  if (userName == Name && (CryptObj.Encrypt(password) == Passwd) && Active == true)
+                    if (userName == Name && (CryptObj.Encrypt(password) == Passwd) && Active == true)
 
-                  //  if (userName == Name && password == Passwd)
+                    //  if (userName == Name && password == Passwd)
                     {
                         isValidUser = true;
                         userN = userName;
@@ -187,9 +188,9 @@ namespace Boutique.DAL
             }
 
             #endregion Get Login Details
-          
-      
-      
+
+
+
 
         }
 
@@ -298,6 +299,167 @@ namespace Boutique.DAL
 
         }
 
+        public string Email
+        {
+            get;
+            set;
+        }
+        public string verificationCode
+        {
+            get;
+            set;
+        }
+        public string LoginName
+        {
+            get;
+            set;
+        }
+        public Guid BoutiqueID
+        {
+            get;
+            set;
+        }
+        public string msg
+        {
+            get;
+            set;
+        }
+        public string VerifyCode
+        {
+            get;
+            set;
+        }
+        #region Public Variables
 
+        //---* Keys assosiated with mail sending.its values are set in web.config ,app settings section -- *//
+
+        string EmailFromAddress = System.Web.Configuration.WebConfigurationManager.AppSettings["EmailFromAddress"];
+        string host = System.Web.Configuration.WebConfigurationManager.AppSettings["SMTP-host"];
+        string smtpUserName = System.Web.Configuration.WebConfigurationManager.AppSettings["SMTP-UserName"];
+        string smtpPassword = System.Web.Configuration.WebConfigurationManager.AppSettings["SMTP-Password"];
+        string VerificationCode = System.Web.Configuration.WebConfigurationManager.AppSettings["VerificationCode"];
+        string port = System.Web.Configuration.WebConfigurationManager.AppSettings["Port"];
+
+        #endregion   Public Variables
+
+        #region Get User Details By EmailID
+
+        public DataTable GetUserDetailsByEmailID()
+        {
+            SqlConnection con = null;
+            DataTable dtUsers = null;
+
+            dtUsers = new DataTable();
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("[GetUserDetailsByEmail]", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            adapter.Fill(dtUsers);
+
+            if (con != null)
+            {
+                con.Dispose();
+            }
+
+            return dtUsers;
+        }
+
+        #endregion Get User Details By EmailID
+
+        #region Add verificationcode (Generated random number)
+
+        public void AddVerificationCode()
+        {
+            dbConnection dcon = new dbConnection();
+
+            dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = dcon.SQLCon;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[AddVerificationCode]";
+
+            cmd.Parameters.Add("@VerificationCode", SqlDbType.NVarChar, 20).Value = VerifyCode;
+            cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
+            cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
+
+
+            SqlParameter Output = new SqlParameter();
+            Output.DbType = DbType.Int32;
+            Output.ParameterName = "@Status";
+            Output.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(Output);
+            cmd.ExecuteNonQuery();
+
+            if (dcon.SQLCon != null)
+            {
+                dcon.DisconectDB();
+            }
+
+        }
+
+        #endregion Add verificationcode (Generated random number)
+
+        #region Get User Verification Code By EmailID
+
+        public DataTable GetUserVerificationCodeByEmailID()
+        {
+            SqlConnection con = null;
+            DataTable dtVerificationCode = null;
+
+            dtVerificationCode = new DataTable();
+            dbConnection dcon = new dbConnection();
+            con = dcon.GetDBConnection();
+            SqlCommand cmd = new SqlCommand("GetVerificationCodeByEmailID", con);
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = cmd;
+            adapter.Fill(dtVerificationCode);
+
+            if (con != null)
+            {
+                con.Dispose();
+            }
+
+
+
+            return dtVerificationCode;
+        }
+
+        #endregion  Get User Verification Code By EmailID
+        #region SendEmail
+
+        public void SendEmail()
+        {
+            MailMessage Msg = new MailMessage();
+
+            Msg.From = new MailAddress(EmailFromAddress);
+
+            Msg.To.Add(Email);
+
+            string message = "<body><h3>Hello ,</h3>" + msg + "<p>Enter Your Code in given field and change your Password<p><p><p><p>&nbsp;&nbsp;&nbsp;&nbsp; ClinicApp&nbsp; Admin<p><p><p><p><p>Please do not reply to this email with your password. We will never ask for your password, and we strongly discourage you from sharing it with anyone.</body>";
+            Msg.Subject = VerificationCode;
+            Msg.Body = message;
+            Msg.IsBodyHtml = true;
+
+            // your remote SMTP server IP.
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = host;
+            smtp.Port = 587;
+            smtp.Credentials = new System.Net.NetworkCredential(smtpUserName, smtpPassword);
+            smtp.EnableSsl = true;
+            smtp.Send(Msg);
+            Msg = null;
+        }
+
+
+        #endregion SendEmail
     }
 }
