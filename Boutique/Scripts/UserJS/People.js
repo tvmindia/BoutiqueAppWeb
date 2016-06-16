@@ -808,6 +808,7 @@ function clearManagerControls() {
     $(".AddManager").text("Save");
     $("#hdfAdminID").val('');
     $("#hdfUserID").val('');
+    $("#editManagerLabel").text("New Manager");
 }
 
 function clearAdminControls() {
@@ -825,6 +826,7 @@ function clearAdminControls() {
     $(".AddAdmin").text("Save");
     $("#hdfAdminID").val('');
     $("#hdfUserID").val('');
+    $("#editAdminLabel").text("New Administrator");
 }
 
 function clearUserControls() {
@@ -853,6 +855,7 @@ function clearDesignerControls() {
     $("#hdfDesignerID").val('');
     $("#list").find(".thumb").remove();
     $(".AddDesigner").text("Save");
+    $("#editDesignerLabel").text("New Designer");
 
 }
 
@@ -962,7 +965,8 @@ function BindAdminTextBoxes(Records) {
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
     })
-    $(".AddAdmin").text("Modify");
+    $(".AddAdmin").text("Save");
+    $("#editAdminLabel").text("Edit Administrator");
 }
 
 function BindManagerTextBoxes(Records) {
@@ -992,7 +996,8 @@ function BindManagerTextBoxes(Records) {
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
     })
-    $(".AddManager").text("Modify");
+    $(".AddManager").text("Save");
+    $("#editManagerLabel").text("Edit Manager");
 }
 
 function BindDesignerTextBoxes(JSONresult) {
@@ -1002,7 +1007,8 @@ function BindDesignerTextBoxes(JSONresult) {
     $("#txtDesignerProfile").val(JSONresult.Profile);
     $("#hdfDesignerID").val(JSONresult.DesignerID);
 
-    $(".AddDesigner").text("Modify");
+    $(".AddDesigner").text("Save");
+    $("#editDesignerLabel").text("Edit Designer");
 }
 
 
