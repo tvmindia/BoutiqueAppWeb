@@ -34,6 +34,11 @@ namespace Boutique.ImageHandler
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
+                    else
+                    {
+                        context.Response.ContentType = "image/png";
+                        context.Response.WriteFile("~/img/Default/DefaultBoutique.jpg");
+                    }
 
                 }
 
@@ -47,6 +52,11 @@ namespace Boutique.ImageHandler
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+                    }
+                    else
+                    {
+                        context.Response.ContentType = "image/png";
+                        context.Response.WriteFile("~/img/Default/nologo1.png");
                     }
 
                 }
@@ -62,6 +72,7 @@ namespace Boutique.ImageHandler
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
+                    
 
                 }
 

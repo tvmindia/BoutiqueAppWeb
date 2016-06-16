@@ -1,5 +1,6 @@
 ﻿$("document").ready(function (e) {
-    parent.document.title = "DashBoard";
+    debugger;
+    parent.document.title = Pages.Dashboard;
          
     var boutique_id = getboutiqueID();  
     var ImageUrl = "url(../ImageHandler/ImageServiceHandler.ashx?BoutiqueID=" + boutique_id+')';
