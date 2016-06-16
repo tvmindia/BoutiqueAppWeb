@@ -7,8 +7,7 @@ $("document").ready(function (e) {
     if (rowCount == 0) {
         $('#OrderItemTable').hide();
     }
-    alert(rowCount);
-
+   
 
     parent.document.title = Pages.OrderStatus;
 
@@ -90,8 +89,6 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
-
-
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -144,8 +141,8 @@ $("document").ready(function (e) {
 
                 AddToList();
 
-                //$(".products").select2("val", "");
-                //$("#txtRemarks").val("");
+                $(".products").select2("val", "");
+                $("#txtRemarks").val("");
                 $('#ImgProduct').hide();
             }
             else {
@@ -282,7 +279,9 @@ $("document").ready(function (e) {
 
                 ClearControls();
 
-                if ($(".products").val() != "") //check if  change for product items (Header only)
+                var rowCount = $("#OrderItemTable > tbody > tr").length;
+
+                if (rowCount > 0) //check if  change for product items (Header only)
                 {
                     $('#OrderItemTable tbody tr').each(function () {
                         
