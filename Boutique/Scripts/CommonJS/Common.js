@@ -42,9 +42,10 @@ function postBlobAjax(formData, page) {
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
     //request.send(formData);
+
     $.ajax({
         type: "POST",
-        url: "../ImageHandler/PhotoUploadHandler.ashx",
+        url: page,
         contentType: false,
         headers: { 'Cache-Control': 'no-cache' },
         async: false,

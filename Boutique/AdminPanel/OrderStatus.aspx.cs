@@ -313,6 +313,8 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertOrderItem(Order OrderObj)
         {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
 
@@ -327,7 +329,7 @@ namespace Boutique.AdminPanel
             try
             {
                 status = OrderObj.InsertOrderItem().ToString();
-
+                status = OrderObj.OrderID.ToString();
             }
             catch (Exception)
             {
@@ -336,7 +338,7 @@ namespace Boutique.AdminPanel
             finally
             {
             }
-            return status;
+            return jsSerializer.Serialize(status);
         }
         #endregion Add  Order Item
 

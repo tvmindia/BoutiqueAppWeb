@@ -173,6 +173,54 @@ namespace Boutique.DAL
             }
         #endregion
 
+        #region SelectAllNotifications ByBoutiqueID
+        /// <summary>
+        /// get all the notifications
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        public DataSet SelectAllNotificationsBoutiqueID()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            Guid boutiqueid = Guid.Parse(BoutiqueID);
+            try
+            {
+                if (boutiqueid != Guid.Empty)
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectAllNotificationsByBoutiqueID]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = boutiqueid;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion
+
         #region Get all the notifications
         /// <summary>
         /// get all the notifications
