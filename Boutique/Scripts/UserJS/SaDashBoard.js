@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
     BindTiles();
-    parent.document.title = "SA Dashboard";
+    parent.document.title = Pages.SaDashboard;
     $(".ddlboutiques").select2({
         data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
        , allowClear: true
@@ -42,28 +42,32 @@
            }
        })
 
-    $(".Delete").live({
-           click: function (e) {
+    $(".Delete").live({    
+        click: function (e) {
+            debugger;
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();            
                var jsonResult = {};
                editedrow = $(this).closest('tr');
-               var Boutique = new Object();
-               Boutique.BoutiqueID = editedrow.attr("boutiqueID");
-               jsonResult = DeleteBoutique(Boutique);
-               if (jsonResult != undefined) {
-                   if (jsonResult == "1") {
-                       BindBoutiqueAsyncLoad();//Gridbind
-                       $('#rowfluidDiv').show();
-                       $('.alert-success').show();
-                   }
-                   if (jsonResult != "1") {
-                       BindBoutiqueAsyncLoad();//Gridbind
-                       $('#rowfluidDiv').show();
-                       $('.alert-error').show();
-                   }
-               }
+               var e = editedrow.attr("boutiqueID");
+               var p = "";
+               //var Boutique = new Object();
+               //Boutique.BoutiqueID = editedrow.attr("boutiqueID");
+               //jsonResult = DeleteBoutique(Boutique);
+               //if (jsonResult != undefined) {
+               //    if (jsonResult == "1") {
+               //        BindBoutiqueAsyncLoad();//Gridbind
+               //        $('#rowfluidDiv').show();
+               //        $('.alert-success').show();
+               //    }
+               //    if (jsonResult != "1") {
+               //        BindBoutiqueAsyncLoad();//Gridbind
+               //        $('#rowfluidDiv').show();
+               //        $('.alert-error').show();
+               //    }
+               //}
+               DeleteCustomAlert('Are You Sure?', e, p);
                return false;
            }
        })
@@ -187,7 +191,33 @@
 
 });//document.ready
 
+function DeleteItem(e,p)
+{
+    debugger;
+    var jsonResult = {};
+    //editedrow = $(this).closest('tr');
+    var Boutique = new Object();
+    Boutique.BoutiqueID = e;
+    jsonResult = DeleteBoutique(Boutique);
+    if (jsonResult != undefined) {
+        if (jsonResult == "1") {
+            BindBoutiqueAsyncLoad();//Gridbind
+            $('#rowfluidDiv').show();
+            $('.alert-success').show();
+        }
+        if (jsonResult == "2") {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+            $('.alert-error strong').text(Messages.existsBoutique);
 
+        }
+        if (jsonResult != "1" && jsonResult != "2") {
+            BindBoutiqueAsyncLoad();//Gridbind
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+        }
+    }
+}
 
 function BindAsyncBoutiques() {
     var jsonResult = {};

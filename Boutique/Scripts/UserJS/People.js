@@ -7,7 +7,7 @@
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
 
-    if (LoginUserRole != 'Manager') {
+    if (LoginUserRole != Roles.Manager) {
 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             // Great success! All the File APIs are supported.     

@@ -15,9 +15,15 @@ var Roles = {
     SuperAdmin: "SuperAdmin"
     }
 
+var Pages = {
+    People: "People",
+    Boutique: "Boutique Profile",
+    SaDashboard: "SA Dashboard"
+}
 
 var Messages = {
-    exists:"The operation can’t be completed because the category is in use ."
+    exists: "The operation can’t be completed because the category is in use .",
+    existsBoutique:"The operation can’t be completed because the Boutique is in use ."
 }
 
 function getRole() {
