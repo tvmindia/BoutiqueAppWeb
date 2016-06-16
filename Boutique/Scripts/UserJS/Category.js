@@ -110,7 +110,6 @@ $("document").ready(function (e) {
 
 function DeleteItem(e,p)
 {
-    debugger;
     var jsonResult = {};
     //editedrow = $(e).closest('tr');
     var Category = new Object();

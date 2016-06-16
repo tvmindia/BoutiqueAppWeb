@@ -71,7 +71,8 @@ function postBlobAjax(formData, page) {
 }
 
 function DeleteCustomAlert(txt, e, p) 
-    {
+{
+    debugger;
     d = document;
 
     if (d.getElementById("modalContainer")) return;

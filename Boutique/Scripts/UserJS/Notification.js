@@ -128,45 +128,49 @@
     $(".notificationdelete").live(
     {
         click: function (e) {
-
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            if (confirm("Do you want to delete this notification ?") == true) {
-                var jsonResult = {};
-                editedrow = $(this).closest('tr');
-                var Notification = new Object();
+            editedrow = $(this).closest('tr');
+            var e = editedrow.attr("NotificationID");
+            var p = "";
+            //if (confirm("Do you want to delete this notification ?") == true) {
+            //    var jsonResult = {};
+            //    editedrow = $(this).closest('tr');
+            //    var Notification = new Object();
             
-                Notification.NotificationID = editedrow.attr("NotificationID");
-                result = DeleteNotification(Notification);
-                if (result == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
+            //    Notification.NotificationID = editedrow.attr("NotificationID");
+            //    result = DeleteNotification(Notification);
+            //    if (result == "1") {
+            //        $('#rowfluidDiv').show();
+            //        $('.alert-success').show();
 
-                }
-                if (result != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                }
-                BindNotificationsTable();
-                $("#txtTitle").val("");
-                $("#txtDescription").val("");
-                $("#dateStartDate").val("");
-                $("#dateEndDate").val("");
-                $(".submitDetails").text("Save");
-                $("#editLabel").text("New Notification");
-                $("#hdfNotificationID").val('');
-                $(".products").select2("val", "");
-                $(".categories").select2("val", "");
-                //Scroll page
-                var offset = $('#rowfluidDiv').offset();
-                offset.left -= 20;
-                offset.top -= 20;
-                $('html, body').animate({
-                    scrollTop: offset.top,
-                    scrollLeft: offset.left
-                });
-            }
+            //    }
+            //    if (result != "1") {
+            //        $('#rowfluidDiv').show();
+            //        $('.alert-error').show();
+            //    }
+            //    BindNotificationsTable();
+            //    $("#txtTitle").val("");
+            //    $("#txtDescription").val("");
+            //    $("#dateStartDate").val("");
+            //    $("#dateEndDate").val("");
+            //    $(".submitDetails").text("Save");
+            //    $("#editLabel").text("New Notification");
+            //    $("#hdfNotificationID").val('');
+            //    $(".products").select2("val", "");
+            //    $(".categories").select2("val", "");
+            //    //Scroll page
+            //    var offset = $('#rowfluidDiv').offset();
+            //    offset.left -= 20;
+            //    offset.top -= 20;
+            //    $('html, body').animate({
+            //        scrollTop: offset.top,
+            //        scrollLeft: offset.left
+            //    });
+            //}
+            DeleteCustomAlert('Are You Sure?', e, p);
             return false;
         }        
     })
@@ -187,6 +191,42 @@
 });
 
 //------------Notification details table------------
+
+function DeleteItem(e,p)
+{
+    var jsonResult = {};
+    //editedrow = $(this).closest('tr');
+    var Notification = new Object();
+    Notification.NotificationID = e;
+    result = DeleteNotification(Notification);
+    if (result == "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+
+    }
+    if (result != "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+    }
+    BindNotificationsTable();
+    $("#txtTitle").val("");
+    $("#txtDescription").val("");
+    $("#dateStartDate").val("");
+    $("#dateEndDate").val("");
+    $(".submitDetails").text("Save");
+    $("#editLabel").text("New Notification");
+    $("#hdfNotificationID").val('');
+    $(".products").select2("val", "");
+    $(".categories").select2("val", "");
+    //Scroll page
+    var offset = $('#rowfluidDiv').offset();
+    offset.left -= 20;
+    offset.top -= 20;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
+}
 
 function BindNotificationsTable() {
     debugger;
