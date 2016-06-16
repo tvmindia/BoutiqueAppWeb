@@ -56,7 +56,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                     </div>
                 </div>
-                <div class="box-content TableLayout">
+                <div class="box-content  " style="height: 500px; overflow:auto; " >
                     <%--<table class="table table-striped table-bordered bootstrap-datatable datatable" id="UsersTable">--%>
                     <table class="table table-striped table-bordered  bootstrap-datatable" id="UsersTable">
                         <thead>

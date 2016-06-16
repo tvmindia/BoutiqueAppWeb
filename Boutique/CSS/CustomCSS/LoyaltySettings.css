@@ -30,3 +30,6 @@ label.control-label {
 .TableLayout{
     min-height:50px; max-height:350px; overflow-y:scroll; margin-bottom: 20px;
 }
+ .paginate_disabled_previous {
+        padding-right:5px !important;
+        }

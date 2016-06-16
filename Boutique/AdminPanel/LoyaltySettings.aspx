@@ -104,7 +104,7 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-					<div class="box-content TableLayout">
+					<div class="box-content ">
 						<table class="table table-striped table-bordered  bootstrap-datatable" id="LoyaltyLogTable">
                         <thead>
                             <tr>
