@@ -340,8 +340,8 @@ function BindNotificationTextBoxes(Records) {
         $(".categories").val(Records.CategoryCode).trigger("change");
         $("#hdfNotificationID").val(Records.NotificationID);
     });
-    $(".submitDetails").text("Modify");
-    $("#editLabel").text("Modify Notification");
+    $(".submitDetails").text("Save");
+    $("#editLabel").text("Edit Notification");
 }
 function GetNotification(Notification) {
     var ds = {};
