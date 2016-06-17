@@ -113,16 +113,16 @@ function DeleteCustomAlert(txt, e, p)
 
     btn = alertObj.appendChild(d.createElement("a"));
     btn.id = "closeBtn";
-    btn.className = "btnButton";
-    btn.appendChild(d.createTextNode("No"));
+    btn.className = "noButton";
+    btn.appendChild(d.createTextNode("No.Cancel It!"));
     btn.href = "#";
     btn.focus();
     btn.onclick = function () { removeCustomAlert(); return false; }
 
     btnYes = alertObj.appendChild(d.createElement("a"));
     btnYes.id = "DeleteYesBtn";
-    btnYes.className = "btnButton";
-    btnYes.appendChild(d.createTextNode("Yes"));
+    btnYes.className = "yesButton";
+    btnYes.appendChild(d.createTextNode("Yes.Delete It!"));
     btnYes.href = "#";
     //btnYes.focus();
     //debugger;
