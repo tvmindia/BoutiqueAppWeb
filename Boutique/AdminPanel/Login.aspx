@@ -40,6 +40,7 @@
 					
 			<div class="row-fluid" id="loginRowFluid">
 				<div class="login-box" id="LoginBoxDiv">
+                    <input id="Hidden1" runat="server" type="hidden" />
 					<%--<div class="icons">
 						<a href="index.html"><i class="halflings-icon home"></i></a>
 						<a href="#"><i class="halflings-icon cog"></i></a>

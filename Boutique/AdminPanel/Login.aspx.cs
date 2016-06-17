@@ -11,6 +11,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Boutique.DAL;
 using Messages = Boutique.UIClasses.common;
+using System.Web.Services;
+using System.Web.Script.Serialization;
 
 namespace Boutique.AdminPanel
 {
@@ -153,12 +155,14 @@ namespace Boutique.AdminPanel
 
         public static string VerifyCode(Security LoginObj)
         {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             int verificationCode = 0;
-            string UserID = string.Empty;
+          
             DateTime vcCreatedTime;
 
             bool Verified = false;
             bool TimeExpired = false;
+            //string msg = "";
 
             try
             {
@@ -171,8 +175,8 @@ namespace Boutique.AdminPanel
                 {
 
                     verificationCode = Convert.ToInt32(dr["VerificationCode"]);
-                    vcCreatedTime = Convert.ToDateTime(dr["VerificatinCreatedTime"]);
-                    UserID = dr["UserID"].ToString();
+                    vcCreatedTime = Convert.ToDateTime(dr["VerifyCodeDate"]);
+                    LoginObj.UserID = dr["UserID"].ToString();
 
                     DateTime CurrentTime = DateTime.Now;
                     if ((CurrentTime - vcCreatedTime) < TimeSpan.FromDays(1))
@@ -198,6 +202,7 @@ namespace Boutique.AdminPanel
                     if (TimeExpired == false)
                     {
                         //Response.Redirect("../Login/Reset.aspx?UserID=" + UserID, false);
+                        LoginObj.msg="True";
                     }
                     else
                     {
@@ -211,14 +216,35 @@ namespace Boutique.AdminPanel
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //lblError.Text = ex.Message;
+                LoginObj.msg="False";
+                return jsSerializer.Serialize(LoginObj);
             }
-            return "True";
-
+          
+           return jsSerializer.Serialize(LoginObj);
+            
         }
         #endregion Verify Code
 
+       #region UpdatePassword
+       [WebMethod]
+        public static string UpdatePassword(Security LogObj)
+        {
+            Security.CryptographyFunctions CryptObj = new Security.CryptographyFunctions();
+
+            try
+            {
+                LogObj.Password=CryptObj.Encrypt(LogObj.Password);
+                LogObj.ResetPassword(Guid.Parse(LogObj.UserID));             
+            }
+           catch(Exception ex)
+            {
+                return ex.ToString();
+            }
+            return "True";
+        }
+       #endregion UpdatePassword
     }
 }
