@@ -215,8 +215,8 @@ namespace Boutique.AdminPanel
             finally
             {
             }
-
-            return jsSerializer.Serialize(status);
+            return jsSerializer.Serialize(OrderObj);
+            //return jsSerializer.Serialize(status);
 
             //return status;
         }

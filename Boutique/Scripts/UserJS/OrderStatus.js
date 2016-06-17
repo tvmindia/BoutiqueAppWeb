@@ -295,9 +295,9 @@ $("document").ready(function (e) {
 
             ///-- Insert or update action is success if result equals to some id, then by checking no of items , if it is 0 header only inserts otherwise items insertions also performs
 
-            if (result != "") {  
+            if (result.OrderID != "" ) {
 
-                Notification.OrderID = result;
+                Notification.OrderID = result.OrderID;
                 //if (Insert) //Insert
                 //{
                 //    var itemCount = $("#OrderItemTable > tbody > tr").length;
@@ -334,7 +334,7 @@ $("document").ready(function (e) {
                         Order.ProductID = productId;
                         Order.CustomerRemarks = remarks;
 
-                        Order.OrderID = result;
+                        Order.OrderID = result.OrderID;
 
                         resultItem = InsertOrderItem(Order);
 
@@ -411,7 +411,7 @@ $("document").ready(function (e) {
 
                     if (Insert == true )
                     {
-                        Notification.Description = "Order is placed";
+                        Notification.Description = "Order with "+result.OrderNo +" is placed";
                         resultOfNotification = InsertNotification(Notification);
                     }
 
