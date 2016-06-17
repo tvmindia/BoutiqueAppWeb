@@ -1,6 +1,8 @@
 ﻿$("document").ready(function (e) {
 
     parent.document.title = Pages.Products;
+    var LoginUserRole = getRole(); //common function To Get Role 
+
     $('.ModifyProduct').hide();//hides edit button
     $('.DeleteProduct').hide();//hides delete button
     $('.image-link').viewbox({

@@ -251,7 +251,7 @@
         
 
 
-         <div class="row-fluid" id="productDetailsDiv">
+         <div class="row-fluid" id="productDetailsDiv" runat="server">
 
               <div class="box span12">
                   <div class="span12">
