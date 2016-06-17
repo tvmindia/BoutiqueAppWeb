@@ -396,9 +396,6 @@ $("document").ready(function (e) {
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
         BindAllProductImages(20);
-      
-
-
         var $marstrends = $('.imageholderTrends').masonry(
            {
                itemSelector: '.masonry-thumb',
@@ -408,18 +405,12 @@ $("document").ready(function (e) {
 
       //  $('.animation_image').hide();
         $(this).show();
-
     });
-
-
     $("#load_more_buttonoutofstock").click(function (e) { //user clicks on button
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
         BindAllProductImages(20);
-       
-
-
-        var $marsoutofstock = $('.imageholderoutofstock').masonry(
+         var $marsoutofstock = $('.imageholderoutofstock').masonry(
            {
                itemSelector: '.masonry-thumb',
                isInitLayout: false
@@ -431,8 +422,22 @@ $("document").ready(function (e) {
 
     });
 
+    $(".btnsearchnewproducts").click(function (e) { //user clicks on button
+       
+        alert("serach new");
+    });
 
 
+    $(".btnsearchtrends").click(function (e) { //user clicks on button
+
+        alert("serach trend");
+    });
+
+
+    $(".btnsearchoutofstock").click(function (e) { //user clicks on button
+
+        alert("serach  out of stocks");
+    });
 
 
 });//end of document.ready
