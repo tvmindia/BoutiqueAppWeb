@@ -54,6 +54,20 @@ namespace Boutique.UIClasses
                 return "No items";
             }
         }
+        public string SuccessfullActivation
+        {
+            get
+            {
+                return "User Account Successfully Activated";
+            }
+        }
+        public string UnSuccessfullActivation
+        {
+            get
+            {
+                return "User Account Activation is UNSUCCESSFULL";
+            }
+        }
 
 
         #region PageUrl
