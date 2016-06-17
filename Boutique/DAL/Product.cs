@@ -1847,5 +1847,8 @@ namespace Boutique.DAL
         }
         #endregion Get ImageID By ProductID
 
+
+
+
     }
 }
