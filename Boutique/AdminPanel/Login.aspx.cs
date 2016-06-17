@@ -98,6 +98,10 @@ namespace Boutique.AdminPanel
                         
                         Random random = new Random();
                         int verificationCode = 0;
+                        if(LoginObj.Email=="")
+                        {
+                            return "false";
+                        }
                         DataTable dtUsr = LoginObj.GetUserDetailsByEmailID();
 
                         foreach (DataRow dr in dtUsr.Rows)
