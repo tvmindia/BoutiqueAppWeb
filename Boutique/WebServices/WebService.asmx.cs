@@ -298,14 +298,14 @@ namespace Boutique.WebServices
         /// <param name="boutiqueID"></param>
         /// <returns>status</returns>
         [WebMethod]
-        public string UserActivation(string userId, string boutiqueID)
+        public string UserActivation(string userID, string boutiqueID)
         {
             DataTable dt = new DataTable();
             try
             {
                 Users user = new Users();
                 user.BoutiqueID = boutiqueID;
-                user.UserID = userId;
+                user.UserID = userID;
                 user.UpdatedBy = "User";
                 
                 dt.Columns.Add("Flag", typeof(Boolean));
@@ -315,12 +315,12 @@ namespace Boutique.WebServices
                 {
 
                     dr["Flag"] = true;
-                    dr["Message"] = "User Account Successfully Activated";
+                    dr["Message"] = constants.SuccessfullActivation;
                 }
                 else
                 {
                     dr["Flag"] = false;
-                    dr["Message"] = "User Account Activation is UNSUCCESSFULL";
+                    dr["Message"] = constants.UnSuccessfullActivation;
                 }
                 dt.Rows.Add(dr);
             }
@@ -638,6 +638,57 @@ namespace Boutique.WebServices
                 product.ProductID = productID;
                 dt = product.GetProductReviewsForMobile(userID);
                 if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        /// <summary>
+        /// Webservice to add new review to a product
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <param name="productID"></param>
+        /// <param name="reviewDescription"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string InsertProductReview(string userID, string boutiqueID,string productID,string reviewDescription)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.BoutiqueID = boutiqueID;
+                product.ProductID = productID;
+                product.ReviewDescription = reviewDescription;
+
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                if (product.InsertProductReview(userID) == 1)
+                {
+
+                    dr["Flag"] = true;
+                    dr["Message"] = constants.Successfull;
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                }
+                dt.Rows.Add(dr);
             }
             catch (Exception ex)
             {

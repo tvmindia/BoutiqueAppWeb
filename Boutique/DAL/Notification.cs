@@ -51,6 +51,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string UserID
+        {
+            get;
+            set;
+        }
+
         #endregion properties
 
         #region Methods
@@ -96,6 +102,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = EndDate;
                 if (ProductID != "") cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 if (CategoryCode != "") cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                if (UserID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
