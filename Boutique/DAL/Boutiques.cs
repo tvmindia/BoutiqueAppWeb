@@ -227,11 +227,11 @@ namespace Boutique.DAL
         #endregion GetBoutique
 
         #region NewBoutique
-        public Int16 NewBoutique()
+        public string NewBoutique()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParameter = null;
+            SqlParameter outParameter, outParameter2 = null;
             try
             {
                 dcon = new dbConnection();
@@ -257,6 +257,10 @@ namespace Boutique.DAL
 
 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParameter2 = cmd.Parameters.Add("@BoutiqueID", SqlDbType.NVarChar,255);
+               
+                
+                outParameter2.Direction = ParameterDirection.Output;
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -275,7 +279,7 @@ namespace Boutique.DAL
                 }
             }
             //insert success or failure
-            return Int16.Parse(outParameter.Value.ToString());
+            return outParameter2.Value.ToString();
 
         }
 

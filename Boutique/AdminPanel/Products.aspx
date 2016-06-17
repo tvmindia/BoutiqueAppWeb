@@ -124,9 +124,20 @@
 						 
 						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
 							<div class="tab-pane active" id="newproducts">
-								<p>
-									New Products
-								</p>
+
+                                  <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">New Products</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtsearchnewproducts" size="16" type="text"/><a class="btn btnsearchnewproducts" href="#">Search</a>
+								  </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
+
+
+
                                  <%--Gallery new products--%>
                                  <div class="row-fluid">
 				              <%--  <div class="box span12">--%>
@@ -156,16 +167,23 @@
 				<%--</div><!--/span-->--%>
 			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
                               <a class="LoadMore" id="load_more_button" href="#">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
                                  <%--Gallery new products--%>
 
 							</div>
 							<div class="tab-pane" id="trends">
-								<p>
-							         Trends in Demand
-								</p>
+							    <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">Trending Products</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtsearchtrends" size="16" type="text"/><a class="btn btnsearchtrends" href="#">Search</a>
+								  </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
 
                                   <%--Gallery Trends--%>
                                  <div class="row-fluid">
@@ -196,10 +214,17 @@
 
 							</div>
 							<div class="tab-pane" id="outstock">
-								<p>
-									Out of stocks
-								</p>
-
+								
+                                  <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">Out Of Stocks</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtsearchoutofstock" size="16" type="text"/><a class="btn btnsearchoutofstock" href="#">Search</a>
+								  </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
 
                                   <%--Gallery Out of stock--%>
                                  <div class="row-fluid">

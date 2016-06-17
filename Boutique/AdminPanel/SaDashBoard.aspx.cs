@@ -93,15 +93,27 @@ namespace Boutique.AdminPanel
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
-            string status = null;        
+            string status = null;
+            string Boutique_ID = null;
+
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
            // boutiqueobj.BoutiqueID = UA.BoutiqueID;
+             
+           
             if (UA != null)
             {
 
                 if (boutiqueobj.BoutiqueID == null)
                 {
-                    status = boutiqueobj.NewBoutique().ToString();
+                    DAL.Loyalty loyalObj = new DAL.Loyalty();
+                    
+                   
+
+                    Boutique_ID = boutiqueobj.NewBoutique();
+
+                    loyalObj.BoutiqueID = Boutique_ID;
+
+                    status = loyalObj.InitializeLoyaltySettings().ToString();
                 }
                 else
                 {
