@@ -346,9 +346,10 @@ $("document").ready(function (e) {
             var p = $(this).attr('pname');
 
             if (LoginUserRole != Roles.Manager) {
+                AutoScrollToEdit();
                 BindProductTextBoxes(this);
                 BindAllImages();
-                AutoScrollToEdit();
+              
             }
             return false;
         }
@@ -948,6 +949,16 @@ function DeleteProuductImage(Product) {
     return table;
 }
 
+function AutoScrollToEdit()
+{
+    var offset = $('#productDetailsDiv').offset();
+    offset.left -= 20;
+    offset.top -= 20;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
+}
 
 
 function clearProductControls() {
