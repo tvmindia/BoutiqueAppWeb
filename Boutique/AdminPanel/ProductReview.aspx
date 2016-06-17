@@ -15,7 +15,9 @@
     </style>
     
 
-    <script src="../Scripts/UserJS/ProductReview.js"></script>
+   
+    <script src="../Scripts/CommonJS/Common.js"></script>
+ <script src="../Scripts/UserJS/ProductReview.js"></script>
     <div id="content" class="span10">
       <ul class="breadcrumb">
           <li>

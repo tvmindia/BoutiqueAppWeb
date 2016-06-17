@@ -1,6 +1,9 @@
-﻿$("document").ready(function (e) {
+﻿var LoginUserRole='';
+$("document").ready(function (e) {
 
     parent.document.title = Pages.Products;
+    LoginUserRole = getRole(); //common function To Get Role 
+
     $('.ModifyProduct').hide();//hides edit button
     $('.DeleteProduct').hide();//hides delete button
     $('.image-link').viewbox({
@@ -64,14 +67,15 @@
     });
     $("#Preview").disableSelection();
 
-
-
-    BindAllImages();//list li of product images when images uploaded
-    //$(".ddlrelateproducts").select2({
-    //    placeholder: "Choose Related Products",
-    //    allowClear: true,
-    //    data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
-    //});
+   
+    if (LoginUserRole != Roles.Manager) {
+        BindAllImages();//list li of product images when images uploaded
+        //$(".ddlrelateproducts").select2({
+        //    placeholder: "Choose Related Products",
+        //    allowClear: true,
+        //    data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
+        //});
+    }
 
 
     var $catMulti = $(".ddlcategories").select2({
@@ -324,9 +328,11 @@
             var imageid = $(this).attr('imageid');
             var p = $(this).attr('pname');
 
-            BindProductTextBoxes(this);
-            BindAllImages();
-            AutoScrollToEdit();
+            if (LoginUserRole != Roles.Manager) {
+                BindProductTextBoxes(this);
+                BindAllImages();
+                AutoScrollToEdit();
+            }
             return false;
         }
     })

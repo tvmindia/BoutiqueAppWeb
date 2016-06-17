@@ -104,16 +104,21 @@ function DeleteCustomAlert(txt, e, p)
     alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
     alertObj.style.visiblity = "visible";
 
-    h1 = alertObj.appendChild(d.createElement("h1"));
-    h1.appendChild(d.createTextNode("Delete"));
-
+    //h1 = alertObj.appendChild(d.createElement("h1"));
+    //h1.appendChild(d.createTextNode("Delete"));
+    var img1 = document.createElement('img');
+    img1.setAttribute("src", "../img/Default/Warn.png");
+    img1.setAttribute("class", "alertImage");
+    alertObj.appendChild(img1);
     msg = alertObj.appendChild(d.createElement("p"));
+    //'<img class="alertImage" src="../img/Default/Warning.png" /><br />';
+    
     //msg.appendChild(d.createTextNode(txt));
     msg.innerHTML = txt;
 
     btn = alertObj.appendChild(d.createElement("a"));
     btn.id = "closeBtn";
-    btn.className = "btnButton";
+    btn.className = "noButton";
     btn.appendChild(d.createTextNode("No"));
     btn.href = "#";
     btn.focus();
@@ -121,7 +126,7 @@ function DeleteCustomAlert(txt, e, p)
 
     btnYes = alertObj.appendChild(d.createElement("a"));
     btnYes.id = "DeleteYesBtn";
-    btnYes.className = "btnButton";
+    btnYes.className = "yesButton";
     btnYes.appendChild(d.createTextNode("Yes"));
     btnYes.href = "#";
     //btnYes.focus();

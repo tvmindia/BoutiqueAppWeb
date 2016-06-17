@@ -114,7 +114,15 @@ $("document").ready(function (e) {
                 document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
                 $("#txtRemarks").val("");
 
+                //$("#OrderItemTable").dataTable().fnClearTable();
+                //$("#OrderItemTable").dataTable().fnDestroy();
+
+
                 BindOrderItemsList(Order);
+
+                //$("#OrderItemTable").DataTable();
+
+               
             }
             //Scroll page
             var offset = $('#editLabel').offset();
@@ -314,7 +322,14 @@ $("document").ready(function (e) {
 
                         });
                        
+                        //$("#OrderItemTable").dataTable().fnClearTable();
+                        //$("#OrderItemTable").dataTable().fnDestroy();
+
+
                         BindOrderItemsList(Order);
+
+                        //$("#OrderItemTable").DataTable();
+
 
                         $(".products").select2("val", "");
                         $("#txtRemarks").val("");
@@ -459,64 +474,52 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            if (confirm("Do you want to delete this item ?") == true) {
-                var jsonResult = {};
-                editedrow = $(this).closest('tr');
-                var Order = new Object();
-
-                Order.ProductID = editedrow.attr("ProductID");
-                Order.OrderID = editedrow.attr("OrderID");
-
-                result = DeleteOrderItem(Order);
-                if (result == "1") {
-
-                    BindOrderItemsList(Order);
-
-                    //$('#rowfluidDiv').show();
-                    //$('.alert-success').show();
-
-                }
-
-                if (result == -1) {
-                    debugger;
-
-
-                    editedrow.remove();
-
-                    var rowCount = $("#OrderItemTable > tbody > tr").length;
-
-
-                    if (rowCount == 0) {
-                        $('#OrderItemTable').hide();
-                    }
-
-                }
-
-
-                if (result != "1" &&  result != "-1") {
-
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                }
-
+            //if (confirm("Do you want to delete this item ?") == true) {
                
-
-
-                //Scroll page
-                //var offset = $('#rowfluidDiv').offset();
-                //offset.left -= 20;
-                //offset.top -= 20;
-                //$('html, body').animate({
-                //    scrollTop: offset.top,
-                //    scrollLeft: offset.left
-                //});
-            }
+                editedrow = $(this).closest('tr');
+               
+               var e = editedrow.attr("ProductID");
+               var p = editedrow.attr("OrderID");
+               DeleteCustomAlert("Are You Sure?", e, p)
             return false;
         }
     })
     //----------END: Delete Button Click---------
 });
 
+function DeleteItem(e,p)
+{
+    var jsonResult = {};
+    var Order = new Object();
+    Order.ProductID = e;
+    Order.OrderID = p;
+
+    result = DeleteOrderItem(Order);
+    if (result == "1") {
+        BindOrderItemsList(Order);
+    }
+
+    if (result == -1) {
+
+        editedrow.remove();
+
+        var rowCount = $("#OrderItemTable > tbody > tr").length;
+
+
+        if (rowCount == 0) {
+            $('#OrderItemTable').hide();
+        }
+
+    }
+
+
+    if (result != "1" && result != "-1") {
+
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+    }
+
+}
 
 function AddToList() {
     debugger;

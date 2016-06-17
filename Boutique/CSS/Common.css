@@ -17,14 +17,14 @@
 #alertBox {
 	position:relative;
 	width:400px;
-	min-height:100px;
+	min-height:200px;
 	margin-top:50px;
 	border:1px solid #666;
 	background-color:#fff;  
 	background-repeat:no-repeat;
 	background-position:20px 30px;
      border-bottom-right-radius:80%;
-   
+  
 }
 
 #modalContainer > #alertBox {
@@ -33,44 +33,71 @@
   
 }
 
-#alertBox h1 {
+/*#alertBox h1 {
 	margin:0;
 	font:bold 0.99em italic;
 	background-color:#f1ebeb;
 	color:#405347;
 	border-bottom:1px thin #000;
 	padding:2px 0 2px 5px;
-     border-radius: 50px 50px 0px 0px;
-}
+    
+}*/
 
 #alertBox p {
-	font:bold 14px italic;
+	font:bold 14px;
+    font-family: 'Open Sans', sans-serif;
     color:black;
-	height:50px;
-	padding-left:5px;
+	height:40px;
+	padding-left:145px;
 	margin-left:5px;
-    padding-top:20px;
+    padding-top:10px;
 }
-
-#alertBox .btnButton {
+#alertBox .alertImage
+{
+     padding-top:20px;
+    margin-left: 165px;
+    width:50px;
+}
+#alertBox .noButton {
 	/*display:block;*/
 	position:relative;
 	/*margin:5px auto;*/
 	border:5px solid white;
     padding:4px 7px 2px 4px;
-	width:70px;
+	width:100px;
+    height:20px;
 	font:0.7em verdana,arial;
 	text-transform:uppercase;
 	text-align:center;
 	color:#FFF;
-	background-color:#357EBD;
+	background-color:#d6d6c2;
 	border-radius: 2px;
 	text-decoration:none;
     float:right;
     bottom:3px;
-    right:100px;
+    right:90px;
+    font-family: 'Open Sans', sans-serif;
 }
-
+#alertBox .yesButton {
+	/*display:block;*/
+	position:relative;
+	/*margin:5px auto;*/
+	border:5px solid white;
+    padding:4px 7px 2px 4px;
+	width:100px;
+    height:20px;
+	font:0.7em verdana,arial;
+	text-transform:uppercase;
+	text-align:center;
+	color:#FFF;
+	background-color:#ff8566;
+	border-radius: 2px;
+	text-decoration:none;
+    float:right;
+    bottom:3px;
+    right:90px;
+    font-family: 'Open Sans', sans-serif;
+}
 
 #mContainer {
 	position:relative;
