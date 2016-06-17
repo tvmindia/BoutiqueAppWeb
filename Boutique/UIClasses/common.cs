@@ -68,6 +68,20 @@ namespace Boutique.UIClasses
                 return "User Account Activation is UNSUCCESSFULL";
             }
         }
+        public string Successfull
+        {
+            get
+            {
+                return "Successfull";
+            }
+        }
+        public string UnSuccessfull
+        {
+            get
+            {
+                return "Unsuccessfull";
+            }
+        }
 
 
         #region PageUrl
