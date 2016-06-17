@@ -679,7 +679,6 @@ namespace Boutique.WebServices
                 DataRow dr = dt.NewRow();
                 if (product.InsertProductReview(userID) == 1)
                 {
-
                     dr["Flag"] = true;
                     dr["Message"] = constants.Successfull;
                 }
@@ -706,6 +705,54 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+        /// <summary>
+        /// To delete a product review
+        /// </summary>
+        /// <param name="reviewID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string DeleteProductReview(string reviewID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.BoutiqueID = boutiqueID;
+                product.ReviewID = reviewID;
+
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                if (product.DeleteProductReview() == 1)
+                {
+                    dr["Flag"] = true;
+                    dr["Message"] = constants.Successfull;
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                }
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
         #endregion
 
         #region JSON converter
