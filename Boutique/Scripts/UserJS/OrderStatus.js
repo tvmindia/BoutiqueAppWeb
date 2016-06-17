@@ -114,7 +114,15 @@ $("document").ready(function (e) {
                 document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
                 $("#txtRemarks").val("");
 
+                //$("#OrderItemTable").dataTable().fnClearTable();
+                //$("#OrderItemTable").dataTable().fnDestroy();
+
+
                 BindOrderItemsList(Order);
+
+                //$("#OrderItemTable").DataTable();
+
+               
             }
             //Scroll page
             var offset = $('#editLabel').offset();
@@ -314,7 +322,14 @@ $("document").ready(function (e) {
 
                         });
                        
+                        //$("#OrderItemTable").dataTable().fnClearTable();
+                        //$("#OrderItemTable").dataTable().fnDestroy();
+
+
                         BindOrderItemsList(Order);
+
+                        //$("#OrderItemTable").DataTable();
+
 
                         $(".products").select2("val", "");
                         $("#txtRemarks").val("");
@@ -470,7 +485,15 @@ $("document").ready(function (e) {
                 result = DeleteOrderItem(Order);
                 if (result == "1") {
 
+                    //$("#OrderItemTable").dataTable().fnClearTable();
+                    //$("#OrderItemTable").dataTable().fnDestroy();
+
+
                     BindOrderItemsList(Order);
+
+                    //$("#OrderItemTable").DataTable();
+
+                    
 
                     //$('#rowfluidDiv').show();
                     //$('.alert-success').show();
