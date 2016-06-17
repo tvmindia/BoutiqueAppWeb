@@ -44,7 +44,7 @@ namespace Boutique.DAL
             set;
         }
 
-        public int OrderNo
+        public string OrderNo
         {
             get;
             set;
@@ -115,6 +115,7 @@ namespace Boutique.DAL
             get;
             set;
         }
+       
 //----- * Order Item properties *---------//
 
         public string CustomerRemarks
@@ -372,6 +373,7 @@ namespace Boutique.DAL
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
             SqlParameter ID = null;
+            SqlParameter ordrNo = null;
             try
             {
                 dcon = new dbConnection();
@@ -405,6 +407,10 @@ namespace Boutique.DAL
 
                 ID = cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier);
                 ID.Direction = ParameterDirection.Output;
+
+                ordrNo = cmd.Parameters.Add("@OrderNo", SqlDbType.Int);
+                ordrNo.Direction = ParameterDirection.Output;
+
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -421,7 +427,7 @@ namespace Boutique.DAL
 
             //insert success or failure
             OrderID = ID.Value != null ? ID.Value.ToString() : "";
-
+            OrderNo = ordrNo.Value.ToString();
             return Int16.Parse(outParameter.Value.ToString());
             //return Guid.Parse(ID.Value.ToString());
 
