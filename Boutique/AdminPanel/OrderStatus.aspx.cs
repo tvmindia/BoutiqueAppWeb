@@ -28,7 +28,6 @@ namespace Boutique.AdminPanel
 
         //---------* Order 
 
-
         #region Get All UserID and Name
         [System.Web.Services.WebMethod]
         public static string GetAllUserIDandName(Users usrObj)
@@ -68,8 +67,6 @@ namespace Boutique.AdminPanel
 
         #endregion Get All UserID and Name
 
-
-
         //#region Get User Details
 
         //private string GetUserDetails()
@@ -89,9 +86,6 @@ namespace Boutique.AdminPanel
         //    return output.ToString();
         //}
         //#endregion Get User Details
-
-
-
 
         #region Get All Orders
         /// <summary>
@@ -232,7 +226,7 @@ namespace Boutique.AdminPanel
 
         //-------* Order Items
 
-        #region Get Order Details By OrderID
+        #region Get Order Item Details By OrderID
         /// <summary>
         /// To get specific order details by orderid for the editing purpose
         /// </summary>
@@ -270,7 +264,7 @@ namespace Boutique.AdminPanel
 
             return jsonResult; //Converting to Json
         }
-        #endregion Get Order Details By OrderID
+        #endregion Get Order Item Details By OrderID
 
         #region Delete an OrderItem
         /// <summary>
@@ -342,9 +336,6 @@ namespace Boutique.AdminPanel
         }
         #endregion Add  Order Item
 
-        //--------END OrderItems
-
-
         #region Get Product Image
         /// <summary>
         /// To get product image by productID
@@ -375,8 +366,47 @@ namespace Boutique.AdminPanel
         }
         #endregion Get Product Image
 
+        //--------END OrderItems
 
+        //---------General Methods
 
+        #region Add  Notification
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="notificationObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string InsertNotification(Notification notificationObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            notificationObj.BoutiqueID = UA.BoutiqueID;
+
+            string status = null;
+            try
+            {
+                DateTime strtDate = DateTime.Parse(notificationObj.StartDate);
+                DateTime endDate = strtDate.AddDays(30);
+
+               notificationObj.EndDate = endDate.Date.ToString();
+                status = notificationObj.InsertNotification().ToString();
+               
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+        #endregion
+
+        //---------END: General Methods
 
         #endregion Methods
 
