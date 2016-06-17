@@ -16,8 +16,8 @@
 
 #alertBox {
 	position:relative;
-	width:400px;
-	min-height:100px;
+	width:500px;
+	min-height:200px;
 	margin-top:50px;
 	border:1px solid #666;
 	background-color:#fff;  
@@ -47,30 +47,49 @@
 	font:bold 14px italic;
     color:black;
 	height:50px;
-	padding-left:5px;
+	padding-left:195px;
 	margin-left:5px;
-    padding-top:20px;
+    padding-top:100px;
 }
 
-#alertBox .btnButton {
+#alertBox .noButton {
 	/*display:block;*/
 	position:relative;
 	/*margin:5px auto;*/
 	border:5px solid white;
     padding:4px 7px 2px 4px;
-	width:70px;
+	width:100px;
+    height:20px;
 	font:0.7em verdana,arial;
 	text-transform:uppercase;
 	text-align:center;
 	color:#FFF;
-	background-color:#357EBD;
+	background-color:#d6d6c2;
 	border-radius: 2px;
 	text-decoration:none;
     float:right;
     bottom:3px;
     right:100px;
 }
-
+#alertBox .yesButton {
+	/*display:block;*/
+	position:relative;
+	/*margin:5px auto;*/
+	border:5px solid white;
+    padding:4px 7px 2px 4px;
+	width:100px;
+    height:20px;
+	font:0.7em verdana,arial;
+	text-transform:uppercase;
+	text-align:center;
+	color:#FFF;
+	background-color:#ff8566;
+	border-radius: 2px;
+	text-decoration:none;
+    float:right;
+    bottom:3px;
+    right:100px;
+}
 
 #mContainer {
 	position:relative;
