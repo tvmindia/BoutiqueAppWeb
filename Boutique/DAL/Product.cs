@@ -156,6 +156,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string ReviewDescription
+        {
+            get;
+            set;
+        }
         #endregion ProductReviewProperty
 
         #region Methods
@@ -1392,6 +1397,50 @@ namespace Boutique.DAL
             }
             #endregion GetAllProductMainImagesDetails
 
+            #region GetAllTrendingProductsMainImagesDetails
+             public DataSet GetAllTrendingProductsMainImagesDetails()
+             {
+                 if (BoutiqueID == "")
+                 {
+                     throw new Exception("BoutiqueID is Empty!!");
+                 }
+                 dbConnection dcon = null;
+                 SqlCommand cmd = null;
+                 DataSet ds = null;
+                 SqlDataAdapter sda = null;
+                 try
+                 {
+                     dcon = new dbConnection();
+                     dcon.GetDBConnection();
+                     cmd = new SqlCommand();
+                     cmd.Connection = dcon.SQLCon;
+                     cmd.CommandType = CommandType.StoredProcedure;
+                     cmd.CommandText = "[GetAllTrendingProductImageMainDetailsByBoutiqueid]";
+                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                     cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                     sda = new SqlDataAdapter();
+                     sda.SelectCommand = cmd;
+                     ds = new DataSet();
+                     sda.Fill(ds);
+                 }
+
+
+                 catch (Exception ex)
+                 {
+                     throw ex;
+                 }
+
+                 finally
+                 {
+                     if (dcon.SQLCon != null)
+                     {
+                         dcon.DisconectDB();
+                     }
+                 }
+                 return ds;
+             }
+            #endregion GetAllTrendingProductsMainImagesDetails
+
             #region Get Product Images for mobile
             /// <summary>
         /// Product images with varbinary files
@@ -1443,7 +1492,7 @@ namespace Boutique.DAL
             #endregion
 
 
-        #region GetProductImage
+            #region GetProductImage
 
          public byte[] GetProductImage()
          {
@@ -1489,7 +1538,7 @@ namespace Boutique.DAL
          }
         #endregion GetProductImage
 
-        #region GraphData
+            #region GraphData
          public DataSet GetProductDetails()
          {
 
@@ -1532,7 +1581,7 @@ namespace Boutique.DAL
         #endregion GraphData
 
 
-       #region DeleteProudctImage
+            #region DeleteProudctImage
 
          public Int16 DeleteProudctImage()
          {
@@ -1580,7 +1629,7 @@ namespace Boutique.DAL
          }
          #endregion DeleteProudctImage
 
-       #region GetAllProductReviews
+           #region GetAllProductReviews
          public DataSet GetAllProductsReviews()
          {
              dbConnection dcon = null;
@@ -1719,6 +1768,61 @@ namespace Boutique.DAL
             }
             return dt;
         }           
+        #endregion
+
+        #region Insert review from app
+        /// <summary>
+        /// to insert product review
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public Int16 InsertProductReview(string userID)
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (userID == "")
+            {
+                throw new Exception("userID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertProductReview]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                cmd.Parameters.Add("@ReviewDescription", SqlDbType.NVarChar,-1).Value = ReviewDescription;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return Int16.Parse(outParameter.Value.ToString());
+        }
         #endregion
 
 

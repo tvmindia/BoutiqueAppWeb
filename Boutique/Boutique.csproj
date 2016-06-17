@@ -204,6 +204,8 @@
     <Content Include="img\defaultimages.jpg" />
     <Content Include="img\Default\DefaultBoutique.jpg" />
     <Content Include="img\Default\nologo1.png" />
+    <Content Include="img\Default\Sendingmail.gif" />
+    <Content Include="img\Default\Warn.png" />
     <Content Include="img\dialogs.png" />
     <Content Include="img\gallery\photo10.jpg" />
     <Content Include="img\gallery\photo11.jpg" />

@@ -117,16 +117,27 @@
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li class="active"><a href="#newproducts">New Products</a></li>
-							<li><a href="#trends">Trending</a></li>
+							<li><a href="#newproducts">New Products</a></li>
+							<li class="active"><a href="#trends">Trending</a></li>
 							<li><a href="#outstock">Out of Stocks</a></li>
 						</ul>
 						 
 						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
 							<div class="tab-pane active" id="newproducts">
-								<p>
-									New Products
-								</p>
+
+                                  <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">New Products</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtsearchnewproducts" size="16" type="text"/><a class="btn btnsearchnewproducts" href="#">Search</a>
+								  </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
+
+
+
                                  <%--Gallery new products--%>
                                  <div class="row-fluid">
 				              <%--  <div class="box span12">--%>
@@ -137,15 +148,9 @@
 					                  	</div>
 				                     	</div>--%>
 				              <%--	<div class="box-content">--%>
-						<div class="imageholder" style="width:100%;" id="productimagehold">
+						    <div class="imageholder" style="width:100%;" id="productimagehold">
 									
-								<!--<div id="image-2" class="masonry-thumb">
-								         <a style="background:url(../img/gallery/photo11.jpg)" title="Sample Image 2" href="../img/gallery/photo11.jpg"> <img class="grayscale" src="../img/gallery/photo11.jpg" alt="Sample Image 11" /></a>
-							       </div>
-							 
-                                    <div id="image-6" class="masonry-thumb">
-								        <a style="background:url(../img/gallery/photo8.jpg)" title="Sample Image 6" href="../img/gallery/photo8.jpg"> <img class="grayscale" src="../img/gallery/photo8.jpg" alt="Sample Image 6" /></a>
-						          </div>-->
+								
 
                             <!-- Use invisible wraper to hide popup window content -->
 
@@ -162,21 +167,28 @@
 				<%--</div><!--/span-->--%>
 			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
                               <a class="LoadMore" id="load_more_button" href="#">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
                                  <%--Gallery new products--%>
 
 							</div>
 							<div class="tab-pane" id="trends">
-								<p>
-							         Trends in Demand
-								</p>
+							    <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">Trending Products</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtsearchtrends" size="16" type="text"/><a class="btn btnsearchtrends" href="#">Search</a>
+								  </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
 
                                   <%--Gallery Trends--%>
                                  <div class="row-fluid">
 				           
-					     	<div class="imageholder" style="width:100%;" id="productTrendsimagehold">
+					     	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
 									
 							
                             <!-- Use invisible wraper to hide popup window content -->
@@ -202,10 +214,17 @@
 
 							</div>
 							<div class="tab-pane" id="outstock">
-								<p>
-									Out of stocks
-								</p>
-
+								
+                                  <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">Out Of Stocks</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtsearchoutofstock" size="16" type="text"/><a class="btn btnsearchoutofstock" href="#">Search</a>
+								  </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
 
                                   <%--Gallery Out of stock--%>
                                  <div class="row-fluid">
