@@ -329,6 +329,16 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string Password
+        {
+            get;
+            set;
+        }
+        public string UserID
+        {
+            get;
+            set;
+        }
         #region Public Variables
 
         //---* Keys assosiated with mail sending.its values are set in web.config ,app settings section -- *//
@@ -461,5 +471,64 @@ namespace Boutique.DAL
 
 
         #endregion SendEmail
+
+        #region Reset Password
+
+        public string ResetPassword(Guid UserID)
+        {
+            dbConnection dcon = new dbConnection();
+
+            try
+            {
+                dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "ResetPassword";
+                cmd.Parameters.Add("@UserId", SqlDbType.UniqueIdentifier).Value = UserID;
+                cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 40).Value = Password;
+                SqlParameter Output = new SqlParameter();
+                Output.DbType = DbType.Int32;
+                Output.ParameterName = "@Status";
+                Output.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(Output);
+                cmd.ExecuteNonQuery();
+
+                //if (Output.Value.ToString() == "")
+                //{
+                //    //not successfull   
+
+                //    var page = HttpContext.Current.CurrentHandler as Page;
+                //    eObj.UpdationNotSuccessMessage(page);
+
+                //}
+                //else
+                //{
+                //    //successfull
+
+                //    var page = HttpContext.Current.CurrentHandler as Page;
+                //    eObj.UpdationSuccessMessage(page);
+
+                //}
+
+
+            }
+            catch (Exception ex)
+            {
+               // var page = HttpContext.Current.CurrentHandler as Page;
+                //eObj.ErrorData(ex, page);
+                return ex.ToString();
+            }
+            return "";
+
+            if (dcon.SQLCon != null)
+            {
+                dcon.DisconectDB();
+            }
+
+
+        }
+
+        #endregion  Reset Password
     }
 }

@@ -117,8 +117,8 @@
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li class="active"><a href="#newproducts">New Products</a></li>
-							<li><a href="#trends">Trending</a></li>
+							<li><a href="#newproducts">New Products</a></li>
+							<li class="active"><a href="#trends">Trending</a></li>
 							<li><a href="#outstock">Out of Stocks</a></li>
 						</ul>
 						 
@@ -137,15 +137,9 @@
 					                  	</div>
 				                     	</div>--%>
 				              <%--	<div class="box-content">--%>
-						<div class="imageholder" style="width:100%;" id="productimagehold">
+						    <div class="imageholder" style="width:100%;" id="productimagehold">
 									
-								<!--<div id="image-2" class="masonry-thumb">
-								         <a style="background:url(../img/gallery/photo11.jpg)" title="Sample Image 2" href="../img/gallery/photo11.jpg"> <img class="grayscale" src="../img/gallery/photo11.jpg" alt="Sample Image 11" /></a>
-							       </div>
-							 
-                                    <div id="image-6" class="masonry-thumb">
-								        <a style="background:url(../img/gallery/photo8.jpg)" title="Sample Image 6" href="../img/gallery/photo8.jpg"> <img class="grayscale" src="../img/gallery/photo8.jpg" alt="Sample Image 6" /></a>
-						          </div>-->
+								
 
                             <!-- Use invisible wraper to hide popup window content -->
 
@@ -176,7 +170,7 @@
                                   <%--Gallery Trends--%>
                                  <div class="row-fluid">
 				           
-					     	<div class="imageholder" style="width:100%;" id="productTrendsimagehold">
+					     	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
 									
 							
                             <!-- Use invisible wraper to hide popup window content -->
