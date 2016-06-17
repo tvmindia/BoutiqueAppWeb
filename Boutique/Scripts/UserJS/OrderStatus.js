@@ -114,13 +114,13 @@ $("document").ready(function (e) {
                 document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
                 $("#txtRemarks").val("");
 
-                $("#OrderItemTable").dataTable().fnClearTable();
-                $("#OrderItemTable").dataTable().fnDestroy();
+                //$("#OrderItemTable").dataTable().fnClearTable();
+                //$("#OrderItemTable").dataTable().fnDestroy();
 
 
                 BindOrderItemsList(Order);
 
-                $("#OrderItemTable").DataTable();
+                //$("#OrderItemTable").DataTable();
 
                
             }
@@ -322,13 +322,13 @@ $("document").ready(function (e) {
 
                         });
                        
-                        $("#OrderItemTable").dataTable().fnClearTable();
-                        $("#OrderItemTable").dataTable().fnDestroy();
+                        //$("#OrderItemTable").dataTable().fnClearTable();
+                        //$("#OrderItemTable").dataTable().fnDestroy();
 
 
                         BindOrderItemsList(Order);
 
-                        $("#OrderItemTable").DataTable();
+                        //$("#OrderItemTable").DataTable();
 
 
                         $(".products").select2("val", "");
@@ -485,13 +485,13 @@ $("document").ready(function (e) {
                 result = DeleteOrderItem(Order);
                 if (result == "1") {
 
-                    $("#OrderItemTable").dataTable().fnClearTable();
-                    $("#OrderItemTable").dataTable().fnDestroy();
+                    //$("#OrderItemTable").dataTable().fnClearTable();
+                    //$("#OrderItemTable").dataTable().fnDestroy();
 
 
                     BindOrderItemsList(Order);
 
-                    $("#OrderItemTable").DataTable();
+                    //$("#OrderItemTable").DataTable();
 
                     
 
