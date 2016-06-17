@@ -13,16 +13,19 @@ function ForgotPassword() {
         + '<span class="add-on"><i class="halflings-icon envelope"></i></span>'
         + '<input class="input-large span10" name="Email" id="txtEmail" type="Email"  autocomplete="off" placeholder="Email"/>'
         + '</div>'
-        + '<div><img src="../img/Default/Sendingmail.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;" id="Sendinggif"></div>'
+        + '<div><img src="../img/Default/Sendingmail.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
         + '<div class="button-login">'
-        + '<button type="submit" id="btnlogin" onclick="SendVerificationCode()" class="btn btn-primary loginbtn">Continue</button>'
+        //+ '<button type="submit" id="btnlogin" onclick="SendVerificationCode()" class="btn btn-primary loginbtn">Continue</button>'
+        + '<a href="#" onclick="SendVerificationCode();" class="btn btn-primary loginbtn">Continue</a>'
         + '</div>'
         + '<div class="clearfix"></div>'
         + '<h3></h3><p id="lblerror"></p></div');
     LoginDIv.append(html);
-    $('#Sendinggif').hide();
+   
 }
+
 function SendVerificationCode() {
+    debugger;
     $('#Sendinggif').show();
     var Email = $('#txtEmail');
     var EmailAddress = Email[0].value;
@@ -40,7 +43,7 @@ function SendVerificationCode() {
     }
     if (table.d == "false")
     {
-        $('#Sendinggif').hide();
+        //$('#Sendinggif').hide();
         var ptag = document.getElementById('lblerror');
         ptag.style.color = 'red';
         ptag.style.fontFamily = 'monaco';
@@ -61,9 +64,9 @@ function MatchVetification(EmailAddr)
         + '<div class="input-prepend" title="Verification">'
         + '<span class="add-on"><i class="halflings-icon lock"></i></span>'
         + '<input class="input-large span10" name="VerificationCode" id="txtVerifyCode" type="password" autocomplete="off" placeholder="Verification Code"/>'
-        + '</div><div style="font-family:monaco;padding-left:5px;font-size:14px;color:rosybrown"> ✉ Check Your Email For the Verification Code</div>'
+        + '</div><div style="font-family:monaco;padding-left:10px;font-size:14px;color:rosybrown"> ✉ CHECK Email For Verification Code</div>'
         + '<div class="button-login">'
-        + '<button type="submit" id="btnlogin" onclick="VerifyCodeNow()" class="btn btn-primary loginbtn">Verify</button>'
+        + '<button type="" id="btnlogin" onclick="VerifyCodeNow()" class="btn btn-primary loginbtn">Verify</button>'
         + '</div>'
         + '<div class="clearfix"></div>'
         + '<h3></h3><p id="lblerror"></p></div');
@@ -92,6 +95,8 @@ function VerifyCodeNow()
    if(table.msg==='False'){
         var ptag = document.getElementById('lblerror');
         ptag.style.color = 'red';
+        ptag.style.fontFamily = 'monaco';
+        ptag.style.paddingLeft = "5px";
         ptag.innerHTML = 'The Verification Code Missmatch !';
     }
 }
@@ -143,6 +148,8 @@ function UpdatePassword()
         else {
             var ptag = document.getElementById('lblerror');
             ptag.style.color = 'red';
+            ptag.style.fontFamily = 'monaco';
+            ptag.style.paddingLeft = "5px";
             ptag.innerHTML = table.d;
         }
     }
@@ -150,6 +157,8 @@ function UpdatePassword()
     {
         var ptag = document.getElementById('lblerror');
         ptag.style.color = 'red';
+        ptag.style.fontFamily = 'monaco';
+        ptag.style.paddingLeft = "5px";
         ptag.innerHTML = 'Passwords MissMatch';
     }
     setTimeout(function () {
