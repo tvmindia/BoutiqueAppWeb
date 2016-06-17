@@ -104,8 +104,8 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                 cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = StartDate;
                 cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = EndDate;
-                if (ProductID != "") cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
-                if (CategoryCode != "") cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                if (ProductID != "" && ProductID != null ) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                if (CategoryCode != "" && CategoryCode != null) cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
                 if (UserID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 if (OrderID != "") cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
