@@ -160,7 +160,7 @@ $("document").ready(function (e) {
                     $('.ModifyProduct').show();//displays editsave button
                     $('.AddProduct').hide();//hides save
                     // Scroll page
-                    AutoScrollToAlertBox();
+                   // AutoScrollToAlertBox();
 
                 }
                 if (result.status != "1") {
@@ -951,13 +951,17 @@ function DeleteProuductImage(Product) {
 
 function AutoScrollToEdit()
 {
-    var offset = $('#productDetailsDiv').offset();
-    offset.left -= 20;
-    offset.top -= 20;
+    
+   // var offset = $("#<%= productDetailsDiv.ClientID %>").offset();
+   // offset.left -= 20;
+   // offset.top -= 20;
+    
     $('html, body').animate({
-        scrollTop: offset.top,
-        scrollLeft: offset.left
-    });
+        //scrollTop: $(document).height() }, 1000);
+       scrollTop: $(document).height() }, 1500);
+       // scrollTop: offset.top,
+       // scrollLeft: offset.left
+    
 }
 
 

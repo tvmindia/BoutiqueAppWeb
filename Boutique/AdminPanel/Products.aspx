@@ -113,7 +113,7 @@
 				
 				<div class="box span12">
 					<div class="box-header">
-						<h2><i class="halflings-icon th"></i><span class="break"></span>Products Gallery</h2>
+						<h2><span class="break"></span>Products Gallery</h2>
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
