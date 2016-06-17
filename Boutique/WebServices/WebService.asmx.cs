@@ -207,7 +207,14 @@ namespace Boutique.WebServices
             {
                 Boutiques boutique = new Boutiques();
                 boutique.BoutiqueID = boutiqueID;
-                dt = boutique.GetBoutique().Tables[0];
+                dt = boutique.GetBoutiqueByBoutiqueIDForMobile();
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("BoutiqueID");
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols,null, false);
             }
             catch (Exception ex)
             {
@@ -834,7 +841,12 @@ namespace Boutique.WebServices
 
                         if (dr[imgColName[i] as string] != DBNull.Value)
                         {
-                            String fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_") + dr[imgFileTypeCol[i] as string].ToString();
+                            String fileURL;
+                            if(imgFileTypeCol!=null)
+                                fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_") + dr[imgFileTypeCol[i] as string].ToString();
+                            else
+                                fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_")+".jpg";
+                            
                             if (!System.IO.File.Exists(fileURL))
                             {
                                 byte[] buffer;
