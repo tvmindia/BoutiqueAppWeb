@@ -205,8 +205,6 @@ $("document").ready(function (e) {
         //$("#ActualDeliveryDiv").hide();
     }
 
-
-
     //------------ Order Save Button CLick------------//
 
     $(".submitDetails").live(
@@ -278,18 +276,36 @@ $("document").ready(function (e) {
             Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
             Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
             Order.OrderDescription = $("#txtDescription").val();
-           
+         
+                var Notification = new Object();
+                Notification.NotificationID = "";
+                Notification.Title = Order.OrderDescription;
+                Notification.StartDate = Order.OrderDate;
+                Notification.EndDate = Order.PlannedDeliveryDate
+                Notification.Description = Order.OrderDescription;
+                Notification.ProductID = "";
+                Notification.CategoryCode = "";
+                Notification.UserID = Order.UserID;
+               
 
-            result = InsertOrUpdateOrder(Order);
+            result = InsertOrUpdateOrder(Order); //returns orderID
 
-            if (result != "") {
+            ///-- Insert or update action is success if result equals to some id, then by checking no of items , if it is 0 header only inserts otherwise items insertions also performs
+
+            if (result != "") {  
+
+                Notification.OrderID = result;
+                resultOfNotification = InsertNotification(Notification);
+                //AddNotification();
 
                 ClearControls();
 
                 var rowCount = $("#OrderItemTable > tbody > tr").length;
 
-                if (rowCount > 0) //check if  change for product items (Header only)
+                if (rowCount > 0) //check if  change for product items (Header only)  
                 {
+
+                    //----------- * HEADER ONLY-- START ---------- *//
                     $('#OrderItemTable tbody tr').each(function () {
                         
 
@@ -359,7 +375,10 @@ $("document").ready(function (e) {
                         $('.alert-error').show();
                     }
                        
-                }
+                } //HEADER ONLY END
+
+
+
                 else {
                     debugger;
 
@@ -411,8 +430,6 @@ $("document").ready(function (e) {
 
     //---------------    END : Cancel Click       -------------
 
-
-
     //$('.Users').select2()
     //      .on("change", function (e) {
 
@@ -425,9 +442,6 @@ $("document").ready(function (e) {
     //          $('.Users').select2('data') = user;
 
     //      })
-
-
-
 
    //----- Dropdown item cahnge event  : (get Image by product id) ----//      
     $('.products').select2()
@@ -731,6 +745,15 @@ function GetAllProducts(Notify) {
     var data = "{'productObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
     table = JSON.parse(ds.d);
+    return table;
+}
+
+//------------Insert--------------------
+function InsertNotification(Notification) {
+    var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/InsertNotification");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
     return table;
 }
 

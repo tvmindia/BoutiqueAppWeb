@@ -7,7 +7,7 @@
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
-
+   
     <%--<style>
        
      tr:nth-child(odd){ 
