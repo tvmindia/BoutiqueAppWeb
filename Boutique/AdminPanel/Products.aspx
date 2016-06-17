@@ -113,7 +113,7 @@
 				
 				<div class="box span12">
 					<div class="box-header">
-						<h2><i class="halflings-icon th"></i><span class="break"></span>Products Gallery</h2>
+						<h2><span class="break"></span>Products Gallery</h2>
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
@@ -130,13 +130,13 @@
 								<label class="control-label">New Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchnewproducts" size="16" type="text"/><a class="btn btnsearchnewproducts" href="#">Search</a>
+									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchnewproducts" href="#">Search</a>
 								  </div>
 								</div>
 							  </div>
 								 <%--Search box--%>
 
-
+                              
 
                                  <%--Gallery new products--%>
                                  <div class="row-fluid">
@@ -179,7 +179,7 @@
 								<label class="control-label">Trending Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchtrends" size="16" type="text"/><a class="btn btnsearchtrends" href="#">Search</a>
+									<input id="txtsearchtrends" value="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchtrends" href="#">Search</a>
 								  </div>
 								</div>
 							  </div>
@@ -206,7 +206,7 @@
 			      	<%--</div><!--/span-->--%>
 			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
                               <a class="LoadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
                                   <%--Gallery Trends--%>
@@ -220,7 +220,7 @@
 								<label class="control-label">Out Of Stocks</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchoutofstock" size="16" type="text"/><a class="btn btnsearchoutofstock" href="#">Search</a>
+									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchoutofstock" href="#">Search</a>
 								  </div>
 								</div>
 							  </div>
@@ -247,7 +247,7 @@
 			      	<%--</div><!--/span-->--%>
 			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
                               <a class="LoadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img src="../img/ajax-loader.gif"/>Loading...</div>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
                                   <%--Gallery out of stock--%>
@@ -260,8 +260,8 @@
 				</div><!--/span-->
 			
 			   </div>	
-		  <%--Tab Content--%>
-
+		   <%--Tab Content--%>
+ 
 	        
 
 
@@ -274,10 +274,6 @@
 
               <div class="box span12">
                   <div class="span12">
-
-                
-
-                  
                     <div class="box-header">
 						<h2 id="editLabel">New Products</h2>
 						<div class="box-icon">

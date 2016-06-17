@@ -160,7 +160,7 @@ $("document").ready(function (e) {
                     $('.ModifyProduct').show();//displays editsave button
                     $('.AddProduct').hide();//hides save
                     // Scroll page
-                    AutoScrollToAlertBox();
+                   // AutoScrollToAlertBox();
 
                 }
                 if (result.status != "1") {
@@ -346,9 +346,10 @@ $("document").ready(function (e) {
             var p = $(this).attr('pname');
 
             if (LoginUserRole != Roles.Manager) {
+                AutoScrollToEdit();
                 BindProductTextBoxes(this);
                 BindAllImages();
-                AutoScrollToEdit();
+              
             }
             return false;
         }
@@ -948,6 +949,20 @@ function DeleteProuductImage(Product) {
     return table;
 }
 
+function AutoScrollToEdit()
+{
+    
+   // var offset = $("#<%= productDetailsDiv.ClientID %>").offset();
+   // offset.left -= 20;
+   // offset.top -= 20;
+    
+    $('html, body').animate({
+        //scrollTop: $(document).height() }, 1000);
+       scrollTop: $(document).height() }, 1500);
+       // scrollTop: offset.top,
+       // scrollLeft: offset.left
+    
+}
 
 
 function clearProductControls() {
