@@ -39,6 +39,23 @@ $("document").ready(function (e) {
         $marsoutofstock.masonry('layout');
     });
 
+
+
+    BindTrendingAllProductImages(0);
+    var gallerytrendsdiv = $('.imageholderTrends');
+    var $marstrends = $('.imageholderTrends').masonry({
+        itemSelector: '.masonry-thumb',
+        isInitLayout: false
+    });
+    gallerytrendsdiv.hide();
+    $marstrends.imagesLoaded().progress(function () {
+        $marstrends.masonry('layout');
+    });
+
+
+
+
+
     // $('input[type="checkbox"]').on('change', function () {
 
     //   $('input[type="checkbox"]').not(this).prop('checked', false);
@@ -339,6 +356,7 @@ $("document").ready(function (e) {
     //image galery show after all images loaded in masonary
     galerydiv.show();
     galleryoutofstockdiv.show();
+    gallerytrendsdiv.show();
 
     $(".image-link").on('click', function () {
         $('#rowfluidDiv').hide();
@@ -357,8 +375,7 @@ $("document").ready(function (e) {
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
         BindAllProductImages(20);
-        $('.animation_image').hide();
-        $(this).show();
+       
 
 
         var $mars = $('.imageholder').masonry(
@@ -368,7 +385,53 @@ $("document").ready(function (e) {
            });
         $mars.masonry('layout');
 
+       // $('.animation_image').hide();
+        $(this).show();
+
     });
+
+
+
+    $("#load_more_buttontrends").click(function (e) { //user clicks on button
+        $(this).hide(); //hide load more button on click
+        $('.animation_image').show(); //show loading image
+        BindAllProductImages(20);
+      
+
+
+        var $marstrends = $('.imageholderTrends').masonry(
+           {
+               itemSelector: '.masonry-thumb',
+               isInitLayout: false
+           });
+        $marstrends.masonry('layout');
+
+      //  $('.animation_image').hide();
+        $(this).show();
+
+    });
+
+
+    $("#load_more_buttonoutofstock").click(function (e) { //user clicks on button
+        $(this).hide(); //hide load more button on click
+        $('.animation_image').show(); //show loading image
+        BindAllProductImages(20);
+       
+
+
+        var $marsoutofstock = $('.imageholderoutofstock').masonry(
+           {
+               itemSelector: '.masonry-thumb',
+               isInitLayout: false
+           });
+        $marsoutofstock.masonry('layout');
+
+        //$('.animation_image').hide();
+        $(this).show();
+
+    });
+
+
 
 
 
@@ -424,6 +487,34 @@ function BindProductTextBoxes(thisobject) {
     $('.ModifyProduct').show();//switches button to edit mode
     $('.DeleteProduct').show();
 }
+
+function BindTrendingAllProductImages(Pagevalue) {
+    var imagedivholder = $('#productTrendsimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllTrendingProductsImageunderBoutique(Product);
+    //$("#productimagehold").find(".masonry-thumb").remove();
+
+    for (var i = 0; i < totalimages.length; i++) {
+        var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+    + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+    + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+    + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:' + totalimages[i].Discount + '%</span></div>'
+    + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+    + '</div>');
+
+        imagedivholder.append(html);
+    }
+}
+
 
 function BindAllProductImagesOutOfStock(Pagevalue) {
     var imagedivholder = $('#productoutofstockimagehold');
@@ -717,6 +808,16 @@ function GetAllProductsImageDetailsunderBoutique(Product) {
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductMainImages");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetAllTrendingProductsImageunderBoutique(Product) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllTrendingProductsMainImagesDetails");
     table = JSON.parse(ds.d);
     return table;
 }
