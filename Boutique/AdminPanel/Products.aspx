@@ -180,7 +180,7 @@
 								<label class="control-label">Trending Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchtrends" value="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchtrends" href="#">Search</a>
+									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchtrends" href="#">Search</a>
 								  </div>
 								</div>
 							  </div>

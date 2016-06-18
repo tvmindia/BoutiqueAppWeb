@@ -402,9 +402,9 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllRelatedProductIDandName
 
-        #region GetAllTrendingProductsMainDetailsBySearch
+        #region GetAllNewTrendingProductsMainDetailsBySearch
         [System.Web.Services.WebMethod]
-        public static string GetAllTrendingProductsMainDetailsBySearch(Product productObj)
+        public static string GetAllNewTrendingProductsMainDetailsBySearch(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -415,7 +415,7 @@ namespace Boutique.AdminPanel
             {
                 productObj.BoutiqueID = UA.BoutiqueID;
                 DataSet ds = null;
-                ds = productObj.GetTrendingDetailsBySearch();
+                ds = productObj.GetNewTrendingDetailsBySearch();
 
                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                 Dictionary<string, object> childRow;
@@ -437,11 +437,11 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize("");
         }
 
-        #endregion GetAllTrendingProductsMainDetailsBySearch
+        #endregion GetAllNewTrendingProductsMainDetailsBySearch
 
-        #region GetAllOutOfStockProductMainDetailsBySearch
+        #region GetAllNewOutOfStockProductMainDetailsBySearch
         [System.Web.Services.WebMethod]
-        public static string GetAllOutOfStockProductMainDetailsBySearch(Product productObj)
+        public static string GetAllNewOutOfStockProductMainDetailsBySearch(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -452,7 +452,7 @@ namespace Boutique.AdminPanel
             {
                 productObj.BoutiqueID = UA.BoutiqueID;
                 DataSet ds = null;
-                ds = productObj.GetOutOfStockDetailBySearch();
+                ds = productObj.GetNewOutOfStockDetailBySearch();
 
                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                 Dictionary<string, object> childRow;
@@ -473,11 +473,11 @@ namespace Boutique.AdminPanel
             }
             return jsSerializer.Serialize("");
         }
-        #endregion GetAllOutOfStockProductMainDetailsBySearch
+        #endregion GetAllNewOutOfStockProductMainDetailsBySearch
 
-        #region GetAllProductMainDetailsBySearch
+        #region GetAllNewProductMainDetailsBySearch
         [System.Web.Services.WebMethod]
-        public static string GetAllProductMainDetailsBySearch(Product productObj)
+        public static string GetAllNewProductMainDetailsBySearch(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -488,7 +488,7 @@ namespace Boutique.AdminPanel
             {
                 productObj.BoutiqueID = UA.BoutiqueID;
                 DataSet ds = null;
-                ds = productObj.GetProductDetailBySearch();
+                ds = productObj.GetNewProductDetailBySearch();
 
                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                 Dictionary<string, object> childRow;
@@ -509,7 +509,7 @@ namespace Boutique.AdminPanel
             }
             return jsSerializer.Serialize("");
         }
-        #endregion GetAllProductMainDetailsBySearch
+        #endregion GetAllNewProductMainDetailsBySearch
 
     }
 }
