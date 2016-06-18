@@ -256,10 +256,6 @@ $("document").ready(function (e) {
         }
     })
 
-
-
-
-   
     $(".DeleteProduct").live({
         click: function (e) {// Delete button click
 
@@ -392,20 +388,32 @@ $("document").ready(function (e) {
     });
 
     $(".btnsearchnewproducts").click(function (e) { //user clicks on button
-       
-        alert("serach new");
+
+        var search = $("#txtsearchnewproducts").val();
+        if (search != '')
+        {
+            BindAllNewProductImagesSearch(0, search);
+        }
+        
+      
+
     });
 
 
     $(".btnsearchtrends").click(function (e) { //user clicks on button
-
-        alert("serach trend");
+        var search = $("#txtsearchtrends").val();
+        if (search != '') {
+            BindNewTrendingAllProductImagesSearch(0, search);
+        }
     });
 
 
     $(".btnsearchoutofstock").click(function (e) { //user clicks on button
 
-        alert("serach  out of stocks");
+        var search = $("#txtsearchoutofstock").val();
+        if (search != '') {
+            BindAllNewProductImagesOutOfStockSearch(0, search);
+        }
     });
 
 
@@ -501,6 +509,144 @@ function BindProductTextBoxes(thisobject) {
     $('.ModifyProduct').show();//switches button to edit mode
     $('.DeleteProduct').show();
 }
+
+
+function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
+    var imagedivholder = $('#productoutofstockimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+    if (searchtext != undefined) {
+        Product.SearchText = searchtext;
+    }
+    else {
+        Product.SearchText = "";
+    }
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllNewOutOfStockSearchDetails(Product);
+    //$("#productimagehold").find(".masonry-thumb").remove();
+
+    for (var i = 0; i < totalimages.length; i++) {
+
+        if (totalimages[i].Discount != null) {
+
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+        + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+        + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+        + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+        + '</div>');
+
+            imagedivholder.append(html);
+        }
+        if (totalimages[i].Discount === null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+           + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+           + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
+           + '</div>');
+            imagedivholder.append(html);
+        }
+    }
+}
+
+
+function BindAllNewProductImagesSearch(Pagevalue,searchtext) {
+    var imagedivholder = $('#productimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+    if (searchtext != undefined)
+    {
+        Product.SearchText = searchtext;
+    }
+    else {
+        Product.SearchText = "";
+    }
+
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllNewProductsSearchDetails(Product);
+    //$("#productimagehold").find(".masonry-thumb").remove();
+
+    for (var i = 0; i < totalimages.length; i++) {
+
+        if (totalimages[i].Discount != null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+            + '</div>');
+
+            imagedivholder.append(html);
+        }
+        if (totalimages[i].Discount === null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
+            + '</div>');
+            imagedivholder.append(html);
+
+        }
+    }
+}
+
+function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
+    var imagedivholder = $('#productTrendsimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+    if (searchtext != undefined) {
+        Product.SearchText = searchtext;
+    }
+    else {
+        Product.SearchText = "";
+    }
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllNewTrendingSearchDetails(Product);
+    //$("#productimagehold").find(".masonry-thumb").remove();
+
+    for (var i = 0; i < totalimages.length; i++) {
+
+        if (totalimages[i].Discount != null) {
+
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+        + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+        + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+        + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+        + '</div>');
+
+            imagedivholder.append(html);
+        }
+
+        if (totalimages[i].Discount === null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+           + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+           + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
+           + '</div>');
+            imagedivholder.append(html);
+        }
+    }
+}
+
 
 function BindTrendingAllProductImages(Pagevalue) {
     var imagedivholder = $('#productTrendsimagehold');
@@ -857,6 +1003,38 @@ function BindAsyncDesigner() {
 
     }
 }
+
+function GetAllNewProductsSearchDetails(Product) {
+   
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllNewProductMainDetailsBySearch");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetAllNewOutOfStockSearchDetails(Product) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllNewOutOfStockProductMainDetailsBySearch");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetAllNewTrendingSearchDetails(Product) {
+
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllNewTrendingProductsMainDetailsBySearch");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
 function GetAllProductsImageDetailsunderBoutique(Product) {
 
     var ds = {};

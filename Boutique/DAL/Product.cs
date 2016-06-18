@@ -91,7 +91,7 @@ namespace Boutique.DAL
             set;
         }
 
-        public string text
+        public string SearchText
         {
             get;
             set;
@@ -2004,8 +2004,8 @@ namespace Boutique.DAL
         }
         #endregion Get ImageID By ProductID
 
-        #region GetTrendingDetailsBySearch
-        public DataSet GetTrendingDetailsBySearch()
+        #region GetNewTrendingDetailsBySearch
+        public DataSet GetNewTrendingDetailsBySearch()
         {
 
             if (BoutiqueID == "")
@@ -2027,7 +2027,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetTrendingDetailsBySearch]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@text", SqlDbType.NVarChar,50).Value = text;
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -2049,10 +2049,10 @@ namespace Boutique.DAL
             }
             return ds;
         }
-        #endregion GetTrendingDetailsBySearch
+        #endregion GetNewTrendingDetailsBySearch
 
-        #region GetOutOfStockDetailBySearch
-        public DataSet GetOutOfStockDetailBySearch()
+        #region GetNewOutOfStockDetailBySearch
+        public DataSet GetNewOutOfStockDetailBySearch()
         {
 
             if (BoutiqueID == "")
@@ -2074,7 +2074,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetOutOfStockDetailBySearch]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = text;
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -2096,10 +2096,10 @@ namespace Boutique.DAL
             }
             return ds;
         }
-        #endregion GetOutOfStockDetailBySearch
+        #endregion GetNewOutOfStockDetailBySearch
 
-        #region GetProductDetailBySearch
-        public DataSet GetProductDetailBySearch()
+        #region GetNewProductDetailBySearch
+        public DataSet GetNewProductDetailBySearch()
         {
 
             if (BoutiqueID == "")
@@ -2121,7 +2121,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetProductDetailBySearch]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = text;
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -2143,6 +2143,6 @@ namespace Boutique.DAL
             }
             return ds;
         }
-        #endregion GetProductDetailBySearch
+        #endregion GetNewProductDetailBySearch
     }
 }
