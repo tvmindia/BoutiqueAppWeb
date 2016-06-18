@@ -956,11 +956,15 @@ function AutoScrollToEdit()
    // offset.left -= 20;
    // offset.top -= 20;
     
-    $('html, body').animate({
+  //  $('html, body').animate({
         //scrollTop: $(document).height() }, 1000);
-       scrollTop: $(document).height() }, 1500);
+    //   scrollTop: $(document).height() }, 1500);
        // scrollTop: offset.top,
-       // scrollLeft: offset.left
+    // scrollLeft: offset.left
+
+    $('html, body').animate({
+        scrollTop: $("#IframeProjectSwitching").offset().top
+    }, 500);
     
 }
 
