@@ -51,13 +51,13 @@
 				<p>Notifications</p>
 				<span class="badge" id="NotificationBadge">0</span>
 				</a>
-				<a class="quick-button metro blue span2" href="Products.aspx">
+				<a class="quick-button metro blue span2" href="Products.aspx?tab=trends">
 				<i class="icon-shopping-cart"></i>
 				<p>Trends</p>
 				<span class="badge" id="VisitsBadge">0</span>
 				</a>
 				
-				<a class="quick-button metro pink span2" href="Category.aspx">
+				<a class="quick-button metro pink span2" href="Products.aspx?tab=OutOfStock">
 				<i class="icon-ambulance"></i>
 				<p>Not in Stock</p>
 				<span class="badge" id="NotInStockBadge">0</span>

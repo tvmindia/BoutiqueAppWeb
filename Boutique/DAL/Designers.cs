@@ -154,7 +154,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
                     cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                   
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);

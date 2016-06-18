@@ -132,6 +132,7 @@ namespace Boutique.AdminPanel
                 }
                 else //Edit Boutique
                 {
+                    boutiqueobj.UpdatedBy = UA.userName;
                     status = boutiqueobj.EditBoutique().ToString();
                 }
 
