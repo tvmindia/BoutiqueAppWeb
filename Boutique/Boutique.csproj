@@ -203,6 +203,7 @@
     <Content Include="img\crop.gif" />
     <Content Include="img\defaultimages.jpg" />
     <Content Include="img\Default\DefaultBoutique.jpg" />
+    <Content Include="img\Default\defaultuser.jpg" />
     <Content Include="img\Default\nologo1.png" />
     <Content Include="img\Default\Sendingmail.gif" />
     <Content Include="img\Default\Warn.png" />

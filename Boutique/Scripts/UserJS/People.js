@@ -888,7 +888,7 @@ function GetDesigner(Designer) {
 }
 
 function GetDesignerImage(DesignerID, ImageIsNull) {
-
+    debugger;
     if ($("#list").find(".thumb") != null || $("#list").find(".thumb") != 'undefined') {
         $("#list").find(".thumb").remove();
     }
@@ -898,13 +898,12 @@ function GetDesignerImage(DesignerID, ImageIsNull) {
 
     var imgdes = document.getElementById('designerimage');
     imgdes.src = "../ImageHandler/ImageServiceHandler.ashx?DesignerId=" + DesignerID;
-
-    if (ImageIsNull == "0") {
-        $("#list").find(".thumb").remove();
-        var span = document.createElement('span');
-        span.innerHTML = ['<img id="designerimage" class="thumb" src="../img/no-user-image.gif" title=""/>'].join('');
-        document.getElementById('list').insertBefore(span, null);
-    }
+    //if (ImageIsNull == "0") {
+    //    $("#list").find(".thumb").remove();
+    //    var span = document.createElement('span');
+    //    span.innerHTML = ['<img id="designerimage" class="thumb" src="../img/no-user-image.gif" title=""/>'].join('');
+    //    document.getElementById('list').insertBefore(span, null);
+    //}
     return;
 
 }

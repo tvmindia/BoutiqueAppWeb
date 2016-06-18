@@ -88,6 +88,11 @@ namespace Boutique.ImageHandler
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
+                    else
+                    {
+                        context.Response.ContentType = "image/png";
+                        context.Response.WriteFile("~/img/Default/defaultuser.jpg");
+                    }
 
                 }
             }
