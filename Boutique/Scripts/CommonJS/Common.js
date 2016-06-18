@@ -241,6 +241,7 @@ function ConfirmDelete()
 
 var OrderStatusNotification = {
     OrderReady: "Your order is ready for pickUp",
-    OrderWithProducts: "Order is placed with $ Products",
-    OrderWithOutProducts: "Order with $ is placed"
+    OrderWithProducts: "Order is placed with $ Products.Your Order Number is : # ",
+    OrderWithOutProducts: "Order is placed.Your Order Number is : $ ",
+    OrderUpdateWithProducts: "Newly $ products are added to your Order.Your Order Number is : # "
 }
