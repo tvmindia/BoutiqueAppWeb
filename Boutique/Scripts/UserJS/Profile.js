@@ -163,8 +163,18 @@
                         formData.append('WorkingDays',Boutique.WorkingDays);
                         formData.append('FbLink',Boutique.FbLink);
                         formData.append('InstagramLink',Boutique.InstagramLink);
-                   
-                        postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+                        var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+                        if (result == "1" || result == "0") {
+                            $('#rowfluidDiv').show();
+                            $('.alert-success').show();
+                            AutoScrollToAlertBox();
+                            refreshAdminLayout();
+                           
+                        }
+                        if (result != "1" && result!="0") {
+                            $('#rowfluidDiv').show();
+                            $('.alert-error').show();
+                        }
             }
         }
     })
