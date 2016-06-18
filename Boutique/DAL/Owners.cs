@@ -177,7 +177,7 @@ namespace Boutique.DAL
                     if (DOB != null) cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
@@ -241,7 +241,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DOB;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 10).Value = Gender;
                     cmd.Parameters.Add("@Profile", SqlDbType.NVarChar, -1).Value = Profile;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);

@@ -3,8 +3,7 @@ var InitialItemCount = 0;
 
 
 $("document").ready(function (e) {
-    debugger;
-
+   
     var rowCount = $("#OrderItemTable > tbody > tr").length;
 
     if (rowCount == 0) {
@@ -29,6 +28,8 @@ $("document").ready(function (e) {
 
 
     BindOrdersTable();
+
+    //$('#OrderItemTable').DataTable();
 
     $('#OrdersTable').DataTable({
         "bPaginate": false  ,       //Search and Paging implementation
@@ -92,7 +93,7 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
-            debugger;
+          
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -124,7 +125,7 @@ $("document").ready(function (e) {
 
 
                 BindOrderItemsList(Order);
-                debugger;
+              
                 InitialItemCount = $("#OrderItemTable > tbody > tr").length;
 
                 //$("#OrderItemTable").DataTable();
@@ -151,9 +152,10 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
+
+            debugger;
             if ($(".products").val() != "") //check if  product is selected
             {
-
                 AddToList();
 
                 $(".products").select2("val", "");
@@ -202,6 +204,8 @@ $("document").ready(function (e) {
         $("#dateActualDeliveryDate").attr('disabled', 'disabled');
 
         //---order item
+
+        $("#OrderItemTable > tbody").empty();
         $('#OrderItemTable').hide();
 
 
@@ -217,11 +221,10 @@ $("document").ready(function (e) {
     $(".submitDetails").live(
     {
         click: function (e) {
+            debugger;
+
 
             var Insert = false;
-
-
-            debugger;
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -309,7 +312,6 @@ $("document").ready(function (e) {
 
             if ( $("#hdfOrderID").val() != "")
             {
-                debugger;
                 Notification.StartDate = $("#dateOrderDate").text();
 
                 Notification.OrderID = Order.OrderID;
@@ -326,8 +328,6 @@ $("document").ready(function (e) {
             result = InsertOrUpdateOrder(Order); //returns orderID
 
             if (Insert == false) {
-
-                debugger;
 
                 var InitialProducts = {};
                 InitialProducts = GetOrderItemsByOrderID(Order);
@@ -352,31 +352,32 @@ $("document").ready(function (e) {
 
                     var resultItem = "";
 
+                    var NoOfNewProducts = 0;
+
+
                         $('#OrderItemTable tbody tr').each(function () {
 
-                            debugger;
-
-                            var     NewProduct = true; //--- checking product list if it is newly added or already existing product
+                            var  NewProduct = true; //--- checking product list if it is newly added or already existing product
+                            var productId = $(this).attr("ProductID");
 
                             if (InitialProducts != undefined) 
                             {
-                                var productId = $(this).attr("ProductID");
-
                                 $.each(InitialProducts, function (index, InitialProducts)
                                     {
-                                        debugger;
+                                  
 
                                         if (InitialProducts.ProductID == productId) {
-                                            debugger;
-
+                                           
                                             NewProduct = false; 
                                             return false;
                                         }
 
                                     })
+                            }
+                                if (NewProduct == true || Insert == true) {
+                                    //var productname = $(this).find('td').eq(0).text();
 
-                                if (NewProduct == true) {
-                                    var productname = $(this).find('td').eq(0).text();
+                                    NoOfNewProducts = NoOfNewProducts + 1;
 
                                     var remarks = $(this).find('td').eq(1).text();
 
@@ -388,13 +389,12 @@ $("document").ready(function (e) {
                                     resultItem = InsertOrderItem(Order);
                                 }
 
-                            }
+                           
                            
                         })
                    
                     if (resultItem != "")
                     {
-                        debugger;
                         if (Insert == true)
                         {
                             var descrptn = OrderStatusNotification.OrderWithProducts;
@@ -409,13 +409,13 @@ $("document").ready(function (e) {
                         else {
 
                             var descrptn = OrderStatusNotification.OrderUpdateWithProducts;
-                            var replacedDescrptn = descrptn.replace("$", rowCount);
+                            var replacedDescrptn = descrptn.replace("$", NoOfNewProducts);
                             replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
 
                             Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
                         }
-                        debugger;
+                       
                         //Clearing datatables befoe binding with new 
 
                         $("#OrdersTable").dataTable().fnClearTable();
@@ -446,7 +446,7 @@ $("document").ready(function (e) {
                         document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
 
                         //$('#ImgProduct').hide();
-
+                        $("#OrderItemTable > tbody").empty();
                         $('#OrderItemTable').hide();
 
                         $('#rowfluidDiv').show();
@@ -471,8 +471,7 @@ $("document").ready(function (e) {
 
 
                 else {
-                    debugger;
-
+                   
                     if (Insert == true )
                     {
                         var descrptn = OrderStatusNotification.OrderWithOutProducts;
@@ -549,7 +548,7 @@ $("document").ready(function (e) {
 
                $('#ImgProduct').show();
 
-               debugger;
+              
                var productID = $('.products').val();
 
                var Order = new Object();
@@ -584,7 +583,7 @@ $("document").ready(function (e) {
     $(".OrderItemDelete").live(
     {
         click: function (e) {
-            debugger;
+           
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -637,8 +636,7 @@ function DeleteItem(e,p)
 }
 
 function AddToList() {
-    debugger;
-
+    
     $('#OrderItemTable').show();
 
     var productID = $('.products').val();
@@ -649,6 +647,7 @@ function AddToList() {
     var ProductName = data[0].text;
     var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
+   
 
     $("#OrderItemTable").append(html);
 
@@ -734,7 +733,6 @@ function BindControlsWithOrderDetails(Records) {
 
 function BindOrderItemsList(Order) {
 
-    debugger;
     var jsonResult = {};
 
     jsonResult = GetOrderItemsByOrderID(Order);
@@ -756,7 +754,7 @@ function GetOrderItemsByOrderID(Order) {
 
 //Fill OrderITEM table 
 function FillOrderItemsTable(Records) {
-    debugger;
+   
     //var rowExistsOrNot = false;
     $('#OrderItemTable').show();
 
@@ -765,8 +763,6 @@ function FillOrderItemsTable(Records) {
     $("#OrderItemTable > tbody").empty();          //Remove all existing rows for refreshing
 
     $.each(Records, function (index, Records) {
-
-        debugger;
 
         //rowExistsOrNot = true;
 

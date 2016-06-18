@@ -48,6 +48,8 @@ namespace Boutique.AdminPanel
             }
             else
             {
+
+                boutiqueObj.UpdatedBy = UA.userName;
               boutiqueObj.status = boutiqueObj.EditBoutique().ToString();
             }
 
@@ -170,6 +172,7 @@ namespace Boutique.AdminPanel
 
                 if (ownersObj.OwnerID != null)
                 {
+                    ownersObj.UpdatedBy = UA.userName;
                     status = ownersObj.UpdateOwner().ToString();
 
                 }
@@ -179,6 +182,7 @@ namespace Boutique.AdminPanel
                     obj.AddNewUser();
 
                     ownersObj.UserID=obj.UserID;
+                    ownersObj.CreatedBy = UA.userName;
                     
 
                     status = ownersObj.InsertOwner().ToString();

@@ -3,6 +3,16 @@ $("document").ready(function (e) {
 
     parent.document.title = Pages.Products;
     LoginUserRole = getRole(); //common function To Get Role 
+   //query string from dashboard for tab selection
+    var qrStr = window.location.search;
+    qrStr = qrStr.split("?")[1].split("=")[1];
+    if (qrStr == "trends") {
+        $('#myTab li:eq(1) a').tab('show');
+    }
+    if (qrStr == "OutOfStock") {
+        $('#myTab li:eq(2) a').tab('show');
+    }
+   //query string from dashboard for tab selection
 
     $('.ModifyProduct').hide();//hides edit button
     $('.DeleteProduct').hide();//hides delete button
@@ -143,6 +153,22 @@ $("document").ready(function (e) {
                 else {
                     Product.Categories = "";
                 }
+                var relproducts = $("#idDdlrelateproducts").val();
+                var comm = "";
+                Product.RelatedProductsIDs = "";
+                if (relproducts!=null)
+                {
+                    for (var i = 0; i < relproducts.length; i++) {
+                        Product.RelatedProductsIDs = Product.RelatedProductsIDs + comm + relproducts[i].toString();
+                        comm = ",";
+                    }
+                }
+               else
+               {
+                Product.RelatedProductsIDs = "";
+               }
+
+
 
                 if ($("#idDdlDesigners").val() != null) {
                     Product.DesignerID = $("#idDdlDesigners").val();
@@ -200,12 +226,33 @@ $("document").ready(function (e) {
                 if ($("input[name=optionsRadiosActive]:checked")) {
                     Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
                 }
+              
+
                 var Categ = $("#idDdlCategories").val();
                 var com = "";
                 Product.Categories = "";
-                for (var i = 0; i < Categ.length; i++) {
-                    Product.Categories = Product.Categories + com + Categ[i].toString();
-                    com = ",";
+                if (Categ != null) {
+                    for (var i = 0; i < Categ.length; i++) {
+                        Product.Categories = Product.Categories + com + Categ[i].toString();
+                        com = ",";
+                    }
+                }
+                else {
+                    Product.Categories = "";
+                }
+
+
+                var relproducts = $("#idDdlrelateproducts").val();
+                var comm = "";
+                Product.RelatedProductsIDs = "";
+                if (relproducts != null) {
+                    for (var i = 0; i < relproducts.length; i++) {
+                        Product.RelatedProductsIDs = Product.RelatedProductsIDs + comm + relproducts[i].toString();
+                        comm = ",";
+                    }
+                }
+                else {
+                    Product.RelatedProductsIDs = "";
                 }
 
                 if ($("#idDdlDesigners").val() != null) {
@@ -1079,7 +1126,7 @@ function GetAllRelatedProducts(Product) {
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
-    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllRelatedProductsIDandName");
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
     table = JSON.parse(ds.d);
     return table;
 }
