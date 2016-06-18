@@ -1,4 +1,15 @@
-﻿var deleteReturn=false;
+﻿
+//---* Order Status Notification * ---//
+
+var OrderStatusNotification = {
+    OrderReady: "Your order is ready for PickUp",
+    OrderWithProducts: "Order is placed with $ Products. Your Order Number is : # ",
+    OrderWithOutProducts: "Order is placed. Your Order Number is : $ ",
+    OrderUpdateWithProducts: "Newly $ products are added to your Order. Your Order Number is : # "
+}
+
+
+var deleteReturn = false;
 $("document").ready(function (e) {
  
     $(".DialogDeleteYes").live({
@@ -237,11 +248,3 @@ function ConfirmDelete()
     $('#ConfirmDiv').append(html);
 }
 
-//---* Order Status Notification * ---//
-
-var OrderStatusNotification = {
-    OrderReady: "Your order is ready for pickUp",
-    OrderWithProducts: "Order is placed with $ Products.Your Order Number is : # ",
-    OrderWithOutProducts: "Order is placed.Your Order Number is : $ ",
-    OrderUpdateWithProducts: "Newly $ products are added to your Order.Your Order Number is : # "
-}

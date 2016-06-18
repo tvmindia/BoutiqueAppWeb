@@ -96,6 +96,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public string RelatedProductsIDs
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -263,6 +269,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
+                    cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, 200).Value = RelatedProductsIDs;
                     cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -1067,7 +1074,7 @@ namespace Boutique.DAL
                    
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
                    
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
@@ -1123,7 +1130,7 @@ namespace Boutique.DAL
 
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
 
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
@@ -1231,7 +1238,7 @@ namespace Boutique.DAL
                
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@FileType", SqlDbType.VarChar, 5).Value = FileType;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = "albert";
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
@@ -2144,5 +2151,51 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetNewProductDetailBySearch
+
+
+        #region GetAllProductIDandName
+         public DataSet GetAllProductIDandName()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+          
+            try
+            {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetAllProductsIDandName]";
+                    cmd.Parameters.Add("@BoutiqueID",SqlDbType.UniqueIdentifier).Value=Guid.Parse(BoutiqueID);
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+      
+        #endregion GetAllProductIDandName
     }
 }

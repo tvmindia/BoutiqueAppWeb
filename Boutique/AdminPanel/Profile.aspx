@@ -235,12 +235,17 @@
                     </div>
                     <div class="box-content" style="height: 438px; overflow: auto;">
                         <div class="form-horizontal">
+                            <div class="alert alert-block" id="ErrorBox" style="display:none;">
+                                <div id="Displaydiv">
+
+                                </div>
+                            </div>
                             <%--<fieldset>--%>
                             <div class="control-group">
 
                                 <label class="control-label" for="focusedInput">Name</label>
                                 <div class="controls">
-                                    <input class="input-large focused" id="txtOwnerName" type="text" />
+                                    <input class="input-large focused" name="Owner Name" id="txtOwnerName" type="text" />
                                 </div>
                             </div>
 
@@ -248,21 +253,21 @@
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Address</label>
                                 <div class="controls">
-                                    <textarea class="form-control" style="max-width: 68%" rows="4" id="txtOwnerAddress"></textarea>
+                                    <textarea class="form-control" style="max-width: 68%" rows="4" name="Address" id="txtOwnerAddress"></textarea>
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Phone</label>
                                 <div class="controls">
-                                    <input class="input-large focused" id="txtOwnerPhone" type="text" />
+                                    <input class="input-large focused" id="txtOwnerPhone" name="Mobile Number" type="text" />
                                 </div>
                             </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Email</label>
                                 <div class="controls">
-                                    <input class="input-large focused" id="txtOwnerEmail" type="text" />
+                                    <input class="input-large focused" id="txtOwnerEmail" name="Email" type="text" />
                                 </div>
                             </div>
 
@@ -310,7 +315,7 @@
                     </div>
 
                     <footer class="InnerFooter">
-                        <a class="btn btn-primary AddOwner" href="#">Save</></a>
+                        <a class="btn btn-primary AddOwner" onclick="OwnerValidate()" href="#">Save</></a>
 
                         <a class="btn CancelOwner">Cancel</a>
 

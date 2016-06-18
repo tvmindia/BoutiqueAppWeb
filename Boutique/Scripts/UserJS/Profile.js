@@ -179,53 +179,22 @@
         }
     })
 
-    $(".AddOwner").live({
-        click: function (e) {
-         
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-            var result = "";
-            var Owners = new Object();
+    
 
-            if ($("#hdfUserID").val() != "")
-            {
-                Owners.UserID = $("#hdfUserID").val();
-                Owners.OwnerID = $("#hdfOwnerID").val();
-            }
-            //else {
-            //    alert("Please Select A User..");
-            //    return;
-            //}
-         
-            Owners.Name = $("#txtOwnerName").val();
-            Owners.Address = $("#txtOwnerAddress").val();
-            Owners.Phone = $("#txtPhone").val();
-            Owners.Email = $("#txtOwnerEmail").val();
-            Owners.DOB = $("#DOBDate").val();
+    //
+    //Style setting for client side Validation
+    //CreatedBy Thomson
 
-            Owners.Gender = "Male";
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+    $('textarea').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
 
-            Owners.Profile = $("#txtProfile").val();
-          
-
-            result = InsertOwner(Owners);
-            if (result == "1") {
-                clearOwnerControls();
-              //  AutoScrollToAlertBox();
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-            }
-            if (result != "1") {
-              //  AutoScrollToAlertBox();
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-            }
-
-            BindAsyncOwnerTable();
-
-        }
-    })
+    //end styling client validation
 
 });//end of document.ready
 
@@ -537,4 +506,102 @@ function GetOwner(Owner) {
     return table;
 }
 
+//
+//Basic Validation and Insert For Adding Owner
+//CreatedBy Thomson
+function OwnerValidate() {
+    $('#Displaydiv').remove();
+    var Name = $('#txtOwnerName');
+    var Email = $('#txtOwnerEmail');
+    var Address = $('#txtOwnerAddress');
+    var Phone = $('#txtOwnerPhone');
+    
+    var container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+        { id: Email[0].id, name: Email[0].name, Value: Email[0].value },
+        { id: Address[0].id, name: Address[0].name, Value: Address[0].value },
+        { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value },
+    ];
 
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+
+            var p = document.createElement('p');
+            p.innerHTML = "Required ! Please Enter your " + container[i].name;
+            p.style.color = "Red";
+            p.style.fontSize = "11px";
+            divs.appendChild(p);
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+
+
+
+    }
+    if (j == '1') {
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide();
+        AddOwner();
+        return true;
+    }
+
+}
+function AddOwner()
+{
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    var result = "";
+    var Owners = new Object();
+
+    if ($("#hdfUserID").val() != "") {
+        Owners.UserID = $("#hdfUserID").val();
+        Owners.OwnerID = $("#hdfOwnerID").val();
+    }
+    //else {
+    //    alert("Please Select A User..");
+    //    return;
+    //}
+
+    Owners.Name = $("#txtOwnerName").val();
+    Owners.Address = $("#txtOwnerAddress").val();
+    Owners.Phone = $("#txtPhone").val();
+    Owners.Email = $("#txtOwnerEmail").val();
+    Owners.DOB = $("#DOBDate").val();
+
+    Owners.Gender = "Male";
+
+    Owners.Profile = $("#txtProfile").val();
+
+
+    result = InsertOwner(Owners);
+    if (result == "1") {
+        clearOwnerControls();
+        //  AutoScrollToAlertBox();
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+    }
+    if (result != "1") {
+        //  AutoScrollToAlertBox();
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+    }
+
+    BindAsyncOwnerTable();
+}
+//
+//end Validation and Insert For Adding Owner
+//

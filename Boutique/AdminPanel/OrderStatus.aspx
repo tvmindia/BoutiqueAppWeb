@@ -208,7 +208,7 @@
                                                 <option></option>
                                             </select>
                                             <i class="halflings-icon white trash"></i>
-                                            <a class="btn btn icon-plus addBtn"></a>
+                                            <a class="btn btn icon-plus addBtn" ></a>
                                         </div>
                                     </div>
                                 </div>
