@@ -131,7 +131,12 @@ function DeleteCustomAlert(txt, e, p)
     btnYes.href = "#";
     //btnYes.focus();
     //debugger;
-    btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    if (p == "ProductImage") {
+        btnYes.onclick = function () { DeleteProductImage(e, p); removeCustomAlert(); return false; }
+    }
+    else {
+        btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    }
 
     alertObj.style.display = "block";
 
@@ -167,7 +172,7 @@ function CustomAlert(txt) {
 
     btn = alertObj.appendChild(d.createElement("a"));
     btn.id = "closeBtn";
-    btn.className = "btnButton";
+    btn.className = "noButton";
     btn.appendChild(d.createTextNode("OK"));
     btn.href = "#";
     btn.focus();
