@@ -364,7 +364,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@WorkingDays", SqlDbType.NVarChar, 10).Value = WorkingDays;
                 cmd.Parameters.Add("@FBLink", SqlDbType.NVarChar, 200).Value = FbLink;
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
-                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@latlong", SqlDbType.VarChar, 100).Value = string.Join(",", coordinates);
                 cmd.Parameters.Add("@Logo", SqlDbType.VarBinary).Value = boutiqueLogo;
