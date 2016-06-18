@@ -349,6 +349,8 @@ $("document").ready(function (e) {
                         {
                             var descrptn = OrderStatusNotification.OrderWithProducts;
                             var replacedDescrptn = descrptn.replace("$", rowCount);
+                             replacedDescrptn = descrptn.replace("#", result.OrderNo);
+
                             Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
                             
