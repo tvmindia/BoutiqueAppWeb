@@ -1,4 +1,7 @@
 ﻿
+var InitialItemCount = 0;
+
+
 $("document").ready(function (e) {
     debugger;
 
@@ -89,6 +92,8 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
+            debugger;
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -105,7 +110,7 @@ $("document").ready(function (e) {
 
             Order.OrderID = editedrow.attr("OrderID");
 
-
+           
             jsonResult = GetOrderDetailsByOrderID(Order);
             if (jsonResult != undefined) {
                 BindControlsWithOrderDetails(jsonResult);
@@ -119,6 +124,8 @@ $("document").ready(function (e) {
 
 
                 BindOrderItemsList(Order);
+                debugger;
+                InitialItemCount = $("#OrderItemTable > tbody > tr").length;
 
                 //$("#OrderItemTable").DataTable();
 
@@ -211,6 +218,9 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
+            var Insert = false;
+
+
             debugger;
 
             $('#rowfluidDiv').hide();
@@ -228,9 +238,11 @@ $("document").ready(function (e) {
                 alert("Please select a user");
             }
 
- //------* Create New Order Case *---------//
+            //------* Create New Order Case *---------//
 
             if ($("#hdfOrderID").val() == "") {
+
+                Insert = true;
 
                 if ($("#txtOrderDate").val().trim() != "") {
                     Order.OrderDate = $("#txtOrderDate").val();
@@ -252,13 +264,24 @@ $("document").ready(function (e) {
 
             }
 
-   //------* END  *---------//
+                //------* END  *---------//
 
             else  //Update
             {
                 Order.OrderID = $("#hdfOrderID").val();
 
+                //var jsonResult = {};
+                //jsonResult = GetOrderDetailsByOrderID(Order);
+                //if (jsonResult != undefined)
+                //{
+                //    if (jsonResult.) {
+
+                //    }
+                //}
+
+
                 Order.OrderReadyDate = $("#dateOrderReadyDate").val();
+
             }
 
             var TotalAmount = parseInt($("#txtTotalOrderAmount").val());
@@ -271,59 +294,127 @@ $("document").ready(function (e) {
             else {
                 Order.TotalOrderAmount = $("#txtTotalOrderAmount").val();
             }
-
+           
 
             Order.ForecastDeliveryDate = $("#dateForecastDeliveryDate").val();
             Order.ActualDeliveryDate = $("#dateActualDeliveryDate").val();
             Order.OrderDescription = $("#txtDescription").val();
          
-                var Notification = new Object();
-                Notification.NotificationID = "";
-                Notification.Title = Order.OrderDescription;
-                Notification.StartDate = Order.OrderDate;
-                Notification.EndDate = Order.PlannedDeliveryDate
-                Notification.Description = Order.OrderDescription;
-                Notification.ProductID = "";
-                Notification.CategoryCode = "";
-                Notification.UserID = Order.UserID;
+            var Notification = new Object();
+              
+            Notification.Title = Order.OrderDescription;
+            Notification.StartDate = Order.OrderDate;
+            
+            Notification.UserID = Order.UserID;
+
+            if ( $("#hdfOrderID").val() != "")
+            {
+                debugger;
+                Notification.StartDate = $("#dateOrderDate").text();
+
+                Notification.OrderID = Order.OrderID;
+               
+               
+            }
+
+            if (Order.OrderReadyDate != "" && $("#hdfOrderID").val() != "")
+            {
+                Notification.Description = OrderStatusNotification.OrderReady;
+                resultOfNotification = InsertNotification(Notification);
+            }
+            
+            result = InsertOrUpdateOrder(Order); //returns orderID
+
+            if (Insert == false) {
+
+                debugger;
+
+                var InitialProducts = {};
+                InitialProducts = GetOrderItemsByOrderID(Order);
                
 
-            result = InsertOrUpdateOrder(Order); //returns orderID
+            }
+
 
             ///-- Insert or update action is success if result equals to some id, then by checking no of items , if it is 0 header only inserts otherwise items insertions also performs
 
-            if (result != "") {  
+            if (result.OrderID != "" ) {
 
-                Notification.OrderID = result;
-                resultOfNotification = InsertNotification(Notification);
-                //AddNotification();
-
+                Notification.OrderID = result.OrderID;
+               
                 ClearControls();
 
                 var rowCount = $("#OrderItemTable > tbody > tr").length;
 
                 if (rowCount > 0) //check if  change for product items (Header only)  
                 {
-
                     //----------- * HEADER ONLY-- START ---------- *//
-                    $('#OrderItemTable tbody tr').each(function () {
-                        
 
-                        var productId = $(this).attr("ProductID");
-                        var productname = $(this).find('td').eq(0).text();
+                    var resultItem = "";
 
-                        var remarks = $(this).find('td').eq(1).text();
+                        $('#OrderItemTable tbody tr').each(function () {
 
-                            Order.ProductID = productId;
-                            Order.CustomerRemarks = remarks;
+                            debugger;
 
-                            Order.OrderID = result;
+                            var     NewProduct = true; //--- checking product list if it is newly added or already existing product
 
-                    result = InsertOrderItem(Order);
+                            if (InitialProducts != undefined) 
+                            {
+                                var productId = $(this).attr("ProductID");
 
-                    })
+                                $.each(InitialProducts, function (index, InitialProducts)
+                                    {
+                                        debugger;
 
-                    if (result != "") {
+                                        if (InitialProducts.ProductID == productId) {
+                                            debugger;
+
+                                            NewProduct = false; 
+                                            return false;
+                                        }
+
+                                    })
+
+                                if (NewProduct == true) {
+                                    var productname = $(this).find('td').eq(0).text();
+
+                                    var remarks = $(this).find('td').eq(1).text();
+
+                                    Order.ProductID = productId;
+                                    Order.CustomerRemarks = remarks;
+
+                                    Order.OrderID = result.OrderID;
+
+                                    resultItem = InsertOrderItem(Order);
+                                }
+
+                            }
+                           
+                        })
+                   
+                    if (resultItem != "")
+                    {
+                        debugger;
+                        if (Insert == true)
+                        {
+                            var descrptn = OrderStatusNotification.OrderWithProducts;
+                            var replacedDescrptn = descrptn.replace("$", rowCount);
+                            replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
+
+                            Notification.Description = replacedDescrptn;
+                            resultOfNotification = InsertNotification(Notification);
+                            
+                        }
+
+                        else {
+
+                            var descrptn = OrderStatusNotification.OrderUpdateWithProducts;
+                            var replacedDescrptn = descrptn.replace("$", rowCount);
+                            replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
+
+                            Notification.Description = replacedDescrptn;
+                            resultOfNotification = InsertNotification(Notification);
+                        }
                         debugger;
                         //Clearing datatables befoe binding with new 
 
@@ -374,13 +465,22 @@ $("document").ready(function (e) {
                         $('#rowfluidDiv').show();
                         $('.alert-error').show();
                     }
-                       
-                } //HEADER ONLY END
+                }
+                //HEADER ONLY END
 
 
 
                 else {
                     debugger;
+
+                    if (Insert == true )
+                    {
+                        var descrptn = OrderStatusNotification.OrderWithOutProducts;
+                        var replacedDescrptn = descrptn.replace("$", result.OrderNo);
+                         Notification.Description = replacedDescrptn;
+                        resultOfNotification = InsertNotification(Notification);
+                    }
+
 
                     $("#OrdersTable").dataTable().fnClearTable();
                     $("#OrdersTable").dataTable().fnDestroy();
@@ -412,7 +512,7 @@ $("document").ready(function (e) {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
             }
-
+        
         }
     })
     //------------END: Save Button CLick------------//
@@ -510,6 +610,7 @@ function DeleteItem(e,p)
 
     result = DeleteOrderItem(Order);
     if (result == "1") {
+
         BindOrderItemsList(Order);
     }
 
@@ -669,10 +770,7 @@ function FillOrderItemsTable(Records) {
 
         //rowExistsOrNot = true;
 
-       
-
         var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
-
 
         $("#OrderItemTable").append(html);
     });
@@ -751,7 +849,7 @@ function GetAllProducts(Notify) {
 //------------Insert--------------------
 function InsertNotification(Notification) {
     var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/InsertNotification");
+    jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/InsertNotification");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;

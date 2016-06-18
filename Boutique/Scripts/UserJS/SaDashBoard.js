@@ -1,16 +1,13 @@
 ﻿$("document").ready(function (e) {
     BindTiles();
     parent.document.title = Pages.SaDashboard;
-    $(".ddlboutiques").select2({
-        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
-       , allowClear: true
-       , placeholder: "Select a Boutique"
-    });
+
 
     //dsfdsf
     $("#hdfBoutiqueID").val('');
 
-    //BindAsyncBoutiqueDropDown();  
+
+    BindAsyncBoutiqueDropDown();  
 
     BindBoutiqueAsyncLoad();
     $('#boutiqueTable').DataTable({
@@ -20,7 +17,7 @@
  
     $(".edit").live({
         click: function (e) {
-            debugger;
+          
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -44,7 +41,7 @@
 
     $(".Delete").live({    
         click: function (e) {
-            debugger;
+      
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();            
@@ -52,22 +49,9 @@
                editedrow = $(this).closest('tr');
                var e = editedrow.attr("boutiqueID");
                var p = "";
-               //var Boutique = new Object();
-               //Boutique.BoutiqueID = editedrow.attr("boutiqueID");
-               //jsonResult = DeleteBoutique(Boutique);
-               //if (jsonResult != undefined) {
-               //    if (jsonResult == "1") {
-               //        BindBoutiqueAsyncLoad();//Gridbind
-               //        $('#rowfluidDiv').show();
-               //        $('.alert-success').show();
-               //    }
-               //    if (jsonResult != "1") {
-               //        BindBoutiqueAsyncLoad();//Gridbind
-               //        $('#rowfluidDiv').show();
-               //        $('.alert-error').show();
-               //    }
-               //}
+          
                DeleteCustomAlert('Are You Sure?', e, p);
+            
                return false;
            }
        })
@@ -86,8 +70,8 @@
 
     //$(".AddBoutique").({
     //   click: function (e) {// submit button click
-            
-          
+
+
     //   }
     //})
     $('input[type=text],input[type=password]').on('focus', function () {
@@ -100,15 +84,10 @@
     });
     //$(".AddAdmin").live({
     //    click: function (e) {// submit button click
-            
 
-    //        //var jsonResults = {};
-    //        //jsonResults = GetAllBoutiques();
-    //        //if (jsonResults != undefined)
-    //        //{
-    //        //    BindBoutiqueTable(jsonResults);
-    //        //}
-
+            BindBoutiqueAsyncLoad();//Gridbind
+            BindAsyncBoutiqueDropDown();
+          
     //    }
     //})
     
@@ -116,13 +95,13 @@
     
     $('#ExceptionMainDiv').hide();
 
-    
+
 
 });//document.ready
 
 function DeleteItem(e,p)
 {
-    debugger;
+   
     var jsonResult = {};
     //editedrow = $(this).closest('tr');
     var Boutique = new Object();
@@ -131,6 +110,7 @@ function DeleteItem(e,p)
     if (jsonResult != undefined) {
         if (jsonResult == "1") {
             BindBoutiqueAsyncLoad();//Gridbind
+            BindAsyncBoutiqueDropDown();
             $('#rowfluidDiv').show();
             $('.alert-success').show();
         }
@@ -142,6 +122,7 @@ function DeleteItem(e,p)
         }
         if (jsonResult != "1" && jsonResult != "2") {
             BindBoutiqueAsyncLoad();//Gridbind
+            BindAsyncBoutiqueDropDown();
             $('#rowfluidDiv').show();
             $('.alert-error').show();
         }
@@ -149,6 +130,7 @@ function DeleteItem(e,p)
 }
 
 function BindAsyncBoutiques() {
+  
     var jsonResult = {};
     var Boutiques = new Object();
     jsonResult = GetAllBoutiquesIDandName(Boutiques);
@@ -156,9 +138,6 @@ function BindAsyncBoutiques() {
         return jsonResult;
      }
 }
-
-
-
 
 function GetAllBoutiques(Designers) {
 
@@ -180,12 +159,13 @@ function  InsertBoutique(Boutique)
 
 }
 
-function BindAsyncBoutiqueDropDown() {//&&&&&&&&&&&&&&&&&&
-    var jsonResult = {};
-    jsonResult = GetAllBoutiquesDropDown();
-    if (jsonResult != undefined) {
-        return jsonResult;
-    }
+function BindAsyncBoutiqueDropDown() {
+  
+    $(".ddlboutiques").select2({
+        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+        , allowClear: true
+        , placeholder: "Select a Boutique"
+    });
 }
 
 function DeleteBoutique(Boutique)
@@ -198,7 +178,6 @@ function DeleteBoutique(Boutique)
 }
 
 function InsertAdmin(Admin) {
-    debugger;
     var data = "{'AdminObj':" + JSON.stringify(Admin) + "}";
     jsonResult = getJsonData(data, "../AdminPanel//People.aspx/AddAdmin");
     var table = {};
@@ -314,10 +293,12 @@ function ClearAdminControls()
     $('.alert-success').hide();
     $('.alert-error').hide(); 
 }
+
 function BindTiles()
 {
     BindAppUsersTile();
 }
+
 function BindAppUsersTile()
 {   
     var table = {};
@@ -326,6 +307,7 @@ function BindAppUsersTile()
     $("#UsersBadge").text(table.length);
     BindAppUserTable(table);    
 }
+
 function GetAllUsers(User) {
     var ds = {};
     var table = {};
@@ -334,6 +316,7 @@ function GetAllUsers(User) {
     table = JSON.parse(ds.d);
     return table;
 }
+
 function BindAppUserTable(Records) {
     $("tbody#AppUserrows tr").remove();
     $.each(Records, function (index, Records) {
@@ -353,6 +336,7 @@ function BindBoutique() {
     //    scrollTop: $("#BoutiqueRowFluid").offset().top
     //}, 500);
 }
+
 function BindUsers()
 {
     $('#AllBoutiquesMainDiv').hide();
@@ -364,6 +348,7 @@ function BindUsers()
     //    scrollTop: $("#AppUserRowFluid").offset().top
     //}, 500);
 }
+
 function BindException()
 {
     $('#AllBoutiquesMainDiv').hide();
@@ -418,7 +403,7 @@ function Validation() {
             Errorbox.style.paddingLeft = "30px";            
             
         }
-       
+
         
         
     }

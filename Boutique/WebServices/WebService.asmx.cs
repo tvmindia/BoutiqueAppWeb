@@ -207,7 +207,14 @@ namespace Boutique.WebServices
             {
                 Boutiques boutique = new Boutiques();
                 boutique.BoutiqueID = boutiqueID;
-                dt = boutique.GetBoutique().Tables[0];
+                dt = boutique.GetBoutiqueByBoutiqueIDForMobile();
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("BoutiqueID");
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols,null, false);
             }
             catch (Exception ex)
             {
@@ -476,8 +483,15 @@ namespace Boutique.WebServices
                 {
                     Designers designer = new Designers();
                     designer.BoutiqueID = boutiqueID;
-                    dt = designer.GetAllDesigners();
+                    dt = designer.GetAllDesignersForApp();
                     if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                    //Giving coloumns of image details
+                    ArrayList imgColNames = new ArrayList();
+                    ArrayList imgFileNameCols = new ArrayList();
+                    ArrayList imgFileTypeCols = new ArrayList();
+                    imgColNames.Add("Image");
+                    imgFileNameCols.Add("DesignerID");
+                    return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, null, false);
                 }
                 else if (ownerORdesigner.Equals("owner"))
                 {
@@ -679,7 +693,6 @@ namespace Boutique.WebServices
                 DataRow dr = dt.NewRow();
                 if (product.InsertProductReview(userID) == 1)
                 {
-
                     dr["Flag"] = true;
                     dr["Message"] = constants.Successfull;
                 }
@@ -706,6 +719,54 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+        /// <summary>
+        /// To delete a product review
+        /// </summary>
+        /// <param name="reviewID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string DeleteProductReview(string reviewID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.BoutiqueID = boutiqueID;
+                product.ReviewID = reviewID;
+
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                if (product.DeleteProductReview() == 1)
+                {
+                    dr["Flag"] = true;
+                    dr["Message"] = constants.Successfull;
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                }
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
         #endregion
 
         #region JSON converter
@@ -787,7 +848,12 @@ namespace Boutique.WebServices
 
                         if (dr[imgColName[i] as string] != DBNull.Value)
                         {
-                            String fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_") + dr[imgFileTypeCol[i] as string].ToString();
+                            String fileURL;
+                            if(imgFileTypeCol!=null)
+                                fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_") + dr[imgFileTypeCol[i] as string].ToString();
+                            else
+                                fileURL = filePath + dr[imgFileNameCol[i] as string].ToString().Replace(" ", "_")+".jpg";
+                            
                             if (!System.IO.File.Exists(fileURL))
                             {
                                 byte[] buffer;

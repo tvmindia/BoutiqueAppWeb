@@ -6,7 +6,6 @@
         document.getElementById('imageUpload').addEventListener('change', handleFileSelect, false);
         document.getElementById('logoUpload').addEventListener('change', handleLogoSelect, false);
     }
-   
 
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole);
@@ -34,7 +33,6 @@
             clearOwnerControls();
         }
     })
-
 
     $(".ownerdelete").live(
       {
@@ -101,7 +99,7 @@
             Boutique.InstagramLink = $("#txtInstatgramlink").val();
             Boutique.Latitude = $("#txtLatitude").val();
             Boutique.Longitude = $("#txtLongitude").val();        
-            debugger;
+          
             if (boutiquid != null)
             {
                 var imgresult = "";
@@ -165,15 +163,25 @@
                         formData.append('WorkingDays',Boutique.WorkingDays);
                         formData.append('FbLink',Boutique.FbLink);
                         formData.append('InstagramLink',Boutique.InstagramLink);
-                   
-                        postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+                        var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+                        if (result == "1" || result == "2"||result=="3") {
+                            $('#rowfluidDiv').show();
+                            $('.alert-success').show();
+                            AutoScrollToAlertBox();
+                            refreshAdminLayout();
+                           
+                        }
+                        if (result != "1" && result!="2" && result!="3") {
+                            $('#rowfluidDiv').show();
+                            $('.alert-error').show();
+                        }
             }
         }
     })
 
     $(".AddOwner").live({
         click: function (e) {
-            debugger;
+         
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -203,10 +211,13 @@
 
             result = InsertOwner(Owners);
             if (result == "1") {
+                clearOwnerControls();
+              //  AutoScrollToAlertBox();
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
             }
             if (result != "1") {
+              //  AutoScrollToAlertBox();
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
             }
@@ -251,7 +262,6 @@ function botiqueProfileLoad()
     }
 }
 
-
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
     $("#imageList").find(".thumb").remove();
@@ -282,10 +292,7 @@ function handleFileSelect(evt) {
     reader.readAsDataURL(f);
     //}
 }
-
-
 //post File/blog to Server
-
 function handleLogoSelect(evt) {
     var files = evt.target.files; // FileList object
     $("#logoList").find(".logo").remove();
@@ -317,7 +324,6 @@ function handleLogoSelect(evt) {
     //}
 }
 
-
 function InsertBoutique(Boutique) {
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/NewBoutique");
@@ -328,7 +334,7 @@ function InsertBoutique(Boutique) {
 }
 
 function GetBoutiques() {
-    debugger;
+ 
     var ds = {};
     var Boutique = new Object();
     var table = {};
@@ -378,7 +384,7 @@ function BindBoutiqueTextBoxes(Records) {
 }
 
 function GetBoutiqueImageAndLogo(boutiqueId) {
-    debugger;
+
     if ($("#imageList").find(".thumb") != null || $("#imageList").find(".thumb") != 'undefined') {
         $("#imageList").find(".thumb").remove();
     }
@@ -406,9 +412,7 @@ function GetBoutiqueImageAndLogo(boutiqueId) {
 }
 
 function clearControls() {
-    debugger;
-
-    botiqueProfileLoad();
+     botiqueProfileLoad();
 
     //$("#txtAppVersion").val('');
     //$("#txtBouquetName").val('');
@@ -464,12 +468,9 @@ function clearOwnerControls() {
 } 
 
 function BindOwnerTable(Records) {
- 
- 
-   
     var checkrole = $('#hdfRole').val(); 
     if (checkrole == Roles.Manager)
-    {     
+    {      
         $("thead#Ownerthead tr").remove();
       var html = ' <tr><th>Owner Name</th><th>Mobile</th><th>Email</th></tr> ';
       $("#Ownerthead").append(html);
@@ -481,7 +482,8 @@ function BindOwnerTable(Records) {
         })
     }
     else
-    {     
+    {
+        $("tbody#ownerrows tr").remove();
         $.each(Records, function (index,Records)
         {
         var html = '<tr userID="' + Records.UserID + '"  ownerID="' + Records.OwnerID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info owneredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger ownerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
@@ -492,7 +494,6 @@ function BindOwnerTable(Records) {
 }
 
 function BindAsyncOwnerTable() {
-
     var jsonResult = {};
     var Owner = new Object();
     jsonResult = GetAllOwners(Owner);
@@ -501,8 +502,7 @@ function BindAsyncOwnerTable() {
     }
 }
 
-function InsertOwner(Owners) {
-  
+function InsertOwner(Owners) {  
     var data = "{'ownersObj':" + JSON.stringify(Owners) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/InsertOwner");
     var table = {};

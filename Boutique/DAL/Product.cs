@@ -90,6 +90,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public string SearchText
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -1806,7 +1812,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 cmd.Parameters.Add("@ReviewDescription", SqlDbType.NVarChar,-1).Value = ReviewDescription;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -1824,7 +1830,54 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion
-
+        
+        #region Delete a product review
+        /// <summary>
+        /// to delete product review
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public Int16 DeleteProductReview()
+        {
+            if (ReviewID == "")
+            {
+                throw new Exception("ReviewID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteProductReview]";
+                cmd.Parameters.Add("@ReviewID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ReviewID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion
 
         #region UpdateReviewTable
         
@@ -1951,8 +2004,145 @@ namespace Boutique.DAL
         }
         #endregion Get ImageID By ProductID
 
+        #region GetNewTrendingDetailsBySearch
+        public DataSet GetNewTrendingDetailsBySearch()
+        {
+
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetTrendingDetailsBySearch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
 
 
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetNewTrendingDetailsBySearch
+
+        #region GetNewOutOfStockDetailBySearch
+        public DataSet GetNewOutOfStockDetailBySearch()
+        {
+
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetOutOfStockDetailBySearch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetNewOutOfStockDetailBySearch
+
+        #region GetNewProductDetailBySearch
+        public DataSet GetNewProductDetailBySearch()
+        {
+
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetProductDetailBySearch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetNewProductDetailBySearch
     }
 }

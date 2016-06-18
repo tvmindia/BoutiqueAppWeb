@@ -226,12 +226,61 @@ namespace Boutique.DAL
         }
         #endregion GetBoutique
 
+        #region Get Boutique for app
+        /// <summary>
+        /// Get one boutique Details based on boutiqueID with boutique image
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <returns>"One boutique details"</returns>
+        public DataTable GetBoutiqueByBoutiqueIDForMobile()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try{
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetBoutiqueByBoutiqueIDForMobile]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return dt;
+
+
+        }
+        #endregion
+
         #region NewBoutique
-        public Int16 NewBoutique()
+        public string NewBoutique()
         {
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParameter = null;
+            SqlParameter outParameter, outParameter2 = null;
             try
             {
                 dcon = new dbConnection();
@@ -257,6 +306,10 @@ namespace Boutique.DAL
 
 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParameter2 = cmd.Parameters.Add("@BoutiqueID", SqlDbType.NVarChar,255);
+               
+                
+                outParameter2.Direction = ParameterDirection.Output;
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -275,7 +328,7 @@ namespace Boutique.DAL
                 }
             }
             //insert success or failure
-            return Int16.Parse(outParameter.Value.ToString());
+            return outParameter2.Value.ToString();
 
         }
 

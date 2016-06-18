@@ -56,7 +56,8 @@
 {
      padding-top:20px;
     margin-left: 165px;
-    width:50px;
+    width:50px !important;
+    height:50px !important;
 }
 #alertBox .noButton {
 	/*display:block;*/
