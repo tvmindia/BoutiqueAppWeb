@@ -650,7 +650,7 @@ function BindUserTable(Records) {
         $("thead#Usersthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
         $("#Usersthead").append(html);
-        $("tbody#Designerrows tr").remove();
+        $("tbody#Usersrows tr").remove();
 
         $.each(Records, function (index, Records) {
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
@@ -658,7 +658,7 @@ function BindUserTable(Records) {
         })
     }
     else {
-        $("tbody#Designerrows tr").remove();
+        $("tbody#Usersrows tr").remove();
         $.each(Records, function (index, Records) {
 
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
