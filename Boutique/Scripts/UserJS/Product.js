@@ -578,7 +578,7 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllNewOutOfStockSearchDetails(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+    $("#productoutofstockimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
@@ -624,7 +624,7 @@ function BindAllNewProductImagesSearch(Pagevalue, searchtext) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllNewProductsSearchDetails(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+    $("#productimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
@@ -668,7 +668,7 @@ function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllNewTrendingSearchDetails(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+    $("#productTrendsimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
