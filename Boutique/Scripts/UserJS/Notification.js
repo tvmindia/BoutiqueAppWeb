@@ -57,76 +57,7 @@
         }
     })
     //Save button---------
-    $(".submitDetails").live(
-    {
-        click: function (e) {
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-            $("#txtTitle").val($("#txtTitle").val().trim());            
-            $("#txtDescription").val($("#txtDescription").val().trim());
-            var result = "";
-            var Notification = new Object();
-            Notification.NotificationID=$("#hdfNotificationID").val();
-           
-            if ($("#txtTitle").val() != "") {
-                Notification.Title = $("#txtTitle").val();
-            }
-            else {
-                alert("Please enter title.");
-                return;
-            }
-            if ($("#dateStartDate").val() != "") {
-                Notification.StartDate = $("#dateStartDate").val();
-            }
-            else {
-                alert("Please select start date.");
-                return;
-            }
-            if ($("#dateEndDate").val() != "") {
-                Notification.EndDate = $("#dateEndDate").val();
-            }
-            else {
-                alert("Please select end date.");
-                return;
-            }
-            if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
-                alert("End date should be after the starting date.");
-                return;
-            }
-            Notification.Description = $("#txtDescription").val();
-            Notification.ProductID = $(".products").val();
-            Notification.CategoryCode = $(".categories").val();
-            
-            result = InsertNotification(Notification);
-            if (result == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                BindNotificationsTable();
-                $("#txtTitle").val("");
-                $("#txtDescription").val("");
-                $("#dateStartDate").val("");
-                $("#dateEndDate").val("");
-                $(".submitDetails").text("Save");
-                $("#editLabel").text("New Notification");
-                $("#hdfNotificationID").val('');
-                $(".products").select2("val", "");
-                $(".categories").select2("val", "");
-            }
-            if (result != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-            }
-            //Scroll page
-            var offset = $('#rowfluidDiv').offset();
-            offset.left -= 20;
-            offset.top -= 20;
-            $('html, body').animate({
-                scrollTop: offset.top,
-                scrollLeft: offset.left
-            });
-        }
-    })
+   
     //Delete button---------
     $(".notificationdelete").live(
     {
@@ -189,12 +120,31 @@
             $("#hdfNotificationID").val('');
             $(".products").select2("val", "");
             $(".categories").select2("val", "");
+            RemoveStyle();
         }
     })
+
+    //
+    //Style setting for client side Validation
+    //CreatedBy Thomson
+
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+    $('textarea').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+
+    //end styling client validation
 });
 
 //------------Notification details table------------
-
+function RemoveStyle() {
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
+}
 function DeleteItem(e,p)
 {
     var jsonResult = {};
@@ -360,4 +310,129 @@ function DeleteNotification(Notification)
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
+}
+
+//Add Notification
+function  AddNotification()
+    {
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    $("#txtTitle").val($("#txtTitle").val().trim());
+    $("#txtDescription").val($("#txtDescription").val().trim());
+    var result = "";
+    var Notification = new Object();
+    Notification.NotificationID = $("#hdfNotificationID").val();
+
+    if ($("#txtTitle").val() != "") {
+        Notification.Title = $("#txtTitle").val();
+    }
+    else {
+        
+        return;
+    }
+    if ($("#dateStartDate").val() != "") {
+        Notification.StartDate = $("#dateStartDate").val();
+    }
+    else {
+       
+        return;
+    }
+    if ($("#dateEndDate").val() != "") {
+        Notification.EndDate = $("#dateEndDate").val();
+    }
+    else {
+        
+        return;
+    }
+    if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
+       
+        return;
+    }
+    Notification.Description = $("#txtDescription").val();
+    Notification.ProductID = $(".products").val();
+    Notification.CategoryCode = $(".categories").val();
+
+    result = InsertNotification(Notification);
+    if (result == "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+        BindNotificationsTable();
+        $("#txtTitle").val("");
+        $("#txtDescription").val("");
+        $("#dateStartDate").val("");
+        $("#dateEndDate").val("");
+        $(".submitDetails").text("Save");
+        $("#editLabel").text("New Notification");
+        $("#hdfNotificationID").val('');
+        $(".products").select2("val", "");
+        $(".categories").select2("val", "");
+    }
+    if (result != "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+    }
+    //Scroll page
+    var offset = $('#rowfluidDiv').offset();
+    offset.left -= 20;
+    offset.top -= 20;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
+    }
+/////////////////////////////////////////////////////////////Basic Validation/////////////////////////////////////////////////////////////////////
+
+//Basic Validation For New Notification
+//CreatedBy Thomson
+function NotificationValidation()
+{
+    debugger;
+    $('#Displaydiv').remove();
+    var Title = $('#txtTitle');
+    var Descrip = $('#txtDescription');
+    var StDate = $('#dateStartDate');
+    var EndDate = $('#dateEndDate');
+
+    var container = [
+        { id: Title[0].id, name: Title[0].name, Value: Title[0].value },
+        { id: Descrip[0].id, name: Descrip[0].name, Value: Descrip[0].value },
+        { id: StDate[0].id, name: StDate[0].name, Value: StDate[0].value },
+        { id: EndDate[0].id, name: EndDate[0].name, Value: EndDate[0].value },
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+
+            var p = document.createElement('p');
+            p.innerHTML = "Required ! Please Enter your " + container[i].name;
+            p.style.color = "Red";
+            p.style.fontSize = "11px";
+            divs.appendChild(p);
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+
+
+
+    }
+    if (j == '1') {
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide();
+        AddNotification();
+        return true;
+    }
 }

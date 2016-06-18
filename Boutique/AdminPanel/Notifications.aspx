@@ -92,18 +92,23 @@
 					</div>
 					<div class="box-content"  style="height:503px;overflow:auto;" >
 						<div class="form-horizontal">
+                            <div class="alert alert-block" id="ErrorBox" style="display:none;">
+                                <div id="Displaydiv">
+
+                                </div>
+                            </div>
 							<%--<fieldset>--%>
 							  <div class="control-group">
 							
 								  <label class="control-label" for="focusedInput">Title</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtTitle" type="text"/>
+								  <input class="input-large focused" name="Title" id="txtTitle" type="text"/>
 								</div>
 								</div>
 							<div class="control-group">
 								 <label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
-								  <textarea class="form-control" style="max-width:68%" rows="4" id="txtDescription"></textarea>
+								  <textarea class="form-control" style="max-width:68%" rows="4" name="Description" id="txtDescription"></textarea>
 								</div>
 								</div>
 
@@ -112,14 +117,14 @@
                            <div class="control-group">
 							  <label class="control-label" for="date01">Start Date</label>
 							  <div class="controls">
-								<input type="text" readonly="readonly" style="cursor:default; background-color:white"  class="input-large datepicker" id="dateStartDate" value=""/>
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white"  class="input-large datepicker" name="Start Date" id="dateStartDate" value=""/>
 							  </div>
 							</div>
 
                               <div class="control-group">
 							  <label class="control-label" for="date01">End Date</label>
 							  <div class="controls">
-								<input type="text" readonly="readonly" style="cursor:default; background-color:white" class="input-large datepicker" id="dateEndDate" value=""/>
+								<input type="text" readonly="readonly" style="cursor:default; background-color:white" class="input-large datepicker" name="End Date" id="dateEndDate" value=""/>
 							  </div>
 							</div>
 						
@@ -152,7 +157,7 @@
                         <footer class="InnerFooter">
                         <%-- <button type="submit" class="btn btn-primary submitDetails">Save</button>
 				    	 <button class="btn">Cancel</button>--%>
-                            <a class="btn btn-primary submitDetails" href="#">Save</></a>
+                            <a class="btn btn-primary submitDetails" onclick="return NotificationValidation()" href="#">Save</></a>
 							
                            <a class="btn Cancel">Cancel</a>
                          </footer>

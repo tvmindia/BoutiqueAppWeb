@@ -155,7 +155,7 @@
                                     <input class="input-large focused" id="txtInstatgramlink" type="text" />
                                 </div>
                             </div>
-<div class="control-group">
+                      <div class="control-group">
                             
                                 <label class="control-label" for="focusedInput">Latitude</label>
                                 <div class="controls">

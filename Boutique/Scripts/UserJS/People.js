@@ -205,25 +205,25 @@
     $(".CancelAdmin").live({
         click: function (e) {// Clear controls
             clearAdminControls();
-            RemoveStyle()
+            RemoveStyle();
         }
     })
     $(".CancelManager").live({
         click: function (e) {// Clear controls
             clearManagerControls();
-            RemoveStyle()
+            RemoveStyle();
         }
     })
     $(".CancelUser").live({
         click: function (e) {// Clear controls
             clearUserControls();
-            RemoveStyle()
+            RemoveStyle();
         }
     })
     $(".CancelDesigner").live({
         click: function (e) {// Clear controls
             clearDesignerControls();
-            RemoveStyle()
+            RemoveStyle();
         }
     })
 
