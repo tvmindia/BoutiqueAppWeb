@@ -25,12 +25,14 @@
     $(".CancelClear").live({
         click: function (e) {// Clear controls
             clearControls();
+            RemoveStyle();
         }
     })
 
     $(".CancelOwner").live({
         click: function (e) {// Clear controls
             clearOwnerControls();
+            RemoveStyle();
         }
     })
 
@@ -197,7 +199,10 @@
     //end styling client validation
 
 });//end of document.ready
-
+function RemoveStyle() {
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1').hide(1000);
+}
 function DeleteItem(e,p)
 {
     var jsonResult = {};
