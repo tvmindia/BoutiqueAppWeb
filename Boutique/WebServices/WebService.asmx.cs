@@ -527,13 +527,14 @@ namespace Boutique.WebServices
         /// <param name="boutiqueID"></param>
         /// <returns>JSON of notifications that are never shown in the app yet</returns>
         [WebMethod]
-        public string Notifications(string notificationIDs, string boutiqueID)
+        public string Notifications(string notificationIDs, string boutiqueID, string userID)
         {
             DataTable dt = new DataTable();
             try
             {
                     Notification notifications = new Notification();
                     notifications.BoutiqueID = boutiqueID;
+                    notifications.UserID = userID;
                     if (notificationIDs == "")                          //App don't have any present notifications
                     {
                         dt = notifications.GetNotificationsForApp(null);

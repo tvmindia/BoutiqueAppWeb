@@ -29,6 +29,8 @@ $("document").ready(function (e) {
 
     BindOrdersTable();
 
+    //$('#OrderItemTable').DataTable();
+
     $('#OrdersTable').DataTable({
         "bPaginate": false  ,       //Search and Paging implementation
         "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
@@ -150,9 +152,10 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
+
+            debugger;
             if ($(".products").val() != "") //check if  product is selected
             {
-
                 AddToList();
 
                 $(".products").select2("val", "");
@@ -201,6 +204,8 @@ $("document").ready(function (e) {
         $("#dateActualDeliveryDate").attr('disabled', 'disabled');
 
         //---order item
+
+        $("#OrderItemTable > tbody").empty();
         $('#OrderItemTable').hide();
 
 
@@ -441,7 +446,7 @@ $("document").ready(function (e) {
                         document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
 
                         //$('#ImgProduct').hide();
-
+                        $("#OrderItemTable > tbody").empty();
                         $('#OrderItemTable').hide();
 
                         $('#rowfluidDiv').show();
@@ -642,6 +647,7 @@ function AddToList() {
     var ProductName = data[0].text;
     var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
+   
 
     $("#OrderItemTable").append(html);
 
