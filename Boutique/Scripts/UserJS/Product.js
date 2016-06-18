@@ -5,12 +5,15 @@ $("document").ready(function (e) {
     LoginUserRole = getRole(); //common function To Get Role 
    //query string from dashboard for tab selection
     var qrStr = window.location.search;
-    qrStr = qrStr.split("?")[1].split("=")[1];
-    if (qrStr == "trends") {
-        $('#myTab li:eq(1) a').tab('show');
-    }
-    if (qrStr == "OutOfStock") {
-        $('#myTab li:eq(2) a').tab('show');
+    if (qrStr != null) {
+
+        qrStr = qrStr.split("?")[1].split("=")[1];
+        if (qrStr == "trends") {
+            $('#myTab li:eq(1) a').tab('show');
+        }
+        if (qrStr == "OutOfStock") {
+            $('#myTab li:eq(2) a').tab('show');
+        }
     }
    //query string from dashboard for tab selection
 
