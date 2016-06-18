@@ -301,30 +301,27 @@ namespace Boutique.UIClasses
         }
 
 //---* Order Status Notification * ---//
-
-        public string OrderReady
-        {
-            get
-            {
-                return "Your order is ready for pickUp";
-            }
-        }
-
-        public string OrderWithProducts
-        {
-            get
-            {
-                return "Order is placed with $ Products";
-            }
-        }
-
-        public string OrderWithOutProducts
-        {
-            get
-            {
-                return "Order with $ is placed";
-            }
-        }
+    //public string OrderReady
+    //        {
+    //            get
+    //            {
+    //                return "Your order is ready for pickUp";
+    //            }
+    //        }
+    //public string OrderWithProducts
+    //        {
+    //            get
+    //            {
+    //                return "Order is placed with $ Products";
+    //            }
+    //        }
+    // public string OrderWithOutProducts
+    //        {
+    //            get
+    //            {
+    //                return "Order with $ is placed";
+    //            }
+    //        }
 
     }
 }
