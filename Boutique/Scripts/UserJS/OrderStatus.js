@@ -300,14 +300,12 @@ $("document").ready(function (e) {
             
             Notification.UserID = Order.UserID;
 
-            if (Order.OrderReadyDate != "") {
+            if (Order.OrderReadyDate != "" && $("#hdfOrderID").val() != "") {
                 debugger;
                 Notification.StartDate = $("#dateOrderDate").text();
 
-               
-
                 Notification.OrderID = Order.OrderID;
-                Notification.Description = "Your order is ready for pickUp";
+                Notification.Description = OrderStatusNotification.OrderReady;
                 resultOfNotification = InsertNotification(Notification);
             }
 
@@ -349,7 +347,9 @@ $("document").ready(function (e) {
                         debugger;
                         if (Insert == true)
                         {
-                            Notification.Description = "Order is placed with " + rowCount + " Products";
+                            var descrptn = OrderStatusNotification.OrderWithProducts;
+                            var replacedDescrptn = descrptn.replace("$", rowCount);
+                            Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
                             
                         }
@@ -415,7 +415,9 @@ $("document").ready(function (e) {
 
                     if (Insert == true )
                     {
-                        Notification.Description = "Order with "+result.OrderNo +" is placed";
+                        var descrptn = OrderStatusNotification.OrderWithOutProducts;
+                        var replacedDescrptn = descrptn.replace("$", result.OrderNo);
+                         Notification.Description = replacedDescrptn;
                         resultOfNotification = InsertNotification(Notification);
                     }
 
