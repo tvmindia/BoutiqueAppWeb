@@ -483,8 +483,15 @@ namespace Boutique.WebServices
                 {
                     Designers designer = new Designers();
                     designer.BoutiqueID = boutiqueID;
-                    dt = designer.GetAllDesigners();
+                    dt = designer.GetAllDesignersForApp();
                     if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                    //Giving coloumns of image details
+                    ArrayList imgColNames = new ArrayList();
+                    ArrayList imgFileNameCols = new ArrayList();
+                    ArrayList imgFileTypeCols = new ArrayList();
+                    imgColNames.Add("Image");
+                    imgFileNameCols.Add("DesignerID");
+                    return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, null, false);
                 }
                 else if (ownerORdesigner.Equals("owner"))
                 {
