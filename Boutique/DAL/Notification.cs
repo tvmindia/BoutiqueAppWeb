@@ -404,6 +404,7 @@ namespace Boutique.DAL
                 cmd.CommandText = "[GetNotificationsForApp]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                 cmd.Parameters.Add("@Notification_IDs", SqlDbType.NVarChar,-1).Value = notificationsIDs;
+                if (UserID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.UserID);
                 sda.SelectCommand = cmd;
                 dt = new DataTable();
                 sda.Fill(dt);
