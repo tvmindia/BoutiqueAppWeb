@@ -105,7 +105,7 @@ $("document").ready(function (e) {
 
             Order.OrderID = editedrow.attr("OrderID");
 
-
+           
             jsonResult = GetOrderDetailsByOrderID(Order);
             if (jsonResult != undefined) {
                 BindControlsWithOrderDetails(jsonResult);
@@ -263,7 +263,18 @@ $("document").ready(function (e) {
             {
                 Order.OrderID = $("#hdfOrderID").val();
 
+                //var jsonResult = {};
+                //jsonResult = GetOrderDetailsByOrderID(Order);
+                //if (jsonResult != undefined)
+                //{
+                //    if (jsonResult.) {
+
+                //    }
+                //}
+
+
                 Order.OrderReadyDate = $("#dateOrderReadyDate").val();
+
             }
 
             var TotalAmount = parseInt($("#txtTotalOrderAmount").val());
@@ -289,7 +300,17 @@ $("document").ready(function (e) {
             
             Notification.UserID = Order.UserID;
 
-           
+            if (Order.OrderReadyDate != "") {
+                debugger;
+                Notification.StartDate = $("#dateOrderDate").text();
+
+               
+
+                Notification.OrderID = Order.OrderID;
+                Notification.Description = "Your order is ready for pickUp";
+                resultOfNotification = InsertNotification(Notification);
+            }
+
             
             result = InsertOrUpdateOrder(Order); //returns orderID
 
@@ -298,24 +319,7 @@ $("document").ready(function (e) {
             if (result.OrderID != "" ) {
 
                 Notification.OrderID = result.OrderID;
-                //if (Insert) //Insert
-                //{
-                //    var itemCount = $("#OrderItemTable > tbody > tr").length;
-
-                //    if (itemCount == 0) {
-                //        Notification.Description = "Order is placed";
-                //    }
-                //    else {
-                //        Notification.Description = "Order is placed with " + itemCount + " Products";
-                //    }
-
-                //}
-
-                //Notification.OrderID = result;
-                //resultOfNotification = InsertNotification(Notification);
-
-                //AddNotification();
-
+               
                 ClearControls();
 
                 var rowCount = $("#OrderItemTable > tbody > tr").length;
