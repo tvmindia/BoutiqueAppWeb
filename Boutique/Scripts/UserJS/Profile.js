@@ -164,14 +164,14 @@
                         formData.append('FbLink',Boutique.FbLink);
                         formData.append('InstagramLink',Boutique.InstagramLink);
                         var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
-                        if (result == "1" || result == "0") {
+                        if (result == "1" || result == "2"||result=="3") {
                             $('#rowfluidDiv').show();
                             $('.alert-success').show();
                             AutoScrollToAlertBox();
                             refreshAdminLayout();
                            
                         }
-                        if (result != "1" && result!="0") {
+                        if (result != "1" && result!="2" && result!="3") {
                             $('#rowfluidDiv').show();
                             $('.alert-error').show();
                         }
