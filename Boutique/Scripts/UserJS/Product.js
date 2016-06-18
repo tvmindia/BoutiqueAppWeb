@@ -297,15 +297,14 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            if (confirm("You are about to Delete Image!..")) {
+            if (confirm("You are about to Delete Image!.."))
+            {
                 var Product = new Object();
                 Product.ImageID = $(this).attr('id');
                 var result = DeleteProuductImage(Product);
                 if (result.status == "1") {
-
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
-
                     AutoScrollToAlertBox();
                     BindAllImages();
                 }
@@ -315,11 +314,12 @@ $("document").ready(function (e) {
                     AutoScrollToAlertBox();
                     BindAllImages();
                 }
-
             }
             return false;
         }
     })
+
+
 
     $(".CancelProduct").live({
         click: function (e) {// Clear controls
