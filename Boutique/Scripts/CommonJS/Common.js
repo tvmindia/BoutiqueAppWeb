@@ -54,12 +54,10 @@ function GetLogin_Role(Role) {
 }
 
 function postBlobAjax(formData, page) {
-
-    debugger;
     //var request = new XMLHttpRequest();
     //request.open("POST", page);
     //request.send(formData);
-
+    var jsonResult = {};
     $.ajax({
         type: "POST",
         url: page,
@@ -73,11 +71,7 @@ function postBlobAjax(formData, page) {
         traditional: true,
 
         success: function (data) {
-            if (status != 'error') {
-                //var my_path = "MediaUploader/" + status;
-                // $("#myUploadedImg").attr("src", my_path);
-                //alert(data);
-            }
+            jsonResult = data;
         },
         processData: false,
 
@@ -85,6 +79,7 @@ function postBlobAjax(formData, page) {
             alert("Whoops something went wrong!");
         }
     });
+    return jsonResult;
 }
 
 function DeleteCustomAlert(txt, e, p) 
@@ -131,7 +126,12 @@ function DeleteCustomAlert(txt, e, p)
     btnYes.href = "#";
     //btnYes.focus();
     //debugger;
-    btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    if (p == "ProductImage") {
+        btnYes.onclick = function () { DeleteProductImage(e, p); removeCustomAlert(); return false; }
+    }
+    else {
+        btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    }
 
     alertObj.style.display = "block";
 
@@ -167,7 +167,7 @@ function CustomAlert(txt) {
 
     btn = alertObj.appendChild(d.createElement("a"));
     btn.id = "closeBtn";
-    btn.className = "btnButton";
+    btn.className = "noButton";
     btn.appendChild(d.createTextNode("OK"));
     btn.href = "#";
     btn.focus();
@@ -237,3 +237,10 @@ function ConfirmDelete()
     $('#ConfirmDiv').append(html);
 }
 
+//---* Order Status Notification * ---//
+
+var OrderStatusNotification = {
+    OrderReady: "Your order is ready for pickUp",
+    OrderWithProducts: "Order is placed with $ Products",
+    OrderWithOutProducts: "Order with $ is placed"
+}
