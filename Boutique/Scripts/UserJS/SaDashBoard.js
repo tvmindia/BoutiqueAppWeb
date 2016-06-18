@@ -95,15 +95,14 @@
             Boutique.FbLink = $("#txtFacebooklink").val();
             Boutique.InstagramLink = $("#txtInstatgramlink").val();
         
-
             result = InsertBoutique(Boutique);
-            if (result=="1")
+            if (result == "1" || result == "2" || result == "3")
             {
                 clearControls();
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
             }
-            if (result!= "1")
+           else
             {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
@@ -111,9 +110,6 @@
                                    
             BindBoutiqueAsyncLoad();//Gridbind
             BindAsyncBoutiqueDropDown();
-
-
-
 
           $ddl.val(null).trigger("change");
         }
@@ -154,15 +150,10 @@
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
                 }
-                if (result != "1") {
+              else {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                 }
-
-           
-
-         
-
         }
     })
     
@@ -213,9 +204,6 @@ function BindAsyncBoutiques() {
         return jsonResult;
      }
 }
-
-
-
 
 function GetAllBoutiques(Designers) {
 
@@ -371,10 +359,12 @@ function ClearAdminControls()
     $('.alert-success').hide();
     $('.alert-error').hide(); 
 }
+
 function BindTiles()
 {
     BindAppUsersTile();
 }
+
 function BindAppUsersTile()
 {   
     var table = {};
@@ -383,6 +373,7 @@ function BindAppUsersTile()
     $("#UsersBadge").text(table.length);
     BindAppUserTable(table);    
 }
+
 function GetAllUsers(User) {
     var ds = {};
     var table = {};
@@ -391,6 +382,7 @@ function GetAllUsers(User) {
     table = JSON.parse(ds.d);
     return table;
 }
+
 function BindAppUserTable(Records) {
     $("tbody#AppUserrows tr").remove();
     $.each(Records, function (index, Records) {
@@ -410,6 +402,7 @@ function BindBoutique() {
     //    scrollTop: $("#BoutiqueRowFluid").offset().top
     //}, 500);
 }
+
 function BindUsers()
 {
     $('#AllBoutiquesMainDiv').hide();
@@ -421,6 +414,7 @@ function BindUsers()
     //    scrollTop: $("#AppUserRowFluid").offset().top
     //}, 500);
 }
+
 function BindException()
 {
     $('#AllBoutiquesMainDiv').hide();
