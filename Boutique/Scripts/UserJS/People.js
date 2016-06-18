@@ -205,21 +205,25 @@
     $(".CancelAdmin").live({
         click: function (e) {// Clear controls
             clearAdminControls();
+            RemoveStyle()
         }
     })
     $(".CancelManager").live({
         click: function (e) {// Clear controls
             clearManagerControls();
+            RemoveStyle()
         }
     })
     $(".CancelUser").live({
         click: function (e) {// Clear controls
             clearUserControls();
+            RemoveStyle()
         }
     })
     $(".CancelDesigner").live({
         click: function (e) {// Clear controls
             clearDesignerControls();
+            RemoveStyle()
         }
     })
 
@@ -240,7 +244,10 @@
     //end styling client validation
 
 });//end of document.ready
-
+function RemoveStyle() {
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
+}
 function DeleteItem(e,p)
 {
     var jsonResult = {};

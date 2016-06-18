@@ -58,13 +58,15 @@
 
     $(".CancelClear").live({
         click: function (e) {// Clear controls
-        clearControls();
+            clearControls();
+            RemoveStyle();
         }
     })
     
     $(".CancelAdClear").live({
         click: function (e) {// Clear controls            
             ClearAdminControls();
+            RemoveStyle();
         }
     })
 
@@ -99,6 +101,11 @@
 
 });//document.ready
 
+function RemoveStyle()
+{
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1').hide(1000);
+}
 function DeleteItem(e,p)
 {
    
