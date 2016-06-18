@@ -300,6 +300,7 @@ namespace Boutique.DAL
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter = null;
+            SqlParameter ordrNo = null;
             try
             {
                 dcon = new dbConnection();
@@ -334,6 +335,10 @@ namespace Boutique.DAL
                
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
+
+                ordrNo = cmd.Parameters.Add("@OrderNo", SqlDbType.SmallInt);
+                ordrNo.Direction = ParameterDirection.Output;
+
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -347,6 +352,9 @@ namespace Boutique.DAL
                     dcon.DisconectDB();
                 }
             }
+
+            OrderNo = ordrNo.Value.ToString();
+
             //update success or failure
             return Int16.Parse(outParameter.Value.ToString());
 

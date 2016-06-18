@@ -98,34 +98,51 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
            // boutiqueobj.BoutiqueID = UA.BoutiqueID;
-             
-           
+
             if (UA != null)
             {
 
-                if (boutiqueobj.BoutiqueID == null)
+                if (boutiqueobj.BoutiqueID == null) //new boutique
                 {
                     DAL.Loyalty loyalObj = new DAL.Loyalty();
-                    
-                   
 
-                    Boutique_ID = boutiqueobj.NewBoutique();
+                    Boutique_ID = boutiqueobj.NewBoutique();//creating new boutique and receiving Boutique ID
 
-                    loyalObj.BoutiqueID = Boutique_ID;
+                    if (Boutique_ID != "")
+                    {
 
-                    status = loyalObj.InitializeLoyaltySettings().ToString();
+                        loyalObj.BoutiqueID = Boutique_ID;
+                        loyalObj.UpdatedBy = UA.userName;
+                        status = loyalObj.InitializeLoyaltySettings().ToString(); // intial values are setting w.r.t. the new Boutiqe ID
+                    }
+
+                    if (status == "1")
+                    {
+                        Product Catobj = new Product();
+
+                        Catobj.BoutiqueID = Boutique_ID;
+                        Catobj.CategoryCode = "NEW";
+                        Catobj.CategoryName = "New Arrivals";
+                        Catobj.CreatedBy = UA.userName;
+
+                        status = Catobj.InsertCategory().ToString();
+                    }
+
+
                 }
-                else
+                else //Edit Boutique
                 {
                     status = boutiqueobj.EditBoutique().ToString();
                 }
 
             }
-            else { 
-            
-            //redirect to loin
+            else
+            {
+
+                //redirect to loin
             }
             return status;
+
 
         }
         #endregion NewBoutique

@@ -10,6 +10,7 @@
      <link href="../CSS/Common.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
+    <script src="../Scripts/jquery.validation.js"></script>
     <script src="../Scripts/UserJS/SaDashBoard.js"></script>
    
     
@@ -236,8 +237,13 @@
 							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
 						</div>
 					</div>
-			     		        <div class="box-content"  style="height:438px; overflow:auto;" >
-						<div class="form-horizontal">
+			     		        <div class="box-content" id="NewBoutique" style="height:438px; overflow:auto;" >
+						<div class="form-horizontal" id="formBou">
+                            <div class="alert alert-block" id="ErrorBox" style="display:none;">
+                                <div id="Displaydiv">
+
+                                </div>
+                            </div>
 							<%--<fieldset>--%>
 							  <div class="control-group">
 							
@@ -250,14 +256,14 @@
 							  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtBouquetName" type="text"/>
+								  <input class="input-large focused" id="txtBouquetName" name="Boutique Name" type="text"/>
 								</div>
 								</div>
 
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Started Year</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtStartYear" type="text"/>
+								  <input class="input-large focused" id="txtStartYear" name="Start Year" type="text"/>
 								</div>
 								</div>
 
@@ -279,14 +285,14 @@
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Location</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtLocation" type="text"/>
+								  <input class="input-large focused" id="txtLocation" name="Location" type="text"/>
 								</div>
 								</div>
 
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Address</label>
 								<div class="controls">
-								  <textarea class="form-control" style="max-width:68%" rows="4" id="txtAddress"></textarea>
+								  <textarea class="form-control" style="max-width:68%" rows="4" name="Address" id="txtAddress"></textarea>
 								</div>
 								</div>
 
@@ -294,7 +300,7 @@
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Phone</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtPhone" type="text"/>
+								  <input class="input-large focused" id="txtPhone" name="Phone Number" type="text"/>
 								</div>
 								</div>
 
@@ -336,7 +342,7 @@
 					         	</div>
                                 <footer class="InnerFooter">
                 			<%--	<button type="submit" class="btn btn-primary" id="btnSaveBoutique">Save</button>--%>
-                                   <a class="btn btn-primary AddBoutique" href="#">Save</></a>
+                                   <a class="btn btn-primary AddBoutique" href="#" onclick="return Validation()">Save</></a>
 
                                     <a class="btn CancelClear">Cancel</a>
 							<%--	<button class="btn">Cancel</button>--%>
@@ -360,6 +366,12 @@
 					</div>
                          <div class="box-content"  style="height:438px; overflow:auto;">
 						<div class="form-horizontal">
+                            <div class="alert alert-block" id="ErrorBox1" style="display:none;">
+                                <div id="Displaydiv1">
+
+                                </div>
+                            </div>
+
 							<%--<fieldset>--%>
 
                           
@@ -377,14 +389,14 @@
 							
 								  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserName" type="text"/>
+								  <input class="input-large focused" name="Name" id="txtUserName" type="text"/>
 								</div>
 								</div>
 							
 							  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Mobile</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtMobile" type="text"/>
+								  <input class="input-large focused" name="Mobile Number" id="txtMobile" type="text"/>
 								</div>
 								</div>
 
@@ -392,7 +404,7 @@
 							
 								  <label class="control-label" for="focusedInput">LoginName</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtAdminLoginName" type="text"/>
+								  <input class="input-large focused" name="Login Name" id="txtAdminLoginName" type="text"/>
 								</div>
 								</div>
 
@@ -400,7 +412,7 @@
 							
 								  <label class="control-label" for="focusedInput">Password</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtAdminPass" type="password"/>
+								  <input class="input-large focused" name="Password" id="txtAdminPass" type="password"/>
 								</div>
 								</div>
 
@@ -408,7 +420,7 @@
 							
 								  <label class="control-label" for="focusedInput">Confirm Password</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtAdminConPass" onkeyup="PassowrdEqualityCheck1();" type="password"/>
+								  <input class="input-large focused" name="Confirm Password" id="txtAdminConPass" type="password"/>
 								</div>
 								</div>
 
@@ -416,7 +428,7 @@
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Email</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtUserEmail" type="text"/>
+								  <input class="input-large focused" name="Email" id="txtUserEmail" type="text"/>
 								</div>
 								</div>
 
@@ -432,7 +444,7 @@
 						</div>
                          </div>
                                <footer class="InnerFooter">
-                                <a class="btn btn-primary AddAdmin" href="#">Save</></a>
+                                <a class="btn btn-primary AddAdmin" onclick="return AdminValidation()" href="#">Save</></a>
                                 <a class="btn CancelAdClear">Cancel</a>
              			       </footer> 
                        	</div>

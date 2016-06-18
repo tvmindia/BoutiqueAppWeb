@@ -1,4 +1,7 @@
 ﻿
+var InitialItemCount = 0;
+
+
 $("document").ready(function (e) {
     debugger;
 
@@ -89,6 +92,8 @@ $("document").ready(function (e) {
     {
         click: function (e) {
 
+            debugger;
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -119,6 +124,8 @@ $("document").ready(function (e) {
 
 
                 BindOrderItemsList(Order);
+                debugger;
+                InitialItemCount = $("#OrderItemTable > tbody > tr").length;
 
                 //$("#OrderItemTable").DataTable();
 
@@ -300,17 +307,34 @@ $("document").ready(function (e) {
             
             Notification.UserID = Order.UserID;
 
-            if (Order.OrderReadyDate != "" && $("#hdfOrderID").val() != "") {
+            if ( $("#hdfOrderID").val() != "")
+            {
                 debugger;
                 Notification.StartDate = $("#dateOrderDate").text();
 
                 Notification.OrderID = Order.OrderID;
+               
+               
+            }
+
+            if (Order.OrderReadyDate != "" && $("#hdfOrderID").val() != "")
+            {
                 Notification.Description = OrderStatusNotification.OrderReady;
                 resultOfNotification = InsertNotification(Notification);
             }
-
             
             result = InsertOrUpdateOrder(Order); //returns orderID
+
+            if (Insert == false) {
+
+                debugger;
+
+                var InitialProducts = {};
+                InitialProducts = GetOrderItemsByOrderID(Order);
+               
+
+            }
+
 
             ///-- Insert or update action is success if result equals to some id, then by checking no of items , if it is 0 header only inserts otherwise items insertions also performs
 
@@ -325,23 +349,49 @@ $("document").ready(function (e) {
                 if (rowCount > 0) //check if  change for product items (Header only)  
                 {
                     //----------- * HEADER ONLY-- START ---------- *//
-                    $('#OrderItemTable tbody tr').each(function () {
-                        
 
-                        var productId = $(this).attr("ProductID");
-                        var productname = $(this).find('td').eq(0).text();
+                    var resultItem = "";
 
-                        var remarks = $(this).find('td').eq(1).text();
+                        $('#OrderItemTable tbody tr').each(function () {
 
-                        Order.ProductID = productId;
-                        Order.CustomerRemarks = remarks;
+                            debugger;
 
-                        Order.OrderID = result.OrderID;
+                            var     NewProduct = true; //--- checking product list if it is newly added or already existing product
 
-                        resultItem = InsertOrderItem(Order);
+                            if (InitialProducts != undefined) 
+                            {
+                                var productId = $(this).attr("ProductID");
 
-                    })
-              
+                                $.each(InitialProducts, function (index, InitialProducts)
+                                    {
+                                        debugger;
+
+                                        if (InitialProducts.ProductID == productId) {
+                                            debugger;
+
+                                            NewProduct = false; 
+                                            return false;
+                                        }
+
+                                    })
+
+                                if (NewProduct == true) {
+                                    var productname = $(this).find('td').eq(0).text();
+
+                                    var remarks = $(this).find('td').eq(1).text();
+
+                                    Order.ProductID = productId;
+                                    Order.CustomerRemarks = remarks;
+
+                                    Order.OrderID = result.OrderID;
+
+                                    resultItem = InsertOrderItem(Order);
+                                }
+
+                            }
+                           
+                        })
+                   
                     if (resultItem != "")
                     {
                         debugger;
@@ -349,14 +399,22 @@ $("document").ready(function (e) {
                         {
                             var descrptn = OrderStatusNotification.OrderWithProducts;
                             var replacedDescrptn = descrptn.replace("$", rowCount);
-                             replacedDescrptn = descrptn.replace("#", result.OrderNo);
+                            replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
 
                             Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
                             
                         }
 
+                        else {
 
+                            var descrptn = OrderStatusNotification.OrderUpdateWithProducts;
+                            var replacedDescrptn = descrptn.replace("$", rowCount);
+                            replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
+
+                            Notification.Description = replacedDescrptn;
+                            resultOfNotification = InsertNotification(Notification);
+                        }
                         debugger;
                         //Clearing datatables befoe binding with new 
 
@@ -552,6 +610,7 @@ function DeleteItem(e,p)
 
     result = DeleteOrderItem(Order);
     if (result == "1") {
+
         BindOrderItemsList(Order);
     }
 
