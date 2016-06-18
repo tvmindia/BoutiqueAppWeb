@@ -84,110 +84,39 @@
         }
     })
 
-    $(".AddBoutique").live({
-        click: function (e) {// submit button click
-
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-            var boutiquid = $("#hdfBoutiqueID").val();
-            var result = "";
-            var Boutique = new Object();
-            if (boutiquid != "")
-            {
-                Boutique.BoutiqueID = boutiquid;
-            }
-
-            Boutique.AppVersion = $("#txtAppVersion").val();
-            Boutique.Name = $("#txtBouquetName").val();
-            Boutique.StartedYear = $("#txtStartYear").val();
-            Boutique.AboutUs = $("#txtAboutus").val();
-            Boutique.Caption = $("#txtCaption").val();
-            Boutique.Location = $("#txtLocation").val();
-            Boutique.Address = $("#txtAddress").val();
-            Boutique.Phone = $("#txtPhone").val();
-            Boutique.Timing = $("#txtTimings").val();
-            Boutique.WorkingDays = $("#txtWorkingDays").val();
-            Boutique.FbLink = $("#txtFacebooklink").val();
-            Boutique.InstagramLink = $("#txtInstatgramlink").val();
-          
-            result = InsertBoutique(Boutique);
-            if (result=="1")
-            {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-            }
-            if (result!= "1")
-            {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-            }
-
-            clearControls();
+    //$(".AddBoutique").({
+    //   click: function (e) {// submit button click
             
-            BindBoutiqueAsyncLoad();//Gridbind
           
-        }
-    })
-  
-    $(".AddAdmin").live({
-        click: function (e) {// submit button click
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
+    //   }
+    //})
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+    $('textarea').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+    //$(".AddAdmin").live({
+    //    click: function (e) {// submit button click
+            
 
-            debugger;
-          
-            var result = "";
-            var Admin = new Object();
-            if ($("#idDdlboutiques").val() != null) {
-                Admin.BoutiqueID = $("#idDdlboutiques").val();
-            }
-            else {
-                Admin.BoutiqueID = "";
-            }
+    //        //var jsonResults = {};
+    //        //jsonResults = GetAllBoutiques();
+    //        //if (jsonResults != undefined)
+    //        //{
+    //        //    BindBoutiqueTable(jsonResults);
+    //        //}
 
-           
-            Admin.Name = $("#txtUserName").val();
-            Admin.LoginName = $("#txtAdminLoginName").val();
-            Admin.Password = $("#txtAdminConPass").val();
-            Admin.Mobile = $("#txtMobile").val();
-            Admin.Email = $("#txtUserEmail").val();
-           // 
-                if($('#chkActive').is(':checked')) 
-                 {
-                    Admin.IsActive = "true";
-                 }
-                 else {
-                    Admin.IsActive = "false";
-                     }
-                result=InsertAdmin(Admin);
-                if (result == "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                }
-                if (result != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                }
-
-                ClearAdminControls();
-
-            //var jsonResults = {};
-            //jsonResults = GetAllBoutiques();
-            //if (jsonResults != undefined)
-            //{
-            //    BindBoutiqueTable(jsonResults);
-            //}
-
-        }
-    })
+    //    }
+    //})
     
     $('#AppUserMainDiv').hide();
     
     $('#ExceptionMainDiv').hide();
 
-
+    
 
 });//document.ready
 
@@ -446,5 +375,217 @@ function BindException()
     //    scrollTop: $("#ExcepyionRowFluid").offset().top
     //}, 500);
 }
+function Validation() {   
+    $('#Displaydiv').remove();
+    var AppVer = $('#txtAppVersion');
+    var BoutiqueNam = $('#txtBouquetName');
+    var StartYear = $('#txtStartYear');
+    var AboutUs = $('#txtAboutus');
+    var Location = $('#txtLocation');
+    var Address = $('#txtAddress');
+    var Phone = $('#txtPhone');
+    var Timings = $('#txtTimings');
+    var WorkDays = $('#txtWorkingDays');
+    var container = [
+        { id: BoutiqueNam[0].id, name: BoutiqueNam[0].name, Value: BoutiqueNam[0].value },
+        { id: StartYear[0].id, name: StartYear[0].name, Value: StartYear[0].value },
+        { id: Location[0].id, name: Location[0].name, Value: Location[0].value },
+        { id: Address[0].id, name: Address[0].name, Value: Address[0].value },
+        { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value },
+    ];
+   
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length;i++)
+    {
+        
+        if (container[i].Value == "")
+        {
+            j = 1;
+           
+            var p = document.createElement('p');
+            p.innerHTML = "Required ! Please Enter your " + container[i].name;
+            p.style.color = "Red";
+            p.style.fontSize = "11px";
+            divs.appendChild(p);
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";            
+            
+        }
+       
+        
+        
+    }
+    if (j == '1')
+    {
+        return false;
+    }
+    if(j=='0')
+    {
+        $('#ErrorBox').hide();
+        AddBoutiques();
+        return true;
+    }
+    
+}
+function AddBoutiques()
+{
+    debugger;
 
+    
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    var boutiquid = $("#hdfBoutiqueID").val();
+    var result = "";
+    var Boutique = new Object();
+    if (boutiquid != "") {
+        Boutique.BoutiqueID = boutiquid;
+    }
+
+    Boutique.AppVersion = $("#txtAppVersion").val();
+    Boutique.Name = $("#txtBouquetName").val();
+    Boutique.StartedYear = $("#txtStartYear").val();
+    Boutique.AboutUs = $("#txtAboutus").val();
+    Boutique.Caption = $("#txtCaption").val();
+    Boutique.Location = $("#txtLocation").val();
+    Boutique.Address = $("#txtAddress").val();
+    Boutique.Phone = $("#txtPhone").val();
+    Boutique.Timing = $("#txtTimings").val();
+    Boutique.WorkingDays = $("#txtWorkingDays").val();
+    Boutique.FbLink = $("#txtFacebooklink").val();
+    Boutique.InstagramLink = $("#txtInstatgramlink").val();
+
+    result = InsertBoutique(Boutique);
+    if (result == "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+    }
+    if (result != "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+    }
+
+    clearControls();
+
+    BindBoutiqueAsyncLoad();//Gridbind
+}
+function AdminValidation()
+{
+    debugger;
+    $('#Displaydiv1').remove();
+    var DdlBoutique = $('#idDdlboutiques');
+    var Name = $('#txtUserName');
+    var LoginName = $('#txtAdminLoginName');
+    var Password = $('#txtAdminPass');
+    var CPassword = $('#txtAdminConPass');
+    var Email = $('#txtUserEmail');
+    var Phone = $('#txtMobile');
+    //var Timings = $('#txtTimings');
+    //var WorkDays = $('#txtWorkingDays');
+    var container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+        { id: LoginName[0].id, name: LoginName[0].name, Value: LoginName[0].value },
+        { id: Password[0].id, name: Password[0].name, Value: Password[0].value },
+        { id: CPassword[0].id, name: CPassword[0].name, Value: CPassword[0].value },
+        { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value },
+        { id: Email[0].id, name: Email[0].name, Value: Email[0].value }
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox1');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv1");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+
+            var p = document.createElement('p');
+            p.innerHTML = "Required ! Please Enter your " + container[i].name;
+            p.style.color = "Red";
+            p.style.fontSize = "11px";
+            divs.appendChild(p);
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+       
+    }
+    if (Password[0].value != CPassword[0].value) {
+        j = 1;
+        var p = document.createElement('p');
+        p.innerHTML = "Password Missmatch";
+        p.style.color = "Red";
+        p.style.fontSize = "11px";
+        divs.appendChild(p);
+        Errorbox.style.borderRadius = "5px";
+        Errorbox.style.display = "block";
+        var txtB = document.getElementById('txtAdminPass');
+        txtB.style.backgroundColor = "#f2dede";
+        var txtB1 = document.getElementById('txtAdminConPass');
+        txtB1.style.backgroundColor = "#f2dede";
+        Errorbox.style.paddingLeft = "30px";
+    }
+    if (j == '1') {
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox1').hide();
+        AddAdmin()
+        return true;
+    }
+}
+function AddAdmin()
+{
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+
+    debugger;
+
+    var result = "";
+    var Admin = new Object();
+    if ($("#idDdlboutiques").val() != null) {
+        Admin.BoutiqueID = $("#idDdlboutiques").val();
+    }
+    else {
+        Admin.BoutiqueID = "";
+    }
+
+
+    Admin.Name = $("#txtUserName").val();
+    Admin.LoginName = $("#txtAdminLoginName").val();
+    Admin.Password = $("#txtAdminConPass").val();
+    Admin.Mobile = $("#txtMobile").val();
+    Admin.Email = $("#txtUserEmail").val();
+    // 
+    if ($('#chkActive').is(':checked')) {
+        Admin.IsActive = "true";
+    }
+    else {
+        Admin.IsActive = "false";
+    }
+    result = InsertAdmin(Admin);
+    if (result == "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+    }
+    if (result != "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+    }
+
+    ClearAdminControls();
+}
 
