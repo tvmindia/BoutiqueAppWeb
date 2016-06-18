@@ -277,6 +277,7 @@
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
     <Content Include="Scripts\jquery.alerts.js" />
     <Content Include="Scripts\jquery.ui.draggable.js" />
+    <Content Include="Scripts\jquery.validation.js" />
     <Content Include="Scripts\jquery.viewbox.min.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />

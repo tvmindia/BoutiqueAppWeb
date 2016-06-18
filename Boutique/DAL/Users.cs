@@ -374,6 +374,7 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
+        
         #endregion AddNewUser
 
         #region User Activation

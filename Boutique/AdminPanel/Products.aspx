@@ -353,13 +353,13 @@
                                 </div>
                             </div>
 
-                          <%--   <div class="control-group">
+                             <div class="control-group">
                                 <label class="control-label" for="selectError1">Related Products</label>
                                 <div class="controls">
                                     <select class="input-large ddlrelateproducts" multiple="multiple" id="idDdlrelateproducts">
                                     </select>
                                 </div>
-                            </div>--%>
+                            </div>
                           
                               <div class="control-group">
 								<label class="control-label" for="selectError3">Designed By</label>

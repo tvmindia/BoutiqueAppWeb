@@ -140,6 +140,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             categoryObj.BoutiqueID = UA.BoutiqueID;
+            categoryObj.CreatedBy = UA.userName;
              string status=null;
              try
              {
@@ -165,6 +166,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             categoryObj.BoutiqueID = UA.BoutiqueID;
+            categoryObj.UpdatedBy = UA.userName;
 
             string status = null;
             try

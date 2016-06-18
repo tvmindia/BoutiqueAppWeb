@@ -23,9 +23,13 @@ function ForgotPassword() {
     LoginDIv.append(html);
    
 }
-
+//function Loading()
+//{
+  //  $('#Sendinggif').show();
+//}
 function SendVerificationCode() {
     debugger;
+    
     $('#Sendinggif').show();
     var Email = $('#txtEmail');
     var EmailAddress = Email[0].value;
