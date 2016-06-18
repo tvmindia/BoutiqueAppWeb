@@ -263,30 +263,13 @@ $("document").ready(function (e) {
     $(".DeleteProduct").live({
         click: function (e) {// Delete button click
 
-            if (confirm("You are about to Delete the product!..")) {
-
-                var Product = new Object();
-                Product.ProductID = $("#hdfproductID").val();
-                var result = DeleteProduct(Product);
-
-                if (result.status == "1") {
-
-                    BindAllProductImages(0);
-                    clearProductControls();
-
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-
-                    AutoScrollToAlertBox();
-                }
-                if (result.status != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    AutoScrollToAlertBox();
-                }
+            //if (confirm("You are about to Delete the product!..")) {
+            var e = $("#hdfproductID").val();
+            var p = "";
+            DeleteCustomAlert("Are you sure?", e, p);
 
 
-            }
+            //}
         }
     })
 
@@ -297,29 +280,14 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            if (confirm("You are about to Delete Image!..")) {
-                var Product = new Object();
-                Product.ImageID = $(this).attr('id');
-                var result = DeleteProuductImage(Product);
-                if (result.status == "1") {
-
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-
-                    AutoScrollToAlertBox();
-                    BindAllImages();
-                }
-                if (result.status != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    AutoScrollToAlertBox();
-                    BindAllImages();
-                }
-
-            }
+            var e = $(this).attr('id');
+            var p = "ProductImage";
+            DeleteCustomAlert("Are you sure?", e, p)
             return false;
         }
     })
+
+
 
     $(".CancelProduct").live({
         click: function (e) {// Clear controls
@@ -443,7 +411,47 @@ $("document").ready(function (e) {
 
 });//end of document.ready
 
+function DeleteProductImage(e,p)
+{
+    var Product = new Object();
+    Product.ImageID = e;
+    var result = DeleteProuductImage(Product);
+    if (result.status == "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+        AutoScrollToAlertBox();
+        BindAllImages();
+    }
+    if (result.status != "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+        AutoScrollToAlertBox();
+        BindAllImages();
+    }
+}
 
+function DeleteItem(e,p)
+{
+    var Product = new Object();
+    Product.ProductID = e;
+    var result = DeleteProduct(Product);
+
+    if (result.status == "1") {
+
+        BindAllProductImages(0);
+        clearProductControls();
+
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+
+        AutoScrollToAlertBox();
+    }
+    if (result.status != "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+        AutoScrollToAlertBox();
+    }
+}
 
 function BindProductTextBoxes(thisobject) {
     var productname = $(thisobject).attr('pname');
