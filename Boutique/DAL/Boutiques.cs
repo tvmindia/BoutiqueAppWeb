@@ -301,7 +301,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@WorkingDays", SqlDbType.NVarChar, 10).Value = WorkingDays;
                 cmd.Parameters.Add("@FBLink", SqlDbType.NVarChar, 200).Value = FbLink;
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = "Albert";
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
 
