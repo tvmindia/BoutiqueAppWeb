@@ -701,7 +701,7 @@ function GetDesigner(Designer) {
 }
 
 function GetDesignerImage(DesignerID, ImageIsNull) {
-    debugger;
+   
     if ($("#list").find(".thumb") != null || $("#list").find(".thumb") != 'undefined') {
         $("#list").find(".thumb").remove();
     }
@@ -1078,7 +1078,7 @@ function AddUser()
 //Basic Client Side Validation and Insert For Admin Registration
 //CreatedBy Thomson
 function AdminValidation() {
-    debugger;
+  
     $('#Displaydiv1').remove();
     //var DdlBoutique = $('#idDdlboutiques');
     var Name = $('#txtAdminName');
@@ -1160,7 +1160,7 @@ function AdminValidation() {
 //Basic Client Side Validation For Manager Registration
 //CreatedBy Thomson
 function ManagerValidation() {
-    debugger;
+    
     $('#Displaydiv').remove();
     //var DdlBoutique = $('#idDdlboutiques');
     var Name = $('#txtManagerName');
