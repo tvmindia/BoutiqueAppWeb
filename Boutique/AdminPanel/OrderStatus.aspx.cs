@@ -462,32 +462,14 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static  void SendMail(MailSending mailObj)
         {
+            mailObj.msg = mailObj.msg;
             mailObj.SendEmail();
+            //mailObj.FormatAndSendEmail();
         }
 
         #endregion Send Mail
 
-        private string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
-        {
-            string Url = "";
-
-
-            Url = "EmailTemplate.htm";
-
-           
-            string body = string.Empty;
-            using (StreamReader reader = new StreamReader(Server.MapPath("~/" + Url)))
-            {
-                body = reader.ReadToEnd();
-            }
-            body = body.Replace("{UserName}", userName);
-            body = body.Replace("{Title}", title);
-            body = body.Replace("{Url}", url);
-            body = body.Replace("{Description}", description);
-            body = body.Replace("{Mainimage}", MainimageUrl);
-            
-            return body;
-        }
+      
 
 
         #endregion Methods

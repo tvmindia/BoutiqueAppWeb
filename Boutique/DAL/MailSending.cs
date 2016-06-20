@@ -9,9 +9,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
+
+using System.Web.Script.Serialization;
 
 #endregion Included Namespaces
 
@@ -76,6 +79,27 @@ namespace Boutique.DAL
 
 
         #endregion SendEmail
+
+        #region Format And Send Email
+
+        public void FormatAndSendEmail()
+        {
+            string Url = "";
+
+            Url = "Home/mailTemplates/OrderStatusEmail.html";
+
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+            {
+                body = reader.ReadToEnd();
+            }
+
+            msg = msg + body;
+            SendEmail();
+        }
+
+        #endregion Format And Send Email
+
 
         #endregion Methods
     }
