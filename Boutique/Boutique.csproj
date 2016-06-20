@@ -175,6 +175,7 @@
     <Content Include="Home\js\skel-layers.min.js" />
     <Content Include="Home\js\skel.min.js" />
     <Content Include="Home\mailTemplates\ContactUs.html" />
+    <Content Include="Home\mailTemplates\OrderStatusEmail.html" />
     <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\arrows-active.png" />
