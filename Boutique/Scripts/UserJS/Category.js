@@ -88,11 +88,14 @@ $("document").ready(function (e) {
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
               
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
+
                
             }
             return false;
@@ -134,6 +137,7 @@ function DeleteItem(e,p)
     if (result == "1") {
         $('#rowfluidDiv').show();
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.DeletionSuccessFull);
 
     }
     if (result == "2")
@@ -146,6 +150,8 @@ function DeleteItem(e,p)
     if (result != "1"&&result!="2") {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.DeletionFailure);
+        
 
     }
 

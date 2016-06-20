@@ -44,8 +44,44 @@ var Pages = {
 }
 
 var Messages = {
+
     exists: "The operation can’t be completed because the category is in use .",
-    existsBoutique:"The operation can’t be completed because the Boutique is in use ."
+    existsBoutique: "The operation can’t be completed because the Boutique is in use .",
+
+    Html5:"The File APIs are not fully supported in this browser.",
+
+    MandatoryFields: "Please fill out all the fields",
+    EmailInstruction: "Please check your email for a message with verification code.Your code is 4 digit long . We sent code to ",
+    VerificationCodeMismatch: "Password does not match with the confirm password",
+    InvalidEmailID: "Enter A valid Email-ID",
+    TimeExpired: "Time expired",
+    IncorrectVerificationCode: "Verification Code is invalid",
+    ErrorNumber: "ErrorNumber=",
+    Imagesupport: "The Image Is not Supporting Save a new one",
+
+    ExceptionMsgCaption: "Exception!",
+    SuccessMsgCaption: "Success!",
+    WarningMsgCaption: "Warning!",
+    InsertionFailureMsgCaption: "Somthing Wrong try Again!",
+    FailureMsgCaption: "Failure!",
+    AlreadyExistsMsgCaption: "Already exists!",
+    Confirm:"Please Confirm!",
+
+    LoginSuccess: "Successfully logged in",
+    InsertionSuccessFull: "Successfully Inserted",
+    UpdationSuccessFull: "Successfully Updated",
+    DeletionSuccessFull: "Deleted Successfully",
+    SuccessfulUpload: "Successfully Uploaded",
+    SavedSuccessfull: "Successfully Saved!",
+
+    LoginFailed: "User Name / Password is wrong!",
+    InsertionFailure: "Not Successfuly Saved Try Again",
+    UpdationFailure: "Edit Failed Try Again Later",
+    Warning: "Warning Msg ",
+    DeletionFailure: "Deletion Not Successful ",
+    SavingFailure: "Saving Not Successful ",
+    AlreadyUsedForDeletion: "Already used . Can't be deleted",
+    AlreadyUsedForUpdation: "Already used . Can't be changed"
 }
 
 function getRole() {
