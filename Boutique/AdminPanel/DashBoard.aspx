@@ -12,10 +12,12 @@
     </style>
     
     <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
-    <script src="../Home/js/data.js"></script>
-    <script src="../Home/js/highcharts.js"></script>
-    <script src="../Home/js/drilldown.js"></script>
+    
+   
+   
     <script src="../Scripts/CommonJS/Common.js"></script>
+     <script src="../Home/js/highcharts.js"></script>
+    
     <script src="../Scripts/UserJS/DashBoard.js"></script>      
     <div id="content" class="span10">	
 			<ul class="breadcrumb">
