@@ -510,6 +510,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIClasses\common.cs" />
+    <Compile Include="UIClasses\Messages.cs" />
     <Compile Include="WebServices\WebService.asmx.cs">
       <DependentUpon>WebService.asmx</DependentUpon>
       <SubType>Component</SubType>
