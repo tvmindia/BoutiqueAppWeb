@@ -42,7 +42,20 @@
 		
 	     <%--Alert boxes --%>
        
+         
+        <%--Tab Content--%>
+        <div class="row-fluid">
+            <div class="box span12">
+                  <div class="box-header">
+                </div>
+                <div class="box-content">
+                    <ul class="nav tab-menu nav-tabs" id="myTab">
+                        <li><a href="#Notifications">Notifications</a></li>
+                        <li><a href="#NewsLetter"> NewsLetter</a></li>
+                    </ul>
+                      <div id="myTabContent" class="tab-content">
               <%--  Notification grid--%>
+                            <div class="tab-pane active" id="Notifications">
              	<div class="row-fluid ">	
 				<div class="box span12">
 					<div class="box-header">
@@ -70,14 +83,7 @@
 					 
 					</div>
 				</div><!--/span-->
-
-			</div><!--/row-->
-
-              <%--  Notification grid--%>
-
-
-
-         <div id="NewNotification" runat="server" class="row-fluid">
+    <div id="NewNotification" runat="server" class="row-fluid">
 
                   <div class="box span6">
 
@@ -165,6 +171,24 @@
               </div>
 
           </div>
+			</div><!--/row-->
+         </div>
+                           <div class="tab-pane" id="NewsLetter">
+                                <div class="row-fluid">
+                                     <div class="box-content">
+                                         </div>
+                                    </div>
+                               </div>
+              <%--  Notification grid--%>
+                            </div>
+                   </div>
+             </div>
+            <!--/span-->
+              </div>
+        <%--Tab Content--%>
+
+
+     
 
        
 
