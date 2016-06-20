@@ -6,9 +6,9 @@ $("document").ready(function (e) {
 
     var rowCount = $("#OrderItemTable > tbody > tr").length;
 
-    if (rowCount == 0) {
-        $('#OrderItemTable').hide();
-    }
+    //if (rowCount == 0) {
+    //    $('#OrderItemTable').hide();
+    //}
 
 
     parent.document.title = Pages.OrderStatus;
@@ -203,7 +203,7 @@ $("document").ready(function (e) {
         //---order item
 
         $("#OrdersTable > tbody").empty();
-        $('#OrderItemTable').hide();
+        //$('#OrderItemTable').hide();
 
 
         $(".Users").select2("val", "");
@@ -438,7 +438,7 @@ $("document").ready(function (e) {
 
                         //$('#ImgProduct').hide();
                         $("#OrdersTable > tbody").empty();
-                        $('#OrderItemTable').hide();
+                        //$('#OrderItemTable').hide();
 
                         $('#rowfluidDiv').show();
                         $('.alert-success').show();
@@ -502,6 +502,18 @@ $("document").ready(function (e) {
                 $('.alert-error').show();
             }
 
+            $("#OrderItemTable > tbody").empty();
+
+            $("#OrdersTable").dataTable().fnClearTable();
+            $("#OrdersTable").dataTable().fnDestroy();
+
+            BindOrdersTable(); //To bind table with new or modified entry
+
+            $('#OrdersTable').DataTable({
+                "bPaginate": false,       //Search and Paging implementation
+                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+
+            });
         }
     })
     //------------END: Save Button CLick------------//
@@ -514,6 +526,20 @@ $("document").ready(function (e) {
             document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
             $("#txtRemarks").val("");
            
+            $("#OrderItemTable > tbody").empty();
+
+            $("#OrdersTable").dataTable().fnClearTable();
+            $("#OrdersTable").dataTable().fnDestroy();
+
+            BindOrdersTable(); //To bind table with new or modified entry
+
+            $('#OrdersTable').DataTable({
+                "bPaginate": false,       //Search and Paging implementation
+                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+
+            });
+
+
         }
     })
 
@@ -609,9 +635,9 @@ function DeleteItem(e, p) {
         var rowCount = $("#OrderItemTable > tbody > tr").length;
 
 
-        if (rowCount == 0) {
-            $('#OrderItemTable').hide();
-        }
+        //if (rowCount == 0) {
+        //    $('#OrderItemTable').hide();
+        //}
 
     }
 
@@ -626,7 +652,7 @@ function DeleteItem(e, p) {
 
 function AddToList() {
 
-    $('#OrderItemTable').show();
+    //$('#OrderItemTable').show();
 
     var productID = $('.products').val();
     var OrderID = $("#hdfOrderID").val();
@@ -744,7 +770,7 @@ function GetOrderItemsByOrderID(Order) {
 function FillOrderItemsTable(Records) {
 
     //var rowExistsOrNot = false;
-    $('#OrderItemTable').show();
+    //$('#OrderItemTable').show();
 
     $("tbody#OrderItemRows tr").remove();            //Remove all existing rows for refreshing
 
@@ -763,9 +789,9 @@ function FillOrderItemsTable(Records) {
     var rowCount = $("#OrderItemTable > tbody > tr").length;
 
 
-    if (rowCount == 0) {
-        $('#OrderItemTable').hide();
-    }
+    //if (rowCount == 0) {
+    //    $('#OrderItemTable').hide();
+    //}
     //if (rowExistsOrNot == false) {
     //    $("#OrderItemTable th").remove();
     //}
