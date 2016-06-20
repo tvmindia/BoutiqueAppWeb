@@ -1092,10 +1092,12 @@ function AdminValidation() {
             j = 1;
 
             var p = document.createElement('p');
-            p.innerHTML = "Required ! Please Enter " + container[i].name;
+            p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
-            p.style.fontSize = "11px";
-            divs.appendChild(p);
+            p.style.fontSize = "14px";
+            if (i = 0) {
+                divs.appendChild(p);
+            }
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -1113,7 +1115,7 @@ function AdminValidation() {
         var p = document.createElement('p');
         p.innerHTML = "Password Missmatch";
         p.style.color = "Red";
-        p.style.fontSize = "11px";
+        p.style.fontSize = "14px";
         divs.appendChild(p);
         Errorbox.style.borderRadius = "5px";
         Errorbox.style.display = "block";
@@ -1172,10 +1174,12 @@ function ManagerValidation() {
             j = 1;
 
             var p = document.createElement('p');
-            p.innerHTML = "Required ! Please Enter " + container[i].name;
+            p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
-            p.style.fontSize = "11px";
-            divs.appendChild(p);
+            p.style.fontSize = "14px";
+            if (i = 0) {
+                divs.appendChild(p);
+            }
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -1193,7 +1197,7 @@ function ManagerValidation() {
         var p = document.createElement('p');
         p.innerHTML = "Password Missmatch";
         p.style.color = "Red";
-        p.style.fontSize = "11px";
+        p.style.fontSize = "14px";
         divs.appendChild(p);
         Errorbox.style.borderRadius = "5px";
         Errorbox.style.display = "block";
@@ -1244,10 +1248,12 @@ function DesignerValidate() {
             j = 1;
 
             var p = document.createElement('p');
-            p.innerHTML = "Required ! Please Enter " + container[i].name;
+            p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
-            p.style.fontSize = "11px";
-            divs.appendChild(p);
+            p.style.fontSize = "14px";
+            if (i = 0) {
+                divs.appendChild(p);
+            }
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -1297,10 +1303,12 @@ function UserValidate() {
             j = 1;
 
             var p = document.createElement('p');
-            p.innerHTML = "Required Field ! Please Enter " + container[i].name;
+            p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
-            p.style.fontSize = "11px";
-            divs.appendChild(p);
+            p.style.fontSize = "14px";
+            if (i = 0) {
+                divs.appendChild(p);
+            }
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);

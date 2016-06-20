@@ -399,10 +399,12 @@ function Validation() {
             j = 1;
            
             var p = document.createElement('p');
-            p.innerHTML = "Required ! Please Enter your " + container[i].name;
+            p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
-            p.style.fontSize = "11px";
-            divs.appendChild(p);
+            p.style.fontSize = "14px";
+            if (i == 0) {
+                divs.appendChild(p);
+            }
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -505,10 +507,14 @@ function AdminValidation()
             j = 1;
 
             var p = document.createElement('p');
-            p.innerHTML = "Required ! Please Enter your " + container[i].name;
+            p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
-            p.style.fontSize = "11px";
-            divs.appendChild(p);
+            p.style.fontSize = "14px";
+            if (i = 0)
+            {
+                divs.appendChild(p);
+            }
+           
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -526,9 +532,9 @@ function AdminValidation()
     if (Password[0].value != CPassword[0].value) {
         j = 1;
         var p = document.createElement('p');
-        p.innerHTML = "Password Missmatch";
+        p.innerHTML = "Password Missmatch !";
         p.style.color = "Red";
-        p.style.fontSize = "11px";
+        p.style.fontSize = "14px";
         divs.appendChild(p);
         Errorbox.style.borderRadius = "5px";
         Errorbox.style.display = "block";

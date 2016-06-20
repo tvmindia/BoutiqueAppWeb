@@ -239,7 +239,7 @@
 					</div>
 			     		        <div class="box-content" id="NewBoutique" style="height:438px; overflow:auto;" >
 						<div class="form-horizontal" id="formBou">
-                            <div class="alert alert-block" id="ErrorBox" style="display:none;">
+                            <div class="alert alert-error" id="ErrorBox" style="display:none;">
                                 <div id="Displaydiv">
 
                                 </div>
@@ -366,7 +366,7 @@
 					</div>
                          <div class="box-content"  style="height:438px; overflow:auto;">
 						<div class="form-horizontal">
-                            <div class="alert alert-block" id="ErrorBox1" style="display:none;">
+                            <div class="alert alert-error" id="ErrorBox1" style="display:none;">
                                 <div id="Displaydiv1">
 
                                 </div>

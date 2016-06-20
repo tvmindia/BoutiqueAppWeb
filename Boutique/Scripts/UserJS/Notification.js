@@ -412,10 +412,12 @@ function NotificationValidation()
             j = 1;
 
             var p = document.createElement('p');
-            p.innerHTML = "Required ! Please Enter your " + container[i].name;
+            p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
-            p.style.fontSize = "11px";
-            divs.appendChild(p);
+            p.style.fontSize = "14px";
+            if (i = 0) {
+                divs.appendChild(p);
+            }
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
