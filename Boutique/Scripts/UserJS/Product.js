@@ -144,6 +144,8 @@ $("document").ready(function (e) {
                 if ($("input[name=optionsRadiosActive]:checked")) {
                     Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
                 }
+
+              
                 var Categ = $("#idDdlCategories").val();
                 var com = "";
                 Product.Categories = "";
@@ -156,24 +158,21 @@ $("document").ready(function (e) {
                 else {
                     Product.Categories = "";
                 }
-                var relproducts = $("#idDdlrelateproducts").val();
-                var comm = "";
-                Product.RelatedProductsIDs = "";
-                if (relproducts!=null)
+
+                //var dfd = $("#idDdlrelateproducts");
+               // alert(dfd.val());
+                var relproducts = [];
+               
+                if ($("#idDdlrelateproducts").val() != null)
                 {
-                    for (var i = 0; i < relproducts.length; i++) {
-                        Product.RelatedProductsIDs = Product.RelatedProductsIDs + comm + relproducts[i].toString();
-                        comm = ",";
-                    }
+                   
+                    Product.RelatedProductsIDs = $("#idDdlrelateproducts").val();
                 }
-               else
-               {
-                Product.RelatedProductsIDs = "";
-               }
-
-
-
-                if ($("#idDdlDesigners").val() != null) {
+                else {
+                    Product.RelatedProductsIDs = relproducts;
+                }
+              
+               if ($("#idDdlDesigners").val() != null) {
                     Product.DesignerID = $("#idDdlDesigners").val();
                 }
                 else {
@@ -244,19 +243,16 @@ $("document").ready(function (e) {
                     Product.Categories = "";
                 }
 
+                var relproducts = [];
 
-                var relproducts = $("#idDdlrelateproducts").val();
-                var comm = "";
-                Product.RelatedProductsIDs = "";
-                if (relproducts != null) {
-                    for (var i = 0; i < relproducts.length; i++) {
-                        Product.RelatedProductsIDs = Product.RelatedProductsIDs + comm + relproducts[i].toString();
-                        comm = ",";
-                    }
+                if ($("#idDdlrelateproducts").val() != null) {
+
+                    Product.RelatedProductsIDs = $("#idDdlrelateproducts").val();
                 }
                 else {
-                    Product.RelatedProductsIDs = "";
+                    Product.RelatedProductsIDs = relproducts;
                 }
+               
 
                 if ($("#idDdlDesigners").val() != null) {
                     Product.DesignerID = $("#idDdlDesigners").val();
@@ -290,6 +286,8 @@ $("document").ready(function (e) {
 
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
+                    $("#editLabel").text("Edit Product");
+
                     // $(".AddProduct").text("Modify");
                     BindAllProductImages();
                     //document.getElementById('imageupGallery').style.display = 'block';
@@ -1047,7 +1045,6 @@ function BindAsyncDesigner() {
 }
 
 function GetAllNewProductsSearchDetails(Product) {
-
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -1057,7 +1054,6 @@ function GetAllNewProductsSearchDetails(Product) {
 }
 
 function GetAllNewOutOfStockSearchDetails(Product) {
-
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -1067,7 +1063,6 @@ function GetAllNewOutOfStockSearchDetails(Product) {
 }
 
 function GetAllNewTrendingSearchDetails(Product) {
-
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -1078,7 +1073,6 @@ function GetAllNewTrendingSearchDetails(Product) {
 
 
 function GetAllProductsImageDetailsunderBoutique(Product) {
-
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -1134,7 +1128,6 @@ function GetAllRelatedProducts(Product) {
     return table;
 }
 function GetAllDesigners(Designers) {
-
     var ds = {};
     var table = {};
     var data = "{'designersObj':" + JSON.stringify(Designers) + "}";

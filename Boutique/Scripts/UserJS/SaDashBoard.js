@@ -515,7 +515,7 @@ function AdminValidation()
             p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
             p.style.fontSize = "14px";
-            if (i = 0)
+            if (i == 0)
             {
                 divs.appendChild(p);
             }

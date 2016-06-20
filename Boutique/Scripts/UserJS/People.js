@@ -1112,7 +1112,7 @@ function AdminValidation() {
             p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
             p.style.fontSize = "14px";
-            if (i = 0) {
+            if (i == 0) {
                 divs.appendChild(p);
             }
             Errorbox.style.borderRadius = "5px";
@@ -1194,7 +1194,7 @@ function ManagerValidation() {
             p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
             p.style.fontSize = "14px";
-            if (i = 0) {
+            if (i ==0) {
                 divs.appendChild(p);
             }
             Errorbox.style.borderRadius = "5px";
@@ -1268,7 +1268,7 @@ function DesignerValidate() {
             p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
             p.style.fontSize = "14px";
-            if (i = 0) {
+            if (i == 0) {
                 divs.appendChild(p);
             }
             Errorbox.style.borderRadius = "5px";
@@ -1323,7 +1323,7 @@ function UserValidate() {
             p.innerHTML = "* Some Fields Are Empty ! ";
             p.style.color = "Red";
             p.style.fontSize = "14px";
-            if (i = 0) {
+            if (i == 0) {
                 divs.appendChild(p);
             }
             Errorbox.style.borderRadius = "5px";
