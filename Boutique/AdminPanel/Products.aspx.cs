@@ -49,13 +49,10 @@ namespace Boutique.AdminPanel
        
         public static string InsertProduct(Product productObj)
         {
-          
-        
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            
             try
             {
                 if (UA.BoutiqueID != "")

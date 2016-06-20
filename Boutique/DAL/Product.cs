@@ -97,7 +97,7 @@ namespace Boutique.DAL
             set;
         }
 
-        public string RelatedProductsIDs
+        public string[] RelatedProductsIDs
         {
             get;
             set;
@@ -250,11 +250,30 @@ namespace Boutique.DAL
                 {
                     throw new Exception("Categories is Empty!!");
                 }
+               
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
                 SqlParameter outstatus = null,outproductid=null;
+                string relproids = "";
+                string com = "";
                 try
                 {
+                    if (RelatedProductsIDs.Length!=0)
+                    {
+                        for (int i = 0; i < RelatedProductsIDs.Length; i++)
+                        {
+
+                            relproids = relproids + com + RelatedProductsIDs[i].ToString();
+                            com = ",";
+                        }
+                        relproids = relproids + ",";
+                    }
+                    else
+                    {
+                        relproids = DBNull.Value.ToString();
+                    }
+
+
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
@@ -269,8 +288,16 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
-                    cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, 200).Value = RelatedProductsIDs;
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
+                    cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, -1).Value = relproids;
+                    if (DesignerID!="")
+                    {
+                        cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
+                    }
+                 
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     outstatus = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
@@ -305,7 +332,6 @@ namespace Boutique.DAL
         /// <returns>status</returns>
             public Int16 UpdateProduct()
             {
-                
                 if (ProductID == "")
                 {
                     throw new Exception("ProductID is Empty!!");
@@ -323,6 +349,7 @@ namespace Boutique.DAL
                 SqlParameter outParameter = null;
                 string imaginfo = "";
                 string com = "";
+                string relproids = "";
                 try
                 {
                     if(ImageInfo!=null)
@@ -330,13 +357,27 @@ namespace Boutique.DAL
                         for(int i=0;i<ImageInfo.Length;i++)
                         {
                             //imaginfo = imaginfo + ImageInfo[i].ToString();
-
                             imaginfo = imaginfo + com + ImageInfo[i].ToString();
                             com = ",";
-                        
                         }
                        imaginfo= imaginfo + ",";
                     }
+                    if (RelatedProductsIDs.Length != 0)
+                    {
+                        com = "";
+                        for (int i = 0; i < RelatedProductsIDs.Length; i++)
+                        {
+
+                            relproids = relproids + com + RelatedProductsIDs[i].ToString();
+                            com = ",";
+                        }
+                        relproids = relproids + ",";
+                    }
+                    else
+                    {
+                        relproids = DBNull.Value.ToString();
+                    }
+
                     dcon = new dbConnection();
                     dcon.GetDBConnection();
                     cmd = new SqlCommand();
@@ -352,7 +393,16 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
-                    cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
+                    cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, -1).Value = relproids;
+                    if(DesignerID!="")
+                    {
+                        cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Empty;
+                    }
+                   
                     cmd.Parameters.Add("@ImageInfo", SqlDbType.VarChar, -1).Value = imaginfo;
                     cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainImageID);
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
@@ -1959,7 +2009,6 @@ namespace Boutique.DAL
         }
         #endregion UpdateReviewIsModarate
         #endregion UpdateReviewTable
-
 
         #region Get ImageID By ProductID
         public string GetImageIDByProductID()
