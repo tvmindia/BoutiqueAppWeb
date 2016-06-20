@@ -240,6 +240,14 @@ $("document").ready(function (e) {
                 Users.UserID = $(".Users").val();
                 var userDeatils = {};
                 userDeatils = GetUserDetailsByUserID(Order);
+
+                var MailSending = new Object();
+
+                $.each(userDeatils, function (index, userDeatils) {
+
+                    MailSending.EmailID = userDeatils.Email;
+                  
+                });
             }
             else {
                 alert("Please select a user");
@@ -323,7 +331,13 @@ $("document").ready(function (e) {
             }
 
             if (Order.OrderReadyDate != "" && $("#hdfOrderID").val() != "") {
+                debugger;
+
                 Notification.Description = OrderStatusNotification.OrderReady;
+
+                MailSending.msg = OrderStatusNotification.OrderReady;
+                SendMail(MailSending);
+                
                 resultOfNotification = InsertNotification(Notification);
             }
 
@@ -399,6 +413,9 @@ $("document").ready(function (e) {
                             var replacedDescrptn = descrptn.replace("$", rowCount);
                             replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
 
+                            MailSending.msg = replacedDescrptn;
+                            SendMail(MailSending);
+
                             Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
 
@@ -409,6 +426,9 @@ $("document").ready(function (e) {
                             var descrptn = OrderStatusNotification.OrderUpdateWithProducts;
                             var replacedDescrptn = descrptn.replace("$", NoOfNewProducts);
                             replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
+
+                            MailSending.msg = replacedDescrptn;
+                            SendMail(MailSending);
 
                             Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
@@ -597,6 +617,19 @@ $("document").ready(function (e) {
         table = JSON.parse(ds.d);
         return table;
 
+    }
+
+
+    function SendMail(MailSending)
+    {
+        if (MailSending.EmailID != "") {
+            var data = "{'mailObj':" + JSON.stringify(MailSending) + "}";
+
+            var jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/SendMail");
+            //var table = {};
+            //table = JSON.parse(jsonResult.d);
+            //return table;
+        }
     }
 
     //END

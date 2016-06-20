@@ -11,6 +11,7 @@ using Boutique.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -450,6 +451,44 @@ namespace Boutique.AdminPanel
             return jsonResult; //Converting to Json
         }
         #endregion Get User Details By UserID
+
+        #region  Send Mail
+
+        /// <summary>
+        /// To send email notification (email id is accessed by user id from client side)
+        /// </summary>
+        /// <param name="mailObj"></param>
+
+        [System.Web.Services.WebMethod]
+        public static  void SendMail(MailSending mailObj)
+        {
+            mailObj.SendEmail();
+        }
+
+        #endregion Send Mail
+
+        private string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
+        {
+            string Url = "";
+
+
+            Url = "EmailTemplate.htm";
+
+           
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/" + Url)))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{UserName}", userName);
+            body = body.Replace("{Title}", title);
+            body = body.Replace("{Url}", url);
+            body = body.Replace("{Description}", description);
+            body = body.Replace("{Mainimage}", MainimageUrl);
+            
+            return body;
+        }
+
 
         #endregion Methods
 
