@@ -948,6 +948,55 @@ namespace Boutique.DAL
 
         #endregion Get All UserID And Name
 
+        #region Get User Details By UserID
+        public DataSet GetUserDetailsByUserID()
+        {
+            if (UserID == "")
+            {
+                throw new Exception("UserID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetUserDetailsByUserID]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+              
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion Get User Details By UserID
+
         #endregion Methods
     }
 }
