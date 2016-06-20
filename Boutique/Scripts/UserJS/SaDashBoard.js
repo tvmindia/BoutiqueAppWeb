@@ -78,11 +78,11 @@
     //})
     $('input[type=text],input[type=password]').on('focus', function () {
         $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
+        $('#ErrorBox,#ErrorBox1').slideUp(1000);
     });
     $('textarea').on('focus', function () {
         $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
+        $('#ErrorBox,#ErrorBox1').slideUp(1000);
     });
     //$(".AddAdmin").live({
     //    click: function (e) {// submit button click
@@ -104,7 +104,7 @@
 function RemoveStyle()
 {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
-    $('#ErrorBox,#ErrorBox1').hide(1000);
+    $('#ErrorBox,#ErrorBox1').slideUp(1000);
 }
 function DeleteItem(e,p)
 {
@@ -410,7 +410,7 @@ function Validation() {
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
             //txtB.style.border = "5px solid Red!important";
-            txtB.style.backgroundColor = "#FFFEE1";
+            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";            
             
         }
@@ -516,15 +516,11 @@ function AdminValidation()
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            txtB.style.backgroundColor = "#FFFEE1";
+            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }
-        //border-color: #bd1a00;
-        //background-image: url(../images/invalid.png);
-        //background-position: 95% center;
-        //background-repeat: no-repeat; 
-
+        
        
     }
     if (Password[0].value != CPassword[0].value) {

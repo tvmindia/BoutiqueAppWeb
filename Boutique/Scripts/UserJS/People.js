@@ -234,11 +234,11 @@
 
     $('input[type=text],input[type=password]').on('focus', function () {
         $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
+        $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').slideUp(1000);
     });
     $('textarea').on('focus', function () {
         $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').hide(1000);
+        $('#ErrorBox,#ErrorBox1').slideUp(1000);
     });
 
     //end styling client validation
@@ -246,7 +246,7 @@
 });//end of document.ready
 function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
-    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').slideUp(1000);
 }
 function DeleteItem(e,p)
 {
@@ -1099,7 +1099,10 @@ function AdminValidation() {
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }
@@ -1176,7 +1179,10 @@ function ManagerValidation() {
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }
@@ -1194,7 +1200,7 @@ function ManagerValidation() {
         var txtB = document.getElementById('txtAdminPass');
         txtB.style.backgroundColor = "#f2dede";
         var txtB1 = document.getElementById('txtAdminConPass');
-        txtB1.style.backgroundColor = "#f2dede";
+        //txtB1.style.backgroundColor = "#f2dede";
         Errorbox.style.paddingLeft = "30px";
     }
     if (j == '1') {
@@ -1245,7 +1251,10 @@ function DesignerValidate() {
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }
@@ -1295,7 +1304,10 @@ function UserValidate() {
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }

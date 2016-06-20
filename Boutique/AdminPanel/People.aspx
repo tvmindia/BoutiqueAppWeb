@@ -3,31 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
    
     <script>
-        //function PassowrdEqualityCheck1() {
-        //    debugger;
-        //   // if (document.getElementById('txtAdminConPass').value != "")
-        //  //  {
-        //        if (document.getElementById('txtAdminPass').value != document.getElementById('txtAdminConPass').value) {
-        //            document.getElementById('txtAdminConPass').className = "alert alert-error";
-        //        }
-
-        //        else {
-        //            document.getElementById('txtAdminConPass').className = "alert alert-success";
-        //        }
-        //   // }
-        //}
-        //function PassowrdEqualityCheck() {
-        //    debugger;
-        //    if (document.getElementById('txtManagerPass').value != document.getElementById('txtManagerConPass').value) {
-        //        document.getElementById('txtManagerConPass').className = "alert alert-error";
-        //    }
-
-        //    else {
-        //        document.getElementById('txtManagerConPass').className = "alert alert-success";
-        //    }
-
-        //}
-
+       
     </script>
 
 </asp:Content>
@@ -108,7 +84,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 448px;">
+                                        <div class="box-content" style="min-height: 448px;">
                                             <div class="form-horizontal">
                                                 <div class="alert alert-block" id="ErrorBox1" style="display:none;">
                                                 <div id="Displaydiv1">
@@ -231,7 +207,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 448px;">
+                                        <div class="box-content" style="min-height: 448px;">
                                             <div class="form-horizontal">
                                                 <div class="alert alert-block" id="ErrorBox" style="display:none;">
                                                   <div id="Displaydiv">
@@ -355,7 +331,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 448px; overflow: auto;">
+                                        <div class="box-content" style="min-height: 448px; overflow: auto;">
                                             <div class="form-horizontal">
                                                 <div class="alert alert-block" id="ErrorBox2" style="display:none;">
                                                   <div id="Displaydiv2">
@@ -451,7 +427,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="box-content" style="height: 448px; overflow: auto;">
+                                        <div class="box-content" style="min-height: 448px; overflow: auto;">
                                             <div class="form-horizontal">
                                                 <div class="alert alert-block" id="ErrorBox3" style="display:none;">
                                                   <div id="Displaydiv3">

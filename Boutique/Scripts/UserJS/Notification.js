@@ -419,7 +419,10 @@ function NotificationValidation()
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
-            txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }
