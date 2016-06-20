@@ -232,7 +232,14 @@ $("document").ready(function (e) {
 
             if ($(".Users").val() != "") //check if  change for product items (Header only)
             {
+                debugger;
+
                 Order.UserID = $(".Users").val();
+                var Users = new Object(); 
+
+                Users.UserID = $(".Users").val();
+                var userDeatils = {};
+                userDeatils = GetUserDetailsByUserID(Order);
             }
             else {
                 alert("Please select a user");
@@ -799,6 +806,17 @@ function FillOrderItemsTable(Records) {
 }
 
 //------------- *END :  Functions Work On Edit Click  *-----------------//
+
+
+function GetUserDetailsByUserID(Order) {
+    var ds = {};
+    var table = {};
+    var data = "{'UsrObj':" + JSON.stringify(Order) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetUserDetailsByUserID");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 
 //Delete
 
