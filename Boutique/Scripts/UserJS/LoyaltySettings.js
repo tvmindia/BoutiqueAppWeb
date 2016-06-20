@@ -96,11 +96,13 @@
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
                 LoadLoyaltySettings();
             }
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
             }
             //Scroll page
             var offset = $('#rowfluidDiv').offset();
