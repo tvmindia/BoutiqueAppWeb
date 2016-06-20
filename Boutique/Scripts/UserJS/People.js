@@ -262,12 +262,14 @@ function DeleteItem(e,p)
                 BindAsyncUserTable()//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+                $('.alert-success strong').text(Messages.DeletionSuccessFull);
                 AutoScrollToAlertBox();
             }
             if (jsonResult != "1") {
                 BindAsyncUserTable()//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.DeletionFailure);
                 AutoScrollToAlertBox();
             }
         }
@@ -282,12 +284,14 @@ function DeleteItem(e,p)
                 BindAsyncAdminsTable();//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+                $('.alert-success strong').text(Messages.DeletionSuccessFull);
                 AutoScrollToAlertBox();
             }
             if (jsonResult != "1") {
                 BindAsyncAdminsTable();//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.DeletionFailure);
                 AutoScrollToAlertBox();
             }
         }
@@ -302,12 +306,14 @@ function DeleteItem(e,p)
                 BindAsyncManagersTable();//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+                $('.alert-success strong').text(Messages.DeletionSuccessFull);
                 AutoScrollToAlertBox();
             }
             if (jsonResult != "1") {
                 BindAsyncManagersTable();//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.DeletionFailure);
                 AutoScrollToAlertBox();
             }
         }
@@ -323,12 +329,14 @@ function DeleteItem(e,p)
                 BindAsycDesignerTable()//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+                $('.alert-success strong').text(Messages.DeletionSuccessFull);
                 AutoScrollToAlertBox();
             }
             if (jsonResult != "1") {
                 BindAsycDesignerTable()//Gridbind
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.DeletionFailure);
                 AutoScrollToAlertBox();
             }
         }
@@ -883,14 +891,17 @@ function AddAdmin() {
     result = InsertAdmin(Admin);
     if (result == "1") {
         clearAdminControls();
-        $('#rowfluidDiv').show();
+        $('#rowfluidDiv').show();      
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
         BindAsyncAdminsTable();
         AutoScrollToAlertBox();
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.InsertionFailure);
         BindAsyncAdminsTable();
         AutoScrollToAlertBox();
     }
@@ -926,18 +937,20 @@ function AddManager() {
         Manager.IsActive = "false";
     }
 
-
+     
     result = InsertManager(Manager);
     if (result == "1") {
         clearManagerControls();
         $('#rowfluidDiv').show();
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.InsertionSuccessFull);
         BindAsyncManagersTable();
         AutoScrollToAlertBox();
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.InsertionFailure);
         BindAsyncManagersTable();
         AutoScrollToAlertBox();
     }
@@ -999,12 +1012,14 @@ function AddDesigner()
         clearDesignerControls();
         $('#rowfluidDiv').show();
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.InsertionSuccessFull);
         AutoScrollToAlertBox();
         BindAsycDesignerTable();
     }
     if (result.status != "1") {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.InsertionFailure);
         AutoScrollToAlertBox();
         BindAsycDesignerTable();
     }
@@ -1042,6 +1057,7 @@ function AddUser()
             BindAsyncUserTable();
             $('#rowfluidDiv').show();
             $('.alert-success').show();
+            $('.alert-success strong').text(Messages.InsertionSuccessFull);
             AutoScrollToAlertBox();
             $('.AddUser').hide();
         }
@@ -1049,6 +1065,7 @@ function AddUser()
             BindAsyncUserTable();
             $('#rowfluidDiv').show();
             $('.alert-error').show();
+            $('.alert-error strong').text(Messages.InsertionFailure);
             AutoScrollToAlertBox();
         }
     }
