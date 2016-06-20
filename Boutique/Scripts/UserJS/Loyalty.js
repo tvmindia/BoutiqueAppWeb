@@ -183,6 +183,8 @@
             if (result == "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-success').show();
+                $('.alert-success strong').text(Messages.SavedSuccessfull);
+               
                 //Clearing fields
                 $("#txtUserName").text('');
                 $("#txtMobile").text('');
@@ -206,6 +208,8 @@
             if (result != "1") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.SavingFailure);
+                
             }
 
             // Scroll page

@@ -120,6 +120,8 @@ function DeleteItem(e,p)
             BindAsyncBoutiqueDropDown();
             $('#rowfluidDiv').show();
             $('.alert-success').show();
+            $('.alert-success strong').text(Messages.DeletionSuccessFull);
+
         }
         if (jsonResult == "2") {
             $('#rowfluidDiv').show();
@@ -132,6 +134,7 @@ function DeleteItem(e,p)
             BindAsyncBoutiqueDropDown();
             $('#rowfluidDiv').show();
             $('.alert-error').show();
+            $('.alert-error strong').text(Messages.DeletionFailure);
         }
     }
 }
@@ -464,10 +467,12 @@ function AddBoutiques()
     if (result == "1") {
         $('#rowfluidDiv').show();
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.InsertionSuccessFull);
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.InsertionFailure);
     }
 
     clearControls();
@@ -587,10 +592,12 @@ function AddAdmin()
     if (result == "1") {
         $('#rowfluidDiv').show();
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.InsertionSuccessFull);
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.InsertionFailure);
     }
 
     ClearAdminControls();
