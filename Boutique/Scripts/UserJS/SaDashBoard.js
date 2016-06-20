@@ -406,6 +406,7 @@ function Validation() {
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
+            //txtB.style.border = "5px solid Red!important";
             txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";            
             
