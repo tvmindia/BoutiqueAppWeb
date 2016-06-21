@@ -149,9 +149,9 @@
 
     var $eventSelect = $(".template");
     $eventSelect.on("change", function (e) {
-        debugger;
+        $("#imageTemplate").find(".thumb").remove();
         var span = document.createElement('span');
-        span.innerHTML = ['<img class="templateThump" src="../img/avatar.jpg"',
+        span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
                          '" title="', '"/>'].join('');
         document.getElementById('imageTemplate').insertBefore(span, null);
     });

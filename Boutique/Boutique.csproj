@@ -239,6 +239,7 @@
     <Content Include="img\slider_r8.png" />
     <Content Include="img\spinner-mini.gif" />
     <Content Include="img\sprite.png" />
+    <Content Include="img\Templates\notify1.png" />
     <Content Include="img\timeline-bg.png" />
     <Content Include="img\timeline-left-arrow%402x.png" />
     <Content Include="img\timeline-left-arrow.png" />
@@ -521,7 +522,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\Templates\" />
     <Folder Include="Media\GraphPic\" />
     <Folder Include="Models\" />
   </ItemGroup>
