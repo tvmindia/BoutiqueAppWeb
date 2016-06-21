@@ -3,11 +3,18 @@
     parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION
+    debugger;
 
     var LoginUserRole = getRole();
-    $('#hdfRole').val(LoginUserRole);
+    debugger;
 
-    if (LoginUserRole != Roles.Manager) {
+    var abc = LoginUserRole[0];
+    var def = LoginUserRole[1];
+    
+    $('#hdfRole').val(LoginUserRole[0]);
+    $('#hdfloginname').val(LoginUserRole[1]);
+
+    if (LoginUserRole[0] != Roles.Manager) {
 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             // Great success! All the File APIs are supported.     
@@ -458,6 +465,7 @@ function GetAllAdmins(Admins) {
 function BindUserTable(Records) {
 
     var checkrole = $('#hdfRole').val();
+    var lname = $('#hdfloginname').val();
     if (checkrole == Roles.Manager) {
 
         $("thead#Usersthead tr").remove();
@@ -466,16 +474,26 @@ function BindUserTable(Records) {
         $("tbody#Usersrows tr").remove();
 
         $.each(Records, function (index, Records) {
+          
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
             $("#UsersTable").append(html);
         })
     }
     else {
+        debugger;
+       
         $("tbody#Usersrows tr").remove();
         $.each(Records, function (index, Records) {
-
-            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-            $("#UsersTable").append(html);
+            debugger;
+            var name = Records.Name;
+            if (Records.Name == lname ) {
+                var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#UsersTable").append(html);
+            }
+            else {
+                var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#UsersTable").append(html);
+            }
         })
 
     }
@@ -509,6 +527,8 @@ function BindDesignerTable(Records) {
 function BindManagerTable(Records) {
 
     var checkrole = $('#hdfRole').val();
+   // var lname = $('#hdfloginname').val();
+
     if (checkrole == Roles.Manager) {
 
         $("thead#managerthead tr").remove();
@@ -521,11 +541,18 @@ function BindManagerTable(Records) {
         })
     }
     else {
-
         $("tbody#Managerrows tr").remove();
         $.each(Records, function (index, Records) {
-            var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-            $("#ManagerTable").append(html);
+            debugger;
+          //  var name1 = Records.Name;
+          //  if (Records.Name == lname) {
+           //     var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+         //       $("#ManagerTable").append(html);
+         //   }
+         //   else {
+                var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#ManagerTable").append(html);
+         //   }
         })
 
     }
@@ -534,6 +561,7 @@ function BindManagerTable(Records) {
 function BindAdminsTable(Records) {
 
     var checkrole = $('#hdfRole').val();
+    var lname = $('#hdfloginname').val();
     if (checkrole == Roles.Manager) {
 
         $("thead#thead tr").remove();
@@ -548,11 +576,20 @@ function BindAdminsTable(Records) {
 
     }
     else {
-
         $("tbody#Adminrows tr").remove();
         $.each(Records, function (index, Records) {
-            var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-            $("#AdministratorTable").append(html);
+            debugger;
+            var name1 = Records.Name;
+            if (Records.Name == lname) {
+                var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#AdministratorTable").append(html);
+            }
+            else {
+
+                var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#AdministratorTable").append(html);
+
+            }
         })
 
     }
@@ -896,6 +933,8 @@ function AddAdmin() {
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
 
         BindAsyncAdminsTable();
+        BindAsyncUserTable();
+
         AutoScrollToAlertBox();
     }
     if (result != "1") {
@@ -903,6 +942,7 @@ function AddAdmin() {
         $('.alert-error').show();
         $('.alert-error strong').text(Messages.InsertionFailure);
         BindAsyncAdminsTable();
+        BindAsyncUserTable();
         AutoScrollToAlertBox();
     }
 }
@@ -945,6 +985,7 @@ function AddManager() {
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
         BindAsyncManagersTable();
+        BindAsyncUserTable();
         AutoScrollToAlertBox();
     }
     if (result != "1") {
@@ -952,6 +993,7 @@ function AddManager() {
         $('.alert-error').show();
         $('.alert-error strong').text(Messages.InsertionFailure);
         BindAsyncManagersTable();
+        BindAsyncUserTable();
         AutoScrollToAlertBox();
     }
 }
@@ -1055,6 +1097,9 @@ function AddUser()
         if (result == "1") {
             clearUserControls();
             BindAsyncUserTable();
+            BindAsyncAdminsTable();
+            BindAsyncManagersTable();
+
             $('#rowfluidDiv').show();
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.InsertionSuccessFull);
@@ -1063,6 +1108,8 @@ function AddUser()
         }
         if (result != "1") {
             BindAsyncUserTable();
+            BindAsyncAdminsTable();
+            BindAsyncManagersTable();
             $('#rowfluidDiv').show();
             $('.alert-error').show();
             $('.alert-error strong').text(Messages.InsertionFailure);

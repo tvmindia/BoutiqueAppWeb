@@ -290,8 +290,12 @@ namespace Boutique.AdminPanel
 
             string B_ID = UA.Role;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<object> parentRow = new List<object>();
 
-            return jsSerializer.Serialize(B_ID);
+            parentRow.Add(UA.Role);
+            parentRow.Add(UA.userName);
+
+            return jsSerializer.Serialize(parentRow);
 
         }
 
