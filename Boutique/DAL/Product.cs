@@ -2301,7 +2301,7 @@ namespace Boutique.DAL
         #endregion GetAllProductIDandName
 
          #region GetImageIdForNewsLetter
-         public DataTable GetImageIdForNewsLetter()
+         public DataSet GetImageIdForNewsLetter()
          {
              if (BoutiqueID == "")
              {
@@ -2310,7 +2310,7 @@ namespace Boutique.DAL
              dbConnection dcon = null;
              SqlCommand cmd = null;
              SqlDataAdapter sda = null;
-             DataTable dt = null;
+             DataSet ds = null;
              try
              {
                  dcon = new dbConnection();
@@ -2323,10 +2323,10 @@ namespace Boutique.DAL
                  cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
                  cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                  sda.SelectCommand = cmd;
-                 dt = new DataTable();
-                 sda.Fill(dt);
-                 if (dt.Rows.Count == 0) { throw new Exception("No item"); }
-                 return dt;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+                 if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No item"); }
+                 return ds;
              }
              catch (Exception ex)
              {

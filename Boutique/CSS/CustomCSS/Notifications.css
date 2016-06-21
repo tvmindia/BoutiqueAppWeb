@@ -46,8 +46,8 @@ label.control-label {
 .masonry-thumb
 {
      border:2px solid pink;
-     height: 237px;
-     width:119px;
+     height: 200px;
+     width:175px;
      padding: 5px 5px 5px 5px;
      position:relative;
      margin:10px 0px 1px 8px;/*top,right,bottom,left*/
@@ -55,14 +55,9 @@ label.control-label {
      overflow: hidden;
 
 }
-img.sticker {
-            height:103px!important;
-            width:50px!important;
-            position:relative!important;
-            bottom:259px!important;
-            right:7px!important;
-        }
 
-
-
+img {
+    height: 195px;
+    width: auto;
+}
 /*tempore*/

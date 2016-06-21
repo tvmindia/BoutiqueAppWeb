@@ -166,7 +166,9 @@
 
     var $eventPdtsSelect = $(".Newsletterproducts");
     $eventPdtsSelect.on("change", function (e) {
-        BindAllProductImages(0);//binds masanory gallery with product under current boutique
+        var ddlproduct = $(".Newsletterproducts").val();
+        var productid = ddlproduct[ddlproduct.length - 1];
+      BindAllProductImages(productid);//binds masanory gallery with product under current boutique
     });
     //end styling client validation
 });
@@ -419,42 +421,35 @@ function  AddNotification()
     });
 }
 
-function BindAllProductImages(Pagevalue) {
+function BindAllProductImages(productId) {
     debugger;
     var imagedivholder = $('#NewsLetterimagehold');
     var Product = new Object();
-    if (Pagevalue != undefined) {
-        Product.Paginationvalue = Pagevalue;
-    }
-    else {
-        Product.Paginationvalue = "";
-    }
-
+    Product.ProductID = productId;
     //inserts from code behind
     var totalimages = {};
-    totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+    totalimages = GetAllProductsImageDetailsForNewsLetter(Product);
     //$("#productimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
-        if (totalimages[i].Discount != null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+       
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID +  '>'
             + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
             + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-            + '</div>');
+            + '</a>' + '</div>');
 
             imagedivholder.append(html);
-        }
+        
        
     }
 }
-function GetAllProductsImageDetailsunderBoutique(Product) {
+
+function GetAllProductsImageDetailsForNewsLetter(Product) {
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
-    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductMainImages");
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductImagesFornewsLetter");
     table = JSON.parse(ds.d);
     return table;
 }
