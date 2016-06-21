@@ -105,7 +105,7 @@ $("document").ready(function (e) {
 
             //var html = '<tr UserID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center">' + (Records.OrderDate != null ? Records.OrderDate : "-") + '</td><td class="center">' + (Records.ForecastDeliveryDate != null ? Records.ForecastDeliveryDate : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger OrderDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
 
-            var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td >' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
+            var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 60%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
 
             $("#OrdersTable").append(html);
         });
@@ -115,15 +115,17 @@ $("document").ready(function (e) {
 
     function FillClosedOrderTable(Records) {
 
-        $("tbody#ClosedOrdersTable tr").remove();            //Remove all existing rows for refreshing
+        $("#ClosedOrdersTable").width("100%");
 
-        $("#ClosedOrdersTable > tbody").empty();          //Remove all existing rows for refreshing
 
+        $("tbody#ClosedOrderRows tr").remove();            //Remove all existing rows for refreshing
+
+  
         $.each(Records, function (index, Records) {
 
-            //var html = '<tr UserID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center">' + (Records.OrderDate != null ? Records.OrderDate : "-") + '</td><td class="center">' + (Records.ForecastDeliveryDate != null ? Records.ForecastDeliveryDate : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger OrderDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+          
 
-            var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td >' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td ><a class="btn btn-info ClosedOrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
+            var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 60%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td ><a class="btn btn-info ClosedOrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
 
             $("#ClosedOrdersTable").append(html);
         });
@@ -311,12 +313,7 @@ $("document").ready(function (e) {
         $("#CloseddateOrderReadyDate").text("");
         $("#CloseddateActualDeliveryDate").text("");
         $("#ClosedhdfOrderID").text("");
-        $("#ClosedOrdersTable > tbody").empty();
-        //$(".submitDetails").text("Save");
-        //$("#editLabel").text("New Order");
-
-        //$('#OrderItemTable').hide();
-
+       
     }
 
 
@@ -671,7 +668,7 @@ $("document").ready(function (e) {
             $('#ClosedOrdersTable').DataTable({
                 "bPaginate": false,       //Search and Paging implementation
                 "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+               
             });
 
         }
@@ -720,18 +717,9 @@ $("document").ready(function (e) {
 
             ClearControlsOfClosedOrder();
            
-            $("#ClosedOrderItemTable > tbody").empty();
-
-            $("#ClosedOrdersTable").dataTable().fnClearTable();
-            $("#ClosedOrdersTable").dataTable().fnDestroy();
-
             BindClosedOrdersTable(); //To bind table with new or modified entry
 
-            $('#ClosedOrdersTable').DataTable({
-                "bPaginate": false,       //Search and Paging implementation
-                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
-            });
+            
             // Scroll page
             var offset = $('#Orders').offset();
             offset.left -= 20;
