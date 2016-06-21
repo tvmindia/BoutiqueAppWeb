@@ -104,12 +104,31 @@ $("document").ready(function (e) {
     })
     $(".ModifyProduct").live({
         click: function (e) {// submit button click
+
+            var result = "";
+
             var Category = new Object();
 
             Category.CategoryID = $("#hdfCategoryID").val();
             Category.CategoryCode = $("#txtCatCode").val();
             Category.CategoryName = $("#txtCategoryName").val();
             result = UpdateCategory(Category);
+
+            debugger;
+
+            if (result == "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
+
+
+            }
 
         }
 })

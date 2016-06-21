@@ -1,17 +1,10 @@
 ﻿
-//---* Order Status Notification * ---//
-
-var OrderStatusNotification = {
-    OrderReady: "Your order is ready for PickUp",
-    OrderWithProducts: "Order is placed with $ Products. Your Order Number is : # ",
-    OrderWithOutProducts: "Order is placed. Your Order Number is : $ ",
-    OrderUpdateWithProducts: "Newly $ products are added to your Order. Your Order Number is : # "
-}
-
-
 var deleteReturn = false;
+
+//-----------*  document.ready * ---------------//
+
 $("document").ready(function (e) {
- 
+
     $(".DialogDeleteYes").live({
         click: function (e) {// Clear controls
             deleteReturn = true;
@@ -19,13 +12,26 @@ $("document").ready(function (e) {
             return true;
         }
     })
-});//end of document.ready
+});
+
+
+//---* Order Status Notification * ---//
+
+var OrderStatusNotification = {
+    OrderReady: "Your order is ready for PickUp. Your Order Number is : $ ",
+    OrderWithProducts: "Order is placed with $ Products. Your Order Number is : # ",
+    OrderWithOutProducts: "Order is placed. Your Order Number is : $ ",
+    OrderUpdateWithProducts: "Newly $ products are added to your Order. Your Order Number is : # "
+}
+
+//--------------* Roles * ---------------//
+
 var Roles = {
     Manager: "Manager",
     Administrator: "Administrator",   
     SuperAdmin: "SuperAdmin"
     }
-
+//--------------* Pages * ---------------//
 var Pages = {
     People: "People",
     Profile: "Boutique Profile",
@@ -39,10 +45,9 @@ var Pages = {
     OrderStatus: "Order Status",
     Products: "Products",
     ProductsReview:"Products Review"
-
-
 }
 
+//--------------* Messages * ---------------//
 var Messages = {
 
     exists: "The operation can’t be completed because the category is in use .",
@@ -52,7 +57,7 @@ var Messages = {
 
     MandatoryFields: "Please fill out all the fields",
     EmailInstruction: "Please check your email for a message with verification code.Your code is 4 digit long . We sent code to ",
-    VerificationCodeMismatch: "Password does not match with the confirm password",
+    VerificationCodeMismatch: "Passwords does not match. Please confirm passwords are Same",
     InvalidEmailID: "Enter A valid Email-ID",
     TimeExpired: "Time expired",
     IncorrectVerificationCode: "Verification Code is invalid",
@@ -83,6 +88,8 @@ var Messages = {
     AlreadyUsedForDeletion: "Already used . Can't be deleted",
     AlreadyUsedForUpdation: "Already used . Can't be changed"
 }
+
+
 
 function getRole() {
     var table = {};
@@ -131,7 +138,7 @@ function postBlobAjax(formData, page) {
 
 function DeleteCustomAlert(txt, e, p) 
 {
-    debugger;
+  
     d = document;
 
     if (d.getElementById("modalContainer")) return;
@@ -172,7 +179,7 @@ function DeleteCustomAlert(txt, e, p)
     btnYes.appendChild(d.createTextNode("Yes"));
     btnYes.href = "#";
     //btnYes.focus();
-    //debugger;
+   
     if (p == "ProductImage") {
         btnYes.onclick = function () { DeleteProductImage(e, p); removeCustomAlert(); return false; }
     }
@@ -188,7 +195,6 @@ function DeleteCustomAlert(txt, e, p)
 function removeCustomAlert() {
     document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
 }
-
 
 function CustomAlert(txt) {
     d = document;
@@ -223,8 +229,6 @@ function CustomAlert(txt) {
     alertObj.style.display = "block";
     $("#alertBox").animate({ top: '50px' });
 }
-
-
 
 function getJsonData(data, page) {
     var jsonResult = {};
@@ -263,7 +267,6 @@ function ConvertJsonToDate(jsonDate) {
         return result;
     }
 }
-
 
 function AutoScrollToAlertBox()
 {
