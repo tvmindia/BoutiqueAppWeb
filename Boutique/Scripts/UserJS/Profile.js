@@ -536,15 +536,7 @@ function OwnerValidate() {
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
-            j = 1;
-
-            var p = document.createElement('p');
-            p.innerHTML = "* Some Fields Are Empty ! ";
-            p.style.color = "Red";
-            p.style.fontSize = "14px";
-            if (i == 0) {
-                divs.appendChild(p);
-            }
+            j = 1;         
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -560,6 +552,11 @@ function OwnerValidate() {
 
     }
     if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
         return false;
     }
     if (j == '0') {
