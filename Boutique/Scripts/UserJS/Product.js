@@ -1186,8 +1186,6 @@ function BindRelatedProductsOnDemand(productid) {
     var jsonResult = {};
     jsonResult = GetAllRelatedProducts(Product);
     if (jsonResult != undefined) {
-
-      //  var catarray = categories.split(',');
         var $RelatedprodMulti = $(".ddlrelateproducts").select2();
         $catMulti.val(catarray).trigger("change");
 
