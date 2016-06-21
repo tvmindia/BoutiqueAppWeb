@@ -80,7 +80,6 @@
     $(".notificationdelete").live(
     {
         click: function (e) {
-            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -167,9 +166,23 @@
     var $eventPdtsSelect = $(".Newsletterproducts");
     $eventPdtsSelect.on("change", function (e) {
         var ddlproduct = $(".Newsletterproducts").val();
+        debugger;
+        if (ddlproduct != null) {
         var productid = ddlproduct[ddlproduct.length - 1];
-      BindAllProductImages(productid);//binds masanory gallery with product under current boutique
+            BindAllProductImages(productid);//binds  gallery with product under current boutique
+        }
     });
+    $eventPdtsSelect.on("select2:close", function (e) {
+        debugger;
+        "select2:close";
+    });
+    $eventPdtsSelect.on("select2:unselect", function (e) {
+        debugger;
+        var ddlproduct = this;
+        $("#NewsLetterimagehold").find(".masonry-thumb").remove();
+    });
+    
+
     //end styling client validation
 });
 
@@ -229,7 +242,6 @@ function BindNotificationsTable() {
 }
 
 function GetAllNotifications(Notify) {
-    debugger;
     var ds = {};
     var table = {};
     var data = "{'NotifyObj':" + JSON.stringify(Notify) + "}";
@@ -239,11 +251,9 @@ function GetAllNotifications(Notify) {
 }
 
 function FillNotificationTable(Records) {
-    debugger;
 
     var checkrole = $('#hdfRole').val();
     if (checkrole == Roles.Manager) {
-        debugger;
         $("thead#notificationthead tr").remove();
         var html = '<tr><th>Title</th> <th>Description</th> <th>Start Date</th> <th>End Date</th></tr> ';
         $("#notificationthead").append(html);
@@ -422,7 +432,6 @@ function  AddNotification()
 }
 
 function BindAllProductImages(productId) {
-    debugger;
     var imagedivholder = $('#NewsLetterimagehold');
     var Product = new Object();
     Product.ProductID = productId;
