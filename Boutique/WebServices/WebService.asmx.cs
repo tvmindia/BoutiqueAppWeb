@@ -67,6 +67,7 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
         /// <summary>
         /// To get images of a product
         /// </summary>
@@ -110,6 +111,56 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+        #region Related Products
+        /// <summary>
+        /// To get related products of a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <param name="limit">no of products</param>
+        /// <returns></returns>
+        [WebMethod]
+        public string RelatedProducts(string productID, string boutiqueID, string limit)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product products = new Product();
+                products.ProductID = productID;
+                products.BoutiqueID = boutiqueID;
+                if (limit != "")
+                    dt = products.GetRelatedProductsForApp(int.Parse(limit));
+                else
+                    dt = products.GetRelatedProductsForApp();
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
         #endregion Products
 
         #region Categories
@@ -164,6 +215,7 @@ namespace Boutique.WebServices
                     dt = products.GetProductsByCategory(userID,int.Parse(limit));
                 else
                     dt = products.GetProductsByCategory(userID);
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
                 //Giving coloumns of image details
                 ArrayList imgColNames = new ArrayList();
                 ArrayList imgFileNameCols = new ArrayList();
