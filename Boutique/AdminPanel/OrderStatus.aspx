@@ -336,7 +336,7 @@
                                                         <label class="control-label" for="focusedInput">Planned Delivery Date</label>
                                                         <div class="controls" style="padding-left: 10%">
 
-                                                            <label class="control-label" id="CloseddatePlannedDeliveryDate" style="font-size: 18px!important;" />
+                                                            <label class="control-label" id="CloseddatePlannedDeliveryDate" style="font-size: 16px!important;" />
 
                                                         </div>
                                                     </div>

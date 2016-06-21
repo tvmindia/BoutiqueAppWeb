@@ -18,7 +18,7 @@ $("document").ready(function (e) {
 //---* Order Status Notification * ---//
 
 var OrderStatusNotification = {
-    OrderReady: "Your order is ready for PickUp",
+    OrderReady: "Your order is ready for PickUp. Your Order Number is : $ ",
     OrderWithProducts: "Order is placed with $ Products. Your Order Number is : # ",
     OrderWithOutProducts: "Order is placed. Your Order Number is : $ ",
     OrderUpdateWithProducts: "Newly $ products are added to your Order. Your Order Number is : # "

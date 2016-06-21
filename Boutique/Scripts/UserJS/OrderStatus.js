@@ -433,15 +433,10 @@ $("document").ready(function (e) {
 
             }
 
-            if (Order.OrderReadyDate != "" && $("#hdfOrderID").val() != "") {
+            //if (Order.OrderReadyDate != "" && $("#hdfOrderID").val() != "") {
                
-                Notification.Description = OrderStatusNotification.OrderReady;
-
-                MailSending.msg = OrderStatusNotification.OrderReady;
-                SendMail(MailSending);
-                
-                resultOfNotification = InsertNotification(Notification);
-            }
+               
+            //}
 
             result = InsertOrUpdateOrder(Order); //returns orderID
 
@@ -457,6 +452,21 @@ $("document").ready(function (e) {
             ///-- Insert or update action is success if result equals to some id, then by checking no of items , if it is 0 header only inserts otherwise items insertions also performs
 
             if (result.OrderID != "") {
+
+                if (Insert == false )
+                {
+                    if (Order.OrderReadyDate) {
+                        var descrptn = OrderStatusNotification.OrderReady;
+                        var replacedDescrptn = descrptn.replace("$", result.OrderNo);
+
+                        Notification.Description = replacedDescrptn;
+
+                        MailSending.msg = replacedDescrptn;
+                        SendMail(MailSending);
+
+                        resultOfNotification = InsertNotification(Notification);
+                    }
+                }
 
                 Notification.OrderID = result.OrderID;
 
@@ -611,6 +621,10 @@ $("document").ready(function (e) {
                     if (Insert == true) {
                         var descrptn = OrderStatusNotification.OrderWithOutProducts;
                         var replacedDescrptn = descrptn.replace("$", result.OrderNo);
+
+                        MailSending.msg = replacedDescrptn;
+                        SendMail(MailSending);
+
                         Notification.Description = replacedDescrptn;
                         resultOfNotification = InsertNotification(Notification);
                     }
@@ -678,10 +692,7 @@ $("document").ready(function (e) {
     //----------- Cancel button Click -----------
     $(".Cancel").live({
         click: function (e) {// Clear controls
-            debugger;
-
-            
-
+           
             ClearControls();
             $(".products").select2("val", "");
             document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
@@ -713,8 +724,7 @@ $("document").ready(function (e) {
 
     $(".ClosedOrderCancel").live({
         click: function (e) {// Clear controls
-            debugger;
-
+           
             ClearControlsOfClosedOrder();
            
             BindClosedOrdersTable(); //To bind table with new or modified entry
