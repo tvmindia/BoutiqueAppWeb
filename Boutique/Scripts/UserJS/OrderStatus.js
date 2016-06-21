@@ -326,6 +326,8 @@ $("document").ready(function (e) {
     {
         click: function (e) {
            
+            debugger;
+
             var Insert = false;
 
             $('#rowfluidDiv').hide();
@@ -582,6 +584,22 @@ $("document").ready(function (e) {
                             scrollLeft: offset.left
                         });
                     }
+
+                    else { //No items added only header updation
+                        $('#rowfluidDiv').show();
+                        $('.alert-success').show();
+
+                        //Scroll page
+                        var offset = $('#rowfluidDiv').offset();
+                        offset.left -= 20;
+                        offset.top -= 20;
+                        $('html, body').animate({
+                            scrollTop: offset.top,
+                            scrollLeft: offset.left
+                        });
+                    }
+
+
                     if (result == "") {
                         $('#rowfluidDiv').show();
                         $('.alert-error').show();
