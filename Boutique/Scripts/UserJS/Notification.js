@@ -19,7 +19,7 @@
 
     //Edit region drop downs-------------
     $(".products").select2({
-        placeholder: "Choose related product",
+        placeholder: "Choose product",
         allowClear: true,
         data: BindProductDropdown()
     });
@@ -27,6 +27,16 @@
         allowClear: true,
         placeholder: "Choose related category",        
         data: BindCategoryDropdown()//category dropdown binds only with id and text[key:value] mandatory
+    });
+    $(".template").select2({
+        allowClear: true,
+        placeholder: "Choose template",
+        data: [{ id: 0, text: 'Holiday/Season Offers' }, { id: 1, text: 'Birthday Special' }]
+    });
+    $(".audience").select2({
+        allowClear: true,
+        placeholder: "Choose audience",
+        data: [{ id: 0, text: 'All' }]
     });
     //Edit button--------
     $(".notificationedit").live(
@@ -137,6 +147,14 @@
         $('#ErrorBox,#ErrorBox1').hide(1000);
     });
 
+    var $eventSelect = $(".template");
+    $eventSelect.on("change", function (e) {
+        $("#imageTemplate").find(".thumb").remove();
+        var span = document.createElement('span');
+        span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
+                         '" title="', '"/>'].join('');
+        document.getElementById('imageTemplate').insertBefore(span, null);
+    });
     //end styling client validation
 });
 
@@ -387,7 +405,8 @@ function  AddNotification()
         scrollTop: offset.top,
         scrollLeft: offset.left
     });
-    }
+}
+
 /////////////////////////////////////////////////////////////Basic Validation/////////////////////////////////////////////////////////////////////
 
 //Basic Validation For New Notification
@@ -418,13 +437,7 @@ function NotificationValidation()
         if (container[i].Value == "") {
             j = 1;
 
-            var p = document.createElement('p');
-            p.innerHTML = "* Some Fields Are Empty ! ";
-            p.style.color = "Red";
-            p.style.fontSize = "14px";
-            if (i == 0) {
-                divs.appendChild(p);
-            }
+           
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -440,6 +453,13 @@ function NotificationValidation()
 
     }
     if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+       
+            divs.appendChild(p);
+        
         return false;
     }
     if (j == '0') {
