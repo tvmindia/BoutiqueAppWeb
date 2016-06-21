@@ -49,13 +49,13 @@
                 </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li class="icon active"><a href="#Administrators">Current Orders</a></li>
-                        <li><a href="#Managers">Closed Orders</a></li>
+                        <li class="icon active"><a href="#CurrentOrders">Current Orders</a></li>
+                        <li><a href="#ClosedOrders">Closed Orders</a></li>
 
                     </ul>
                     <div id="myTabContent" class="tab-content">
 
-                        <div class="tab-pane active" id="Administrators">
+                        <div class="tab-pane active" id="CurrentOrders">
                             <div class="box-content TableLayout">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="OrdersTable">
@@ -266,7 +266,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane" id="Managers">
+                        <div class="tab-pane" id="ClosedOrders">
                             <div class="box-content TableLayout">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="ClosedOrdersTable" >
