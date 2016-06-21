@@ -1019,28 +1019,6 @@ function BindAsyncRelatedProducts() {
         return jsonResult;
     }
 }
-
-
-
-
-function BindDesignerDropDown(dd, Records, indx) {
-    var cadena = "";
-    var myflag = false;
-    for (var i = 0; i < Records.length; i++) {
-        if (myflag == true) {
-            cadena += "<option class=catrows SELECTED value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
-            myflag = false;
-        }
-        else {
-            cadena += "<option class=catrows value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
-        }
-        if (Records[i]["id"] == indx) {
-            myflag = true;
-        }
-    }
-    dd.append(cadena);
-}
-
 function BindAsyncDesigner() {
     var jsonResult = {};
     var Designers = new Object();
@@ -1182,12 +1160,17 @@ function DeleteProuductImage(Product) {
 function BindRelatedProductsOnDemand(productid) {
    
     var Product = new Object();
+    var relateproarry = [];
     Product.ProductID = productid;
     var jsonResult = {};
     jsonResult = GetAllRelatedProductsByProductID(Product);
     if (jsonResult != undefined) {
+        for (var i = 0; i < jsonResult.length; i++)
+        {
+            relateproarry.push(jsonResult[i].RelatedProductsID);
+        }
         var $RelatedprodMulti = $(".ddlrelateproducts").select2();
-        $catMulti.val(catarray).trigger("change");
+        $RelatedprodMulti.val(relateproarry).trigger("change");
 
         return jsonResult;
     }
