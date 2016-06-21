@@ -172,7 +172,7 @@
                             $('.alert-success strong').text(Messages.InsertionSuccessFull);
 
                             AutoScrollToAlertBox();
-                            refreshAdminLayout();
+                         
                            
                         }
                         if (result != "1" && result!="2" && result!="3") {
@@ -202,10 +202,12 @@
     //end styling client validation
 
 });//end of document.ready
+
 function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1').slideUp(1000);
 }
+
 function DeleteItem(e,p)
 {
     var jsonResult = {};
@@ -307,6 +309,7 @@ function handleLogoSelect(evt) {
 }
 
 function InsertBoutique(Boutique) {
+
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/NewBoutique");
     var table = {};
@@ -342,7 +345,7 @@ function listToAray(fullString, separator) {
 
 function BindBoutiqueTextBoxes(Records) {
     //$.each(Records, function (index, Records) {
- 
+
     var coordinates = Records[0].latlong;
     var arrayCoordinates = listToAray(coordinates, ',');
    
@@ -574,6 +577,7 @@ function OwnerValidate() {
     }
 
 }
+
 function AddOwner()
 {
     $('#rowfluidDiv').hide();
