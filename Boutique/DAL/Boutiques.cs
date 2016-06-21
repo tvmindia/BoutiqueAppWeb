@@ -298,7 +298,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
                 cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = Phone;
                 cmd.Parameters.Add("@Timing", SqlDbType.NVarChar, 50).Value = Timing;
-                cmd.Parameters.Add("@WorkingDays", SqlDbType.NVarChar, 10).Value = WorkingDays;
+                cmd.Parameters.Add("@WorkingDays", SqlDbType.NVarChar, 30).Value = WorkingDays;
                 cmd.Parameters.Add("@FBLink", SqlDbType.NVarChar, 200).Value = FbLink;
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
@@ -361,7 +361,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = Address;
                 cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = Phone;
                 cmd.Parameters.Add("@Timing", SqlDbType.NVarChar, 50).Value = Timing;
-                cmd.Parameters.Add("@WorkingDays", SqlDbType.NVarChar, 10).Value = WorkingDays;
+                cmd.Parameters.Add("@WorkingDays", SqlDbType.NVarChar, 30).Value = WorkingDays;
                 cmd.Parameters.Add("@FBLink", SqlDbType.NVarChar, 200).Value = FbLink;
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 200).Value = UpdatedBy;

@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
-
-    parent.document.title = Pages.Notifications;  
+    
+      parent.document.title = Pages.Notifications;  
 
  
     var LoginUserRole = getRole();
@@ -19,7 +19,7 @@
 
     //Edit region drop downs-------------
     $(".products").select2({
-        placeholder: "Choose product",
+        placeholder: "Choose related product",
         allowClear: true,
         data: BindProductDropdown()
     });
@@ -38,6 +38,14 @@
         placeholder: "Choose audience",
         data: [{ id: 0, text: 'All' }]
     });
+    $(".Newsletterproducts").select2({
+        placeholder: "Choose products",
+        allowClear: true,
+        data: BindProductDropdown()
+    });
+
+    
+
     //Edit button--------
     $(".notificationedit").live(
     {
@@ -149,11 +157,18 @@
 
     var $eventSelect = $(".template");
     $eventSelect.on("change", function (e) {
-        $("#imageTemplate").find(".thumb").remove();
+        $("#imageTemplate").find(".templateThump").remove();
         var span = document.createElement('span');
         span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
                          '" title="', '"/>'].join('');
         document.getElementById('imageTemplate').insertBefore(span, null);
+    });
+
+    var $eventPdtsSelect = $(".Newsletterproducts");
+    $eventPdtsSelect.on("change", function (e) {
+        var ddlproduct = $(".Newsletterproducts").val();
+        var productid = ddlproduct[ddlproduct.length - 1];
+      BindAllProductImages(productid);//binds masanory gallery with product under current boutique
     });
     //end styling client validation
 });
@@ -205,7 +220,6 @@ function DeleteItem(e,p)
 }
 
 function BindNotificationsTable() {
-    debugger;
     var jsonResult = {};
     var Notify = new Object();
     jsonResult = GetAllNotifications(Notify);
@@ -407,13 +421,44 @@ function  AddNotification()
     });
 }
 
+function BindAllProductImages(productId) {
+    debugger;
+    var imagedivholder = $('#NewsLetterimagehold');
+    var Product = new Object();
+    Product.ProductID = productId;
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllProductsImageDetailsForNewsLetter(Product);
+    //$("#productimagehold").find(".masonry-thumb").remove();
+
+    for (var i = 0; i < totalimages.length; i++) {
+
+       
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID +  '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a>' + '</div>');
+
+            imagedivholder.append(html);
+        
+       
+    }
+}
+
+function GetAllProductsImageDetailsForNewsLetter(Product) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductImagesFornewsLetter");
+    table = JSON.parse(ds.d);
+    return table;
+}
 /////////////////////////////////////////////////////////////Basic Validation/////////////////////////////////////////////////////////////////////
 
 //Basic Validation For New Notification
 //CreatedBy Thomson
 function NotificationValidation()
 {
-    debugger;
     $('#Displaydiv').remove();
     var Title = $('#txtTitle');
     var Descrip = $('#txtDescription');

@@ -39,3 +39,25 @@ label.control-label {
     width:300px;
     height:250px;
 }
+
+
+
+/*tempore*/
+.masonry-thumb
+{
+     border:2px solid pink;
+     height: 200px;
+     width:175px;
+     padding: 5px 5px 5px 5px;
+     position:relative;
+     margin:10px 0px 1px 8px;/*top,right,bottom,left*/
+     cursor:pointer;
+     overflow: hidden;
+
+}
+
+img {
+    height: 195px;
+    width: auto;
+}
+/*tempore*/
