@@ -2299,5 +2299,48 @@ namespace Boutique.DAL
         }
       
         #endregion GetAllProductIDandName
+
+         #region GetImageIdForNewsLetter
+         public DataTable GetImageIdForNewsLetter()
+         {
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlDataAdapter sda = null;
+             DataTable dt = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 sda = new SqlDataAdapter();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetImageIdForNewsLetter]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                 sda.SelectCommand = cmd;
+                 dt = new DataTable();
+                 sda.Fill(dt);
+                 if (dt.Rows.Count == 0) { throw new Exception("No item"); }
+                 return dt;
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+
+         }
+         #endregion GetImageIdForNewsLetter
     }
 }
