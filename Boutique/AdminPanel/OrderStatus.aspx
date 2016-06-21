@@ -295,7 +295,7 @@
                               <div id="ClosedNewOrder" runat="server" class="row-fluid">
             <div class="box span12" style="width: 100%">
                 <div class="box-header">
-                    <h2 id="ClosededitLabel">Closed Order</h2>
+                    <h2 id="ClosededitLabel">Order Details</h2>
                     <div class="box-icon">
                     </div>
                 </div>
@@ -314,8 +314,8 @@
                                 <div class="control-group" id="ClosedOrderNoDiv" >
 
                                     <label class="control-label" for="focusedInput">OrderNo</label>
-                                    <div class="controls">
-                                        <label class="control-label" id="ClosedlblOrderNo"  />
+                                    <div class="controls" style="padding-left:10%;font-size:20px!important">
+                                        <label class="control-label" id="ClosedlblOrderNo"  style="font-size:17px!important; font-weight: bold;" />
 
                                     </div>
                                 </div>
@@ -323,25 +323,24 @@
 
                                 <div class="control-group">
                                     <label class="control-label" for="Users">User</label>
-                                    <div class="controls">
-                                         <label class="control-label" id="ClosedlblUser"  />
+                                    <div class="controls"  style="padding-left:10%">
+                                         <label class="control-label" id="ClosedlblUser" style="font-weight: bold;"  />
                                     </div>
                                 </div>
 
 
                                 <div class="control-group">
                                     <label class="control-label" for="focusedInput">Order Description</label>
-                                    <div class="controls">
-                                     <label class="control-label" id="ClosedlblOrderDescription"  />   
+                                    <div class="controls"  style="padding-left:10%">
+                                     <label class="control-label" id="ClosedlblOrderDescription" style="font-weight: bold;" />   
                                     </div>
                                 </div>
                                 <div class="control-group">
 
                                     <label class="control-label" for="focusedInput">Order Date</label>
-                                    <div class="controls">
+                                    <div class="controls"  style="padding-left:10%">
                                        
-
-                                        <label class="control-label" id="CloseddateOrderDate" />
+                                        <label class="control-label" id="CloseddateOrderDate" style="font-weight: bold;"/>
 
                                     </div>
                                 </div>
@@ -349,17 +348,16 @@
                                 <div class="control-group">
 
                                     <label class="control-label" for="focusedInput">Planned Delivery Date</label>
-                                    <div class="controls">
+                                    <div class="controls"  style="padding-left:10%">
                                         
-
-                                        <label class="control-label" id="CloseddatePlannedDeliveryDate" />
+                                        <label class="control-label" id="CloseddatePlannedDeliveryDate" style="font-weight: bold;"/>
 
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label" for="date01">Total Order Amount</label>
-                                    <div class="controls">
-                                           <label class="control-label" id="ClosedtotalAmount" />
+                                    <div class="controls"  style="padding-left:10%">
+                                           <label class="control-label" id="ClosedtotalAmount" style="font-weight: bold;"/>
                                     </div>
                                 </div>
                             </div>
@@ -371,24 +369,24 @@
                             <div class="span6">
                                 <div class="control-group" id="ClosedForecastDiv">
                                     <label class="control-label" for="date01">Forecast Delivery Date</label>
-                                    <div class="controls">
+                                    <div class="controls"  style="padding-left:10%">
                                         
-                                         <label class="control-label" id="CloseddateForecastDeliveryDate" />
+                                         <label class="control-label" id="CloseddateForecastDeliveryDate" style="font-weight: bold;"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group" id="ClosedOrderReadyDiv">
                                     <label class="control-label" for="date01">Order Ready Date</label>
-                                    <div class="controls">
-                                         <label class="control-label" id="CloseddateOrderReadyDate" />
+                                    <div class="controls"  style="padding-left:10%">
+                                         <label class="control-label" id="CloseddateOrderReadyDate" style="font-weight: bold;"/>
                                       
                                     </div>
                                 </div>
 
                                 <div class="control-group" id="ClosedActualDeliveryDiv">
                                     <label class="control-label" for="date01">Actual Delivery Date</label>
-                                    <div class="controls">
-                                          <label class="control-label" id="CloseddateActualDeliveryDate" />
+                                    <div class="controls"  style="padding-left:10%">
+                                          <label class="control-label" id="CloseddateActualDeliveryDate" style="font-weight: bold;"/>
                                         
                                     </div>
                                 </div>
