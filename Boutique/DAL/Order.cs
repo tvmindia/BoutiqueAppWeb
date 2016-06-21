@@ -134,6 +134,59 @@ namespace Boutique.DAL
 
         #region Methods
 
+        //-- Closed Orders
+
+        #region Select All Closed Orders
+        /// <summary>
+        /// To select all orders
+        /// </summary>
+        /// <returns>Dataset</returns>
+        public DataSet SelectAllClosedOrders()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            ;
+            try
+            {
+                Guid _boutiqueid = Guid.Parse(BoutiqueID);
+                if (_boutiqueid != Guid.Empty)
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[SelectAllClosedOrders]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+
+                    sda.Fill(ds);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion Select All Closed Orders
+
+        //--END
+
         #region Select All Orders
         /// <summary>
         /// To select all orders

@@ -225,6 +225,52 @@ namespace Boutique.AdminPanel
 
         //--------END Order
 
+        //--Closed Orders
+
+        #region Get All Closed Orders
+        /// <summary>
+        /// To get all the order
+        /// </summary>
+        /// <param name="Boutiqueid"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetAllClosedOrders(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            OrderObj.BoutiqueID = UA.BoutiqueID;
+
+            string jsonResult = null;
+            DataSet ds = null;
+
+            ds = OrderObj.SelectAllClosedOrders();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+
+        #endregion  Get All Closed Orders
+
+        //--Closed Orders
+
         //-------* Order Items
 
         #region Get Order Item Details By OrderID

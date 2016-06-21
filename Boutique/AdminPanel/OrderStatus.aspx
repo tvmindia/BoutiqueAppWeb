@@ -57,32 +57,38 @@
         <div class="row-fluid sortable" id="Orders">
             <div class="box span12" style="width: 90%">
                 <div class="box-header">
-                    <h2>Current Orders</h2>
-                    <div class="box-icon">
-                    </div>
+                 
+                   
                 </div>
-                <div class="box-content TableLayout">
+                   <div class="box-content">
+                        <ul class="nav tab-menu nav-tabs" id="myTab">
+                        <li class="icon active"> <a href="#Administrators">Current Orders</a></li>
+                        <li><a href="#Managers">Closed Orders</a></li>
+                        
+                    </ul>
+                           <div id="myTabContent" class="tab-content">
+
+                                  <div class="tab-pane active" id="Administrators">
+                                           <div class="box-content TableLayout">
 
                     <table class="table table-striped table-bordered  bootstrap-datatable" id="OrdersTable">
                         <thead>
                             <tr>
-                                <th>OrderNo</th>
-                                <th>OrderDescription</th>
+                                <th style="width:20%!important">OrderNo</th>
+                                <th style="width:60%!important">OrderDescription</th>
                                 <%-- <th>OrderDate</th>
                                 <th>Expected Delivery Date</th>--%>
-                                <th>Actions</th>
+                                <th style="width:20%!important">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="OrderRows">
                         </tbody>
                     </table>
                 </div>
-            </div>
 
-        </div>
 
-        <div id="NewOrder" runat="server" class="row-fluid">
-            <div class="box span12" style="width: 90%">
+                                        <div id="NewOrder" runat="server" class="row-fluid">
+            <div class="box span12" style="width: 100%">
                 <div class="box-header">
                     <h2 id="editLabel">New Order</h2>
                     <div class="box-icon">
@@ -270,14 +276,191 @@
 
 
         </div>
+                                  </div>
+                                  <div class="tab-pane" id="Managers">
+                                      <div class="box-content TableLayout">
+
+                    <table class="table table-striped table-bordered  bootstrap-datatable" id="ClosedOrdersTable">
+                        <thead>
+                            <tr>
+                                  <th style="width:20%!important">OrderNo</th>
+                                <th style="width:20%!important">OrderDescription</th>
+                                <th style="width:20%!important">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ClosedOrderRows">
+                        </tbody>
+                    </table>
+                </div>
+                              <div id="ClosedNewOrder" runat="server" class="row-fluid">
+            <div class="box span12" style="width: 100%">
+                <div class="box-header">
+                    <h2 id="ClosededitLabel">Closed Order</h2>
+                    <div class="box-icon">
+                    </div>
+                </div>
+
+                <div class="box-content " style="height: 100%; overflow: auto;">
+
+                    <div class="span12" >
+
+                        <div
+                            class="form-horizontal">
+
+                            <%--FIRST HALF--%>
+
+                            <div class="span6">
+
+                                <div class="control-group" id="ClosedOrderNoDiv" >
+
+                                    <label class="control-label" for="focusedInput">OrderNo</label>
+                                    <div class="controls">
+                                        <label class="control-label" id="ClosedlblOrderNo"  />
+
+                                    </div>
+                                </div>
+
+
+                                <div class="control-group">
+                                    <label class="control-label" for="Users">User</label>
+                                    <div class="controls">
+                                         <label class="control-label" id="ClosedlblUser"  />
+                                    </div>
+                                </div>
+
+
+                                <div class="control-group">
+                                    <label class="control-label" for="focusedInput">Order Description</label>
+                                    <div class="controls">
+                                     <label class="control-label" id="ClosedlblOrderDescription"  />   
+                                    </div>
+                                </div>
+                                <div class="control-group">
+
+                                    <label class="control-label" for="focusedInput">Order Date</label>
+                                    <div class="controls">
+                                       
+
+                                        <label class="control-label" id="CloseddateOrderDate" />
+
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+
+                                    <label class="control-label" for="focusedInput">Planned Delivery Date</label>
+                                    <div class="controls">
+                                        
+
+                                        <label class="control-label" id="CloseddatePlannedDeliveryDate" />
+
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="date01">Total Order Amount</label>
+                                    <div class="controls">
+                                           <label class="control-label" id="ClosedtotalAmount" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <%-- END FIRST HALF--%>
+
+                            <%--SECOND HALF--%>
+
+                            <div class="span6">
+                                <div class="control-group" id="ClosedForecastDiv">
+                                    <label class="control-label" for="date01">Forecast Delivery Date</label>
+                                    <div class="controls">
+                                        
+                                         <label class="control-label" id="CloseddateForecastDeliveryDate" />
+                                    </div>
+                                </div>
+
+                                <div class="control-group" id="ClosedOrderReadyDiv">
+                                    <label class="control-label" for="date01">Order Ready Date</label>
+                                    <div class="controls">
+                                         <label class="control-label" id="CloseddateOrderReadyDate" />
+                                      
+                                    </div>
+                                </div>
+
+                                <div class="control-group" id="ClosedActualDeliveryDiv">
+                                    <label class="control-label" for="date01">Actual Delivery Date</label>
+                                    <div class="controls">
+                                          <label class="control-label" id="CloseddateActualDeliveryDate" />
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <%--END SECOND HALF--%>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="span12" style="border-top: ridge; width: 90%">
+                    </div>
+                    <%--<h2 id="NewItem" style="text-align:center">New Item</h2>--%>
+                    <div class="span12" style="width: 90%">
+                       
+                        <div class="span6">
+                            <h2><u>Product Details</u></h2>
+                            <br />
+                            <%--<div class="box-content TableLayout">--%>
+
+                            <table class="table table-striped table-bordered  bootstrap-datatable" id="ClosedOrderItemTable" >
+
+                                <thead>
+                                    <tr>
+                                        <th class="fullRow">Product</th>
+                                        <th class="fullRow">Remarks</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="ClosedOrderItemRows">
+                                </tbody>
+                            </table>
+
+
+                            <%--</div>--%>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <footer class="InnerFooter">
+                    <a class="btn btn-primary submitDetails" href="#" style="display:none">Save</></a>
+                    <a class="btn ClosedOrderCancel">Cancel</a>
+                </footer>
+
+            </div>
+
+
+
+
+        </div>         
+                                  </div>
+
+                           </div>
+                   </div>
+           
+
+            </div>
+
+        </div>
+
+     
 
 
     </div>
 
     <input type="hidden" id="hdfOrderID" />
-
-    </label>
-    </label>
-    </label>
+     <input type="hidden" id="ClosedhdfOrderID" />
+   
       
 </asp:Content>
