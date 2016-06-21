@@ -579,8 +579,11 @@ $("document").ready(function (e) {
                         $("#OrdersTable > tbody").empty();
                         //$('#OrderItemTable').hide();
 
+
                         $('#rowfluidDiv').show();
                         $('.alert-success').show();
+                        $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
 
                         //Scroll page
                         var offset = $('#rowfluidDiv').offset();
@@ -595,6 +598,8 @@ $("document").ready(function (e) {
                     else { //No items added only header updation
                         $('#rowfluidDiv').show();
                         $('.alert-success').show();
+                        $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
 
                         //Scroll page
                         var offset = $('#rowfluidDiv').offset();
@@ -610,6 +615,7 @@ $("document").ready(function (e) {
                     if (result == "") {
                         $('#rowfluidDiv').show();
                         $('.alert-error').show();
+                        $('.alert-error strong').text(Messages.InsertionFailure);
                     }
                 }
                     //HEADER ONLY END
@@ -644,6 +650,8 @@ $("document").ready(function (e) {
 
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
+                    $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
 
                     //Scroll page
                     var offset = $('#rowfluidDiv').offset();
@@ -659,6 +667,7 @@ $("document").ready(function (e) {
             if (result == "") {
                 $('#rowfluidDiv').show();
                 $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
             }
 
             $("#OrderItemTable > tbody").empty();
