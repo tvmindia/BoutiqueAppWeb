@@ -819,7 +819,7 @@ namespace Boutique.DAL
 
             #region Get products under a category
         /// <summary>
-        /// To get all the products under a category
+        /// To get the products under a category
         /// </summary>
         /// <returns></returns>
             public DataTable GetProductsByCategory(string userID,int countLimit=0)
@@ -852,7 +852,6 @@ namespace Boutique.DAL
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);
-                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
                     return dt;
                 }
                 catch (Exception ex)
@@ -2206,6 +2205,55 @@ namespace Boutique.DAL
         }
         #endregion GetNewProductDetailBySearch
 
+        #region Get related products of a product for app
+        /// <summary>
+        /// To get the related products including image for app
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetRelatedProductsForApp(int countLimit = 0)
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataTable dt = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetRelatedProductsForApp]";
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                if (countLimit > 0) cmd.Parameters.Add("@CountLimit", SqlDbType.Int).Value = countLimit;
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+        }
+        #endregion
 
         #region GetAllProductIDandName
          public DataSet GetAllProductIDandName()
