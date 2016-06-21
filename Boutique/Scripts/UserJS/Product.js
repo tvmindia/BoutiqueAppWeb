@@ -355,7 +355,7 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-
+            debugger;
             var imageid = $(this).attr('imageid');
             var p = $(this).attr('pname');
 
@@ -548,6 +548,13 @@ function BindProductTextBoxes(thisobject) {
         var $catMulti = $(".ddlcategories").select2();
         $catMulti.val(catarray).trigger("change");
     }
+
+    //binding related products drop down
+    BindRelatedProductsOnDemand(productid);
+
+
+
+
     if (designerid != '') {
         var $desingnSingle = $(".ddlDesigners").select2();
         $desingnSingle.val(designerid).trigger("change");
@@ -1014,6 +1021,8 @@ function BindAsyncRelatedProducts() {
 }
 
 
+
+
 function BindDesignerDropDown(dd, Records, indx) {
     var cadena = "";
     var myflag = false;
@@ -1165,6 +1174,29 @@ function DeleteProduct(Product) {
 function DeleteProuductImage(Product) {
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/DeleteProudctImage");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+function BindRelatedProductsOnDemand(productid) {
+   
+    var Product = new Object();
+    Product.ProductID = productid;
+    var jsonResult = {};
+    jsonResult = GetAllRelatedProducts(Product);
+    if (jsonResult != undefined) {
+        var $RelatedprodMulti = $(".ddlrelateproducts").select2();
+        $catMulti.val(catarray).trigger("change");
+
+        return jsonResult;
+    }
+}
+
+function GetAllRelatedProducts(Product)
+{
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetAllRelatedProducts");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
