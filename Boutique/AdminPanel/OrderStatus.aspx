@@ -62,8 +62,11 @@
                                     <thead>
                                         <tr>
                                             <th>OrderNo</th>
-                                            <th>OrderDescription</th>                                         
+                                            <th>OrderDescription</th>   
+                                               <th>Name</th>
+                                            <th>Contact Number</th>                                 
                                             <th>Actions</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody id="OrderRows">
@@ -271,6 +274,8 @@
                                         <tr>
                                             <th>OrderNo</th>
                                             <th>OrderDescription</th>
+                                            <th>Name</th>
+                                            <th>Contact Number</th>  
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
