@@ -2,18 +2,7 @@
     parent.document.title = Pages.LoyaltySettings;
    
     LoadLoyaltySettings();
-    //Log table--------
-    
-    BindLoyaltyLogTable();
-    
-    $('#LoyaltyLogTable').DataTable({        
-        "aaSorting": [[8,'desc']],      //Sort with Date coloumn
-        "bPaginate": true,
-        "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
-        "fnPageChange": "next"
-    });
+   
 
     $('#txtMoneyToPointPercentage').blur(function () {             //Validation
         if (!$.isNumeric($('#txtMoneyToPointPercentage').val()) || ($('#txtMoneyToPointPercentage').val() < 0)) {
@@ -161,33 +150,7 @@ function InsertLoyaltySettings(Loyalty) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
-//------------Loyalty Log details table------------
-function BindLoyaltyLogTable() {
-    debugger;
-    var jsonResult = {};
-    var Loyalty = new Object();
-    jsonResult = GetLoyaltyLog(Loyalty);
-    if (jsonResult != undefined) {
-        FillLoyaltyLogTable(jsonResult);
-    }
-}
-function GetLoyaltyLog(Loyalty) {
-    debugger;
-    var ds = {};
-    var table = {};
-    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
-    ds = getJsonData(data, "../AdminPanel/LoyaltySettings.aspx/GetLoyaltyLog");
-    table = JSON.parse(ds.d);
-    return table;
-}
-function FillLoyaltyLogTable(Records) {
-    debugger;
-    $("tbody#rows tr").remove();            //Remove all existing rows for refreshing
-    $.each(Records, function (index, Records) {
-        var html = '<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td>' + Records.LoyaltyCardNo + '</td><td>' + Records.Mobile + '</td><td>' + (Records.AmountPaid != null ? Records.AmountPaid : "-") + '</td><td>' + (Records.DebitPoints != null ? Records.DebitPoints : "-") + '</td><td>' + (Records.CreditPoints != null ? Records.CreditPoints : "-") + '</td><td>' + Records.LoyaltyPoints + '</td><td>' + (Records.MoneyValuePercentage != null ? Records.MoneyValuePercentage : "-") + '</td><td>' + ConvertJsonToDate(Records.CreatedDate) + '</td><td>' + (Records.Remarks!=null?Records.Remarks:"-") + '</td></tr>';
-        $("#LoyaltyLogTable").append(html);
-    });
-}
+
 //---getting data as json-----//
 //function getJsonData(data, page) {
 //    var jsonResult = {};

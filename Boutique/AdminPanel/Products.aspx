@@ -273,7 +273,7 @@
 
          <div class="row-fluid" id="productDetailsDiv" runat="server">
 
-              <div class="box span12">
+              <div class="box span12" style="box-shadow:0 0 0 0!important">
                   <div class="span12">
                     <div class="box-header">
 						<h2 id="editLabel">New Products</h2>
@@ -281,7 +281,7 @@
 							
 						</div>
 					</div>
-					<div class="span6"  style="height:530px;" >
+					<div class="span6"  style="min-height:530px;" >
 						<div class="form-horizontal">
 							<%--<fieldset>--%>
 

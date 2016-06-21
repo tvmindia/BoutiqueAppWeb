@@ -387,20 +387,10 @@ $("document").ready(function (e) {
 
 
     $("#load_more_button").click(function (e) { //user clicks on button
+      
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
-        BindAllProductImages(20);
-
-
-
-        var $mars = $('.imageholder').masonry(
-           {
-               itemSelector: '.masonry-thumb',
-               isInitLayout: false
-           });
-        $mars.masonry('layout');
-
-        // $('.animation_image').hide();
+        BindAllProductImagesForEventLoad(20);//Bind Images Into Masonry container
         $(this).show();
 
     });
@@ -410,29 +400,13 @@ $("document").ready(function (e) {
     $("#load_more_buttontrends").click(function (e) { //user clicks on button
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
-        BindAllProductImages(20);
-        var $marstrends = $('.imageholderTrends').masonry(
-           {
-               itemSelector: '.masonry-thumb',
-               isInitLayout: false
-           });
-        $marstrends.masonry('layout');
-
-        //  $('.animation_image').hide();
+        BindTrendedProductImagesForEventLoad(20);
         $(this).show();
     });
     $("#load_more_buttonoutofstock").click(function (e) { //user clicks on button
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
-        BindAllProductImages(20);
-        var $marsoutofstock = $('.imageholderoutofstock').masonry(
-          {
-              itemSelector: '.masonry-thumb',
-              isInitLayout: false
-          });
-        $marsoutofstock.masonry('layout');
-
-        //$('.animation_image').hide();
+        BindOutStockProductImagesForEventLoad(20);
         $(this).show();
 
     });
@@ -795,7 +769,7 @@ function BindAllProductImages(Pagevalue) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllProductsImageDetailsunderBoutique(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+    $("#productimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
@@ -972,37 +946,6 @@ function ClearImage() {
 }
 
 
-
-//post File/blog to Server
-
-//function postBlobAjax(formData, page)
-//{
-//    //var request = new XMLHttpRequest();
-//    //request.open("POST", page);
-//    //request.send(formData);
-//    $.ajax({
-//        type: 'post',
-//        url: page,
-//        headers: { 'Cache-Control': 'no-cache' },
-//        async: false,
-//        data: formData,
-//        success: function (status) {
-//            if (status != 'error') {
-//                //var my_path = "MediaUploader/" + status;
-//                // $("#myUploadedImg").attr("src", my_path);
-//                alert("success");
-//            }
-//        },
-//        processData: false,
-//        contentType: false,
-//        error: function () {
-//            alert("Whoops something went wrong!");
-//        }
-//    });
-//}
-////post File/blog to Server
-
-
 function BindAsyncCategory() {
     var jsonResult = {};
     var Product = new Object();
@@ -1019,28 +962,6 @@ function BindAsyncRelatedProducts() {
         return jsonResult;
     }
 }
-
-
-
-
-function BindDesignerDropDown(dd, Records, indx) {
-    var cadena = "";
-    var myflag = false;
-    for (var i = 0; i < Records.length; i++) {
-        if (myflag == true) {
-            cadena += "<option class=catrows SELECTED value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
-            myflag = false;
-        }
-        else {
-            cadena += "<option class=catrows value='" + Records[i]["DesignerID"] + "'>" + Records[i]["Name"] + "</option>\n";
-        }
-        if (Records[i]["id"] == indx) {
-            myflag = true;
-        }
-    }
-    dd.append(cadena);
-}
-
 function BindAsyncDesigner() {
     var jsonResult = {};
     var Designers = new Object();
@@ -1182,12 +1103,17 @@ function DeleteProuductImage(Product) {
 function BindRelatedProductsOnDemand(productid) {
    
     var Product = new Object();
+    var relateproarry = [];
     Product.ProductID = productid;
     var jsonResult = {};
     jsonResult = GetAllRelatedProductsByProductID(Product);
     if (jsonResult != undefined) {
+        for (var i = 0; i < jsonResult.length; i++)
+        {
+            relateproarry.push(jsonResult[i].RelatedProductsID);
+        }
         var $RelatedprodMulti = $(".ddlrelateproducts").select2();
-        $catMulti.val(catarray).trigger("change");
+        $RelatedprodMulti.val(relateproarry).trigger("change");
 
         return jsonResult;
     }
@@ -1212,16 +1138,6 @@ function GetAllRelatedProductsByProductID(Product) {
 
 
 function AutoScrollToEdit() {
-
-    // var offset = $("#<%= productDetailsDiv.ClientID %>").offset();
-    // offset.left -= 20;
-    // offset.top -= 20;
-
-    //  $('html, body').animate({
-    //scrollTop: $(document).height() }, 1000);
-    //   scrollTop: $(document).height() }, 1500);
-    // scrollTop: offset.top,
-    // scrollLeft: offset.left
 
     $('html, body').animate({
         scrollTop: $("#IframeProjectSwitching").offset().top
@@ -1253,6 +1169,145 @@ function clearProductControls() {
     //$("#olpreview").find(".liclas").remove();//image list hide
     $("#Preview").find(".imgpreviewdiv").remove();
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Binding Product Images into Masonry Container on Load Images Button
+//Created By Thomson Varkey, 21-06-2016
+////
+////All Product Images
+///
+function BindAllProductImagesForEventLoad(Pagevalue) {
+
+    var imagedivholder = $('#productimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+    var $mars = $('.imageholder');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+            + '</div>');
+
+            elems = elems.add(html);
+        }
+        if (totalimages[i].Discount === null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
+            + '</div>');
+            elems = elems.add(html);
+
+        }
+    }
+    $mars.append(elems);
+    $mars.masonry('appended', elems);
+    return html;
+}
+////
+////Out Of Stock Images
+///
+function BindOutStockProductImagesForEventLoad(Pagevalue) {
+
+    var imagedivholder = $('#productimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllOutOfStockProductsImageDetailsunderBoutique(Product);
+    var $marsoutofstock = $('.imageholderoutofstock');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+            + '</div>');
+
+            elems = elems.add(html);
+        }
+        if (totalimages[i].Discount === null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
+            + '</div>');
+            elems = elems.add(html);
+
+        }
+    }
+    $marsoutofstock.append(elems);
+    $marsoutofstock.masonry('appended', elems);
+    return html;
+}
+////
+////Trend Images
+///
+function BindTrendedProductImagesForEventLoad(Pagevalue) {
+
+    var imagedivholder = $('#productimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllTrendingProductsImageunderBoutique(Product);
+    var $marstrends = $('.imageholderTrends');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+            + '</div>');
+
+            elems = elems.add(html);
+        }
+        if (totalimages[i].Discount === null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
+            + '</div>');
+            elems = elems.add(html);
+
+        }
+    }
+    $marstrends.append(elems);
+    $marstrends.masonry('appended', elems);
+    return html;
+}
+//End Binding Product Images into Masonry Container on Load Images Button
+//Created By Thomson Varkey,21-0-2016
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
