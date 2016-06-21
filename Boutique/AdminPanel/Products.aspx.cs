@@ -360,8 +360,9 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllProductIDandName
 
-        #region GetAllRelatedProducts
-        public static string GetAllRelatedProducts(Product productObj)
+        #region GetAllRelatedProductsByProductID
+         [System.Web.Services.WebMethod]
+        public static string GetAllRelatedProductsByProductID(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -395,7 +396,7 @@ namespace Boutique.AdminPanel
             }
             return jsSerializer.Serialize("");
         }
-        #endregion GetAllRelatedProducts
+        #endregion GetAllRelatedProductsByProductID
 
 
         #region GetAllRelatedProductIDandName

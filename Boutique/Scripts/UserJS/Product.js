@@ -1184,7 +1184,7 @@ function BindRelatedProductsOnDemand(productid) {
     var Product = new Object();
     Product.ProductID = productid;
     var jsonResult = {};
-    jsonResult = GetAllRelatedProducts(Product);
+    jsonResult = GetAllRelatedProductsByProductID(Product);
     if (jsonResult != undefined) {
         var $RelatedprodMulti = $(".ddlrelateproducts").select2();
         $catMulti.val(catarray).trigger("change");
@@ -1196,11 +1196,20 @@ function BindRelatedProductsOnDemand(productid) {
 function GetAllRelatedProducts(Product)
 {
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
-    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetAllRelatedProducts");
+    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
+function GetAllRelatedProductsByProductID(Product) {
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetAllRelatedProductsByProductID");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
 
 function AutoScrollToEdit() {
 
