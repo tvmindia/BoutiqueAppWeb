@@ -14,6 +14,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -509,7 +510,16 @@ namespace Boutique.AdminPanel
         public static  void SendMail(MailSending mailObj)
         {
             mailObj.msg = mailObj.msg;
-            mailObj.SendEmail();
+
+
+            new Thread(delegate()
+            {
+
+                mailObj.SendEmail();
+            }).Start(); 
+
+
+           
             //mailObj.FormatAndSendEmail();
         }
 
