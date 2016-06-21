@@ -872,7 +872,7 @@ namespace Boutique.DAL
 
         #region CategoryMethods
         
-            #region GetAllCategories
+        #region GetAllCategories
             public DataSet GetAllCategories()//for dropdownbind
             {
                 if(BoutiqueID == "")
@@ -962,12 +962,16 @@ namespace Boutique.DAL
 #endregion GetAllCategoryIDAndName
 
         #region GetAllRelatedProductIDAndName
-         public DataSet GetAllRelatedProductIDAndName()
+         public DataSet GetAllRelatedProducts()
          {
 
              if(BoutiqueID=="")
              {
                  throw new Exception("BoutiqueID is Empty!!");
+             }
+             if(ProductID=="")
+             {
+                 throw new Exception("ProductID is Empty!!");
              }
              dbConnection dcon = null;
              SqlCommand cmd = null;
@@ -981,8 +985,9 @@ namespace Boutique.DAL
                      cmd = new SqlCommand();
                      cmd.Connection = dcon.SQLCon;
                      cmd.CommandType = CommandType.StoredProcedure;
-                     cmd.CommandText = "";
+                     cmd.CommandText = "[GetAllRelatedProductsIDandNameByProductID]";
                      cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                     cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                      sda = new SqlDataAdapter();
                      sda.SelectCommand = cmd;
                      ds = new DataSet();
@@ -1100,7 +1105,7 @@ namespace Boutique.DAL
             }
             #endregion GetCategory
 
-            #region InsertCategory
+        #region InsertCategory
             public Int16 InsertCategory()
             {
                 if (BoutiqueID == "")
@@ -1259,7 +1264,7 @@ namespace Boutique.DAL
 
         #endregion CategoryMethods
 
-           #region ProductImageMethods
+        #region ProductImageMethods
             #region InsertProductImage
             public Int16 InsertProductImage()
             {
@@ -1313,7 +1318,7 @@ namespace Boutique.DAL
 
             #endregion ProductImageMethods
 
-            #region GetAllProductImages
+        #region GetAllProductImages
             public DataSet GetAllProductImages()
             {
 
@@ -1366,7 +1371,7 @@ namespace Boutique.DAL
 
         #endregion GetAllProductImages
 
-            #region GetAllProductMainImagesDetails
+        #region GetAllProductMainImagesDetails
             public DataSet GetAllProductMainImagesDetails()
             {
 
@@ -1413,7 +1418,7 @@ namespace Boutique.DAL
             }
             #endregion GetAllProductMainImagesDetails
 
-            #region GetAllOutOfStockProductMainImagesDetails
+        #region GetAllOutOfStockProductMainImagesDetails
             public DataSet GetAllOutOfStockProductMainImagesDetails()
             {
 
@@ -1460,7 +1465,7 @@ namespace Boutique.DAL
             }
             #endregion GetAllProductMainImagesDetails
 
-            #region GetAllTrendingProductsMainImagesDetails
+        #region GetAllTrendingProductsMainImagesDetails
              public DataSet GetAllTrendingProductsMainImagesDetails()
              {
                  if (BoutiqueID == "")
@@ -1504,7 +1509,7 @@ namespace Boutique.DAL
              }
             #endregion GetAllTrendingProductsMainImagesDetails
 
-            #region Get Product Images for mobile
+        #region Get Product Images for mobile
             /// <summary>
         /// Product images with varbinary files
         /// </summary>
@@ -1555,7 +1560,7 @@ namespace Boutique.DAL
             #endregion
 
 
-            #region GetProductImage
+        #region GetProductImage
 
          public byte[] GetProductImage()
          {
@@ -1601,7 +1606,7 @@ namespace Boutique.DAL
          }
         #endregion GetProductImage
 
-            #region GraphData
+        #region GraphData
          public DataSet GetProductDetails()
          {
 
@@ -1644,7 +1649,7 @@ namespace Boutique.DAL
         #endregion GraphData
 
 
-            #region DeleteProudctImage
+        #region DeleteProudctImage
 
          public Int16 DeleteProudctImage()
          {
@@ -1692,7 +1697,7 @@ namespace Boutique.DAL
          }
          #endregion DeleteProudctImage
 
-           #region GetAllProductReviews
+        #region GetAllProductReviews
          public DataSet GetAllProductsReviews()
          {
              dbConnection dcon = null;

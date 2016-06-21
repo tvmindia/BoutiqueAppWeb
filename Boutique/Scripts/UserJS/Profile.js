@@ -169,6 +169,8 @@
                         if (result == "1" || result == "2"||result=="3") {
                             $('#rowfluidDiv').show();
                             $('.alert-success').show();
+                            $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
                             AutoScrollToAlertBox();
                             refreshAdminLayout();
                            
@@ -176,6 +178,7 @@
                         if (result != "1" && result!="2" && result!="3") {
                             $('#rowfluidDiv').show();
                             $('.alert-error').show();
+                            $('.alert-error strong').text(Messages.InsertionFailure);
                         }
             }
         }
@@ -215,11 +218,16 @@ function DeleteItem(e,p)
             BindAsyncOwnerTable()//Gridbind
             $('#rowfluidDiv').show();
             $('.alert-success').show();
+            $('.alert-success strong').text(Messages.DeletionSuccessFull);
+
+
         }
         if (jsonResult != "1") {
             BindAsyncOwnerTable()//Gridbind
             $('#rowfluidDiv').show();
             $('.alert-error').show();
+            $('.alert-error strong').text(Messages.DeletionFailure);
+
         }
     }
 }
@@ -600,11 +608,13 @@ function AddOwner()
         //  AutoScrollToAlertBox();
         $('#rowfluidDiv').show();
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.InsertionSuccessFull);
     }
     if (result != "1") {
         //  AutoScrollToAlertBox();
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.InsertionFailure);
     }
 
     BindAsyncOwnerTable();
