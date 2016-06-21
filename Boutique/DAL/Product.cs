@@ -819,7 +819,7 @@ namespace Boutique.DAL
 
             #region Get products under a category
         /// <summary>
-        /// To get all the products under a category
+        /// To get the products under a category
         /// </summary>
         /// <returns></returns>
             public DataTable GetProductsByCategory(string userID,int countLimit=0)
@@ -852,7 +852,6 @@ namespace Boutique.DAL
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);
-                    if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
                     return dt;
                 }
                 catch (Exception ex)
@@ -872,7 +871,7 @@ namespace Boutique.DAL
 
         #region CategoryMethods
         
-            #region GetAllCategories
+        #region GetAllCategories
             public DataSet GetAllCategories()//for dropdownbind
             {
                 if(BoutiqueID == "")
@@ -962,12 +961,16 @@ namespace Boutique.DAL
 #endregion GetAllCategoryIDAndName
 
         #region GetAllRelatedProductIDAndName
-         public DataSet GetAllRelatedProductIDAndName()
+         public DataSet GetAllRelatedProducts()
          {
 
              if(BoutiqueID=="")
              {
                  throw new Exception("BoutiqueID is Empty!!");
+             }
+             if(ProductID=="")
+             {
+                 throw new Exception("ProductID is Empty!!");
              }
              dbConnection dcon = null;
              SqlCommand cmd = null;
@@ -981,8 +984,9 @@ namespace Boutique.DAL
                      cmd = new SqlCommand();
                      cmd.Connection = dcon.SQLCon;
                      cmd.CommandType = CommandType.StoredProcedure;
-                     cmd.CommandText = "";
+                     cmd.CommandText = "[GetAllRelatedProductsIDandNameByProductID]";
                      cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                     cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                      sda = new SqlDataAdapter();
                      sda.SelectCommand = cmd;
                      ds = new DataSet();
@@ -1100,7 +1104,7 @@ namespace Boutique.DAL
             }
             #endregion GetCategory
 
-            #region InsertCategory
+        #region InsertCategory
             public Int16 InsertCategory()
             {
                 if (BoutiqueID == "")
@@ -1259,7 +1263,7 @@ namespace Boutique.DAL
 
         #endregion CategoryMethods
 
-           #region ProductImageMethods
+        #region ProductImageMethods
             #region InsertProductImage
             public Int16 InsertProductImage()
             {
@@ -1313,7 +1317,7 @@ namespace Boutique.DAL
 
             #endregion ProductImageMethods
 
-            #region GetAllProductImages
+        #region GetAllProductImages
             public DataSet GetAllProductImages()
             {
 
@@ -1366,7 +1370,7 @@ namespace Boutique.DAL
 
         #endregion GetAllProductImages
 
-            #region GetAllProductMainImagesDetails
+        #region GetAllProductMainImagesDetails
             public DataSet GetAllProductMainImagesDetails()
             {
 
@@ -1413,7 +1417,7 @@ namespace Boutique.DAL
             }
             #endregion GetAllProductMainImagesDetails
 
-            #region GetAllOutOfStockProductMainImagesDetails
+        #region GetAllOutOfStockProductMainImagesDetails
             public DataSet GetAllOutOfStockProductMainImagesDetails()
             {
 
@@ -1460,7 +1464,7 @@ namespace Boutique.DAL
             }
             #endregion GetAllProductMainImagesDetails
 
-            #region GetAllTrendingProductsMainImagesDetails
+        #region GetAllTrendingProductsMainImagesDetails
              public DataSet GetAllTrendingProductsMainImagesDetails()
              {
                  if (BoutiqueID == "")
@@ -1504,7 +1508,7 @@ namespace Boutique.DAL
              }
             #endregion GetAllTrendingProductsMainImagesDetails
 
-            #region Get Product Images for mobile
+        #region Get Product Images for mobile
             /// <summary>
         /// Product images with varbinary files
         /// </summary>
@@ -1555,7 +1559,7 @@ namespace Boutique.DAL
             #endregion
 
 
-            #region GetProductImage
+        #region GetProductImage
 
          public byte[] GetProductImage()
          {
@@ -1601,7 +1605,7 @@ namespace Boutique.DAL
          }
         #endregion GetProductImage
 
-            #region GraphData
+        #region GraphData
          public DataSet GetProductDetails()
          {
 
@@ -1644,7 +1648,7 @@ namespace Boutique.DAL
         #endregion GraphData
 
 
-            #region DeleteProudctImage
+        #region DeleteProudctImage
 
          public Int16 DeleteProudctImage()
          {
@@ -1692,7 +1696,7 @@ namespace Boutique.DAL
          }
          #endregion DeleteProudctImage
 
-           #region GetAllProductReviews
+        #region GetAllProductReviews
          public DataSet GetAllProductsReviews()
          {
              dbConnection dcon = null;
@@ -2201,6 +2205,55 @@ namespace Boutique.DAL
         }
         #endregion GetNewProductDetailBySearch
 
+        #region Get related products of a product for app
+        /// <summary>
+        /// To get the related products including image for app
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetRelatedProductsForApp(int countLimit = 0)
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataTable dt = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetRelatedProductsForApp]";
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                if (countLimit > 0) cmd.Parameters.Add("@CountLimit", SqlDbType.Int).Value = countLimit;
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+        }
+        #endregion
 
         #region GetAllProductIDandName
          public DataSet GetAllProductIDandName()

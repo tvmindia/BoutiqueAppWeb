@@ -169,6 +169,8 @@
                         if (result == "1" || result == "2"||result=="3") {
                             $('#rowfluidDiv').show();
                             $('.alert-success').show();
+                            $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
                             AutoScrollToAlertBox();
                             refreshAdminLayout();
                            
@@ -176,6 +178,7 @@
                         if (result != "1" && result!="2" && result!="3") {
                             $('#rowfluidDiv').show();
                             $('.alert-error').show();
+                            $('.alert-error strong').text(Messages.InsertionFailure);
                         }
             }
         }
@@ -215,11 +218,16 @@ function DeleteItem(e,p)
             BindAsyncOwnerTable()//Gridbind
             $('#rowfluidDiv').show();
             $('.alert-success').show();
+            $('.alert-success strong').text(Messages.DeletionSuccessFull);
+
+
         }
         if (jsonResult != "1") {
             BindAsyncOwnerTable()//Gridbind
             $('#rowfluidDiv').show();
             $('.alert-error').show();
+            $('.alert-error strong').text(Messages.DeletionFailure);
+
         }
     }
 }
@@ -536,15 +544,7 @@ function OwnerValidate() {
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
-            j = 1;
-
-            var p = document.createElement('p');
-            p.innerHTML = "* Some Fields Are Empty ! ";
-            p.style.color = "Red";
-            p.style.fontSize = "14px";
-            if (i == 0) {
-                divs.appendChild(p);
-            }
+            j = 1;         
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -560,6 +560,11 @@ function OwnerValidate() {
 
     }
     if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
         return false;
     }
     if (j == '0') {
@@ -603,11 +608,13 @@ function AddOwner()
         //  AutoScrollToAlertBox();
         $('#rowfluidDiv').show();
         $('.alert-success').show();
+        $('.alert-success strong').text(Messages.InsertionSuccessFull);
     }
     if (result != "1") {
         //  AutoScrollToAlertBox();
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.InsertionFailure);
     }
 
     BindAsyncOwnerTable();

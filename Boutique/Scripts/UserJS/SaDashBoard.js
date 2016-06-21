@@ -401,13 +401,6 @@ function Validation() {
         {
             j = 1;
            
-            var p = document.createElement('p');
-            p.innerHTML = "* Some Fields Are Empty ! ";
-            p.style.color = "Red";
-            p.style.fontSize = "14px";
-            if (i == 0) {
-                divs.appendChild(p);
-            }
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -425,6 +418,12 @@ function Validation() {
     }
     if (j == '1')
     {
+
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";       
+        divs.appendChild(p);     
         return false;
     }
     if(j=='0')
@@ -511,15 +510,6 @@ function AdminValidation()
         if (container[i].Value == "") {
             j = 1;
 
-            var p = document.createElement('p');
-            p.innerHTML = "* Some Fields Are Empty ! ";
-            p.style.color = "Red";
-            p.style.fontSize = "14px";
-            if (i == 0)
-            {
-                divs.appendChild(p);
-            }
-           
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -550,6 +540,11 @@ function AdminValidation()
         Errorbox.style.paddingLeft = "30px";
     }
     if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
         return false;
     }
     if (j == '0') {
