@@ -15,8 +15,3 @@
 
 
 });//end of document.ready
-
-function refreshAdminLayout()
-{
-    window.location.reload();
-}

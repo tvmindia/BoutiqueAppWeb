@@ -1,6 +1,6 @@
 ﻿$("document").ready(function (e) {
-
-    parent.document.title = Pages.Notifications;  
+    
+      parent.document.title = Pages.Notifications;  
 
  
     var LoginUserRole = getRole();
@@ -28,6 +28,24 @@
         placeholder: "Choose related category",        
         data: BindCategoryDropdown()//category dropdown binds only with id and text[key:value] mandatory
     });
+    $(".template").select2({
+        allowClear: true,
+        placeholder: "Choose template",
+        data: [{ id: 0, text: 'Holiday/Season Offers' }, { id: 1, text: 'Birthday Special' }]
+    });
+    $(".audience").select2({
+        allowClear: true,
+        placeholder: "Choose audience",
+        data: [{ id: 0, text: 'All' }]
+    });
+    $(".Newsletterproducts").select2({
+        placeholder: "Choose products",
+        allowClear: true,
+        data: BindProductDropdown()
+    });
+
+    
+
     //Edit button--------
     $(".notificationedit").live(
     {
@@ -137,6 +155,19 @@
         $('#ErrorBox,#ErrorBox1').hide(1000);
     });
 
+    var $eventSelect = $(".template");
+    $eventSelect.on("change", function (e) {
+        $("#imageTemplate").find(".templateThump").remove();
+        var span = document.createElement('span');
+        span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
+                         '" title="', '"/>'].join('');
+        document.getElementById('imageTemplate').insertBefore(span, null);
+    });
+
+    var $eventPdtsSelect = $(".Newsletterproducts");
+    $eventPdtsSelect.on("change", function (e) {
+        BindAllProductImages(0);//binds masanory gallery with product under current boutique
+    });
     //end styling client validation
 });
 
@@ -187,7 +218,6 @@ function DeleteItem(e,p)
 }
 
 function BindNotificationsTable() {
-    debugger;
     var jsonResult = {};
     var Notify = new Object();
     jsonResult = GetAllNotifications(Notify);
@@ -387,14 +417,53 @@ function  AddNotification()
         scrollTop: offset.top,
         scrollLeft: offset.left
     });
+}
+
+function BindAllProductImages(Pagevalue) {
+    debugger;
+    var imagedivholder = $('#NewsLetterimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
     }
+    else {
+        Product.Paginationvalue = "";
+    }
+
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+    //$("#productimagehold").find(".masonry-thumb").remove();
+
+    for (var i = 0; i < totalimages.length; i++) {
+
+        if (totalimages[i].Discount != null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+            + '</div>');
+
+            imagedivholder.append(html);
+        }
+       
+    }
+}
+function GetAllProductsImageDetailsunderBoutique(Product) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductMainImages");
+    table = JSON.parse(ds.d);
+    return table;
+}
 /////////////////////////////////////////////////////////////Basic Validation/////////////////////////////////////////////////////////////////////
 
 //Basic Validation For New Notification
 //CreatedBy Thomson
 function NotificationValidation()
 {
-    debugger;
     $('#Displaydiv').remove();
     var Title = $('#txtTitle');
     var Descrip = $('#txtDescription');
@@ -418,13 +487,7 @@ function NotificationValidation()
         if (container[i].Value == "") {
             j = 1;
 
-            var p = document.createElement('p');
-            p.innerHTML = "* Some Fields Are Empty ! ";
-            p.style.color = "Red";
-            p.style.fontSize = "14px";
-            if (i == 0) {
-                divs.appendChild(p);
-            }
+           
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -440,6 +503,13 @@ function NotificationValidation()
 
     }
     if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+       
+            divs.appendChild(p);
+        
         return false;
     }
     if (j == '0') {

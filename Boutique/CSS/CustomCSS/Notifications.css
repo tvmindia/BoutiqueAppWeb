@@ -35,3 +35,34 @@ label.control-label {
     cursor: default!important;
 
 }
+.templateThump{
+    width:300px;
+    height:250px;
+}
+
+
+
+/*tempore*/
+.masonry-thumb
+{
+     border:2px solid pink;
+     height: 237px;
+     width:119px;
+     padding: 5px 5px 5px 5px;
+     position:relative;
+     margin:10px 0px 1px 8px;/*top,right,bottom,left*/
+     cursor:pointer;
+     overflow: hidden;
+
+}
+img.sticker {
+            height:103px!important;
+            width:50px!important;
+            position:relative!important;
+            bottom:259px!important;
+            right:7px!important;
+        }
+
+
+
+/*tempore*/
