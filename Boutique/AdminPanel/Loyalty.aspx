@@ -199,7 +199,7 @@
 
                                                             <tr>
                                                                 <td>Currency</td>
-                                                                <td>
+                                                                <td class="NumberRight">
                                                                     <select class="Currency">
                                                                         <option></option>
                                                                     </select></td>
