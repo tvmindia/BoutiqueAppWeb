@@ -4,7 +4,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
   
     <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
-     <link href="../CSS/Common.css" rel="stylesheet" /> 
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
