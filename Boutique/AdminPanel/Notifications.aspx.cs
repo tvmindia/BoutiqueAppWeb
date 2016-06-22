@@ -1,8 +1,11 @@
 ﻿using Boutique.DAL;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -258,6 +261,69 @@ namespace Boutique.AdminPanel
         }
         #endregion
 
+        protected void SendEmail(object sender, EventArgs e)
+        {
+            string body = this.PopulateBody("" + "Anija",
+                "" + "Boutique",
+                "https://www.google.co.in/" +
+                "Your Todays Deal.....",
+                "" + "Offers",
+                "https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
+            this.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
+        }
+
+        private string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
+        {
+            string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+            string Url = "";
+
+
+            Url = "EmailTemplate.htm";
+
+            int imageCount = Convert.ToInt32(8);
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/" + Url)))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{UserName}", userName);
+            body = body.Replace("{Title}", title);
+            body = body.Replace("{Url}", url);
+            body = body.Replace("{Description}", description);
+            body = body.Replace("{Mainimage}", MainimageUrl);
+            for (int i = 1; i <= imageCount; i++)
+            {
+                body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+            }
+            return body;
+        }
+
+        private void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
+        {
+            using (MailMessage mailMessage = new MailMessage())
+            {
+                mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["UserName"]);
+                mailMessage.Subject = subject;
+                mailMessage.Body = body;
+                mailMessage.IsBodyHtml = true;
+                string[] multiEmail = recepientEmail.Split(';');
+                foreach (string multipleMails in multiEmail)
+                {
+                    mailMessage.To.Add(new MailAddress(multipleMails));
+                }
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = ConfigurationManager.AppSettings["Host"];
+                smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
+                System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
+                NetworkCred.UserName = ConfigurationManager.AppSettings["UserName"];
+                NetworkCred.Password = ConfigurationManager.AppSettings["Password"];
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+                smtp.Send(mailMessage);
+            }
+        }
     }
 
 }
