@@ -206,14 +206,16 @@ function CustomAlert(txt) {
     mObj.style.height = d.documentElement.scrollHeight + "px";
 
     alertObj = mObj.appendChild(d.createElement("div"));
-    alertObj.id = "alertBox";
+    alertObj.id = "alert";
     if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
     alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
     alertObj.style.visiblity = "visible";
 
-    h1 = alertObj.appendChild(d.createElement("h1"));
-    h1.appendChild(d.createTextNode("Delete"));
-
+    
+    var img1 = document.createElement('img');
+    img1.setAttribute("src", "../img/Default/Warn.png");
+    img1.setAttribute("class", "alertImage");
+    alertObj.appendChild(img1);
     msg = alertObj.appendChild(d.createElement("p"));
     //msg.appendChild(d.createTextNode(txt));
     msg.innerHTML = txt;
