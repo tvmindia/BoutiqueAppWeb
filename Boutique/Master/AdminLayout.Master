@@ -76,6 +76,7 @@ width:25px;
 height:25px;
 }
 .scrollToTop{
+    cursor:pointer;
 	width:80px; 
 	height:80px;
 	padding:10px; 
@@ -89,6 +90,7 @@ height:25px;
 	right:3px;
 	display:none;
     z-index:250;
+    border:0!important;
 	background: url('../img/Default/Scrollup.png') no-repeat;
 }
 .scrollToTop:hover{
@@ -466,7 +468,7 @@ height:25px;
 	</div>
 	
 	<div class="clearfix"></div>
-	 <a href="#" class="scrollToTop"></a>
+	 <a class="scrollToTop"></a>
 	<footer>
 
 		<p>

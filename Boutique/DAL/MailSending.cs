@@ -9,12 +9,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
-
 using System.Web.Script.Serialization;
+
 
 #endregion Included Namespaces
 
@@ -34,7 +35,23 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string MailSubject
+        {
+            get;
+            set;
+        }
 
+        public string emailBody
+        {
+            get;
+            set;
+        }
+        public string recepientEmail
+        {
+            get;
+            set;
+        }
+       
         #endregion Global Variables
 
         #region Public Variables
@@ -59,12 +76,18 @@ namespace Boutique.DAL
             MailMessage Msg = new MailMessage();
 
             Msg.From = new MailAddress(EmailFromAddress);
+            string[] multiEmail = recepientEmail.Split(';');
+            foreach (string multipleMails in multiEmail)
+            {
+                //mailMessage.To.Add(new MailAddress(multipleMails));
+                Msg.To.Add(multipleMails);
+            }
+                
+          
 
-            Msg.To.Add(EmailID);
-
-            string message = msg;
-            Msg.Subject = Subject;
-            Msg.Body = message;
+            //string message = msg;
+            Msg.Subject = MailSubject;
+            Msg.Body = emailBody;
             Msg.IsBodyHtml = true;
 
             // your remote SMTP server IP.
@@ -100,7 +123,60 @@ namespace Boutique.DAL
 
         #endregion Format And Send Email
 
+        public void PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
+        {
+            string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+            string Url = "";
 
+            Url = "BoutiqueTemplates/EmailTemplate.htm";
+
+            int imageCount = Convert.ToInt32(8);
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+            {
+                body = reader.ReadToEnd();
+            }
+            //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
+            //body = fileName;
+            body = body.Replace("{UserName}", userName);
+            body = body.Replace("{Title}", title);
+            body = body.Replace("{Url}", url);
+            body = body.Replace("{Description}", description);
+            body = body.Replace("{Mainimage}", MainimageUrl);
+            for (int i = 1; i <= imageCount; i++)
+            {
+                body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+            }
+            emailBody = body;
+            SendEmail();
+        }
+
+        public void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
+        {
+            using (MailMessage mailMessage = new MailMessage())
+            {
+                mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["UserName"]);
+                mailMessage.Subject = subject;
+                mailMessage.Body = body;
+                mailMessage.IsBodyHtml = true;
+                string[] multiEmail = recepientEmail.Split(';');
+                foreach (string multipleMails in multiEmail)
+                {
+                    mailMessage.To.Add(new MailAddress(multipleMails));
+                }
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = ConfigurationManager.AppSettings["Host"];
+                smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
+                System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
+                NetworkCred.UserName = ConfigurationManager.AppSettings["UserName"];
+                NetworkCred.Password = ConfigurationManager.AppSettings["Password"];
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+                smtp.Send(mailMessage);
+            }
+        }
         #endregion Methods
     }
 }

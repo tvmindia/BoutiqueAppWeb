@@ -232,11 +232,8 @@
                                    
                                         </div>
                             
-                                       <div class="control-group">
-                                     <div class="controls">
-                                     <output id="imageTemplate" class="TemplatelistClass"></output>
-                                    </div>
-                            </div>
+                                   <div class="templatePreviewholder" style="width:100%;" id="templatePreviewImagehold">
+                                       </div>
                             
                         
                         </div>
@@ -253,7 +250,8 @@
                                     </div>
                                 
                                <footer class="InnerFooter">
-                            <a class="btn btn-primary submitDetails" runat="server" onserverclick="SendEmail" href="#">Send</a>
+                            <a class="btn btn-primary submitDetails" runat="server" href="#">Send</a>
+                                    <a class="btn btn-primary templatePreview" runat="server" href="#">Template Preview</a>
                          </footer>
                                      
                                  

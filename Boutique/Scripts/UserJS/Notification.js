@@ -31,7 +31,7 @@
     $(".template").select2({
         allowClear: true,
         placeholder: "Choose template",
-        data: [{ id: 0, text: 'Holiday/Season Offers' }, { id: 1, text: 'Birthday Special' }]
+        data: [{ id: 0, text: 'Holiday/Season Offers' }]
     });
     $(".audience").select2({
         allowClear: true,
@@ -125,6 +125,16 @@
             return false;
         }        
     })
+
+    //Newsletter checkbox
+    $(".checkDes").live(
+        {
+            click:function(e)
+            {
+                debugger;
+                MainImageClick(this);
+            }
+        })
     //Cancel button-----------
     $(".Cancel").live({
         click: function (e) {// Clear controls
@@ -191,6 +201,15 @@
     
 
     //end styling client validation
+
+    //mail sending
+    $(".submitDetails").click(function () {
+        debugger;
+        var MailSending = new Object();
+        MailSending.recepientEmail = "anija.g@thrithvam.me";
+        MailSending.MailSubject = "TiqueInn Deal";
+        SendNotificationMail(MailSending);
+    });
 });
 
 //------------Notification details table------------
@@ -257,6 +276,15 @@ function GetAllNotifications(Notify) {
     return table;
 }
 
+function SendNotificationMail(MailSending) {
+    debugger;
+    var ds = {};
+    var table = {};
+    var data = "{'mailObj':" + JSON.stringify(MailSending) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/SendEmail");
+    table = JSON.parse(ds.d);
+    return table;
+}
 function FillNotificationTable(Records) {
 
     var checkrole = $('#hdfRole').val();
@@ -469,12 +497,50 @@ function BindAllProductImages(productId) {
             var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID +  '>'
             + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
             + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            +'<input id="checkDes'+i+'" class="checkDes" type="checkbox">' 
             + '</a>' + '</div>');
 
             imagedivholder.append(html);
         
        
     }
+}
+
+function MainImageClick(checkedImage)
+{
+    debugger;
+    var Notification = new Object();
+    var totalimages = {};
+    totalimages = AddSelectedImageTotemplate(Notification);    
+    var imagedivholder = $('#productimagehold');
+    var $mars = $('.imageholder');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
+            + '</div>');
+
+            elems = elems.add(html);
+        }
+      
+    }
+    $mars.append(elems);
+    $mars.masonry('appended', elems);
+    return html;
+}
+
+function AddSelectedImageTotemplate(Notification) {
+    debugger;
+    var ds = {};
+    var table = {};
+    var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/AddSelectedImageToHtmlTemplate");
+    table = JSON.parse(ds.d);
+    return table;
 }
 
 function GetAllProductsImageDetailsForNewsLetter(Product) {
