@@ -76,15 +76,19 @@
         table = JSON.parse(ds.d);
         return table;
     }
-
-    $("select").val("en-IN").trigger("change");  //set india as default selected option
+    debugger;
+    $("select").val("en-IN,₹").trigger("change");  //set india as default selected option
   
-    //$('.Currency').select2()
-    //    .on("change", function (e) {
-    //        debugger;
+    $('.Currency').select2()
+        .on("change", function (e) {
+            debugger;
             
-
-    //    })
+            var amount = $("#txtcurrentPurchase").val();
+            var symbol = $(".Currency").val().split(',')[1];
+            var currencyType = $(".Currency").val().split(',')[0];
+            $("#netAmount").text((amount).toLocaleString(currencyType));// + " " + symbol);
+           
+        });
     function GetCurrencySymbolByCode(Loyalty) {
         var jsonResult = {};
       
@@ -221,19 +225,9 @@
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase - redeemablePoints;
                 var Points = totalPoints - redeemablePoints;
-                var currencyType = $(".Currency").val();
 
-                var Loyalty = new Object();
-                Loyalty.CurrencyCode = $(".Currency").val();
-                jsonResult = GetCurrencySymbolByCode(Loyalty);
-                var symbol = "";
-
-
-                $.each(jsonResult, function (index, jsonResult) {
-                   
-                    symbol = jsonResult.Symbol;
-                });
-                //$("#lblSymbol").text(symbol);
+                var currencyType = $(".Currency").val().split(',')[0];
+                var symbol = $(".Currency").val().split(',')[1];
 
                 $("#netAmount").text((Amount).toLocaleString(currencyType) +" "+ symbol);
                 $("#netPoints").text(Points);
@@ -247,17 +241,9 @@
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase;
                 var Points = totalPoints;
-                var currencyType = $(".Currency").val();
 
-                var Loyalty = new Object();
-                Loyalty.CurrencyCode = $(".Currency").val();
-                jsonResult = GetCurrencySymbolByCode(Loyalty);
-
-                var symbol = "";
-                $.each(jsonResult, function (index, jsonResult) {
-                    symbol = jsonResult.Symbol;
-
-                });
+                var currencyType = $(".Currency").val().split(',')[0];
+                var symbol = $(".Currency").val().split(',')[1];
 
                 $("#netAmount").text((Amount).toLocaleString(currencyType) + " " + symbol);
                 $("#netPoints").text(Points);
