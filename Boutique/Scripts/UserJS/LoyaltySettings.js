@@ -103,6 +103,39 @@
             });
         }
     })
+
+//------------Set To Default------------  
+
+    $(".SetToDefault").live(
+    {
+        click: function (e) {
+            
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+      
+            var Loyalty = new Object();
+            result = SetLoyaltySettingsToDefault(Loyalty);
+
+            if (result == "1")
+            {
+                LoadLoyaltySettings();
+            }
+
+        }
+    })
+
+    function SetLoyaltySettingsToDefault(Loyalty) {
+        var data = "{'loyalObj':" + JSON.stringify(Loyalty) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/LoyaltySettings.aspx/SetLoyaltySettingsToDefault");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+
+//--------- END :Set To Default------------  
+
+
     //Cancel button-----------
     $(".Cancel").live({
         click: function (e) {

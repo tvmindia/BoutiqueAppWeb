@@ -14,6 +14,19 @@
 	  background-clip: padding-box;
 }
 
+#alert
+{
+position:relative;
+	width:400px;
+	min-height:200px;
+	margin-top:50px;
+	border:1px solid #666;
+	background-color:#fff;  
+	background-repeat:no-repeat;
+	background-position:20px 30px;
+     border-bottom-right-radius:80%;
+}
+
 #alertBox {
 	position:relative;
 	width:400px;
@@ -24,6 +37,11 @@
 	background-repeat:no-repeat;
 	background-position:20px 30px;
      border-bottom-right-radius:80%;
+  
+}
+#modalContainer > #alert {
+	position:fixed;
+    border-radius:5px;
   
 }
 
@@ -43,18 +61,80 @@
     
 }*/
 
-#alertBox p {
-	font:bold 14px;
+#alert p
+{
+    font:bold 14px!important;
+    font-family: 'Open Sans', sans-serif!important;
+    color:black!important;
+	height:40px!important;
+	padding-left:65px!important;
+	margin-left:5px!important;
+    padding-top:10px!important;
+}
+#alert .alertImage
+{
+    padding-top:20px;
+    margin-left: 165px;
+    width:50px !important;
+    height:50px !important;
+}
+
+    
+#alert .noButton {
+	/*display:block;*/
+	position:relative;
+	/*margin:5px auto;*/
+	border:5px solid white;
+    padding:4px 7px 2px 4px;
+	width:100px;
+    height:20px;
+	font:0.9em verdana,arial;
+	text-transform:uppercase;
+	text-align:center;
+	color:#FFF;
+	background-color:#2d89ef;
+    border-color: #2d89ef;
+	border-radius: 2px;
+	text-decoration:none;
+    float:right;
+    bottom:3px;
+    right:147px;
     font-family: 'Open Sans', sans-serif;
-    color:black;
-	height:40px;
-	padding-left:145px;
-	margin-left:5px;
-    padding-top:10px;
+}
+
+#alert .yesButton {
+	/*display:block;*/
+	position:relative;
+	/*margin:5px auto;*/
+	border:5px solid white;
+    padding:4px 7px 2px 4px;
+	width:100px;
+    height:20px;
+	font:0.7em verdana,arial;
+	text-transform:uppercase;
+	text-align:center;
+	color:#FFF;
+	background-color:#ff8566;
+	border-radius: 2px;
+	text-decoration:none;
+    float:right;
+    bottom:3px;
+    right:90px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#alertBox p {
+	font:bold 14px!important;
+    font-family: 'Open Sans', sans-serif!important;
+    color:black!important;
+	height:40px!important;
+	padding-left:145px!important;
+	margin-left:5px!important;
+    padding-top:10px!important;
 }
 #alertBox .alertImage
 {
-     padding-top:20px;
+    padding-top:20px;
     margin-left: 165px;
     width:50px !important;
     height:50px !important;
@@ -110,12 +190,6 @@
 	font:0.7em verdana,arial;
 }
 
-/*h1,h2 {
-	margin:0;
-	padding:4px;
-	font:bold 1.5em verdana;
-	border-bottom:1px solid #000;
-}*/
 
 code {
 	font-size:1.2em;

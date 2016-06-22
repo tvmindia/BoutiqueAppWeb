@@ -253,7 +253,7 @@
                                     </div>
                                 
                                <footer class="InnerFooter">
-                            <a class="btn btn-primary submitDetails" onclick="" href="#">Send</a>
+                            <a class="btn btn-primary submitDetails" runat="server" onserverclick="SendEmail" href="#">Send</a>
                          </footer>
                                      
                                  

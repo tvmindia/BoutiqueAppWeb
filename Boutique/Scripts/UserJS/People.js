@@ -1,21 +1,17 @@
-﻿$("document").ready(function (e) {
+﻿
+//document.ready
+$("document").ready(function (e) {
 
     parent.document.title = Pages.People;
     $('.AddUser').hide();
-    //BIND REGION
-  
+    //BIND REGION 
 
-    var LoginUserRole = getRole();
-   
-
-    var abc = LoginUserRole[0];
-    var def = LoginUserRole[1];
+    var LoginUserRole = getRole();  
     
     $('#hdfRole').val(LoginUserRole[0]);
     $('#hdfloginname').val(LoginUserRole[1]);
 
     if (LoginUserRole[0] != Roles.Manager) {
-
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             // Great success! All the File APIs are supported.     
             document.getElementById('fileUpload').addEventListener('change', handleFileSelect, false);
@@ -24,8 +20,6 @@
             alert('The File APIs are not fully supported in this browser.');
         }
     }
-
-
 
     BindAsyncUserTable();
     BindAsycDesignerTable();
@@ -36,40 +30,31 @@
         "bPaginate": true,
         "iDisplayLength": 6,
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
         "fnPageChange": "next"           //removing paging
     });
     $('#ManagerTable').DataTable({
         "bPaginate": true,
         "iDisplayLength": 6,
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
         "fnPageChange": "next"            //removing paging
     });
     $('#DesignerTable').DataTable({
         "bPaginate": true,
         "iDisplayLength": 6,
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
         "fnPageChange": "next"          //removing paging
     });
     $('#UsersTable').DataTable({
         "bPaginate": true,
         "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],        
-
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],  
         "fnPageChange": "next"
     });
 
-
-
-
     //EDIT REGION
-
     $(".adminedit").live(
     {
         click: function (e) {
-
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -87,7 +72,6 @@
     $(".manageredit").live(
       {
           click: function (e) {
-
               $('#rowfluidDiv').hide();
               $('.alert-success').hide();
               $('.alert-error').hide();
@@ -102,7 +86,6 @@
               return false;
           }
       })
-
     $(".useredit").live(
        {
            click: function (e) {
@@ -122,7 +105,6 @@
                return false;
            }
        })
-
     $(".designeredit").live(
      {
          click: function (e) {
@@ -150,9 +132,7 @@
          }
      })
 
-
     //DELETE REGION
-
     $(".userdelete").live(
        {
            click: function (e) {
@@ -208,7 +188,6 @@
      })
 
     //cancel REGION
-
     $(".CancelAdmin").live({
         click: function (e) {// Clear controls
             clearAdminControls();
@@ -232,10 +211,8 @@
             clearDesignerControls();
             RemoveStyle();
         }
-    })
-
-   
-    //
+    })   
+ 
     //Style setting for client side Validation
     //CreatedBy Thomson
 
@@ -250,11 +227,14 @@
 
     //end styling client validation
 
-});//end of document.ready
+});
+//end of document.ready
+
 function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').slideUp(1000);
 }
+
 function DeleteItem(e,p)
 {
     var jsonResult = {};
@@ -381,8 +361,6 @@ function handleFileSelect(evt) {
     //}
 }
 
-//---getting data as json-----//
-
 
 function BindAsyncUserTable() {
     var jsonResult = {};
@@ -467,24 +445,18 @@ function BindUserTable(Records) {
     var checkrole = $('#hdfRole').val();
     var lname = $('#hdfloginname').val();
     if (checkrole == Roles.Manager) {
-
         $("thead#Usersthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Profile</th></tr> ';
         $("#Usersthead").append(html);
         $("tbody#Usersrows tr").remove();
-
-        $.each(Records, function (index, Records) {
-          
+        $.each(Records, function (index, Records) {          
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
             $("#UsersTable").append(html);
         })
     }
-    else {
-        debugger;
-       
+    else {       
         $("tbody#Usersrows tr").remove();
-        $.each(Records, function (index, Records) {
-            debugger;
+        $.each(Records, function (index, Records) {       
             var name = Records.Name;
             if (Records.Name == lname ) {
                 var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
@@ -495,9 +467,7 @@ function BindUserTable(Records) {
                 $("#UsersTable").append(html);
             }
         })
-
     }
-
 }
 
 function BindDesignerTable(Records) {
@@ -525,12 +495,8 @@ function BindDesignerTable(Records) {
 }
 
 function BindManagerTable(Records) {
-
     var checkrole = $('#hdfRole').val();
-   // var lname = $('#hdfloginname').val();
-
     if (checkrole == Roles.Manager) {
-
         $("thead#managerthead tr").remove();
         var html = ' <tr><th>Name</th><th>Mobile</th><th>Email</th></tr> ';
         $("#managerthead").append(html);
@@ -543,18 +509,9 @@ function BindManagerTable(Records) {
     else {
         $("tbody#Managerrows tr").remove();
         $.each(Records, function (index, Records) {
-            debugger;
-          //  var name1 = Records.Name;
-          //  if (Records.Name == lname) {
-           //     var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-         //       $("#ManagerTable").append(html);
-         //   }
-         //   else {
-                var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-                $("#ManagerTable").append(html);
-         //   }
+                    var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#ManagerTable").append(html);     
         })
-
     }
 }
 
@@ -563,42 +520,33 @@ function BindAdminsTable(Records) {
     var checkrole = $('#hdfRole').val();
     var lname = $('#hdfloginname').val();
     if (checkrole == Roles.Manager) {
-
         $("thead#thead tr").remove();
         var html = '<tr><th>Name</th><th>Mobile</th><th>Email</th></tr> ';
         $("#thead").append(html);
         $("tbody#Adminrows tr").remove();
-
         $.each(Records, function (index, Records) {
             var html = '<tr userID="' + Records.UserID + '" AdminID="'+Records.AdminID +'" ><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
             $("#AdministratorTable").append(html);
         })
-
     }
     else {
         $("tbody#Adminrows tr").remove();
-        $.each(Records, function (index, Records) {
-            debugger;
+        $.each(Records, function (index, Records) {      
             var name1 = Records.Name;
             if (Records.Name == lname) {
                 var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                 $("#AdministratorTable").append(html);
             }
             else {
-
                 var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                 $("#AdministratorTable").append(html);
-
             }
         })
-
     }
 
 
 
 }
-
-
 
 
 function InsertUser(User) {
@@ -908,44 +856,38 @@ function AddAdmin() {
 
     var result = "";
     var Admin = new Object();
-
-    if ($("#hdfAdminID").val() != "") {
+    if ($("#hdfAdminID").val() != "")
+    {
         Admin.UserID = $("#hdfUserID").val();
         Admin.AdminID = $("#hdfAdminID").val();
     }
-
     Admin.Name = $("#txtAdminName").val();
     Admin.Mobile = $("#txtMobileAdmin").val();
-
-    debugger;
     if (Admin.Mobile != $("#hdfMobile").val())
     {
         Admin.isVerified = "false";
-    }
-   
-
+    } 
     Admin.LoginName = $("#txtAdminLoginName").val();
     Admin.Password = $("#txtAdminConPass").val();
     Admin.Email = $("#txtAdminEmail").val();
     Admin.DOB = $("#dateDOB").val();
     Admin.Anniversary = $("#dateAnniversary").val();
-    if ($('#chkActiveAdmin').is(':checked')) {
+    if ($('#chkActiveAdmin').is(':checked'))
+    {
         Admin.IsActive = "true";
     }
-    else {
+    else
+    {
         Admin.IsActive = "false";
     }
-
     result = InsertAdmin(Admin);
     if (result == "1") {
         clearAdminControls();
         $('#rowfluidDiv').show();      
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
-
         BindAsyncAdminsTable();
         BindAsyncUserTable();
-
         AutoScrollToAlertBox();
     }
     if (result != "1") {
@@ -957,7 +899,6 @@ function AddAdmin() {
         AutoScrollToAlertBox();
     }
 }
-
 //Add New Manager
 function AddManager() {
     $('#rowfluidDiv').hide();
@@ -1012,7 +953,6 @@ function AddManager() {
         AutoScrollToAlertBox();
     }
 }
-
 //Add New Designer
 function AddDesigner()
 {
@@ -1081,7 +1021,6 @@ function AddDesigner()
         BindAsycDesignerTable();
     }
 }
-
 //Add New User
 function AddUser()
 {
@@ -1134,13 +1073,10 @@ function AddUser()
         }
     }
 }
+
 ///////////////////////////////////////Basic Validation Function With Insert Function////////////////////////////////////////////////////////////
-
-
-
-//
-//Basic Client Side Validation and Insert For Admin Registration
 //CreatedBy Thomson
+//Basic Client Side Validation and Insert For Admin Registration
 function AdminValidation() {
   
     $('#Displaydiv1').remove();
@@ -1216,13 +1152,8 @@ function AdminValidation() {
     }
 }
 
-//
-//end Basic Client Side Validation For Admin Registration
-//
-
-//
 //Basic Client Side Validation For Manager Registration
-//CreatedBy Thomson
+
 function ManagerValidation() {
     
     $('#Displaydiv').remove();
@@ -1297,13 +1228,8 @@ function ManagerValidation() {
     }
 }
 
-//
-//end Basic Client Side Validation For Manager Registration
-//
-
-//
 //Basic Client Side Validation For Designer and User Registration
-//CreatedBy Thomson
+
 function DesignerValidate() {
     $('#Displaydiv').remove();
     var Name = $('#txtDesignerName');
@@ -1358,6 +1284,7 @@ function DesignerValidate() {
 
 }
 
+//Basic Client Side Validation For Designer and User Registration
 function UserValidate() {
     $('#Displaydiv').remove();
     var Name = $('#txtName');
@@ -1411,5 +1338,4 @@ function UserValidate() {
 
 }
 
-//end Basic Client Side Validation For Designer and User Registration
 //CreatedBy Thomson
