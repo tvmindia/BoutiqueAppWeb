@@ -86,7 +86,7 @@
             var amount = $("#txtcurrentPurchase").val();
             var symbol = $(".Currency").val().split(',')[1];
             var currencyType = $(".Currency").val().split(',')[0];
-            $("#netAmount").text((amount).toLocaleString(currencyType));// + " " + symbol);
+            $("#netAmount").text(symbol+" "+(amount).toLocaleString(currencyType));
            
         });
     function GetCurrencySymbolByCode(Loyalty) {
@@ -229,7 +229,7 @@
                 var currencyType = $(".Currency").val().split(',')[0];
                 var symbol = $(".Currency").val().split(',')[1];
 
-                $("#netAmount").text((Amount).toLocaleString(currencyType) +" "+ symbol);
+                $("#netAmount").text(symbol+" "+(Amount).toLocaleString(currencyType) );
                 $("#netPoints").text(Points);
             }
         }
@@ -245,7 +245,7 @@
                 var currencyType = $(".Currency").val().split(',')[0];
                 var symbol = $(".Currency").val().split(',')[1];
 
-                $("#netAmount").text((Amount).toLocaleString(currencyType) + " " + symbol);
+                $("#netAmount").text(symbol + " " + (Amount).toLocaleString(currencyType));
                 $("#netPoints").text(Points);
             }
         }
