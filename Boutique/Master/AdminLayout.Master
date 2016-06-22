@@ -35,7 +35,7 @@
 <script src="../Scripts/jquery.knob.modified.js"></script>
 <script src="../Scripts/jquery.sparkline.min.js"></script>
 <script src="../Scripts/counter.js"></script>
-<script src="../Scripts/retina.js"></script>
+<%--<script src="../Scripts/retina.js"></script>--%>
 <script src="../Scripts/custom.js"></script>
 <script src="../Scripts/UserJS/AdminLayout.js"></script>
     <%-- first test till above --%>
@@ -74,6 +74,25 @@
 {
 width:25px;
 height:25px;
+}
+.scrollToTop{
+	width:80px; 
+	height:80px;
+	padding:10px; 
+	text-align:center; 
+	background: whiteSmoke;
+	font-weight: bold;
+	color: #444;
+	text-decoration: none;
+	position:fixed;
+    bottom:20px;
+	right:3px;
+	display:none;
+    z-index:250;
+	background: url('../img/Default/Scrollup.png') no-repeat;
+}
+.scrollToTop:hover{
+	text-decoration:none;
 }
 
     </style>
@@ -419,7 +438,7 @@ height:25px;
          <form id="form1" enctype="multipart/form-data">
        
          <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-       
+      
         </asp:ContentPlaceHolder>
        
 	
@@ -443,10 +462,11 @@ height:25px;
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
 			<a href="#" class="btn btn-primary">Save changes</a>
 		</div>
+        
 	</div>
 	
 	<div class="clearfix"></div>
-	
+	 <a href="#" class="scrollToTop"></a>
 	<footer>
 
 		<p>

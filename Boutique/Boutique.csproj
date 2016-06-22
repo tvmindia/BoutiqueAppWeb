@@ -208,6 +208,7 @@
     <Content Include="img\Default\defaultuser.jpg" />
     <Content Include="img\Default\invalid.png" />
     <Content Include="img\Default\nologo1.png" />
+    <Content Include="img\Default\Scrollup.png" />
     <Content Include="img\Default\Sendingmail.gif" />
     <Content Include="img\Default\Warn.png" />
     <Content Include="img\dialogs.png" />
