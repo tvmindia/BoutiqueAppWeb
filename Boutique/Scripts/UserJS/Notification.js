@@ -41,7 +41,7 @@
     $(".Newsletterproducts").select2({
         placeholder: "Choose products",
         allowClear: true,
-        data: BindProductDropdown()
+        data: BindNewsLetterProductDropdown()
     });
 
     
@@ -164,11 +164,15 @@
     });
 
     var $eventPdtsSelect = $(".Newsletterproducts");
+    //$eventPdtsSelect.click(function () {
+    //    debugger;
+       
+    //});
     $eventPdtsSelect.on("change", function (e) {
         var ddlproduct = $(".Newsletterproducts").val();
         debugger;
         if (ddlproduct != null) {
-        var productid = ddlproduct[ddlproduct.length - 1];
+        var productid = ddlproduct[ddlproduct.length-1];
             BindAllProductImages(productid);//binds  gallery with product under current boutique
         }
     });
@@ -179,6 +183,9 @@
     $eventPdtsSelect.on("select2:unselect", function (e) {
         debugger;
         var ddlproduct = this;
+        //alert($(this).data.val());
+        //var imgid = $(this).attr('productid');
+        //imgid.$("#NewsLetterimagehold").find(".masonry-thumb").remove();
         $("#NewsLetterimagehold").find(".masonry-thumb").remove();
     });
     
@@ -294,11 +301,27 @@ function BindProductDropdown() {
         return jsonResult;
     }
 }
+function BindNewsLetterProductDropdown() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllProductsForNewsLetter(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
 function GetAllProducts(Notify) {
     var ds = {};
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function GetAllProductsForNewsLetter(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandNameForNewsLetter");
     table = JSON.parse(ds.d);
     return table;
 }

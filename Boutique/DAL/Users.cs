@@ -124,6 +124,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string isVerified
+        {
+            get;
+            set;
+        }
+        
         
         
 
@@ -506,6 +512,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
                 cmd.Parameters.Add("@Active", SqlDbType.Bit).Value = IsActive;
+                cmd.Parameters.Add("@isVerified", SqlDbType.Bit).Value = isVerified;
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 if (DOB != "" && DOB != null) cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
                 if (Anniversary != null && Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);

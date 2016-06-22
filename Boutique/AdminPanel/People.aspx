@@ -550,5 +550,7 @@
     <input type="hidden" id="hdfOwnerID" value="" />
     <input type="hidden" id="hdfCardNo" value="" />
     <input type="hidden" id="hdfDesignerID" value="" />
+      <input type="hidden" id="hdfMobile" value="" />
+
 
 </asp:Content>

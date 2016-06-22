@@ -56,6 +56,12 @@
                     <div id="myTabContent" class="tab-content">
 
                         <div class="tab-pane active" id="CurrentOrders">
+                              <div class="box span12">
+                                   <div class="box-header">
+                                        <h2 id="neworder">Current Orders</h2>
+                                        <div class="box-icon">
+                                        </div>
+                                    </div>
                             <div class="box-content TableLayout">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="OrdersTable">
@@ -73,7 +79,7 @@
                                     </tbody>
                                 </table>
                             </div>
-
+                                        </div>
 
                             <div id="NewOrder" runat="server" class="row-fluid">
                                 <div class="box span12" style="width: 100%">
@@ -267,6 +273,12 @@
                         </div>
 
                         <div class="tab-pane" id="ClosedOrders">
+                            <div class="box span12">
+                                   <div class="box-header">
+                                        <h2 id="ClosedOrder">Closed Orders</h2>
+                                        <div class="box-icon">
+                                        </div>
+                                    </div>
                             <div class="box-content TableLayout">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="ClosedOrdersTable" >
@@ -283,6 +295,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                                </div>
                             <div id="ClosedNewOrder" runat="server" class="row-fluid">
                                 <div class="box span12" style="width: 100%">
                                     <div class="box-header">
