@@ -450,8 +450,8 @@ height:25px;
 	<footer>
 
 		<p>
-			<span style="text-align:center;float:left">&copy; 2016 Thrithvam Technology</span>
-			
+			<span style="text-align:center;float:left"><span style="font-size:x-small">Powered by</span>  TiquesInn  </span>
+			<span style="text-align:center;float:right"> &copy; 2016 Thrithvam Technology</span>
 		</p>
 
 	</footer>
