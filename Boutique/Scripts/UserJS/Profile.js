@@ -8,7 +8,7 @@
     }
 
     var LoginUserRole = getRole();
-    $('#hdfRole').val(LoginUserRole);
+    $('#hdfRole').val(LoginUserRole[0]);
 
     BindAsyncOwnerTable();
     $('#OwnerTable').DataTable({

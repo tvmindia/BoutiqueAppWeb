@@ -3,11 +3,18 @@
     parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION
+  
 
     var LoginUserRole = getRole();
-    $('#hdfRole').val(LoginUserRole);
+   
 
-    if (LoginUserRole != Roles.Manager) {
+    var abc = LoginUserRole[0];
+    var def = LoginUserRole[1];
+    
+    $('#hdfRole').val(LoginUserRole[0]);
+    $('#hdfloginname').val(LoginUserRole[1]);
+
+    if (LoginUserRole[0] != Roles.Manager) {
 
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             // Great success! All the File APIs are supported.     
@@ -458,6 +465,7 @@ function GetAllAdmins(Admins) {
 function BindUserTable(Records) {
 
     var checkrole = $('#hdfRole').val();
+    var lname = $('#hdfloginname').val();
     if (checkrole == Roles.Manager) {
 
         $("thead#Usersthead tr").remove();
@@ -466,16 +474,26 @@ function BindUserTable(Records) {
         $("tbody#Usersrows tr").remove();
 
         $.each(Records, function (index, Records) {
+          
             var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td></tr>';
             $("#UsersTable").append(html);
         })
     }
     else {
+        debugger;
+       
         $("tbody#Usersrows tr").remove();
         $.each(Records, function (index, Records) {
-
-            var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-            $("#UsersTable").append(html);
+            debugger;
+            var name = Records.Name;
+            if (Records.Name == lname ) {
+                var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#UsersTable").append(html);
+            }
+            else {
+                var html = '<tr userID="' + Records.UserID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info useredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger userdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#UsersTable").append(html);
+            }
         })
 
     }
@@ -509,6 +527,8 @@ function BindDesignerTable(Records) {
 function BindManagerTable(Records) {
 
     var checkrole = $('#hdfRole').val();
+   // var lname = $('#hdfloginname').val();
+
     if (checkrole == Roles.Manager) {
 
         $("thead#managerthead tr").remove();
@@ -521,11 +541,18 @@ function BindManagerTable(Records) {
         })
     }
     else {
-
         $("tbody#Managerrows tr").remove();
         $.each(Records, function (index, Records) {
-            var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-            $("#ManagerTable").append(html);
+            debugger;
+          //  var name1 = Records.Name;
+          //  if (Records.Name == lname) {
+           //     var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+         //       $("#ManagerTable").append(html);
+         //   }
+         //   else {
+                var html = '<tr userID="' + Records.UserID + '" AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info manageredit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger managerdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#ManagerTable").append(html);
+         //   }
         })
 
     }
@@ -534,6 +561,7 @@ function BindManagerTable(Records) {
 function BindAdminsTable(Records) {
 
     var checkrole = $('#hdfRole').val();
+    var lname = $('#hdfloginname').val();
     if (checkrole == Roles.Manager) {
 
         $("thead#thead tr").remove();
@@ -548,11 +576,20 @@ function BindAdminsTable(Records) {
 
     }
     else {
-
         $("tbody#Adminrows tr").remove();
         $.each(Records, function (index, Records) {
-            var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-            $("#AdministratorTable").append(html);
+            debugger;
+            var name1 = Records.Name;
+            if (Records.Name == lname) {
+                var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#AdministratorTable").append(html);
+            }
+            else {
+
+                var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                $("#AdministratorTable").append(html);
+
+            }
         })
 
     }
@@ -745,6 +782,7 @@ function BindUserTextBoxes(Records) {
         $("#dateAnniversary").val(ConvertJsonToDate(Records.Anniversary));
         $("#hdfUserID").val(Records.UserID);
 
+        $("#hdfMobile").val(Records.Mobile);
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
     })
@@ -757,7 +795,8 @@ function BindAdminTextBoxes(Records) {
         $("#txtMobileAdmin").val(Records.Mobile);
         $("#txtAdminEmail").val(Records.Email);
         $("#txtAdminLoginName").val(Records.LoginName);
-
+      
+        $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
         if (Records.Active = 'true') {
             // $("#chkActive").attr('checked', 'checked');
@@ -789,6 +828,7 @@ function BindManagerTextBoxes(Records) {
         $("#txtManagerEmail").val(Records.Email);
         $("#txtManagerLoginName").val(Records.LoginName);
 
+        $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
         if (Records.Active = 'true') {
             // $("#chkActive").attr('checked', 'checked');
@@ -876,6 +916,14 @@ function AddAdmin() {
 
     Admin.Name = $("#txtAdminName").val();
     Admin.Mobile = $("#txtMobileAdmin").val();
+
+    debugger;
+    if (Admin.Mobile != $("#hdfMobile").val())
+    {
+        Admin.isVerified = "false";
+    }
+   
+
     Admin.LoginName = $("#txtAdminLoginName").val();
     Admin.Password = $("#txtAdminConPass").val();
     Admin.Email = $("#txtAdminEmail").val();
@@ -896,6 +944,8 @@ function AddAdmin() {
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
 
         BindAsyncAdminsTable();
+        BindAsyncUserTable();
+
         AutoScrollToAlertBox();
     }
     if (result != "1") {
@@ -903,6 +953,7 @@ function AddAdmin() {
         $('.alert-error').show();
         $('.alert-error strong').text(Messages.InsertionFailure);
         BindAsyncAdminsTable();
+        BindAsyncUserTable();
         AutoScrollToAlertBox();
     }
 }
@@ -923,6 +974,10 @@ function AddManager() {
 
     Manager.Name = $("#txtManagerName").val();
     Manager.Mobile = $("#txtManagerMobile").val();
+
+    if (Manager.Mobile != $("#hdfMobile").val()) {
+        Manager.isVerified = "false";
+    }
     Manager.LoginName = $("#txtManagerLoginName").val();
     Manager.Password = $("#txtManagerConPass").val();
     Manager.Email = $("#txtManagerEmail").val();
@@ -945,6 +1000,7 @@ function AddManager() {
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
         BindAsyncManagersTable();
+        BindAsyncUserTable();
         AutoScrollToAlertBox();
     }
     if (result != "1") {
@@ -952,6 +1008,7 @@ function AddManager() {
         $('.alert-error').show();
         $('.alert-error strong').text(Messages.InsertionFailure);
         BindAsyncManagersTable();
+        BindAsyncUserTable();
         AutoScrollToAlertBox();
     }
 }
@@ -1042,7 +1099,9 @@ function AddUser()
         User.Email = $("#txtEmail").val();
         User.LoyaltyCardNo = parseInt($("#hdfCardNo").val(), 10); // you want to use radix 10
         // so you get a decimal number even with a leading 0 and an old browser
-
+        if (User.Mobile != $("#hdfMobile").val()) {
+            User.isVerified = "false";
+        }
         if ($('#chkActive').is(':checked')) {
             User.IsActive = "true";
         }
@@ -1055,6 +1114,9 @@ function AddUser()
         if (result == "1") {
             clearUserControls();
             BindAsyncUserTable();
+            BindAsyncAdminsTable();
+            BindAsyncManagersTable();
+
             $('#rowfluidDiv').show();
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.InsertionSuccessFull);
@@ -1063,6 +1125,8 @@ function AddUser()
         }
         if (result != "1") {
             BindAsyncUserTable();
+            BindAsyncAdminsTable();
+            BindAsyncManagersTable();
             $('#rowfluidDiv').show();
             $('.alert-error').show();
             $('.alert-error strong').text(Messages.InsertionFailure);

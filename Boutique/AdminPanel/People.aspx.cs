@@ -338,7 +338,7 @@ namespace Boutique.AdminPanel
             {
                 AdminObj.UpdatedBy = UA.userName;
                 AdminObj.UpdatedDate = DateTime.Now;
-
+                
                 status = AdminObj.EditUser(AdminObj.UserID).ToString();
                 status = AdminObj.EditAdmin().ToString(); //update Admin table  
                
