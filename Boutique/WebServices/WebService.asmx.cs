@@ -856,6 +856,57 @@ namespace Boutique.WebServices
 
         #endregion
 
+        #region Chat
+        [WebMethod]
+        public string InsertChat(string userID, string replyPersonID, string boutiqueID, string direction, string message, string productID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Chat chat = new Chat();
+                chat.BoutiqueID = boutiqueID;
+                chat.UserID = userID;
+                chat.ReplyPersonID = replyPersonID;
+                chat.Direction = direction;
+                chat.Message = message;
+                chat.ProductID = productID;
+
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));                
+                dt.Columns.Add("MessageID", typeof(string));
+                DataRow dr = dt.NewRow();
+                if (chat.InsertChatMessage() == 1)
+                {
+                    dr["Flag"] = true;
+                    dr["Message"] = constants.Successfull;
+                    dr["MessageID"] = chat.MessageID;
+
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                }
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #region JSON converter
         /// <summary>
         /// JSON function without returning any images
