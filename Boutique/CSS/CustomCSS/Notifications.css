@@ -35,7 +35,7 @@ label.control-label {
     cursor: default!important;
 
 }
-.templateThump{
+.templatePreviewholder{
     width:300px;
     height:250px;
 }
@@ -61,3 +61,18 @@ img {
     width: auto;
 }
 /*tempore*/
+
+.checkDes
+{
+   vertical-align: middle!important;
+    display: inline-block!important;
+    margin-bottom: 0!important;
+    min-height: 20px!important;
+    cursor:pointer!important;
+    line-height: normal!important;
+    position:relative;
+    bottom:202px;
+    left:0;
+    right:0;
+
+}
