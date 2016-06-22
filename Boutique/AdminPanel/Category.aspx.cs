@@ -19,6 +19,30 @@ namespace Boutique.AdminPanel
 
         #region Methods
 
+        #region Check_Categories
+        [System.Web.Services.WebMethod]
+        public static string CheckCategories(Product CategoryObj)
+        {
+            string status=string.Empty;
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                CategoryObj.BoutiqueID = UA.BoutiqueID;
+
+                status = CategoryObj.CheckCategory();
+                return jsSerializer.Serialize(status);
+            }
+
+            return jsSerializer.Serialize("");
+
+           
+        }
+
+        #endregion Check_Categories
+
         #region GetAllCategories
         [System.Web.Services.WebMethod]
         public static string GetAllCategories(Product productObj)

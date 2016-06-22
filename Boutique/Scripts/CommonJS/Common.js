@@ -89,7 +89,25 @@ var Messages = {
     AlreadyUsedForUpdation: "Already used . Can't be changed"
 }
 
+function IsCategoryExists() {
+    debugger;
 
+    var table = {};
+    var Category = new Object();
+    Category.CategoryCode = $('#txtCatCode').val();
+    table = IsCategory_Exists(Category);
+    return table;
+}
+
+function IsCategory_Exists(Category) {
+    debugger;
+    var ds = {};
+    var table = {};
+    var data = "{'CategoryObj':" + JSON.stringify(Category) + "}";
+    ds = getJsonData(data, "../AdminPanel/Category.aspx/CheckCategories");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 function getRole() {
     var table = {};
