@@ -98,7 +98,7 @@ $("document").ready(function (e) {
     $("#Preview").disableSelection();
 
 
-    if (LoginUserRole != Roles.Manager) {
+    if (LoginUserRole[0] != Roles.Manager) {
         BindAllImages();//list li of product images when images uploaded
 
     }
@@ -359,7 +359,7 @@ $("document").ready(function (e) {
             var imageid = $(this).attr('imageid');
             var p = $(this).attr('pname');
 
-            if (LoginUserRole != Roles.Manager) {
+            if (LoginUserRole[0] != Roles.Manager) {
                 AutoScrollToEdit();
                 BindProductTextBoxes(this);
                 BindAllImages();
@@ -415,7 +415,11 @@ $("document").ready(function (e) {
 
         var search = $("#txtsearchnewproducts").val();
         if (search != '') {
+
             BindAllNewProductImagesSearch(0, search);
+        }
+        else {
+            CustomAlert("Please Search with Product No/Name!");
         }
 
 
@@ -428,6 +432,9 @@ $("document").ready(function (e) {
         if (search != '') {
             BindNewTrendingAllProductImagesSearch(0, search);
         }
+        else {
+            CustomAlert("Please Search with Product No/Name!");
+        }
     });
 
 
@@ -437,6 +444,28 @@ $("document").ready(function (e) {
         if (search != '') {
             BindAllNewProductImagesOutOfStockSearch(0, search);
         }
+        else {
+            CustomAlert("Please Search with Product No/Name!");
+        }
+    });
+
+
+    $("#idtabnewproducts").click(function (e) { //user clicks on button
+
+        alert("albert");
+       
+    });
+
+    $("#idtabtrending").click(function (e) { //user clicks on button
+
+        alert("albert");
+
+    });
+
+    $("#idtaboutofstock").click(function (e) { //user clicks on button
+
+        alert("albert");
+
     });
 
 
@@ -1100,22 +1129,25 @@ function DeleteProuductImage(Product) {
     return table;
 }
 
-function BindRelatedProductsOnDemand(productid) {
+function BindRelatedProductsOnDemand(productid)
+{
    
     var Product = new Object();
     var relateproarry = [];
     Product.ProductID = productid;
+  
     var jsonResult = {};
     jsonResult = GetAllRelatedProductsByProductID(Product);
-    if (jsonResult != undefined) {
+    if (jsonResult != undefined)
+    {
         for (var i = 0; i < jsonResult.length; i++)
         {
             relateproarry.push(jsonResult[i].RelatedProductsID);
         }
         var $RelatedprodMulti = $(".ddlrelateproducts").select2();
         $RelatedprodMulti.val(relateproarry).trigger("change");
-
-        return jsonResult;
+    
+        $('#idDdlrelateproducts option[value=' + productid + ']').remove();
     }
 }
 
@@ -1153,6 +1185,7 @@ function clearProductControls() {
     $("#txtDiscount").val('');
     $(".ddlcategories").select2("val", "");
     $(".ddlDesigners").select2("val", "");
+    $(".ddlrelateproducts").select2("val", "");
     $('#OptisOutOfStockNo').parent().addClass('checked');
     $("#OptisOutOfStockYes").parent().removeClass('checked');
     $('#OptIsActiveYes').parent().addClass('checked');
@@ -1161,12 +1194,10 @@ function clearProductControls() {
     $('.alert-success').hide();
     $('.alert-error').hide();
     $("#hdfproductID").val('');
-    //$(".AddProduct").text("Save");//button text change
     $('.DeleteProduct').hide();//hides delete
     $('.ModifyProduct').hide();
     $('.AddProduct').show();
     $("#editLabel").text("New Product");
-    //$("#olpreview").find(".liclas").remove();//image list hide
     $("#Preview").find(".imgpreviewdiv").remove();
 }
 
