@@ -10,9 +10,33 @@ $("document").ready(function (e) {
         qrStr = qrStr.split("?")[1].split("=")[1];
         if (qrStr == "trends") {
             $('#myTab li:eq(1) a').tab('show');
+
+             BindTrendingAllProductImages(0);
+             var gallerytrendsdiv = $('.imageholderTrends');
+             var $marstrends = $('.imageholderTrends').masonry({
+                  itemSelector: '.masonry-thumb',
+                  isInitLayout: false
+               });
+            
+             $marstrends.imagesLoaded().progress(function () {
+                 $marstrends.masonry('layout');
+              });
+
         }
         if (qrStr == "OutOfStock") {
             $('#myTab li:eq(2) a').tab('show');
+              BindAllProductImagesOutOfStock(0);
+              var galleryoutofstockdiv = $('.imageholderoutofstock');
+             var $marsoutofstock = $('.imageholderoutofstock').masonry({
+                 itemSelector: '.masonry-thumb',
+                 isInitLayout: false
+             });
+            
+             $marsoutofstock.imagesLoaded().progress(function () {
+                 $marsoutofstock.masonry('layout');
+              });
+
+
         }
     }
    //query string from dashboard for tab selection
@@ -72,13 +96,13 @@ $("document").ready(function (e) {
     // $('input[type="checkbox"]').on('change', function () {
 
     //   $('input[type="checkbox"]').not(this).prop('checked', false);
-    //  debugger;
+    //  
 
     //  }); 
 
     //   $('input[type=checkbox]').click(function () {
     // var chks = document.getElementById('<%= chkRoleInTransaction.ClientID %>').getElementsByTagName('INPUT');
-    ///       debugger;
+    ///      
     //   var chks = $('.checkDes');
     // for (i = 0; i < chks.length; i++) {
     //      chks[i].checked = false;
@@ -355,7 +379,7 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            debugger;
+         
             var imageid = $(this).attr('imageid');
             var p = $(this).attr('pname');
 
