@@ -459,6 +459,7 @@
     </Compile>
     <Compile Include="DAL\AppInstallationLog.cs" />
     <Compile Include="DAL\Boutiques.cs" />
+    <Compile Include="DAL\Chat.cs" />
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="DAL\Designers.cs" />
     <Compile Include="DAL\Loyalty.cs" />
