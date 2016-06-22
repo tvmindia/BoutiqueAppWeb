@@ -857,6 +857,16 @@ namespace Boutique.WebServices
         #endregion
 
         #region Chat
+        /// <summary>
+        /// webservice to insert a chat message. 
+        /// </summary>
+        /// <param name="userID">customer</param>
+        /// <param name="replyPersonID">can be empty string if message comes from customer app</param>
+        /// <param name="boutiqueID"></param>
+        /// <param name="direction">dierction  of message. "in": from customer to admin. "out": from admin/reply person to customer</param>
+        /// <param name="message"></param>
+        /// <param name="productID">regarding the product, which can be null</param>
+        /// <returns></returns>
         [WebMethod]
         public string InsertChat(string userID, string replyPersonID, string boutiqueID, string direction, string message, string productID)
         {
