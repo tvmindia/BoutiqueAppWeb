@@ -522,6 +522,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BoutiqueTemplates\" />
     <Folder Include="Media\GraphPic\" />
     <Folder Include="Models\" />
   </ItemGroup>
