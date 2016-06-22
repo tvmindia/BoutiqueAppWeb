@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -425,6 +426,33 @@ namespace Boutique.DAL
 
         }
         #endregion
+
+        public string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
+        {
+            string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+            string Url = "";
+
+            Url = "BoutiqueTemplates/EmailTemplate.htm";
+
+            int imageCount = Convert.ToInt32(8);
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+            {
+                body = reader.ReadToEnd();
+            }
+            //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
+            //body = fileName;
+            body = body.Replace("{UserName}", userName);
+            body = body.Replace("{Title}", title);
+            body = body.Replace("{Url}", url);
+            body = body.Replace("{Description}", description);
+            body = body.Replace("{Mainimage}", MainimageUrl);
+            for (int i = 1; i <= imageCount; i++)
+            {
+                body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+            }
+            return body;
+        }
 
         #endregion Methods
 

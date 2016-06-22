@@ -35,7 +35,7 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public int Discount
+        public int? Discount
         {
             get;
             set;
