@@ -6,6 +6,7 @@
     <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
      <link href="../CSS/Common.css" rel="stylesheet" /> 
     <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <link href="../CSS/Common.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
     <link href="../CSS/viewbox.css" rel="stylesheet" />
     <script src="../Scripts/jquery.viewbox.min.js"></script>
@@ -118,9 +119,9 @@
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li><a href="#newproducts">New Products</a></li>
-							<li class="active"><a href="#trends">Trending</a></li>
-							<li><a href="#outstock">Out of Stocks</a></li>
+							<li><a id="idtabnewproducts" href="#newproducts">New Products</a></li>
+							<li class="active"><a id="idtabtrending" href="#trends">Trending</a></li>
+							<li><a id="idtaboutofstock" href="#outstock">Out of Stocks</a></li>
 						</ul>
 						 
 						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
