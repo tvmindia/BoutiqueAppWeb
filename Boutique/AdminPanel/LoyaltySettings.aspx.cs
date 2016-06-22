@@ -97,5 +97,26 @@ namespace Boutique.AdminPanel
             return jsonResult;
         }
         #endregion
+
+        #region Set Loyalty Settings To Default
+        [System.Web.Services.WebMethod]
+        public static string SetLoyaltySettingsToDefault(DAL.Loyalty loyalObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            string status = null;
+          
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+            if (UA != null)
+            {
+                loyalObj.BoutiqueID = UA.BoutiqueID;
+                loyalObj.UpdatedBy = UA.userName;
+                status = loyalObj.SetLoyaltySettingsToDefault().ToString(); 
+            }
+            return status;
+
+        }
+        #endregion Set Loyalty Settings To Default
     }
 }

@@ -4,8 +4,6 @@
 
 //-----Transaction review Table :START-------//
 
-    //Log table--------
-
     BindLoyaltyLogTable();
 
     $('#LoyaltyLogTable').DataTable({
@@ -18,8 +16,6 @@
         "fnPageChange": "next"
     });
 
-
-    //------------Loyalty Log details table------------
     function BindLoyaltyLogTable() {
         debugger;
         var jsonResult = {};
@@ -51,6 +47,64 @@
     }
 
 //----- END : Transaction review Table-------//
+
+
+
+//-----------*   Currency Dropdown * --------//
+    $(".Currency").select2({
+        placeholder: "Choose related Currency",
+        allowClear: true,
+        data: BindCurrencyDropdown()
+    });
+
+    function BindCurrencyDropdown() {
+        debugger;
+
+        var jsonResult = {};
+        var Loyalty = new Object();
+        jsonResult = GetAllCurrency(Loyalty);
+        if (jsonResult != undefined) {
+            return jsonResult;
+        }
+    }
+
+    function GetAllCurrency(Loyalty) {
+        var ds = {};
+        var table = {};
+        var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
+        ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetAllCurrencyNameAndCode");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+
+    $("select").val("en-IN").trigger("change");  //set india as default selected option
+  
+    //$('.Currency').select2()
+    //    .on("change", function (e) {
+    //        debugger;
+            
+
+    //    })
+    function GetCurrencySymbolByCode(Loyalty) {
+        var jsonResult = {};
+      
+        jsonResult = GetSymbol(Loyalty);
+        if (jsonResult != undefined) {
+            return jsonResult;
+        }
+    }
+
+    function GetSymbol(Loyalty) {
+        var ds = {};
+        var table = {};
+        var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
+        ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetCurrencySymbolByCode");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+//-----------*END:   Currency Dropdown * --------//
+
+
 
     //Customers table--------
     BindUserTable();
@@ -162,10 +216,26 @@
     $("#radioYes").live(
     {
         click: function (e) {
+            debugger;
+
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase - redeemablePoints;
                 var Points = totalPoints - redeemablePoints;
-                $("#netAmount").text((Amount).toLocaleString('en-IN'));
+                var currencyType = $(".Currency").val();
+
+                var Loyalty = new Object();
+                Loyalty.CurrencyCode = $(".Currency").val();
+                jsonResult = GetCurrencySymbolByCode(Loyalty);
+                var symbol = "";
+
+
+                $.each(jsonResult, function (index, jsonResult) {
+                   
+                    symbol = jsonResult.Symbol;
+                });
+                //$("#lblSymbol").text(symbol);
+
+                $("#netAmount").text((Amount).toLocaleString(currencyType) +" "+ symbol);
                 $("#netPoints").text(Points);
             }
         }
@@ -177,7 +247,19 @@
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase;
                 var Points = totalPoints;
-                $("#netAmount").text((Amount).toLocaleString('en-IN'));
+                var currencyType = $(".Currency").val();
+
+                var Loyalty = new Object();
+                Loyalty.CurrencyCode = $(".Currency").val();
+                jsonResult = GetCurrencySymbolByCode(Loyalty);
+
+                var symbol = "";
+                $.each(jsonResult, function (index, jsonResult) {
+                    symbol = jsonResult.Symbol;
+
+                });
+
+                $("#netAmount").text((Amount).toLocaleString(currencyType) + " " + symbol);
                 $("#netPoints").text(Points);
             }
         }
@@ -237,6 +319,9 @@
                 $('.alert-success strong').text(Messages.SavedSuccessfull);
                
                 //Clearing fields
+                $("#lblSymbol").text("");
+                $("select").val("en-IN").trigger("change");  //set india as default selected option
+
                 $("#txtUserName").text('');
                 $("#txtMobile").text('');
                 $("#txtLoyalCardNo").text('');
@@ -294,6 +379,10 @@
     $(".Cancel").live({
         click: function (e) {
             //Clearing fields
+
+            $("#lblSymbol").text("");
+            $("select").val("en-IN").trigger("change");  //set india as default selected option
+
             $("#txtUserName").text('');
             $("#txtMobile").text('');
             $("#txtLoyalCardNo").text('');
@@ -322,6 +411,7 @@
             });
         }
     })
+
 });
 
 //------------User details table------------

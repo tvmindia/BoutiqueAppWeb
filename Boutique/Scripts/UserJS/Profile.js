@@ -1,4 +1,6 @@
-﻿$("document").ready(function (e) {
+﻿
+//document.ready
+$("document").ready(function (e) {
     parent.document.title = Pages.Profile;
 
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -182,11 +184,9 @@
                         }
             }
         }
-    })
+    })    
 
-    
-
-    //
+ 
     //Style setting for client side Validation
     //CreatedBy Thomson
 
@@ -201,7 +201,8 @@
 
     //end styling client validation
 
-});//end of document.ready
+});
+//end of document.ready
 
 function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
@@ -236,11 +237,9 @@ function DeleteItem(e,p)
 
 function botiqueProfileLoad()
 {
-
     var jsonResult = {};
     jsonResult = GetBoutiques();
     if (jsonResult != undefined) {
-
         BindBoutiqueTextBoxes(jsonResult);
         GetBoutiqueImageAndLogo(jsonResult[0].BoutiqueID)
     }
@@ -344,7 +343,6 @@ function listToAray(fullString, separator) {
 }
 
 function BindBoutiqueTextBoxes(Records) {
-    //$.each(Records, function (index, Records) {
 
     var coordinates = Records[0].latlong;
     var arrayCoordinates = listToAray(coordinates, ',');
@@ -364,9 +362,7 @@ function BindBoutiqueTextBoxes(Records) {
         $("#txtLatitude").val(arrayCoordinates[0]);
         $("#txtLongitude").val(arrayCoordinates[1]);
         $("#hdfBoutiqueID").val(Records[0].BoutiqueID);
-    //})
-   
-}
+   }
 
 function GetBoutiqueImageAndLogo(boutiqueId) {
 
@@ -386,36 +382,15 @@ function GetBoutiqueImageAndLogo(boutiqueId) {
     var logobtq = document.getElementById('boutiqueLogo');
     imgbtq.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueId=" + boutiqueId;
     logobtq.src = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + boutiqueId;
-    //if (ImageIsNull == "0") {
-    //    $("#list").find(".thumb").remove();
-    //    var span = document.createElement('span');
-    //    span.innerHTML = ['<img id="designerimage" class="thumb" src="../img/no-user-image.gif" title=""/>'].join('');
-    //    document.getElementById('list').insertBefore(span, null);
-    //}
-    return;
+     return;
 
 }
 
 function clearControls() {
-     botiqueProfileLoad();
-
-    //$("#txtAppVersion").val('');
-    //$("#txtBouquetName").val('');
-    //$("#txtStartYear").val('');
-    //$("#txtAboutus").val('');
-    //$("#txtCaption").val('');
-    //$("#txtLocation").val('');
-    //$("#txtAddress").val('');
-    //$("#txtPhone").val('');
-    //$("#txtTimings").val('');
-    //$("#txtWorkingDays").val('');
-    //$("#txtFacebooklink").val('');
-    //$("#txtInstatgramlink").val('');
-    //$("#imageList").find(".thumb").remove();
-    //$("#logoList").find(".logo").remove();
-    //$("#txtLatitude").val('');
-    //$("#txtLongitude").val('');
-    //$('#rowfluidDiv').hide();
+    botiqueProfileLoad();
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();   
 }
 
 function BindOwnerTextBoxes(Records) {
@@ -522,7 +497,6 @@ function GetOwner(Owner) {
     return table;
 }
 
-//
 //Basic Validation and Insert For Adding Owner
 //CreatedBy Thomson
 function OwnerValidate() {
@@ -623,6 +597,4 @@ function AddOwner()
 
     BindAsyncOwnerTable();
 }
-//
 //end Validation and Insert For Adding Owner
-//
