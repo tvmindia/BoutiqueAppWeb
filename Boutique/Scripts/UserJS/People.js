@@ -3,10 +3,10 @@
     parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION
-    debugger;
+  
 
     var LoginUserRole = getRole();
-    debugger;
+   
 
     var abc = LoginUserRole[0];
     var def = LoginUserRole[1];
@@ -782,6 +782,7 @@ function BindUserTextBoxes(Records) {
         $("#dateAnniversary").val(ConvertJsonToDate(Records.Anniversary));
         $("#hdfUserID").val(Records.UserID);
 
+        $("#hdfMobile").val(Records.Mobile);
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
     })
@@ -794,7 +795,8 @@ function BindAdminTextBoxes(Records) {
         $("#txtMobileAdmin").val(Records.Mobile);
         $("#txtAdminEmail").val(Records.Email);
         $("#txtAdminLoginName").val(Records.LoginName);
-
+      
+        $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
         if (Records.Active = 'true') {
             // $("#chkActive").attr('checked', 'checked');
@@ -826,6 +828,7 @@ function BindManagerTextBoxes(Records) {
         $("#txtManagerEmail").val(Records.Email);
         $("#txtManagerLoginName").val(Records.LoginName);
 
+        $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
         if (Records.Active = 'true') {
             // $("#chkActive").attr('checked', 'checked');
@@ -913,6 +916,14 @@ function AddAdmin() {
 
     Admin.Name = $("#txtAdminName").val();
     Admin.Mobile = $("#txtMobileAdmin").val();
+
+    debugger;
+    if (Admin.Mobile != $("#hdfMobile").val())
+    {
+        Admin.isVerified = "false";
+    }
+   
+
     Admin.LoginName = $("#txtAdminLoginName").val();
     Admin.Password = $("#txtAdminConPass").val();
     Admin.Email = $("#txtAdminEmail").val();
@@ -963,6 +974,10 @@ function AddManager() {
 
     Manager.Name = $("#txtManagerName").val();
     Manager.Mobile = $("#txtManagerMobile").val();
+
+    if (Manager.Mobile != $("#hdfMobile").val()) {
+        Manager.isVerified = "false";
+    }
     Manager.LoginName = $("#txtManagerLoginName").val();
     Manager.Password = $("#txtManagerConPass").val();
     Manager.Email = $("#txtManagerEmail").val();
@@ -1084,7 +1099,9 @@ function AddUser()
         User.Email = $("#txtEmail").val();
         User.LoyaltyCardNo = parseInt($("#hdfCardNo").val(), 10); // you want to use radix 10
         // so you get a decimal number even with a leading 0 and an old browser
-
+        if (User.Mobile != $("#hdfMobile").val()) {
+            User.isVerified = "false";
+        }
         if ($('#chkActive').is(':checked')) {
             User.IsActive = "true";
         }
