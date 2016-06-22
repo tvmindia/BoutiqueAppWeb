@@ -411,10 +411,12 @@ $("document").ready(function (e) {
 
 
     $("#load_more_button").click(function (e) { //user clicks on button
-      
+        debugger;
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
-        BindAllProductImagesForEventLoad(20);//Bind Images Into Masonry container
+        var n = $(".masonry-thumb").size();
+        n=n + 20;
+        BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
         $(this).show();
 
     });
@@ -1322,7 +1324,7 @@ function clearProductControls() {
 ////All Product Images
 ///
 function BindAllProductImagesForEventLoad(Pagevalue) {
-
+    
     var imagedivholder = $('#productimagehold');
     var Product = new Object();
     if (Pagevalue != undefined) {
