@@ -869,6 +869,54 @@ namespace Boutique.DAL
             #endregion
            #endregion Methods
 
+        #region CheckCategory
+
+            public string CheckCategory()
+            {
+                string count = string.Empty;
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+
+                try
+                {
+
+                    if (BoutiqueID != null)
+                    {
+                        dcon = new dbConnection();
+                        dcon.GetDBConnection();
+                        cmd = new SqlCommand();
+                        cmd.Connection = dcon.SQLCon;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "[CheckCategory]";
+                        cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                        cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                        sda = new SqlDataAdapter();
+                        sda.SelectCommand = cmd;
+                        ds = new DataSet();
+                        sda.Fill(ds);
+                        count = ds.Tables[0].Rows.Count.ToString();
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+
+                    }
+                }
+                return count;
+            }
+            #endregion GetCategory
+        
         #region CategoryMethods
         
         #region GetAllCategories

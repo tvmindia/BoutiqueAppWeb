@@ -112,18 +112,24 @@
 					</div>
 					<div class="box-content"  style="height:215px;overflow:auto;" >
 						<div class="form-horizontal">
+
+                             <div class="alert alert-block" id="ErrorBox1" style="display:none;">
+                                                <div id="Displaydiv1">
+
+                                                </div>
+                                                </div>
 							<%--<fieldset>--%>
 						  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Category Code</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtCatCode" type="text"/>
+								  <input class="input-large focused" name="Category Code" id="txtCatCode" type="text" onblur="Cat_code_Check();"/>
 								</div>
 								</div>
 
                               <div class="control-group">
 								<label class="control-label" for="focusedInput">Category Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtCategoryName" type="text"/>
+								  <input class="input-large focused" name="Category Name" id="txtCategoryName" type="text"/>
 								</div>
 								</div>
                             						
@@ -136,7 +142,7 @@
                     <footer class="InnerFooter">
                 				
 
-                          <a class="btn btn-primary AddCategory" href="#">Save</></a>
+                          <a class="btn btn-primary " onclick="return CategoryValidation()" href="#">Save</></a>
 						 <a class="btn btn-primary ModifyProduct" href="#"><i class="halflings-icon th"></i>Save</></a>
                            <a class="btn CancelCategory">Cancel</a>
 						

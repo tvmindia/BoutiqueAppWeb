@@ -126,6 +126,10 @@ namespace Boutique.AdminPanel
                         Catobj.CreatedBy = UA.userName;
 
                         status = Catobj.InsertCategory().ToString();
+
+                        Catobj.CategoryCode = "OFR";
+                        Catobj.CategoryName = "Offers";
+                        status = Catobj.InsertCategory().ToString();
                     }
 
 
