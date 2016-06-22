@@ -89,7 +89,8 @@
                 </div>
 
                   <footer class="InnerFooter">
-                			<a class="btn btn-primary saveSettings" href="#">Save</></a>							
+                			<a class="btn btn-primary saveSettings" href="#">Save</></a>	
+                      <a class="btn btn-primary SetToDefault" href="#">Set To Default</></a>							
                            <a class="btn Cancel">Cancel</a>
                         </footer> 
                   

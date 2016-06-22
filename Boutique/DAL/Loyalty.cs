@@ -106,6 +106,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public string CurrencyCode
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Methods
@@ -344,8 +350,53 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
         }
 
+        #region Set Loyalty Settings To Default
+        /// <summary>
+        /// Set Loyalty Settings To Default(Update the settings with initial values )
+        /// </summary>
+        /// <returns></returns>
+         public Int16 SetLoyaltySettingsToDefault()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
 
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SetLoyaltySettingsToDefault]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //update success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        
+        #endregion Set Loyalty Settings To Default
 
         #region Get Loyalty Log
         public DataTable GetLoyaltyLog()
@@ -386,6 +437,105 @@ namespace Boutique.DAL
             return dt;
         }
         #endregion
+
+        #region Get All Currency Name And Code
+        public DataSet GetAllCurrencyNameAndCode()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllCurrencyNameAndCode]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+
+        #endregion Get All Currency Name And Code
+
+        #region Get Currency Symbol By Code
+        public DataSet GetCurrencySymbolByCode()
+        {
+            if (BoutiqueID == "" || BoutiqueID == null)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (CurrencyCode == "" || CurrencyCode == null)
+            {
+                throw new Exception("CurrencyCode is Empty!!");
+            }
+
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetCurrencySymbolByCode]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = CurrencyCode;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+
+        #endregion Get Currency Symbol By Code
 
         #endregion
 
