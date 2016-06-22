@@ -78,6 +78,7 @@
     <Content Include="AdminPanel\Products.aspx" />
     <Content Include="AdminPanel\Profile.aspx" />
     <Content Include="AdminPanel\SaDashBoard.aspx" />
+    <Content Include="BoutiqueTemplates\EmailTemplate.htm" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
     <Content Include="CSS\bootstrap-select-1.6.3.css" />
@@ -522,7 +523,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="BoutiqueTemplates\" />
     <Folder Include="Media\GraphPic\" />
     <Folder Include="Models\" />
   </ItemGroup>
