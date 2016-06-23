@@ -250,8 +250,10 @@
                                     </div>
                                 
                                <footer class="InnerFooter">
+                                      <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>
+                                   <a class="btn btn-primary templatePreview" runat="server" href="#">Template Preview</a>
                             <a class="btn btn-primary submitDetails" runat="server" href="#">Send</a>
-                                    <a class="btn btn-primary templatePreview" runat="server" href="#">Template Preview</a>
+                                    
                          </footer>
                                      
                                  

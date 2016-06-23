@@ -14,8 +14,7 @@ function ForgotPassword() {
         + '<input class="input-large span10" name="Email" id="txtEmail" type="Email"  autocomplete="off" placeholder="Email"/>'
         + '</div>'
         + '<div><img src="../img/Default/Sendingmail.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
-        + '<div class="button-login">'
-        //+ '<button type="submit" id="btnlogin" onclick="SendVerificationCode()" class="btn btn-primary loginbtn">Continue</button>'
+        + '<div class="button-login">'     
         + '<a href="#" onclick="SendVerificationCode();" class="btn btn-primary loginbtn">Continue</a>'
         + '</div>'
         + '<div class="clearfix"></div>'
@@ -23,13 +22,9 @@ function ForgotPassword() {
     LoginDIv.append(html);
    
 }
-//function Loading()
-//{
-  //  $('#Sendinggif').show();
-//}
+
 function SendVerificationCode() {
-    debugger;
-    
+  
     $('#Sendinggif').show();
     var Email = $('#txtEmail');
     var EmailAddress = Email[0].value;
@@ -46,8 +41,7 @@ function SendVerificationCode() {
         MatchVetification(EmailAddress);
     }
     if (table.d == "false")
-    {
-        //$('#Sendinggif').hide();
+    {       
         var ptag = document.getElementById('lblerror');
         ptag.style.color = 'red';
         ptag.style.fontFamily = 'monaco';
@@ -104,6 +98,7 @@ function VerifyCodeNow()
         ptag.innerHTML = 'The Verification Code Missmatch !';
     }
 }
+
 function EnterPassword(UsrID) {
     var HdnUserID = document.createElement('input');
     HdnUserID.setAttribute("type", "hidden");
@@ -128,6 +123,7 @@ function EnterPassword(UsrID) {
     LoginDIv.append(HdnUserID);
     $('#HdnUserID').val(UsrID);
 }
+
 function UpdatePassword()
 {
     var UsrID = $('#HdnUserID').val();
@@ -144,7 +140,7 @@ function UpdatePassword()
         Security.UserID = UsrID;
         var data = "{'LogObj':" + JSON.stringify(Security) + "}";
         table = getJsonData(data, "../AdminPanel/Login.aspx/UpdatePassword");
-        debugger;
+    
         if (table.d == "True") {
             $('#NewPassword').remove();
             Succes();
@@ -170,6 +166,7 @@ function UpdatePassword()
     }, 20000);
        
 }
+
 function Succes() {
     var LoginDIv = $('#loginRowFluid');
     var html = ('<div class="login-box" id="ChangedPassword">'

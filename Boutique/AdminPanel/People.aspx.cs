@@ -322,14 +322,12 @@ namespace Boutique.AdminPanel
             AdminObj.CreatedBy = UA.userName;
             AdminObj.RoleName = Const.Administrator;
             AdminObj.CreatedDate = DateTime.Now;
-
+            AdminObj.IsAdmin = true;
 
 
             string status = null;
             if (AdminObj.UserID == null)
             {
-
-
                 status = AdminObj.AddNewUser().ToString();
                 status = AdminObj.AddNewAdmin().ToString();
                 status = AdminObj.AddNewRole().ToString();
@@ -470,6 +468,7 @@ namespace Boutique.AdminPanel
             ManagerObj.CreatedBy = UA.userName;
             ManagerObj.RoleName = Const.Manager;
             ManagerObj.CreatedDate = DateTime.Now;
+            ManagerObj.IsAdmin=true;
 
 
 

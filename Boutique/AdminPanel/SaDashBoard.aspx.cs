@@ -166,6 +166,7 @@ namespace Boutique.AdminPanel
             string status = null;
             if(userObj.UserID==null)
             {
+                userObj.IsAdmin = true;
                 status = userObj.AddNewUser().ToString();
             }
             else

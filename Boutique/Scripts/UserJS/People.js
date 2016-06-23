@@ -139,6 +139,7 @@ $("document").ready(function (e) {
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
+               clearUserControls();
                editedrow = $(this).closest('tr');
                var e = editedrow.attr("userID");
                var p = "User";
@@ -151,7 +152,8 @@ $("document").ready(function (e) {
         click: function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
-            $('.alert-error').hide();             
+            $('.alert-error').hide();
+            clearAdminControls();
             editedrow = $(this).closest('tr');
             var e = editedrow.attr("AdminID");
             var p = "Admin";
@@ -165,6 +167,7 @@ $("document").ready(function (e) {
           $('#rowfluidDiv').hide();
           $('.alert-success').hide();
           $('.alert-error').hide();
+          clearManagerControls();
           editedrow = $(this).closest('tr');
           var e = editedrow.attr("AdminID");
           var p = "Manager";
@@ -179,6 +182,7 @@ $("document").ready(function (e) {
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
+             clearDesignerControls();
              editedrow = $(this).closest('tr');
              var e = editedrow.attr("designerID");
              var p = "Designer";
