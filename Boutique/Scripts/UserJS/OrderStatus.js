@@ -5,12 +5,7 @@ var InitialItemCount = 0;
 $("document").ready(function (e) {
    
     var rowCount = $("#OrderItemTable > tbody > tr").length;
-
-    //if (rowCount == 0) {
-    //    $('#OrderItemTable').hide();
-    //}
-
-
+ 
     parent.document.title = Pages.OrderStatus;
 
     $(".products").select2({
@@ -19,129 +14,28 @@ $("document").ready(function (e) {
         data: BindProductDropdown()
     });
 
-
     $(".Users").select2({
         placeholder: "Choose user",
         allowClear: true,
         data: BindUserDropdown()
     });
 
-
     BindOrdersTable();
 
     $('#OrdersTable').DataTable({
         "bPaginate": false,       //Search and Paging implementation
         "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
-
     });
 
     BindClosedOrdersTable();
     $('#ClosedOrdersTable').DataTable({
         "bPaginate": false,       //Search and Paging implementation
         "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
-
-    });
-    
-
-
-    //------------ BINDING  Order details table------------//
-
-
-    //---* Bind the orders table by converting JSON data of datatable into html table *--//
-
-    function BindOrdersTable() {
-        var jsonResult = {};
-        var Order = new Object();
-        jsonResult = GetAllOrders(Order);
-        if (jsonResult != undefined) {
-            FillOrderTable(jsonResult);
-        }
-    }
-
-    
-
-        function BindClosedOrdersTable() {
-            var jsonResult = {};
-            var Order = new Object();
-            jsonResult = GetAllClosedOrders(Order);
-            if (jsonResult != undefined) {
-                FillClosedOrderTable(jsonResult);
-            }
-        }
-
-    //---* Get the datatable in form of JSON *--//
-
-    function GetAllOrders(Order) {
-        var ds = {};
-        var table = {};
-        var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
-        ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetAllOrders");
-        table = JSON.parse(ds.d);
-        return table;
-    }
-
-    function GetAllClosedOrders(Order) {
-        var ds = {};
-        var table = {};
-        var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
-        ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetAllClosedOrders");
-        table = JSON.parse(ds.d);
-        return table;
-    }
-
-
-
-    //---* Creation of html table from received JSON *--//
-
-    function FillOrderTable(Records) {
-
-        $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
-
-        $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
-
-        $.each(Records, function (index, Records) {
-
-            //var html = '<tr UserID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td>' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td class="center">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td class="center">' + (Records.OrderDate != null ? Records.OrderDate : "-") + '</td><td class="center">' + (Records.ForecastDeliveryDate != null ? Records.ForecastDeliveryDate : "-") + '</td><td class="center"><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger OrderDelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
-
-            var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
-
-            $("#OrdersTable").append(html);
-        });
-
-
-    }
-
-    function FillClosedOrderTable(Records) {
-
-        $("#ClosedOrdersTable").width("100%");
-
-
-        $("tbody#ClosedOrderRows tr").remove();            //Remove all existing rows for refreshing
-
-  
-        $.each(Records, function (index, Records) {
-
-            var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td><a class="btn btn-info ClosedOrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
-
-         
-
-            $("#ClosedOrdersTable").append(html);
-        });
-
-
-    }
-
-    //------------END :   BINDING  Order details table------------//
-
-    //------------ Edit Button CLick------------//
-
+    });   
+   
     $(".OrderEdit").live(
     {
         click: function (e) {
-
-
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -149,9 +43,7 @@ $("document").ready(function (e) {
 
             $("#dateForecastDeliveryDate").removeAttr("disabled");
             $("#dateOrderReadyDate").removeAttr("disabled");
-            $("#dateActualDeliveryDate").removeAttr("disabled");
-
-            //$("#dateForecastDeliveryDate").addClass("input-large datepicker");
+            $("#dateActualDeliveryDate").removeAttr("disabled");  
 
             var jsonResult = {};
             editedrow = $(this).closest('tr');
@@ -167,17 +59,10 @@ $("document").ready(function (e) {
                 $(".products").select2("val", "");
                 document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
                 $("#txtRemarks").val("");
-
-                //$("#OrderItemTable").dataTable().fnClearTable();
-                //$("#OrderItemTable").dataTable().fnDestroy();
-
-
+                
                 BindOrderItemsList(Order);
 
                 InitialItemCount = $("#OrderItemTable > tbody > tr").length;
-
-                //$("#OrderItemTable").DataTable();
-
 
             }
             //Scroll page
@@ -195,9 +80,7 @@ $("document").ready(function (e) {
     $(".ClosedOrderEdit").live(
    {
        click: function (e) {
-
-
-
+           
            $('#rowfluidDiv').hide();
            $('.alert-success').hide();
            $('.alert-error').hide();
@@ -226,21 +109,16 @@ $("document").ready(function (e) {
            });
            return false;
        }
-   })
-
-
-    //------------END : Edit Button CLick------------//
+   })      
 
 
     //------------ Add To List Button CLick------------//
-
     $(".addBtn").live(
     {
         click: function (e) {
 
             if ($(".products").val() != "") //check if  product is selected
             {
-
                 AddToList();
 
                 $(".products").select2("val", "");
@@ -253,79 +131,11 @@ $("document").ready(function (e) {
             }
         }
     })
-
-    //------------END : Add To List Button CLick------------//
-
-
-    function ClearControls() {
-
-        $("#txtDescription").val("");
-        $("#txtOrderDate").val("");
-        $("#dateOrderDate").text("");
-        $("#txtPlannedDeliveryDate").val("");
-        $("#datePlannedDeliveryDate").text("");
-        $("#dateForecastDeliveryDate").val("");
-        $("#dateOrderReadyDate").val("");
-        $("#dateActualDeliveryDate").val("");
-        $("#txtTotalOrderAmount").val("");
-        $("#hdfOrderID").val("");
-
-        $(".submitDetails").text("Save");
-        $("#editLabel").text("New Order");
-
-
-
-        //---------Manage Control hide and show
-        $("#OrderNoDiv").hide();
-        $("#lblOrderNo").hide();
-
-        $("#dateOrderDate").hide();
-        $("#datePlannedDeliveryDate").hide();
-        $("#txtOrderDate").show();
-        $("#txtPlannedDeliveryDate").show();
-
-
-        $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
-        $("#dateOrderReadyDate").attr('disabled', 'disabled');
-        $("#dateActualDeliveryDate").attr('disabled', 'disabled');
-
-        //---order item
-
-        $("#OrdersTable > tbody").empty();
-        //$('#OrderItemTable').hide();
-
-
-        $(".Users").select2("val", "");
-
-        //$("#ForecastDiv").hide();
-        //$("#OrderReadyDiv").hide();
-        //$("#ActualDeliveryDiv").hide();
-    }
-
-    function ClearControlsOfClosedOrder() {
-
-        $("#ClosedlblOrderNo").text("");
-        $("#ClosedlblUser").text("");
-        $("#ClosedlblOrderDescription").text("");
-        $("#CloseddateOrderDate").text("");
-        $("#CloseddatePlannedDeliveryDate").text("");
-        $("#ClosedtotalAmount").text("");
-        $("#CloseddateForecastDeliveryDate").text("");
-        $("#CloseddateOrderReadyDate").text("");
-        $("#CloseddateActualDeliveryDate").text("");
-        $("#ClosedhdfOrderID").text("");
-       
-    }
-
-
     //------------ Order Save Button CLick------------//
-
     $(".submitDetails").live(
     {
         click: function (e) {
-           
-            debugger;
-
+         
             var Insert = false;
 
             $('#rowfluidDiv').hide();
@@ -697,9 +507,7 @@ $("document").ready(function (e) {
 
         }
     })
-    //------------END: Save Button CLick------------//
-
-    //----------- Cancel button Click -----------
+     //----------- Cancel button Click -----------//
     $(".Cancel").live({
         click: function (e) {// Clear controls
            
@@ -731,7 +539,6 @@ $("document").ready(function (e) {
             
         }
     })
-
     $(".ClosedOrderCancel").live({
         click: function (e) {// Clear controls
            
@@ -752,24 +559,7 @@ $("document").ready(function (e) {
         }
     })
 
-    
-
-
-
-    //---------------    END : Cancel Click       -------------
-
-    //$('.Users').select2()
-    //      .on("change", function (e) {
-
-    //          debugger;
-
-    //          var data = $('.Users').select2('data')
-    //          var userData = data[0].text;
-
-    //          var user = userData.substr(0, userData.indexOf(','));
-    //          $('.Users').select2('data') = user;
-
-    //      })
+  
 
     //----- Dropdown item cahnge event  : (get Image by product id) ----//      
     $('.products').select2()
@@ -803,38 +593,7 @@ $("document").ready(function (e) {
                    
                }
 
-           })
-
-
-  
-
-
-
-    function GetProductImage(Order) {
-        var ds = {};
-        var table = {};
-        var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
-        ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetProductImageByProductID");
-        table = JSON.parse(ds.d);
-        return table;
-
-    }
-
-
-    function SendMail(MailSending)
-    {
-        if (MailSending.EmailID != "") {
-            var data = "{'mailObj':" + JSON.stringify(MailSending) + "}";
-
-            var jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/SendMail");
-            //var table = {};
-            //table = JSON.parse(jsonResult.d);
-            //return table;
-        }
-    }
-
-    //END
-
+           }) 
 
     //---------- Delete Button Click---------
     $(".OrderItemDelete").live(
@@ -856,6 +615,149 @@ $("document").ready(function (e) {
     })
     //----------END: Delete Button Click---------
 });
+
+
+function ClearControls() {
+
+    $("#txtDescription").val("");
+    $("#txtOrderDate").val("");
+    $("#dateOrderDate").text("");
+    $("#txtPlannedDeliveryDate").val("");
+    $("#datePlannedDeliveryDate").text("");
+    $("#dateForecastDeliveryDate").val("");
+    $("#dateOrderReadyDate").val("");
+    $("#dateActualDeliveryDate").val("");
+    $("#txtTotalOrderAmount").val("");
+    $("#hdfOrderID").val("");
+
+    $(".submitDetails").text("Save");
+    $("#editLabel").text("New Order");
+
+    //---------Manage Control hide and show
+    $("#OrderNoDiv").hide();
+    $("#lblOrderNo").hide();
+
+    $("#dateOrderDate").hide();
+    $("#datePlannedDeliveryDate").hide();
+    $("#txtOrderDate").show();
+    $("#txtPlannedDeliveryDate").show();
+
+    $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
+    $("#dateOrderReadyDate").attr('disabled', 'disabled');
+    $("#dateActualDeliveryDate").attr('disabled', 'disabled');
+
+    //---order item
+
+    $("#OrdersTable > tbody").empty();
+
+    $(".Users").select2("val", "");
+
+
+}
+
+function ClearControlsOfClosedOrder() {
+
+    $("#ClosedlblOrderNo").text("");
+    $("#ClosedlblUser").text("");
+    $("#ClosedlblOrderDescription").text("");
+    $("#CloseddateOrderDate").text("");
+    $("#CloseddatePlannedDeliveryDate").text("");
+    $("#ClosedtotalAmount").text("");
+    $("#CloseddateForecastDeliveryDate").text("");
+    $("#CloseddateOrderReadyDate").text("");
+    $("#CloseddateActualDeliveryDate").text("");
+    $("#ClosedhdfOrderID").text("");
+
+}
+
+function GetProductImage(Order) {
+    var ds = {};
+    var table = {};
+    var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetProductImageByProductID");
+    table = JSON.parse(ds.d);
+    return table;
+
+}
+
+
+function SendMail(MailSending) {
+    if (MailSending.EmailID != "") {
+        var data = "{'mailObj':" + JSON.stringify(MailSending) + "}";
+
+        var jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/SendMail");
+        //var table = {};
+        //table = JSON.parse(jsonResult.d);
+        //return table;
+    }
+}
+
+
+//------------ BINDING  Order details table------------//
+
+//---* Bind the orders table by converting JSON data of datatable into html table *--//
+
+function BindOrdersTable() {
+    var jsonResult = {};
+    var Order = new Object();
+    jsonResult = GetAllOrders(Order);
+    if (jsonResult != undefined) {
+        FillOrderTable(jsonResult);
+    }
+}
+
+function BindClosedOrdersTable() {
+    var jsonResult = {};
+    var Order = new Object();
+    jsonResult = GetAllClosedOrders(Order);
+    if (jsonResult != undefined) {
+        FillClosedOrderTable(jsonResult);
+    }
+}
+
+//---* Get the datatable in form of JSON *--//
+
+function GetAllOrders(Order) {
+    var ds = {};
+    var table = {};
+    var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetAllOrders");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetAllClosedOrders(Order) {
+    var ds = {};
+    var table = {};
+    var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetAllClosedOrders");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+//---* Creation of html table from received JSON *--//
+
+function FillOrderTable(Records) {
+    $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
+    $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
+    $.each(Records, function (index, Records) {
+        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
+        $("#OrdersTable").append(html);
+    });
+}
+
+function FillClosedOrderTable(Records) {
+    $("#ClosedOrdersTable").width("100%");
+    $("tbody#ClosedOrderRows tr").remove();            //Remove all existing rows for refreshing  
+    $.each(Records, function (index, Records) {
+        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td><a class="btn btn-info ClosedOrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
+        $("#ClosedOrdersTable").append(html);
+    });
+}
+
+//------------END :   BINDING  Order details table------------//
+
+//------------ Edit Button CLick------------//
 
 function DeleteItem(e, p) {
     var jsonResult = {};
@@ -1035,7 +937,6 @@ function BindClosedOrderItemsList(Order) {
 }
 
 
-
 //---* Get the orderITEM datatable in form of JSON *--//
 
 function GetOrderItemsByOrderID(Order) {
@@ -1122,7 +1023,6 @@ function GetUserDetailsByUserID(Order) {
     table = JSON.parse(ds.d);
     return table;
 }
-
 
 //Delete
 

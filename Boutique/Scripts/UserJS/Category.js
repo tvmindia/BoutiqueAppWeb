@@ -31,8 +31,7 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            $(".AddCategory").hide();
-         
+            $(".AddCategory").hide();         
           
             var jsonResult = {};
             editedrow = $(this).closest('tr');
@@ -52,8 +51,6 @@ $("document").ready(function (e) {
             return false;
         }
     })
-
-
     //Style setting for client side Validation
     //CreatedBy Thomson
 
@@ -149,7 +146,7 @@ function DeleteCategory(Category)
 }
 
 function InsertCategory(Category) {
-    debugger;
+ 
     var data = "{'categoryObj':" + JSON.stringify(Category) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Category.aspx/InsertCategory");
     var table = {};
@@ -179,8 +176,6 @@ function GetCategory(Category) {
 function BindCategoryTextBoxes(Records) {
     $.each(Records, function (index, Records) {
 
-        debugger;
-
         $("#txtCatCode").val(Records.CategoryCode);
         $("#txtCatCode").hide();
 
@@ -197,7 +192,7 @@ function BindCategoryTextBoxes(Records) {
 
 function ClearCategoryControls()
 {
-    debugger;
+   
     $("#txtCatCode").val('');
     $("#txtCategoryName").val('');
     $('#rowfluidDiv').hide();
@@ -311,7 +306,7 @@ function  AddCategory()
     BindAsyncCategoryTable();
 
     if (result == "1") {
-        debugger;
+   
         ClearCategoryControls();
         $('#rowfluidDiv').show();
         $('.alert-success').show();
