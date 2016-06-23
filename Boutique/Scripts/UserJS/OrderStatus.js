@@ -862,13 +862,17 @@ function DeleteItem(e, p) {
     var Order = new Object();
     Order.ProductID = e;
     Order.OrderID = p;
+    var result = -1;
 
+    if (Order.OrderID != "") {
+
+    
     result = DeleteOrderItem(Order);
     if (result == "1") {
 
         BindOrderItemsList(Order);
     }
-
+    }
     if (result == -1) {
 
         editedrow.remove();

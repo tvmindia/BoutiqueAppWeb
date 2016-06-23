@@ -514,7 +514,7 @@ namespace Boutique.AdminPanel
 
             new Thread(delegate()
             {
-
+                mailObj.MailSubject = "Order Confirmation";
                 mailObj.SendEmail();
             }).Start(); 
 

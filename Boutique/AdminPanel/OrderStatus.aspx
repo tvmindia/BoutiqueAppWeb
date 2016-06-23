@@ -6,7 +6,16 @@
     <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
-    <script src="../Scripts/CommonJS/Common.js"></script>        
+    <script src="../Scripts/CommonJS/Common.js"></script>   
+    
+    <style>
+        img
+        {
+            max-width:300%!important;
+        }
+    </style>
+    
+         
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -194,49 +203,59 @@
                                         </div>
                                         <%--<h2 id="NewItem" style="text-align:center">New Item</h2>--%>
                                         <div class="span12" style="width: 90%">
-                                            <div class="span6">
+                                            <div class="span3">
                                                 <h2><u>Product</u></h2>
                                                 <br />
                                                
-
-                                                    <div>
-
-                                                        <div class="control-group">
+                                                <div class="span6">
+                                                <div class="span4"> 
+                                                    <div class="control-group">
                                                             <label class="control-label" for="products">Product</label>
                                                             <div class="controls">
                                                                 <select style="width: 230px;" class="products">
                                                                     <option></option>
                                                                 </select>
 
-                                                               
-                                                                 <a class="btn btn-primary addBtn" href="#">Add To List</></a>
-
-                                                                 <%--<i class="halflings-icon white trash"></i>
-                                                                 <a class="btn btn icon-plus addBtn">  Add To List</a> --%>
-                                                                
                                                             </div>
                                                         </div>
-                                                    </div>
 
+                                                </div>
 
-                                                    <div class="span6">
-                                                        <div class="span3"><br /> <img id="ImgProduct" style="width: auto; height: 120px; border: none" src="../img/No-Img_Chosen.png" /></div>
-                                                        
-                                                        <div class="span3">
-                                                        <div class="control-group">
+                                                <div class="span3"></div>
+                                            </div>
+
+                                                <div class="span6">
+                                              
+                                                    <img id="ImgProduct" style="width: 230px; height: 120px; border: none" src="../img/No-Img_Chosen.png" />
+                                             
+
+                                                
+                                                </div>
+
+                                                <div class="span6">
+                                                <div class="span4">
+                                                      <div class="control-group">
                                                             <label class="control-label" for="Remarks">Remarks</label>
                                                             <div class="controls">
                                                                 <textarea class="form-control" style="width: 210px; height: 100px" rows="4" id="txtRemarks"></textarea>
                                                                 
                                                             </div>
                                                         </div>
-                                                            </div>
-                                                    </div>
+                                                </div>
+
+                                                <div class="span2"></div>
+                                                </div>
 
 
 
                                               
                                             </div>
+
+                                            <div class="span2" style="padding-top:13%">
+                                                      <a class="btn btn-primary icon-circle-arrow-right addBtn" href="#" > Add To List</></a>
+                                                </div>
+
+
                                             <div class="span6">
                                                 <h2><u>Product Details</u></h2>
                                                 <br />
