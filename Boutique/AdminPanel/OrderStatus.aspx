@@ -207,52 +207,54 @@
                                                 <h2><u>Product</u></h2>
                                                 <br />
                                                
-                                                <div class="span6">
-                                                <div class="span4"> 
+                                                <div class="span12">
+                                                
                                                     <div class="control-group">
                                                             <label class="control-label" for="products">Product</label>
                                                             <div class="controls">
-                                                                <select style="width: 230px;" class="products">
+                                                                <select style="width:100%;" class="products">
                                                                     <option></option>
                                                                 </select>
 
                                                             </div>
                                                         </div>
 
-                                                </div>
+                                               
 
-                                                <div class="span3"></div>
-                                            </div>
+                                                
+                                            
 
-                                                <div class="span6">
+                                                <div>
                                               
-                                                    <img id="ImgProduct" style="width: 230px; height: 120px; border: none" src="../img/No-Img_Chosen.png" />
+                                                    <img id="ImgProduct" style="width:100%; height: 120px; border: none" src="../img/No-Img_Chosen.png" />
                                              
 
                                                 
                                                 </div>
 
-                                                <div class="span6">
-                                                <div class="span4">
+                                                <div>
+                                                
                                                       <div class="control-group">
                                                             <label class="control-label" for="Remarks">Remarks</label>
                                                             <div class="controls">
-                                                                <textarea class="form-control" style="width: 210px; height: 100px" rows="4" id="txtRemarks"></textarea>
+                                                                <textarea class="form-control" style="max-width:97%;" rows="4" id="txtRemarks"></textarea>
                                                                 
                                                             </div>
                                                         </div>
-                                                </div>
+                                                
 
-                                                <div class="span2"></div>
+                                                
                                                 </div>
 
 
 
                                               
                                             </div>
+                                                </div>
 
                                             <div class="span2" style="padding-top:13%">
-                                                      <a class="btn btn-primary icon-circle-arrow-right addBtn" href="#" > Add To List</></a>
+                                                <a class="btn btn-primary button" id="addBtn"><span>Add To List</span></></a>
+                                                      <%--<a class="btn btn-primary icon-circle-arrow-right addBtn" href="#" > Add To List</></a>--%>
                                                 </div>
 
 

@@ -113,7 +113,7 @@ $("document").ready(function (e) {
 
 
     //------------ Add To List Button CLick------------//
-    $(".addBtn").live(
+    $("#addBtn").live(
     {
         click: function (e) {
 

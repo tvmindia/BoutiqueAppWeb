@@ -92,4 +92,70 @@ label.control-label {
 
    }    
   
-  
+  /*.button-round {
+    background-color: #2D89EF;
+    border-radius: 999em;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    line-height: 1;
+    font-size: 36px;
+    position: relative;
+    cursor: pointer;
+}
+
+.button-round span {
+    position: absolute;
+     left: 0;
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -22px;
+    color: #FFF;
+}*/
+
+  .button {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #2D89EF;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 16px;
+  /*padding: 20px;*/
+  /*padding-top:20px;*/
+  /*padding-bottom:20px;*/
+  /*position:center;*/
+  width: 110px;
+  /*height:30px;*/
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 20px;
+  font-family:Garamond;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
