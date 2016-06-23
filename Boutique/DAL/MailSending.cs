@@ -62,7 +62,6 @@ namespace Boutique.DAL
         string host = System.Web.Configuration.WebConfigurationManager.AppSettings["SMTP-host"];
         string smtpUserName = System.Web.Configuration.WebConfigurationManager.AppSettings["SMTP-UserName"];
         string smtpPassword = System.Web.Configuration.WebConfigurationManager.AppSettings["SMTP-Password"];
-        string Subject = System.Web.Configuration.WebConfigurationManager.AppSettings["OrderStatusSubject"];
         string port = System.Web.Configuration.WebConfigurationManager.AppSettings["Port"];
 
         #endregion   Public Variables
