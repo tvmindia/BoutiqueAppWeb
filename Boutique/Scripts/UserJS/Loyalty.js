@@ -27,9 +27,9 @@
     $(".Currency > option").each(function () {   //SET desfault selected option for currency 'select2'
 
         var symbol = this.value.split(',')[1];
-        var currencyType = this.value.split(',')[0];
+        var currencyCode = this.value.split(',')[0];
 
-        if (currencyType == $('#hdfCurrencyCode').val())
+        if (currencyCode == $('#hdfCurrencyCode').val())
         {
             $('#hdfCurrencyCode').val($('#hdfCurrencyCode').val() + "," + symbol);
 
@@ -170,7 +170,7 @@
     $("#radioYes").live(
     {
         click: function (e) {
-            
+         
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase - redeemablePoints;
                 var Points = totalPoints - redeemablePoints;
@@ -186,11 +186,7 @@
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase;
                 var Points = totalPoints;
-
-                var currencyType = $(".Currency").val().split(',')[0];
-                var symbol = $(".Currency").val().split(',')[1];
-
-                $("#netAmount").text(symbol + " " + (Amount).toLocaleString(currencyType));
+                ChangeAmountCurrency(Amount);
                 $("#netPoints").text(Points);
             }
         }
@@ -241,8 +237,10 @@
                 return;
             }
 
-            Loyalty.Currency = $(".Currency").select2('data')[0]['text']; 
-                        
+            if ($("#txtcurrentPurchase").val() != "")
+            {
+                Loyalty.CurrencyCode = $(".Currency").val().split(',')[0];
+            }
             result = MakeTransaction(Loyalty);
             if (result == "1") {
                 $('#rowfluidDiv').show();
@@ -408,10 +406,13 @@ function GetAllCurrency(Loyalty) {
 
 function ChangeAmountCurrency(Amount)
 {
-    var currencyType = $(".Currency").val().split(',')[0];
+    var currencyCode = $(".Currency").val().split(',')[0];
     var symbol = $(".Currency").val().split(',')[1];
 
-    $("#netAmount").text(symbol + " " + (Amount).toLocaleString(currencyType));
+    $("#netAmount").text(symbol + " " + (+(Amount)).toLocaleString(currencyCode));
+
+    var netAmtFormated = $("#netAmount").text();
+
 }
 
 //-----------* END:  Currency Dropdown * --------//

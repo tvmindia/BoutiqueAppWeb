@@ -113,12 +113,6 @@ namespace Boutique.DAL
             set;
         }
 
-        public string Currency //Country name
-        {
-            get;
-            set;
-        }
-
         #endregion
 
         #region Methods
@@ -227,9 +221,9 @@ namespace Boutique.DAL
                 cmd2.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;           //Updating person creates log
                 cmd2.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
-                if (Currency != string.Empty && Currency != null)
+                if (CurrencyCode != string.Empty && CurrencyCode != null)
                 {
-                    cmd2.Parameters.Add("@Currency", SqlDbType.NVarChar, 50).Value = Currency;
+                    cmd2.Parameters.Add("@Currency", SqlDbType.NVarChar, 50).Value = CurrencyCode;
                 }
                 cmd2.ExecuteNonQuery();
             }

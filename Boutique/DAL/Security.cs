@@ -145,13 +145,14 @@ namespace Boutique.DAL
             }
 
             #endregion  User Authentication
-            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam)
+            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode)
             {
                 Boutique_ID = BoutiqueID;
                 isValidUser = true;
                 userN = userName;
                 BoutiqueName = BoutiqueNam;
                 RoleName = RoleNam;
+                Boutique_CurrencyCode = CurrencyCode;
             }
             #region Get Login Details
             public DataTable GetLoginDetails(string LoginName)
