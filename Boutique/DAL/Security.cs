@@ -37,10 +37,11 @@ namespace Boutique.DAL
 
             private string BoutiqueName;
             private string Boutique_ID;
+            private string Boutique_CurrencyCode;
             private Boolean isValidUser;
             private string userN;
             private string RoleName;
-
+           
             public string userName
             {
                 get
@@ -68,6 +69,15 @@ namespace Boutique.DAL
                 get
                 {
                     return Boutique_ID;
+                }
+
+
+            }
+            public string BoutiqueCurrencyCode
+            {
+                get
+                {
+                    return Boutique_CurrencyCode;
                 }
 
 
@@ -121,6 +131,7 @@ namespace Boutique.DAL
 
                         BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
                         Boutique_ID = dt.Rows[0]["BoutiqueID"].ToString();
+                        Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
 
                         RoleName = dt.Rows[0]["RoleName"].ToString();
                     }

@@ -235,10 +235,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            if (UA.BoutiqueID != "")
-            {
-                loyaltyObj.BoutiqueID = UA.BoutiqueID;
-
+           
                 DataSet ds = null;
 
                 ds = loyaltyObj.GetAllCurrencyNameAndCode();
@@ -260,8 +257,8 @@ namespace Boutique.AdminPanel
                     }
                 }
                 return jsSerializer.Serialize(parentRow);
-            }
-            return jsSerializer.Serialize("");
+            
+            //return jsSerializer.Serialize("");
         }
 
         #endregion Get All Currency Name And Code

@@ -294,6 +294,7 @@ namespace Boutique.AdminPanel
 
             parentRow.Add(UA.Role);
             parentRow.Add(UA.userName);
+            parentRow.Add(UA.BoutiqueCurrencyCode);
 
             return jsSerializer.Serialize(parentRow);
 

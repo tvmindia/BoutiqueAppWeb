@@ -2,6 +2,9 @@
     parent.document.title = Pages.Loyalty
     
 
+    var LoginUserRole = getRole();
+    $('#hdfCurrencyCode').val(LoginUserRole[2]);
+
 //-----Transaction review Table :START-------//
 
     BindLoyaltyLogTable();
@@ -64,6 +67,7 @@
         var Loyalty = new Object();
         jsonResult = GetAllCurrency(Loyalty);
         if (jsonResult != undefined) {
+            
             return jsonResult;
         }
     }
@@ -77,7 +81,26 @@
         return table;
     }
     debugger;
-    $("select").val("en-IN,₹").trigger("change");  //set india as default selected option
+
+    $(".Currency > option").each(function () {
+        var symbol = $(".Currency").val().split(',')[1];
+        var currencyType = $(".Currency").val().split(',')[0];
+
+        if (currencyType == $('#hdfCurrencyCode').val())
+        {
+            $('#hdfCurrencyCode').val() = $('#hdfCurrencyCode').val() +""+ symbol;
+        }
+
+
+    });
+
+    if ($('#hdfCurrencyCode').val() != "") {
+        debugger
+
+
+        $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
+    }
+   
   
     $('.Currency').select2()
         .on("change", function (e) {
@@ -89,9 +112,13 @@
 
             var symbol = $(".Currency").val().split(',')[1];
             var currencyType = $(".Currency").val().split(',')[0];
+
             $("#netAmount").text(symbol+" "+(amount).toLocaleString(currencyType));
             }
         });
+
+
+
     function GetCurrencySymbolByCode(Loyalty) {
         var jsonResult = {};
       
@@ -136,7 +163,12 @@
     {
         click: function (e) {
 
-            $("select").val("en-IN,₹").trigger("change");  //set india as default selected option
+            //$("select").val("en-IN,₹").trigger("change");  //set india as default selected option
+
+            if ($('#hdfCurrencyCode').val() != "") {
+                $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
+            }
+
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -311,7 +343,12 @@
                
                 //Clearing fields
                 $("#lblSymbol").text("");
-                $("select").val("en-IN").trigger("change");  //set india as default selected option
+
+                if ($('#hdfCurrencyCode').val() != "") {
+                    $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
+                }
+
+                //$("select").val("en-IN").trigger("change");  //set india as default selected option
 
                 $("#txtUserName").text('');
                 $("#txtMobile").text('');
@@ -372,7 +409,11 @@
             //Clearing fields
 
             $("#lblSymbol").text("");
-            $("select").val("en-IN").trigger("change");  //set india as default selected option
+            //$("select").val("en-IN").trigger("change");  //set india as default selected option
+
+            if ($('#hdfCurrencyCode').val() != "") {
+                $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
+            }
 
             $("#txtUserName").text('');
             $("#txtMobile").text('');

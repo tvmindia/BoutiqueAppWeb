@@ -309,7 +309,7 @@
     <input type="hidden" id="hdfMIN_AMOUNT_TO_REDEEM" value="" />
     <input type="hidden" id="hdfMAX_DISCOUNT_PERCENTAGE" value="" />
     <input type="hidden" id="hdfMONEY_TO_POINT_VALUE" value="" />
-
+     <input type="hidden" id="hdfCurrencyCode" value="" />
 
 
 </asp:Content>

@@ -441,10 +441,6 @@ namespace Boutique.DAL
         #region Get All Currency Name And Code
         public DataSet GetAllCurrencyNameAndCode()
         {
-            if (BoutiqueID == "")
-            {
-                throw new Exception("BoutiqueID is Empty!!");
-            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
@@ -458,7 +454,6 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllCurrencyNameAndCode]";
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
