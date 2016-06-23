@@ -76,11 +76,20 @@ namespace Boutique.DAL
             MailMessage Msg = new MailMessage();
 
             Msg.From = new MailAddress(EmailFromAddress);
-            string[] multiEmail = recepientEmail.Split(';');
-            foreach (string multipleMails in multiEmail)
+
+            if (recepientEmail != null)
             {
-                //mailMessage.To.Add(new MailAddress(multipleMails));
-                Msg.To.Add(multipleMails);
+                string[] multiEmail = recepientEmail.Split(';');
+                foreach (string multipleMails in multiEmail)
+                {
+                    //mailMessage.To.Add(new MailAddress(multipleMails));
+                    Msg.To.Add(multipleMails);
+                }
+            }
+
+            else
+            {
+                Msg.To.Add(new MailAddress(EmailID));
             }
                 
           
