@@ -197,41 +197,45 @@
                                             <div class="span6">
                                                 <h2><u>Product</u></h2>
                                                 <br />
-                                                <div>
+                                               
 
                                                     <div>
 
                                                         <div class="control-group">
                                                             <label class="control-label" for="products">Product</label>
                                                             <div class="controls">
-                                                                <select style="width: 275px;" class="products">
+                                                                <select style="width: 230px;" class="products">
                                                                     <option></option>
                                                                 </select>
-                                                                <i class="halflings-icon white trash"></i>
-                                                                <a class="btn btn icon-plus addBtn"></a>
+
+                                                               
+                                                                 <a class="btn btn-primary addBtn" href="#">Add To List</></a>
+
+                                                                 <%--<i class="halflings-icon white trash"></i>
+                                                                 <a class="btn btn icon-plus addBtn">  Add To List</a> --%>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
 
 
-
-                                                </div>
-
-                                                <div>
-
-                                                    <div>
+                                                    <div class="span6">
+                                                        <div class="span3"><br /> <img id="ImgProduct" style="width: auto; height: 120px; border: none" src="../img/No-Img_Chosen.png" /></div>
+                                                        
+                                                        <div class="span3">
                                                         <div class="control-group">
                                                             <label class="control-label" for="Remarks">Remarks</label>
                                                             <div class="controls">
-                                                                <textarea class="form-control" style="width: 210px; height: 120px" rows="4" id="txtRemarks"></textarea>
-                                                                <img id="ImgProduct" style="width: 100px; height: 120px; border: none" src="../img/No-Img_Chosen.png" />
+                                                                <textarea class="form-control" style="width: 210px; height: 100px" rows="4" id="txtRemarks"></textarea>
+                                                                
                                                             </div>
                                                         </div>
+                                                            </div>
                                                     </div>
 
 
 
-                                                </div>
+                                              
                                             </div>
                                             <div class="span6">
                                                 <h2><u>Product Details</u></h2>

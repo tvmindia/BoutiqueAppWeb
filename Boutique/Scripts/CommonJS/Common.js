@@ -247,7 +247,7 @@ function CustomAlert(txt) {
     btn.onclick = function () { removeCustomAlert(); return false; }
 
     alertObj.style.display = "block";
-    $("#alertBox").animate({ top: '50px' });
+    $("#alert").animate({ top: '50px' });
 }
 
 function getJsonData(data, page) {
