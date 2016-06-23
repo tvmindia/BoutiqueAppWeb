@@ -413,8 +413,20 @@ $("document").ready(function (e) {
     $("#load_more_button").click(function (e) { //user clicks on button
         debugger;
         $(this).hide(); //hide load more button on click
-        $('.animation_image').show(); //show loading image
         var n = $(".masonry-thumb").size();//check the count of thumb divs
+        var Product = new Object();
+        var totalcount = GetTotalProductCount(Product);
+        if (totalcount.TotalRows === n)
+        {
+            $(this).show();
+          
+            $(this).text("No More Products");
+            $('.animation_image').hide();
+            return false;
+        }
+
+        $('.animation_image').show(); //show loading image
+      
         if (n === 0)
         {
             BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
@@ -424,7 +436,7 @@ $("document").ready(function (e) {
             n = n + 1;//last div thumb +1 to avoid last product duplication
             BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
         }
-       
+        $('.animation_image').hide();
         $(this).show();
 
     });
@@ -631,7 +643,7 @@ function BindProductTextBoxes(thisobject) {
     $('.DeleteProduct').show();
 }
 
-
+//////////////////////////////////////
 function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
     var imagedivholder = $('#productoutofstockimagehold');
     var Product = new Object();
@@ -653,30 +665,18 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
     $("#productoutofstockimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
-
         if (totalimages[i].Discount != null) {
 
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-        + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-        + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-        + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-        + '</div>');
-
-            imagedivholder.append(html);
+            imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
         }
         if (totalimages[i].Discount === null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-           + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-           + '</div>');
-            imagedivholder.append(html);
+
+            imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
         }
     }
 }
-
-
+//////////////////////////////////////////////////////
+/////////////////////////////////
 function BindAllNewProductImagesSearch(Pagevalue, searchtext) {
     var imagedivholder = $('#productimagehold');
     var Product = new Object();
@@ -701,27 +701,34 @@ function BindAllNewProductImagesSearch(Pagevalue, searchtext) {
     for (var i = 0; i < totalimages.length; i++) {
 
         if (totalimages[i].Discount != null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-            + '</div>');
-
-            imagedivholder.append(html);
+            if (totalimages[i].IsOutOfStock == false) {
+        
+                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+            }
         }
-        if (totalimages[i].Discount === null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-            + '</div>');
-            imagedivholder.append(html);
+            if (totalimages[i].Discount === null) {
+                if (totalimages[i].IsOutOfStock == false) {
 
-        }
+                    imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+                }
+
+            }
+         if (totalimages[i].IsOutOfStock == true) {
+            if (totalimages[i].Discount != null) {
+            
+                       imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+             }
+                   if (totalimages[i].Discount == null) {
+                 
+            imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
     }
+
 }
 
+    }
+}
+///////////////////////////////
+///////////////////////////
 function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     var imagedivholder = $('#productTrendsimagehold');
     var Product = new Object();
@@ -743,32 +750,38 @@ function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     $("#productTrendsimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
+if (totalimages[i].Discount != null) {
+            if (totalimages[i].IsOutOfStock == false) {
 
-        if (totalimages[i].Discount != null) {
+                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+                }
 
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-        + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-        + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-        + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-        + '</div>');
-
-            imagedivholder.append(html);
-        }
-
+                }
         if (totalimages[i].Discount === null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-           + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-           + '</div>');
-            imagedivholder.append(html);
-        }
+            if (totalimages[i].IsOutOfStock == false) {
+
+                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+                }
+
+
+                }
+        if (totalimages[i].IsOutOfStock == true) {
+            if (totalimages[i].Discount != null) {
+
+
+                imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                }
+            if (totalimages[i].Discount == null) {
+
+                imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                }
+
+                }
     }
 }
+/////////////////////////////
 
-
-
+///////////////////////////
 function BindAllProductImagesOutOfStock(Pagevalue) {
   
     var imagedivholder = $('#productoutofstockimagehold');
@@ -783,35 +796,24 @@ function BindAllProductImagesOutOfStock(Pagevalue) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllOutOfStockProductsImageDetailsunderBoutique(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+    $("#productimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
         if (totalimages[i].Discount != null) {
 
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-        + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-        + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-        + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-        + '</div>');
-
-            imagedivholder.append(html);
-        }
+            imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+        } 
         if (totalimages[i].Discount === null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-           + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-           + '</div>');
-            imagedivholder.append(html);
+       
+            imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
         }
 
     }
 }
+///////////////////////////////
 
-
-
+///////////////////////////////
 function BindTrendingAllProductImages(Pagevalue) {
     var imagedivholder = $('#productTrendsimagehold');
     var Product = new Object();
@@ -825,58 +827,77 @@ function BindTrendingAllProductImages(Pagevalue) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllTrendingProductsImageunderBoutique(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+    $("#productimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-           + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-           + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-           + '</div>');
-
-                imagedivholder.append(html);
+                      
+                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
             }
 
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
-                var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-           + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-           + '</div>');
-                imagedivholder.append(html);
+     
+                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
             }
 
 
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
-                var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-          //+ '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-          + '<img id="img' + i + '" class="productimage imgout" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-          + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-          + '<img class="sticker" style="opacity:0.3!important" src="../img/offersticker/offer.png"/>'
-          + '</div>');
+    
 
-                imagedivholder.append(html);
+                imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
             }
             if (totalimages[i].Discount == null) {
-                var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<img id="img' + i + '" class="productimage imgout" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-           + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-           + '</div>');
-                imagedivholder.append(html);
+             
+                imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
             }
 
         }
     }
 }
+////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
+function HtmlBindProductWithOffer(totalimages)
+{
+var html =('<div class="masonry-thumb port-1 effect-2"  productid=' +totalimages.ProductID + ' imageid=' +totalimages.ImageID + ' pname=' +totalimages.Name + ' pdescription=' +totalimages.Description + ' pprice=' + totalimages.Price + ' isoutstock=' +totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' +totalimages.DesignerID + ' designerName=' +totalimages.DesignerName + ' discount=' +totalimages.Discount + '>'
+      + '<a class="image-link" ImageID="' +totalimages.ImageID + '">'
+      + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' +i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' +totalimages.ImageID + '"></img></div>'
+      + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages.ProductNo + '</span><span class="">Name:' + totalimages.Name + '</span><span>Price: ₹  ' + totalimages.Price + '</span><span>Discount: ₹ ' + totalimages.Discount + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+      + '</div>');
+return html;
+}
+function HtmlBindProductWithoutOffer(totalimages)
+{
+    var html = ('<div class="masonry-thumb port-1 effect-2"  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' pdescription=' + totalimages.Description + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '>'
+            + '<a class="image-link" ImageID="' + totalimages.ImageID + '">'
+            + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
+            + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages.ProductNo + '</span><span class="">Name:' + totalimages.Name + '</span><span>Price: ₹  ' + totalimages.Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+            + '</div>');
+    return html;
+}
+function HtmlBindProductOutOfStockWithOffer(totalimages)
+{
+    var html = ('<div class="masonry-thumb"  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' pdescription=' + totalimages.Description + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '>'
+          + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
+          + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' + totalimages.ProductNo + '</span><span class="">Name:' + totalimages.Name + '</span><span>Price: ₹  ' + totalimages.Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+          + '</div>');
+    return html;
 
+}
+function HtmlBindProductOutOfStockWithoutOffer(totalimages)
+{
+       var html = ('<div class="masonry-thumb"  productid=' +totalimages.ProductID + ' imageid=' +totalimages.ImageID + ' pname=' + totalimages.Name + ' pdescription=' +totalimages.Description + ' pprice=' + totalimages.Price + ' isoutstock=' +totalimages.IsOutOfStock + ' isactive=' +totalimages.IsActive + ' categories=' +totalimages.Categories + ' designers=' +totalimages.DesignerID + ' designerName=' +totalimages.DesignerName + ' discount=' +totalimages.Discount + '>'
+           + '<div class="image-box"><img id="img' +i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
+           + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' +totalimages.ProductNo + '</span><span class="">Name:' +totalimages.Name + '</span><span>Price: ₹  ' +totalimages.Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+           + '</div>');
+       return html;
+}
+//////////////////////////////////////////////////////////////////////
 
 function BindAllProductImages(Pagevalue) {
    
@@ -898,49 +919,49 @@ function BindAllProductImages(Pagevalue) {
 
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                var html = ('<div class="masonry-thumb port-1 effect-2"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-           + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span>Discount: ₹ ' + totalimages[i].Discount + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-           + '</div>');
-
-                imagedivholder.append(html);
+        //          var html = ('<div class="masonry-thumb port-1 effect-2"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+        //   + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+        //  + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
+        // + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span>Discount: ₹ ' + totalimages[i].Discount + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+        //+ '</div>');//cop
+                
+                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
             }
 
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
-                var html = ('<div class="masonry-thumb port-1 effect-2"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-           + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-           + '</div>');
-                imagedivholder.append(html);
+        //        var html = ('<div class="masonry-thumb port-1 effect-2"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+         //  + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+          // + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
+          // + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+          // + '</div>');
+                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
             }
 
 
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
-                var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-           + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-           + '</div>');
-            imagedivholder.append(html);
+     //           var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+      //     + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
+      //     + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+       //    + '</div>');
+                imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
             }
             if (totalimages[i].Discount == null) {
-                var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<div class="image-box"><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-           + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-           + '</div>');
-            imagedivholder.append(html);
+   //             var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+     ///      + '<div class="image-box"><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
+        //   + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
+          // + '</div>');
+                imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
             }
 
         }
     }
 }
 
-
+//////////////////////////////////////////////////////////////////////
 function BindAllImages() {
     //var boutiqid = $("#hdfBoutiqueID").val();
     var prodid = $("#hdfproductID").val();
@@ -1015,47 +1036,6 @@ function MultiImageBind(Records, index) {
     divPre.appendChild(div);
     div.appendChild(chk);
 
-
-    //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    //var ol = document.getElementById("olpreview");
-    //var li = document.createElement("li");
-    //var children = ol.children.length + 1
-    //li.setAttribute("id", Records.ImageID);
-    //li.setAttribute("class", "liclas");
-    //img1 = document.createElement('img');
-    //img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
-    //img1.alt = "image" + children;
-    //img1.className = "thumb";
-
-    //li.appendChild(img1);
-    //// var nextline = document.createElement('p');
-    // var spacespan = document.createElement('span');
-    //spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
-    //var chk = document.createElement('input');
-    //chk.type = 'checkbox';
-    //chk.className = "chkbox";
-    //chk.name = "mainpix";
-    //chk.id = "chkmain" + index;
-    //var spacespan1 = document.createElement('span');
-    //spacespan.innerHTML = "&nbsp;&nbsp;&nbsp;";
-    ////<span class="close-btn"><a href="#">X</a></span>
-    //var deletespan = document.createElement('span');
-    //deletespan.type = 'span';
-    //deletespan.className = "close-btn";
-    //var deleteanchor = document.createElement('a');
-    //deleteanchor.type = 'a';
-    //deleteanchor.innerHTML = "x";
-    //deleteanchor.href = "#";
-    //var zoomicon = document.createElement('span');
-    //zoomicon.type = 'span';
-    //li.appendChild(spacespan);
-    //li.appendChild(chk);
-    ////li.appendChild(nextline);
-    ////li.appendChild(btndelete);
-    //li.appendChild(deletespan);
-    //li.lastChild.appendChild(deleteanchor);
-    //li.appendChild(spacespan1);
-    //ol.appendChild(li);
 }
 
 
@@ -1304,7 +1284,6 @@ function clearProductControls() {
 ////All Product Images
 ///
 function BindAllProductImagesForEventLoad(Pagevalue) {
-    
     var imagedivholder = $('#productimagehold');
     var Product = new Object();
     if (Pagevalue != undefined) {
@@ -1313,7 +1292,6 @@ function BindAllProductImagesForEventLoad(Pagevalue) {
     else {
         Product.Paginationvalue = "";
     }
-
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllProductsImageDetailsunderBoutique(Product);
@@ -1322,47 +1300,33 @@ function BindAllProductImagesForEventLoad(Pagevalue) {
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                var html = ('<div class="masonry-thumb port-1 effect-2"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-           + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-           + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-           + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span>Discount: ₹ ' + totalimages[i].Discount + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-           + '</div>');
+       
 
-                elems = elems.add(html);
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
             }
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
-                    var html = ('<div class="masonry-thumb port-1 effect-2"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-               + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-               + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-               + '<div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-               + '</div>');
-                    elems = elems.add(html);
+        
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
 
                 }
             }
             if (totalimages[i].IsOutOfStock == true) {
                 if (totalimages[i].Discount != null) {
-                    var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-               + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-               + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-               + '</div>');
-                    elems = elems.add(html);
+           
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
                 }
                 if (totalimages[i].Discount == null) {
-                    var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-               + '<div class="image-box"><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img></div>'
-               + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><span>Code: ' + totalimages[i].ProductNo + '</span><span class="">Name:' + totalimages[i].Name + '</span><span>Price: ₹  ' + totalimages[i].Price + '</span><span class="glyphicons star" style="color:blueviolet;font-size:11px;"><i></i>200 Buds</span></div></a>'
-               + '</div>');
-                    elems = elems.add(html);
+            
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
                 }
             }
         
     }
     $mars.append(elems);
     $mars.masonry('appended', elems);
-    return html;
+  
 }
 ////
 ////Out Of Stock Images
@@ -1385,22 +1349,13 @@ function BindOutStockProductImagesForEventLoad(Pagevalue) {
     var elems = $();
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-            + '</div>');
+            
 
-            elems = elems.add(html);
+            elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
         }
         if (totalimages[i].Discount === null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-            + '</div>');
-            elems = elems.add(html);
+           
+            elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
 
         }
     }
@@ -1429,35 +1384,49 @@ function BindTrendedProductImagesForEventLoad(Pagevalue) {
     var elems = $();
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-            + '</div>');
+            if (totalimages[i].IsOutOfStock == false) {
 
-            elems = elems.add(html);
+
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            }
         }
         if (totalimages[i].Discount === null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span></div>'
-            + '</div>');
-            elems = elems.add(html);
+            if (totalimages[i].IsOutOfStock == false) {
 
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+
+            }
         }
+        if (totalimages[i].IsOutOfStock == true) {
+            if (totalimages[i].Discount != null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+            }
+            if (totalimages[i].Discount == null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+            }
+        }
+
     }
     $marstrends.append(elems);
     $marstrends.masonry('appended', elems);
-    return html;
+    
 }
 //End Binding Product Images into Masonry Container on Load Images Button
 //Created By Thomson Varkey,21-0-2016
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+function GetTotalProductCount(Product)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllRowsCount");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 
 

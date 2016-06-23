@@ -211,6 +211,26 @@ namespace Boutique.AdminPanel
         }
         #endregion GetAllProductMainImages
 
+
+        #region GetAllRowsCount
+        [System.Web.Services.WebMethod]
+        public static string GetAllRowsCount(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+                productObj.GetAllTotalCount();
+            }
+
+            return jsSerializer.Serialize(productObj);
+        }
+        #endregion GetAllRowsCount
+
         #region GetAllOutOfStockProductMainImages
         [System.Web.Services.WebMethod]
         public static string GetAllOutOfStockProductMainImages(Product productObj)

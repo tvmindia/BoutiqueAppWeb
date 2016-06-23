@@ -1423,9 +1423,51 @@ namespace Boutique.DAL
 
         #endregion GetAllProductImages
 
-#region GetAllTotalCount
+        #region GetAllTotalCount
+            public Int64 GetAllTotalCount()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
 
-#endregion GetAllTotalCount
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                SqlParameter outtotalrows =null;
+
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetTotalRowsCountForProducts]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    outtotalrows = cmd.Parameters.Add("@Maxrownumber", SqlDbType.BigInt);
+                    outtotalrows.Direction = ParameterDirection.Output;
+                    cmd.ExecuteNonQuery();
+                }
+
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                return TotalRows= Int64.Parse(outtotalrows.Value.ToString());
+             
+            }
+        #endregion GetAllTotalCount
 
             #region GetAllProductMainImagesDetails
             public DataSet GetAllProductMainImagesDetails()
