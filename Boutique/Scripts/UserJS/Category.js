@@ -3,8 +3,7 @@
 $("document").ready(function (e) {
     parent.document.title = Pages.Category;   
 
-    BindAsyncCategoryTable();
-    $(".ModifyProduct").hide();
+    BindAsyncCategoryTable(); 
     $('#CategoryTable').DataTable({
         "bPaginate": true,
         "iDisplayLength": 6,
@@ -44,60 +43,7 @@ $("document").ready(function (e) {
             return false;
         }
     })
-    //$(".AddCategory").live({
-    //    click: function (e) {// submit button click
-    //        $('#rowfluidDiv').hide();
-    //        $('.alert-success').hide();
-    //        $('.alert-error').hide();
-    //        var result = "";
-    //        if ($(".AddCategory").text() == "Save")
-    //        {      
-    //            var Category = new Object();
-              
-    //            Category.CategoryCode = $("#txtCatCode").val();
-    //            Category.CategoryName = $("#txtCategoryName").val();
-    //            result = InsertCategory(Category);
-    //        }        
-    //        BindAsyncCategoryTable();
-
-    //        if (result == "1") {
-    //            $('#rowfluidDiv').show();
-    //            $('.alert-success').show();
-    //            $('.alert-success strong').text(Messages.InsertionSuccessFull);
-              
-    //        }
-    //        if (result != "1") {
-    //            $('#rowfluidDiv').show();
-    //            $('.alert-error').show();
-    //            $('.alert-error strong').text(Messages.InsertionFailure);
-
-               
-    //        }
-    //        return false;
-    //    }       
-    //})
-    $(".ModifyProduct").live({
-        click: function (e) {// submit button click
-
-            var result = "";
-            var Category = new Object();
-
-            Category.CategoryID = $("#hdfCategoryID").val();
-            Category.CategoryCode = $("#txtCatCode").val();
-            Category.CategoryName = $("#txtCategoryName").val();
-            result = UpdateCategory(Category);
-            if (result == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text(Messages.InsertionSuccessFull);
-            }
-            if (result != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text(Messages.InsertionFailure);
-            }
-        }
-})
+  
     $(".CancelCategory").live({
         click: function (e) {// Clear controls
             ClearCategoryControls();
@@ -189,6 +135,7 @@ function BindCategoryTable(Records) {
     })
 }
 
+
 function DeleteCategory(Category)
 {
     var data = "{'categoryObj':" + JSON.stringify(Category) + "}";
@@ -217,6 +164,7 @@ function UpdateCategory(Category)
     return table;
 }
 
+
 function GetCategory(Category) {
     var ds = {};
     var table = {};
@@ -233,8 +181,6 @@ function BindCategoryTextBoxes(Records) {
     $("#hdfCategoryID").val(Records.CategoryID);
 
     })
-  //  $("#txtCatCode").attr('disabled', true);
-    $(".ModifyProduct").show();
     $("#editLabel").text("Edit Category");
 }
 
@@ -247,13 +193,15 @@ function ClearCategoryControls()
     $('.alert-error').hide();
     $(".AddCategory").text("Save");
     $("#editLabel").text("New Category");
-    $(".AddCategory").show();
-    $(".ModifyProduct").hide();
+    $(".AddCategory").show();  
 }
+
 
 function CategoryValidation()
 {
-    debugger;
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();  
     $('#Displaydiv1').remove();
 
     var Cat_Code = $('#txtCatCode');
@@ -264,10 +212,10 @@ function CategoryValidation()
       { id: Cat_Name[0].id, name: Cat_Name[0].name, Value: Cat_Name[0].value }
       
     ];
-
-    debugger;
-    var Status = IsCategoryExists();
-
+    var Status = 0; 
+    if ($("#hdfCategoryID").val() == "") {
+        var Status = IsCategoryExists();
+    }    
     var j = 0;
     var Errorbox = document.getElementById('ErrorBox1');
     var divs = document.createElement('div');
@@ -276,88 +224,88 @@ function CategoryValidation()
     for (var i = 0; i < container.length; i++) {
 
         if (container[i].Value == "") {
-            j = 1;
-
+            j = 1;        
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundRepeat = "no-repeat";         
             Errorbox.style.paddingLeft = "30px";
-
-        }      
-        
-    }
- 
+        }
+        if (container[0].Value!="" && Status==1)
+        {
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";           
+            Errorbox.style.paddingLeft = "30px";
+        }        
+    } 
 
     if (j == '1') {
-
         var p = document.createElement('p');
         p.innerHTML = "* Some Fields Are Empty ! ";
         p.style.color = "Red";
         p.style.fontSize = "14px";
         divs.appendChild(p);
-
-        return false;
+        if (Status != 1)
+        {
+            return false;
+        }      
     }
-
-    debugger;
-    if (Status == 1) {
-        debugger;
+    if (Status == 1) {    
         var p = document.createElement('p');
         p.innerHTML = "* Already Exists! ";
         p.style.color = "Red";
         p.style.fontSize = "14px";
         divs.appendChild(p);
         return false;
-    }
-
-   
+    }   
     if (j == '0') {
         $('#ErrorBox1').hide();
         AddCategory()
         return true;
     }
-
 }
 
 function  AddCategory()
 {
-    debugger;
-
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
     var result = "";
- //   if ($(".AddCategory").text() == "Save") {
-        var Category = new Object();
+    var Category = new Object();
 
-        Category.CategoryCode = $("#txtCatCode").val();
-        Category.CategoryName = $("#txtCategoryName").val();
+    Category.CategoryCode = $("#txtCatCode").val();
+    Category.CategoryName = $("#txtCategoryName").val();
+
+    //----------- Checking for insertion or updation--------------//
+
+    if ($("#hdfCategoryID").val() != "") {
+        Category.CategoryID = $("#hdfCategoryID").val();
+        result = UpdateCategory(Category);
+    }
+    else {        
         result = InsertCategory(Category);
-   // }
+    }
+
+
     BindAsyncCategoryTable();
 
     if (result == "1") {
         $('#rowfluidDiv').show();
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
-
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
-        $('.alert-error strong').text(Messages.InsertionFailure);
-
-
+        $('.alert-error strong').text(Messages.InsertionFailure);        
     }
     return false;
-
-
-
-
 }
 
 
