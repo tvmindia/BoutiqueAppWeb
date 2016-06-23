@@ -41,8 +41,7 @@
 
     $('.Currency').select2() //Item changed event of currency 'select2'
         .on("change", function (e) {
-            debugger;
-            
+           
             var Amount = $("#txtcurrentPurchase").val();
 
             if ($("#netAmount").text != "" && Amount > 0) {
@@ -171,8 +170,7 @@
     $("#radioYes").live(
     {
         click: function (e) {
-            debugger;
-
+            
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase - redeemablePoints;
                 var Points = totalPoints - redeemablePoints;
@@ -243,7 +241,7 @@
                 return;
             }
 
-         
+            Loyalty.Currency = $(".Currency").select2('data')[0]['text']; 
                         
             result = MakeTransaction(Loyalty);
             if (result == "1") {
@@ -318,8 +316,6 @@
         click: function (e) {
             //Clearing fields
 
-            debugger;
-
             $("#lblSymbol").text("");
             //$("select").val("en-IN").trigger("change");  //set india as default selected option
             if ($('#hdfCurrencyCode').val() != "") {
@@ -360,7 +356,6 @@
 //-----Transaction review Table :START-------//
 
 function BindLoyaltyLogTable() {
-    debugger;
     var jsonResult = {};
     var Loyalty = new Object();
     jsonResult = GetLoyaltyLog(Loyalty);
@@ -370,7 +365,6 @@ function BindLoyaltyLogTable() {
 }
 
 function GetLoyaltyLog(Loyalty) {
-    debugger;
     var ds = {};
     var table = {};
     var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
@@ -380,13 +374,11 @@ function GetLoyaltyLog(Loyalty) {
 }
 
 function FillLoyaltyLogTable(Records) {
-    debugger;
-
-    $("#LoyaltyLogTable").width("100%");
+     $("#LoyaltyLogTable").width("100%");
 
     $("tbody#rows tr").remove();            //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
-        var html = '<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td >' + Records.LoyaltyCardNo + '</td><td >' + Records.Mobile + '</td><td >' + (Records.AmountPaid != null ? Records.AmountPaid : "-") + '</td><td >' + (Records.DebitPoints != null ? Records.DebitPoints : "-") + '</td><td >' + (Records.CreditPoints != null ? Records.CreditPoints : "-") + '</td><td >' + Records.LoyaltyPoints + '</td><td>' + (Records.MoneyValuePercentage != null ? Records.MoneyValuePercentage : "-") + '</td><td ">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td >' + (Records.Remarks != null ? Records.Remarks : "-") + '</td></tr>';
+        var html = '<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td >' + Records.LoyaltyCardNo + '</td><td >' + Records.Mobile + '</td><td >' + (Records.AmountPaid != null ? Records.AmountPaid : "-") + '</td><td >' + (Records.DebitPoints != null ? Records.DebitPoints : "-") + '</td><td >' + (Records.CreditPoints != null ? Records.CreditPoints : "-") + '</td><td >' + Records.LoyaltyPoints + '</td><td>' + (Records.MoneyValuePercentage != null ? Records.MoneyValuePercentage : "-") + '</td><td >' + (Records.Currency != null ? Records.Currency : "-") + '</td><td ">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td >' + (Records.Remarks != null ? Records.Remarks : "-") + '</td></tr>';
         $("#LoyaltyLogTable").append(html);
     });
 }
@@ -396,8 +388,6 @@ function FillLoyaltyLogTable(Records) {
 //-----------*   Currency Dropdown * --------//
 
 function BindCurrencyDropdown() {
-    debugger;
-
     var jsonResult = {};
     var Loyalty = new Object();
     jsonResult = GetAllCurrency(Loyalty);
