@@ -178,7 +178,7 @@ namespace Boutique.AdminPanel
                 }
                 else
                 {
-                   
+                    obj.IsAdmin = true;
                     obj.AddNewUser();
 
                     ownersObj.UserID=obj.UserID;
