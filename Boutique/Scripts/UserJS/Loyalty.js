@@ -43,14 +43,11 @@
         .on("change", function (e) {
             debugger;
             
-            var amount = $("#txtcurrentPurchase").val();
+            var Amount = $("#txtcurrentPurchase").val();
 
-            if ($("#netAmount").text != "" && amount >0) {
+            if ($("#netAmount").text != "" && Amount > 0) {
 
-            var symbol = $(".Currency").val().split(',')[1];
-            var currencyType = $(".Currency").val().split(',')[0];
-
-            $("#netAmount").text(symbol+" "+(amount).toLocaleString(currencyType));
+                ChangeAmountCurrency(Amount);
             }
         });
 
@@ -179,11 +176,7 @@
             if ($.isNumeric($('#txtcurrentPurchase').val()) && ($('#txtcurrentPurchase').val() > 0) && ($('#hdfUserID').val() != '')) {
                 var Amount = CurrentPurchase - redeemablePoints;
                 var Points = totalPoints - redeemablePoints;
-
-                var currencyType = $(".Currency").val().split(',')[0];
-                var symbol = $(".Currency").val().split(',')[1];
-
-                $("#netAmount").text(symbol+" "+(Amount).toLocaleString(currencyType) );
+                ChangeAmountCurrency(Amount);
                 $("#netPoints").text(Points);
             }
         }
@@ -421,6 +414,14 @@ function GetAllCurrency(Loyalty) {
     ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetAllCurrencyNameAndCode");
     table = JSON.parse(ds.d);
     return table;
+}
+
+function ChangeAmountCurrency(Amount)
+{
+    var currencyType = $(".Currency").val().split(',')[0];
+    var symbol = $(".Currency").val().split(',')[1];
+
+    $("#netAmount").text(symbol + " " + (Amount).toLocaleString(currencyType));
 }
 
 //-----------* END:  Currency Dropdown * --------//
