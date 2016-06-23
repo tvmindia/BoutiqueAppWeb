@@ -142,8 +142,7 @@
                     <footer class="InnerFooter">
                 				
 
-                          <a class="btn btn-primary " onclick="return CategoryValidation()" href="#">Save</></a>
-						 <a class="btn btn-primary ModifyProduct" href="#"><i class="halflings-icon th"></i>Save</></a>
+                          <a class="btn btn-primary " onclick="return CategoryValidation()" href="#">Save</></a>						 
                            <a class="btn CancelCategory">Cancel</a>
 						
                      </footer> 
