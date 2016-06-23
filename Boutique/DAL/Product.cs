@@ -102,6 +102,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public Int64 TotalRows
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -1442,10 +1447,14 @@ namespace Boutique.DAL
                     cmd.CommandText = "[GetAllProductImageMainDetailsByBoutiqueid]";
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                    SqlParameter outmaxrows = cmd.Parameters.Add("@Maxrownumber", SqlDbType.BigInt);
+                    outmaxrows.Direction = ParameterDirection.Output;
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
                     sda.Fill(ds);
+                    TotalRows = int.Parse(outmaxrows.Value.ToString());
+                        
                 }
 
 
