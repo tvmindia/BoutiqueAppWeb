@@ -269,6 +269,7 @@
                                                     <th>Credit Points</th>
                                                     <th>Loyalty Points</th>
                                                     <th>Money to Point Percentage</th>
+                                                    <th>Currency</th>
                                                     <th>Date</th>
                                                     <th>Remarks</th>
                                                 </tr>

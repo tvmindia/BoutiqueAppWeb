@@ -61,7 +61,11 @@ namespace Boutique.DAL
         { get; 
           set;
         }
-
+        public string[] ImageIDs
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Methods
@@ -429,12 +433,12 @@ namespace Boutique.DAL
 
         public string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
         {
-            string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+           // string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
             string Url = "";
-
+            string imageUrl=null;
             Url = "BoutiqueTemplates/EmailTemplate.htm";
 
-            int imageCount = Convert.ToInt32(8);
+            int imageCount = Convert.ToInt32(6);
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
             {
@@ -447,9 +451,13 @@ namespace Boutique.DAL
             body = body.Replace("{Url}", url);
             body = body.Replace("{Description}", description);
             body = body.Replace("{Mainimage}", MainimageUrl);
-            for (int i = 1; i <= imageCount; i++)
+          
+            for (int i = 0; i <= imageCount; i++)
             {
-                body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+              //  string[] ids = { "5ff4eb3b-4f63-418d-94a8-e05b33a03008","5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124" };
+                imageUrl = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+ImageIDs[i];
+               // body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+                body = body.Replace("{image" + i + "}", imageUrl);
             }
             return body;
         }

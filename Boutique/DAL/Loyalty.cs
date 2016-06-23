@@ -112,6 +112,7 @@ namespace Boutique.DAL
             get;
             set;
         }
+
         #endregion
 
         #region Methods
@@ -219,6 +220,11 @@ namespace Boutique.DAL
                 cmd2.Parameters.Add("@MoneyValuePercentage", SqlDbType.Int).Value = MoneyValuePercentage;
                 cmd2.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;           //Updating person creates log
                 cmd2.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+
+                if (CurrencyCode != string.Empty && CurrencyCode != null)
+                {
+                    cmd2.Parameters.Add("@Currency", SqlDbType.NVarChar, 50).Value = CurrencyCode;
+                }
                 cmd2.ExecuteNonQuery();
             }
             catch (Exception ex)

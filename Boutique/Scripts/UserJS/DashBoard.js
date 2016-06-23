@@ -1,5 +1,4 @@
-﻿$("document").ready(function (e) {
-    debugger;
+﻿$("document").ready(function (e) {  
     parent.document.title = Pages.Dashboard;
          
     var boutique_id = getboutiqueID();  
@@ -18,19 +17,14 @@
 
 
 function getboutiqueID() {
-    debugger;
     var table = {};
     var boutique = new Object();
     table = GetBoutique_id(boutique);
-    return table;
-  
-  
+    return table;  
 }
 
 function GetBoutique_id(boutique)
 {
-    debugger;
-
     var ds = {};
     var table = {};
     var data = "{'boutiqueObj':" + JSON.stringify(boutique) + "}";
@@ -39,34 +33,8 @@ function GetBoutique_id(boutique)
     return table;
 }
 
-
-
-
-////---getting data as json-----//
-//function getJsonData(data, page) {
-//    var jsonResult = {};
-//    // $("#loadingimage").show();
-//    var req = $.ajax({
-//        type: "post",
-//        url: page,
-//        data: data,
-//        delay: 3,
-//        async: false,
-//        contentType: "application/json; charset=utf-8",
-//        dataType: "json"
-
-//    }).done(function (data) {
-
-//        //     $("#loadingimage").hide();
-//        jsonResult = data;
-//    });
-//    return jsonResult;
-//}
-////---end of getting data as json -----//
-
 function BindTileValues()//common tiles
-{
-    
+{   
     //BindUserTile();//usertile
     //BindTotalProducts();//totalboutiques
     BindAllTiles();
@@ -75,6 +43,7 @@ function BindTileValues()//common tiles
   //  BindAppInstalled()
 
 }
+
 function BindUserTile()
 {
     var table = {};
@@ -97,15 +66,12 @@ function BindAllTiles()
   {
       var table = {};
       var Notifications = new Object();
-      table = GetAllNotifications(Notifications);
-      debugger;
+      table = GetAllNotifications(Notifications);   
       $("#TotalProductsBadge").text(table[0].ProductC);
       $("#UsersBadge").text(table[0].UserC);
       $("#VisitsBadge").text(table[0].TrendC);
       $("#NotificationBadge").text(table[0].NotificationC);
       $("#NotInStockBadge").text(table[0].OutStockC);
-
-     // BindDashBoardNotifications(table);
   }
 
   function BindVisits()
@@ -115,6 +81,7 @@ function BindAllTiles()
       table = GetAllVisits(Visits);
       $("#VisitsBadge").text(table.length);
   }
+
   function BindOutOfStock()
   {
       var table = {};
@@ -134,8 +101,7 @@ function BindAllTiles()
 
 //listbox
   function Binddashboardlistuser(records)
-  {
-   
+  {   
       $.each(records, function (index, records) {
           var createddate = null;
           if (records.createddate != null) {
@@ -143,8 +109,6 @@ function BindAllTiles()
               src = src.replace(/[^0-9 +]/g, '');
               var createddate = new date(parseint(src));
           }
-          
-
        //   var create = new date(records.createddate);
           var html = '<li class="yellow" userid="' + records.userid + '"><a href="#"></a><span class="break"></span><strong>name:</strong> ' + records.name + '<br/><strong>since:</strong> <br/>' + createddate + '<strong>mobile:</strong> ' + records.mobile + '</li>';
           $(".lastusers").append(html);
@@ -174,7 +138,6 @@ function BindAllTiles()
           $(".Notify").append(html);
       })
   }
-
 
   function GetAllUsers(User) {
     var ds = {};
@@ -235,29 +198,13 @@ function BindAllTiles()
   }
 
   function BindAllImages() {
-      debugger;
       var imageids = {};
       var ProductLog = {};
      
       
       imageids = GetAllProductImages();
-      //if(imageids.length<9)
-      //    for (var i = imageids.length; i < 10; i++)
-      //    {
-      //        imageids[i].Name = "";
-      //        imageids[i].prductcounts = "";
-      //        imageids[i].ProductNo = "";
-              
-      //    //var Details = new Object();
-      //    //Details.name = imageids[i].Name;
-      //    //Details.y = imageids[i].prductcounts;
-      //    //Details.id = imageids[i].ProductNo;
-      //    //Details.Imagenum = i;
-      //    //ProductLog[i] = Details;
-      //   //ProductLog[i] = { name: imageids[i].Name, y: imageids[i].prductcounts, id: imageids[i].ProductNo, Imagenum: i }
-      //}
+    
       var options = {
-
           chart: {
               renderTo: 'container',
               type: 'column'
@@ -270,13 +217,11 @@ function BindAllTiles()
           },
           xAxis: {
               type: 'category',
-
           },
           yAxis: {
               title: {
                   text: 'Product View Count'
               }
-
           },
           legend: {
               enabled: false
@@ -290,7 +235,6 @@ function BindAllTiles()
                   }
               }
           },
-
           tooltip: {
               useHTML: true,
               headerFormat: '<span style="font-size:11px;color:#EB3C00;">{series.name}</span><br>',
@@ -315,11 +259,11 @@ function BindAllTiles()
               ]
 
           }]
-      };
-      debugger;
+      };  
       var chart = new Highcharts.Chart(options);
 
   }
+
   function GetAllProductImages() {
       
       var ds = {};
