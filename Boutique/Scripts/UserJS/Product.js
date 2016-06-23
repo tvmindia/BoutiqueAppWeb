@@ -447,12 +447,14 @@ $("document").ready(function (e) {
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
         BindTrendedProductImagesForEventLoad(20);
+        $('.animation_image').hide();
         $(this).show();
     });
     $("#load_more_buttonoutofstock").click(function (e) { //user clicks on button
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
         BindOutStockProductImagesForEventLoad(20);
+        $('.animation_image').hide();
         $(this).show();
 
     });
@@ -497,9 +499,9 @@ $("document").ready(function (e) {
 
 
     $("#idtabnewproducts").click(function (e) { //user clicks on button
-
+       // BindAllProductImages(0);
         //Masonary reinit
-
+     
         var $mars = $('.imageholder').masonry(
             {
                 itemSelector: '.masonry-thumb',
@@ -513,6 +515,8 @@ $("document").ready(function (e) {
     });
 
     $("#idtabtrending").click(function (e) { //user clicks on button
+        
+        $("#load_more_buttontrends").hide();
         BindTrendingAllProductImages(0);
         //Masonary reinit
         var $marstrends = $('.imageholderTrends').masonry({
@@ -524,9 +528,11 @@ $("document").ready(function (e) {
             $marstrends.masonry('layout');
         });
         //Masonary reinit
+        $("#load_more_buttontrends").show();
     });
 
     $("#idtaboutofstock").click(function (e) { //user clicks on button
+        $("#load_more_buttonoutofstock").hide();
          BindAllProductImagesOutOfStock(0);
         //  var galleryoutofstockdiv = $('.imageholderoutofstock');
       
@@ -541,6 +547,7 @@ $("document").ready(function (e) {
         $marsoutofstock.imagesLoaded().progress(function () {
             $marsoutofstock.masonry('layout');
         });
+        $("#load_more_buttonoutofstock").show();
         //Masonary reinit
     });
 
@@ -796,7 +803,7 @@ function BindAllProductImagesOutOfStock(Pagevalue) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllOutOfStockProductsImageDetailsunderBoutique(Product);
-    $("#productimagehold").find(".masonry-thumb").remove();
+    $("#productoutofstockimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
@@ -827,7 +834,7 @@ function BindTrendingAllProductImages(Pagevalue) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllTrendingProductsImageunderBoutique(Product);
-    $("#productimagehold").find(".masonry-thumb").remove();
+    $("#productTrendsimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {

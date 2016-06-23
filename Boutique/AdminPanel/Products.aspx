@@ -207,7 +207,7 @@
 					<%--</div>--%>
 			      	<%--</div><!--/span-->--%>
 			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
-                              <a class="LoadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
+                              <a class="btn LoadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
@@ -248,7 +248,7 @@
 					<%--</div>--%>
 			      	<%--</div><!--/span-->--%>
 			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
-                              <a class="LoadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
+                              <a class="btn LoadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
