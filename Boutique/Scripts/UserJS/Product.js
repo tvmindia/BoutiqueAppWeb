@@ -414,9 +414,17 @@ $("document").ready(function (e) {
         debugger;
         $(this).hide(); //hide load more button on click
         $('.animation_image').show(); //show loading image
-        var n = $(".masonry-thumb").size();
-        n=n + 20;
-        BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+        var n = $(".masonry-thumb").size();//check the count of thumb divs
+        if (n === 0)
+        {
+            BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+        }
+        if (n > 0)
+        {
+            n = n + 1;//last div thumb +1 to avoid last product duplication
+            BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+        }
+       
         $(this).show();
 
     });
