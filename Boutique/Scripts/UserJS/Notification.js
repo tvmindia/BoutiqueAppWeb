@@ -126,15 +126,18 @@
         }        
     })
 
+
+  
+
     //Newsletter checkbox
-    $(".checkDes").live(
-        {
-            click:function(e)
-            {
-                debugger;
-                MainImageClick(this);
-            }
-        })
+    //$(".checkDes").live(
+    //    {
+    //        click:function(e)
+    //        {
+    //            debugger;
+    //            //MainImageClick(this);
+    //        }
+    //    })
     //Cancel button-----------
     $(".Cancel").live({
         click: function (e) {// Clear controls
@@ -198,7 +201,10 @@
         //imgid.$("#NewsLetterimagehold").find(".masonry-thumb").remove();
         $("#NewsLetterimagehold").find(".masonry-thumb").remove();
     });
-    
+    $eventPdtsSelect.on("select2:removing", function (e) {
+        debugger;
+        alert("removed");
+    });
 
     //end styling client validation
 
@@ -210,7 +216,15 @@
         MailSending.MailSubject = "TiqueInn Deal";
         SendNotificationMail(MailSending);
     });
+
+    //Generate Preview
+    $(".templatePreview").click(function () {
+        MainImageClick(this);
+    });
 });
+
+//Generate preview
+
 
 //------------Notification details table------------
 function RemoveStyle() {
@@ -497,7 +511,7 @@ function BindAllProductImages(productId) {
             var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID +  '>'
             + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
             + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            +'<input id="checkDes'+i+'" class="checkDes" type="checkbox">' 
+            + '<input id="' + totalimages[i].ProductID + '" class="checkDes" type="checkbox">'
             + '</a>' + '</div>');
 
             imagedivholder.append(html);
@@ -509,25 +523,50 @@ function BindAllProductImages(productId) {
 function MainImageClick(checkedImage)
 {
     debugger;
+    var ImageInfo = [];
+    var idval;
+    var pdtIDs = [];
+    var imageCount = 0;
+    pdtIDs = $('.Newsletterproducts').val();
+    $('#NewsLetterimagehold div').each(function (index) {
+        //val.push($(this).attr('id'));
+        var idval = $(this).attr('imageid');
+        //var chkflag = document.getElementsByClassName("checkDes").checked;
+       
+        var chkflag = document.getElementById(pdtIDs[index]).checked;
+        if (chkflag == true)
+        {
+            imageCount= imageCount + 1;
+            ImageInfo.push(idval);
+        }
+        //if ($('input[type=checkbox]:checked')==='True') {
+            
+        //}
+       
+       
+
+    });
+    if (imageCount != 7) {
+        CustomAlert("Please select 7 images for selected template!");
+    } 
     var Notification = new Object();
+    Notification.ImageIDs = ImageInfo;
     var totalimages = {};
     totalimages = AddSelectedImageTotemplate(Notification);    
-    var imagedivholder = $('#productimagehold');
-    var $mars = $('.imageholder');
+    var imagedivholder = $('#templatePreviewImagehold');
+    var $mars = $('.templatePreviewholder');
     var elems = $();
-    for (var i = 0; i < totalimages.length; i++) {
-        if (totalimages[i].Discount != null) {
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-            + '<img class="sticker" src="../img/offersticker/offer.png"/>'
-            + '</div>');
+    
+            //var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+            //+ '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+            //+ '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+            //+ '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+            //+ '</div>');
 
-            elems = elems.add(html);
-        }
+            elems = elems.add(totalimages);
+        
       
-    }
+    
     $mars.append(elems);
     $mars.masonry('appended', elems);
     return html;
