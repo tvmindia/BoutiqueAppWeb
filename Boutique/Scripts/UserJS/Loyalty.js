@@ -1,57 +1,21 @@
 ﻿$("document").ready(function (e) {
     parent.document.title = Pages.Loyalty
-    
-
     var LoginUserRole = getRole();
-    $('#hdfCurrencyCode').val(LoginUserRole[2]);
+    $('#hdfCurrencyCode').val(LoginUserRole[2]); //-- Set currency code (accessed from UA) to hiddenfield
 
 //-----Transaction review Table :START-------//
 
     BindLoyaltyLogTable();
 
     $('#LoyaltyLogTable').DataTable({
-        
         "aaSorting": [[8, 'desc']],      //Sort with Date coloumn
         "bPaginate": true,
         "iDisplayLength": 6,
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
         "fnPageChange": "next"
     });
 
-    function BindLoyaltyLogTable() {
-        debugger;
-        var jsonResult = {};
-        var Loyalty = new Object();
-        jsonResult = GetLoyaltyLog(Loyalty);
-        if (jsonResult != undefined) {
-            FillLoyaltyLogTable(jsonResult);
-        }
-    }
-    function GetLoyaltyLog(Loyalty) {
-        debugger;
-        var ds = {};
-        var table = {};
-        var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
-        ds = getJsonData(data, "../AdminPanel/LoyaltySettings.aspx/GetLoyaltyLog");
-        table = JSON.parse(ds.d);
-        return table;
-    }
-    function FillLoyaltyLogTable(Records) {
-        debugger;
-
-        $("#LoyaltyLogTable").width("100%");
-
-        $("tbody#rows tr").remove();            //Remove all existing rows for refreshing
-        $.each(Records, function (index, Records) {
-            var html = '<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td >' + Records.LoyaltyCardNo + '</td><td >' + Records.Mobile + '</td><td >' + (Records.AmountPaid != null ? Records.AmountPaid : "-") + '</td><td >' + (Records.DebitPoints != null ? Records.DebitPoints : "-") + '</td><td >' + (Records.CreditPoints != null ? Records.CreditPoints : "-") + '</td><td >' + Records.LoyaltyPoints + '</td><td>' + (Records.MoneyValuePercentage != null ? Records.MoneyValuePercentage : "-") + '</td><td ">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td >' + (Records.Remarks != null ? Records.Remarks : "-") + '</td></tr>';
-            $("#LoyaltyLogTable").append(html);
-        });
-    }
-
 //----- END : Transaction review Table-------//
-
-
 
 //-----------*   Currency Dropdown * --------//
     $(".Currency").select2({
@@ -60,49 +24,22 @@
         data: BindCurrencyDropdown()
     });
 
-    function BindCurrencyDropdown() {
-        debugger;
+    $(".Currency > option").each(function () {   //SET desfault selected option for currency 'select2'
 
-        var jsonResult = {};
-        var Loyalty = new Object();
-        jsonResult = GetAllCurrency(Loyalty);
-        if (jsonResult != undefined) {
-            
-            return jsonResult;
-        }
-    }
-
-    function GetAllCurrency(Loyalty) {
-        var ds = {};
-        var table = {};
-        var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
-        ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetAllCurrencyNameAndCode");
-        table = JSON.parse(ds.d);
-        return table;
-    }
-    debugger;
-
-    $(".Currency > option").each(function () {
-        var symbol = $(".Currency").val().split(',')[1];
-        var currencyType = $(".Currency").val().split(',')[0];
+        var symbol = this.value.split(',')[1];
+        var currencyType = this.value.split(',')[0];
 
         if (currencyType == $('#hdfCurrencyCode').val())
         {
-            $('#hdfCurrencyCode').val() = $('#hdfCurrencyCode').val() +""+ symbol;
-        }
+            $('#hdfCurrencyCode').val($('#hdfCurrencyCode').val() + "," + symbol);
 
+            $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set   default selected option
+            return false;
+        }
 
     });
 
-    if ($('#hdfCurrencyCode').val() != "") {
-        debugger
-
-
-        $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
-    }
-   
-  
-    $('.Currency').select2()
+    $('.Currency').select2() //Item changed event of currency 'select2'
         .on("change", function (e) {
             debugger;
             
@@ -117,27 +54,7 @@
             }
         });
 
-
-
-    function GetCurrencySymbolByCode(Loyalty) {
-        var jsonResult = {};
-      
-        jsonResult = GetSymbol(Loyalty);
-        if (jsonResult != undefined) {
-            return jsonResult;
-        }
-    }
-
-    function GetSymbol(Loyalty) {
-        var ds = {};
-        var table = {};
-        var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
-        ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetCurrencySymbolByCode");
-        table = JSON.parse(ds.d);
-        return table;
-    }
 //-----------*END:   Currency Dropdown * --------//
-
 
 
     //Customers table--------
@@ -166,7 +83,7 @@
             //$("select").val("en-IN,₹").trigger("change");  //set india as default selected option
 
             if ($('#hdfCurrencyCode').val() != "") {
-                $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
+                $("select").val($('#hdfCurrencyCode').val()).trigger("change"); //set  default selected option
             }
 
 
@@ -345,7 +262,7 @@
                 $("#lblSymbol").text("");
 
                 if ($('#hdfCurrencyCode').val() != "") {
-                    $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
+                    $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set  default selected option
                 }
 
                 //$("select").val("en-IN").trigger("change");  //set india as default selected option
@@ -408,11 +325,12 @@
         click: function (e) {
             //Clearing fields
 
+            debugger;
+
             $("#lblSymbol").text("");
             //$("select").val("en-IN").trigger("change");  //set india as default selected option
-
             if ($('#hdfCurrencyCode').val() != "") {
-                $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set india as default selected option
+                $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set  default selected option
             }
 
             $("#txtUserName").text('');
@@ -445,6 +363,67 @@
     })
 
 });
+
+//-----Transaction review Table :START-------//
+
+function BindLoyaltyLogTable() {
+    debugger;
+    var jsonResult = {};
+    var Loyalty = new Object();
+    jsonResult = GetLoyaltyLog(Loyalty);
+    if (jsonResult != undefined) {
+        FillLoyaltyLogTable(jsonResult);
+    }
+}
+
+function GetLoyaltyLog(Loyalty) {
+    debugger;
+    var ds = {};
+    var table = {};
+    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
+    ds = getJsonData(data, "../AdminPanel/LoyaltySettings.aspx/GetLoyaltyLog");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function FillLoyaltyLogTable(Records) {
+    debugger;
+
+    $("#LoyaltyLogTable").width("100%");
+
+    $("tbody#rows tr").remove();            //Remove all existing rows for refreshing
+    $.each(Records, function (index, Records) {
+        var html = '<tr LoyaltyLogID="' + Records.LoyaltyLogID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td >' + Records.LoyaltyCardNo + '</td><td >' + Records.Mobile + '</td><td >' + (Records.AmountPaid != null ? Records.AmountPaid : "-") + '</td><td >' + (Records.DebitPoints != null ? Records.DebitPoints : "-") + '</td><td >' + (Records.CreditPoints != null ? Records.CreditPoints : "-") + '</td><td >' + Records.LoyaltyPoints + '</td><td>' + (Records.MoneyValuePercentage != null ? Records.MoneyValuePercentage : "-") + '</td><td ">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td >' + (Records.Remarks != null ? Records.Remarks : "-") + '</td></tr>';
+        $("#LoyaltyLogTable").append(html);
+    });
+}
+
+//-----END  Transaction review Table :START-------//
+
+//-----------*   Currency Dropdown * --------//
+
+function BindCurrencyDropdown() {
+    debugger;
+
+    var jsonResult = {};
+    var Loyalty = new Object();
+    jsonResult = GetAllCurrency(Loyalty);
+    if (jsonResult != undefined) {
+
+        return jsonResult;
+    }
+}
+
+function GetAllCurrency(Loyalty) {
+    var ds = {};
+    var table = {};
+    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
+    ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetAllCurrencyNameAndCode");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+//-----------* END:  Currency Dropdown * --------//
 
 //------------User details table------------
 function BindUserTable() {
