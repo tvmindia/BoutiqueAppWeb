@@ -84,10 +84,13 @@
             debugger;
             
             var amount = $("#txtcurrentPurchase").val();
+
+            if ($("#netAmount").text != "" && amount >0) {
+
             var symbol = $(".Currency").val().split(',')[1];
             var currencyType = $(".Currency").val().split(',')[0];
             $("#netAmount").text(symbol+" "+(amount).toLocaleString(currencyType));
-           
+            }
         });
     function GetCurrencySymbolByCode(Loyalty) {
         var jsonResult = {};
@@ -132,6 +135,8 @@
     $(".userselect").live(
     {
         click: function (e) {
+
+            $("select").val("en-IN,₹").trigger("change");  //set india as default selected option
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
