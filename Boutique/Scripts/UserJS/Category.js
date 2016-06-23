@@ -1,8 +1,8 @@
 ﻿
 //document.ready
 $("document").ready(function (e) {
-    parent.document.title = Pages.Category;   
-
+    parent.document.title = Pages.Category;
+  
     BindAsyncCategoryTable(); 
     $('#CategoryTable').DataTable({
         "bPaginate": true,
@@ -32,6 +32,8 @@ $("document").ready(function (e) {
             $('.alert-success').hide();
             $('.alert-error').hide();
             $(".AddCategory").hide();
+         
+          
             var jsonResult = {};
             editedrow = $(this).closest('tr');
             var Category = new Object();           
@@ -126,7 +128,7 @@ function BindCategoryTable(Records) {
     $("tbody#catrgoryrows tr").remove();
     $.each(Records, function (index, Records) {
         if (Records.CategoryCode == "NEW" || Records.CategoryCode == "OFR") {
-            var html = '<tr class="categoryrows" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger "disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            var html = '<tr class="categoryrows" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger"disabled="disabled" data-toggle="tooltip" title="Deletion Disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         }
         else {
             var html = '<tr class="categoryrows" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
@@ -176,8 +178,17 @@ function GetCategory(Category) {
 
 function BindCategoryTextBoxes(Records) {
     $.each(Records, function (index, Records) {
-    $("#txtCatCode").val(Records.CategoryCode);
-    $("#txtCategoryName").val(Records.Name);
+
+        debugger;
+
+        $("#txtCatCode").val(Records.CategoryCode);
+        $("#txtCatCode").hide();
+
+        $("#lblcatcode").show();
+        $("#lblcatcode").text(Records.CategoryCode);
+       
+      
+        $("#txtCategoryName").val(Records.Name);
     $("#hdfCategoryID").val(Records.CategoryID);
 
     })
@@ -186,14 +197,18 @@ function BindCategoryTextBoxes(Records) {
 
 function ClearCategoryControls()
 {
+    debugger;
     $("#txtCatCode").val('');
     $("#txtCategoryName").val('');
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-    $(".AddCategory").text("Save");
+  //  $(".AddCategory").text("Save");
     $("#editLabel").text("New Category");
-    $(".AddCategory").show();  
+    $("#txtCatCode").show();
+
+    $("#lblcatcode").hide();
+   // $(".AddCategory").show();  
 }
 
 
@@ -296,9 +311,12 @@ function  AddCategory()
     BindAsyncCategoryTable();
 
     if (result == "1") {
+        debugger;
+        ClearCategoryControls();
         $('#rowfluidDiv').show();
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
+       
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
