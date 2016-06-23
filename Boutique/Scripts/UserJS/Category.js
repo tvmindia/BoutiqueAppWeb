@@ -30,8 +30,7 @@ $("document").ready(function (e) {
         click: function (e) {          
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
-            $('.alert-error').hide();
-            $(".AddCategory").hide();         
+            $('.alert-error').hide();        
           
             var jsonResult = {};
             editedrow = $(this).closest('tr');
@@ -96,7 +95,7 @@ function DeleteItem(e,p)
     BindAsyncCategoryTable();
     $("#txtCatCode").val('');
     $("#txtCategoryName").val('');
-    $(".AddCategory").text("Save");
+   
     $("#hdfCategoryID").val('');
 }
 
@@ -198,12 +197,11 @@ function ClearCategoryControls()
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-  //  $(".AddCategory").text("Save");
     $("#editLabel").text("New Category");
     $("#txtCatCode").show();
-
     $("#lblcatcode").hide();
-   // $(".AddCategory").show();  
+    $("#hdfCategoryID").val('');
+   
 }
 
 

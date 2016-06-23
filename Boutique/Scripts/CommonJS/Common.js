@@ -2,7 +2,6 @@
 var deleteReturn = false;
 
 //-----------*  document.ready * ---------------//
-
 $("document").ready(function (e) {
 
     $(".DialogDeleteYes").live({
@@ -16,7 +15,6 @@ $("document").ready(function (e) {
 
 
 //---* Order Status Notification * ---//
-
 var OrderStatusNotification = {
     OrderReady: "Your order is ready for PickUp. Your Order Number is : $ ",
     OrderWithProducts: "Order is placed with $ Products. Your Order Number is : # ",
@@ -25,7 +23,6 @@ var OrderStatusNotification = {
 }
 
 //--------------* Roles * ---------------//
-
 var Roles = {
     Manager: "Manager",
     Administrator: "Administrator",   
@@ -89,9 +86,7 @@ var Messages = {
     AlreadyUsedForUpdation: "Already used . Can't be changed"
 }
 
-function IsCategoryExists() {
-    debugger;
-
+function IsCategoryExists() {   
     var table = {};
     var Category = new Object();
     Category.CategoryCode = $('#txtCatCode').val();
@@ -99,8 +94,7 @@ function IsCategoryExists() {
     return table;
 }
 
-function IsCategory_Exists(Category) {
-    debugger;
+function IsCategory_Exists(Category) { 
     var ds = {};
     var table = {};
     var data = "{'CategoryObj':" + JSON.stringify(Category) + "}";
