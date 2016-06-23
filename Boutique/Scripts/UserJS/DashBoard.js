@@ -299,7 +299,7 @@ function BindAllTiles()
           },
           series: [{
 
-              name: 'TiquesInn',
+              name: 'Trends',
               colorByPoint: true,
               data: [
                   { name: imageids[0].Name, y: imageids[0].prductcounts, id: imageids[0].ProductNo, Imagenum:0 },
