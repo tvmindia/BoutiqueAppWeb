@@ -441,10 +441,6 @@ namespace Boutique.DAL
         #region Get All Currency Name And Code
         public DataSet GetAllCurrencyNameAndCode()
         {
-            if (BoutiqueID == "")
-            {
-                throw new Exception("BoutiqueID is Empty!!");
-            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
@@ -458,7 +454,6 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllCurrencyNameAndCode]";
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -483,59 +478,6 @@ namespace Boutique.DAL
         }
 
         #endregion Get All Currency Name And Code
-
-        #region Get Currency Symbol By Code
-        public DataSet GetCurrencySymbolByCode()
-        {
-            if (BoutiqueID == "" || BoutiqueID == null)
-            {
-                throw new Exception("BoutiqueID is Empty!!");
-            }
-            if (CurrencyCode == "" || CurrencyCode == null)
-            {
-                throw new Exception("CurrencyCode is Empty!!");
-            }
-
-
-            dbConnection dcon = null;
-            SqlCommand cmd = null;
-            DataSet ds = null;
-            SqlDataAdapter sda = null;
-
-            try
-            {
-                dcon = new dbConnection();
-                dcon.GetDBConnection();
-                cmd = new SqlCommand();
-                cmd.Connection = dcon.SQLCon;
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetCurrencySymbolByCode]";
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = CurrencyCode;
-                sda = new SqlDataAdapter();
-                sda.SelectCommand = cmd;
-                ds = new DataSet();
-                sda.Fill(ds);
-
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            finally
-            {
-                if (dcon.SQLCon != null)
-                {
-                    dcon.DisconectDB();
-
-                }
-            }
-            return ds;
-        }
-
-        #endregion Get Currency Symbol By Code
 
         #endregion
 

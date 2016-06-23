@@ -1,5 +1,4 @@
-﻿$("document").ready(function (e) {
-    debugger;
+﻿$("document").ready(function (e) {   
     $(".navTitle").live({
         click: function (e) {// Clear controls
             var navTitle = $(this).closest('li').find('span').text(); 3
@@ -22,8 +21,5 @@
         $('html, body').animate({ scrollTop: 0 }, 500);
         return false;
     });
-
-
-
 
 });//end of document.ready
