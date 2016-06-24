@@ -915,6 +915,42 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+        /// <summary>
+        /// to get messages
+        /// give Reply personID when querry is a reply.
+        /// leave it null when querry is from customer.
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public string GetMessages(string userID, string replyPersonID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Chat chat = new Chat();
+                chat.BoutiqueID = boutiqueID;
+                chat.UserID = userID;
+                chat.ReplyPersonID = replyPersonID;
+                dt = chat.GetChats();
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion
 
         #region JSON converter
