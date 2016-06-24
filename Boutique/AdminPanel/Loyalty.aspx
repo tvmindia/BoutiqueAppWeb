@@ -7,14 +7,13 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
     <link href="../CSS/CustomCSS/Loyalty.css" rel="stylesheet" />
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Loyalty.js"></script>
-    <script src="../Scripts/select2.min.js"></script>
-    <script src="../Scripts/CommonJS/Common.js"></script>   
-    <link href="../CSS/select2.min.css" rel="stylesheet" />
+    <script src="../Scripts/CommonJS/Common.js"></script> 
+   <%--  <script src="../Scripts/select2.min.js"></script> 
 
+  <link href="../CSS/select2.min.css" rel="stylesheet" />--%>
     <div id="content" class="span10">
         <ul class="breadcrumb">
             <li>
@@ -138,9 +137,12 @@
                                                             <label class="control-label" for="focusedInput">Purchase Amount</label>
                                                             <div class="controls">
                                                                 <input class="input-large focused" id="txtcurrentPurchase" type="number" />
+                                                                 <select class="Currency" style="border:none!important;outline:none!important;width:15%" onchange="onChanged()">
+                                                                    </select>
                                                             </div>
                                                         </div>
                                                     </div>
+
 
                                                 </div>
 
@@ -195,14 +197,6 @@
                                                             <tr>
                                                                 <td colspan="2" class="fullRow">Net
                                                                 </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>Currency</td>
-                                                                <td class="NumberRight">
-                                                                    <select class="Currency">
-                                                                        <option></option>
-                                                                    </select></td>
                                                             </tr>
 
                                                             <tr style="font-size: large; font-weight: bold">
@@ -321,5 +315,5 @@
     <input type="hidden" id="hdfMONEY_TO_POINT_VALUE" value="" />
      <input type="hidden" id="hdfCurrencyCode" value="" />
 
-
+</div>
 </asp:Content>
