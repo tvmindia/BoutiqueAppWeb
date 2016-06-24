@@ -163,14 +163,15 @@
 		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
 		                   </div>
                           </div>
-                         
+                          
 				    	</div>
+                               <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <a class="btn btn-block loadMore"  id="load_more_button">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
+                             </div>
 					<%--</div>--%>
 				<%--</div><!--/span-->--%>
-			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
-                              <a class="btn LoadMore" id="load_more_button" href="#">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
-                        </div>
+			                
 			                 </div>
                                  <%--Gallery new products--%>
 
@@ -206,8 +207,8 @@
 				    	</div>
 					<%--</div>--%>
 			      	<%--</div><!--/span-->--%>
-			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
-                              <a class="btn LoadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
+			                  <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <a class="btn btn-block loadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
@@ -247,8 +248,8 @@
 				    	</div>
 					<%--</div>--%>
 			      	<%--</div><!--/span-->--%>
-			                  <div style="text-align:center;width:100%;position:relative;bottom:0;">
-                              <a class="btn LoadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
+			                  <div class="row-fluid" style="margin-top:25px;text-align:center;position:absolute;bottom:0;">
+                              <a class="btn btn-block loadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>
 			                 </div>
@@ -381,7 +382,7 @@
                             
 
                               <div class="control-group">
-                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width:100%;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none"></iframe> 
+                               <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width:100%;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none;display:none"></iframe> 
                        		 
                                  
                                   <div id="Preview" class="Maindiv">

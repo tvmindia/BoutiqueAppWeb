@@ -55,16 +55,25 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             try
             {
-                if (UA.BoutiqueID != "")
+                if(UA != null)
                 {
-                    productObj.BoutiqueID = UA.BoutiqueID;
-                    productObj.CreatedBy = UA.userName;
-                   //returns status and productid
-                    productObj.status = productObj.InsertProduct().ToString();
-                  
-                    
-                   
+                    if (UA.BoutiqueID != "")
+                    {
+                        productObj.BoutiqueID = UA.BoutiqueID;
+                        productObj.CreatedBy = UA.userName;
+                        //returns status and productid
+                        productObj.status = productObj.InsertProduct().ToString();
+
+
+
+                    }
                 }
+                else
+                {
+                
+                }
+                
+               
             }
             catch (Exception)
             {
@@ -88,13 +97,20 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             try
             {
-                if (UA.BoutiqueID != "")
+                if (UA != null)
                 {
-                    productObj.BoutiqueID = UA.BoutiqueID;
-                    productObj.UpdatedBy = UA.userName;
-                    //returns status and productid
-                    productObj.status = productObj.UpdateProduct().ToString();
-                   
+                    if (UA.BoutiqueID != "")
+                    {
+                        productObj.BoutiqueID = UA.BoutiqueID;
+                        productObj.UpdatedBy = UA.userName;
+                        //returns status and productid
+                        productObj.status = productObj.UpdateProduct().ToString();
+
+                    }
+                }
+                else
+                {
+
                 }
             }
             catch (Exception)
@@ -119,12 +135,19 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             try
             {
-                if (UA.BoutiqueID != "")
+                if (UA != null)
                 {
-                    productObj.BoutiqueID = UA.BoutiqueID;
-                    productObj.UpdatedBy = UA.userName;
-                    productObj.status = productObj.DeleteProduct().ToString();
-                  
+                    if (UA.BoutiqueID != "")
+                    {
+                        productObj.BoutiqueID = UA.BoutiqueID;
+                        productObj.UpdatedBy = UA.userName;
+                        productObj.status = productObj.DeleteProduct().ToString();
+
+                    }
+                }
+                else
+                {
+
                 }
             }
             catch (Exception)
@@ -223,6 +246,7 @@ namespace Boutique.AdminPanel
 
             if (UA.BoutiqueID != "")
             {
+                
                 productObj.BoutiqueID = UA.BoutiqueID;
                 productObj.GetAllTotalCount();
             }

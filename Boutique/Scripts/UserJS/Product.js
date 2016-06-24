@@ -1,6 +1,6 @@
 ﻿var LoginUserRole = '';
 $("document").ready(function (e) {
-    debugger;
+   
     parent.document.title = Pages.Products;
     LoginUserRole = getRole(); //common function To Get Role 
    //query string from dashboard for tab selection
@@ -78,17 +78,17 @@ $("document").ready(function (e) {
 
 
 
-   // BindTrendingAllProductImages(0);
-   // var gallerytrendsdiv = $('.imageholderTrends');
-   // var $marstrends = $('.imageholderTrends').masonry({
+  //  BindTrendingAllProductImages(0);
+  //  var gallerytrendsdiv = $('.imageholderTrends');
+  //  var $marstrends = $('.imageholderTrends').masonry({
   //      itemSelector: '.masonry-thumb',
   //      isInitLayout: false
- //   });
- //   gallerytrendsdiv.hide();
- //   $marstrends.imagesLoaded().progress(function () {
-   //     $marstrends.masonry('layout');
   //  });
-
+  //  gallerytrendsdiv.hide();
+  //  $marstrends.imagesLoaded().progress(function (){
+  //  $marstrends.masonry('layout');
+  //  });
+    //gallerytrendsdiv.show();
 
 
 
@@ -213,6 +213,8 @@ $("document").ready(function (e) {
                     // $(".AddProduct").text("Modify");
                     $('.ModifyProduct').show();//displays editsave button
                     $('.AddProduct').hide();//hides save
+                    $('#IframeProjectSwitching').show();
+                    
                     // Scroll page
                     // AutoScrollToAlertBox();
 
@@ -406,35 +408,37 @@ $("document").ready(function (e) {
         imgcntrol[0].src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + imageid;
         var vb = $('#popup').viewbox();
         vb.trigger('viewbox.open');
-
     });
 
 
     $("#load_more_button").click(function (e) { //user clicks on button
-        debugger;
+        var len = null;
         $(this).hide(); //hide load more button on click
-        var n = $(".masonry-thumb").size();//check the count of thumb divs
-        var Product = new Object();
-        var totalcount = GetTotalProductCount(Product);
-        if (totalcount.TotalRows === n)
-        {
-            $(this).show();
-          
-            $(this).text("No More Products");
-            $('.animation_image').hide();
-            return false;
-        }
-
+        var n = $("div.imageholder > .masonry-thumb").length;//check the count of thumb divs
         $('.animation_image').show(); //show loading image
-      
+
         if (n === 0)
         {
-            BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            len = BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if(len===0)
+            {
+                $(this).show();
+                $(this).text("No More Products");
+                $('.animation_image').hide();
+                return false;
+            }
         }
         if (n > 0)
         {
             n = n + 1;//last div thumb +1 to avoid last product duplication
-            BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            len = BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (len === 0)
+            {
+                $(this).show();
+                $(this).text("No More Products");
+                $('.animation_image').hide();
+                return false;
+            }
         }
         $('.animation_image').hide();
         $(this).show();
@@ -444,18 +448,89 @@ $("document").ready(function (e) {
 
 
     $("#load_more_buttontrends").click(function (e) { //user clicks on button
+       
+        var len = null;
         $(this).hide(); //hide load more button on click
+        var n = $("div.imageholderTrends > .masonry-thumb").length;//check the count of thumb divs
+        // var Product = new Object();
+        //var totalcount = GetTotalProductCount(Product);
+        //if (totalcount.TotalRows === n)
+        // {
+        //    $(this).show();
+
+        //    $(this).text("No More Products");
+        //     $('.animation_image').hide();
+        //       return false;
+        //  }
         $('.animation_image').show(); //show loading image
-        BindTrendedProductImagesForEventLoad(20);
+        if (n === 0) {
+            len = BindTrendedProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (len === 0) {
+                $(this).show();
+                $(this).text("No More Products");
+                $('.animation_image').hide();
+                return false;
+            }
+        }
+        if (n > 0)
+        {
+            n = n + 1;//last div thumb +1 to avoid last product duplication
+            len = BindTrendedProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (len === 0) {
+                $(this).show();
+                $(this).text("No More Products");
+                $('.animation_image').hide();
+                return false;
+            }
+        }
         $('.animation_image').hide();
         $(this).show();
+
     });
-    $("#load_more_buttonoutofstock").click(function (e) { //user clicks on button
+
+
+    $("#load_more_buttonoutofstock").click(function (e)
+    { //user clicks on button
+       
+
+
+        var len = null;
         $(this).hide(); //hide load more button on click
+        var n = $("div.imageholderoutofstock > .masonry-thumb").length;//check the count of thumb divs
+        // var Product = new Object();
+        //var totalcount = GetTotalProductCount(Product);
+        //if (totalcount.TotalRows === n)
+        // {
+        //    $(this).show();
+
+        //    $(this).text("No More Products");
+        //     $('.animation_image').hide();
+        //       return false;
+        //  }
         $('.animation_image').show(); //show loading image
-        BindOutStockProductImagesForEventLoad(20);
+        if (n === 0) {
+            len = BindOutStockProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            
+            if (len === 0) {
+                $(this).show();
+                $(this).text("No More Products");
+                $('.animation_image').hide();
+                return false;
+            }
+        }
+        if (n > 0) {
+            n = n + 1;//last div thumb +1 to avoid last product duplication
+            len = BindOutStockProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (len === 0) {
+                $(this).show();
+                $(this).text("No More Products");
+                $('.animation_image').hide();
+                return false;
+            }
+        }
         $('.animation_image').hide();
         $(this).show();
+
 
     });
 
@@ -469,9 +544,6 @@ $("document").ready(function (e) {
         else {
             CustomAlert("Please Search with Product No/Name!");
         }
-
-
-
     });
 
 
@@ -501,7 +573,9 @@ $("document").ready(function (e) {
     $("#idtabnewproducts").click(function (e) { //user clicks on button
        // BindAllProductImages(0);
         //Masonary reinit
-     
+        //$("#load_more_buttontrends").hide();
+        //$("#load_more_buttonoutofstock").hide();
+        
         var $mars = $('.imageholder').masonry(
             {
                 itemSelector: '.masonry-thumb',
@@ -512,27 +586,34 @@ $("document").ready(function (e) {
             $mars.masonry('layout');
         });
         //Masonary reinit
+        //$("#load_more_button").hide();
     });
 
     $("#idtabtrending").click(function (e) { //user clicks on button
-        
-        $("#load_more_buttontrends").hide();
+      
+       // $("#load_more_button").hide();
+       // $("#load_more_buttonoutofstock").hide();
+       // $("#load_more_buttontrends").remove();
+        $("#productTrendsimagehold").find(".masonry-thumb").remove();
         BindTrendingAllProductImages(0);
         //Masonary reinit
-        var $marstrends = $('.imageholderTrends').masonry({
+        var $marstrends = $('#productTrendsimagehold').masonry({
             itemSelector: '.masonry-thumb',
             isInitLayout: false
         });
-    
+        
         $marstrends.imagesLoaded().progress(function () {
+
             $marstrends.masonry('layout');
         });
         //Masonary reinit
-        $("#load_more_buttontrends").show();
+       // $("#load_more_buttontrends").show();
     });
 
     $("#idtaboutofstock").click(function (e) { //user clicks on button
-        $("#load_more_buttonoutofstock").hide();
+        //$("#load_more_button").hide();
+        //$("#load_more_buttontrends").hide();
+        //$("#load_more_buttonoutofstock").hide();
          BindAllProductImagesOutOfStock(0);
         //  var galleryoutofstockdiv = $('.imageholderoutofstock');
       
@@ -547,7 +628,7 @@ $("document").ready(function (e) {
         $marsoutofstock.imagesLoaded().progress(function () {
             $marsoutofstock.masonry('layout');
         });
-        $("#load_more_buttonoutofstock").show();
+        //$("#load_more_buttonoutofstock").show();
         //Masonary reinit
     });
 
@@ -595,6 +676,7 @@ function DeleteItem(e, p) {
 }
 
 function BindProductTextBoxes(thisobject) {
+    
     var productname = $(thisobject).attr('pname');
     var pdescription = $(thisobject).attr('pdescription');
     var pprice = $(thisobject).attr('pprice');
@@ -609,7 +691,15 @@ function BindProductTextBoxes(thisobject) {
     $("#txtName").val(productname);
     $("#txtDescription").val(pdescription);
     $("#txtPrice").val(pprice);
-    $("#txtDiscount").val(pdiscount);
+    if (pdiscount === "null")
+    {
+        $("#txtDiscount").val('');
+    }
+    else
+    {
+        $("#txtDiscount").val(pdiscount);
+    }
+   
     if (isoutstock == 'true') {
         // $('#OptisOutOfStockNo').parent().addClass('checked');
         $("#OptisOutOfStockNo").parent().removeClass('checked');
@@ -757,7 +847,7 @@ function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     $("#productTrendsimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
-if (totalimages[i].Discount != null) {
+         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
 
                 imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
@@ -1302,6 +1392,7 @@ function BindAllProductImagesForEventLoad(Pagevalue) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+   
     var $mars = $('.imageholder');
     var elems = $();
     for (var i = 0; i < totalimages.length; i++) {
@@ -1329,11 +1420,10 @@ function BindAllProductImagesForEventLoad(Pagevalue) {
                     elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
                 }
             }
-        
-    }
+      }
     $mars.append(elems);
     $mars.masonry('appended', elems);
-  
+    return totalimages.length;
 }
 ////
 ////Out Of Stock Images
@@ -1368,7 +1458,7 @@ function BindOutStockProductImagesForEventLoad(Pagevalue) {
     }
     $marsoutofstock.append(elems);
     $marsoutofstock.masonry('appended', elems);
-    return html;
+    return totalimages.length;
 }
 ////
 ////Trend Images
@@ -1418,7 +1508,7 @@ function BindTrendedProductImagesForEventLoad(Pagevalue) {
     }
     $marstrends.append(elems);
     $marstrends.masonry('appended', elems);
-    
+    return totalimages.length;
 }
 //End Binding Product Images into Masonry Container on Load Images Button
 //Created By Thomson Varkey,21-0-2016
