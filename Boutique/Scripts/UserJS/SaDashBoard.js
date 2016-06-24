@@ -2,14 +2,8 @@
     BindTiles();
     parent.document.title = Pages.SaDashboard;
 
-    //-- Set currency code (accessed from UA) to hiddenfield
-    var LoginUserRole = getRole();
-    $('#hdfCurrencyCode').val(LoginUserRole[2]); 
-
-
     //dsfdsf
     $("#hdfBoutiqueID").val('');
-
 
     BindAsyncBoutiqueDropDown();  
 
@@ -25,21 +19,6 @@
         data: BindCurrencyDropdown()
     });
 
-    $(".Currency > option").each(function () {   //SET default selected option for currency dropdown
-
-        var symbol = this.text;
-        var currencyCode = this.value;
-
-        if (currencyCode == $('#hdfCurrencyCode').val() && currencyCode != "") {
-            $('#hdfCurrencyCode').val($('#hdfCurrencyCode').val());
-
-            $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set   default selected option
-            return false;
-        }
-
-    });
-
- 
     $(".edit").live({
         click: function (e) {
           

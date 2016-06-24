@@ -470,5 +470,5 @@
        
 	</div>
     <input type="hidden" id="hdfBoutiqueID" value=""/>
-           <input type="hidden" id="hdfCurrencyCode" value="" />
+           
 </asp:Content>
