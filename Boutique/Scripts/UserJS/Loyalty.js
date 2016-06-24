@@ -43,11 +43,13 @@
         .on("change", function (e) {
            
             var Amount = $("#txtcurrentPurchase").val();
+            ChangeAmountCurrency(Amount);
 
-            if ($("#netAmount").text != "" && Amount > 0) {
 
-                ChangeAmountCurrency(Amount);
-            }
+            //if ($("#netAmount").text != "" && Amount > 0) {
+
+               
+            //}
         });
 
 //-----------*END:   Currency Dropdown * --------//
@@ -318,6 +320,10 @@
     $(".Cancel").live({
         click: function (e) {
             //Clearing fields
+           
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
 
             $("#lblSymbol").text("");
             //$("select").val("en-IN").trigger("change");  //set india as default selected option
@@ -411,13 +417,17 @@ function GetAllCurrency(Loyalty) {
 
 function ChangeAmountCurrency(Amount)
 {
+    var amt = parseInt(Amount);
+
+    if ( amt > 0) 
+    {
     var currencyCode = $(".Currency").val().split(',')[0];
     var symbol = $(".Currency").val().split(',')[1];
 
     $("#netAmount").text(symbol + " " + (+(Amount)).toLocaleString(currencyCode));
 
     var netAmtFormated = $("#netAmount").text();
-
+    }
 }
 
 //-----------* END:  Currency Dropdown * --------//
