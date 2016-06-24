@@ -22,7 +22,7 @@
 
     BindCurrencyDropdown();
 
-    $(".Currency > option").each(function () {   //SET desfault selected option for currency 'select2'
+    $(".Currency > option").each(function () {   //SET default selected option for currency dropdown
 
         var symbol = this.text;
         var currencyCode = this.value;

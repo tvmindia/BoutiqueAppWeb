@@ -479,7 +479,7 @@ function AddBoutiques()
     }
 
     if ($(".ddlCurrency").val() != "") {
-        Boutique.CurrencyCode = $(".ddlCurrency").val().split(',')[0];
+        Boutique.CurrencyCode = $(".ddlCurrency").val();
     }
     debugger;
 
