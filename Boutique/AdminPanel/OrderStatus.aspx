@@ -217,27 +217,14 @@
                                                                 </select>
 
                                                             </div>
-                                                        </div>
-
-                                               
-
-                                                
-                                            
-
-                                                <div>
-                                              
-                                                    <img id="ImgProduct" style="width:100%; height: 120px; border: none" src="../img/No-Img_Chosen.png" />
-                                             
-
-                                                
-                                                </div>
+                                                        </div>                                              
 
                                                 <div>
                                                 
                                                       <div class="control-group">
                                                             <label class="control-label" for="Remarks">Remarks</label>
                                                             <div class="controls">
-                                                                <textarea class="form-control" style="max-width:97%;" rows="4" id="txtRemarks"></textarea>
+                                                                <textarea class="form-control" style="max-width:95%;" rows="4" id="txtRemarks"></textarea>
                                                                 
                                                             </div>
                                                         </div>
@@ -252,18 +239,28 @@
                                             </div>
                                                 </div>
 
-                                            <div class="span2" style="padding-top:13%">
-                                                <a class="btn btn-primary button" id="addBtn"><span>Add To List</span></></a>
+                                            <div class="span3" style="padding-top:9%">
+                                                <div>
+                                              
+                                                    <img id="ImgProduct" style="width:100%; height: 120px; border: none" src="../img/No-Img_Chosen.png" />
+                                             
+
+                                                
+                                                </div>
+                                                <div style="padding-top:3%;">
+                                                    <a class="btn btn-primary button" id="addBtn"><span>Add To List</span></></a>
+                                                </div>
+                                                
                                                       <%--<a class="btn btn-primary icon-circle-arrow-right addBtn" href="#" > Add To List</></a>--%>
                                                 </div>
 
 
-                                            <div class="span6">
+                                            <div class="span5"style="padding-top:2%">
                                                 <h2><u>Product Details</u></h2>
                                                 <br />
                                                 <%--<div class="box-content TableLayout">--%>
 
-                                                <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable">
+                                                <table class="table table-striped table-bordered  bootstrap-datatable" id="OrderItemTable" >
 
                                                     <thead>
                                                         <tr>
