@@ -31,7 +31,7 @@
     $(".template").select2({
         allowClear: true,
         placeholder: "Choose template",
-        data: [{ id: 0, text: 'Holiday/Season Offers' }]
+        data: BindTemplateDropdown()
     });
     $(".audience").select2({
         allowClear: true,
@@ -167,14 +167,14 @@
         $('#ErrorBox,#ErrorBox1').hide(1000);
     });
 
-    var $eventSelect = $(".template");
-    $eventSelect.on("change", function (e) {
-        $("#imageTemplate").find(".templateThump").remove();
-        var span = document.createElement('span');
-        span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
-                         '" title="', '"/>'].join('');
-        document.getElementById('imageTemplate').insertBefore(span, null);
-    });
+    //var $eventSelect = $(".template");
+    //$eventSelect.on("change", function (e) {
+    //    $("#imageTemplate").find(".templateThump").remove();
+    //    var span = document.createElement('span');
+    //    span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
+    //                     '" title="', '"/>'].join('');
+    //    document.getElementById('imageTemplate').insertBefore(span, null);
+    //});
 
     var $eventPdtsSelect = $(".Newsletterproducts");
     //$eventPdtsSelect.click(function () {
@@ -206,6 +206,16 @@
         alert("removed");
     });
 
+    var $eventTemplatesSelect = $(".template");
+
+    $eventTemplatesSelect.on("change", function (e) {
+        debugger;
+        var ddlproduct = $(".template").val();
+       
+        if (ddlproduct != null) {
+            BindTemplateImagesPreview(ddlproduct);
+        }
+    });
     //end styling client validation
 
     //mail sending
@@ -343,6 +353,16 @@ function BindProductDropdown() {
         return jsonResult;
     }
 }
+function BindTemplateDropdown()
+{
+    debugger;
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllTemplateNames(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
 function BindNewsLetterProductDropdown() {
     var jsonResult = {};
     var Notify = new Object();
@@ -356,6 +376,15 @@ function GetAllProducts(Notify) {
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function GetAllTemplateNames(Notify)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'notifyObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetAllTemplateNameAndID");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -496,8 +525,30 @@ function  AddNotification()
     });
 }
 
-function BindAllProductImages(productId) {
+function BindTemplateImagesPreview(templateID)
+{
     debugger;
+    var templ = $('#templatePreviewImagehold');
+    templ.innerHTML = ('<div class="iviewer_image_mask" style="background: url(http://stackoverflow.com/questions/5677799/how-to-append-data-to-div-using-javascript);"></div>')
+  
+    //var span = document.createElement('span');
+    //span.innerHTML = ['<img id="templateimage" class="masonry-thumb" src="" title=""/>'].join('');
+    //document.getElementById('templatePreviewImagehold').insertBefore(span, null); 
+
+    //var imgdes = document.getElementById('templateimage');
+    var file = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID
+    templ.append(file);
+    //var templateImages = {};
+    //templateImages = AddSelectedImageTotemplate(Notificatio -n);
+    //var imagedivholder = $('#templatePreviewImagehold');
+    //var $mars = $('.templatePreviewholder');
+    //var elems = $();
+    //elems = elems.add(templateImages);
+    //$mars.append(elems);
+    //$mars.masonry('appended', elems);
+}
+
+function BindAllProductImages(productId) {
     var imagedivholder = $('#NewsLetterimagehold');
     var Product = new Object();
     Product.ProductID = productId;
@@ -523,7 +574,6 @@ function BindAllProductImages(productId) {
 
 function MainImageClick(checkedImage)
 {
-    debugger;
     $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     var ImageInfo = [];
     var idval;
@@ -549,9 +599,11 @@ function MainImageClick(checkedImage)
     });
     if (imageCount != 8) {
         CustomAlert("Please select 8 images for selected template!");
-    } 
+    }
+    debugger;
     var Notification = new Object();
     Notification.ImageIDs = ImageInfo;
+    Notification.TemplateID = $(".template").val();
     Notification.Description = $("#txtNewsletterDescription").val();
     var totalimages = {};
     totalimages = AddSelectedImageTotemplate(Notification);    

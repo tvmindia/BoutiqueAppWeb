@@ -87,6 +87,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public Guid TemplateID
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Methods
@@ -456,15 +461,97 @@ namespace Boutique.DAL
         }
         #endregion
 
+        #region GetAllTemplateIDandName
+        public DataSet GetAllTemplateIDandName()
+        {
+            
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllTemplateIDAndName]";
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+
+        #endregion GetAllTemplateIDandName
+        public DataSet GetAllTemplateDetails()
+        {
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllTemplateDetailsByID]";
+                cmd.Parameters.Add("@templateID", SqlDbType.UniqueIdentifier).Value = TemplateID;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+
         public string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
         {
            // string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+            DataSet ds = null;
+            ds = GetAllTemplateDetails();
             string Url = "";
             string imageUrl=null;
             string altImage = "http://www.simasa.co.uk/WebRoot/SIMASA/Shops/SIMA/5060/8140/8742/83EE/1AB2/0A00/0063/0C54/SpecialOffer_SIMA-1_m.jpg";
-            Url = "BoutiqueTemplates/EmailTemplate.htm";
-
-            int imageCount = Convert.ToInt32(7);
+            //Url = "BoutiqueTemplates/EmailTemplate.htm";
+            Url = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
+            int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
+            imageCount = imageCount - 1;
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
             {
