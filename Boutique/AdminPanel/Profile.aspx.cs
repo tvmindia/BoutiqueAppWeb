@@ -170,7 +170,7 @@ namespace Boutique.AdminPanel
                 obj.CreatedBy = UA.userName;
                 
 
-                if (ownersObj.OwnerID != null)
+                if (ownersObj.OwnerID != null && ownersObj.OwnerID!="")
                 {
                     ownersObj.UpdatedBy = UA.userName;
                     status = ownersObj.UpdateOwner().ToString();

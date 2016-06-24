@@ -571,7 +571,7 @@ function AddOwner()
 
     Owners.Name = $("#txtOwnerName").val();
     Owners.Address = $("#txtOwnerAddress").val();
-    Owners.Phone = $("#txtPhone").val();
+    Owners.Phone = $("#txtOwnerPhone").val();
     Owners.Email = $("#txtOwnerEmail").val();
     Owners.DOB = $("#DOBDate").val();
 
@@ -583,18 +583,18 @@ function AddOwner()
     result = InsertOwner(Owners);
     if (result == "1") {
         clearOwnerControls();
-        //  AutoScrollToAlertBox();
+       
         $('#rowfluidDiv').show();
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
     }
     if (result != "1") {
-        //  AutoScrollToAlertBox();
+        
         $('#rowfluidDiv').show();
         $('.alert-error').show();
         $('.alert-error strong').text(Messages.InsertionFailure);
     }
-
+    AutoScrollToAlertBox();
     BindAsyncOwnerTable();
 }
 //end Validation and Insert For Adding Owner
