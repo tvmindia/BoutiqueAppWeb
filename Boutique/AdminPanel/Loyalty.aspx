@@ -294,17 +294,26 @@
                                 <!--/span-->
                             </div>
 
-
+                              <div style="height:200px" >
                         </div>
+
+
+                      
 
 
                     </div>
                 </div>
+
+                   
+
             </div>
 
-
+          
 
         </div>
+
+       
+
     </div>
     <input type="hidden" id="hdfUserID" value="" />
     <input type="hidden" id="hdfMIN_AMOUNT_TO_REDEEM" value="" />
