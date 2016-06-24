@@ -263,6 +263,55 @@ namespace Boutique.DAL
         }
         #endregion
 
+        #region GetPersonalisedNotifications
+        /// <summary>
+        /// get all the notifications having userID
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        public DataSet GetPersonalisedNotifications()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            Guid boutiqueid = Guid.Parse(BoutiqueID);
+            try
+            {
+                if (boutiqueid != Guid.Empty)
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetPersonalisedNotifications]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = boutiqueid;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion GetPersonalisedNotifications
+
+
         #region Get all the notifications
         /// <summary>
         /// get all the notifications

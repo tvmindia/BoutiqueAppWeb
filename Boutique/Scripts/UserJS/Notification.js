@@ -1,5 +1,7 @@
 ﻿$("document").ready(function (e) {
     
+    debugger;
+
       parent.document.title = Pages.Notifications;  
 
  
@@ -8,6 +10,8 @@
  
 
     BindNotificationsTable();
+    BindPersonalisedNotifications();
+
 
     $('#NotificationTable').DataTable({
         "bPaginate": true,
@@ -15,6 +19,15 @@
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
 
         "fnPageChange": "next"
+    });
+
+    $('#PersonalisedNotificationTable').DataTable({
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next",
+        "aaSorting": [[4, 'desc']]     //Sort with Name column
     });
 
     //Edit region drop downs-------------
@@ -281,6 +294,16 @@ function BindNotificationsTable() {
     }
 }
 
+function BindPersonalisedNotifications() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetPersonalisedNotifications(Notify);
+    if (jsonResult != undefined) {
+        FillPersonalisedNotificationTable(jsonResult);
+    }
+}
+
+
 function GetAllNotifications(Notify) {
     var ds = {};
     var table = {};
@@ -289,6 +312,17 @@ function GetAllNotifications(Notify) {
     table = JSON.parse(ds.d);
     return table;
 }
+
+
+function GetPersonalisedNotifications(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'NotifyObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetPersonalisedNotifications");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 
 function SendNotificationMail(MailSending) {
     debugger;
@@ -332,6 +366,16 @@ function FillNotificationTable(Records) {
 
 
    
+}
+
+function FillPersonalisedNotificationTable(Records) {
+
+    $("tbody#PersonalisedNotificationrows tr").remove();            //Remove all existing rows for refreshing
+        $.each(Records, function (index, Records) {
+            var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info Prsnlnotificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Prsnlnotificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
+            $("#PersonalisedNotificationTable").append(html);
+        })
+
 }
 
 //------------Dropdowns-----------------
