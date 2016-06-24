@@ -41,7 +41,8 @@ namespace Boutique.DAL
             private Boolean isValidUser;
             private string userN;
             private string RoleName;
-           
+            private string Currency_FormatCode;
+
             public string userName
             {
                 get
@@ -78,6 +79,15 @@ namespace Boutique.DAL
                 get
                 {
                     return Boutique_CurrencyCode;
+                }
+
+
+            }
+            public string CurrencyFormatCode
+            {
+                get
+                {
+                    return Currency_FormatCode;
                 }
 
 
@@ -131,9 +141,9 @@ namespace Boutique.DAL
 
                         BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
                         Boutique_ID = dt.Rows[0]["BoutiqueID"].ToString();
-                        Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
-
                         RoleName = dt.Rows[0]["RoleName"].ToString();
+                        Currency_FormatCode = dt.Rows[0]["FormatCode"].ToString();
+                        Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
                     }
 
                     else
@@ -145,7 +155,7 @@ namespace Boutique.DAL
             }
 
             #endregion  User Authentication
-            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode)
+            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode)
             {
                 Boutique_ID = BoutiqueID;
                 isValidUser = true;
@@ -153,6 +163,7 @@ namespace Boutique.DAL
                 BoutiqueName = BoutiqueNam;
                 RoleName = RoleNam;
                 Boutique_CurrencyCode = CurrencyCode;
+                Currency_FormatCode = FormatCode;
             }
             #region Get Login Details
             public DataTable GetLoginDetails(string LoginName)

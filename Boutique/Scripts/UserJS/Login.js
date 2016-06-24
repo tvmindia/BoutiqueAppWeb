@@ -11,9 +11,9 @@ function ForgotPassword() {
         + '<h2>Enter your Email</h2>'
         + '<div class="input-prepend" title="Email">'
         + '<span class="add-on"><i class="halflings-icon envelope"></i></span>'
-        + '<input class="input-large span10" name="Email" id="txtEmail" type="Email"  autocomplete="off" placeholder="Email"/>'
+        + '<input class="input-large span10" name="Email" id="txtEmail" type="Email" onkeyup="return EmailValidation()"  autocomplete="off" placeholder="Email"/>'
         + '</div>'
-        + '<div><img src="../img/Default/Sendingmail.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
+        + '<div><img src="../img/Default/ring.gif" style="padding-left:147px;border:0;max-width:24%;height:auto;vertical-align:middle;display:none;" id="Sendinggif"></div>'
         + '<div class="button-login">'     
         + '<a href="#" onclick="SendVerificationCode();" class="btn btn-primary loginbtn">Continue</a>'
         + '</div>'
@@ -24,7 +24,7 @@ function ForgotPassword() {
 }
 
 function SendVerificationCode() {
-  
+    debugger;
     $('#Sendinggif').show();
     var Email = $('#txtEmail');
     var EmailAddress = Email[0].value;
@@ -174,4 +174,41 @@ function Succes() {
         + '<div class="clearfix"></div>'
         + '<h3></h3><p><a href="../AdminPanel/Login.aspx" style="color:blue;">Click Here</a> to Login</p></div');
     LoginDIv.append(html);
+}
+function EmailValidation() {
+    debugger;
+    var Email = $('#txtEmail').val();
+    var ptag = document.getElementById('lblerror');
+    if (Email.match(/@/)) {
+        var ds = {};
+        var table = {};
+        var Users = new Object();
+        Users.Email = Email;
+
+        var data = "{'UserObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/Login.aspx/EmailValidation");
+        table = JSON.parse(ds.d);
+        if (table === 1) {
+            
+            ptag.style.color = 'green';
+            ptag.style.fontFamily = 'monaco';
+            ptag.style.paddingLeft = "7px";
+            ptag.innerHTML = "Email is Valid Continue";
+            $('#Sendinggif').hide();
+            return false;
+        }
+        if (table == 0) {
+            
+            ptag.style.color = 'red';
+            ptag.style.fontFamily = 'monaco';
+            ptag.style.paddingLeft = "7px";
+            ptag.innerHTML = "Email is Invalid";
+           
+            return false;
+        }
+    }
+    else {
+        $('#Sendinggif').show();
+    }
+    return false;
 }

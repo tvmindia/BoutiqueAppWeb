@@ -154,7 +154,7 @@ namespace Boutique.AdminPanel
 
         #endregion SendVerificationCode
 
-        #region Verify Code
+       #region Verify Code
         [System.Web.Services.WebMethod]
 
         public static string VerifyCode(Security LoginObj)
@@ -250,5 +250,43 @@ namespace Boutique.AdminPanel
             return "True";
         }
        #endregion UpdatePassword
+
+        #region Email Validation From db
+        [WebMethod]
+        public static string EmailValidation(Users UserObj)
+       {
+           JavaScriptSerializer jseril = new JavaScriptSerializer();
+           int j = 0;
+            try
+            {
+                
+                DataSet ds = new DataSet();
+                ds = UserObj.GetALLEmailLoginName();
+                if(ds.Tables[0].Rows.Count>0)
+                {
+                    foreach(DataRow dr in ds.Tables[0].Rows)
+                    {
+                        if(dr["Email"].ToString()== UserObj.Email.Trim())
+                        {
+                            j = 1;
+                            break;
+                        }
+                        if(dr["Email"].ToString()!=UserObj.Email.Trim())
+                        {
+                            j = 0;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return "Error";
+            }
+
+
+            return jseril.Serialize(j);
+
+       }
+        #endregion Email Validation From db
     }
 }

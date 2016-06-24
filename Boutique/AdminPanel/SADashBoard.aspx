@@ -318,6 +318,16 @@
 								</div>
 								</div>
 
+                            
+                              <div class="control-group">
+								<label class="control-label" for="focusedInput"> Basic Currency</label>
+								<div class="controls">
+								   <select class="ddlCurrency" id="idDdlCurrency">
+                                     <option></option>
+                                   </select>
+								</div>
+							  </div>
+
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Facebook Link</label>
 								<div class="controls">
@@ -460,5 +470,5 @@
        
 	</div>
     <input type="hidden" id="hdfBoutiqueID" value=""/>
-      
+           
 </asp:Content>

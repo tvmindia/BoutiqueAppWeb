@@ -440,7 +440,9 @@ namespace Boutique.AdminPanel
                 DateTime endDate = strtDate.AddDays(30);
 
                notificationObj.EndDate = endDate.Date.ToString();
+               notificationObj.CreatedBy = UA.userName; 
                 status = notificationObj.InsertNotification().ToString();
+
                
             }
             catch (Exception)

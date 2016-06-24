@@ -16,7 +16,7 @@ namespace Boutique.ImageHandler
     /// </summary>
     public class ImageServiceHandler : IHttpHandler
     {
-
+        DataSet ds = null;
           public void ProcessRequest(HttpContext context)
           {
              
@@ -94,6 +94,37 @@ namespace Boutique.ImageHandler
                         context.Response.WriteFile("~/img/Default/defaultuser.jpg");
                     }
 
+                }
+
+                if ((context.Request.QueryString["templateID"] != null) && (context.Request.QueryString["templateID"] != ""))
+                {
+                    Notification notifyObj = new Notification();
+                    notifyObj.TemplateID = Guid.Parse(context.Request.QueryString["templateID"]);
+                    ds = notifyObj.GetAllTemplateDetails();
+                    string template =ds.Tables[0].Rows[0]["TemplateFile"].ToString();
+                    int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
+                    imageCount=imageCount-1;
+                    string body = string.Empty;
+                     string imageUrl=null;
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + template)))
+            {
+                body = reader.ReadToEnd();
+            }
+            //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
+            //body = fileName;
+            body = body.Replace("{UserName}", "UserName");
+            body = body.Replace("{Title}", "Title");
+            body = body.Replace("{Description}", "Description");
+            //body = body.Replace("{Mainimage}", MainimageUrl);
+            //body = body.Replace("{Images0}",altImage);
+            for (int i = 0; i <= imageCount; i++)
+            {
+                body = body.Replace("{image" + i + "}", "~/img/Default/defaultuser.jpg");
+            }
+                    if (template != null)
+                    {
+                        context.Response.WriteFile(body);
+                    }
                 }
             }
             catch(Exception ex)

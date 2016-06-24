@@ -1,5 +1,7 @@
 ﻿$("document").ready(function (e) {
     
+    debugger;
+
       parent.document.title = Pages.Notifications;  
 
  
@@ -8,6 +10,8 @@
  
 
     BindNotificationsTable();
+    BindPersonalisedNotifications();
+
 
     $('#NotificationTable').DataTable({
         "bPaginate": true,
@@ -15,6 +19,15 @@
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
 
         "fnPageChange": "next"
+    });
+
+    $('#PersonalisedNotificationTable').DataTable({
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next",
+        "aaSorting": [[4, 'desc']]     //Sort with Name column
     });
 
     //Edit region drop downs-------------
@@ -31,7 +44,7 @@
     $(".template").select2({
         allowClear: true,
         placeholder: "Choose template",
-        data: [{ id: 0, text: 'Holiday/Season Offers' }]
+        data: BindTemplateDropdown()
     });
     $(".audience").select2({
         allowClear: true,
@@ -167,14 +180,14 @@
         $('#ErrorBox,#ErrorBox1').hide(1000);
     });
 
-    var $eventSelect = $(".template");
-    $eventSelect.on("change", function (e) {
-        $("#imageTemplate").find(".templateThump").remove();
-        var span = document.createElement('span');
-        span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
-                         '" title="', '"/>'].join('');
-        document.getElementById('imageTemplate').insertBefore(span, null);
-    });
+    //var $eventSelect = $(".template");
+    //$eventSelect.on("change", function (e) {
+    //    $("#imageTemplate").find(".templateThump").remove();
+    //    var span = document.createElement('span');
+    //    span.innerHTML = ['<img class="templateThump" src="../img/Templates/notify1.png"',
+    //                     '" title="', '"/>'].join('');
+    //    document.getElementById('imageTemplate').insertBefore(span, null);
+    //});
 
     var $eventPdtsSelect = $(".Newsletterproducts");
     //$eventPdtsSelect.click(function () {
@@ -206,6 +219,16 @@
         alert("removed");
     });
 
+    var $eventTemplatesSelect = $(".template");
+
+    $eventTemplatesSelect.on("change", function (e) {
+        debugger;
+        var ddlproduct = $(".template").val();
+       
+        if (ddlproduct != null) {
+            BindTemplateImagesPreview(ddlproduct);
+        }
+    });
     //end styling client validation
 
     //mail sending
@@ -281,6 +304,16 @@ function BindNotificationsTable() {
     }
 }
 
+function BindPersonalisedNotifications() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetPersonalisedNotifications(Notify);
+    if (jsonResult != undefined) {
+        FillPersonalisedNotificationTable(jsonResult);
+    }
+}
+
+
 function GetAllNotifications(Notify) {
     var ds = {};
     var table = {};
@@ -289,6 +322,17 @@ function GetAllNotifications(Notify) {
     table = JSON.parse(ds.d);
     return table;
 }
+
+
+function GetPersonalisedNotifications(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'NotifyObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetPersonalisedNotifications");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
 
 function SendNotificationMail(MailSending) {
     debugger;
@@ -334,11 +378,31 @@ function FillNotificationTable(Records) {
    
 }
 
+function FillPersonalisedNotificationTable(Records) {
+
+    $("tbody#PersonalisedNotificationrows tr").remove();            //Remove all existing rows for refreshing
+        $.each(Records, function (index, Records) {
+            var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info Prsnlnotificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Prsnlnotificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
+            $("#PersonalisedNotificationTable").append(html);
+        })
+
+}
+
 //------------Dropdowns-----------------
 function BindProductDropdown() {
     var jsonResult = {};
     var Notify = new Object();
     jsonResult = GetAllProducts(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+function BindTemplateDropdown()
+{
+    debugger;
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllTemplateNames(Notify);
     if (jsonResult != undefined) {
         return jsonResult;
     }
@@ -356,6 +420,15 @@ function GetAllProducts(Notify) {
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function GetAllTemplateNames(Notify)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'notifyObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetAllTemplateNameAndID");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -496,6 +569,29 @@ function  AddNotification()
     });
 }
 
+function BindTemplateImagesPreview(templateID)
+{
+    debugger;
+    var templ = $('#templatePreviewImagehold');
+    templ.innerHTML = ('<div class="iviewer_image_mask" style="background: url(http://stackoverflow.com/questions/5677799/how-to-append-data-to-div-using-javascript);"></div>')
+  
+    //var span = document.createElement('span');
+    //span.innerHTML = ['<img id="templateimage" class="masonry-thumb" src="" title=""/>'].join('');
+    //document.getElementById('templatePreviewImagehold').insertBefore(span, null); 
+
+    //var imgdes = document.getElementById('templateimage');
+    var file = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID
+    templ.append(file);
+    //var templateImages = {};
+    //templateImages = AddSelectedImageTotemplate(Notificatio -n);
+    //var imagedivholder = $('#templatePreviewImagehold');
+    //var $mars = $('.templatePreviewholder');
+    //var elems = $();
+    //elems = elems.add(templateImages);
+    //$mars.append(elems);
+    //$mars.masonry('appended', elems);
+}
+
 function BindAllProductImages(productId) {
     var imagedivholder = $('#NewsLetterimagehold');
     var Product = new Object();
@@ -522,7 +618,7 @@ function BindAllProductImages(productId) {
 
 function MainImageClick(checkedImage)
 {
-    debugger;
+    $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     var ImageInfo = [];
     var idval;
     var pdtIDs = [];
@@ -532,25 +628,27 @@ function MainImageClick(checkedImage)
         //val.push($(this).attr('id'));
         var idval = $(this).attr('imageid');
         //var chkflag = document.getElementsByClassName("checkDes").checked;
-       
-        var chkflag = document.getElementById(pdtIDs[index]).checked;
-        if (chkflag == true)
-        {
-            imageCount= imageCount + 1;
-            ImageInfo.push(idval);
+        if (document.getElementById(pdtIDs[index]) != null) {
+            var chkflag = document.getElementById(pdtIDs[index]).checked;
+            if (chkflag == true) {
+                imageCount = imageCount + 1;
+                ImageInfo.push(idval);
+            }
+            //if ($('input[type=checkbox]:checked')==='True') {
+
+            //}
+
         }
-        //if ($('input[type=checkbox]:checked')==='True') {
-            
-        //}
-       
-       
 
     });
-    if (imageCount != 7) {
-        CustomAlert("Please select 7 images for selected template!");
-    } 
+    if (imageCount != 8) {
+        CustomAlert("Please select 8 images for selected template!");
+    }
+    debugger;
     var Notification = new Object();
     Notification.ImageIDs = ImageInfo;
+    Notification.TemplateID = $(".template").val();
+    Notification.Description = $("#txtNewsletterDescription").val();
     var totalimages = {};
     totalimages = AddSelectedImageTotemplate(Notification);    
     var imagedivholder = $('#templatePreviewImagehold');
@@ -569,7 +667,7 @@ function MainImageClick(checkedImage)
     
     $mars.append(elems);
     $mars.masonry('appended', elems);
-    return html;
+    //return html;
 }
 
 function AddSelectedImageTotemplate(Notification) {
