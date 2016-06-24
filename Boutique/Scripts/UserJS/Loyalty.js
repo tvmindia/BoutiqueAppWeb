@@ -275,7 +275,7 @@
 
                 $('#LoyaltyLogTable').DataTable({
 
-                    "aaSorting": [[8, 'desc']],      //Sort with Date coloumn
+                    "aaSorting": [[9, 'desc']],      //Sort with Date coloumn
                     "bPaginate": true,
                     "iDisplayLength": 6,
                     "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
