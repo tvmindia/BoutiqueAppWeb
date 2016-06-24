@@ -239,7 +239,12 @@
 
             if ($("#txtcurrentPurchase").val() != "")
             {
-                Loyalty.CurrencyCode = $(".Currency").val().split(',')[0];
+                if ($(".Currency").val() != "")
+                {
+                     Loyalty.CurrencyCode = $(".Currency").val().split(',')[0];
+                }
+
+               
             }
             result = MakeTransaction(Loyalty);
             if (result == "1") {
