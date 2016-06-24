@@ -45,6 +45,8 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             notificationObj.BoutiqueID = UA.BoutiqueID;
+            notificationObj.UpdatedBy = UA.userName;
+            notificationObj.CreatedBy = UA.userName; 
 
             string status = null;
             try

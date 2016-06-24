@@ -497,6 +497,7 @@ function  AddNotification()
 }
 
 function BindAllProductImages(productId) {
+    debugger;
     var imagedivholder = $('#NewsLetterimagehold');
     var Product = new Object();
     Product.ProductID = productId;
@@ -523,6 +524,7 @@ function BindAllProductImages(productId) {
 function MainImageClick(checkedImage)
 {
     debugger;
+    $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     var ImageInfo = [];
     var idval;
     var pdtIDs = [];
@@ -532,25 +534,25 @@ function MainImageClick(checkedImage)
         //val.push($(this).attr('id'));
         var idval = $(this).attr('imageid');
         //var chkflag = document.getElementsByClassName("checkDes").checked;
-       
-        var chkflag = document.getElementById(pdtIDs[index]).checked;
-        if (chkflag == true)
-        {
-            imageCount= imageCount + 1;
-            ImageInfo.push(idval);
+        if (document.getElementById(pdtIDs[index]) != null) {
+            var chkflag = document.getElementById(pdtIDs[index]).checked;
+            if (chkflag == true) {
+                imageCount = imageCount + 1;
+                ImageInfo.push(idval);
+            }
+            //if ($('input[type=checkbox]:checked')==='True') {
+
+            //}
+
         }
-        //if ($('input[type=checkbox]:checked')==='True') {
-            
-        //}
-       
-       
 
     });
-    if (imageCount != 7) {
-        CustomAlert("Please select 7 images for selected template!");
+    if (imageCount != 8) {
+        CustomAlert("Please select 8 images for selected template!");
     } 
     var Notification = new Object();
     Notification.ImageIDs = ImageInfo;
+    Notification.Description = $("#txtNewsletterDescription").val();
     var totalimages = {};
     totalimages = AddSelectedImageTotemplate(Notification);    
     var imagedivholder = $('#templatePreviewImagehold');
@@ -569,7 +571,7 @@ function MainImageClick(checkedImage)
     
     $mars.append(elems);
     $mars.masonry('appended', elems);
-    return html;
+    //return html;
 }
 
 function AddSelectedImageTotemplate(Notification) {

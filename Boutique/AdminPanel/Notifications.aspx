@@ -64,7 +64,7 @@
 							
 						</div>
 					</div>
-					<div class="box-content " style="height: 500px; overflow:auto; " >
+					<div class="box-content " style="min-height: 500px;" >
                          
 						<table class="table table-striped table-bordered  bootstrap-datatable" id="NotificationTable">
 							  <thead id="notificationthead">
@@ -183,7 +183,7 @@
 							
 						                 </div>
 				                      	</div>
-                                       <div class="span6"  style="height:300px;" >
+                                       <div class="span6"  style="min-height:300px;" >
                                       <%-- 	<div class="box-content " style="height: 500px; overflow:auto; " >--%>
                                                	<div class="form-horizontal">
                                                         <div class="alert alert-block" id="NewsletterErrorBox" style="display:none;">
