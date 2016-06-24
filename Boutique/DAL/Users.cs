@@ -341,12 +341,12 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     if (DOB != "" && DOB !=null ) cmd.Parameters.Add("@DOB", SqlDbType.DateTime).Value = DateTime.Parse(DOB);
                     if (Anniversary !=null && Anniversary != "") cmd.Parameters.Add("@Anniversary", SqlDbType.DateTime).Value = DateTime.Parse(Anniversary);
-                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
-                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = CreatedDate;
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 6).Value = Gender;
                     if (referral!=null && referral != "") cmd.Parameters.Add("@Referral", SqlDbType.BigInt).Value = Int64.Parse(referral);
-                    outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                    outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                     outParameter2 = cmd.Parameters.Add("@LoyalyCardNumber", SqlDbType.BigInt);
                     outParameter3 = cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier);
                     outParameter.Direction = ParameterDirection.Output;
