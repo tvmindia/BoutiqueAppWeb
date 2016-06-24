@@ -1,4 +1,5 @@
 ﻿$("document").ready(function (e) {
+
     parent.document.title = Pages.Loyalty
     var LoginUserRole = getRole();
     $('#hdfCurrencyCode').val(LoginUserRole[2]); //-- Set currency code (accessed from UA) to hiddenfield
@@ -18,39 +19,23 @@
 //----- END : Transaction review Table-------//
 
 //-----------*   Currency Dropdown * --------//
-    $(".Currency").select2({
-        placeholder: "Choose related Currency",
-        allowClear: true,
-        data: BindCurrencyDropdown()
-    });
 
-    $(".Currency > option").each(function () {   //SET desfault selected option for currency 'select2'
+    BindCurrencyDropdown();
 
-        var symbol = this.value.split(',')[1];
-        var currencyCode = this.value.split(',')[0];
+    $(".Currency > option").each(function () {   //SET default selected option for currency dropdown
 
-        if (currencyCode == $('#hdfCurrencyCode').val())
+        var symbol = this.text;
+        var currencyCode = this.value;
+
+        if (currencyCode == $('#hdfCurrencyCode').val() && currencyCode != "")
         {
-            $('#hdfCurrencyCode').val($('#hdfCurrencyCode').val() + "," + symbol);
+            $('#hdfCurrencyCode').val($('#hdfCurrencyCode').val());
 
             $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set   default selected option
             return false;
         }
 
     });
-
-    $('.Currency').select2() //Item changed event of currency 'select2'
-        .on("change", function (e) {
-           
-            var Amount = $("#txtcurrentPurchase").val();
-            ChangeAmountCurrency(Amount);
-
-
-            //if ($("#netAmount").text != "" && Amount > 0) {
-
-               
-            //}
-        });
 
 //-----------*END:   Currency Dropdown * --------//
 
@@ -243,7 +228,7 @@
             {
                 if ($(".Currency").val() != "")
                 {
-                     Loyalty.CurrencyCode = $(".Currency").val().split(',')[0];
+                    Loyalty.CurrencyCode = $(".Currency").val();
                 }
 
                
@@ -290,7 +275,7 @@
 
                 $('#LoyaltyLogTable').DataTable({
 
-                    "aaSorting": [[8, 'desc']],      //Sort with Date coloumn
+                    "aaSorting": [[9, 'desc']],      //Sort with Date coloumn
                     "bPaginate": true,
                     "iDisplayLength": 6,
                     "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
@@ -326,7 +311,7 @@
             $('.alert-error').hide();
 
             $("#lblSymbol").text("");
-            //$("select").val("en-IN").trigger("change");  //set india as default selected option
+           
             if ($('#hdfCurrencyCode').val() != "") {
                 $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set  default selected option
             }
@@ -401,8 +386,13 @@ function BindCurrencyDropdown() {
     var Loyalty = new Object();
     jsonResult = GetAllCurrency(Loyalty);
     if (jsonResult != undefined) {
+        $.each(jsonResult, function (key, value) {
 
-        return jsonResult;
+
+            debugger;
+            $(".Currency").append($("<option></option>").val(value.id).html(value.text));
+        });
+      
     }
 }
 
@@ -415,18 +405,24 @@ function GetAllCurrency(Loyalty) {
     return table;
 }
 
+function onChanged()
+{
+    var Amount = $("#txtcurrentPurchase").val();
+    ChangeAmountCurrency(Amount);
+}
+
 function ChangeAmountCurrency(Amount)
 {
     var amt = parseInt(Amount);
 
     if ( amt > 0) 
     {
-    var currencyCode = $(".Currency").val().split(',')[0];
-    var symbol = $(".Currency").val().split(',')[1];
+        var currencyCode = $(".Currency").val();
+        var symbol = $('.Currency option:selected').text();
 
     $("#netAmount").text(symbol + " " + (+(Amount)).toLocaleString(currencyCode));
 
-    var netAmtFormated = $("#netAmount").text();
+  
     }
 }
 
