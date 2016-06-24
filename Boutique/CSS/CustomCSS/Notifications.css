@@ -76,3 +76,18 @@ img {
     right:0;
 
 }
+input[type="checkbox"] {
+    vertical-align: middle!important;
+    display: inline-block!important;
+    margin-bottom: 0!important;
+    min-height: 10px!important;
+    cursor: pointer!important;
+    line-height: normal!important;
+    position: absolute;
+    bottom: 195px;
+    left: 0;
+    right: 0;
+    margin: 4px 5px 4px 4px;
+    margin-top: 22px;
+    /* line-height: normal; */
+}
