@@ -14,6 +14,13 @@
         "bPaginate": false,             //removing paging
     });
 
+    //-----------*   Currency Dropdown * --------//
+    $(".ddlCurrency").select2({
+        placeholder: "Choose related Currency",
+        allowClear: true,
+        data: BindCurrencyDropdown()
+    });
+
  
     $(".edit").live({
         click: function (e) {
@@ -100,6 +107,26 @@
 
 
 });//document.ready
+
+
+function BindCurrencyDropdown() {
+    var jsonResult = {};
+    var Loyalty = new Object();
+    jsonResult = GetAllCurrency(Loyalty);
+    if (jsonResult != undefined) {
+
+        return jsonResult;
+    }
+}
+
+function GetAllCurrency(Loyalty) {
+    var ds = {};
+    var table = {};
+    var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";
+    ds = getJsonData(data, "../AdminPanel/Loyalty.aspx/GetAllCurrencyNameAndCode");
+    table = JSON.parse(ds.d);
+    return table;
+}
 
 function RemoveStyle()
 {
@@ -370,7 +397,9 @@ function BindException()
     //    scrollTop: $("#ExcepyionRowFluid").offset().top
     //}, 500);
 }
-function Validation() {   
+function Validation() {
+    debugger;
+
     $('#Displaydiv').remove();
     var AppVer = $('#txtAppVersion');
     var BoutiqueNam = $('#txtBouquetName');
@@ -449,6 +478,13 @@ function AddBoutiques()
         Boutique.BoutiqueID = boutiquid;
     }
 
+    if ($(".ddlCurrency").val() != "") {
+        Boutique.CurrencyCode = $(".ddlCurrency").val().split(',')[0];
+    }
+    debugger;
+
+
+    //Boutique.CurrencyCode = $("#idDdlCurrency").val();
     Boutique.AppVersion = $("#txtAppVersion").val();
     Boutique.Name = $("#txtBouquetName").val();
     Boutique.StartedYear = $("#txtStartYear").val();

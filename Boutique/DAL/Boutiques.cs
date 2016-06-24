@@ -128,7 +128,11 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string CurrencyCode
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Methods
@@ -303,7 +307,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@InstagramLink", SqlDbType.NVarChar, 200).Value = InstagramLink;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-
+                cmd.Parameters.Add("@CurrencyCode", SqlDbType.NVarChar, 255).Value = CurrencyCode;
 
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParameter2 = cmd.Parameters.Add("@BoutiqueID", SqlDbType.NVarChar,255);
