@@ -150,6 +150,8 @@
                           
 			                    </div>
                                  <%--Gallery new products--%>
+
+
                               <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore"  id="load_more_button">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
@@ -164,6 +166,8 @@
 		                   </div>
                           </div>
                            <%--popup content for image--%>
+
+
 							<div class="tab-pane" id="trends">
 							    <%--Search box--%>
                                  <div class="control-group">
@@ -228,11 +232,13 @@
 			                     </div>
                                   <%--Gallery out of stock--%>
 
-                              <div class="row-fluid" style="margin-top:25px;text-align:center;position:absolute;bottom:0;">
+                            
+
+                                 <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
+                              </div>
                              </div>
-							</div>
 
                            <%--popup content for image--%>  
                            <div style="display:none;">
