@@ -147,92 +147,7 @@ $("document").ready(function (e) {
        , placeholder: "Select a Designer"
     });
 
-    $(".AddProduct").live({
-        click: function (e) {// submit button click
-
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
-            var result = "";
-
-            if ($(".AddProduct").text() == "Save") {
-
-                var Product = new Object();
-                Product.Name = $("#txtName").val();
-                Product.Description = $("#txtDescription").val();
-                Product.Price = $("#txtPrice").val();
-                Product.Discount = $("#txtDiscount").val();
-                if ($("input[name=optionsRadiosOutStock]:checked")) {
-                    Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
-                }
-                if ($("input[name=optionsRadiosActive]:checked")) {
-                    Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
-                }
-
-              
-                var Categ = $("#idDdlCategories").val();
-                var com = "";
-                Product.Categories = "";
-                if (Categ != null) {
-                    for (var i = 0; i < Categ.length; i++) {
-                        Product.Categories = Product.Categories + com + Categ[i].toString();
-                        com = ",";
-                    }
-                }
-                else {
-                    Product.Categories = "";
-                }
-
-                //var dfd = $("#idDdlrelateproducts");
-               // alert(dfd.val());
-                var relproducts = [];
-               
-                if ($("#idDdlrelateproducts").val() != null)
-                {
-                   
-                    Product.RelatedProductsIDs = $("#idDdlrelateproducts").val();
-                }
-                else {
-                    Product.RelatedProductsIDs = relproducts;
-                }
-              
-               if ($("#idDdlDesigners").val() != null) {
-                    Product.DesignerID = $("#idDdlDesigners").val();
-                }
-                else {
-                    Product.DesignerID = "";
-                }
-
-                result = InsertProduct(Product);
-
-                if (result.status == "1") {
-
-                    $("#hdfproductID").val(result.ProductID);
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-                    // $(".AddProduct").text("Modify");
-                    $('.ModifyProduct').show();//displays editsave button
-                    $('.AddProduct').hide();//hides save
-                    $('#IframeProjectSwitching').show();
-                    
-                    // Scroll page
-                    // AutoScrollToAlertBox();
-
-                }
-                if (result.status != "1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-
-
-                    // Scroll page
-                    AutoScrollToAlertBox();
-
-                }
-            }
-            return false;
-        }
-    })
-
+   
 
     $(".ModifyProduct").live({
         click: function (e) {
@@ -364,6 +279,7 @@ $("document").ready(function (e) {
     $(".CancelProduct").live({
         click: function (e) {// Clear controls
             clearProductControls();
+            RemoveStyle();
             return false;
         }
     })
@@ -642,10 +558,23 @@ $("document").ready(function (e) {
         //$("#load_more_buttonoutofstock").show();
         //Masonary reinit
     });
-
+    $('input[type=text],input[type=password],select').on('focus', function () {
+       
+        $(this).css({ background: 'white' });
+        $('#ErrorBox').slideUp(1000);
+    });
+    $('textarea').on('focus', function () {
+       
+        $(this).css({ background: 'white' });
+        $('#ErrorBox').slideUp(1000);
+    });
 
 });//end of document.ready
+function RemoveStyle() {
 
+    $('input[type=text],input[type=password],textarea,select').css({ background: 'white' });
+    $('#ErrorBox').slideUp(1000);
+}
 function DeleteProductImage(e, p) {
     var Product = new Object();
     Product.ImageID = e;
@@ -1536,5 +1465,142 @@ function GetTotalProductCount(Product)
     return table;
 }
 
+//Basic Validation For New Notification
+//CreatedBy Thomson
+function ProductValidation() {
+    
+    $('#Displaydiv').remove();
+    var Name = $('#txtName');
+    var Descrip = $('#txtDescription');
+    var Price = $('#txtPrice');
+    var Category = $('#idDdlCategories');
 
+    var container = [
+        { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
+        { id: Descrip[0].id, name: Descrip[0].name, Value: Descrip[0].value },
+        { id: Price[0].id, name: Price[0].name, Value: Price[0].value },
+        { id: Category[0].id, name: Category[0].name, Value: Category[0].value }
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+
+
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+
+
+
+    }
+    if (j == 1) {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide();
+        //AddNotification();
+        AddProduct();
+        return true;
+    }
+}
+function AddProduct() {
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+    var result = "";
+
+    if ($(".AddProduct").text() == "Save") {
+
+        var Product = new Object();
+        Product.Name = $("#txtName").val();
+        Product.Description = $("#txtDescription").val();
+        Product.Price = $("#txtPrice").val();
+        Product.Discount = $("#txtDiscount").val();
+        if ($("input[name=optionsRadiosOutStock]:checked")) {
+            Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
+        }
+        if ($("input[name=optionsRadiosActive]:checked")) {
+            Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
+        }
+
+
+        var Categ = $("#idDdlCategories").val();
+        var com = "";
+        Product.Categories = "";
+        if (Categ != null) {
+            for (var i = 0; i < Categ.length; i++) {
+                Product.Categories = Product.Categories + com + Categ[i].toString();
+                com = ",";
+            }
+        }
+        else {
+            Product.Categories = "";
+        }
+
+        //var dfd = $("#idDdlrelateproducts");
+        // alert(dfd.val());
+        var relproducts = [];
+
+        if ($("#idDdlrelateproducts").val() != null) {
+
+            Product.RelatedProductsIDs = $("#idDdlrelateproducts").val();
+        }
+        else {
+            Product.RelatedProductsIDs = relproducts;
+        }
+
+        if ($("#idDdlDesigners").val() != null) {
+            Product.DesignerID = $("#idDdlDesigners").val();
+        }
+        else {
+            Product.DesignerID = "";
+        }
+
+        result = InsertProduct(Product);
+
+        if (result.status == "1") {
+
+            $("#hdfproductID").val(result.ProductID);
+            $('#rowfluidDiv').show();
+            $('.alert-success').show();
+            // $(".AddProduct").text("Modify");
+            $('.ModifyProduct').show();//displays editsave button
+            $('.AddProduct').hide();//hides save
+            // Scroll page
+            // AutoScrollToAlertBox();
+
+        }
+        if (result.status != "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+
+
+            // Scroll page
+            AutoScrollToAlertBox();
+
+        }
+    }
+    return false;
+}
 
