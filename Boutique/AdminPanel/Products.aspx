@@ -191,7 +191,7 @@
                                   <%--Gallery Trends--%>
                                  <div class="row-fluid">
 				           
-					     	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
+					         	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
 									
 							
                             <!-- Use invisible wraper to hide popup window content -->
@@ -205,9 +205,8 @@
                            </div>
                          
 				    	</div>
-					<%--</div>--%>
-			      	<%--</div><!--/span-->--%>
-			                  <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+				
+			                    <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                         </div>

@@ -2,7 +2,7 @@
 $("document").ready(function (e) {
    
     parent.document.title = Pages.Products;
-    LoginUserRole = getRole(); //common function To Get Role 
+    LoginUserRole = getRole(); //common function To Get Role
    //query string from dashboard for tab selection
     var qrStr = window.location.search;
     if (qrStr != "") {
@@ -596,16 +596,27 @@ $("document").ready(function (e) {
        // $("#load_more_buttontrends").remove();
         $("#productTrendsimagehold").find(".masonry-thumb").remove();
         BindTrendingAllProductImages(0);
-        //Masonary reinit
-        var $marstrends = $('#productTrendsimagehold').masonry({
-            itemSelector: '.masonry-thumb',
-            isInitLayout: false
+        //*******
+        var $grid = $('.imageholderTrends').imagesLoaded(function () {
+            // init Masonry after all images have loaded
+            $grid.masonry({
+                // options...
+                itemSelector: '.masonry-thumb',
+                isInitLayout: false
+            });
         });
-        
-        $marstrends.imagesLoaded().progress(function () {
 
-            $marstrends.masonry('layout');
-        });
+        //*******
+        //Masonary reinit
+       // var $marstrends = $('#productTrendsimagehold').masonry({
+       //     itemSelector: '.masonry-thumb',
+      //      isInitLayout: false
+     //   });
+        
+       //   $marstrends.imagesLoaded().progress(function () {
+
+       //        $marstrends.masonry('layout');
+      //  });
         //Masonary reinit
        // $("#load_more_buttontrends").show();
     });
