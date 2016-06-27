@@ -583,6 +583,7 @@ function BindProductTextBoxes(thisobject) {
     $('.AddProduct').hide();
     $('.ModifyProduct').show();//switches button to edit mode
     $('.DeleteProduct').show();
+    $('#IframeProjectSwitching').show();
 }
 
 //////////////////////////////////////
