@@ -1,17 +1,13 @@
 ﻿$("document").ready(function (e) {
-    
-    debugger;
 
-      parent.document.title = Pages.Notifications;  
+    parent.document.title = Pages.Notifications;
 
- 
+
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
- 
+
 
     BindNotificationsTable();
-    BindPersonalisedNotifications();
-
 
     $('#NotificationTable').DataTable({
         "bPaginate": true,
@@ -19,15 +15,6 @@
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
 
         "fnPageChange": "next"
-    });
-
-    $('#PersonalisedNotificationTable').DataTable({
-        "bPaginate": true,
-        "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
-        "fnPageChange": "next",
-        "aaSorting": [[4, 'desc']]     //Sort with Name column
     });
 
     //Edit region drop downs-------------
@@ -38,7 +25,7 @@
     });
     $(".categories").select2({
         allowClear: true,
-        placeholder: "Choose related category",        
+        placeholder: "Choose related category",
         data: BindCategoryDropdown()//category dropdown binds only with id and text[key:value] mandatory
     });
     $(".template").select2({
@@ -57,7 +44,7 @@
         data: BindNewsLetterProductDropdown()
     });
 
-    
+
 
     //Edit button--------
     $(".notificationedit").live(
@@ -70,7 +57,7 @@
             var jsonResult = {};
             editedrow = $(this).closest('tr');
             var Notification = new Object();
-           
+
             Notification.NotificationID = editedrow.attr("NotificationID");
             jsonResult = GetNotification(Notification);
             if (jsonResult != undefined) {
@@ -88,7 +75,7 @@
         }
     })
     //Save button---------
-   
+
     //Delete button---------
     $(".notificationdelete").live(
     {
@@ -103,7 +90,7 @@
             //    var jsonResult = {};
             //    editedrow = $(this).closest('tr');
             //    var Notification = new Object();
-            
+
             //    Notification.NotificationID = editedrow.attr("NotificationID");
             //    result = DeleteNotification(Notification);
             //    if (result == "1") {
@@ -136,11 +123,11 @@
             //}
             DeleteCustomAlert('Are You Sure?', e, p);
             return false;
-        }        
+        }
     })
 
 
-  
+
 
     //Newsletter checkbox
     //$(".checkDes").live(
@@ -192,13 +179,13 @@
     var $eventPdtsSelect = $(".Newsletterproducts");
     //$eventPdtsSelect.click(function () {
     //    debugger;
-       
+
     //});
     $eventPdtsSelect.on("change", function (e) {
         var ddlproduct = $(".Newsletterproducts").val();
         debugger;
         if (ddlproduct != null) {
-        var productid = ddlproduct[ddlproduct.length-1];
+            var productid = ddlproduct[ddlproduct.length - 1];
             BindAllProductImages(productid);//binds  gallery with product under current boutique
         }
     });
@@ -224,18 +211,30 @@
     $eventTemplatesSelect.on("change", function (e) {
         debugger;
         var ddlproduct = $(".template").val();
-       
+
         if (ddlproduct != null) {
-            BindTemplateImagesPreview(ddlproduct);
+            //BindTemplateImagesPreview(ddlproduct);
         }
     });
     //end styling client validation
-
+    var $eventAudienceSelect = $(".audience");
+    $eventAudienceSelect.on("change", function (e) {
+        //debugger;
+        //var UserMail = $(".audience").text();
+        //UserMail = UserMail.trim();
+        //if(UserMail=="All")
+        //{
+        //    GetAllNewsLetterEmailIds();
+        //}
+    });
     //mail sending
     $(".submitDetails").click(function () {
         debugger;
+        var UserMail = $(".audience").text();
+        UserMail = UserMail.trim();
         var MailSending = new Object();
-        MailSending.recepientEmail = "anija.g@thrithvam.me";
+        MailSending.audienceType = UserMail;
+        //MailSending.recepientEmail = GetAllNewsLetterEmailIds();
         MailSending.MailSubject = "TiqueInn Deal";
         SendNotificationMail(MailSending);
     });
@@ -250,12 +249,20 @@
 
 
 //------------Notification details table------------
+function GetAllNewsLetterEmailIds()
+{
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllEmailsForNewsLetter(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
 function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
-function DeleteItem(e,p)
-{
+function DeleteItem(e, p) {
     var jsonResult = {};
     //editedrow = $(this).closest('tr');
     var Notification = new Object();
@@ -304,16 +311,6 @@ function BindNotificationsTable() {
     }
 }
 
-function BindPersonalisedNotifications() {
-    var jsonResult = {};
-    var Notify = new Object();
-    jsonResult = GetPersonalisedNotifications(Notify);
-    if (jsonResult != undefined) {
-        FillPersonalisedNotificationTable(jsonResult);
-    }
-}
-
-
 function GetAllNotifications(Notify) {
     var ds = {};
     var table = {};
@@ -322,17 +319,6 @@ function GetAllNotifications(Notify) {
     table = JSON.parse(ds.d);
     return table;
 }
-
-
-function GetPersonalisedNotifications(Notify) {
-    var ds = {};
-    var table = {};
-    var data = "{'NotifyObj':" + JSON.stringify(Notify) + "}";
-    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetPersonalisedNotifications");
-    table = JSON.parse(ds.d);
-    return table;
-}
-
 
 function SendNotificationMail(MailSending) {
     debugger;
@@ -375,16 +361,6 @@ function FillNotificationTable(Records) {
 
 
 
-   
-}
-
-function FillPersonalisedNotificationTable(Records) {
-
-    $("tbody#PersonalisedNotificationrows tr").remove();            //Remove all existing rows for refreshing
-        $.each(Records, function (index, Records) {
-            var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info Prsnlnotificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Prsnlnotificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
-            $("#PersonalisedNotificationTable").append(html);
-        })
 
 }
 
@@ -397,8 +373,7 @@ function BindProductDropdown() {
         return jsonResult;
     }
 }
-function BindTemplateDropdown()
-{
+function BindTemplateDropdown() {
     debugger;
     var jsonResult = {};
     var Notify = new Object();
@@ -415,6 +390,15 @@ function BindNewsLetterProductDropdown() {
         return jsonResult;
     }
 }
+function GetAllEmailsForNewsLetter(Notify)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'notifyObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetAllNewsLetterEmails");
+    table = JSON.parse(ds.d);
+    return table;
+}
 function GetAllProducts(Notify) {
     var ds = {};
     var table = {};
@@ -423,8 +407,7 @@ function GetAllProducts(Notify) {
     table = JSON.parse(ds.d);
     return table;
 }
-function GetAllTemplateNames(Notify)
-{
+function GetAllTemplateNames(Notify) {
     var ds = {};
     var table = {};
     var data = "{'notifyObj':" + JSON.stringify(Notify) + "}";
@@ -487,8 +470,7 @@ function GetNotification(Notification) {
     return table;
 }
 //---------------Delete---------------------
-function DeleteNotification(Notification)
-{
+function DeleteNotification(Notification) {
     var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
 
     var jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/DeleteNotification");
@@ -498,8 +480,7 @@ function DeleteNotification(Notification)
 }
 
 //Add Notification
-function  AddNotification()
-    {
+function AddNotification() {
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -513,25 +494,25 @@ function  AddNotification()
         Notification.Title = $("#txtTitle").val();
     }
     else {
-        
+
         return;
     }
     if ($("#dateStartDate").val() != "") {
         Notification.StartDate = $("#dateStartDate").val();
     }
     else {
-       
+
         return;
     }
     if ($("#dateEndDate").val() != "") {
         Notification.EndDate = $("#dateEndDate").val();
     }
     else {
-        
+
         return;
     }
     if ($("#dateStartDate").datepicker("getDate") > $("#dateEndDate").datepicker("getDate")) {
-       
+
         return;
     }
     Notification.Description = $("#txtDescription").val();
@@ -569,28 +550,30 @@ function  AddNotification()
     });
 }
 
-function BindTemplateImagesPreview(templateID)
-{
-    debugger;
-    var templ = $('#templatePreviewImagehold');
-    templ.innerHTML = ('<div class="iviewer_image_mask" style="background: url(http://stackoverflow.com/questions/5677799/how-to-append-data-to-div-using-javascript);"></div>')
-  
-    //var span = document.createElement('span');
-    //span.innerHTML = ['<img id="templateimage" class="masonry-thumb" src="" title=""/>'].join('');
-    //document.getElementById('templatePreviewImagehold').insertBefore(span, null); 
+//function BindTemplateImagesPreview(templateID) {
+//    debugger;
+//    var templ = $('#templatePreviewImagehold');
+   
 
-    //var imgdes = document.getElementById('templateimage');
-    var file = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID
-    templ.append(file);
-    //var templateImages = {};
-    //templateImages = AddSelectedImageTotemplate(Notificatio -n);
-    //var imagedivholder = $('#templatePreviewImagehold');
-    //var $mars = $('.templatePreviewholder');
-    //var elems = $();
-    //elems = elems.add(templateImages);
-    //$mars.append(elems);
-    //$mars.masonry('appended', elems);
-}
+//    //var span = document.createElement('span');
+//    //span.innerHTML = ['<img id="templateimage" class="masonry-thumb" src="" title=""/>'].join('');
+//    //document.getElementById('templatePreviewImagehold').insertBefore(span, null); 
+
+//    //var imgdes = document.getElementById('templateimage');
+//    var file = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID;
+//      var html = ('<div class="masonry-thumb">'
+//     + '</div>');
+
+//      templ.append(html);
+//    //var templateImages = {};
+//    //templateImages = AddSelectedImageTotemplate(Notificatio -n);
+//    //var imagedivholder = $('#templatePreviewImagehold');
+//    //var $mars = $('.templatePreviewholder');
+//    //var elems = $();
+//    //elems = elems.add(templateImages);
+//    //$mars.append(elems);
+//    //$mars.masonry('appended', elems);
+//}
 
 function BindAllProductImages(productId) {
     var imagedivholder = $('#NewsLetterimagehold');
@@ -603,21 +586,20 @@ function BindAllProductImages(productId) {
 
     for (var i = 0; i < totalimages.length; i++) {
 
-       
-            var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID +  '>'
-            + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            + '<input id="' + totalimages[i].ProductID + '" class="checkDes" type="checkbox">'
-            + '</a>' + '</div>');
 
-            imagedivholder.append(html);
-        
-       
+        var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + '>'
+        + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+        + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+        + '<input id="' + totalimages[i].ProductID + '" class="checkDes" type="checkbox">'
+        + '</a>' + '</div>');
+
+        imagedivholder.append(html);
+
+
     }
 }
 
-function MainImageClick(checkedImage)
-{
+function MainImageClick(checkedImage) {
     $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     var ImageInfo = [];
     var idval;
@@ -650,26 +632,25 @@ function MainImageClick(checkedImage)
     Notification.TemplateID = $(".template").val();
     Notification.Description = $("#txtNewsletterDescription").val();
     var totalimages = {};
-    totalimages = AddSelectedImageTotemplate(Notification);    
+    totalimages = AddSelectedImageTotemplate(Notification);
     var imagedivholder = $('#templatePreviewImagehold');
     var $mars = $('.templatePreviewholder');
     var elems = $();
-    
-            //var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-            //+ '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-            //+ '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-            //+ '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-            //+ '</div>');
 
-            elems = elems.add(totalimages);
-        
-      
-    
+    //var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
+    //+ '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
+    //+ '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
+    //+ '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
+    //+ '</div>');
+
+    elems = elems.add(totalimages);
+
+
+
     $mars.append(elems);
     $mars.masonry('appended', elems);
     //return html;
 }
-
 function AddSelectedImageTotemplate(Notification) {
     debugger;
     var ds = {};
@@ -679,7 +660,6 @@ function AddSelectedImageTotemplate(Notification) {
     table = JSON.parse(ds.d);
     return table;
 }
-
 function GetAllProductsImageDetailsForNewsLetter(Product) {
     var ds = {};
     var table = {};
@@ -688,12 +668,12 @@ function GetAllProductsImageDetailsForNewsLetter(Product) {
     table = JSON.parse(ds.d);
     return table;
 }
+
 /////////////////////////////////////////////////////////////Basic Validation/////////////////////////////////////////////////////////////////////
 
 //Basic Validation For New Notification
 //CreatedBy Thomson
-function NotificationValidation()
-{
+function NotificationValidation() {
     $('#Displaydiv').remove();
     var Title = $('#txtTitle');
     var Descrip = $('#txtDescription');
@@ -717,7 +697,7 @@ function NotificationValidation()
         if (container[i].Value == "") {
             j = 1;
 
-           
+
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -737,9 +717,9 @@ function NotificationValidation()
         p.innerHTML = "* Some Fields Are Empty ! ";
         p.style.color = "Red";
         p.style.fontSize = "14px";
-       
-            divs.appendChild(p);
-        
+
+        divs.appendChild(p);
+
         return false;
     }
     if (j == '0') {

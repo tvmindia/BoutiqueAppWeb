@@ -24,7 +24,7 @@ namespace Boutique.AdminPanel
         {
 
             UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
-            if(UA.Role==Const.Manager)
+            if (UA.Role == Const.Manager)
             {
                 NewNotification.Visible = false;
             }
@@ -46,7 +46,7 @@ namespace Boutique.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             notificationObj.BoutiqueID = UA.BoutiqueID;
             notificationObj.UpdatedBy = UA.userName;
-            notificationObj.CreatedBy = UA.userName; 
+            notificationObj.CreatedBy = UA.userName;
 
             string status = null;
             try
@@ -85,7 +85,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-           
+
             string jsonResult = null;
             DataSet ds = null;
 
@@ -127,7 +127,7 @@ namespace Boutique.AdminPanel
 
             //Converting to Json
         }
-        #endregion 
+        #endregion
 
         #region SelectAllNotificationsByBoutiqueID
         /// <summary>
@@ -184,7 +184,7 @@ namespace Boutique.AdminPanel
 
             //Converting to Json
         }
-        #endregion 
+        #endregion
 
         #region GetNotificationbyID
         /// <summary>
@@ -201,7 +201,7 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             notificationObj.BoutiqueID = UA.BoutiqueID;
-             
+
             string jsonResult = null;
             DataSet ds = null;
             ds = notificationObj.GetNotification();
@@ -268,9 +268,28 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static void SendEmail(MailSending mailObj)
         {
+
+            Notification notificObj = new Notification();
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            notificObj.BoutiqueID = UA.BoutiqueID;
+            DataSet ds = null;
             mailObj.msg = mailObj.msg;
+            if (mailObj.audienceType == "All")
+            {
+                ds = notificObj.GetAllEmailIdsToSendNewsLetterEmail();
+                List<string> strDetailIDList = new List<string>();
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    strDetailIDList.Add(row["Email"].ToString());
+                }
+                mailObj.recepientEmail = strDetailIDList.ToArray();
+            }
             HttpContext ctx = HttpContext.Current;
-           
+
             new Thread(delegate()
             {
                 HttpContext.Current = ctx;
@@ -280,56 +299,39 @@ namespace Boutique.AdminPanel
                 "Your Todays Deal.....",
                 "" + "Offers",
                 "https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
-               //mailObj.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
-            }).Start(); 
+                //mailObj.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
+            }).Start();
 
-           
+
         }
         #endregion SendNotificationMail
 
         #region AddSelectedImageToHtmlTemplate
         [System.Web.Services.WebMethod]
-         public static string AddSelectedImageToHtmlTemplate(Notification notificationObj)
-         {
-             string jsonResult = null;
-             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-             var body = notificationObj.PopulateBody("" + "Anija",
-                 "" + "Boutique",
-                 "https://www.google.co.in/" +
-                 "Your Todays Deal.....",
-                 "" + "Offers",
-                 "https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
+        public static string AddSelectedImageToHtmlTemplate(Notification notificationObj)
+        {
+            string jsonResult = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            var body = notificationObj.PopulateBody("" + "Anija",
+                "" + "Boutique",
+                "https://www.google.co.in/" +
+                "Your Todays Deal.....",
+                "" + "Offers",
+                "https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
 
-             jsonResult = jsSerializer.Serialize(body);
+            jsonResult = jsSerializer.Serialize(body);
 
-             return jsonResult;
-         }
+            return jsonResult;
+        }
         #endregion AddSelectedImageToHtmlTemplate
 
-        //Personalised Notifications
-
-        #region GetPersonalisedNotifications
-        /// <summary>
-        /// To get notifications having userID
-        /// </summary>
-        /// <param name="Boutiqueid"></param>
-        /// <returns></returns>
+        #region GetAllTemplateNameAndID
         [System.Web.Services.WebMethod]
-        public static string GetPersonalisedNotifications(Notification NotifyObj)
+        public static string GetAllTemplateNameAndID(Notification notifyObj)
         {
-            DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
-
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
             string jsonResult = null;
             DataSet ds = null;
-
-            NotifyObj.BoutiqueID = UA.BoutiqueID;
-
-            ds = NotifyObj.GetPersonalisedNotifications();
-
-            //Converting to Json
+            ds = notifyObj.GetAllTemplateIDandName();
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
@@ -344,27 +346,46 @@ namespace Boutique.AdminPanel
                     }
                     parentRow.Add(childRow);
                 }
-                //childRow = new Dictionary<string, object>();
-                //childRow.Add("Result", "Success");
-
-                //parentRow.Add(childRow);
             }
-            else
-            {
-                //childRow = new Dictionary<string, object>();
-                //childRow.Add("Result", "Error");
-                //parentRow.Add(childRow);
-            }
-
             jsonResult = jsSerializer.Serialize(parentRow);
 
-            return jsonResult;
-
-
-            //Converting to Json
+            return jsonResult; //Converting to Json
         }
-        #endregion GetPersonalisedNotifications
+        #endregion GetAllTemplateNameAndID
 
+        #region GetAllNewsLetterEmails
+        [System.Web.Services.WebMethod]
+        public static string GetAllNewsLetterEmails(Notification notifyObj)
+        {
+
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            notifyObj.BoutiqueID = UA.BoutiqueID;
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = notifyObj.GetAllEmailIdsToSendNewsLetterEmail();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion GetAllNewsLetterEmails
     }
 
 }

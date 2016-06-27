@@ -58,8 +58,9 @@ namespace Boutique.DAL
             set;
         }
         public string OrderID
-        { get; 
-          set;
+        {
+            get;
+            set;
         }
         public string[] ImageIDs
         {
@@ -95,7 +96,7 @@ namespace Boutique.DAL
         #endregion properties
 
         #region Methods
-        
+
         #region New Notification
         /// <summary>
         /// to insert a new notification into database
@@ -110,7 +111,7 @@ namespace Boutique.DAL
             if (Title == "")
             {
                 throw new Exception("Title is Empty!!");
-            } 
+            }
             if (StartDate == "")
             {
                 throw new Exception("StartDate is Empty!!");
@@ -137,10 +138,10 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = EndDate;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                if (ProductID != "" && ProductID != null ) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                if (ProductID != "" && ProductID != null) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 if (CategoryCode != "" && CategoryCode != null) cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
                 if (UserID != "" && UserID != null) cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
-                if (OrderID != "" && OrderID !=null) cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
+                if (OrderID != "" && OrderID != null) cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -168,56 +169,56 @@ namespace Boutique.DAL
         /// </summary>
         /// <returns>status</returns>
         public Int16 UpdateNotification()
+        {
+            if (NotificationID == "")
             {
-                if (NotificationID == "")
-                {
-                    throw new Exception("NotificationID is Empty!!");
-                }
-                if (BoutiqueID == "")
-                {
-                    throw new Exception("BoutiqueID is Empty!!");
-                }
-                dbConnection dcon = null;
-                SqlCommand cmd = null;
-                SqlParameter outParameter = null;
-                try
-                {
-                    dcon = new dbConnection();
-                    dcon.GetDBConnection();
-                    cmd = new SqlCommand();
-                    cmd.Connection = dcon.SQLCon;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[UpdateNotification]";
-                    cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(NotificationID);
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                    cmd.Parameters.Add("@Title", SqlDbType.NVarChar, 50).Value = Title;
-                    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = StartDate;
-                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = EndDate;
-                    cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
-                    cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                    if (ProductID != "") cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
-                    if (CategoryCode != "") cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
-
-                    outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
-                    outParameter.Direction = ParameterDirection.Output;
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    if (dcon.SQLCon != null)
-                    {
-                        dcon.DisconectDB();
-                    }
-                }
-                //update success or failure
-                return Int16.Parse(outParameter.Value.ToString());
-
+                throw new Exception("NotificationID is Empty!!");
             }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateNotification]";
+                cmd.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(NotificationID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@Title", SqlDbType.NVarChar, 50).Value = Title;
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
+                cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = StartDate;
+                cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = EndDate;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                if (ProductID != "") cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                if (CategoryCode != "") cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //update success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
         #endregion
 
         #region SelectAllNotifications ByBoutiqueID
@@ -268,55 +269,6 @@ namespace Boutique.DAL
         }
         #endregion
 
-        #region GetPersonalisedNotifications
-        /// <summary>
-        /// get all the notifications having userID
-        /// </summary>
-        /// <param name="boutiqueID"></param>
-        /// <returns></returns>
-        public DataSet GetPersonalisedNotifications()
-        {
-            dbConnection dcon = null;
-            SqlCommand cmd = null;
-            DataSet ds = null;
-            SqlDataAdapter sda = null;
-            Guid boutiqueid = Guid.Parse(BoutiqueID);
-            try
-            {
-                if (boutiqueid != Guid.Empty)
-                {
-                    dcon = new dbConnection();
-                    dcon.GetDBConnection();
-                    cmd = new SqlCommand();
-                    cmd.Connection = dcon.SQLCon;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[GetPersonalisedNotifications]";
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = boutiqueid;
-                    sda = new SqlDataAdapter();
-                    sda.SelectCommand = cmd;
-                    ds = new DataSet();
-                    sda.Fill(ds);
-                }
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            finally
-            {
-                if (dcon.SQLCon != null)
-                {
-                    dcon.DisconectDB();
-
-                }
-            }
-            return ds;
-        }
-        #endregion GetPersonalisedNotifications
-
-
         #region Get all the notifications
         /// <summary>
         /// get all the notifications
@@ -331,7 +283,7 @@ namespace Boutique.DAL
             SqlDataAdapter sda = null;
             Guid boutiqueid = Guid.Parse(BoutiqueID);
             try
-            {              
+            {
                 if (boutiqueid != Guid.Empty)
                 {
                     dcon = new dbConnection();
@@ -464,7 +416,7 @@ namespace Boutique.DAL
             //delete success or failure
             return Int16.Parse(outParameter.Value.ToString());
         }
-        #endregion 
+        #endregion
 
         #region Notifications for App
         public DataTable GetNotificationsForApp(string notificationsIDs)
@@ -487,7 +439,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetNotificationsForApp]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
-                cmd.Parameters.Add("@Notification_IDs", SqlDbType.NVarChar,-1).Value = notificationsIDs;
+                cmd.Parameters.Add("@Notification_IDs", SqlDbType.NVarChar, -1).Value = notificationsIDs;
                 if (UserID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.UserID);
                 sda.SelectCommand = cmd;
                 dt = new DataTable();
@@ -513,7 +465,7 @@ namespace Boutique.DAL
         #region GetAllTemplateIDandName
         public DataSet GetAllTemplateIDandName()
         {
-            
+
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataSet ds = null;
@@ -550,6 +502,46 @@ namespace Boutique.DAL
         }
 
         #endregion GetAllTemplateIDandName
+
+        public DataSet GetAllEmailIdsToSendNewsLetterEmail()
+        {
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllMailID'sBasedOnBoutique]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+
         public DataSet GetAllTemplateDetails()
         {
 
@@ -591,11 +583,11 @@ namespace Boutique.DAL
 
         public string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
         {
-           // string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+            // string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
             DataSet ds = null;
             ds = GetAllTemplateDetails();
             string Url = "";
-            string imageUrl=null;
+            string imageUrl = null;
             string altImage = "http://www.simasa.co.uk/WebRoot/SIMASA/Shops/SIMA/5060/8140/8742/83EE/1AB2/0A00/0063/0C54/SpecialOffer_SIMA-1_m.jpg";
             //Url = "BoutiqueTemplates/EmailTemplate.htm";
             Url = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
@@ -613,12 +605,12 @@ namespace Boutique.DAL
             body = body.Replace("{Url}", url);
             body = body.Replace("{Description}", Description);
             body = body.Replace("{Mainimage}", MainimageUrl);
-            body = body.Replace("{Images0}",altImage);
+            body = body.Replace("{Images0}", altImage);
             for (int i = 0; i <= imageCount; i++)
             {
-              //  string[] ids = { "5ff4eb3b-4f63-418d-94a8-e05b33a03008","5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124" };
-                imageUrl = "../ImageHandler/ImageServiceHandler.ashx?ImageID="+ImageIDs[i];
-               // body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+                //  string[] ids = { "5ff4eb3b-4f63-418d-94a8-e05b33a03008","5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124" };
+                imageUrl = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + ImageIDs[i];
+                // body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
                 body = body.Replace("{image" + i + "}", imageUrl);
             }
             return body;
