@@ -1220,6 +1220,7 @@ function clearProductControls() {
     $("#editLabel").text("New Product");
     $("#Preview").find(".imgpreviewdiv").remove();
     $('#IframeProjectSwitching').hide();
+    $("#previewmsg").text('');
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
