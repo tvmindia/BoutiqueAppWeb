@@ -229,7 +229,6 @@
     });
     //mail sending
     $(".submitDetails").click(function () {
-        debugger;
         var UserMail = $(".audience").text();
         UserMail = UserMail.trim();
         var MailSending = new Object();
@@ -239,6 +238,51 @@
         SendNotificationMail(MailSending);
     });
 
+    $(".saveDetails").click(function (){
+        debugger;
+        var result = "";
+        var idval;
+        var ImageInfo = [];
+        var pdtIDs = [];
+        var imageCount = 0;
+        var UserMail = $(".audience").text();
+        UserMail = UserMail.trim();
+        $('#NewsLetterimagehold div').each(function (index) {
+            //val.push($(this).attr('id'));
+            var idval = $(this).attr('imageid');
+            var pdtVal=$(this).attr('productid');
+            //var chkflag = document.getElementsByClassName("checkDes").checked;
+            //if (document.getElementById(pdtIDs[index]) != null) {
+            //    var chkflag = document.getElementById(pdtIDs[index]).checked;
+                //if (chkflag == true) {
+                    imageCount = imageCount + 1;
+                    ImageInfo.push(idval);
+                    pdtIDs.push(pdtVal);
+               //}
+            //}                  
+        });
+        if (imageCount != 8) {
+            CustomAlert("Please select 8 images for selected template!");
+        }
+        var Notification = new Object();
+        Notification.TemplateID = $(".template").val();
+        Notification.ImageIDs =ImageInfo;
+        Notification.productIDs = pdtIDs;
+        Notification.audienceMailType = UserMail;
+        Notification.Description = $("#txtNewsletterDescription").val();
+        result = InsertNewsLetter(Notification)
+        if(result=="1")
+        {
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+        }
+        if (result != "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+            $('.alert-error strong').text(Messages.InsertionFailure);
+        }
+    })
     //Generate Preview
     $(".templatePreview").click(function () {
         MainImageClick(this);
@@ -443,6 +487,14 @@ function GetAllCategories(Notify) {
 function InsertNotification(Notification) {
     var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/InsertNotification");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+function InsertNewsLetter(Notification) {
+    var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Notifications.aspx/AddNesLetterMailTrackingDetails");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
