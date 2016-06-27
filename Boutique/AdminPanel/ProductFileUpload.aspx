@@ -92,6 +92,7 @@
         <div>
 
        <label class="choose">
+            <span>Choose Images..</span>
         <asp:fileupload runat="server" onchange="OnUpload();showimagepreview(this);" ID="fileupload"></asp:fileupload>
        </label>
        

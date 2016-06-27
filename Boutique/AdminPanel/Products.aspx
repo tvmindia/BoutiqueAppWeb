@@ -379,11 +379,13 @@
                             
 
                               <div class="control-group">
+                                 
                                <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width:100%;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none;display:none"></iframe> 
-                       		 
+                       		    <span id="previewmsg"></span>
                                  
                                   <div id="Preview" class="Maindiv">
-
+                                 
+                                     
                                   </div>
 
                               </div>

@@ -510,7 +510,7 @@ $("document").ready(function (e) {
        // $("#load_more_button").hide();
        // $("#load_more_buttonoutofstock").hide();
        // $("#load_more_buttontrends").remove();
-        $("#productTrendsimagehold").find(".masonry-thumb").remove();
+        //$("#productTrendsimagehold").find(".masonry-thumb").remove();
         BindTrendingAllProductImages(0);
         //*******
         var $grid = $('.imageholderTrends').imagesLoaded(function () {
@@ -1008,6 +1008,7 @@ function BindAllImages() {
         Product.ProductID = prodid;
         var imageids = {};
         imageids = GetAllProductImages(Product);
+        $("#previewmsg").text('Make one as product main image!');
 
         $("#Preview").find(".imgpreviewdiv").remove();
         $.each(imageids, function (index, Records) {
@@ -1312,6 +1313,7 @@ function clearProductControls() {
     $('.AddProduct').show();
     $("#editLabel").text("New Product");
     $("#Preview").find(".imgpreviewdiv").remove();
+    $('#IframeProjectSwitching').hide();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1530,7 +1532,7 @@ function AddProduct() {
     $('.alert-error').hide();
     var result = "";
 
-    if ($(".AddProduct").text() == "Save") {
+    
 
         var Product = new Object();
         Product.Name = $("#txtName").val();
@@ -1587,6 +1589,8 @@ function AddProduct() {
             // $(".AddProduct").text("Modify");
             $('.ModifyProduct').show();//displays editsave button
             $('.AddProduct').hide();//hides save
+            
+            $('#IframeProjectSwitching').show();
             // Scroll page
             // AutoScrollToAlertBox();
 
@@ -1600,7 +1604,7 @@ function AddProduct() {
             AutoScrollToAlertBox();
 
         }
-    }
+    
     return false;
 }
 
