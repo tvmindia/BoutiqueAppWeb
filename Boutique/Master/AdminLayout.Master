@@ -75,6 +75,7 @@
 width:25px;
 height:25px;
 }
+
 .scrollToTop{
     cursor:pointer;
 	width:80px; 
@@ -116,11 +117,11 @@ height:25px;
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">
 					<ul class="nav pull-right">
-						<li class="dropdown hidden-phone">
+						<%--<li class="dropdown hidden-phone">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="halflings-icon white warning-sign"></i>
 							</a>
-							<ul class="dropdown-menu notifications">
+							<%--<ul class="dropdown-menu notifications">
 								<li class="dropdown-menu-title">
  									<span>You have 11 notifications</span>
 									<a href="#refresh"><i class="icon-repeat"></i></a>
@@ -198,14 +199,14 @@ height:25px;
                                 <li class="dropdown-menu-sub-footer">
                             		<a>View all notifications</a>
 								</li>	
-							</ul>
-						</li>
+							</ul>--%>
+						<%--</li>--%>
 						<!-- start: Notifications Dropdown -->
-						<li class="dropdown hidden-phone">
+						<%--<li class="dropdown hidden-phone">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="halflings-icon white tasks"></i>
-							</a>
-							<ul class="dropdown-menu tasks">
+							</a>--%>
+							<%--<ul class="dropdown-menu tasks">
 								<li class="dropdown-menu-title">
  									<span>You have 17 tasks in progress</span>
 									<a href="#refresh"><i class="icon-repeat"></i></a>
@@ -258,8 +259,8 @@ height:25px;
 								<li>
                             		<a class="dropdown-menu-sub-footer">View all tasks</a>
 								</li>	
-							</ul>
-						</li>
+							</ul>--%>
+						<%--</li>---%>-%>
 						<!-- end: Notifications Dropdown -->
 						<!-- start: Message Dropdown -->
 						<li class="dropdown hidden-phone">

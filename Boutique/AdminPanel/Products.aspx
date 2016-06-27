@@ -142,40 +142,28 @@
 
                                  <%--Gallery new products--%>
                                  <div class="row-fluid">
-				              <%--  <div class="box span12">--%>
-				              <%--   	<div class="box-header">
-						                <h2> Products</h2>
-						                <div class="box-icon">
-							
-					                  	</div>
-				                     	</div>--%>
-				              <%--	<div class="box-content">--%>
-						    <div class="imageholder" style="width:100%;" id="productimagehold">
+				           
+						          <div class="imageholder" style="width:100%;" id="productimagehold">
 									
 								
+				    	         </div>
+                          
+			                    </div>
+                                 <%--Gallery new products--%>
+                              <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <a class="btn btn-block loadMore"  id="load_more_button">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
+                             </div>
 
-                            <!-- Use invisible wraper to hide popup window content -->
-
-
+							</div>
+                            <%--popup content for image--%>
                            <div style="display:none;">
 	                       <div id="popup" style="max-height:680px;overflow-y:auto;">
 		                       <h3>Popup content</h3>
 		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
 		                   </div>
                           </div>
-                          
-				    	</div>
-                               <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
-                              <a class="btn btn-block loadMore"  id="load_more_button">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
-                             </div>
-					<%--</div>--%>
-				<%--</div><!--/span-->--%>
-			                
-			                 </div>
-                                 <%--Gallery new products--%>
-
-							</div>
+                           <%--popup content for image--%>
 							<div class="tab-pane" id="trends">
 							    <%--Search box--%>
                                  <div class="control-group">
@@ -191,31 +179,32 @@
                                   <%--Gallery Trends--%>
                                  <div class="row-fluid">
 				           
-					     	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
-									
-							
-                            <!-- Use invisible wraper to hide popup window content -->
+					         	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
+							 
+                         
+				    	       </div>
+				
+			                    
+			                  </div>
+                                  <%--Gallery Trends--%>
 
+                                <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <a class="btn btn-block loadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
+                              </div>
 
+							</div>
+                                
+                           <%--popup content for image--%>
                            <div style="display:none;">
 	                       <div id="popuptrends" style="max-height:680px;overflow-y:auto;">
 		                   <h3>Popup content</h3>
 		                   <img id="imgzoomtrends" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
 		                   </div>
                            </div>
-                         
-				    	</div>
-					<%--</div>--%>
-			      	<%--</div><!--/span-->--%>
-			                  <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
-                              <a class="btn btn-block loadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
-                        </div>
-			                 </div>
-                                  <%--Gallery Trends--%>
+                           <%--popup content for image--%>
 
 
-							</div>
 							<div class="tab-pane" id="outstock">
 								
                                   <%--Search box--%>
@@ -232,32 +221,28 @@
                                   <%--Gallery Out of stock--%>
                                  <div class="row-fluid">
 				           
-					     	<div class="imageholderoutofstock" style="width:100%;" id="productoutofstockimagehold">
-									
-							
-                            <!-- Use invisible wraper to hide popup window content -->
+					     	     <div class="imageholderoutofstock" style="width:100%;" id="productoutofstockimagehold">
+						
+				    	         </div>
+				
+			                     </div>
+                                  <%--Gallery out of stock--%>
 
+                              <div class="row-fluid" style="margin-top:25px;text-align:center;position:absolute;bottom:0;">
+                              <a class="btn btn-block loadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
+                             </div>
+							</div>
 
+                           <%--popup content for image--%>  
                            <div style="display:none;">
 	                       <div id="popupoutofstock" style="max-height:680px;overflow-y:auto;">
 		                   <h3>Popup content</h3>
 		                   <img id="imgzoomoutofstock" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
 		                   </div>
                            </div>
-                         
-				    	</div>
-					<%--</div>--%>
-			      	<%--</div><!--/span-->--%>
-			                  <div class="row-fluid" style="margin-top:25px;text-align:center;position:absolute;bottom:0;">
-                              <a class="btn btn-block loadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
-                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
-                        </div>
-			                 </div>
-                                  <%--Gallery out of stock--%>
+                           <%--popup content for image--%>
 
-
-								
-							</div>
 						</div>
 					</div>
 				</div><!--/span-->
@@ -285,6 +270,11 @@
 					</div>
 					<div class="span6"  style="min-height:530px;" >
 						<div class="form-horizontal">
+                            <div class="alert alert-error" id="ErrorBox" style="display:none;">
+                                <div id="Displaydiv">
+
+                                </div>
+                            </div>
 							<%--<fieldset>--%>
 
 
@@ -382,11 +372,13 @@
                             
 
                               <div class="control-group">
+                                 
                                <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width:100%;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none;display:none"></iframe> 
-                       		 
+                       		    <span id="previewmsg"></span>
                                  
                                   <div id="Preview" class="Maindiv">
-
+                                 
+                                     
                                   </div>
 
                               </div>
@@ -398,12 +390,12 @@
                    
               </div>
               <footer class="InnerFooter">
-                          <a class="btn btn-primary AddProduct" href="#">Save</></a>
-                          <a class="btn btn-primary ModifyProduct" href="#"><i class="halflings-icon th"></i>Save</></a>
+                          <a class="btn btn-primary AddProduct" onclick="return ProductValidation();" href="#">Save</></a>
+                          <a class="btn btn-primary ModifyProduct" onclick="return ProductValidationEdit();" href="#"><i class="halflings-icon th"></i>Save</></a>
 						  <a class="btn btn-primary DeleteProduct" href="#">Delete</></a>
                           <a class="btn CancelProduct">Cancel</a>
 						
-                     </footer> 
+             </footer> 
              
          </div>
      </div>
