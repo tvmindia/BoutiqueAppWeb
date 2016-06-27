@@ -416,13 +416,15 @@ $("document").ready(function (e) {
         //$("#productTrendsimagehold").find(".masonry-thumb").remove();
         BindTrendingAllProductImages(0);
         //*******
-        var $grid = $('.imageholderTrends').imagesLoaded(function () {
+        var $grid = $('.imageholderTrends').masonry({
+            itemSelector: '.masonry-thumb',
+            isInitLayout: false
+        });
+
+        $grid.imagesLoaded(function () {
             // init Masonry after all images have loaded
-            $grid.masonry({
-                // options...
-                itemSelector: '.masonry-thumb',
-                isInitLayout: false
-            });
+        $grid.masonry('layout');
+            
         });
 
         //*******
@@ -581,6 +583,7 @@ function BindProductTextBoxes(thisobject) {
     $('.AddProduct').hide();
     $('.ModifyProduct').show();//switches button to edit mode
     $('.DeleteProduct').show();
+    $('#IframeProjectSwitching').show();
 }
 
 //////////////////////////////////////

@@ -221,18 +221,11 @@
                                   <%--Gallery Out of stock--%>
                                  <div class="row-fluid">
 				           
-					     	  <div class="imageholderoutofstock" style="width:100%;" id="productoutofstockimagehold">
-									
-							
-                            <!-- Use invisible wraper to hide popup window content -->
-
-
-                     
-                         
-				    	</div>
+					     	     <div class="imageholderoutofstock" style="width:100%;" id="productoutofstockimagehold">
+						
+				    	         </div>
 				
-			               
-			                 </div>
+			                     </div>
                                   <%--Gallery out of stock--%>
 
                               <div class="row-fluid" style="margin-top:25px;text-align:center;position:absolute;bottom:0;">

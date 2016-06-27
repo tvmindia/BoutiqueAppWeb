@@ -46,12 +46,16 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public string recepientEmail
+        public string[] recepientEmail
         {
             get;
             set;
         }
-       
+        public string audienceType
+        {
+            get;
+            set;
+        }
         #endregion Global Variables
 
         #region Public Variables
@@ -78,7 +82,7 @@ namespace Boutique.DAL
 
             if (recepientEmail != null)
             {
-                string[] multiEmail = recepientEmail.Split(';');
+                string[] multiEmail = recepientEmail;
                 foreach (string multipleMails in multiEmail)
                 {
                     //mailMessage.To.Add(new MailAddress(multipleMails));

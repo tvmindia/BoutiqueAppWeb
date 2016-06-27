@@ -123,7 +123,8 @@ namespace Boutique.ImageHandler
             }
                     if (template != null)
                     {
-                        context.Response.WriteFile(body);
+                        context.Response.ContentType = "text/html";
+                        context.Response.Write("<p>my html</p>");
                     }
                 }
             }
