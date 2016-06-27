@@ -583,6 +583,7 @@ function BindProductTextBoxes(thisobject) {
     $('.AddProduct').hide();
     $('.ModifyProduct').show();//switches button to edit mode
     $('.DeleteProduct').show();
+    $('#IframeProjectSwitching').show();
 }
 
 //////////////////////////////////////
@@ -1219,6 +1220,7 @@ function clearProductControls() {
     $("#editLabel").text("New Product");
     $("#Preview").find(".imgpreviewdiv").remove();
     $('#IframeProjectSwitching').hide();
+    $("#previewmsg").text('');
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
