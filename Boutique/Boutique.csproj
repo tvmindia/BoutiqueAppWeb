@@ -530,6 +530,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Media\GraphPic\" />
+    <Folder Include="Media\NewsLetter\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

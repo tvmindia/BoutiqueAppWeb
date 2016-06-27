@@ -137,7 +137,7 @@ namespace Boutique.DAL
 
         public void PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
         {
-            string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+            string imageUrl = "http://www.tiquesinn.com/Media/NewsLetter/";
             string Url = "";
 
             Url = "BoutiqueTemplates/EmailTemplate.htm";
@@ -157,7 +157,7 @@ namespace Boutique.DAL
             body = body.Replace("{Mainimage}", MainimageUrl);
             for (int i = 1; i <= imageCount; i++)
             {
-                body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+                body = body.Replace("{image" + i + "}", imageUrl +"Tiquepic_"+i + ".jpeg");
             }
             emailBody = body;
             SendEmail();
