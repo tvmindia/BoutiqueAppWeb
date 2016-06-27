@@ -511,7 +511,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static  void SendMail(MailSending mailObj)
         {
-            mailObj.msg = mailObj.msg;
+            mailObj.emailBody = mailObj.msg;
 
 
             new Thread(delegate()
