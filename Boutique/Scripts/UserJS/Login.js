@@ -176,10 +176,12 @@ function Succes() {
     LoginDIv.append(html);
 }
 function EmailValidation() {
-    debugger;
+   
     var Email = $('#txtEmail').val();
     var ptag = document.getElementById('lblerror');
-    if (Email.match(/@/)) {
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    if (emailReg.test(Email)) {
+    //if (Email.match(/@/)) {
         var ds = {};
         var table = {};
         var Users = new Object();
@@ -208,6 +210,7 @@ function EmailValidation() {
         }
     }
     else {
+        ptag.innerHTML = " ";
         $('#Sendinggif').show();
     }
     return false;

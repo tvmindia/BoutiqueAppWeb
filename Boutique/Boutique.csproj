@@ -530,7 +530,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Media\GraphPic\" />
+    <Folder Include="Media\NewsLetter\" />
     <Folder Include="Models\" />
+    <Folder Include="NewsLetterImages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

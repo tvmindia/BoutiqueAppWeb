@@ -67,7 +67,16 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string[] productIDs
+        {
+            get;
+            set;
+        }
+        public string[] audienceMailIDs
+        {
+            get;
+            set;
+        }
         public string CreatedBy
         {
             get;
@@ -89,6 +98,11 @@ namespace Boutique.DAL
             set;
         }
         public Guid TemplateID
+        {
+            get;
+            set;
+        }
+        public string audienceMailType
         {
             get;
             set;
@@ -503,6 +517,7 @@ namespace Boutique.DAL
 
         #endregion GetAllTemplateIDandName
 
+        #region GetAllEmailIdsToSendNewsLetterEmail
         public DataSet GetAllEmailIdsToSendNewsLetterEmail()
         {
 
@@ -541,7 +556,9 @@ namespace Boutique.DAL
             }
             return ds;
         }
+        #endregion GetAllEmailIdsToSendNewsLetterEmail
 
+        #region GetAllTemplateDetails
         public DataSet GetAllTemplateDetails()
         {
 
@@ -580,7 +597,9 @@ namespace Boutique.DAL
             }
             return ds;
         }
+        #endregion GetAllTemplateDetails
 
+        #region PopulateBody
         public string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
         {
             // string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
@@ -588,6 +607,7 @@ namespace Boutique.DAL
             ds = GetAllTemplateDetails();
             string Url = "";
             string imageUrl = null;
+           
             string altImage = "http://www.simasa.co.uk/WebRoot/SIMASA/Shops/SIMA/5060/8140/8742/83EE/1AB2/0A00/0063/0C54/SpecialOffer_SIMA-1_m.jpg";
             //Url = "BoutiqueTemplates/EmailTemplate.htm";
             Url = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
@@ -615,8 +635,53 @@ namespace Boutique.DAL
             }
             return body;
         }
+        #endregion PopulateBody
 
-        #endregion Methods
+        public Int16 InsertNewsLetterTrackingDetails()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertNewsLetterTrackingDetails]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@TemplateID", SqlDbType.UniqueIdentifier).Value = TemplateID;
+                cmd.Parameters.Add("@ImageID", SqlDbType.VarChar, -1).Value = string.Join(",", ImageIDs); 
+                cmd.Parameters.Add("@ProductID", SqlDbType.VarChar, -1).Value = string.Join(",", productIDs);
+                cmd.Parameters.Add("@AudienceMailID", SqlDbType.VarChar, -1).Value = string.Join(",",audienceMailIDs);
+                cmd.Parameters.Add("@Description", SqlDbType.VarChar,-1).Value = Description;
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar,255).Value = CreatedBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion InsertNewsLetterTrackingDetails
 
 
     }
