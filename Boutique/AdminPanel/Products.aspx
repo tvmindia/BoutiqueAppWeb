@@ -391,7 +391,7 @@
               </div>
               <footer class="InnerFooter">
                           <a class="btn btn-primary AddProduct" onclick="return ProductValidation();" href="#">Save</></a>
-                          <a class="btn btn-primary ModifyProduct" href="#"><i class="halflings-icon th"></i>Save</></a>
+                          <a class="btn btn-primary ModifyProduct" onclick="return ProductValidationEdit();" href="#"><i class="halflings-icon th"></i>Save</></a>
 						  <a class="btn btn-primary DeleteProduct" href="#">Delete</></a>
                           <a class="btn CancelProduct">Cancel</a>
 						
