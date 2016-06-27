@@ -260,7 +260,7 @@ height:25px;
                             		<a class="dropdown-menu-sub-footer">View all tasks</a>
 								</li>	
 							</ul>--%>
-						<%--</li>---%>-%>
+						<%--</li>---%>
 						<!-- end: Notifications Dropdown -->
 						<!-- start: Message Dropdown -->
 						<li class="dropdown hidden-phone">
