@@ -220,7 +220,7 @@
                                         <div class="span6" style="min-height: 300px;">
                                             <%-- 	<div class="box-content " style="height: 500px; overflow:auto; " >--%>
                                             <div class="form-horizontal">
-                                                <div class="alert alert-block" id="NewsletterErrorBox" style="display: none;">
+                                                <div class="alert alert-error" id="NewsletterErrorBox" style="display: none;">
                                                     <div id="NewsletterDisplaydiv">
                                                     </div>
                                                 </div>

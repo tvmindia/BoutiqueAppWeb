@@ -86,7 +86,7 @@
 
                                         <div class="box-content" style="min-height: 448px;">
                                             <div class="form-horizontal">
-                                                <div class="alert alert-block" id="ErrorBox1" style="display:none;">
+                                                <div class="alert alert-error" id="ErrorBox1" style="display:none;">
                                                 <div id="Displaydiv1">
 
                                                 </div>
@@ -209,7 +209,7 @@
 
                                         <div class="box-content" style="min-height: 448px;">
                                             <div class="form-horizontal">
-                                                <div class="alert alert-block" id="ErrorBox" style="display:none;">
+                                                <div class="alert alert-error" id="ErrorBox" style="display:none;">
                                                   <div id="Displaydiv">
 
                                                   </div>
@@ -333,7 +333,7 @@
 
                                         <div class="box-content" style="min-height: 448px; overflow: auto;">
                                             <div class="form-horizontal">
-                                                <div class="alert alert-block" id="ErrorBox2" style="display:none;">
+                                                <div class="alert alert-error" id="ErrorBox2" style="display:none;">
                                                   <div id="Displaydiv2">
 
                                                   </div>
@@ -429,7 +429,7 @@
 
                                         <div class="box-content" style="min-height: 448px; overflow: auto;">
                                             <div class="form-horizontal">
-                                                <div class="alert alert-block" id="ErrorBox3" style="display:none;">
+                                                <div class="alert alert-error" id="ErrorBox3" style="display:none;">
                                                   <div id="Displaydiv3">
 
                                                   </div>
