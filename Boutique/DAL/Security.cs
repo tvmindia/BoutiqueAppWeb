@@ -131,13 +131,13 @@ namespace Boutique.DAL
                     string Name = dt.Rows[0]["LoginName"].ToString();
                     string Passwd = dt.Rows[0]["Password"].ToString();
                     bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
-
-                    if (userName == Name && (CryptObj.Encrypt(password) == Passwd) && Active == true)
+                   
+                    if ((string.Equals(userName, Name, StringComparison.CurrentCultureIgnoreCase)) && (CryptObj.Encrypt(password) == Passwd) && Active == true)
 
                     //  if (userName == Name && password == Passwd)
                     {
                         isValidUser = true;
-                        userN = userName;
+                        userN = Name;
 
                         BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
                         Boutique_ID = dt.Rows[0]["BoutiqueID"].ToString();
