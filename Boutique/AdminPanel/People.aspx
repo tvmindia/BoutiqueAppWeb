@@ -113,6 +113,7 @@
                                                     <label class="control-label" for="focusedInput">LoginName</label>
                                                     <div class="controls">
                                                         <input class="input-large focused" name="Login Name" id="txtAdminLoginName" type="text" />
+                                                           <label class="control-label"  id="lblAdminLoginName" style=" padding-left:10px; display:none;" />
                                                     </div>
                                                 </div>
 
@@ -136,7 +137,10 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Email</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Email" id="txtAdminEmail" type="text" />
+                                                        <input class="input-large focused" name="Email" onkeyup=" return EmailValidation();" id="txtAdminEmail" type="text" />
+                                                        <img id="imgfail" style="display:none"  src="../img/Default/newClose.png" />
+                                                        <img id="imgsuccess" style="display:none" src="../img/Default/newfff.png" />
+
                                                     </div>
                                                 </div>
 
@@ -237,6 +241,7 @@
                                                     <label class="control-label" for="focusedInput">LoginName</label>
                                                     <div class="controls">
                                                         <input class="input-large focused" name="Login Name" id="txtManagerLoginName" type="text" />
+                                                           <label class="control-label"  id="lblManagerLoginName" style=" padding-left:10px; display:none;" />
                                                     </div>
                                                 </div>
 
@@ -260,7 +265,10 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Email</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Email" id="txtManagerEmail" type="text" />
+                                                     <input class="input-large focused" name="Email" onkeyup=" return EmailValidation();" id="txtManagerEmail" type="text" />
+                                                        <img id="imgfail1" style="display:none"  src="../img/Default/newClose.png" />
+                                                        <img id="imgsuccess1" style="display:none" src="../img/Default/newfff.png" />
+
                                                     </div>
                                                 </div>
 
@@ -551,6 +559,7 @@
     <input type="hidden" id="hdfCardNo" value="" />
     <input type="hidden" id="hdfDesignerID" value="" />
       <input type="hidden" id="hdfMobile" value="" />
+        <input type="hidden" id="hdfEmailEditVerify" value="" />
 
 
 </asp:Content>
