@@ -416,7 +416,9 @@ $("document").ready(function (e) {
          var $grid = $('.imageholderTrends').masonry({
             itemSelector: '.masonry-thumb',
        
-        });
+         });
+
+
         $grid.imagesLoaded(function () {
           
             $grid.masonry('layout');
