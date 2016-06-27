@@ -284,6 +284,11 @@
 					</div>
 					<div class="span6"  style="min-height:530px;" >
 						<div class="form-horizontal">
+                            <div class="alert alert-error" id="ErrorBox" style="display:none;">
+                                <div id="Displaydiv">
+
+                                </div>
+                            </div>
 							<%--<fieldset>--%>
 
 
