@@ -559,16 +559,19 @@ $("document").ready(function (e) {
         //Masonary reinit
     });
     $('input[type=text],input[type=password],select').on('focus', function () {
+       
         $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').slideUp(1000);
+        $('#ErrorBox').slideUp(1000);
     });
     $('textarea').on('focus', function () {
+       
         $(this).css({ background: 'white' });
-        $('#ErrorBox,#ErrorBox1').slideUp(1000);
+        $('#ErrorBox').slideUp(1000);
     });
 
 });//end of document.ready
 function RemoveStyle() {
+
     $('input[type=text],input[type=password],textarea,select').css({ background: 'white' });
     $('#ErrorBox').slideUp(1000);
 }
@@ -1465,7 +1468,7 @@ function GetTotalProductCount(Product)
 //Basic Validation For New Notification
 //CreatedBy Thomson
 function ProductValidation() {
-    debugger;
+    
     $('#Displaydiv').remove();
     var Name = $('#txtName');
     var Descrip = $('#txtDescription');
