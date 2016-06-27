@@ -1428,8 +1428,7 @@ function ProductValidation() {
         return true;
     }
 }
-function ProductValidationEdit() {
-    debugger;
+function ProductValidationEdit() {     
     $('#Displaydiv').remove();
     var Name = $('#txtName');
     var Descrip = $('#txtDescription');
@@ -1453,8 +1452,6 @@ function ProductValidationEdit() {
 
         if (container[i].Value == "") {
             j = 1;
-
-
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
@@ -1474,26 +1471,17 @@ function ProductValidationEdit() {
         p.innerHTML = "* Some Fields Are Empty ! ";
         p.style.color = "Red";
         p.style.fontSize = "14px";
-
         divs.appendChild(p);
         Errorbox.style.paddingLeft = "30px";
-
         return false;
     }
     $('#Preview div').each(function (index) {
-        debugger;
-        //val.push($(this).attr('id'));
-        //var idval = $(this).attr('id');
-        //orderno = index;
-        //ImageInfo.push(idval);
-
+        
         var chkflag = document.getElementById("checkDes" + index).checked;
         if (chkflag == true) {
             //Product.MainImageID = idval;
             k = 1;
         }
-
-
     });
     if (k == 0)
     {
@@ -1503,9 +1491,7 @@ function ProductValidationEdit() {
         p.innerHTML = "* You Missed to Select a Main Image!";
         p.style.color = "Red";
         p.style.fontSize = "14px";
-
         divs.appendChild(p);
-
         return false;
     }
     if (j == '0') {
@@ -1519,8 +1505,6 @@ function AddProduct() {
     $('.alert-success').hide();
     $('.alert-error').hide();
     var result = "";
-
-    
 
         var Product = new Object();
         Product.Name = $("#txtName").val();
