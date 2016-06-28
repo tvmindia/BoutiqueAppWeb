@@ -147,7 +147,7 @@ namespace Boutique.DAL
             string Url = "";
             notifyObj.NewsLetterID = mailNewsLetterID;
             notifyObj.GetAllNewsLetterDetails();
-            Url = "BoutiqueTemplates/EmailTemplate.htm";
+            Url = notifyObj.templateFile;
 
           //  int imageCount = Convert.ToInt32(8);
             string body = string.Empty;
