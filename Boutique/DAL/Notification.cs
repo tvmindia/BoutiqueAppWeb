@@ -67,12 +67,12 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public string productIDs
+        public string[] productIDs
         {
             get;
             set;
         }
-        public string audienceMailIDs
+        public string[] audienceMailIDs
         {
             get;
             set;
@@ -98,6 +98,11 @@ namespace Boutique.DAL
             set;
         }
         public Guid TemplateID
+        {
+            get;
+            set;
+        }
+        public string audienceMailType
         {
             get;
             set;
@@ -651,16 +656,12 @@ namespace Boutique.DAL
                 cmd.CommandText = "[InsertNewsLetterTrackingDetails]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@TemplateID", SqlDbType.UniqueIdentifier).Value = TemplateID;
-                cmd.Parameters.Add("@ImageID", SqlDbType.VarChar,-1).Value = ImageIDs;
-                cmd.Parameters.Add("@ProductID", SqlDbType.VarChar, -1).Value = productIDs;
-                cmd.Parameters.Add("@AudienceMailID", SqlDbType.VarChar, -1).Value = audienceMailIDs;
+                cmd.Parameters.Add("@ImageID", SqlDbType.VarChar, -1).Value = string.Join(",", ImageIDs); 
+                cmd.Parameters.Add("@ProductID", SqlDbType.VarChar, -1).Value = string.Join(",", productIDs);
+                cmd.Parameters.Add("@AudienceMailID", SqlDbType.VarChar, -1).Value = string.Join(",",audienceMailIDs);
                 cmd.Parameters.Add("@Description", SqlDbType.VarChar,-1).Value = Description;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar,255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                if (ProductID != "" && ProductID != null) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
-                if (CategoryCode != "" && CategoryCode != null) cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
-                if (UserID != "" && UserID != null) cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
-                if (OrderID != "" && OrderID != null) cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();

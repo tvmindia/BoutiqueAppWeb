@@ -137,7 +137,8 @@ namespace Boutique.DAL
 
         public void PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
         {
-            string imageUrl = "http://www.tiquesinn.com/Media/NewsLetter/";
+
+            string imageUrl = "http://www.tiquesinn.com/NewsLetterImages/";
             string Url = "";
 
             Url = "BoutiqueTemplates/EmailTemplate.htm";

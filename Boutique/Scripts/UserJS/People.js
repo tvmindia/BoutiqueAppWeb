@@ -6,8 +6,8 @@ $("document").ready(function (e) {
     $('.AddUser').hide();
     //BIND REGION 
 
-    var LoginUserRole = getRole();  
-    
+    var LoginUserRole = getRole();
+
     $('#hdfRole').val(LoginUserRole[0]);
     $('#hdfloginname').val(LoginUserRole[1]);
 
@@ -535,9 +535,8 @@ function BindAdminsTable(Records) {
     }
     else {
         $("tbody#Adminrows tr").remove();
-        $.each(Records, function (index, Records) {      
-            var name1 = Records.Name;
-            if (Records.Name == lname) {
+        $.each(Records, function (index, Records) {           
+            if (Records.LoginName == lname) {
                 var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                 $("#AdministratorTable").append(html);
             }
@@ -600,6 +599,11 @@ function clearManagerControls() {
     $("#txtManagerName").val('');
     $("#txtManagerMobile").val('');
     $("#txtManagerLoginName").val('');
+    $("#lblManagerLoginName").text('');
+    $("#lblManagerLoginName").hide();
+    $("#txtManagerLoginName").show();
+
+
     $("#txtManagerPass").val('');
     $("#txtManagerConPass").val('');
     $("#txtManagerEmail").val('');
@@ -611,6 +615,11 @@ function clearManagerControls() {
     $("#hdfAdminID").val('');
     $("#hdfUserID").val('');
     $("#editManagerLabel").text("New Manager");
+    $('#imgfail1').hide();
+    $('#imgsuccess1').hide();
+    $("#hdfEmailEditVerify").val('');
+    $("#hdfCardNo").val('');
+    $("#hdfMobile").val('');
 }
 
 function clearAdminControls() {
@@ -618,6 +627,11 @@ function clearAdminControls() {
     $("#txtAdminName").val('');
     $("#txtMobileAdmin").val('');
     $("#txtAdminLoginName").val('');
+    $("#lblAdminLoginName").text('');
+    $("#lblAdminLoginName").hide();
+    $("#txtAdminLoginName").show();
+    
+
     $("#txtAdminPass").val('');
     $("#txtAdminConPass").val('');
     $("#txtAdminEmail").val('');
@@ -629,6 +643,12 @@ function clearAdminControls() {
     $("#hdfAdminID").val('');
     $("#hdfUserID").val('');
     $("#editAdminLabel").text("New Administrator");
+    $('#imgfail').hide();
+    $('#imgsuccess').hide();
+    $("#hdfEmailEditVerify").val('');
+    $("#hdfCardNo").val('');
+    $("#hdfMobile").val('');
+    
 }
 
 function clearUserControls() {
@@ -640,11 +660,15 @@ function clearUserControls() {
     $("#dateDOB").val('');
     $("#dateAnniversary").val('');
     $('#rowfluidDiv').hide();
-    $("#hdfUserID").val('');
+   
     $('.alert-success').hide();
     $('.alert-error').hide();
-    $(".AddUser").text("Save");
+  
     $('.AddUser').hide();
+
+    $("#hdfUserID").val('');
+    $("#hdfCardNo").val('');
+    $("#hdfMobile").val('');
 }
 
 function clearDesignerControls() {
@@ -656,7 +680,7 @@ function clearDesignerControls() {
     $('.alert-error').hide();
     $("#hdfDesignerID").val('');
     $("#list").find(".thumb").remove();
-    $(".AddDesigner").text("Save");
+    
     $("#editDesignerLabel").text("New Designer");
 
 }
@@ -746,7 +770,12 @@ function BindAdminTextBoxes(Records) {
         $("#txtAdminName").val(Records.Name);
         $("#txtMobileAdmin").val(Records.Mobile);
         $("#txtAdminEmail").val(Records.Email);
+        $("#hdfEmailEditVerify").val(Records.Email);
         $("#txtAdminLoginName").val(Records.LoginName);
+        $("#lblAdminLoginName").text(Records.LoginName);
+
+        $("#lblAdminLoginName").show();
+        $("#txtAdminLoginName").hide();
       
         $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
@@ -778,7 +807,13 @@ function BindManagerTextBoxes(Records) {
         $("#txtManagerName").val(Records.Name);
         $("#txtManagerMobile").val(Records.Mobile);
         $("#txtManagerEmail").val(Records.Email);
+        $("#hdfEmailEditVerify").val(Records.Email);
+
         $("#txtManagerLoginName").val(Records.LoginName);
+        $("#lblManagerLoginName").text(Records.LoginName);
+
+        $("#lblManagerLoginName").show();
+        $("#txtManagerLoginName").hide();
 
         $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
@@ -1083,16 +1118,14 @@ function AddUser()
 //Basic Client Side Validation and Insert For Admin Registration
 function AdminValidation() {
   
-    $('#Displaydiv1').remove();
-    //var DdlBoutique = $('#idDdlboutiques');
+    $('#Displaydiv1').remove();  
     var Name = $('#txtAdminName');
     var LoginName = $('#txtAdminLoginName');
     var Password = $('#txtAdminPass');
     var CPassword = $('#txtAdminConPass');
     var Email = $('#txtAdminEmail');
     var Phone = $('#txtMobileAdmin');
-    //var Timings = $('#txtTimings');
-    //var WorkDays = $('#txtWorkingDays');
+  
     var container = [
         { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
         { id: LoginName[0].id, name: LoginName[0].name, Value: LoginName[0].value },
@@ -1108,21 +1141,33 @@ function AdminValidation() {
     divs.setAttribute("id", "Displaydiv1");
     Errorbox.appendChild(divs);
     for (var i = 0; i < container.length; i++) {
-
         if (container[i].Value == "") {
             j = 1;
-
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundRepeat = "no-repeat";         
             Errorbox.style.paddingLeft = "30px";
 
         }
 
+    }  
+
+    if ($("#hdfAdminID").val() == "") {
+
+        if (Email[0].name != "") {        
+            var result = EmailValidation();
+            if (result == true) {
+                var p = document.createElement('p');
+                p.innerHTML = "Email Id already Exists! ";
+                p.style.color = "Red";
+                p.style.fontSize = "14px";
+                divs.appendChild(p);
+                j = 1
+            }
+        }
     }
     if (Password[0].value != CPassword[0].value) {
         j = 1;
@@ -1158,18 +1203,15 @@ function AdminValidation() {
 
 //Basic Client Side Validation For Manager Registration
 
-function ManagerValidation() {
-    
-    $('#Displaydiv').remove();
-    //var DdlBoutique = $('#idDdlboutiques');
+function ManagerValidation() {    
+    $('#Displaydiv').remove(); 
     var Name = $('#txtManagerName');
     var LoginName = $('#txtManagerLoginName');
     var Password = $('#txtManagerPass');
     var CPassword = $('#txtManagerConPass');
     var Email = $('#txtManagerEmail');
     var Phone = $('#txtManagerMobile');
-    //var Timings = $('#txtTimings');
-    //var WorkDays = $('#txtWorkingDays');
+ 
     var container = [
         { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
         { id: LoginName[0].id, name: LoginName[0].name, Value: LoginName[0].value },
@@ -1185,20 +1227,15 @@ function ManagerValidation() {
     divs.setAttribute("id", "Displaydiv");
     Errorbox.appendChild(divs);
     for (var i = 0; i < container.length; i++) {
-
         if (container[i].Value == "") {
-            j = 1;
-
-            
+            j = 1;            
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundRepeat = "no-repeat";         
             Errorbox.style.paddingLeft = "30px";
-
         }
 
     }
@@ -1213,8 +1250,7 @@ function ManagerValidation() {
         Errorbox.style.display = "block";
         var txtB = document.getElementById('txtAdminPass');
         txtB.style.backgroundColor = "#f2dede";
-        var txtB1 = document.getElementById('txtAdminConPass');
-        //txtB1.style.backgroundColor = "#f2dede";
+        var txtB1 = document.getElementById('txtAdminConPass');     
         Errorbox.style.paddingLeft = "30px";
     }
     if (j == '1') {
@@ -1236,12 +1272,9 @@ function ManagerValidation() {
 
 function DesignerValidate() {
     $('#Displaydiv').remove();
-    var Name = $('#txtDesignerName');
-    //var Email = $('#txtOwnerEmail');
-    //var Address = $('#txtOwnerAddress');
+    var Name = $('#txtDesignerName');  
     var Phone = $('#txtDesignerMobile');
-    //{ id: Email[0].id, name: Email[0].name, Value: Email[0].value },
-    //{ id: Address[0].id, name: Address[0].name, Value: Address[0].value },
+
     var container = [
         { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
         { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value }
@@ -1253,24 +1286,16 @@ function DesignerValidate() {
     divs.setAttribute("id", "Displaydiv2");
     Errorbox.appendChild(divs);
     for (var i = 0; i < container.length; i++) {
-
         if (container[i].Value == "") {
-            j = 1;
-
-            
+            j = 1;            
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundRepeat = "no-repeat";       
             Errorbox.style.paddingLeft = "30px";
-
         }
-
-
-
     }
     if (j == '1') {
         var p = document.createElement('p');
@@ -1285,7 +1310,6 @@ function DesignerValidate() {
         AddDesigner();
         return true;
     }
-
 }
 
 //Basic Client Side Validation For Designer and User Registration
@@ -1308,23 +1332,16 @@ function UserValidate() {
     divs.setAttribute("id", "Displaydiv3");
     Errorbox.appendChild(divs);
     for (var i = 0; i < container.length; i++) {
-
         if (container[i].Value == "") {
             j = 1;
-
             Errorbox.style.borderRadius = "5px";
             Errorbox.style.display = "block";
             var txtB = document.getElementById(container[i].id);
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
-            txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.backgroundColor = "#FFFEE1";
+            txtB.style.backgroundRepeat = "no-repeat";         
             Errorbox.style.paddingLeft = "30px";
-
         }
-
-
-
     }
     if (j == '1') {
         var p = document.createElement('p');
@@ -1342,4 +1359,80 @@ function UserValidate() {
 
 }
 
-//CreatedBy Thomson
+//----------------------- Email Validation Checking while new Administrator and Manager is created--------------//
+function EmailValidation() {
+  
+    var value;
+    if ($('#txtAdminEmail').val() != "") {
+        debugger;
+        var Email = $('#txtAdminEmail').val();
+        value = 0;
+    }
+    else {
+        debugger;
+        $('#imgfail').hide();
+        $('#imgsuccess').hide();
+    }
+    if ($('#txtManagerEmail').val() != "") {
+        debugger;
+        var Email = $('#txtManagerEmail').val();
+         value = 1;
+        }
+    else {
+        debugger;
+          $('#imgfail1').hide();
+        $('#imgsuccess1').hide();
+
+}
+   
+
+    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+    if (emailReg.test(Email)) {
+        var ds = {};
+        var table = {};
+        var Users = new Object();
+        Users.Email = Email;
+
+        var data = "{'UserObj':" + JSON.stringify(Users) + "}";
+        ds = getJsonData(data, "../AdminPanel/Login.aspx/EmailValidation");
+        table = JSON.parse(ds.d);
+        if (table === 1) {
+            if ($("#hdfEmailEditVerify").val() != Email) {         
+                if (value == 0) {
+                    $('#imgfail').show();
+                    $('#imgsuccess').hide();
+                }
+                else {
+                    $('#imgfail1').show();
+                    $('#imgsuccess1').hide();
+                }
+            }
+            //Email is Invalid 
+            return true;
+        }
+        if (table == 0) {          
+             if (value == 0)     {
+                 $('#imgsuccess').show();
+                 $('#imgfail').hide();
+            }
+             if (value == 1) {
+                 $('#imgsuccess1').show();
+                 $('#imgfail1').hide();
+             }
+        //Email is Valid Continue 
+            return false;
+        }
+    }
+    else {
+        if (value == 0) {
+            $('#imgfail').show();
+            $('#imgsuccess').hide();
+        }
+        if (value == 1) {
+            $('#imgfail1').show();
+            $('#imgsuccess1').hide();
+        }
+        return false;
+    }
+    return false;
+}

@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -386,6 +387,65 @@ namespace Boutique.AdminPanel
             return jsonResult; //Converting to Json
         }
         #endregion GetAllNewsLetterEmails
+
+        #region AddNesLetterMailTrackingDetails
+        /// <summary>
+        /// If notification id is an empty string it will do inserting, otherwise updating
+        /// </summary>
+        /// <param name="notificationObj"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string AddNesLetterMailTrackingDetails(Notification notificationObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            notificationObj.BoutiqueID = UA.BoutiqueID;
+            notificationObj.UpdatedBy = UA.userName;
+            notificationObj.CreatedBy = UA.userName;
+            string status = null;
+            DataSet ds = null;
+            Product productObj = new Product();
+            if (notificationObj.audienceMailType == "All")
+            {
+                ds = notificationObj.GetAllEmailIdsToSendNewsLetterEmail();
+                List<string> strDetailIDList = new List<string>();
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    strDetailIDList.Add(row["Email"].ToString());
+                }
+                notificationObj.audienceMailIDs = strDetailIDList.ToArray();
+            }
+            try
+            {
+              
+                    status = notificationObj.InsertNewsLetterTrackingDetails().ToString();
+                foreach(string imgID in notificationObj.ImageIDs)
+                {
+                    productObj.ImageID = imgID;
+                    byte[] ImgBack = productObj.GetProductImage();
+                    string fileExtension = ".jpeg";
+                    string str_image = imgID + fileExtension.Trim();
+                    string filePath = HttpContext.Current.Server.MapPath("~/NewsLetterImages/" + str_image.Trim());
+                    if (!System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.WriteAllBytes(filePath, ImgBack);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return status;
+        }
+        #endregion AddNesLetterMailTrackingDetails
+
     }
 
 }
