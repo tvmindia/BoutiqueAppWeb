@@ -951,6 +951,52 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+        /// <summary>
+        /// To update the delivery bit to true
+        /// </summary>
+        /// <param name="messageIDs">comma seperated message ids that are delivered</param>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string UpdateDeliveryStatus(string messageIDs, string boutiqueID)
+        {   
+            DataTable dt = new DataTable();
+            try
+            {
+                Chat chat = new Chat();
+                chat.BoutiqueID = boutiqueID;
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));                
+                DataRow dr = dt.NewRow();
+                if (chat.UpdateDeliveryStatus(messageIDs) == 1)
+                {
+                    dr["Flag"] = true;
+                    dr["Message"] = constants.Successfull;
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                }
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion
 
         #region JSON converter
