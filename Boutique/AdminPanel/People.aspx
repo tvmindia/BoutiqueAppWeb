@@ -104,7 +104,7 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Mobile</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Mobile Number" id="txtMobileAdmin" type="text" />
+                                                        <input class="input-large focused" name="Mobile Number" id="txtMobileAdmin" type="text" onkeypress="return isNumber(event)" />
                                                     </div>
                                                 </div>
 
@@ -232,7 +232,7 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Mobile</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Mobile Number" id="txtManagerMobile" type="text" />
+                                                        <input class="input-large focused" name="Mobile Number" id="txtManagerMobile" type="text" onkeypress="return isNumber(event)" />
                                                     </div>
                                                 </div>
 
@@ -358,7 +358,7 @@
 
                                                     <label class="control-label" for="focusedInput">Mobile</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Mobile Number" id="txtDesignerMobile" type="text" />
+                                                        <input class="input-large focused" name="Mobile Number" id="txtDesignerMobile" type="text" onkeypress="return isNumber(event)" />
                                                     </div>
                                                 </div>
 
@@ -454,7 +454,7 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Mobile</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" id="txtMobile" type="text" />
+                                                        <input class="input-large focused" id="txtMobile" type="text"  onkeypress="return isNumber(event)"/>
                                                     </div>
                                                 </div>
 

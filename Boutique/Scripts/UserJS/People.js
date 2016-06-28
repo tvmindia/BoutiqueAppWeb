@@ -1360,16 +1360,31 @@ function UserValidate() {
 }
 
 //----------------------- Email Validation Checking while new Administrator and Manager is created--------------//
-function EmailValidation() {  
+function EmailValidation() {
+  
     var value;
     if ($('#txtAdminEmail').val() != "") {
+        debugger;
         var Email = $('#txtAdminEmail').val();
         value = 0;
     }
     else {
-        var Email = $('#txtManagerEmail').val();
-       value = 1;
+        debugger;
+        $('#imgfail').hide();
+        $('#imgsuccess').hide();
     }
+    if ($('#txtManagerEmail').val() != "") {
+        debugger;
+        var Email = $('#txtManagerEmail').val();
+         value = 1;
+        }
+    else {
+        debugger;
+          $('#imgfail1').hide();
+        $('#imgsuccess1').hide();
+
+}
+   
 
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     if (emailReg.test(Email)) {
@@ -1400,7 +1415,7 @@ function EmailValidation() {
                  $('#imgsuccess').show();
                  $('#imgfail').hide();
             }
-            else {
+             if (value == 1) {
                  $('#imgsuccess1').show();
                  $('#imgfail1').hide();
              }
@@ -1413,7 +1428,7 @@ function EmailValidation() {
             $('#imgfail').show();
             $('#imgsuccess').hide();
         }
-        else {
+        if (value == 1) {
             $('#imgfail1').show();
             $('#imgsuccess1').hide();
         }
