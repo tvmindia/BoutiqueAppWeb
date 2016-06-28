@@ -115,15 +115,15 @@
 				
 				<div class="box span12">
 					<div class="box-header">
-						<h2><span class="break"></span>Products Gallery</h2>
+						
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li><a id="idtabnewproducts" href="#newproducts">New Products</a></li>
-							<li class="active"><a id="idtabtrending" href="#trends">Trending</a></li>
-							<li><a id="idtaboutofstock" href="#outstock">Out of Stocks</a></li>
+							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i>New Products</a></li>
+							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i>Trending</a></li>
+							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i>Out of Stocks</a></li>
 						</ul>
-						 
+						
 						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
 							<div class="tab-pane active" id="newproducts">
 
@@ -160,8 +160,8 @@
 							</div>
                             <%--popup content for image--%>
                            <div style="display:none;">
-	                       <div id="popup" style="max-height:680px;overflow-y:auto;">
-		                       <h3>Popup content</h3>
+	                       <div id="popup" style="max-height:650px;overflow-y:auto;">
+		                       <h3>Real Image</h3>
 		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
 		                   </div>
                           </div>
@@ -372,8 +372,12 @@
               </div>
                     <div class="span5" id="imageupGallery" style="max-height:550px;overflow-y:auto;overflow-x:hidden;">
                         <div class="form-horizontal">
+                               <div class="control-group">
+                                    </div>
                                 <div class="control-group">
-                                   
+                                     <label class="control-label" for="focusedInput">Product No: <span id="idproductno" class=""></span></label>
+							
+                                 
                                 </div>
                             
 
