@@ -64,44 +64,30 @@
     <link href="../CSS/style-responsive.css" rel="stylesheet" />
     <link href="../CSS/googleapiFont.css" rel="stylesheet" />
 	<!-- end: CSS -->
-    <style>
-        li #LITiquesList.dropdown
-        {
-            display:inline!important;
+<style>
+li #LITiquesList.dropdown{display:inline!important;}
+.AdminLogoClass{width:25px;height:25px;}
+.navTitle i{color:#FF6600!important}
+.navTitle a{border-bottom-color:#96623e!important}
+.breadcrumb i{color: #FF6600 !important;}
+.navbar-inner{border-bottom:3px solid #e45b00!important;}   
+.scrollToTop{cursor:pointer;width:80px;height:80px;padding:10px;text-align:center;background: whiteSmoke;font-weight: bold;color: #444;
+	         text-decoration: none;position:fixed;bottom:20px;right:3px;display:none;z-index:250;border:0!important;background: url('../img/Default/Scrollup.png') no-repeat;}
+.scrollToTop:hover{text-decoration:none;}
+.Noticon{display: block;position: absolute;top: 4px;left: auto;right: 10px;font-size: 9px;color: #FFF;width: 14px;height: 14px;
+         line-height: 16px;text-align: center;background-color: #FF6600;border-radius: 50%;padding:2%;}
+/* Let's get this party started */
+::-webkit-scrollbar {width: 12px;}
+/* Track */
+::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);-webkit-border-radius: 10px;border-radius: 10px;}
+/* Handle */
+::-webkit-scrollbar-thumb {-webkit-border-radius: 10px;border-radius: 10px;background: #EEEEEE;-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); }
+::-webkit-scrollbar-thumb:window-inactive {background: rgba(255,0,0,0.4); }
+</style>
 
-        }
-.AdminLogoClass
-{
-width:25px;
-height:25px;
-}
-
-.scrollToTop{
-    cursor:pointer;
-	width:80px; 
-	height:80px;
-	padding:10px; 
-	text-align:center; 
-	background: whiteSmoke;
-	font-weight: bold;
-	color: #444;
-	text-decoration: none;
-	position:fixed;
-    bottom:20px;
-	right:3px;
-	display:none;
-    z-index:250;
-    border:0!important;
-	background: url('../img/Default/Scrollup.png') no-repeat;
-}
-.scrollToTop:hover{
-	text-decoration:none;
-}
-
-    </style>
 </head>
 <body>
-  <div class="navbar">
+  <div class="navbar" style="position:fixed;top:0;left:0;z-index:199;width:100%;">
 		<div class="navbar-inner">
 		
 			<div class="container-fluid">
@@ -117,12 +103,14 @@ height:25px;
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">
 					<ul class="nav pull-right">
-						<%--<li class="dropdown hidden-phone">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="halflings-icon white warning-sign"></i>
+						
+						<li class="dropdown hidden-phone">
+                           <%-- onclick="BindNotification();"--%>
+							<a class="btn dropdown-toggle" data-toggle="dropdown">
+								<i class="halflings-icon white envelope"></i><span class="Noticon" id="countspan">0</span>
 							</a>
-							<%--<ul class="dropdown-menu notifications">
-								<li class="dropdown-menu-title">
+							<ul class="dropdown-menu notifications" id="NotifyArea" style="max-height:300px;overflow-y:auto;overflow-x:hidden;">
+								<%--<li class="dropdown-menu-title">
  									<span>You have 11 notifications</span>
 									<a href="#refresh"><i class="icon-repeat"></i></a>
 								</li>	
@@ -198,171 +186,12 @@ height:25px;
                                 </li>
                                 <li class="dropdown-menu-sub-footer">
                             		<a>View all notifications</a>
-								</li>	
-							</ul>--%>
-						<%--</li>--%>
-						<!-- start: Notifications Dropdown -->
-						<%--<li class="dropdown hidden-phone">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="halflings-icon white tasks"></i>
-							</a>--%>
-							<%--<ul class="dropdown-menu tasks">
-								<li class="dropdown-menu-title">
- 									<span>You have 17 tasks in progress</span>
-									<a href="#refresh"><i class="icon-repeat"></i></a>
-								</li>
-								<li>
-                                    <a href="#">
-										<span class="header">
-											<span class="title">iOS Development</span>
-											<span class="percent"></span>
-										</span>
-                                        <div class="taskProgress progressSlim red">80</div> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-										<span class="header">
-											<span class="title">Android Development</span>
-											<span class="percent"></span>
-										</span>
-                                        <div class="taskProgress progressSlim green">47</div> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-										<span class="header">
-											<span class="title">ARM Development</span>
-											<span class="percent"></span>
-										</span>
-                                        <div class="taskProgress progressSlim yellow">32</div> 
-                                    </a>
-                                </li>
-								<li>
-                                    <a href="#">
-										<span class="header">
-											<span class="title">ARM Development</span>
-											<span class="percent"></span>
-										</span>
-                                        <div class="taskProgress progressSlim greenLight">63</div> 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-										<span class="header">
-											<span class="title">ARM Development</span>
-											<span class="percent"></span>
-										</span>
-                                        <div class="taskProgress progressSlim orange">80</div> 
-                                    </a>
-                                </li>
-								<li>
-                            		<a class="dropdown-menu-sub-footer">View all tasks</a>
-								</li>	
-							</ul>--%>
-						<%--</li>---%>
-						<!-- end: Notifications Dropdown -->
-						<!-- start: Message Dropdown -->
-						<li class="dropdown hidden-phone">
-							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="halflings-icon white envelope"></i>
-							</a>
-							<ul class="dropdown-menu messages">
-								<li class="dropdown-menu-title">
- 									<span>You have 9 messages</span>
-									<a href="#refresh"><i class="icon-repeat"></i></a>
-								</li>	
-                            	<li>
-                                    <a href="#">
-										<span class="avatar"><img src="../img/avatar.jpg" alt="Avatar"/></span>
-										<span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	6 min
-										    </span>
-										</span>
-                                        <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>  
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-										<span class="avatar"><img src="../img/avatar.jpg" alt="Avatar"/></span>
-										<span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	56 min
-										    </span>
-										</span>
-                                        <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>  
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-										<span class="avatar"><img src="../img/avatar.jpg" alt="Avatar"/></span>
-										<span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	3 hours
-										    </span>
-										</span>
-                                        <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>  
-                                    </a>
-                                </li>
-								<li>
-                                    <a href="#">
-										<span class="avatar"><img src="../img/avatar.jpg" alt="Avatar"/></span>
-										<span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	yesterday
-										    </span>
-										</span>
-                                        <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>  
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-										<span class="avatar"><img src="../img/avatar.jpg" alt="Avatar"/></span>
-										<span class="header">
-											<span class="from">
-										    	Dennis Ji
-										     </span>
-											<span class="time">
-										    	Jul 25, 2012
-										    </span>
-										</span>
-                                        <span class="message">
-                                            Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                                        </span>  
-                                    </a>
-                                </li>
-								<li>
-                            		<a class="dropdown-menu-sub-footer">View all messages</a>
-								</li>	
+								</li>--%>	
 							</ul>
 						</li>
+						
 						<!-- end: Message Dropdown -->
-						<li>
-							<a class="btn" href="#">
-								<i class="halflings-icon white wrench"></i>
-							</a>
-						</li>
+						
                          <li class="dropdown" runat="server" id="LITiquesList" visible="false">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="halflings-icon white"></i>&nbsp;<asp:Label runat="server" ID="lblBoutiqueName" Text=""></asp:Label>
 								<span class="caret"></span>
@@ -397,7 +226,7 @@ height:25px;
 	</div>
 	<!-- start: Header -->
 	
-		<div class="container-fluid-full">
+		<div class="container-fluid-full" style="padding-top:2.5%;">
 		<div class="row-fluid">
 				
 			<!-- start: SideBar-left -->
@@ -412,14 +241,13 @@ height:25px;
                        <%-- 	<li><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet">Profile</span></a></li>
 						<li><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet">People</span></a></li>--%>
 
-						<li id ="Li_Category" runat="server"><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
-						<li id ="Li_Products" runat="server"><a href="Products.aspx"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>
-                        <li id ="Li_ProductReview" runat="server"><a href="ProductReview.aspx"><i class="icon-envelope"></i><span class="hidden-tablet"> Products Review</span></a></li>			
-						<li id ="Li_Notifications" runat="server"><a href="Notifications.aspx"><i class="icon-edit"></i><span class="hidden-tablet"> Notifications</span></a></li>
-						<li id ="Li_Loyalty" runat="server"><a href="Loyalty.aspx"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
-						<li id ="Li_LoyaltySettings" runat="server"><a href="LoyaltySettings.aspx"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>
-					
-						<li id ="Li_OrderStatus" runat="server"><a href="../AdminPanel/OrderStatus.aspx"><i class="icon-shopping-cart"></i><span class="hidden-tablet">Order Status</span></a></li>
+						<li class="navTitle" id ="Li_Category" runat="server"><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
+						<li class="navTitle" id ="Li_Products" runat="server"><a href="Products.aspx"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>
+                        <li class="navTitle" id ="Li_ProductReview" runat="server"><a href="ProductReview.aspx"><i class="icon-envelope"></i><span class="hidden-tablet"> Products Review</span></a></li>			
+						<li class="navTitle" id ="Li_Notifications" runat="server"><a href="Notifications.aspx"><i class="icon-edit"></i><span class="hidden-tablet"> Notifications</span></a></li>
+						<li class="navTitle" id ="Li_Loyalty" runat="server"><a href="Loyalty.aspx"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
+						<li class="navTitle" id ="Li_LoyaltySettings" runat="server"><a href="LoyaltySettings.aspx"><i class="icon-font"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>					
+						<li class="navTitle" id ="Li_OrderStatus" runat="server"><a href="../AdminPanel/OrderStatus.aspx"><i class="icon-shopping-cart"></i><span class="hidden-tablet">Order Status</span></a></li>
                       
 					
 					<%--	<li><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
@@ -470,10 +298,10 @@ height:25px;
 	
 	<div class="clearfix"></div>
 	 <a class="scrollToTop"></a>
-	<footer>
+	<footer style="background-color:#e45b00;">
 
 		<p>
-			<span style="text-align:center;float:left"><span style="font-size:x-small">Powered by</span>  TiquesInn  </span>
+			<span style="text-align:center;float:left;position:fixed;z-index:199;bottom:23px;"><span style="font-size:x-small">Powered by </span><a style="text-decoration:none;color:white;font-family:'Lato', sans-serif;" href="http://www.tiquesinn.com/Home">TiquesInn </a> </span>
 			<span style="text-align:center;float:right"> &copy; 2016 Thrithvam Technology</span>
 		</p>
 
