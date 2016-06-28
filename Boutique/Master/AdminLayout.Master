@@ -65,6 +65,8 @@
     <link href="../CSS/googleapiFont.css" rel="stylesheet" />
 	<!-- end: CSS -->
 <style>
+@font-face {font-family: TiquesFont;src: url(../Home/fonts/trench.100.otf);}
+.BoutiqueNAm{font-family:TiquesFont;font-size:30px;}
 li #LITiquesList.dropdown{display:inline!important;}
 .AdminLogoClass{width:25px;height:25px;}
 .navTitle i{color:#FF6600!important}
@@ -98,7 +100,7 @@ li #LITiquesList.dropdown{display:inline!important;}
 				</a>
 				<a class="brand" href="#"><span>
                     <asp:Image ID="imgLogo" runat="server" CssClass="AdminLogoClass"/>
-                    <asp:Label runat="server" ID="lblBoutique" Text="Bou"></asp:Label></span></a>
+                    <asp:Label runat="server" CssClass="BoutiqueNAm" ID="lblBoutique" Text="Bou"></asp:Label></span></a>
 								
 				<!-- start: Header Menu -->
 				<div class="nav-no-collapse header-nav">

@@ -312,6 +312,7 @@
     <Content Include="Home\fonts\fontawesome-webfont.ttf" />
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
+    <Content Include="Home\fonts\trench.100.otf" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Properties\PublishProfiles\web publish.pubxml" />
     <None Include="Web.Debug.config">
