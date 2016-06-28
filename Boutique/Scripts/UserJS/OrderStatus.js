@@ -136,6 +136,9 @@ $("document").ready(function (e) {
     {
         click: function (e) {
          
+            debugger;
+
+
             var Insert = false;
 
             $('#rowfluidDiv').hide();
@@ -147,7 +150,7 @@ $("document").ready(function (e) {
 
             if ($(".Users").val() != "") //check if  change for product items (Header only)
             {
-               
+                debugger;
                 Order.UserID = $(".Users").val();
                 var Users = new Object(); 
 
@@ -159,8 +162,12 @@ $("document").ready(function (e) {
 
                 $.each(userDeatils, function (index, userDeatils) {
 
+                    debugger;
+
                     MailSending.EmailID = userDeatils.Email;
-                  
+                    MailSending.UsrName = userDeatils.Name;
+                    MailSending.Mobile = userDeatils.Mobile;
+                    
                 });
             }
             else {
@@ -175,6 +182,8 @@ $("document").ready(function (e) {
 
                 if ($("#txtOrderDate").val().trim() != "") {
                     Order.OrderDate = $("#txtOrderDate").val();
+
+                  
                 }
                 else {
                     alert("Please select order date.");
@@ -198,7 +207,7 @@ $("document").ready(function (e) {
             else  //Update
             {
                 Order.OrderID = $("#hdfOrderID").val();
-
+                Order.OrderDate = $("#dateOrderDate").text();
                 //var jsonResult = {};
                 //jsonResult = GetOrderDetailsByOrderID(Order);
                 //if (jsonResult != undefined)
@@ -248,6 +257,11 @@ $("document").ready(function (e) {
                
                
             //}
+            debugger;
+
+            MailSending.TotalPrice = Order.TotalOrderAmount;
+            MailSending.OrderDate = Order.OrderDate;
+
 
             result = InsertOrUpdateOrder(Order); //returns orderID
 
@@ -264,6 +278,7 @@ $("document").ready(function (e) {
 
             if (result.OrderID != "") {
 
+
                 if (Insert == false )
                 {
                     if (Order.OrderReadyDate) {
@@ -271,7 +286,7 @@ $("document").ready(function (e) {
                         var replacedDescrptn = descrptn.replace("$", result.OrderNo);
 
                         Notification.Description = replacedDescrptn;
-
+                        MailSending.OrderNo = result.OrderNo;
                         MailSending.msg = replacedDescrptn;
                         SendMail(MailSending);
 
@@ -287,33 +302,47 @@ $("document").ready(function (e) {
 
                 if (rowCount > 0) //check if  change for product items (Header only)  
                 {
+                    debugger;
                     //----------- * HEADER ONLY-- START ---------- *//
 
                     var resultItem = "";
 
                     var NoOfNewProducts = 0;
 
-
+                    var productNames = "";
+                    var remarks = "";
                     $('#OrderItemTable tbody tr').each(function () {
-
+                        debugger;
                         var NewProduct = true; //--- checking product list if it is newly added or already existing product
                         var productId = $(this).attr("ProductID");
 
                         if (InitialProducts != undefined) {
-                            $.each(InitialProducts, function (index, InitialProducts) {
 
+                            debugger;
+
+                            $.each(InitialProducts, function (index, InitialProducts) {
+                                debugger;
 
                                 if (InitialProducts.ProductID == productId) {
 
+
+                                    debugger;
+
+                                    //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
+
                                     NewProduct = false;
+
+                                    productNames = productNames + "|" + InitialProducts.Product + "$" + InitialProducts.CustomerRemarks;
                                     return false;
                                 }
-
+                               
+                                  
+                               
                             })
                         }
                         if (NewProduct == true || Insert == true) {
-                            //var productname = $(this).find('td').eq(0).text();
-
+                            var productname = $(this).find('td').eq(0).text();
+                            debugger;
                             NoOfNewProducts = NoOfNewProducts + 1;
 
                             var remarks = $(this).find('td').eq(1).text();
@@ -323,6 +352,9 @@ $("document").ready(function (e) {
 
                             Order.OrderID = result.OrderID;
 
+                         
+                            productNames = productNames + "|" + productname + "$" + remarks;
+
                             resultItem = InsertOrderItem(Order);
                         }
 
@@ -330,12 +362,16 @@ $("document").ready(function (e) {
 
                     })
 
+
+                    MailSending.ProductNames = productNames;
+                  
                     if (resultItem != "") {
                         if (Insert == true) {
                             var descrptn = OrderStatusNotification.OrderWithProducts;
                             var replacedDescrptn = descrptn.replace("$", rowCount);
                             replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
 
+                            MailSending.OrderNo = result.OrderNo;
                             MailSending.msg = replacedDescrptn;
                             SendMail(MailSending);
 
@@ -350,6 +386,7 @@ $("document").ready(function (e) {
                             var replacedDescrptn = descrptn.replace("$", NoOfNewProducts);
                             replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
 
+                            MailSending.OrderNo = result.OrderNo;
                             MailSending.msg = replacedDescrptn;
                             SendMail(MailSending);
 
@@ -439,6 +476,7 @@ $("document").ready(function (e) {
                         var descrptn = OrderStatusNotification.OrderWithOutProducts;
                         var replacedDescrptn = descrptn.replace("$", result.OrderNo);
 
+                        MailSending.OrderNo = result.OrderNo;
                         MailSending.msg = replacedDescrptn;
                         SendMail(MailSending);
 
@@ -564,7 +602,7 @@ $("document").ready(function (e) {
     //----- Dropdown item cahnge event  : (get Image by product id) ----//      
     $('.products').select2()
            .on("change", function (e) {
-               debugger;
+             
                //$('#ImgProduct').show();
 
             
@@ -798,7 +836,7 @@ function DeleteItem(e, p) {
 }
 
 function AddToList() {
-    debugger;
+  
     //$('#OrderItemTable').show();
 
     var productID = $('.products').val();

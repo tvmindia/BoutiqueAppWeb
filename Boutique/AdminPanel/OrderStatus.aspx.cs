@@ -511,13 +511,14 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static  void SendMail(MailSending mailObj)
         {
-            mailObj.emailBody = mailObj.msg;
-
-
+            HttpContext ctx = HttpContext.Current;
             new Thread(delegate()
             {
+                HttpContext.Current = ctx;
+
                 mailObj.MailSubject = "Order Confirmation";
-                mailObj.SendEmail();
+                mailObj.FormatAndSendEmail();
+                //mailObj.SendEmail();
             }).Start(); 
 
 
