@@ -18,6 +18,14 @@
     });
 
     //Edit region drop downs-------------
+    $(".Newsletterproducts").select2({
+        allowClear: true,
+        placeholder: "Choose products",
+        data: BindNewsLetterProductDropdown()
+    });
+
+
+
     $(".products").select2({
         placeholder: "Choose related product",
         allowClear: true,
@@ -38,11 +46,7 @@
         placeholder: "Choose audience",
         data: [{ id: 0, text: 'All' }]
     });
-    $(".Newsletterproducts").select2({
-        placeholder: "Choose products",
-        allowClear: true,
-        data: BindNewsLetterProductDropdown()
-    });
+  
 
 
 
@@ -278,8 +282,8 @@
         result = InsertNewsLetter(Notification)
         if (result.status == "1")
         {
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
+            $('#rowfluidDiv').show();
+            $('.alert-success').show();
             $('.alert-error').hide();
             $("#hdfNewsLetterID").val(result.NewsLetterID);
         }
