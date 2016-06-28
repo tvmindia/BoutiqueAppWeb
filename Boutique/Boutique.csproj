@@ -205,6 +205,7 @@
     <Content Include="img\close-button.png" />
     <Content Include="img\crop.gif" />
     <Content Include="img\defaultimages.jpg" />
+    <Content Include="img\Default\adimage.png" />
     <Content Include="img\Default\DefaultBoutique.jpg" />
     <Content Include="img\Default\defaultuser.jpg" />
     <Content Include="img\Default\invalid.png" />

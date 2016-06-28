@@ -119,12 +119,12 @@ namespace Boutique.ImageHandler
             //body = body.Replace("{Images0}",altImage);
             for (int i = 0; i <= imageCount; i++)
             {
-                body = body.Replace("{image" + i + "}", "~/img/Default/defaultuser.jpg");
+                body = body.Replace("{image" + i + "}", "../img/Default/adimage.png");
             }
                     if (template != null)
                     {
                         context.Response.ContentType = "text/html";
-                        context.Response.Write("<p>my html</p>");
+                        context.Response.Write(body);
                     }
                 }
             }

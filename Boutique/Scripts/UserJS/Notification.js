@@ -182,12 +182,15 @@
 
     //});
     $eventPdtsSelect.on("change", function (e) {
-        var ddlproduct = $(".Newsletterproducts").val();
+        var ddlproduct=[];
+        ddlproduct = $(".Newsletterproducts").val();
         debugger;
-        if (ddlproduct != null) {
-            var productid = ddlproduct[ddlproduct.length - 1];
-            BindAllProductImages(productid);//binds  gallery with product under current boutique
+        $("#NewsLetterimagehold").find(".masonry-thumb").remove();
+        for (var i = 0; i <= ddlproduct.length-1; i++) {
+               // var productid = ddlproduct[ddlproduct.length - 1];
+            BindAllProductImages(ddlproduct[i]);//binds  gallery with product under current boutique
         }
+      
     });
     $eventPdtsSelect.on("select2:close", function (e) {
         debugger;
@@ -213,7 +216,7 @@
         var ddlproduct = $(".template").val();
 
         if (ddlproduct != null) {
-            //BindTemplateImagesPreview(ddlproduct);
+            BindTemplateImagesPreview(ddlproduct);
         }
     });
     //end styling client validation
@@ -229,12 +232,14 @@
     });
     //mail sending
     $(".submitDetails").click(function () {
+        debugger;
         var UserMail = $(".audience").text();
         UserMail = UserMail.trim();
         var MailSending = new Object();
         MailSending.audienceType = UserMail;
         //MailSending.recepientEmail = GetAllNewsLetterEmailIds();
         MailSending.MailSubject = "TiqueInn Deal";
+        MailSending.mailNewsLetterID = $("#hdfNewsLetterID").val();
         SendNotificationMail(MailSending);
     });
 
@@ -271,13 +276,14 @@
         Notification.audienceMailType = UserMail;
         Notification.Description = $("#txtNewsletterDescription").val();
         result = InsertNewsLetter(Notification)
-        if(result=="1")
+        if (result.status == "1")
         {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+            $("#hdfNewsLetterID").val(result.NewsLetterID);
         }
-        if (result != "1") {
+        if (result.status != "1") {
             $('#rowfluidDiv').show();
             $('.alert-error').show();
             $('.alert-error strong').text(Messages.InsertionFailure);
@@ -602,30 +608,40 @@ function AddNotification() {
     });
 }
 
-//function BindTemplateImagesPreview(templateID) {
-//    debugger;
-//    var templ = $('#templatePreviewImagehold');
+function BindTemplateImagesPreview(templateID) {
+    debugger;
+    var templ = $('#templatePreviewImagehold');
    
 
-//    //var span = document.createElement('span');
-//    //span.innerHTML = ['<img id="templateimage" class="masonry-thumb" src="" title=""/>'].join('');
-//    //document.getElementById('templatePreviewImagehold').insertBefore(span, null); 
+    //var span = document.createElement('span');
+    //span.innerHTML = ['<img id="templateimage" class="masonry-thumb" src="" title=""/>'].join('');
+    //document.getElementById('templatePreviewImagehold').insertBefore(span, null); 
 
-//    //var imgdes = document.getElementById('templateimage');
-//    var file = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID;
-//      var html = ('<div class="masonry-thumb">'
-//     + '</div>');
+    //var imgdes = document.getElementById('templateimage');
+   // var file = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID;
+   //   var html = ('<div class="masonry-thumb">'
+    //  + '</div>');
 
-//      templ.append(html);
-//    //var templateImages = {};
-//    //templateImages = AddSelectedImageTotemplate(Notificatio -n);
-//    //var imagedivholder = $('#templatePreviewImagehold');
-//    //var $mars = $('.templatePreviewholder');
-//    //var elems = $();
-//    //elems = elems.add(templateImages);
-//    //$mars.append(elems);
-//    //$mars.masonry('appended', elems);
-//}
+    var iframe = document.createElement('iframe');
+    iframe.className="PreviewTemplate"
+    iframe.src = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID;
+    var divUrl =    
+    templ.append(iframe);
+    //var TiqueImage = document.getElementById("content1");
+    //TiqueImage.style.backgroundImage = ImageUrl;
+    //TiqueImage.style.backgroundSize = 'cover';
+    //TiqueImage.style.backgroundRepeat = 'no-repeat';
+    //TiqueImage.style.backgroundPosition = 'center center';
+      //templ.append(file);
+    //var templateImages = {};
+    //templateImages = AddSelectedImageTotemplate(Notificatio -n);
+    //var imagedivholder = $('#templatePreviewImagehold');
+    //var $mars = $('.templatePreviewholder');
+    //var elems = $();
+    //elems = elems.add(templateImages);
+    //$mars.append(elems);
+    //$mars.masonry('appended', elems);
+}
 
 function BindAllProductImages(productId) {
     var imagedivholder = $('#NewsLetterimagehold');
@@ -634,7 +650,7 @@ function BindAllProductImages(productId) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllProductsImageDetailsForNewsLetter(Product);
-    //$("#productimagehold").find(".masonry-thumb").remove();
+    //$("#NewsLetterimagehold").find(".masonry-thumb").remove();
 
     for (var i = 0; i < totalimages.length; i++) {
 
@@ -652,6 +668,7 @@ function BindAllProductImages(productId) {
 }
 
 function MainImageClick(checkedImage) {
+    $(".PreviewTemplate").remove();
     $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     var ImageInfo = [];
     var idval;

@@ -261,7 +261,7 @@
                                       
                                                        </div>
                                                </div>
-                                       <div class="span5" id="TemplatePreview" style="max-height:300px;overflow-y:auto;overflow-x:hidden;">
+                                       <div class="span5" id="TemplatePreview" style="max-height:300px;min-height: 290px;overflow-y:auto;overflow-x:hidden;">
                                         <div class="form-horizontal">
                                         <div class="control-group">
                                    
@@ -309,5 +309,5 @@
     </div>
     <input type="hidden" id="hdfNotificationID" value="" />
     <input type="hidden" id="hdfRole" value="" />
-
+    <input type="hidden" id="hdfNewsLetterID" value="" />
 </asp:Content>

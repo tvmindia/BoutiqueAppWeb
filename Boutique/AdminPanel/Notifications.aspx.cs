@@ -290,17 +290,18 @@ namespace Boutique.AdminPanel
                 mailObj.recepientEmail = strDetailIDList.ToArray();
             }
             HttpContext ctx = HttpContext.Current;
-
             new Thread(delegate()
             {
                 HttpContext.Current = ctx;
-                mailObj.PopulateBody("" + "Anija",
-                "" + "Boutique",
-                "https://www.google.co.in/" +
-                "Your Todays Deal.....",
-                "" + "Offers",
-                "https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
+                mailObj.PopulateBody(
+                    //"" + "Anija",
+                //"" + "Boutique",
+                //"https://www.google.co.in/" +
+                //"Your Todays Deal.....",
+                //"" + "Offers",
+                //"https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
                 //mailObj.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
+            );
             }).Start();
 
 
@@ -406,6 +407,7 @@ namespace Boutique.AdminPanel
             notificationObj.CreatedBy = UA.userName;
             string status = null;
             DataSet ds = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             Product productObj = new Product();
             if (notificationObj.audienceMailType == "All")
             {
@@ -418,7 +420,7 @@ namespace Boutique.AdminPanel
                 }
                 notificationObj.audienceMailIDs = strDetailIDList.ToArray();
             }
-            try
+            try 
             {
               
                     status = notificationObj.InsertNewsLetterTrackingDetails().ToString();
@@ -442,7 +444,7 @@ namespace Boutique.AdminPanel
             finally
             {
             }
-            return status;
+            return jsSerializer.Serialize(notificationObj);
         }
         #endregion AddNesLetterMailTrackingDetails
 

@@ -56,6 +56,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string mailNewsLetterID
+        {
+            get;
+            set;
+        }
         #endregion Global Variables
 
         #region Public Variables
@@ -135,15 +140,16 @@ namespace Boutique.DAL
 
         #endregion Format And Send Email
 
-        public void PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
+        public void PopulateBody()
         {
-
+            Notification notifyObj = new Notification();
             string imageUrl = "http://www.tiquesinn.com/NewsLetterImages/";
             string Url = "";
-
+            notifyObj.NewsLetterID = mailNewsLetterID;
+            notifyObj.GetAllNewsLetterDetails();
             Url = "BoutiqueTemplates/EmailTemplate.htm";
 
-            int imageCount = Convert.ToInt32(8);
+          //  int imageCount = Convert.ToInt32(8);
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
             {
@@ -151,17 +157,20 @@ namespace Boutique.DAL
             }
             //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
             //body = fileName;
-            body = body.Replace("{UserName}", userName);
-            body = body.Replace("{Title}", title);
-            body = body.Replace("{Url}", url);
-            body = body.Replace("{Description}", description);
-            body = body.Replace("{Mainimage}", MainimageUrl);
-            for (int i = 1; i <= imageCount; i++)
+            body = body.Replace("{UserName}", "user");
+            body = body.Replace("{Title}", "Your Todays Deal.....");
+            body = body.Replace("{Url}", "url");
+            body = body.Replace("{Description}", notifyObj.Description);
+            body = body.Replace("{Mainimage}", "MainimageUrl");
+            char[] c = new char[] { ' ', ',' };
+            string[] image = notifyObj.ImageIDs[0].Split(c);
+            for (int i = 0; i <= notifyObj.imageCount-1; i++)
             {
-                body = body.Replace("{image" + i + "}", imageUrl +"Tiquepic_"+i + ".jpeg");
+                body = body.Replace("{image" + i + "}", imageUrl +image[i] + ".jpeg");
             }
             emailBody = body;
             SendEmail();
+            notifyObj.UpdateNewsLetterIsmailSend();
         }
 
         public void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)

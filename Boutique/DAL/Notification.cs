@@ -107,6 +107,26 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string NewsLetterID
+        {
+            get;
+            set;
+        }
+        public int imageCount
+        {
+            get;
+            set;
+        }
+        public string templateFile
+        {
+            get;
+            set;
+        }
+        public string status
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Methods
@@ -637,6 +657,7 @@ namespace Boutique.DAL
         }
         #endregion PopulateBody
 
+        #region InsertNewsLetterTrackingDetails
         public Int16 InsertNewsLetterTrackingDetails()
         {
             if (BoutiqueID == "")
@@ -645,7 +666,7 @@ namespace Boutique.DAL
             }
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParameter = null;
+            SqlParameter outParameter = null,outnotificationid=null;
             try
             {
                 dcon = new dbConnection();
@@ -662,8 +683,102 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Description", SqlDbType.VarChar,-1).Value = Description;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar,255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@IsMAilSend", SqlDbType.Bit).Value = false;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
+                outnotificationid = cmd.Parameters.Add("@NewsLetterID", SqlDbType.UniqueIdentifier);
+                outnotificationid.Direction = ParameterDirection.Output;
+              
+                cmd.ExecuteNonQuery();
+                NewsLetterID = outnotificationid.Value.ToString();
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            status = outParameter.Value.ToString();
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion InsertNewsLetterTrackingDetails
+
+        #region GetAllNewsLetterDetails
+        public DataSet GetAllNewsLetterDetails()
+        {
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllNewsLetterDetails]";
+                cmd.Parameters.Add("@NewsLetterID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(NewsLetterID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                if(ds.Tables[0].Rows.Count>0)
+                {
+                    imageCount =Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
+                    String[] images = new String[] { ds.Tables[0].Rows[0]["ImageID"].ToString() };
+                    ImageIDs = images;
+                    templateFile = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
+                    Description = ds.Tables[0].Rows[0]["Description"].ToString();
+                }
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllNewsLetterDetails
+
+        #region InsertNewsLetterTrackingDetails
+        public void UpdateNewsLetterIsmailSend()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateIsMailSendFlag]";
+                cmd.Parameters.Add("@IsMAilSend", SqlDbType.Bit).Value = true;
+                cmd.Parameters.Add("@NewsLetterID",SqlDbType.UniqueIdentifier).Value=Guid.Parse(NewsLetterID);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -678,11 +793,12 @@ namespace Boutique.DAL
                 }
             }
             //insert success or failure
-            return Int16.Parse(outParameter.Value.ToString());
+         
 
         }
-        #endregion InsertNewsLetterTrackingDetails
+        #endregion UpdateNewsLetterIsmailSend
 
 
+        #endregion Methods
     }
 }
