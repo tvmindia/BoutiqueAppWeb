@@ -228,20 +228,22 @@
                                                          </div>
                                                          <div class="control-group">
 								                        <label class="control-label" for="template">Template</label>
-							                       	<div class="controls">
-							 	  <select class="template" >
-                                      <option></option>
-								  </select>
-								</div>
-							  </div>
-                                                          <div class="control-group">
-								<label class="control-label" for="products">Product</label>
-								<div class="controls">
-								  <select class="Newsletterproducts" multiple>
-                                      <option></option>
-								  </select>
-								</div>
-							  </div>
+							                         	<div class="controls">
+							 	                        <select class="template" >
+                                                        <option></option>
+								                        </select>
+								                        </div>
+							                           </div>
+                                                        <div class="control-group">
+                                                       <label class="control-label" for="products">Product</label>
+                                                       <div class="controls">
+                                                       <select class="input-large Newsletterproducts" multiple="multiple" id="idDdlNewsletterproducts">
+                            
+                                                      </select>
+                                                      </div>
+                                                      </div>
+
+                                                    
                                                        	<div class="control-group">
 								 <label class="control-label" for="focusedInput">Description</label>
 								<div class="controls">
