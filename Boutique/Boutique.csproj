@@ -480,6 +480,7 @@
     <Compile Include="DAL\Designers.cs" />
     <Compile Include="DAL\Loyalty.cs" />
     <Compile Include="DAL\MailSending.cs" />
+    <Compile Include="DAL\NewsLetter.cs" />
     <Compile Include="DAL\Notification.cs" />
     <Compile Include="DAL\Order.cs" />
     <Compile Include="DAL\Owners.cs" />
