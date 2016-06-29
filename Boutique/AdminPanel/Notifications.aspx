@@ -205,7 +205,105 @@
                                 </div>
                             </div>
 
+                            <div id="PersonalisedNewNotification" runat="server" class="row-fluid">
 
+                                    <div class="box span6">
+
+
+                                        <div class="box-header">
+                                            <h2 id="PersonalisededitLabel">New Notification</h2>
+                                            <div class="box-icon">
+                                                <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
+							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+                                            </div>
+                                        </div>
+                                        <div class="box-content" style="height: 503px; overflow: auto;">
+                                            <div class="form-horizontal">
+                                                <div class="alert alert-block" id="PersonalisedErrorBox" style="display: none;">
+                                                    <div id="PersonalisedDisplaydiv">
+                                                    </div>
+                                                </div>
+                                                <%--<fieldset>--%>
+
+                                                <div class="control-group">
+                                                        <label class="control-label" for="Users">User</label>
+                                                        <div class="controls">
+                                                            <select class="Users">
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Title</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="Title" id="PersonalisedtxtTitle" type="text" />
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="focusedInput">Description</label>
+                                                    <div class="controls">
+                                                        <textarea class="form-control" style="max-width: 68%" rows="4" name="Description" id="PersonalisedtxtDescription"></textarea>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="control-group">
+                                                    <label class="control-label" for="date01">Start Date</label>
+                                                    <div class="controls">
+                                                        <input type="text" readonly="readonly" style="cursor: default; background-color: white" class="input-large datepicker" name="Start Date" id="PersonaliseddateStartDate" value="" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label" for="date01">End Date</label>
+                                                    <div class="controls">
+                                                        <input type="text" readonly="readonly" style="cursor: default; background-color: white" class="input-large datepicker" name="End Date" id="PersonaliseddateEndDate" value="" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label" for="products">Product</label>
+                                                    <div class="controls">
+                                                        <select class="products" id="ddlProducts">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="control-group">
+                                                    <label class="control-label" for="categories">Category</label>
+                                                    <div class="controls">
+                                                        <select class="categories" id="ddlCategories">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                        <footer class="InnerFooter">
+                                            <%-- <button type="submit" class="btn btn-primary submitDetails">Save</button>
+				    	 <button class="btn">Cancel</button>--%>
+                                            <a class="btn btn-primary PersonalisedsubmitDetails" onclick="return PersoanlisedNotificationValidation()"  href="#">Save</></a>
+
+                                            <a class="btn PersonalisedCancel">Cancel</a>
+                                        </footer>
+
+                                    </div>
+
+                                </div>
                         </div>
 
                           <div class="tab-pane" id="NewsLetter">

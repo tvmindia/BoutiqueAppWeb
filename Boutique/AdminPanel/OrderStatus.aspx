@@ -224,7 +224,7 @@
                                                       <div class="control-group">
                                                             <label class="control-label" for="Remarks">Remarks</label>
                                                             <div class="controls">
-                                                                <textarea class="form-control" style="max-width:95%;" rows="4" id="txtRemarks"></textarea>
+                                                                <textarea class="form-control" style="max-width:95%;height:180px" rows="4" id="txtRemarks"></textarea>
                                                                 
                                                             </div>
                                                         </div>
@@ -242,7 +242,7 @@
                                             <div class="span3" style="padding-top:9%">
                                                 <div>
                                               
-                                                    <img id="ImgProduct" style="width:100%; height: 120px; border: none" src="../img/No-Img_Chosen.png" />
+                                                    <img id="ImgProduct" style="width:100%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
                                              
 
                                                 

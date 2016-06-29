@@ -8,6 +8,7 @@
 
 
     BindNotificationsTable();
+    BindPersonalisedNotifications();
 
     $('#NotificationTable').DataTable({
         "bPaginate": true,
@@ -16,6 +17,17 @@
 
         "fnPageChange": "next"
     });
+
+    $('#PersonalisedNotificationTable').DataTable({
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next",
+        "aaSorting": [[4, 'desc']]     //Sort with Name column
+    });
+
+
 
     //Edit region drop downs-------------
     $(".Newsletterproducts").select2({
@@ -78,6 +90,40 @@
             return false;
         }
     })
+
+    $(".Prsnlnotificationedit").live(
+   {
+       click: function (e) {
+
+           debugger;
+
+           $('#rowfluidDiv').hide();
+           $('.alert-success').hide();
+           $('.alert-error').hide();
+           var jsonResult = {};
+           editedrow = $(this).closest('tr');
+           var Notification = new Object();
+
+           Notification.NotificationID = editedrow.attr("NotificationID");
+
+           jsonResult = GetNotification(Notification);
+           if (jsonResult != undefined) {
+               BindPersonalisedNotificationTextBoxes(jsonResult);
+           }
+           //Scroll page
+           var offset = $('#PersonalisededitLabel').offset();
+           offset.left -= 20;
+           offset.top -= 20;
+           $('html, body').animate({
+               scrollTop: offset.top,
+               scrollLeft: offset.left
+           });
+           return false;
+       }
+   })
+
+
+
     //Save button---------
 
     //Delete button---------
@@ -132,6 +178,20 @@
 
 
 
+    $(".Prsnlnotificationdelete").live(
+  {
+      click: function (e) {
+          $('#rowfluidDiv').hide();
+          $('.alert-success').hide();
+          $('.alert-error').hide();
+          editedrow = $(this).closest('tr');
+          var e = editedrow.attr("NotificationID");
+          var p = "";
+
+          DeleteCustomAlert('Are You Sure?', e, p);
+          return false;
+      }
+  })
 
     //Newsletter checkbox
     //$(".checkDes").live(
@@ -157,6 +217,21 @@
             RemoveStyle();
         }
     })
+
+
+    $(".PersonalisedCancel").live({
+        click: function (e) {// Clear controls
+
+            ClearControlsOfPersonalNotifications();
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+
+            RemoveStyle();
+        }
+    })
+
 
     //
     //Style setting for client side Validation
@@ -299,6 +374,86 @@
     });
 });
 
+
+
+function ClearControlsOfPersonalNotifications() {
+    $("#PersonalisedtxtTitle").val("");
+    $("#PersonalisedtxtDescription").val("");
+    $("#PersonaliseddateStartDate").val("");
+    $("#PersonaliseddateEndDate").val("");
+
+    $("#PersonalisededitLabel").text("New Notification");
+    $("#hdfNotificationID1").val('');
+    $("#ddlProducts").select2("val", "");
+    $("#ddlCategories").select2("val", "");
+    $(".Users").select2("val", "");
+
+
+}
+
+
+function BindPersonalisedNotifications() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetPersonalisedNotifications(Notify);
+    if (jsonResult != undefined) {
+        FillPersonalisedNotificationTable(jsonResult);
+    }
+}
+
+function GetPersonalisedNotifications(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'NotifyObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Notifications.aspx/GetPersonalisedNotifications");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function FillPersonalisedNotificationTable(Records) {
+
+    $("#PersonalisedNotificationTable").width("100%");
+
+    $("tbody#PersonalisedNotificationrows tr").remove();            //Remove all existing rows for refreshing
+    $.each(Records, function (index, Records) {
+        var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info Prsnlnotificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Prsnlnotificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
+        $("#PersonalisedNotificationTable").append(html);
+    })
+
+}
+
+
+function BindUserDropdown() {
+
+
+    var jsonResult = {};
+    var Users = new Object();
+    jsonResult = GetAllUsers(Users);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+
+function GetAllUsers(Users) {
+    var ds = {};
+    var table = {};
+    var data = "{'usrObj':" + JSON.stringify(Users) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetAllUserIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //Generate preview
 
 
@@ -346,6 +501,23 @@ function DeleteItem(e, p) {
     $("#hdfNotificationID").val('');
     $(".products").select2("val", "");
     $(".categories").select2("val", "");
+
+    $("#PersonalisedNotificationTable").dataTable().fnClearTable();
+    $("#PersonalisedNotificationTable").dataTable().fnDestroy();
+
+    BindPersonalisedNotifications();
+
+    $('#PersonalisedNotificationTable').DataTable({
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+        "fnPageChange": "next",
+        "aaSorting": [[4, 'desc']]     //Sort with Name column
+    });
+
+
+
     //Scroll page
     var offset = $('#rowfluidDiv').offset();
     offset.left -= 20;
