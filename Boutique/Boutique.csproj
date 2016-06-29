@@ -69,6 +69,7 @@
     <Content Include="AdminPanel\Login.aspx" />
     <Content Include="AdminPanel\Loyalty.aspx" />
     <Content Include="AdminPanel\LoyaltySettings.aspx" />
+    <Content Include="AdminPanel\NewsLetter.aspx" />
     <Content Include="AdminPanel\Notifications.aspx" />
     <Content Include="AdminPanel\OrderStatus.aspx" />
     <Content Include="AdminPanel\People.aspx" />
@@ -399,6 +400,13 @@
     </Compile>
     <Compile Include="AdminPanel\LoyaltySettings.aspx.designer.cs">
       <DependentUpon>LoyaltySettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\NewsLetter.aspx.cs">
+      <DependentUpon>NewsLetter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\NewsLetter.aspx.designer.cs">
+      <DependentUpon>NewsLetter.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\Notifications.aspx.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
