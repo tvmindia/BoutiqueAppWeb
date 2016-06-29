@@ -96,6 +96,22 @@ namespace Boutique.ImageHandler
 
                 }
 
+
+                if ((context.Request.QueryString["bannerImgID"] != null) && (context.Request.QueryString["bannerImgID"] != ""))
+                {
+                    Boutiques boutiqueObj = new Boutiques();
+                    boutiqueObj.ImageID = context.Request.QueryString["bannerImgID"];
+                    byte[] productimg = boutiqueObj.GetBannerImageByImageID();
+                    if (productimg != null)
+                    {
+                        MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        Image proimg = Image.FromStream(memoryStream);
+                        proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+                    }
+
+
+                }
+
                 if ((context.Request.QueryString["templateID"] != null) && (context.Request.QueryString["templateID"] != ""))
                 {
                     NewsLetters newsObj = new NewsLetters();
