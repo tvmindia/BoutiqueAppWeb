@@ -212,12 +212,12 @@ namespace Boutique.DAL
 
         public void PopulateBody()
         {
-            Notification notifyObj = new Notification();
+            NewsLetters newsObj = new NewsLetters();
             string imageUrl = "http://www.tiquesinn.com/NewsLetterImages/";
             string Url = "";
-            notifyObj.NewsLetterID = mailNewsLetterID;
-            notifyObj.GetAllNewsLetterDetails();
-            Url = notifyObj.templateFile;
+            newsObj.NewsLetterID = mailNewsLetterID;
+            newsObj.GetAllNewsLetterDetails();
+            Url = newsObj.templateFile;
 
           //  int imageCount = Convert.ToInt32(8);
             string body = string.Empty;
@@ -230,17 +230,17 @@ namespace Boutique.DAL
             body = body.Replace("{UserName}", "user");
             body = body.Replace("{Title}", "Your Todays Deal.....");
             body = body.Replace("{Url}", "url");
-            body = body.Replace("{Description}", notifyObj.Description);
+            body = body.Replace("{Description}", newsObj.Description);
             body = body.Replace("{Mainimage}", "MainimageUrl");
             char[] c = new char[] { ' ', ',' };
-            string[] image = notifyObj.ImageIDs[0].Split(c);
-            for (int i = 0; i <= notifyObj.imageCount-1; i++)
+            string[] image = newsObj.ImageIDs[0].Split(c);
+            for (int i = 0; i <= newsObj.imageCount - 1; i++)
             {
                 body = body.Replace("{image" + i + "}", imageUrl +image[i] + ".jpeg");
             }
             emailBody = body;
             SendEmail();
-            notifyObj.UpdateNewsLetterIsmailSend();
+            newsObj.UpdateNewsLetterIsmailSend();
         }
 
         public void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)

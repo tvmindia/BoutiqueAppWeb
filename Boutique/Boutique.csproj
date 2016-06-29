@@ -411,6 +411,7 @@
     <Compile Include="AdminPanel\NewsLetter.aspx.designer.cs">
       <DependentUpon>NewsLetter.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdminPanel\NewsLetterMail.cs" />
     <Compile Include="AdminPanel\Notifications.aspx.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -481,7 +482,7 @@
     <Compile Include="DAL\Designers.cs" />
     <Compile Include="DAL\Loyalty.cs" />
     <Compile Include="DAL\MailSending.cs" />
-    <Compile Include="DAL\NewsLetter.cs" />
+    <Compile Include="DAL\NewsLetters.cs" />
     <Compile Include="DAL\Notification.cs" />
     <Compile Include="DAL\Order.cs" />
     <Compile Include="DAL\Owners.cs" />
