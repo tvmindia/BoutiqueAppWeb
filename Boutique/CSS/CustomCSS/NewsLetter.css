@@ -88,5 +88,13 @@ input[type="checkbox"] {
 .PreviewTemplate
 {
     width:100%;
+    /*height:100%;*/
+}
+.PreviewTemplate
+{
     height:100%;
+}
+.templatePreviewholder
+{
+   height:450px;
 }
