@@ -282,7 +282,6 @@ function MainImageClick(checkedImage) {
     if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
     alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
     alertObj.style.visiblity = "visible";
-    alertObj.appendChild($mars);
     btn = alertObj.appendChild(d.createElement("a"));
     btn.id = "closeBtn";
     btn.className = "noButton";
@@ -292,6 +291,8 @@ function MainImageClick(checkedImage) {
     btn.onclick = function () { removeCustomAlert(); return false; }
 
     alertObj.style.display = "block";
+    alertObj.appendChild(totalimages);
+   
 
   
    
