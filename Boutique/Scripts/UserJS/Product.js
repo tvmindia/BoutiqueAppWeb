@@ -1721,17 +1721,36 @@ function EditProduct()
         var ImageInfo = [];
         var idval, orderno;
 
+        //$('#Preview div').each(function (index) {
+        //    //val.push($(this).attr('id'));
+        //    var idval = $(this).attr('id');
+        //    orderno = index;
+        //    ImageInfo.push(idval);
+
+        //    var chkflag = document.getElementById("checkDes" + index).checked;
+        //    if (chkflag == true) {
+        //        Product.MainImageID = idval;
+        //    }
+
+
+        //});
+
         $('#Preview div').each(function (index) {
             //val.push($(this).attr('id'));
             var idval = $(this).attr('id');
+            var curdiv = $(this);
+            debugger;
             orderno = index;
             ImageInfo.push(idval);
-
-            var chkflag = document.getElementById("checkDes" + index).checked;
+            //var chkflag = $(this).find(".checkDes").checked;
+            //var chkflag = document.getElementById("checkDes" + index).checked;
+            var chkflag = curdiv.find(".checkDes");
+            debugger;
             if (chkflag == true) {
+                debugger;
                 Product.MainImageID = idval;
             }
-
+            debugger
 
         });
         Product.ImageInfo = ImageInfo;

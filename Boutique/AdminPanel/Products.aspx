@@ -65,7 +65,7 @@
 
 
         </style>
-     <div id="content" class="span10">
+    <div id="content" class="span10">
 
          <ul class="breadcrumb">
 				<li>
@@ -76,8 +76,12 @@
 				<li><a href="#">Products</a></li>
 			</ul>
            <%--Header--%>
-         <div class="row-fluid"><span class="headerStyle">Products</span></div>
-          <div class="row-fluid" style="height:3px;"></div>
+         <div class="row-fluid"><span class="headerStyle">Products</span>
+
+         </div>
+          <div class="row-fluid" style="height:3px;">
+
+          </div>
            <%--Header--%>
 
              <%--Alert boxes --%>
@@ -131,7 +135,7 @@
 								<label class="control-label">New Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchnewproducts" href="#">Search</a>
+									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchnewproducts" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
 								  </div>
 								</div>
 							  </div>
@@ -157,14 +161,7 @@
                              </div>
 
 							</div>
-                            <%--popup content for image--%>
-                           <div style="display:none;">
-	                       <div id="popup" style="max-height:650px;overflow-y:auto;">
-		                       <h3>Real Image</h3>
-		                       <img id="imgzoom" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
-		                   </div>
-                          </div>
-                           <%--popup content for image--%>
+                         
 
 
 							<div class="tab-pane" id="trends">
@@ -173,7 +170,7 @@
 								<label class="control-label">Trending Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchtrends" href="#">Search</a>
+									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchtrends" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
 								  </div>
 								</div>
 							  </div>
@@ -198,14 +195,7 @@
 
 							</div>
                                 
-                           <%--popup content for image--%>
-                           <div style="display:none;">
-	                       <div id="popuptrends" style="max-height:680px;overflow-y:auto;">
-		                   <h3>Popup content</h3>
-		                   <img id="imgzoomtrends" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
-		                   </div>
-                           </div>
-                           <%--popup content for image--%>
+                       
 
 
 							<div class="tab-pane" id="outstock">
@@ -215,7 +205,7 @@
 								<label class="control-label">Out Of Stocks</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btnsearchoutofstock" href="#">Search</a>
+									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchoutofstock" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
 								  </div>
 								</div>
 							  </div>
@@ -239,14 +229,7 @@
                               </div>
                              </div>
 
-                           <%--popup content for image--%>  
-                           <div style="display:none;">
-	                       <div id="popupoutofstock" style="max-height:680px;overflow-y:auto;">
-		                   <h3>Popup content</h3>
-		                   <img id="imgzoomoutofstock" style="width:100%!important;height:100%!important;" src="../img/gallery/photo10.jpg"/>
-		                   </div>
-                           </div>
-                           <%--popup content for image--%>
+                      
 
 						</div>
 					</div>
@@ -280,11 +263,11 @@
 
                                 </div>
                             </div>
-							<%--<fieldset>--%>
+						
 
 
-                        <div class="control-group">
-                        </div>
+                             <div class="control-group">
+                            </div>
                     		  <div class="control-group">
 				    			  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
@@ -300,13 +283,19 @@
 					          <div class="control-group">
 								 <label class="control-label" for="focusedInput">Price</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtPrice" type="text"/>
+                                      <div class="input-prepend">
+								  <span class="add-on">Rs</span><input class="input-large focused" id="txtPrice" type="text"/>
+                                      </div>
 								</div>
 								</div>
+
+                          
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Discount</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtDiscount" type="text"/>
+                                     <div class="input-prepend">
+								  <span class="add-on">Rs</span><input class="input-large focused" id="txtDiscount" type="text"/>
+                                         </div>
 								</div>
 								</div>
                               <div class="control-group">
@@ -368,19 +357,15 @@
 							  </div>
 
 						</div>
-              </div>
+                    </div>
                     <div class="span5" id="imageupGallery" style="max-height:550px;overflow-y:auto;overflow-x:hidden;">
                         <div class="form-horizontal">
                                <div class="control-group">
-                                    </div>
-                                <div class="control-group">
+                               </div>
+                               <div class="control-group">
                                      <label class="control-label" for="focusedInput">Product No: <span id="idproductno" class=""></span></label>
-							
-                                 
-                                </div>
-                            
-
-                              <div class="control-group">
+							    </div>
+                               <div class="control-group">
                                  
                                <iframe id="IframeProjectSwitching" src="ProductFileUpload.aspx" style="width:100%;min-height:195px;max-height:350px;overflow-y:auto;overflow-x:hidden;border:none;display:none"></iframe> 
                        		    <span id="previewmsg"></span>
@@ -395,7 +380,7 @@
                         </div>
                        
                     </div>
-                        </div>
+                  </div>
                    
               </div>
               <footer class="InnerFooter">
