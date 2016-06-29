@@ -93,6 +93,7 @@
     <Content Include="CSS\CustomCSS\Login.css" />
     <Content Include="CSS\CustomCSS\Loyalty.css" />
     <Content Include="CSS\CustomCSS\LoyaltySettings.css" />
+    <Content Include="CSS\CustomCSS\NewsLetter.css" />
     <Content Include="CSS\CustomCSS\Notifications.css" />
     <Content Include="CSS\CustomCSS\OrderStatus.css" />
     <Content Include="CSS\CustomCSS\People.css" />
@@ -298,6 +299,7 @@
     <Content Include="Scripts\UserJS\Login.js" />
     <Content Include="Scripts\UserJS\Loyalty.js" />
     <Content Include="Scripts\UserJS\LoyaltySettings.js" />
+    <Content Include="Scripts\UserJS\NewsLetter.js" />
     <Content Include="Scripts\UserJS\Notification.js" />
     <Content Include="Scripts\UserJS\OrderStatus.js" />
     <Content Include="Scripts\UserJS\People.js" />
