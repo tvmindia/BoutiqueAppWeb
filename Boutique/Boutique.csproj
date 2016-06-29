@@ -120,6 +120,7 @@
     <Content Include="CSS\jquery.gritter.css" />
     <Content Include="CSS\jquery.iphone.toggle.css" />
     <Content Include="CSS\jquery.noty.css" />
+    <Content Include="CSS\lightbox.css" />
     <Content Include="CSS\noty_theme_default.css" />
     <Content Include="CSS\select2.min.css" />
     <Content Include="CSS\style-forms.css" />
@@ -127,7 +128,6 @@
     <Content Include="CSS\style.css" />
     <Content Include="CSS\uniform.default.css" />
     <Content Include="CSS\uploadify.css" />
-    <Content Include="CSS\viewbox.css" />
     <Content Include="Default.aspx" />
     <Content Include="font\glyphicons-regular.svg" />
     <Content Include="font\glyphiconshalflings-regular.svg" />
@@ -176,6 +176,7 @@
     <Content Include="Home\js\html5shiv.js" />
     <Content Include="Home\js\init.js" />
     <Content Include="Home\js\jquery.min.js" />
+    <Content Include="Home\js\lightbox.js" />
     <Content Include="Home\js\skel-layers.min.js" />
     <Content Include="Home\js\skel.min.js" />
     <Content Include="Home\mailTemplates\ContactUs.html" />
@@ -208,9 +209,11 @@
     <Content Include="img\crop.gif" />
     <Content Include="img\defaultimages.jpg" />
     <Content Include="img\Default\adimage.png" />
+    <Content Include="img\Default\close.png" />
     <Content Include="img\Default\DefaultBoutique.jpg" />
     <Content Include="img\Default\defaultuser.jpg" />
     <Content Include="img\Default\invalid.png" />
+    <Content Include="img\Default\loading.gif" />
     <Content Include="img\Default\newClose.png" />
     <Content Include="img\Default\newfff.png" />
     <Content Include="img\Default\nologo1.png" />
@@ -290,7 +293,6 @@
     <Content Include="Scripts\jquery.alerts.js" />
     <Content Include="Scripts\jquery.ui.draggable.js" />
     <Content Include="Scripts\jquery.validation.js" />
-    <Content Include="Scripts\jquery.viewbox.min.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\UserJS\AdminLayout.js" />
@@ -357,7 +359,6 @@
     <Content Include="Scripts\jquery.uniform.min.js" />
     <Content Include="Scripts\jquery.uploadify-3.1.min.js" />
     <Content Include="Scripts\modernizr.js" />
-    <Content Include="Scripts\retina.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

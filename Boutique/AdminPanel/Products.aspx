@@ -6,11 +6,10 @@
     <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
-    
+    <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
-    <link href="../CSS/viewbox.css" rel="stylesheet" />
-    <script src="../Scripts/jquery.viewbox.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
+    <script src="../Home/js/lightbox.js"></script>
     <script src="../Scripts/UserJS/Product.js"></script>
     
     <script>
