@@ -555,9 +555,10 @@ function DeleteItem(e, p) {
 
 function BindProductTextBoxes(thisobject)
 {
+    debugger;
     var productname=$(thisobject).find(".proname").text();
     //var productname = $(thisobject).attr('pname');
-    pdescription
+   
     var pdescription = $(thisobject).find(".pdescription").text();
     //var pdescription = $(thisobject).attr('pdescription');
     var pprice = $(thisobject).attr('pprice');
@@ -890,7 +891,7 @@ function HtmlBindProductWithOffer(totalimages)
       + ''
       + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' +i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' +totalimages.ImageID + '"></img></div>'
       + '<div class="productDetailsdiv text-desc">'
-      + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillDetails(this);" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '><i class="halflings-icon white edit"></i></a>'
+      + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillDetails(this);" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '><i class="halflings-icon white edit"></i><span class="proname" style="display:none;">' + totalimages.Name + '</span><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></a>'
       + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '" data-lightbox="' + totalimages.ImageID + '" data-title="' + totalimages.Name + '" ><i class="icon-zoom-in"></i></a>'
       + '<div class="prodet"><span>Code:  </span><span>' + totalimages.ProductNo + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + totalimages.Name + '</span></div><div class="prodet"><span>Price:  ₹  ' + totalimages.Price + '</span></div><div class="prodet><span>Discount:  ₹ ' + totalimages.Discount + '</span></span></div><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></div>'
       + '</div>');
@@ -903,7 +904,7 @@ function HtmlBindProductWithoutOffer(totalimages)
             + ''
             + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
             + '<div class="productDetailsdiv text-desc">'
-            + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillDetails(this);" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '><i class="halflings-icon white edit"></i></a>'
+            + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillDetails(this);" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '><i class="halflings-icon white edit"></i><span class="proname" style="display:none;">' + totalimages.Name + '</span><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></a>'
             + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '" data-lightbox="' + totalimages.ImageID + '" data-title="' + totalimages.Name + '"><i class="icon-zoom-in"></i></a>'           
             +'<div class="prodet"><span>Code:  </span><span>' + totalimages.ProductNo + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + totalimages.Name + '</span></div><div class="prodet"><span>Price:  ₹  ' + totalimages.Price + '</span></div><div class="prodet><span>Discount:  ₹ ' + totalimages.Discount + '</span></span></div><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></div>'           
             + '</div>');
@@ -1027,23 +1028,14 @@ function MultiImageBind(Records, index) {
     //var children = ol.children.length + 1
     div.setAttribute("id", Records.ImageID);
     div.setAttribute("class", "imgpreviewdiv");
-
     img1 = document.createElement('img');
     img1.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + Records.ImageID;
     img1.className = "thumb";
     div.appendChild(img1);
-    //<label class="checkbox inline">
-    //<input type="checkbox" id="chkActiveAdmin" checked/>Yes</label>
-    //<label class="checkbox">
-    //<input type="checkbox" id="optionsCheckbox2" value="option1" disabled="">
-    // This is a disabled checkbox
-    //  </label>
-    // var lblchk = document.createElement('label');
-    //lblchk.type = 'label';
-    // lblchk.className = 'checkbox';
     var chk = document.createElement('input');
     chk.type = 'checkbox';
     chk.className = 'checkDes';
+    
     chk.id = 'checkDes' + index;
     chk.onclick = 'MainImageClick(this);';
     chk.setAttribute("onclick", "MainImageClick(\"" + 'checkDes' + index + "\")");
@@ -1054,9 +1046,11 @@ function MultiImageBind(Records, index) {
     del.id = Records.ImageID;
     div.appendChild(del);
     if (Records.IsMain === true) {
-        chk.checked = true;
+        //  chk.checked = true;
+        chk.setAttribute("checked", true);
         del.style.visibility = 'hidden';
     }
+  
     divPre.appendChild(div);
     div.appendChild(chk);
 }
@@ -1667,6 +1661,7 @@ function AddProduct() {
 }
 function EditProduct()
 {
+    debugger;
     if ($("#hdfproductID").val() != '') {
 
         var Product = new Object();
