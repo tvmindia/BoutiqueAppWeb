@@ -99,6 +99,10 @@
                                     </div>
 
                                     <div class="box-content " style="height: 100%; overflow: auto;">
+                                         <div class="alert alert-block" id="ErrorBox" style="display: none;">
+                                                    <div id="Displaydiv">
+                                                    </div>
+                                                </div>
 
                                         <div class="span12">
 
@@ -282,7 +286,7 @@
 
 
                                     <footer class="InnerFooter">
-                                        <a class="btn btn-primary submitDetails" href="#">Save</></a>
+                                        <a class="btn btn-primary submitDetails" onclick="return OrderStatusValidation()" href="#">Save</></a>
                                         <a class="btn Cancel">Cancel</a>
                                     </footer>
 

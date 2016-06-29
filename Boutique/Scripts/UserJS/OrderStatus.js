@@ -171,7 +171,8 @@ $("document").ready(function (e) {
                 });
             }
             else {
-                alert("Please select a user");
+               alert("Please select a user");
+                return;
             }
 
             //------* Create New Order Case *---------//
@@ -186,7 +187,7 @@ $("document").ready(function (e) {
                   
                 }
                 else {
-                    alert("Please select order date.");
+                    //alert("Please select order date.");
                     return;
                 }
 
@@ -196,7 +197,7 @@ $("document").ready(function (e) {
 
                 }
                 else {
-                    alert("Please select planned delivery date.");
+                    //alert("Please select planned delivery date.");
                     return;
                 }
 
@@ -566,6 +567,9 @@ $("document").ready(function (e) {
                 "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
 
             });
+
+            RemoveStyle();
+
             // Scroll page
             var offset = $('#Orders').offset();
             offset.left -= 20;
@@ -652,6 +656,13 @@ $("document").ready(function (e) {
         }
     })
     //----------END: Delete Button Click---------
+
+    $('input[type=text],input[type=password]').on('focus', function () {
+        $(this).css({ background: 'white' });
+        $('#ErrorBox,#ErrorBox1').hide(1000);
+    });
+
+
 });
 
 
@@ -1166,5 +1177,72 @@ function ConvertJsonToDate(jsonDate) {
         return result;
     }
 }
+
+function OrderStatusValidation() {
+
+
+    debugger;
+
+    $('#Displaydiv').remove();
+    var container;
+
+    if ($("#hdfOrderID").val() == "") {
+
+        var StDate = $('#txtOrderDate');
+        var EndDate = $('#txtPlannedDeliveryDate');
+
+        container = [
+
+            { id: StDate[0].id, name: StDate[0].name, Value: StDate[0].value },
+            { id: EndDate[0].id, name: EndDate[0].name, Value: EndDate[0].value },
+        ];
+    }
+    var j = 0;
+    var Errorbox = document.getElementById('ErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "Displaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+
+
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+
+
+
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+
+        return false;
+    }
+    if (j == '0') {
+        $('#ErrorBox').hide();
+        AddNotification();
+        return true;
+    }
+}
+
+function RemoveStyle() {
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
+}
+
 
 //------------- *END : General Functions  *-----------------//
