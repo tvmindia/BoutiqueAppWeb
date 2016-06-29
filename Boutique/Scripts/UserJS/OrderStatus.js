@@ -776,6 +776,8 @@ function GetAllClosedOrders(Order) {
 //---* Creation of html table from received JSON *--//
 
 function FillOrderTable(Records) {
+
+    $("#OrdersTable").width("100%");
     $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
     $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {

@@ -464,7 +464,7 @@ function RemoveValidationStyle()
 {
     debugger;
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
-    $('#ErrorBox,#PersonalisedErrorBox').hide(1000);
+    $('#ErrorBox,#PersonalisedErrorBox,#PersonalisedDisplaydiv,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
 
 
