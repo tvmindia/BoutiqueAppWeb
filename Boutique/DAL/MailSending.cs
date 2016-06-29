@@ -61,6 +61,40 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public string UsrName
+        {
+            get;
+            set;
+        }
+        public string OrderNo
+        {
+            get;
+            set;
+        }
+        public string TotalPrice
+        {
+            get;
+            set;
+        }
+        public string Mobile
+        {
+            get;
+            set;
+        }
+        public string OrderDate
+        {
+            get;
+            set;
+        }
+
+        public string ProductNames
+        {
+            get;
+            set;
+        }
+
+
         #endregion Global Variables
 
         #region Public Variables
@@ -134,7 +168,42 @@ namespace Boutique.DAL
                 body = reader.ReadToEnd();
             }
 
-            msg = msg + body;
+            body = body.Replace("{UserName}", UsrName);
+            body = body.Replace("{OrderNo}", OrderNo);
+            body = body.Replace("{OrderDate}", OrderDate);
+            body = body.Replace("{TotalPrice}", TotalPrice);
+            body = body.Replace("{Mobile}", Mobile);
+            body = body.Replace("{msg}", msg);
+
+            StringBuilder html = new StringBuilder();
+
+            if (ProductNames != "" && ProductNames != null)
+            {
+                string[] prdctDetails = ProductNames.Split('|');
+
+                html.Append("<tr><th>Product</th><th>Remarks</th></tr>");
+
+                for (int i = 0; i < prdctDetails.Length; i++)
+                {
+                    if (prdctDetails[i] != "")
+                    {
+                        string[] Columns = prdctDetails[i].Split('$');
+
+                        html.Append("<tr><td>" + Columns[0] + "</td><td>" + Columns[1] + "</td></tr>");
+
+                    }
+                }
+            }
+
+            else
+            {
+                html.Append("<p>No products</p>");
+            }
+
+            string HTML = html.ToString();
+            body = body.Replace("{products}", HTML);
+
+            emailBody = body;
             SendEmail();
         }
 
