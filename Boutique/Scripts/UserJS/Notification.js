@@ -2,10 +2,8 @@
 
     parent.document.title = Pages.Notifications;
 
-
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
-
 
     BindNotificationsTable();
     BindPersonalisedNotifications();
@@ -36,8 +34,6 @@
         data: BindNewsLetterProductDropdown()
     });
 
-
-
     $(".products").select2({
         placeholder: "Choose related product",
         allowClear: true,
@@ -59,9 +55,6 @@
         data: [{ id: 0, text: 'All' }]
     });
   
-
-
-
     //Edit button--------
     $(".notificationedit").live(
     {
@@ -123,9 +116,6 @@
    })
 
 
-
-    //Save button---------
-
     //Delete button---------
     $(".notificationdelete").live(
     {
@@ -176,8 +166,6 @@
         }
     })
 
-
-
     $(".Prsnlnotificationdelete").live(
   {
       click: function (e) {
@@ -202,6 +190,8 @@
     //            //MainImageClick(this);
     //        }
     //    })
+
+
     //Cancel button-----------
     $(".Cancel").live({
         click: function (e) {// Clear controls
@@ -374,7 +364,7 @@
     });
 });
 
-
+//--Personalised notification related functions
 
 function ClearControlsOfPersonalNotifications() {
     $("#PersonalisedtxtTitle").val("");
@@ -390,7 +380,6 @@ function ClearControlsOfPersonalNotifications() {
 
 
 }
-
 
 function BindPersonalisedNotifications() {
     var jsonResult = {};
@@ -422,7 +411,6 @@ function FillPersonalisedNotificationTable(Records) {
 
 }
 
-
 function BindUserDropdown() {
 
 
@@ -442,17 +430,6 @@ function GetAllUsers(Users) {
     table = JSON.parse(ds.d);
     return table;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //Generate preview
 
@@ -580,14 +557,6 @@ function FillNotificationTable(Records) {
 
     }
 
-
-
-
-
-
-
-
-
 }
 
 //------------Dropdowns-----------------
@@ -600,7 +569,7 @@ function BindProductDropdown() {
     }
 }
 function BindTemplateDropdown() {
-    debugger;
+  
     var jsonResult = {};
     var Notify = new Object();
     jsonResult = GetAllTemplateNames(Notify);
