@@ -1047,9 +1047,10 @@ function MultiImageBind(Records, index) {
     div.appendChild(del);
     if (Records.IsMain === true) {
         //  chk.checked = true;
-        chk.setAttribute("checked", true);
+        chk.setAttribute("checked", "checked");
         del.style.visibility = 'hidden';
     }
+    
   
     divPre.appendChild(div);
     div.appendChild(chk);
@@ -1731,23 +1732,16 @@ function EditProduct()
         //});
 
         $('#Preview div').each(function (index) {
-            //val.push($(this).attr('id'));
             var idval = $(this).attr('id');
-            var curdiv = $(this);
-            debugger;
-            orderno = index;
             ImageInfo.push(idval);
-            //var chkflag = $(this).find(".checkDes").checked;
-            //var chkflag = document.getElementById("checkDes" + index).checked;
-            var chkflag = curdiv.find(".checkDes");
-            debugger;
-            if (chkflag == true) {
-                debugger;
-                Product.MainImageID = idval;
-            }
-            debugger
-
-        });
+            $(this).find("input:checkbox").each(function () {
+                if ($(this).attr('checked'))
+                {
+                    Product.MainImageID = $(this).parent().attr("id");
+                   
+                }
+               });
+              });
         Product.ImageInfo = ImageInfo;
         //productimage id and order number
         result = UpdateProduct(Product);
