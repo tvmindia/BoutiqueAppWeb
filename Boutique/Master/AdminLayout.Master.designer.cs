@@ -148,6 +148,15 @@ namespace Boutique.Master {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li_Notifications;
         
         /// <summary>
+        /// Li_NewsLetter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li_NewsLetter;
+        
+        /// <summary>
         /// Li_Loyalty control.
         /// </summary>
         /// <remarks>
