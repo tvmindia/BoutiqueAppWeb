@@ -38,6 +38,7 @@ var Pages = {
     Login: "Login",
     Loyalty: "Loyalty",
     Notifications: "Notifications",
+    NewsLetter: "NewsLetter",
     LoyaltySettings: "Loyalty Settings",
     OrderStatus: "Order Status",
     Products: "Products",
