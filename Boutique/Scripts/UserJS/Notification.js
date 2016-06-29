@@ -28,6 +28,15 @@
 
 
     //Edit region drop downs-------------
+
+    $(".Users").select2({
+        placeholder: "Choose user",
+        allowClear: true,
+        data: BindUserDropdown()
+    });
+
+
+
     $(".Newsletterproducts").select2({
         allowClear: true,
         placeholder: "Choose products",
@@ -211,14 +220,14 @@
 
     $(".PersonalisedCancel").live({
         click: function (e) {// Clear controls
-
+            debugger;
             ClearControlsOfPersonalNotifications();
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
 
-            RemoveStyle();
+            RemoveValidationStyle();
         }
     })
 
@@ -367,6 +376,8 @@
 //--Personalised notification related functions
 
 function ClearControlsOfPersonalNotifications() {
+    debugger;
+
     $("#PersonalisedtxtTitle").val("");
     $("#PersonalisedtxtDescription").val("");
     $("#PersonaliseddateStartDate").val("");
@@ -448,6 +459,15 @@ function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
+
+function RemoveValidationStyle()
+{
+    debugger;
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#PersonalisedErrorBox').hide(1000);
+}
+
+
 function DeleteItem(e, p) {
     var jsonResult = {};
     //editedrow = $(this).closest('tr');
@@ -963,7 +983,7 @@ function PersoanlisedNotificationValidation() {
     var j = 0;
     var Errorbox = document.getElementById('PersonalisedErrorBox');
     var divs = document.createElement('div');
-    divs.setAttribute("id", "PersonalisedDisplaydiv");
+    divs.setAttribute("id", "ErrorBox");
     Errorbox.appendChild(divs);
     for (var i = 0; i < container.length; i++) {
 
