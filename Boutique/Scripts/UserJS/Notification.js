@@ -973,3 +973,62 @@ function NotificationValidation() {
         return true;
     }
 }
+
+function PersoanlisedNotificationValidation() {
+
+    debugger;
+
+    $('#Displaydiv').remove();
+    var Title = $('#PersonalisedtxtTitle');
+    var Descrip = $('#PersonalisedtxtDescription');
+    var StDate = $('#PersonaliseddateStartDate');
+    var EndDate = $('#PersonaliseddateEndDate');
+
+    var container = [
+        { id: Title[0].id, name: Title[0].name, Value: Title[0].value },
+        { id: Descrip[0].id, name: Descrip[0].name, Value: Descrip[0].value },
+        { id: StDate[0].id, name: StDate[0].name, Value: StDate[0].value },
+        { id: EndDate[0].id, name: EndDate[0].name, Value: EndDate[0].value },
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('PersonalisedErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "PersonalisedDisplaydiv");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+
+
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+
+
+
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+
+        return false;
+    }
+    if (j == '0') {
+        $('#PersonalisedErrorBox').hide();
+        AddPersonalisedNotification();
+        return true;
+    }
+}
