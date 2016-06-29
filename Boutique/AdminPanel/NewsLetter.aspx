@@ -15,7 +15,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css"/>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
 
-
+    <script>
+        function Preview()
+        {
+            $('#HtmlPreview').modal('show');
+        }
+    </script>
+   
+    <style>
+ .modal{
+     height:80%;
+     width:50%;
+    }
+    </style>
 
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -137,14 +149,29 @@
             </div>
             <footer class="InnerFooter">
                 <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>
-                <a class="btn btn-primary templatePreview" runat="server" href="#">Template Preview</a>
+                <a class="btn btn-primary templatePreview" runat="server" onclick="Preview();" href="#">Template Preview</a>
 
             </footer>
             </div>
         </div>
     
 
+        <div class="modal fade" id="HtmlPreview" role="dialog" style="display:none;">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="border-color: #3661C7;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Template Preview</h3>
+                    </div>
+                    <div class="modal-body" style=""> 
+                        <div id="HtmlPreviewDisplay">
 
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
         <%--Tab Content--%>
