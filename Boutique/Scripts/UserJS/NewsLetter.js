@@ -262,39 +262,15 @@ function MainImageClick(checkedImage) {
     NewsLetters.Description = $("#txtNewsletterDescription").val();
     var totalimages = {};
     totalimages = AddSelectedImageTotemplate(NewsLetters);
-    var imagedivholder = $('#templatePreviewImagehold');
-    var $mars = $('.templatePreviewholder');
-    var elems = $();
-
-    elems = elems.add(totalimages);
-    $mars.append(elems);
-    $mars.masonry('appended', elems);
-    d = document;
-
-    if (d.getElementById("modalContainer")) return;
-
-    mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
-    mObj.id = "modalContainer";
-    mObj.style.height = d.documentElement.scrollHeight + "px";
-    var alertObj = $();
-    alertObj = mObj.appendChild(d.createElement("div"));
-    alertObj.id = "alert";
-    if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
-    alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
-    alertObj.style.visiblity = "visible";
-    btn = alertObj.appendChild(d.createElement("a"));
-    btn.id = "closeBtn";
-    btn.className = "noButton";
-    btn.appendChild(d.createTextNode("OK"));
-    btn.href = "#";
-    btn.focus();
-    btn.onclick = function () { removeCustomAlert(); return false; }
-
-    alertObj.style.display = "block";
-    alertObj.appendChild(totalimages);
+    var imagedivholder = $('#HtmlPreviewDisplay');
    
+    imagedivholder.append(totalimages);
+    //var $mars = $('.templatePreviewholder');
+    //var elems = $();
 
-  
+    //elems = elems.add(totalimages);
+    //$mars.append(elems);
+    //$mars.masonry('appended', elems);
    
     //return html;
 }
