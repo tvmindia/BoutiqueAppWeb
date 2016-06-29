@@ -411,7 +411,6 @@
     <Compile Include="AdminPanel\NewsLetter.aspx.designer.cs">
       <DependentUpon>NewsLetter.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AdminPanel\NewsLetterMail.cs" />
     <Compile Include="AdminPanel\Notifications.aspx.cs">
       <DependentUpon>Notifications.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -134,13 +134,7 @@
 
     //Generate Preview
     $(".templatePreview").click(function () {
-        debugger;
-        BootstrapDialog.show({
-            title: 'Template Preview',
-            message: MainImageClick(this)
-        });
-
-       // MainImageClick(this);
+        MainImageClick(this);
     });
 });
 //end of document.ready
@@ -207,7 +201,6 @@ function BindTemplateImagesPreview(templateID) {
     var iframe = document.createElement('iframe');
     iframe.className = "PreviewTemplate"
     iframe.src = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID;
-    var divUrl =
     templ.append(iframe);
 }
 
@@ -273,20 +266,49 @@ function MainImageClick(checkedImage) {
     var $mars = $('.templatePreviewholder');
     var elems = $();
 
-    //var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + ' pname=' + totalimages[i].Name + ' pdescription=' + totalimages[i].Description + ' pprice=' + totalimages[i].Price + ' isoutstock=' + totalimages[i].IsOutOfStock + ' isactive=' + totalimages[i].IsActive + ' categories=' + totalimages[i].Categories + ' designers=' + totalimages[i].DesignerID + ' designerName=' + totalimages[i].DesignerName + ' discount=' + totalimages[i].Discount + '>'
-    //+ '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
-    //+ '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-    //+ '</a><div class="productDetailsdiv"><span>' + totalimages[i].ProductNo + '</span><span class="">' + totalimages[i].Name + '</span><span>₹  ' + totalimages[i].Price + '</span><span>Off:₹ ' + totalimages[i].Discount + '</span></div>'
-    //+ '</div>');
-
     elems = elems.add(totalimages);
-
-
-
     $mars.append(elems);
     $mars.masonry('appended', elems);
+    d = document;
+
+    if (d.getElementById("modalContainer")) return;
+
+    mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
+    mObj.id = "modalContainer";
+    mObj.style.height = d.documentElement.scrollHeight + "px";
+    var alertObj = $();
+    alertObj = mObj.appendChild(d.createElement("div"));
+    alertObj.id = "alert";
+    if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
+    alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
+    alertObj.style.visiblity = "visible";
+    alertObj.appendChild($mars);
+    btn = alertObj.appendChild(d.createElement("a"));
+    btn.id = "closeBtn";
+    btn.className = "noButton";
+    btn.appendChild(d.createTextNode("OK"));
+    btn.href = "#";
+    btn.focus();
+    btn.onclick = function () { removeCustomAlert(); return false; }
+
+    alertObj.style.display = "block";
+
+  
    
     //return html;
+}
+function removeCustomAlert() {
+    document.getElementsByTagName("body")[0].removeChild(document.getElementById("modalContainer"));
+}
+
+function CustomAlert(txt) {
+  
+    msg = alertObj.appendChild(d.createElement("p"));
+    //msg.appendChild(d.createTextNode(txt));
+    msg.innerHTML = txt;
+
+    
+    $("#alert").animate({ top: '50px' });
 }
 function AddSelectedImageTotemplate(NewsLetters) {
     debugger;
