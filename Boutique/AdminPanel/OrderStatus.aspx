@@ -58,8 +58,8 @@
                 </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li class="icon active"><a href="#CurrentOrders">Current Orders</a></li>
-                        <li><a href="#ClosedOrders">Closed Orders</a></li>
+                        <li class="icon active"><a href="#CurrentOrders"><i class="icon-copy"></i>Current Orders</a></li>
+                        <li><a href="#ClosedOrders"><i class="icon-paste"></i>Closed Orders</a></li>
 
                     </ul>
                     <div id="myTabContent" class="tab-content">
