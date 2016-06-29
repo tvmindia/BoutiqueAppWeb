@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/Profile.css" rel="stylesheet" />
-      <link href="../CSS/Common.css" rel="stylesheet" />
+    <link href="../CSS/Common.css" rel="stylesheet" />
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Profile.js"></script>
 
@@ -50,7 +50,26 @@
 
         <%--Alert boxes --%>
 
-        <div class="row-fluid">
+        <div class="row-fluid sortable">
+            <div class="box span12" style="width: 90%">
+
+                <div class="box-header">
+                </div>
+
+                 <div class="box-content">
+
+                     <ul class="nav tab-menu nav-tabs" id="myTab">
+                        <li class="icon active"><a href="#Profiles"><i class="icon-copy"></i>Profiles</a></li>
+                        <li><a href="#Banners"><i class="icon-paste"></i>Banners</a></li>
+
+                    </ul>
+
+                         <div id="myTabContent" class="tab-content">
+
+                              <div class="tab-pane active" id="Profiles">
+
+
+                                   <div class="row-fluid">
 
             <div class="box span12">
                 <div class="box-header">
@@ -65,9 +84,9 @@
                     <div class="form-horizontal">
                         <%--<fieldset>--%>
                         <div class="span6">
-                            
-                        <div class="control-group">
-                            
+
+                            <div class="control-group">
+
                                 <label class="control-label" for="focusedInput">App Version</label>
                                 <div class="controls">
                                     <input class="input-large focused" id="txtAppVersion" type="text" />
@@ -110,12 +129,12 @@
                                 </div>
                             </div>
 
-                                <div class="control-group">
+                            <div class="control-group">
                                 <label class="control-label" for="focusedInput">Address</label>
                                 <div class="controls">
                                     <textarea class="form-control" style="max-width: 75%" rows="4" id="txtAddress"></textarea>
                                 </div>
-                            </div>                          
+                            </div>
 
                             <div class="control-group">
                                 <label class="control-label" for="focusedInput">Timings</label>
@@ -130,7 +149,7 @@
                                     <input class="input-large focused" id="txtWorkingDays" type="text" />
                                 </div>
                             </div>
-                          
+
                         </div>
 
                         <div class="span6">
@@ -155,45 +174,45 @@
                                     <input class="input-large focused" id="txtInstatgramlink" type="text" />
                                 </div>
                             </div>
-                      <div class="control-group">
-                            
+                            <div class="control-group">
+
                                 <label class="control-label" for="focusedInput">Latitude</label>
                                 <div class="controls">
                                     <input class="input-large focused" id="txtLatitude" type="text" />
                                 </div>
                             </div>
-                               <div class="control-group">
-                            
+                            <div class="control-group">
+
                                 <label class="control-label" for="focusedInput">Longitude</label>
                                 <div class="controls">
                                     <input class="input-large focused" id="txtLongitude" type="text" />
                                 </div>
                             </div>
-                             <div class="control-group">
-                            
+                            <div class="control-group">
+
                                 <label class="control-label" for="focusedInput">Image</label>
                                 <div class="controls">
-                                   <input id="imageUpload" type="file" size="60" name="myfile"/>
+                                    <input id="imageUpload" type="file" size="60" name="myfile" />
                                 </div>
                             </div>
-                                <div class="control-group">
+                            <div class="control-group">
                                 <div class="controls">
-                                   <output id="imageList" class="listClass"></output>
+                                    <output id="imageList" class="listClass"></output>
                                 </div>
                             </div>
-                             <div class="control-group">
-                            
+                            <div class="control-group">
+
                                 <label class="control-label" for="focusedInput">Logo</label>
                                 <div class="controls">
-                                   <input id="logoUpload" type="file" size="60" name="myfile"/>
+                                    <input id="logoUpload" type="file" size="60" name="myfile" />
                                 </div>
                             </div>
-                                <div class="control-group">
+                            <div class="control-group">
                                 <div class="controls">
-                                   <output id="logoList" class="listClass"></output>
+                                    <output id="logoList" class="listClass"></output>
                                 </div>
                             </div>
-                               
+
                         </div>
 
 
@@ -235,9 +254,8 @@
                     </div>
                     <div class="box-content" style="height: 438px; overflow: auto;">
                         <div class="form-horizontal">
-                            <div class="alert alert-error" id="ErrorBox" style="display:none;">
+                            <div class="alert alert-error" id="ErrorBox" style="display: none;">
                                 <div id="Displaydiv">
-
                                 </div>
                             </div>
                             <%--<fieldset>--%>
@@ -334,12 +352,12 @@
                     </div>
                     <div class="box-content TableLayout" style="height: 492px; overflow: auto;">
                         <table class="table table-striped table-bordered  bootstrap-datatable" id="OwnerTable">
-                               <thead id="Ownerthead">
+                            <thead id="Ownerthead">
                                 <tr>
                                     <th>Owner Name</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
-                                    <th>Actions</th> 
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="ownerrows">
@@ -363,10 +381,29 @@
             </div>
         </div>
 
+
+                              </div>
+
+                                <div class="tab-pane" id="Banners"></div>
+
+                         </div>
+
+
+
+                 </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
     </div>
     <input type="hidden" id="hdfBoutiqueID" value="" />
     <input type="hidden" id="hdfRole" value="" />
-     <input type="hidden" id="hdfOwnerID" value="" />
-     <input type="hidden" id="hdfUserID" value="" />
+    <input type="hidden" id="hdfOwnerID" value="" />
+    <input type="hidden" id="hdfUserID" value="" />
 
 </asp:Content>

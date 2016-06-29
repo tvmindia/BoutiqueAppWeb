@@ -2,10 +2,8 @@
 
     parent.document.title = Pages.Notifications;
 
-
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
-
 
     BindNotificationsTable();
     BindPersonalisedNotifications();
@@ -30,13 +28,20 @@
 
 
     //Edit region drop downs-------------
+
+    $(".Users").select2({
+        placeholder: "Choose user",
+        allowClear: true,
+        data: BindUserDropdown()
+    });
+
+
+
     $(".Newsletterproducts").select2({
         allowClear: true,
         placeholder: "Choose products",
         data: BindNewsLetterProductDropdown()
     });
-
-
 
     $(".products").select2({
         placeholder: "Choose related product",
@@ -59,9 +64,6 @@
         data: [{ id: 0, text: 'All' }]
     });
   
-
-
-
     //Edit button--------
     $(".notificationedit").live(
     {
@@ -123,9 +125,6 @@
    })
 
 
-
-    //Save button---------
-
     //Delete button---------
     $(".notificationdelete").live(
     {
@@ -176,8 +175,6 @@
         }
     })
 
-
-
     $(".Prsnlnotificationdelete").live(
   {
       click: function (e) {
@@ -202,6 +199,8 @@
     //            //MainImageClick(this);
     //        }
     //    })
+
+
     //Cancel button-----------
     $(".Cancel").live({
         click: function (e) {// Clear controls
@@ -221,14 +220,14 @@
 
     $(".PersonalisedCancel").live({
         click: function (e) {// Clear controls
-
+            debugger;
             ClearControlsOfPersonalNotifications();
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
 
-            RemoveStyle();
+            RemoveValidationStyle();
         }
     })
 
@@ -374,9 +373,11 @@
     });
 });
 
-
+//--Personalised notification related functions
 
 function ClearControlsOfPersonalNotifications() {
+    debugger;
+
     $("#PersonalisedtxtTitle").val("");
     $("#PersonalisedtxtDescription").val("");
     $("#PersonaliseddateStartDate").val("");
@@ -390,7 +391,6 @@ function ClearControlsOfPersonalNotifications() {
 
 
 }
-
 
 function BindPersonalisedNotifications() {
     var jsonResult = {};
@@ -422,7 +422,6 @@ function FillPersonalisedNotificationTable(Records) {
 
 }
 
-
 function BindUserDropdown() {
 
 
@@ -443,17 +442,6 @@ function GetAllUsers(Users) {
     return table;
 }
 
-
-
-
-
-
-
-
-
-
-
-
 //Generate preview
 
 
@@ -471,6 +459,15 @@ function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
+
+function RemoveValidationStyle()
+{
+    debugger;
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#PersonalisedErrorBox,#PersonalisedDisplaydiv,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
+}
+
+
 function DeleteItem(e, p) {
     var jsonResult = {};
     //editedrow = $(this).closest('tr');
@@ -580,14 +577,6 @@ function FillNotificationTable(Records) {
 
     }
 
-
-
-
-
-
-
-
-
 }
 
 //------------Dropdowns-----------------
@@ -600,7 +589,7 @@ function BindProductDropdown() {
     }
 }
 function BindTemplateDropdown() {
-    debugger;
+  
     var jsonResult = {};
     var Notify = new Object();
     jsonResult = GetAllTemplateNames(Notify);
@@ -970,6 +959,65 @@ function NotificationValidation() {
     if (j == '0') {
         $('#ErrorBox').hide();
         AddNotification();
+        return true;
+    }
+}
+
+function PersoanlisedNotificationValidation() {
+
+    debugger;
+
+    $('#Displaydiv').remove();
+    var Title = $('#PersonalisedtxtTitle');
+    var Descrip = $('#PersonalisedtxtDescription');
+    var StDate = $('#PersonaliseddateStartDate');
+    var EndDate = $('#PersonaliseddateEndDate');
+
+    var container = [
+        { id: Title[0].id, name: Title[0].name, Value: Title[0].value },
+        { id: Descrip[0].id, name: Descrip[0].name, Value: Descrip[0].value },
+        { id: StDate[0].id, name: StDate[0].name, Value: StDate[0].value },
+        { id: EndDate[0].id, name: EndDate[0].name, Value: EndDate[0].value },
+    ];
+
+    var j = 0;
+    var Errorbox = document.getElementById('PersonalisedErrorBox');
+    var divs = document.createElement('div');
+    divs.setAttribute("id", "ErrorBox");
+    Errorbox.appendChild(divs);
+    for (var i = 0; i < container.length; i++) {
+
+        if (container[i].Value == "") {
+            j = 1;
+
+
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[i].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            //txtB.style.backgroundColor = "#FFFEE1";
+            Errorbox.style.paddingLeft = "30px";
+
+        }
+
+
+
+    }
+    if (j == '1') {
+        var p = document.createElement('p');
+        p.innerHTML = "* Some Fields Are Empty ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+
+        divs.appendChild(p);
+
+        return false;
+    }
+    if (j == '0') {
+        $('#PersonalisedErrorBox').hide();
+        AddPersonalisedNotification();
         return true;
     }
 }

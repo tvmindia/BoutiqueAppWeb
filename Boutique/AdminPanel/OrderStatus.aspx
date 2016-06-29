@@ -58,8 +58,8 @@
                 </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li class="icon active"><a href="#CurrentOrders">Current Orders</a></li>
-                        <li><a href="#ClosedOrders">Closed Orders</a></li>
+                        <li class="icon active"><a href="#CurrentOrders"><i class="icon-copy"></i>Current Orders</a></li>
+                        <li><a href="#ClosedOrders"><i class="icon-paste"></i>Closed Orders</a></li>
 
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -99,6 +99,10 @@
                                     </div>
 
                                     <div class="box-content " style="height: 100%; overflow: auto;">
+                                         <div class="alert alert-block" id="ErrorBox" style="display: none;">
+                                                    <div id="Displaydiv">
+                                                    </div>
+                                                </div>
 
                                         <div class="span12">
 
@@ -282,7 +286,7 @@
 
 
                                     <footer class="InnerFooter">
-                                        <a class="btn btn-primary submitDetails" href="#">Save</></a>
+                                        <a class="btn btn-primary submitDetails" onclick="return OrderStatusValidation()" href="#">Save</></a>
                                         <a class="btn Cancel">Cancel</a>
                                     </footer>
 

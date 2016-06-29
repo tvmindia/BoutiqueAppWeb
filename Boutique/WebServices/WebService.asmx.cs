@@ -284,6 +284,48 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+        /// <summary>
+        /// To get homescreen banner images of a boutique
+        /// </summary>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string BannerImages(string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                //------Getting product details-----
+                Boutiques boutique = new Boutiques();
+                boutique.BoutiqueID = boutiqueID;
+                dt = boutique.GetBannerImagesForMobile();
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion Boutique
 
         #region User

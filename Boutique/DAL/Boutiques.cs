@@ -576,7 +576,50 @@ namespace Boutique.DAL
         }
         #endregion GetBoutiqueLogo
 
+        #region Get banner images for mobile
+        /// <summary>
+        /// Getting Banner images batatable for mobile app (including varbinary images)
+        /// </summary>
+        /// <returns></returns>
+         public DataTable GetBannerImagesForMobile()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataTable dt = null;
+                SqlDataAdapter sda = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetBannersForMobile]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
 
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                return dt;
+            }
+        #endregion
         #endregion Methods
 
     }
