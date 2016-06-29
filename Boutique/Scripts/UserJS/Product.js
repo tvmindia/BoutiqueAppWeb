@@ -193,25 +193,25 @@ $("document").ready(function (e) {
         }
     })
 
-    $(".masonry-thumb").live({
-        click: function (e) {
-            debugger;
-            $('#rowfluidDiv').hide();
-            $('.alert-success').hide();
-            $('.alert-error').hide();
+    //$(".masonry-thumb").live({
+    //    click: function (e) {
+    //        debugger;
+    //        $('#rowfluidDiv').hide();
+    //        $('.alert-success').hide();
+    //        $('.alert-error').hide();
          
-            var imageid = $(this).attr('imageid');
-            var p = $(this).attr('pname');
+    //        var imageid = $(this).attr('imageid');
+    //        var p = $(this).attr('pname');
 
-            if (LoginUserRole[0] != Roles.Manager) {                
-                BindProductTextBoxes(this);
-                BindAllImages();
-                AutoScrollToEdit();
+    //        if (LoginUserRole[0] != Roles.Manager) {                
+    //            BindProductTextBoxes(this);
+    //            BindAllImages();
+    //            AutoScrollToEdit();
 
-            }
-            return false;
-        }
-    })
+    //        }
+    //        return false;
+    //    }
+    //})
     //image galery show after all images loaded in masonary
     //galerydiv.show();
    // galleryoutofstockdiv.show();
