@@ -530,8 +530,8 @@ function DeleteItem(e, p) {
     }
 }
 
-function BindProductTextBoxes(thisobject) {
-    debugger;
+function BindProductTextBoxes(thisobject)
+{
     var productname=$(thisobject).find(".proname").text();
     //var productname = $(thisobject).attr('pname');
     pdescription
@@ -1010,33 +1010,24 @@ function MultiImageBind(Records, index) {
     // var lblchk = document.createElement('label');
     //lblchk.type = 'label';
     // lblchk.className = 'checkbox';
-
-
     var chk = document.createElement('input');
     chk.type = 'checkbox';
     chk.className = 'checkDes';
     chk.id = 'checkDes' + index;
     chk.onclick = 'MainImageClick(this);';
     chk.setAttribute("onclick", "MainImageClick(\"" + 'checkDes' + index + "\")");
-
-
-
-
     var del = document.createElement('input');
     del.className = 'imgdelete';
     del.type = 'image';
     del.src = '../Home/images/Deleteicon1.png';
     del.id = Records.ImageID;
     div.appendChild(del);
-
     if (Records.IsMain === true) {
         chk.checked = true;
         del.style.visibility = 'hidden';
     }
-
     divPre.appendChild(div);
     div.appendChild(chk);
-
 }
 
 
@@ -1727,6 +1718,7 @@ function EditProduct()
             // Scroll page
             AutoScrollToAlertBox();
 
+            BindAllImages();
         }
         if (result.status != "1") {
             $('#rowfluidDiv').show();
