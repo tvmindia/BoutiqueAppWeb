@@ -24,7 +24,7 @@
    
     <style>
  .modal{
-     height:80%;
+     height:85%;
      width:50%;
     }
     </style>
@@ -66,19 +66,22 @@
         <%--Alert boxes --%>
         <%--Tab Content--%>
 
-        <div class="row-fluid" id="productDetailsDiv" runat="server">
+        <div class="row-fluid" id="NewsLetterDetailsDiv" runat="server">
             
             <div class="box span12" style="box-shadow: 0 0 0 0!important">
                 <div class="span12">
                      <div class="box-header">
-                </div>
+                      </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li><a href="#GenerateTemplate">Generate Template</a></li>
-                        <li><a href="#SendMail">Send Mail</a></li>
+                        <li><a href="#GenerateTemplate"><i class="halflings-icon list-alt"></i>Generate Template</a></li>
+                        <li><a href="#SendMail"><i class="halflings-icon envelope"></i>Drafts</a></li>
                     </ul>
                      <div id="myTabContent" class="tab-content">
                            <div class="tab-pane active" id="GenerateTemplate">
+                        <div class="row-fluid">
+
+                             <div class="row-fluid">
                     <div class="box-header">
                         <h2 id="editLabel">New Template</h2>
                         <div class="box-icon">
@@ -139,19 +142,45 @@
                         </div>
 
                     </div>
+                      </div>
+                     <footer class="InnerFooter">
+                      <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>
+                      <a class="btn btn-primary templatePreview" runat="server" onclick="Preview();" href="#">Template Preview</a>
+
+                      </footer>
+                         
+                        </div>
                                       
-</div>
-                         <div class="tab-pane" id="SendMail">
+                       </div>
+                           <div class="tab-pane" id="SendMail">
+                               <div class="box-header">
+                        <h2>Mail List</h2>
+                        <div class="box-icon">
+                        </div>
+                    </div>
+                                 <div class="box-content " style="min-height: 500px;">
+
+                                        <table class="table table-striped table-bordered  bootstrap-datatable" id="NewsLetterTable">
+                                            <thead id="newsLetterthead">
+                                                <tr>
+                                                    <th>Template</th>
+                                                    <th>Description</th>
+                                                    <th>Audience</th>
+                                                    <th>Created Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="newsLetterrows">
+                                            </tbody>
+                                        </table>
+
+                                    </div>
      </div>
-                 </div>
+                         
+                    </div>
                 </div>
 
             </div>
-            <footer class="InnerFooter">
-                <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>
-                <a class="btn btn-primary templatePreview" runat="server" onclick="Preview();" href="#">Template Preview</a>
-
-            </footer>
+           
             </div>
         </div>
     
@@ -176,5 +205,5 @@
 
         <%--Tab Content--%>
           </div>
-
+     <input type="hidden" id="hdfRole" value="" />
 </asp:Content>

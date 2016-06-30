@@ -128,6 +128,7 @@ namespace Boutique.DAL
         }
         #endregion properties
 
+        MailSending mailObj = new MailSending();
         #region Methods
         #region GetAllTemplateIDandName
         public DataSet GetAllTemplateIDandName()
@@ -312,7 +313,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@TemplateID", SqlDbType.UniqueIdentifier).Value = TemplateID;
                 cmd.Parameters.Add("@ImageID", SqlDbType.VarChar, -1).Value = string.Join(",", ImageIDs);
                 cmd.Parameters.Add("@ProductID", SqlDbType.VarChar, -1).Value = string.Join(",", productIDs);
-                cmd.Parameters.Add("@AudienceMailID", SqlDbType.VarChar, -1).Value = string.Join(",", audienceMailIDs);
+                cmd.Parameters.Add("@AudienceMailID", SqlDbType.VarChar, -1).Value = string.Join(",", audienceMailType);
                 cmd.Parameters.Add("@Description", SqlDbType.VarChar, -1).Value = Description;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -350,7 +351,7 @@ namespace Boutique.DAL
 
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            DataSet ds = null;
+            DataSet ds,dsEmail = null;
             SqlDataAdapter sda = null;
 
             try
@@ -365,6 +366,7 @@ namespace Boutique.DAL
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
+                dsEmail = new DataSet();
                 sda.Fill(ds);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -373,6 +375,18 @@ namespace Boutique.DAL
                     ImageIDs = images;
                     templateFile = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
                     Description = ds.Tables[0].Rows[0]["Description"].ToString();
+                    audienceMailType = ds.Tables[0].Rows[0]["AudienceMailID"].ToString();
+                    if (audienceMailType == "All")
+                    {
+                        dsEmail = GetAllEmailIdsToSendNewsLetterEmail();
+                        List<string> strDetailIDList = new List<string>();
+
+                        foreach (DataRow row in dsEmail.Tables[0].Rows)
+                        {
+                            strDetailIDList.Add(row["Email"].ToString());
+                        }
+                        audienceMailIDs = strDetailIDList.ToArray();
+                    }
                 }
 
             }
@@ -430,6 +444,48 @@ namespace Boutique.DAL
 
         }
         #endregion UpdateNewsLetterIsmailSend
+
+        #region GetAllNewsLetterMailNotSendDetails
+        public DataSet GetAllNewsLetterMailNotSendDetails()
+        {
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetMailNotSendNewsLetters]";
+               // cmd.Parameters.Add("@NewsLetterID", SqlDbType.UniqueIdentifier).Value = NewsLetterID;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllNewsLetterMailNotSendDetails
         #endregion Methods
     }
 }

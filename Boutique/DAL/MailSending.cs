@@ -94,7 +94,11 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string BoutiqueID
+        {
+            get;
+            set;
+        }
 
         #endregion Global Variables
 
@@ -216,9 +220,10 @@ namespace Boutique.DAL
             string imageUrl = "http://www.tiquesinn.com/NewsLetterImages/";
             string Url = "";
             newsObj.NewsLetterID = mailNewsLetterID;
+            newsObj.BoutiqueID = BoutiqueID;
             newsObj.GetAllNewsLetterDetails();
             Url = newsObj.templateFile;
-
+            recepientEmail = newsObj.audienceMailIDs;
           //  int imageCount = Convert.ToInt32(8);
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))

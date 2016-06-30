@@ -30,7 +30,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            newsObj.BoutiqueID = UA.BoutiqueID;
+            mailObj.BoutiqueID = UA.BoutiqueID;
             DataSet ds = null;
             mailObj.msg = mailObj.msg;
             if (mailObj.audienceType == "All")
@@ -161,20 +161,20 @@ namespace Boutique.AdminPanel
             newsObj.UpdatedBy = UA.userName;
             newsObj.CreatedBy = UA.userName;
             string status = null;
-            DataSet ds = null;
+           // DataSet ds = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             Product productObj = new Product();
-            if (newsObj.audienceMailType == "All")
-            {
-                ds = newsObj.GetAllEmailIdsToSendNewsLetterEmail();
-                List<string> strDetailIDList = new List<string>();
+            //if (newsObj.audienceMailType == "All")
+            //{
+            //    ds = newsObj.GetAllEmailIdsToSendNewsLetterEmail();
+            //    List<string> strDetailIDList = new List<string>();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    strDetailIDList.Add(row["Email"].ToString());
-                }
-                newsObj.audienceMailIDs = strDetailIDList.ToArray();
-            }
+            //    foreach (DataRow row in ds.Tables[0].Rows)
+            //    {
+            //        strDetailIDList.Add(row["Email"].ToString());
+            //    }
+            //    newsObj.audienceMailIDs = strDetailIDList.ToArray();
+            //}
             try
             {
 
@@ -203,5 +203,36 @@ namespace Boutique.AdminPanel
         }
         #endregion AddNesLetterMailTrackingDetails
 
+        #region GetAllNewsLetterNotMailSendDetails
+        [System.Web.Services.WebMethod]
+        public static string GetAllNewsLetterNotMailSendDetails(NewsLetters newsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            newsObj.BoutiqueID = UA.BoutiqueID;
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = newsObj.GetAllNewsLetterMailNotSendDetails();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion GetAllNewsLetterNotMailSendDetails
     }
 }
