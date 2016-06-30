@@ -278,13 +278,34 @@ $("document").ready(function (e) {
                 var idval = $(this).attr('id');
                 ImageInfo.push(idval);
                
-
-
             });
 
-            var c = ImageInfo;
+            var Boutique = new Object();
 
-            alert(c);
+            Boutique.ImageInfo = ImageInfo;
+
+            result = UpdateorderNoOfBannerImage(Boutique);
+
+            if (result.status == "1") {
+            
+                BindAllBannerImages();
+            //$('#rowfluidDiv').show();
+            //$('.alert-success').show();
+            //$('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+            //AutoScrollToAlertBox();
+
+
+        }
+               //else {
+               //     $('#rowfluidDiv').show();
+               //     $('.alert-error').show();
+               //     $('.alert-error strong').text(Messages.InsertionFailure);
+               // }
+
+
+           
+
 
         }//when div image is reordered
     });
@@ -735,9 +756,9 @@ function BindAllBannerImages() {
 
         var html = ('<div class="masonry-thumb port-1 effect-2" >'
            + ''
-           + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '"></img></div>'
+           + '<div class="image-box"><img id="' + totalimages[i].ImageID + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '"></img></div>'
            + '<div class="productDetailsdiv text-desc">'
-           + '<a class="btn btn-toolbar" style="border:1px solid white" " productno=' + 'A' + '  productid=' + 'A' + ' bannerImgID=' + totalimages[i].ImageID + ' pname=' + 'A' + ' pprice=' + 'A' + ' isoutstock=' + 'A' + ' isactive=' + 'A' + ' categories=' + 'A' + ' designers=' + 'A' + ' designerName=' + 'A' + ' discount=' + 'A' + '><i class="halflings-icon white edit"></i></a>'
+           + '<a class="btn btn-toolbar" style="border:1px solid white" " ProductID=' + totalimages[i].ProductID + '  CategoryCode=' + totalimages[i].CategoryCode + ' bannerImgID=' + totalimages[i].ImageID + ' pname=' + 'A' + ' pprice=' + 'A' + ' isoutstock=' + 'A' + ' isactive=' + 'A' + ' categories=' + 'A' + ' designers=' + 'A' + ' designerName=' + 'A' + ' discount=' + 'A' + '><i class="halflings-icon white edit"></i></a>'
            + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '" data-lightbox="' + totalimages[i].ImageID + '" data-title="' + 'A' + '"><i class="icon-zoom-in"></i></a>'
            //+ '<div class="prodet"><span>Code:  </span><span>' + 'A' + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + 'A' + '</span></div><div class="prodet"><span>Price:  ₹  ' + 'A' + '</span></div><div class="prodet><span>Discount:  ₹ ' + 'A' + '</span></span></div><span class="pdescription" style="display:none;">' + 'A' + '</span></div>'
            + '</div>');
@@ -805,4 +826,16 @@ function GetAllCategories(Notify) {
     ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
     table = JSON.parse(ds.d);
     return table;
+}
+
+
+function UpdateorderNoOfBannerImage(Boutique) {
+
+    
+    var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/UpdateorderNo");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
 }

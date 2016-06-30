@@ -347,6 +347,42 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllProductImages
 
+        #region UpdateProduct
+        [System.Web.Services.WebMethod]
+        public static string UpdateorderNo(Boutiques boutiqueObj)
+        {
+        
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        boutiqueObj.BoutiqueID = UA.BoutiqueID;
+                        boutiqueObj.UpdatedBy = UA.userName;
+                        //returns status and productid
+                        boutiqueObj.status = boutiqueObj.UpdateorderNo().ToString();
 
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return jsSerializer.Serialize(boutiqueObj);
+         }
+        #endregion UpdateProduct
+
+        
     }
 }
