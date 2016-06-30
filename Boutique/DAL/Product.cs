@@ -288,7 +288,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                    cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
+                    cmd.Parameters.Add("@Price", SqlDbType.Money).Value = Price;
                     cmd.Parameters.Add("@Discount", SqlDbType.Int).Value = Discount;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
@@ -393,7 +393,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                    cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
+                    cmd.Parameters.Add("@Price", SqlDbType.Money).Value = Price;
                     cmd.Parameters.Add("@Discount", SqlDbType.Int).Value = Discount;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
@@ -410,6 +410,10 @@ namespace Boutique.DAL
                    
                     cmd.Parameters.Add("@ImageInfo", SqlDbType.VarChar, -1).Value = imaginfo;
                     cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainImageID);
+                    //for product linker insert
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                    //for product linker insert
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);

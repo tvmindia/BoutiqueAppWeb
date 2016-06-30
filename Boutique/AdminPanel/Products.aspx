@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="Boutique.AdminPanel.Products" %>
+﻿
+<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="Boutique.AdminPanel.Products" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -135,7 +136,7 @@
 								<label class="control-label">New Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchnewproducts" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
+									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchnewproducts" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-info btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -170,7 +171,7 @@
 								<label class="control-label">Trending Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchtrends" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
+									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchtrends" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-info btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -205,7 +206,7 @@
 								<label class="control-label">Out Of Stocks</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchoutofstock" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
+									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchoutofstock" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-info btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
