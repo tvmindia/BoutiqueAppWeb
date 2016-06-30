@@ -398,7 +398,7 @@
                                  <%--Gallery new products--%>
                                  <div class="row-fluid">
 				           
-						          <div class="imageholder" style="width:100%;" id="productimagehold">
+						          <div class="imageholder" style="width:100%;" id="BannerImageholder">
 									
 								
 				    	         </div>

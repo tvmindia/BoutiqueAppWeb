@@ -261,18 +261,34 @@ $("document").ready(function (e) {
     
     //--- Banner reorder
 
-    //$("#imageholder").sortable({
+    $("#BannerImageholder").sortable({
 
        
 
-    //    update: function (event, ui) {
+        update: function (event, ui) {
 
-    //        debugger;
+            debugger;
+
+            var ImageInfo = [];
+            var idval, orderno;
+
+            $('#BannerImageholder img').each(function (index) {
+
+                debugger;
+                var idval = $(this).attr('id');
+                ImageInfo.push(idval);
+               
 
 
-    //    }//when div image is reordered
-    //});
-    //$("#imageholder").disableSelection();
+            });
+
+            var c = ImageInfo;
+
+            alert(c);
+
+        }//when div image is reordered
+    });
+    $("#BannerImageholder").disableSelection();
 
     //if (LoginUserRole[0] != Roles.Manager) {
     //    BindAllImages();//list li of product images when images uploaded
@@ -708,9 +724,9 @@ function AddOwner()
 
 function BindAllBannerImages() {
    
-    $("#productimagehold").find(".masonry-thumb").remove();
+    $("#BannerImageholder").find(".masonry-thumb").remove();
 
-    var imagedivholder = $('#productimagehold');
+    var imagedivholder = $('#BannerImageholder');
    
     var totalimages = {};
     totalimages = GetAllBannerImages();
