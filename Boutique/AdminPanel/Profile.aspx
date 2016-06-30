@@ -427,8 +427,18 @@
                                 </div>
                             </div>
 						
+
+                            <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Banner</label>
+                                                    <div class="controls">
+                                                        <input id="BannerUpload" type="file" size="90" name="myfile" />
+                                                    </div>
+                                                </div>
+
+
                              <div class="control-group">
-                                                    <label class="control-label" for="products">Product</label>
+                                                    <label class="control-label" for="products">Related Product</label>
                                                     <div class="controls">
                                                         <select class="products">
                                                             <option></option>
@@ -438,7 +448,7 @@
 
 
                                                 <div class="control-group">
-                                                    <label class="control-label" for="categories">Category</label>
+                                                    <label class="control-label" for="categories">Related Category</label>
                                                     <div class="controls">
                                                         <select class="categories">
                                                             <option></option>
@@ -446,13 +456,7 @@
                                                     </div>
                                                 </div>
 
-                             <div class="control-group">
-
-                                                    <label class="control-label" for="focusedInput">Banner</label>
-                                                    <div class="controls">
-                                                        <input id="BannerUpload" type="file" size="60" name="myfile" />
-                                                    </div>
-                                                </div>
+                             
 
 						</div>
                     </div>
@@ -464,7 +468,7 @@
                    
               </div>
                 <footer class="InnerFooter">
-                                        <a class="btn btn-primary addBanner" onclick="return OrderStatusValidation()" href="#">Save</></a>
+                                        <a class="btn btn-primary addBanner"  href="#">Save</></a>
                                         <a class="btn bannerCancel">Cancel</a>
                                     </footer>
              
@@ -493,4 +497,6 @@
     <input type="hidden" id="hdfOwnerID" value="" />
     <input type="hidden" id="hdfUserID" value="" />
 
+      <input type="hidden" id="hdfBannerImgID" value="" />
+     <input type="hidden" id="hdfCreatedBy" value="" />
 </asp:Content>

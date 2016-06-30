@@ -11,6 +11,7 @@ $("document").ready(function (e) {
 
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
+    $('#hdfCreatedBy').val(LoginUserRole[1]);
 
     BindAsyncOwnerTable();
     $('#OwnerTable').DataTable({
@@ -174,7 +175,7 @@ $("document").ready(function (e) {
                             $('.alert-success strong').text(Messages.InsertionSuccessFull);
 
                             AutoScrollToAlertBox();
-                         
+                           
                            
                         }
                         if (result != "1" && result!="2" && result!="3") {
@@ -189,33 +190,38 @@ $("document").ready(function (e) {
     //Add banner
 
     $(".addBanner").live({
-        click: function (e) {// submit button click         
+        click: function (e) {
+
+            debugger;
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            var boutiquid = $("#hdfBoutiqueID").val();
+            var BoutiqueID = $("#hdfBoutiqueID").val();
+            var CreatedBy = $("#hdfCreatedBy").val();
+
+            var BannerImgID = $("#hdfBannerImgID").val();
             var result = "";
             var Boutique = new Object();
 
             Boutique.ProductID = $(".products").val();
             Boutique.CategoryCode = $(".categories").val();
          
-            if (boutiquid != null) {
+            if (BoutiqueID != null) {
                 var imgresult = "";
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
                 var imagefile, logoFile, img;
 
-                if ((imagefile = $('#imageUpload')[0].files[0]) != undefined) {
+                if ((imagefile = $('#BannerUpload')[0].files[0]) != undefined) {
                     img = new Image();
                     //img.onload = function ()
                     //{
-                    var image = $('#imageUpload')[0].files[0];
+                    var image = $('#BannerUpload')[0].files[0];
 
 
                     formData.append('imagefiles', image, imagefile.name);
-                    formData.append('', boutiquid);
-
+                    
                     //};
                 }
                 else {
@@ -227,10 +233,15 @@ $("document").ready(function (e) {
                 
                 formData.append('ProductID', Boutique.ProductID);
                 formData.append('CategoryCode', Boutique.CategoryCode);
-                formData.append('BoutiqueId', boutiquid);
+                formData.append('BtqID', BoutiqueID);
+                formData.append('CreatedBy', CreatedBy);
+                formData.append('BannerImgID', BannerImgID);
                
-                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
-                if (result == "1" || result == "2" || result == "3") {
+                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
+                if (result == "1") {
+
+                    BindAllBannerImages();
+
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
                     $('.alert-success strong').text(Messages.InsertionSuccessFull);
@@ -239,7 +250,7 @@ $("document").ready(function (e) {
 
 
                 }
-                if (result != "1" && result != "2" && result != "3") {
+                if (result != "1" ) {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                     $('.alert-error strong').text(Messages.InsertionFailure);
@@ -248,7 +259,25 @@ $("document").ready(function (e) {
         }
     })
     
+    //--- Banner reorder
 
+    //$("#imageholder").sortable({
+
+       
+
+    //    update: function (event, ui) {
+
+    //        debugger;
+
+
+    //    }//when div image is reordered
+    //});
+    //$("#imageholder").disableSelection();
+
+    //if (LoginUserRole[0] != Roles.Manager) {
+    //    BindAllImages();//list li of product images when images uploaded
+
+    //}
 
     //Style setting for client side Validation
     //CreatedBy Thomson
@@ -678,12 +707,14 @@ function AddOwner()
 //end Validation and Insert For Adding Owner
 
 function BindAllBannerImages() {
-    debugger;
+   
+    $("#productimagehold").find(".masonry-thumb").remove();
+
     var imagedivholder = $('#productimagehold');
    
     var totalimages = {};
     totalimages = GetAllBannerImages();
-    debugger;
+  
     for (var i = 0; i < totalimages.length; i++) {
 
         var html = ('<div class="masonry-thumb port-1 effect-2" >'

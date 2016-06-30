@@ -317,9 +317,9 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             if (UA.BoutiqueID != "")
             {
-                //boutiqueObj.BoutiqueID = UA.BoutiqueID;
+                boutiqueObj.BoutiqueID = UA.BoutiqueID;
 
-                boutiqueObj.BoutiqueID = "E4CE4213-B1DC-443F-8576-4778F35E7383";
+                //boutiqueObj.BoutiqueID = "E4CE4213-B1DC-443F-8576-4778F35E7383";
 
 
                 DataSet ds = null;

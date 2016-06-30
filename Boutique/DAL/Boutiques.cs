@@ -9,6 +9,13 @@ namespace Boutique.DAL
 {
     public class Boutiques
     {
+        #region Global Variables
+
+        DAL.Security.UserAuthendication UA;
+        UIClasses.Const Const = new UIClasses.Const();
+
+        #endregion Global variables
+
         #region properties
         public string BoutiqueID
         {
@@ -764,13 +771,15 @@ namespace Boutique.DAL
                  cmd.Connection = dcon.SQLCon;
                  cmd.CommandType = CommandType.StoredProcedure;
                  cmd.CommandText = "InsertBannerImage";
-                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                
                  cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
-
                  cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                  cmd.Parameters.Add("@FileType", SqlDbType.VarChar, 5).Value = FileType;
+                 if (ProductID != "" && ProductID != null) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                 if (CategoryCode != "" && CategoryCode != null) cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
                  cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                  cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+
                  outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                  outParameter.Direction = ParameterDirection.Output;
                  cmd.ExecuteNonQuery();
