@@ -134,11 +134,36 @@ namespace Boutique.DAL
             set;
         }
 
+        //--- Banner properties
+
         public string ImageID
         {
             get;
             set;
         }
+
+        public string ProductID
+        {
+            get;
+            set;
+        }
+
+        public string CategoryCode
+        {
+            get;
+            set;
+        }
+        public byte[] ImageFile//of images
+        {
+            get;
+            set;
+        }
+        public string FileType
+        {
+            get;
+            set;
+        }
+
         #endregion properties
 
         #region Methods
@@ -582,6 +607,8 @@ namespace Boutique.DAL
         }
         #endregion GetBoutiqueLogo
 
+        //---Banner
+
         #region Get banner images for mobile
         /// <summary>
         /// Getting Banner images batatable for mobile app (including varbinary images)
@@ -717,6 +744,53 @@ namespace Boutique.DAL
 
          }
          #endregion GetBannerImageByImageID
+
+         #region Insert Banner Image
+         public Int16 InsertBannerImage()
+         {
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlParameter outParameter = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "InsertBannerImage";
+                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
+
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@FileType", SqlDbType.VarChar, 5).Value = FileType;
+                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //insert success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+
+         }
+         #endregion Insert Banner Image
 
         #endregion Methods
 

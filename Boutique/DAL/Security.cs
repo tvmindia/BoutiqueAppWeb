@@ -42,6 +42,7 @@ namespace Boutique.DAL
             private string userN;
             private string RoleName;
             private string Currency_FormatCode;
+            private string CurrencySymbol;
 
             public string userName
             {
@@ -92,6 +93,15 @@ namespace Boutique.DAL
 
 
             }
+
+            public string BoutiqueCurrencySymbol
+            {
+            get
+                {
+                    return CurrencySymbol;
+                }
+            }
+
             public string Role
             {
                 get
@@ -144,6 +154,7 @@ namespace Boutique.DAL
                         RoleName = dt.Rows[0]["RoleName"].ToString();
                         Currency_FormatCode = dt.Rows[0]["FormatCode"].ToString();
                         Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
+                        CurrencySymbol = dt.Rows[0]["Symbol"].ToString();   
                     }
 
                     else
@@ -155,7 +166,7 @@ namespace Boutique.DAL
             }
 
             #endregion  User Authentication
-            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode)
+            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode, string symbol)
             {
                 Boutique_ID = BoutiqueID;
                 isValidUser = true;
@@ -164,6 +175,7 @@ namespace Boutique.DAL
                 RoleName = RoleNam;
                 Boutique_CurrencyCode = CurrencyCode;
                 Currency_FormatCode = FormatCode;
+                CurrencySymbol = symbol;
             }
             #region Get Login Details
             public DataTable GetLoginDetails(string LoginName)

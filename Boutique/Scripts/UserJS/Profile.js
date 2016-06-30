@@ -186,7 +186,70 @@ $("document").ready(function (e) {
         }
     })    
 
- 
+    //Add banner
+
+    $(".addBanner").live({
+        click: function (e) {// submit button click         
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var boutiquid = $("#hdfBoutiqueID").val();
+            var result = "";
+            var Boutique = new Object();
+
+            Boutique.ProductID = $(".products").val();
+            Boutique.CategoryCode = $(".categories").val();
+         
+            if (boutiquid != null) {
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile, logoFile, img;
+
+                if ((imagefile = $('#imageUpload')[0].files[0]) != undefined) {
+                    img = new Image();
+                    //img.onload = function ()
+                    //{
+                    var image = $('#imageUpload')[0].files[0];
+
+
+                    formData.append('imagefiles', image, imagefile.name);
+                    formData.append('', boutiquid);
+
+                    //};
+                }
+                else {
+                    imagefile = "";
+                    //formData.append('imagefiles', imagefile, imagefile.name);
+                    formData.append('imagefiles', imagefile.name);
+                }
+             
+                
+                formData.append('ProductID', Boutique.ProductID);
+                formData.append('CategoryCode', Boutique.CategoryCode);
+                formData.append('BoutiqueId', boutiquid);
+               
+                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+                if (result == "1" || result == "2" || result == "3") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                    $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+                    AutoScrollToAlertBox();
+
+
+                }
+                if (result != "1" && result != "2" && result != "3") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text(Messages.InsertionFailure);
+                }
+            }
+        }
+    })
+    
+
+
     //Style setting for client side Validation
     //CreatedBy Thomson
 
@@ -200,6 +263,19 @@ $("document").ready(function (e) {
     });
 
     //end styling client validation
+
+//-----bind Dropdowns
+    $(".products").select2({
+        placeholder: "Choose related product",
+        allowClear: true,
+        data: BindProductDropdown()
+    });
+    $(".categories").select2({
+        allowClear: true,
+        placeholder: "Choose related category",
+        data: BindCategoryDropdown()
+    });
+
 
     BindAllBannerImages();
 
@@ -644,6 +720,42 @@ function GetAllBannerImages() {
     var table = {};
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
     ds = getJsonData(data, "../AdminPanel/Profile.aspx/GetAllBannerImages");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
+function BindProductDropdown() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllProducts(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+
+function GetAllProducts(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function BindCategoryDropdown() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllCategories(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+function GetAllCategories(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
     table = JSON.parse(ds.d);
     return table;
 }
