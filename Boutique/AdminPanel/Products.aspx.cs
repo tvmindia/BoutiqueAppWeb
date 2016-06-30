@@ -63,9 +63,6 @@ namespace Boutique.AdminPanel
                         productObj.CreatedBy = UA.userName;
                         //returns status and productid
                         productObj.status = productObj.InsertProduct().ToString();
-
-
-
                     }
                 }
                 else

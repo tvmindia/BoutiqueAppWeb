@@ -50,6 +50,7 @@ namespace Boutique.ImageHandler
                     if (!string.IsNullOrEmpty(fileName))
                     {
                         fileExtension = Path.GetExtension(fileName);
+
                         str_image = "MyPHOTO_" + fileExtension;
                       //  string pathToSave_100 = HttpContext.Current.Server.MapPath("~/MediaUploader/") + str_image;
                       //  file.SaveAs(pathToSave_100);
@@ -130,7 +131,45 @@ namespace Boutique.ImageHandler
                        // prodobj.InsertProductImage();
 
 
+                        if (  context.Request.Form.GetValues("BannerImgID") == null || context.Request.Form.GetValues("BannerImgID")[0] == string.Empty)
+                        {
+                            if (context.Request.Files[s] == context.Request.Files["imagefiles"])
+                            {
+                                image = new byte[file.ContentLength];
+                                file.InputStream.Read(image, 0, file.ContentLength);
+                            }
 
+                            boutiqueObj.ImageFile = image;
+                            boutiqueObj.FileType = fileExtension;
+
+
+                            string[] boutiqueID = context.Request.Form.GetValues("BtqID");
+                            string[] CreatedBy = context.Request.Form.GetValues("CreatedBy");
+                            string[] ProductID = context.Request.Form.GetValues("ProductID");
+                            string[] CategoryCode = context.Request.Form.GetValues("CategoryCode");
+
+                            if (boutiqueID != null)
+                            {
+                                boutiqueObj.BoutiqueID = boutiqueID[0];
+                            }
+                            if (CreatedBy != null)
+                            {
+                                boutiqueObj.CreatedBy = CreatedBy[0];
+                            }
+
+                            if (ProductID != null)
+                            {
+                                boutiqueObj.ProductID = ProductID[0];    
+                            }
+                            var v = context.Request.Form.GetValues("BannerImgID");
+
+                            if (CategoryCode != null)
+                            {
+                            boutiqueObj.CategoryCode = CategoryCode[0];    
+                            }
+                            
+                            result = boutiqueObj.InsertBannerImage().ToString();
+                        }
 
 
 
@@ -170,6 +209,7 @@ namespace Boutique.ImageHandler
                     boutiqueObj.Latitude = latitude[0];
                   result= boutiqueObj.EditBoutique().ToString();
                 }
+
                 //  database record update logic here  ()
                 context.Response.Write(result);
                 //context.Response.Write(str_image);

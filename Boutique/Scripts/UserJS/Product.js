@@ -1,6 +1,6 @@
 ﻿var LoginUserRole = '';
 $("document").ready(function (e) {
-   
+    $('#lblproductno').hide();
     parent.document.title = Pages.Products;
     LoginUserRole = getRole(); //common function To Get Role
    //query string from dashboard for tab selection
@@ -151,19 +151,11 @@ $("document").ready(function (e) {
     
     $(".DeleteProduct").live({
         click: function (e) {// Delete button click
-
-            //if (confirm("You are about to Delete the product!..")) {
             var e = $("#hdfproductID").val();
             var p = "";
             DeleteCustomAlert("Are you sure?", e, p);
-
-
-            //}
         }
     })
-
-
-
     $(".imgdelete").live({
         click: function (e) {// Clear controls
             $('#rowfluidDiv').hide();
@@ -438,8 +430,10 @@ $("document").ready(function (e) {
     });
 
 
+    
+
     $(".btnsearchnewproducts").click(function (e) { //user clicks on button
-        debugger;
+      
         var search = $("#txtsearchnewproducts").val();
         if (search != '') {
             $("#productimagehold").find(".masonry-thumb").remove();
@@ -488,6 +482,26 @@ $("document").ready(function (e) {
         $(this).css({ background: 'white' });
         $('#ErrorBox').slideUp(1000);
     });
+
+
+    $(".btnRefreshnewproducts").click(function (e) {//
+
+        //BindAllProductImagesForEventLoad(0);
+       
+        location.reload();
+
+    });
+    $(".btnRefreshtrends").click(function (e) {//
+
+        location.reload();
+    });
+    $(".btnRefreshoutofproduct").click(function (e) {//
+        location.reload();
+    });
+
+
+
+
 
 });//end of document.ready
 function FillDetails(objthis)
@@ -555,7 +569,7 @@ function DeleteItem(e, p) {
 
 function BindProductTextBoxes(thisobject)
 {
-    debugger;
+   
     var productname=$(thisobject).find(".proname").text();
     //var productname = $(thisobject).attr('pname');
    
@@ -623,6 +637,7 @@ function BindProductTextBoxes(thisobject)
     $('.DeleteProduct').show();
     $('#IframeProjectSwitching').show();
     $('#idproductno').text(productno);
+    $('#lblproductno').show();
 
 }
 
@@ -1047,9 +1062,10 @@ function MultiImageBind(Records, index) {
     div.appendChild(del);
     if (Records.IsMain === true) {
         //  chk.checked = true;
-        chk.setAttribute("checked", true);
+        chk.setAttribute("checked", "checked");
         del.style.visibility = 'hidden';
     }
+    
   
     divPre.appendChild(div);
     div.appendChild(chk);
@@ -1294,6 +1310,8 @@ function clearProductControls() {
     $("#Preview").find(".imgpreviewdiv").remove();
     $('#IframeProjectSwitching').hide();
     $("#previewmsg").text('');
+    $('#lblproductno').hide();
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1731,23 +1749,16 @@ function EditProduct()
         //});
 
         $('#Preview div').each(function (index) {
-            //val.push($(this).attr('id'));
             var idval = $(this).attr('id');
-            var curdiv = $(this);
-            debugger;
-            orderno = index;
             ImageInfo.push(idval);
-            //var chkflag = $(this).find(".checkDes").checked;
-            //var chkflag = document.getElementById("checkDes" + index).checked;
-            var chkflag = curdiv.find(".checkDes");
-            debugger;
-            if (chkflag == true) {
-                debugger;
-                Product.MainImageID = idval;
-            }
-            debugger
-
-        });
+            $(this).find("input:checkbox").each(function () {
+                if ($(this).attr('checked'))
+                {
+                    Product.MainImageID = $(this).parent().attr("id");
+                   
+                }
+               });
+              });
         Product.ImageInfo = ImageInfo;
         //productimage id and order number
         result = UpdateProduct(Product);

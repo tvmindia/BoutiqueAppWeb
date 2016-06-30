@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="Boutique.AdminPanel.Products" %>
+﻿
+<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="Boutique.AdminPanel.Products" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -135,7 +136,7 @@
 								<label class="control-label">New Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchnewproducts" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
+									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchnewproducts" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -170,7 +171,7 @@
 								<label class="control-label">Trending Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchtrends" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
+									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchtrends" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshtrends" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -205,7 +206,7 @@
 								<label class="control-label">Out Of Stocks</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchoutofstock" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
+									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchoutofstock" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshoutofproduct" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -284,7 +285,7 @@
 								 <label class="control-label" for="focusedInput">Price</label>
 								<div class="controls">
                                       <div class="input-prepend">
-								  <span class="add-on">Rs</span><input class="input-large focused" id="txtPrice" type="text"/>
+								  <span class="add-on">Rs</span><input class="input-medium focused" id="txtPrice" type="text"/>
                                       </div>
 								</div>
 								</div>
@@ -294,7 +295,7 @@
 								 <label class="control-label" for="focusedInput">Discount</label>
 								<div class="controls">
                                      <div class="input-prepend">
-								  <span class="add-on">Rs</span><input class="input-large focused" id="txtDiscount" type="text"/>
+								  <span class="add-on">Rs</span><input class="input-medium focused" size="25" id="txtDiscount" type="text"/>
                                          </div>
 								</div>
 								</div>
@@ -363,7 +364,7 @@
                                <div class="control-group">
                                </div>
                                <div class="control-group">
-                                     <label class="control-label" for="focusedInput">Product No: <span id="idproductno" class=""></span></label>
+                                     <label class="control-label" id="lblproductno" for="focusedInput">Product No: <span id="idproductno" class=""></span></label>
 							    </div>
                                <div class="control-group">
                                  
@@ -386,8 +387,8 @@
               <footer class="InnerFooter">
                           <a class="btn btn-primary AddProduct" onclick="return ProductValidation();" href="#">Save</></a>
                           <a class="btn btn-primary ModifyProduct" onclick="return ProductValidationEdit();" href="#"><i class="halflings-icon th"></i>Save</></a>
-						  <a class="btn btn-primary DeleteProduct" href="#">Delete</></a>
-                          <a class="btn CancelProduct">Cancel</a>
+						  <a class="btn btn-danger DeleteProduct" href="#">Delete</></a>
+                          <a class="btn btn-primary CancelProduct">New</a>
 						
              </footer> 
              

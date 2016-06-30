@@ -398,7 +398,7 @@
                                  <%--Gallery new products--%>
                                  <div class="row-fluid">
 				           
-						          <div class="imageholder" style="width:100%;" id="productimagehold">
+						          <div class="imageholder" style="width:100%;" id="BannerImageholder">
 									
 								
 				    	         </div>
@@ -406,7 +406,73 @@
 			                    </div>
                                  <%--Gallery new products--%>
 
+                            <br />
 
+
+                            <div class="row-fluid" id="productDetailsDiv" runat="server">
+
+              <div class="box span12" style="box-shadow:0 0 0 0!important;height:250px;">
+                  <div class="span12">
+                    <div class="box-header">
+						<h2 id="editLabel1">New Banner</h2>
+						<div class="box-icon">
+							
+						</div>
+					</div>
+					<div class="span6" >
+						<div class="form-horizontal">
+                            <div class="alert alert-error" id="ErrorBox1" style="display:none;">
+                                <div id="Displaydiv1">
+
+                                </div>
+                            </div>
+						
+
+                            <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Banner</label>
+                                                    <div class="controls">
+                                                        <input id="BannerUpload" type="file" size="90" name="myfile" />
+                                                    </div>
+                                                </div>
+
+
+                             <div class="control-group">
+                                                    <label class="control-label" for="products">Related Product</label>
+                                                    <div class="controls">
+                                                        <select class="products">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="control-group">
+                                                    <label class="control-label" for="categories">Related Category</label>
+                                                    <div class="controls">
+                                                        <select class="categories">
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                             
+
+						</div>
+                    </div>
+                    <div class="span5"  >
+                        
+                       
+                    </div>
+                  </div>
+                   
+              </div>
+                <footer class="InnerFooter">
+                                        <a class="btn btn-primary addBanner"  href="#">Save</></a>
+                                        <a class="btn bannerCancel">Cancel</a>
+                                    </footer>
+             
+         </div>
 
 
                         </div>
@@ -431,4 +497,6 @@
     <input type="hidden" id="hdfOwnerID" value="" />
     <input type="hidden" id="hdfUserID" value="" />
 
+      <input type="hidden" id="hdfBannerImgID" value="" />
+     <input type="hidden" id="hdfCreatedBy" value="" />
 </asp:Content>

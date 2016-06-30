@@ -11,6 +11,7 @@ $("document").ready(function (e) {
 
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
+    $('#hdfCreatedBy').val(LoginUserRole[1]);
 
     BindAsyncOwnerTable();
     $('#OwnerTable').DataTable({
@@ -174,7 +175,7 @@ $("document").ready(function (e) {
                             $('.alert-success strong').text(Messages.InsertionSuccessFull);
 
                             AutoScrollToAlertBox();
-                         
+                           
                            
                         }
                         if (result != "1" && result!="2" && result!="3") {
@@ -186,7 +187,135 @@ $("document").ready(function (e) {
         }
     })    
 
- 
+    //Add banner
+
+    $(".addBanner").live({
+        click: function (e) {
+
+            debugger;
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var BoutiqueID = $("#hdfBoutiqueID").val();
+            var CreatedBy = $("#hdfCreatedBy").val();
+
+            var BannerImgID = $("#hdfBannerImgID").val();
+            var result = "";
+            var Boutique = new Object();
+
+            Boutique.ProductID = $(".products").val();
+            Boutique.CategoryCode = $(".categories").val();
+         
+            if (BoutiqueID != null) {
+                var imgresult = "";
+                var _URL = window.URL || window.webkitURL;
+                var formData = new FormData();
+                var imagefile, logoFile, img;
+
+                if ((imagefile = $('#BannerUpload')[0].files[0]) != undefined) {
+                    img = new Image();
+                    //img.onload = function ()
+                    //{
+                    var image = $('#BannerUpload')[0].files[0];
+
+
+                    formData.append('imagefiles', image, imagefile.name);
+                    
+                    //};
+                }
+                else {
+                    imagefile = "";
+                    //formData.append('imagefiles', imagefile, imagefile.name);
+                    formData.append('imagefiles', imagefile.name);
+                }
+             
+                
+                formData.append('ProductID', Boutique.ProductID);
+                formData.append('CategoryCode', Boutique.CategoryCode);
+                formData.append('BtqID', BoutiqueID);
+                formData.append('CreatedBy', CreatedBy);
+                formData.append('BannerImgID', BannerImgID);
+               
+                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
+                if (result == "1") {
+
+                    BindAllBannerImages();
+
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                    $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+                    AutoScrollToAlertBox();
+
+
+                }
+                if (result != "1" ) {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text(Messages.InsertionFailure);
+                }
+            }
+        }
+    })
+    
+    //--- Banner reorder
+
+    $("#BannerImageholder").sortable({
+
+       
+
+        update: function (event, ui) {
+
+            debugger;
+
+            var ImageInfo = [];
+            var idval, orderno;
+
+            $('#BannerImageholder img').each(function (index) {
+
+                debugger;
+                var idval = $(this).attr('id');
+                ImageInfo.push(idval);
+               
+            });
+
+            var Boutique = new Object();
+
+            Boutique.ImageInfo = ImageInfo;
+
+            result = UpdateorderNoOfBannerImage(Boutique);
+
+            if (result.status == "1") {
+            
+                BindAllBannerImages();
+            //$('#rowfluidDiv').show();
+            //$('.alert-success').show();
+            //$('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+            //AutoScrollToAlertBox();
+
+
+        }
+               //else {
+               //     $('#rowfluidDiv').show();
+               //     $('.alert-error').show();
+               //     $('.alert-error strong').text(Messages.InsertionFailure);
+               // }
+
+
+           
+
+
+        }//when div image is reordered
+    });
+    $("#BannerImageholder").disableSelection();
+
+    //if (LoginUserRole[0] != Roles.Manager) {
+    //    BindAllImages();//list li of product images when images uploaded
+
+    //}
+
     //Style setting for client side Validation
     //CreatedBy Thomson
 
@@ -200,6 +329,19 @@ $("document").ready(function (e) {
     });
 
     //end styling client validation
+
+//-----bind Dropdowns
+    $(".products").select2({
+        placeholder: "Choose related product",
+        allowClear: true,
+        data: BindProductDropdown()
+    });
+    $(".categories").select2({
+        allowClear: true,
+        placeholder: "Choose related category",
+        data: BindCategoryDropdown()
+    });
+
 
     BindAllBannerImages();
 
@@ -602,19 +744,21 @@ function AddOwner()
 //end Validation and Insert For Adding Owner
 
 function BindAllBannerImages() {
-    debugger;
-    var imagedivholder = $('#productimagehold');
+   
+    $("#BannerImageholder").find(".masonry-thumb").remove();
+
+    var imagedivholder = $('#BannerImageholder');
    
     var totalimages = {};
     totalimages = GetAllBannerImages();
-    debugger;
+  
     for (var i = 0; i < totalimages.length; i++) {
 
         var html = ('<div class="masonry-thumb port-1 effect-2" >'
            + ''
-           + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '"></img></div>'
+           + '<div class="image-box"><img id="' + totalimages[i].ImageID + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '"></img></div>'
            + '<div class="productDetailsdiv text-desc">'
-           + '<a class="btn btn-toolbar" style="border:1px solid white" " productno=' + 'A' + '  productid=' + 'A' + ' bannerImgID=' + totalimages[i].ImageID + ' pname=' + 'A' + ' pprice=' + 'A' + ' isoutstock=' + 'A' + ' isactive=' + 'A' + ' categories=' + 'A' + ' designers=' + 'A' + ' designerName=' + 'A' + ' discount=' + 'A' + '><i class="halflings-icon white edit"></i></a>'
+           + '<a class="btn btn-toolbar" style="border:1px solid white" " ProductID=' + totalimages[i].ProductID + '  CategoryCode=' + totalimages[i].CategoryCode + ' bannerImgID=' + totalimages[i].ImageID + ' pname=' + 'A' + ' pprice=' + 'A' + ' isoutstock=' + 'A' + ' isactive=' + 'A' + ' categories=' + 'A' + ' designers=' + 'A' + ' designerName=' + 'A' + ' discount=' + 'A' + '><i class="halflings-icon white edit"></i></a>'
            + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '" data-lightbox="' + totalimages[i].ImageID + '" data-title="' + 'A' + '"><i class="icon-zoom-in"></i></a>'
            //+ '<div class="prodet"><span>Code:  </span><span>' + 'A' + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + 'A' + '</span></div><div class="prodet"><span>Price:  ₹  ' + 'A' + '</span></div><div class="prodet><span>Discount:  ₹ ' + 'A' + '</span></span></div><span class="pdescription" style="display:none;">' + 'A' + '</span></div>'
            + '</div>');
@@ -646,4 +790,52 @@ function GetAllBannerImages() {
     ds = getJsonData(data, "../AdminPanel/Profile.aspx/GetAllBannerImages");
     table = JSON.parse(ds.d);
     return table;
+}
+
+
+function BindProductDropdown() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllProducts(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+
+function GetAllProducts(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function BindCategoryDropdown() {
+    var jsonResult = {};
+    var Notify = new Object();
+    jsonResult = GetAllCategories(Notify);
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+function GetAllCategories(Notify) {
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Notify) + "}";
+    ds = getJsonData(data, "../AdminPanel/Category.aspx/GetAllCategoryIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
+function UpdateorderNoOfBannerImage(Boutique) {
+
+    
+    var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/UpdateorderNo");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
 }
