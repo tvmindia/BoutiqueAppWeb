@@ -96,5 +96,8 @@ input[type="checkbox"] {
 }
 .templatePreviewholder
 {
-   height:450px;
+   height:600px;
+}
+.modal{
+    margin-left:-329px;
 }

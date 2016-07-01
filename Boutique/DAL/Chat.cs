@@ -124,10 +124,6 @@ namespace Boutique.DAL
             {
                 throw new Exception("BoutiqueID is Empty!!");
             }
-            if (UserID == "")
-            {
-                throw new Exception("UserID is Empty!!");
-            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataTable dt = null;
@@ -141,7 +137,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetMessagesForMobile]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                if (UserID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 if(ReplyPersonID!="") cmd.Parameters.Add("@ReplyPersonID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ReplyPersonID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;

@@ -383,7 +383,6 @@ namespace Boutique.AdminPanel
          }
         #endregion UpdateorderNo
 
-
         #region UpdateorderNo
         [System.Web.Services.WebMethod]
         public static string UpdateBannerDetailsByImgID(Boutiques boutiqueObj)
@@ -420,7 +419,37 @@ namespace Boutique.AdminPanel
          }
         #endregion UpdateorderNo
 
+        #region Delete Banner
+        [System.Web.Services.WebMethod]
+        public static string DeleteBannerByImageID(Boutiques boutiqueObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
 
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            boutiqueObj.BoutiqueID = UA.BoutiqueID;
+
+            string status = null;
+            try
+            {
+
+                status = boutiqueObj.DeleteBannerByImageID().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+
+        #endregion Delete Banner
+
+        
         
     }
 }
