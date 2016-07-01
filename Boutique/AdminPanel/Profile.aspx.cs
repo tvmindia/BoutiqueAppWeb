@@ -306,7 +306,7 @@ namespace Boutique.AdminPanel
 
         //---------- * Banners *------------//
 
-        #region GetAllProductImages
+        #region GetAllBannerImages
 
         [System.Web.Services.WebMethod]
         public static string GetAllBannerImages(Boutiques boutiqueObj)
@@ -345,9 +345,9 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize("");
         }
 
-        #endregion GetAllProductImages
+        #endregion GetAllBannerImages
 
-        #region UpdateProduct
+        #region UpdateorderNo
         [System.Web.Services.WebMethod]
         public static string UpdateorderNo(Boutiques boutiqueObj)
         {
@@ -381,8 +381,75 @@ namespace Boutique.AdminPanel
 
             return jsSerializer.Serialize(boutiqueObj);
          }
-        #endregion UpdateProduct
+        #endregion UpdateorderNo
 
+        #region UpdateorderNo
+        [System.Web.Services.WebMethod]
+        public static string UpdateBannerDetailsByImgID(Boutiques boutiqueObj)
+        {
+        
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        boutiqueObj.BoutiqueID = UA.BoutiqueID;
+                        boutiqueObj.UpdatedBy = UA.userName;
+                        //returns status and productid
+                        boutiqueObj.status = boutiqueObj.UpdateBannerDetailsByImgID().ToString();
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return jsSerializer.Serialize(boutiqueObj);
+         }
+        #endregion UpdateorderNo
+
+        #region Delete Banner
+        [System.Web.Services.WebMethod]
+        public static string DeleteBannerByImageID(Boutiques boutiqueObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            boutiqueObj.BoutiqueID = UA.BoutiqueID;
+
+            string status = null;
+            try
+            {
+
+                status = boutiqueObj.DeleteBannerByImageID().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+
+        #endregion Delete Banner
+
+        
         
     }
 }

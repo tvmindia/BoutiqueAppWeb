@@ -871,6 +871,127 @@ namespace Boutique.DAL
          }
          #endregion Update orderNo
 
+         #region Update Banner Daetails
+         /// <summary>
+         /// to Update Banner Daetails (product,category) by image ID
+         /// </summary>
+         /// <returns>status</returns>
+         public Int16 UpdateBannerDetailsByImgID()
+         {
+
+             if (BoutiqueID == "" || BoutiqueID == null)
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             if (ImageID == "" || ImageID == null)
+             {
+                 throw new Exception("ImageID is Empty!!");
+             }
+
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlParameter outParameter = null;
+             
+             try
+             {
+                 
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[UpdateBannerDetailsByImageID]";
+
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+                 if (ProductID != "" && ProductID != null) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                 if (CategoryCode != "" && CategoryCode != null) cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+
+                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //update success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+
+         }
+         #endregion Update orderNo
+
+
+
+         #region DeleteBannerByImageID
+         /// <summary>
+        /// Delete boutique
+        /// </summary>
+        /// <param name="ImageID"></param>
+        /// <returns></returns>
+         public Int16 DeleteBannerByImageID()
+        {
+
+            if (BoutiqueID == "" || BoutiqueID == null)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            if (ImageID == "" || ImageID == null)
+            {
+                throw new Exception("ImageID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+          
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteBannerByImageID]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+         #endregion DeleteBannerByImageID
+
 
         #endregion Methods
 
