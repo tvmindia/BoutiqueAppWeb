@@ -18,7 +18,7 @@ namespace Boutique.AdminPanel
     public partial class Products : System.Web.UI.Page
     {
 
-        DAL.Security.UserAuthendication UA;
+        public DAL.Security.UserAuthendication UA;
         UIClasses.Const Const = new UIClasses.Const();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -37,6 +37,7 @@ namespace Boutique.AdminPanel
 
 
             }
+            this.DataBind();
           
         }
 
