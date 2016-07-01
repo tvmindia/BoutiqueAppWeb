@@ -864,7 +864,9 @@ function BindAllBannerImages() {
 function FillControlsOnEdit(objthis)
 {
     debugger;
-
+    $('html, body').animate({
+        scrollTop: $("#NewBanner").offset().top
+    });
 
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
@@ -1010,6 +1012,15 @@ function SetDefaultBannerImage()
 
 function ClearBannerControls()
 {
+    // Scroll page
+    var offset = $('#Banners').offset();
+    offset.left -= 20;
+    offset.top -= 200;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
+
     //$('#ErrorBox1').hide();
     //$('#Displaydiv1').hide();
 
