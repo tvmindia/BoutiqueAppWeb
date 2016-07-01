@@ -420,11 +420,11 @@
 						</div>
 					</div>
 
-                      <div class="alert alert-error" id="ErrorBox1" style="display:none;">
+                  <%--    <div class="alert alert-error" id="ErrorBox1" style="display:none;">
                                 <div id="Displaydiv1">
 
                                 </div>
-                            </div>
+                            </div>--%>
 
 
 					<div class="span6" >
