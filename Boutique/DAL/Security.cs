@@ -43,6 +43,18 @@ namespace Boutique.DAL
             private string RoleName;
             private string Currency_FormatCode;
             private string CurrencySymbol;
+            private string User_Id;
+
+
+
+            public string UserID
+            {
+                get
+                {
+                    return User_Id;
+                }
+            }
+
 
             public string userName
             {
@@ -154,7 +166,8 @@ namespace Boutique.DAL
                         RoleName = dt.Rows[0]["RoleName"].ToString();
                         Currency_FormatCode = dt.Rows[0]["FormatCode"].ToString();
                         Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
-                        CurrencySymbol = dt.Rows[0]["Symbol"].ToString();   
+                        CurrencySymbol = dt.Rows[0]["Symbol"].ToString();
+                        User_Id = dt.Rows[0]["UserID"].ToString();
                     }
 
                     else
