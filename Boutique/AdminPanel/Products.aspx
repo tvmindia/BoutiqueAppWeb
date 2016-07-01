@@ -144,10 +144,13 @@
                               
 
                                  <%--Gallery new products--%>
-                                 <div class="row-fluid">
+                                 <div class="row-fluid" id="newproductgaldiv">
 				           
 						          <div class="imageholder" style="width:100%;" id="productimagehold">
 									
+                                      
+
+
 								
 				    	         </div>
                           

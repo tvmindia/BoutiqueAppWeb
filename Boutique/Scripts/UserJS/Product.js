@@ -486,9 +486,21 @@ $("document").ready(function (e) {
 
     $(".btnRefreshnewproducts").click(function (e) {//
 
-        //BindAllProductImagesForEventLoad(0);
+        BindAllProductImagesForEventLoad(0);
        
-        location.reload();
+        // galerydiv.hide();
+      
+        //Dupliload(0);
+        //var $mars = $('.imageholder').masonry(
+        //  {
+
+        //      itemSelector: '.masonry-thumb',
+
+       //   });
+      //  $mars.imagesLoaded().progress(function () {
+      //      $mars.masonry('layout');
+     //   });
+       // location.reload();
 
     });
     $(".btnRefreshtrends").click(function (e) {//
@@ -1316,6 +1328,57 @@ function clearProductControls() {
 ////
 ////All Product Images
 ///
+function Dupliload(Pagevalue) {
+    debugger;
+  //  var imagedivholder = $('#productimagehold');
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+    //inserts from code behind
+    var totalimages = {};
+    totalimages = GetAllProductsImageDetailsunderBoutique(Product);
+    $("#newproductgaldiv").find(".imageholder").remove();
+    var parentdiv = $("#newproductgaldiv");
+
+    var dynamicdiv = document.createElement('div');
+    dynamicdiv.setAttribute("id", "productimagehold");
+    dynamicdiv.className = "imageholder";
+    parentdiv.append(dynamicdiv);
+
+
+    var $mars = $('.imageholder');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            if (totalimages[i].IsOutOfStock == false) {
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            }
+        }
+        if (totalimages[i].Discount === null) {
+            if (totalimages[i].IsOutOfStock == false) {
+
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+            }
+        }
+        if (totalimages[i].IsOutOfStock == true) {
+            if (totalimages[i].Discount != null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+            }
+            if (totalimages[i].Discount == null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+            }
+        }
+    }
+    $mars.append(elems);
+    $mars.masonry('appended', elems);
+    return totalimages.length;
+}
 function BindAllProductImagesForEventLoad(Pagevalue) {
     var imagedivholder = $('#productimagehold');
     var Product = new Object();
@@ -1334,16 +1397,13 @@ function BindAllProductImagesForEventLoad(Pagevalue) {
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-       
-
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                 elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
             }
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
         
                     elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
-
                 }
             }
             if (totalimages[i].IsOutOfStock == true) {
@@ -1750,8 +1810,7 @@ function EditProduct()
             $(this).find("input:checkbox").each(function () {
                 if ($(this).attr('checked'))
                 {
-                    Product.MainImageID = $(this).parent().attr("id");
-                   
+                    Product.MainImageID = $(this).parent().attr("id");                  
                 }
                });
               });
