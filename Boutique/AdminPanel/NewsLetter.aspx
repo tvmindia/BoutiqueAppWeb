@@ -24,8 +24,8 @@
    
     <style>
  .modal{
-     height:85%;
-     width:50%;
+     height:600px;
+     width:700px;
     }
     </style>
 
@@ -125,6 +125,10 @@
                                 </div>
                             </div>
                             <div class="control-group">
+                                     <label class="" id="lblproductno" for="focusedInput">You Have Selected <span id="idSelectedImageCount" class=""></span>products out of <span id="idImageCount" class=""> </span></label>
+							    <%--document.getElementById('idImageCount').innerHTML = 4;--%>
+                                 </div>
+                            <div class="control-group">
                                  <div class="NewsletterImageholder" id="NewsLetterimagehold">
                              </div>
                             </div>
@@ -193,7 +197,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h3 class="modal-title">Template Preview</h3>
                     </div>
-                    <div class="modal-body" style=""> 
+                    <div class="modal-body" style="max-height: 475px;"> 
                         <div id="HtmlPreviewDisplay">
 
                         </div>

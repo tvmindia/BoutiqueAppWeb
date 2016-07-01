@@ -115,7 +115,7 @@ namespace Boutique.ImageHandler
                 if ((context.Request.QueryString["templateID"] != null) && (context.Request.QueryString["templateID"] != ""))
                 {
                     NewsLetters newsObj = new NewsLetters();
-                    newsObj.TemplateID = Guid.Parse(context.Request.QueryString["templateID"]);
+                    newsObj.TemplateID = Guid.Parse(context.Request.QueryString["templateID"]).ToString();
                     ds = newsObj.GetAllTemplateDetails();
                     string template =ds.Tables[0].Rows[0]["TemplateFile"].ToString();
                     int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
