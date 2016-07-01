@@ -442,6 +442,9 @@ function DeleteItem(e,p)
         if (result== "1") {
             $('#rowfluidDiv').show();
             $('.alert-success').show();
+            $('.alert-success strong').text(Messages.DeletionSuccessFull);
+
+
             AutoScrollToAlertBox();
             ClearBannerControls();
             BindAllBannerImages();
@@ -449,6 +452,7 @@ function DeleteItem(e,p)
         if (result != "1") {
             $('#rowfluidDiv').show();
             $('.alert-error').show();
+            $('.alert-error strong').text(Messages.DeletionFailure);
             AutoScrollToAlertBox();
             BindAllBannerImages();
         }
@@ -940,7 +944,7 @@ function FillControlsOnEdit(objthis)
 
     if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
         $("#imageList1").find(".thumb").remove();
-
+        $("#imageList1").find(".imgdelete").remove();
         //var divPre = document.getElementById("Preview");
         //divPre.className = 'Maindiv';
 
@@ -1069,6 +1073,7 @@ function SetDefaultBannerImage()
 {
     if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
         $("#imageList1").find(".thumb").remove();
+        $("#imageList1").find(".imgdelete").remove();
 
         var span = document.createElement('span');
 
