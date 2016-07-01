@@ -109,7 +109,11 @@ namespace Boutique.ImageHandler
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
 
-
+                    else
+                    {
+                        context.Response.ContentType = "image/png";
+                        context.Response.WriteFile("~/img/No-Img_Chosen.png");
+                    }
                 }
 
                 if ((context.Request.QueryString["templateID"] != null) && (context.Request.QueryString["templateID"] != ""))
