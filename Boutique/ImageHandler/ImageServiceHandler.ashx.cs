@@ -84,6 +84,7 @@ namespace Boutique.ImageHandler
                     byte[] productimg = designObj.GetDesignerImage();
                     if (productimg != null)
                     {
+
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
@@ -109,11 +110,11 @@ namespace Boutique.ImageHandler
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
 
-                    else
-                    {
-                        context.Response.ContentType = "image/png";
-                        context.Response.WriteFile("~/img/No-Img_Chosen.png");
-                    }
+                    //else
+                    //{
+                    //    context.Response.ContentType = "image/png";
+                    //    context.Response.WriteFile("~/img/No-Img_Chosen.png");
+                    //}
                 }
 
                 if ((context.Request.QueryString["templateID"] != null) && (context.Request.QueryString["templateID"] != ""))
