@@ -513,6 +513,59 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+        /// <summary>
+        /// Reply person's login in chatting app
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public string ChatAppUserLogin(string username, string password)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Security.UserAuthendication user = new Security.UserAuthendication(username, password);
+                if (user.ValidUser)
+                {
+                    dt.Columns.Add("Flag", typeof(Boolean));
+                    dt.Columns.Add("BoutiqueName", typeof(String));
+                    dt.Columns.Add("BoutiqueID", typeof(String));
+                    dt.Columns.Add("RoleName", typeof(String));
+                    dt.Columns.Add("UserID", typeof(String));
+                    DataRow dr = dt.NewRow();
+                    dr["Flag"] = true;
+                    dr["BoutiqueName"] = user.Boutique;
+                    dr["BoutiqueID"] = user.BoutiqueID;
+                    dr["RoleName"] = user.Role;
+                    dr["UserID"] = user.UserID;
+                    dt.Rows.Add(dr);
+                }
+                else
+                {
+                    dt.Columns.Add("Flag", typeof(Boolean));
+                    dt.Columns.Add("Message", typeof(String));
+                    DataRow dr = dt.NewRow();
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                    dt.Rows.Add(dr);
+                }
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion User
 
         #region Favorites
