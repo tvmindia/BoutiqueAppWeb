@@ -458,6 +458,8 @@ function handleBannerSelect(evt) {
     reader.onload = (function (theFile) {
         return function (e) {
             // Render thumbnail.
+
+           
             var span = document.createElement('span');
             span.innerHTML = ['<img class="thumb" src="', e.target.result,
                              '" title="', escape(theFile.name), '"/>'].join('');
@@ -842,6 +844,26 @@ function FillDetails(objthis)
     {
         $(".categories").val(CatgryCode).trigger("change");
     }
+
+
+    if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
+        $("#imageList1").find(".thumb").remove();
+
+        var span = document.createElement('span');
+
+        img1 = document.createElement('img');
+        img1.src = "../ImageHandler/ImageServiceHandler.ashx?bannerImgID=" + ImageID;
+
+        img1.className = "thumb";
+       
+        var divPre = document.getElementById("imageList1");
+        
+        divPre.appendChild(img1);
+
+
+    }
+
+
 }
 
 
