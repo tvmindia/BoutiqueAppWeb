@@ -499,14 +499,10 @@ $("document").ready(function (e) {
         location.reload();
     });
 
-
-
-
-
 });//end of document.ready
 function FillDetails(objthis)
 {
-    debugger;
+  
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -914,7 +910,7 @@ function HtmlBindProductWithOffer(totalimages)
 }
 function HtmlBindProductWithoutOffer(totalimages)
 {
-    debugger;
+  
     var html = ('<div class="masonry-thumb port-1 effect-2" >'
             + ''
             + '<div class="image-box"><img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
@@ -927,7 +923,7 @@ function HtmlBindProductWithoutOffer(totalimages)
 }
 function HtmlBindProductOutOfStockWithOffer(totalimages)
 {
-    debugger;
+   
     var html = ('<div class="masonry-thumb" productno=' + totalimages.ProductNo + ' productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '>'
           + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
           + '<a href="#" class="outstock">out of stock</a><div class="productDetailsdiv text-desc"><a class="btn btn-info Edit"><i class="halflings-icon white edit"></i></a><div class="prodet"><span>Code:  </span><span>' + totalimages.ProductNo + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + totalimages.Name + '</span></div><div class="prodet"><span>Price:  ₹  ' + totalimages.Price + '</span></div><div class="prodet><span>Discount:  ₹ ' + totalimages.Discount + '</span></span></div><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></div></a>'
@@ -1279,7 +1275,7 @@ function GetAllRelatedProductsByProductID(Product) {
 
 
 function AutoScrollToEdit() {
-    debugger;
+ 
     $('html, body').animate({
         scrollTop: $("#IframeProjectSwitching").offset().top
     }, 500);
@@ -1679,7 +1675,7 @@ function AddProduct() {
 }
 function EditProduct()
 {
-    debugger;
+  
     if ($("#hdfproductID").val() != '') {
 
         var Product = new Object();

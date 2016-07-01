@@ -12,8 +12,7 @@
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Home/js/lightbox.js"></script>
     <script src="../Scripts/UserJS/Product.js"></script>
-    
-    <script>
+     <script>
         
 
     </script>
@@ -284,9 +283,9 @@
 					          <div class="control-group">
 								 <label class="control-label" for="focusedInput">Price</label>
 								<div class="controls">
-                                      <div class="input-prepend">
-								  <span class="add-on">Rs</span><input class="input-medium focused" id="txtPrice" type="text"/>
-                                      </div>
+                                      
+								<input class="input-large focused" id="txtPrice" placeholder =<%= this.UA.BoutiqueCurrencySymbol %> type="text" onkeypress="return isNumber(event)"/>
+                                      
 								</div>
 								</div>
 
@@ -294,11 +293,15 @@
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Discount</label>
 								<div class="controls">
-                                     <div class="input-prepend">
-								  <span class="add-on">Rs</span><input class="input-medium focused" size="25" id="txtDiscount" type="text"/>
-                                         </div>
+                                    
+								  <input class="input-large focused" id="txtDiscount" placeholder=<%= this.UA.BoutiqueCurrencySymbol %> type="text" onkeypress="return isNumber(event)"/>
+                                        
 								</div>
 								</div>
+
+
+                        
+
                               <div class="control-group">
                                  
 								<label class="control-label">Is OutofStock</label>

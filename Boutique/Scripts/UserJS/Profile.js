@@ -25,7 +25,7 @@ $("document").ready(function (e) {
     });
 
     botiqueProfileLoad();
-   
+    SetDefaultBannerImage();
 
     $(".CancelClear").live({
         click: function (e) {// Clear controls
@@ -208,8 +208,13 @@ $("document").ready(function (e) {
 
             Boutique.ProductID = $(".products").val();
             Boutique.CategoryCode = $(".categories").val();
-         
+            Boutique.ImageID = BannerImgID;
+
             if (BoutiqueID != null) {
+     
+                if (BannerImgID == "") {
+
+              
                 var imgresult = "";
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
@@ -246,18 +251,52 @@ $("document").ready(function (e) {
 
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
-                    $('.alert-success strong').text(Messages.InsertionSuccessFull);
 
+                 $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                   
                     AutoScrollToAlertBox();
-
-
+                   
+                    ClearBannerControls();
                 }
                 if (result != "1" ) {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                     $('.alert-error strong').text(Messages.InsertionFailure);
+
+                   
+                   
                 }
-            }
+
+                }
+
+                else  //UPDATE
+                {
+                    var result = UpdateBannerDetailsByImgID(Boutique);
+
+                    if (result.status == "1") {
+
+                        
+                        $('#rowfluidDiv').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+                        AutoScrollToAlertBox();
+                        ClearBannerControls();
+
+                    }
+                    else {
+                         $('#rowfluidDiv').show();
+                         $('.alert-error').show();
+                         $('.alert-error strong').text(Messages.InsertionFailure);
+                         
+                     }
+
+
+
+                }
+
+
+        }
         }
     })
     
@@ -343,21 +382,19 @@ $("document").ready(function (e) {
     });
 
 
+   
+
+    $(".bannerCancel").live({
+        click: function (e) {// Clear controls
+            ClearBannerControls();
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+        }
+    })
     BindAllBannerImages();
 
 
-    if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
-        $("#imageList1").find(".thumb").remove();
-
-        var span = document.createElement('span');
-
-        var defaultimg = "../img/No-Img_Chosen.png";
-
-        span.innerHTML = ['<img class="thumb" src="', defaultimg,
-                         '" />'].join('');
-        document.getElementById('imageList1').insertBefore(span, null);
-
-    }
    
    
 
@@ -458,6 +495,8 @@ function handleBannerSelect(evt) {
     reader.onload = (function (theFile) {
         return function (e) {
             // Render thumbnail.
+
+           
             var span = document.createElement('span');
             span.innerHTML = ['<img class="thumb" src="', e.target.result,
                              '" title="', escape(theFile.name), '"/>'].join('');
@@ -810,7 +849,7 @@ function BindAllBannerImages() {
            + ''
            + '<div class="image-box"><img id="' + totalimages[i].ImageID + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '"></img></div>'
            + '<div class="productDetailsdiv text-desc">'
-           + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillDetails(this);" " ProductID=' + totalimages[i].ProductID + '  CategoryCode=' + totalimages[i].CategoryCode + ' bannerImgID=' + totalimages[i].ImageID + ' ><i class="halflings-icon white edit"></i></a>'
+           + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillControlsOnEdit(this);" " ProductID=' + totalimages[i].ProductID + '  CategoryCode=' + totalimages[i].CategoryCode + ' bannerImgID=' + totalimages[i].ImageID + ' ><i class="halflings-icon white edit"></i></a>'
            + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '" data-lightbox="' + totalimages[i].ImageID + '" data-title="' + 'A' + '"><i class="icon-zoom-in"></i></a>'
            //+ '<div class="prodet"><span>Code:  </span><span>' + 'A' + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + 'A' + '</span></div><div class="prodet"><span>Price:  ₹  ' + 'A' + '</span></div><div class="prodet><span>Discount:  ₹ ' + 'A' + '</span></span></div><span class="pdescription" style="display:none;">' + 'A' + '</span></div>'
            + '</div>');
@@ -822,16 +861,22 @@ function BindAllBannerImages() {
     }
 }
 
-function FillDetails(objthis)
+function FillControlsOnEdit(objthis)
 {
     debugger;
+    $('html, body').animate({
+        scrollTop: $("#NewBanner").offset().top
+    });
+
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
 
     var ImageID = $(objthis).attr('bannerImgID');
-    var ProductID = $(objthis).attr('ProductID');
+     var ProductID = $(objthis).attr('ProductID');
     var CatgryCode = $(objthis).attr('CategoryCode');
+
+    $("#hdfBannerImgID").val(ImageID);
 
     if (ProductID != null)
     {
@@ -842,6 +887,26 @@ function FillDetails(objthis)
     {
         $(".categories").val(CatgryCode).trigger("change");
     }
+
+
+    if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
+        $("#imageList1").find(".thumb").remove();
+
+        var span = document.createElement('span');
+
+        img1 = document.createElement('img');
+        img1.src = "../ImageHandler/ImageServiceHandler.ashx?bannerImgID=" + ImageID;
+
+        img1.className = "thumb";
+       
+        var divPre = document.getElementById("imageList1");
+        
+        divPre.appendChild(img1);
+
+
+    }
+
+
 }
 
 
@@ -913,4 +978,61 @@ function UpdateorderNoOfBannerImage(Boutique) {
     table = JSON.parse(jsonResult.d);
     return table;
 
+}
+
+
+function UpdateBannerDetailsByImgID(Boutique) {
+
+
+    var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/UpdateBannerDetailsByImgID");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+
+}
+
+
+function SetDefaultBannerImage()
+{
+    if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
+        $("#imageList1").find(".thumb").remove();
+
+        var span = document.createElement('span');
+
+        var defaultimg = "../img/No-Img_Chosen.png";
+
+        span.innerHTML = ['<img class="thumb" src="', defaultimg,
+                         '" />'].join('');
+        document.getElementById('imageList1').insertBefore(span, null);
+
+    }
+
+}
+
+function ClearBannerControls()
+{
+    // Scroll page
+    var offset = $('#Banners').offset();
+    offset.left -= 20;
+    offset.top -= 200;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
+
+    //$('#ErrorBox1').hide();
+    //$('#Displaydiv1').hide();
+
+    //$('#rowfluidDiv').hide();
+    //$('.alert-success').hide();
+    //$('.alert-error').hide();
+
+    debugger;
+    $(".products").select2("val", "");
+    $(".categories").select2("val", "");
+
+    SetDefaultBannerImage();
+    //$('#BannerUpload')[0].files[0].name = "No file selected";
+    BindAllBannerImages();
 }

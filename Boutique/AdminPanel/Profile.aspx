@@ -411,7 +411,7 @@
 
                             <div class="row-fluid" id="productDetailsDiv" runat="server">
 
-              <div class="box span12" style="box-shadow:0 0 0 0!important;height:350px;">
+              <div class="box span12" style="box-shadow:0 0 0 0!important;height:350px;" id="NewBanner">
                   <div class="span12">
                     <div class="box-header">
 						<h2 id="editLabel1">New Banner</h2>
@@ -420,11 +420,11 @@
 						</div>
 					</div>
 
-                      <div class="alert alert-error" id="ErrorBox1" style="display:none;">
+                  <%--    <div class="alert alert-error" id="ErrorBox1" style="display:none;">
                                 <div id="Displaydiv1">
 
                                 </div>
-                            </div>
+                            </div>--%>
 
 
 					<div class="span6" >
