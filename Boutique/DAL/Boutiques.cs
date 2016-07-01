@@ -886,7 +886,7 @@ namespace Boutique.DAL
 
              if (ImageID == "" || ImageID == null)
              {
-                 throw new Exception("BoutiqueID is Empty!!");
+                 throw new Exception("ImageID is Empty!!");
              }
 
 
@@ -931,6 +931,66 @@ namespace Boutique.DAL
 
          }
          #endregion Update orderNo
+
+
+
+         #region DeleteBannerByImageID
+         /// <summary>
+        /// Delete boutique
+        /// </summary>
+        /// <param name="ImageID"></param>
+        /// <returns></returns>
+         public Int16 DeleteBannerByImageID()
+        {
+
+            if (BoutiqueID == "" || BoutiqueID == null)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            if (ImageID == "" || ImageID == null)
+            {
+                throw new Exception("ImageID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+          
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteBannerByImageID]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+         #endregion DeleteBannerByImageID
 
 
         #endregion Methods

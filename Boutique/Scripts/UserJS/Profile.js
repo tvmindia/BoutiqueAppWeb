@@ -81,6 +81,30 @@ $("document").ready(function (e) {
              }
          })
 
+
+    $(".imgdelete").live({
+        click: function (e) {// Clear controls
+
+            debugger;
+
+
+            $('#rowfluidDiv').hide();
+            $('.alert-success').hide();
+            $('.alert-error').hide();
+            var e = $(this).attr('id');
+            var p = "DeleteBanner";
+            DeleteCustomAlert("Are you sure?", e, p)
+            return false;
+        }
+    })
+
+    //function DeleteItem(e, p) {
+
+    //}
+
+
+
+
     //addboutique
     $(".AddBoutique").live({
         click: function (e)
@@ -409,28 +433,53 @@ function RemoveStyle() {
 
 function DeleteItem(e,p)
 {
-    var jsonResult = {};
-    var Owners = new Object();
-    Owners.UserID = e;
-    Owners.OwnerID = p;
-    jsonResult = DeleteOwner(Owners);
-    if (jsonResult != undefined) {
-        if (jsonResult == "1") {
-            BindAsyncOwnerTable()//Gridbind
+    if (p == "DeleteBanner") {
+
+        var Boutique = new Object();
+        Boutique.ImageID = e;
+        var p = p;
+        var result = DeleteBannerImage(Boutique);
+        if (result== "1") {
             $('#rowfluidDiv').show();
             $('.alert-success').show();
-            $('.alert-success strong').text(Messages.DeletionSuccessFull);
-
-
+            AutoScrollToAlertBox();
+            ClearBannerControls();
+            BindAllBannerImages();
         }
-        if (jsonResult != "1") {
-            BindAsyncOwnerTable()//Gridbind
+        if (result != "1") {
             $('#rowfluidDiv').show();
             $('.alert-error').show();
-            $('.alert-error strong').text(Messages.DeletionFailure);
-
+            AutoScrollToAlertBox();
+            BindAllBannerImages();
         }
     }
+
+    else {
+        var jsonResult = {};
+        var Owners = new Object();
+        Owners.UserID = e;
+        Owners.OwnerID = p;
+        jsonResult = DeleteOwner(Owners);
+        if (jsonResult != undefined) {
+            if (jsonResult == "1") {
+                BindAsyncOwnerTable()//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.DeletionSuccessFull);
+
+
+            }
+            if (jsonResult != "1") {
+                BindAsyncOwnerTable()//Gridbind
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text(Messages.DeletionFailure);
+
+            }
+        }
+    }
+
+
 }
 
 function botiqueProfileLoad()
@@ -892,6 +941,9 @@ function FillControlsOnEdit(objthis)
     if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
         $("#imageList1").find(".thumb").remove();
 
+        //var divPre = document.getElementById("Preview");
+        //divPre.className = 'Maindiv';
+
         var span = document.createElement('span');
 
         img1 = document.createElement('img');
@@ -902,6 +954,26 @@ function FillControlsOnEdit(objthis)
         var divPre = document.getElementById("imageList1");
         
         divPre.appendChild(img1);
+
+        var del = document.createElement('input');
+        del.className = 'imgdelete';
+        del.type = 'image';
+        del.src = '../Home/images/Deleteicon1.png';
+        del.id = ImageID;
+      
+
+        divPre.appendChild(del);
+       
+       
+
+       
+
+
+
+
+
+
+
 
 
     }
@@ -1035,4 +1107,13 @@ function ClearBannerControls()
     SetDefaultBannerImage();
     //$('#BannerUpload')[0].files[0].name = "No file selected";
     BindAllBannerImages();
+}
+
+
+function DeleteBannerImage(Boutique) {
+    var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/DeleteBannerByImageID");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
 }
