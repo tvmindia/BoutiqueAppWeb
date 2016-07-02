@@ -13,7 +13,15 @@
     <link href="../CSS/Common.css" rel="stylesheet" />
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Profile.js"></script>
+    <style>
+     input[type="image"].imgdelete{
+             bottom: 30px;
+             left: -30px;
+             position: relative;
 
+         }
+
+    </style>
     <div id="content" class="span10">
         <ul class="breadcrumb">
             <li>
