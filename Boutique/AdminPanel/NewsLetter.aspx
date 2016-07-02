@@ -15,19 +15,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css"/>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
 
-    <script>
-        function Preview()
-        {
-            $('#HtmlPreview').modal('show');
-        }
-    </script>
-   
-    <style>
- .modal{
-     height:600px;
-     width:700px;
-    }
-    </style>
 
     <div id="content" class="span10">
         <ul class="breadcrumb">
@@ -74,8 +61,8 @@
                       </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li><a href="#GenerateTemplate"><i class="halflings-icon list-alt"></i>Generate Template</a></li>
-                        <li><a href="#SendMail"><i class="halflings-icon envelope"></i>Drafts</a></li>
+                        <li><a href="#GenerateTemplate"><i class="halflings-icon list-alt"></i>New Template</a></li>
+                        <li><a href="#SendMail" onclick="ClearAllControls();"><i class="halflings-icon envelope"></i>Drafts</a></li>
                     </ul>
                      <div id="myTabContent" class="tab-content">
                            <div class="tab-pane active" id="GenerateTemplate">
@@ -83,7 +70,7 @@
 
                              <div class="row-fluid">
                     <div class="box-header">
-                        <h2 id="editLabel">New Template</h2>
+                        <h2 id="editLabel">Generate Template</h2>
                         <div class="box-icon">
                         </div>
                     </div>
@@ -150,7 +137,6 @@
                      <footer class="InnerFooter">
                       <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>
                       <a class="btn btn-primary templatePreview" runat="server" onclick="Preview();" href="#">Template Preview</a>
-
                       </footer>
                          
                         </div>
