@@ -22,15 +22,27 @@ $("document").ready(function (e) {
 
     BindOrdersTable();
 
+    //$('#OrdersTable').DataTable({
+    //    "bPaginate": false,       //Search and Paging implementation
+    //    "aaSorting": [[0, 'desc']] ,    //Sort with Date coloumn
+   
+    //});
+
     $('#OrdersTable').DataTable({
-        "bPaginate": false,       //Search and Paging implementation
-        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+        "aaSorting": [[0, 'desc']],
+        "fnPageChange": "next"
     });
 
     BindClosedOrdersTable();
     $('#ClosedOrdersTable').DataTable({
-        "bPaginate": false,       //Search and Paging implementation
-        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+        "aaSorting": [[0, 'desc']],
+        "fnPageChange": "next"
     });   
    
     $(".OrderEdit").live(
@@ -403,9 +415,11 @@ $("document").ready(function (e) {
                         BindOrdersTable(); //To bind table with new or modified entry
 
                         $('#OrdersTable').DataTable({
-                            "bPaginate": false,       //Search and Paging implementation
-                            "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                            "bPaginate": true,
+                            "iDisplayLength": 6,
+                            "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                            "aaSorting": [[0, 'desc']],
+                            "fnPageChange": "next"
                         });
 
                         //$("#OrderItemTable").dataTable().fnClearTable();
@@ -492,9 +506,11 @@ $("document").ready(function (e) {
                     BindOrdersTable(); //To bind table with new or modified entry
 
                     $('#OrdersTable').DataTable({
-                        "bPaginate": false,       //Search and Paging implementation
-                        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                        "bPaginate": true,
+                        "iDisplayLength": 6,
+                        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                        "aaSorting": [[0, 'desc']],
+                        "fnPageChange": "next"
                     });
 
 
@@ -528,9 +544,11 @@ $("document").ready(function (e) {
             BindOrdersTable(); //To bind table with new or modified entry
 
             $('#OrdersTable').DataTable({
-                "bPaginate": false,       //Search and Paging implementation
-                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "aaSorting": [[0, 'desc']],
+                "fnPageChange": "next"
             });
 
             $("#ClosedOrdersTable").dataTable().fnClearTable();
@@ -539,11 +557,12 @@ $("document").ready(function (e) {
             BindClosedOrdersTable();//To bind table with new or modified entry
 
             $('#ClosedOrdersTable').DataTable({
-                "bPaginate": false,       //Search and Paging implementation
-                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-               
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "aaSorting": [[0, 'desc']],
+                "fnPageChange": "next"
             });
-
         }
     })
      //----------- Cancel button Click -----------//
@@ -563,9 +582,11 @@ $("document").ready(function (e) {
             BindOrdersTable(); //To bind table with new or modified entry
 
             $('#OrdersTable').DataTable({
-                "bPaginate": false,       //Search and Paging implementation
-                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "aaSorting": [[0, 'desc']],
+                "fnPageChange": "next"
             });
 
             RemoveStyle();
