@@ -277,7 +277,6 @@ namespace Boutique.AdminPanel
         }
         #endregion GetAllOwners
 
-
         #region Role
 
         [System.Web.Services.WebMethod]
@@ -303,10 +302,9 @@ namespace Boutique.AdminPanel
 
         #endregion 
 
-
         //---------- * Banners *------------//
 
-        #region GetAllBannerImages
+        #region Get All Banner Images
 
         [System.Web.Services.WebMethod]
         public static string GetAllBannerImages(Boutiques boutiqueObj)
@@ -347,11 +345,10 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllBannerImages
 
-        #region UpdateorderNo
+        #region Update OrderNo
         [System.Web.Services.WebMethod]
         public static string UpdateorderNo(Boutiques boutiqueObj)
         {
-        
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -369,21 +366,18 @@ namespace Boutique.AdminPanel
 
                     }
                 }
-                else
-                {
-
-                }
+               
             }
             catch (Exception)
             {
-
+                throw;
             }
 
             return jsSerializer.Serialize(boutiqueObj);
          }
         #endregion UpdateorderNo
 
-        #region UpdateorderNo
+        #region Update Banner Details By ImageID
         [System.Web.Services.WebMethod]
         public static string UpdateBannerDetailsByImgID(Boutiques boutiqueObj)
         {
@@ -402,22 +396,18 @@ namespace Boutique.AdminPanel
                         boutiqueObj.UpdatedBy = UA.userName;
                         //returns status and productid
                         boutiqueObj.status = boutiqueObj.UpdateBannerDetailsByImgID().ToString();
-
                     }
                 }
-                else
-                {
-
-                }
+                
             }
             catch (Exception)
             {
-
+                throw;
             }
 
             return jsSerializer.Serialize(boutiqueObj);
          }
-        #endregion UpdateorderNo
+        #endregion Update Banner Details By ImageID
 
         #region Delete Banner
         [System.Web.Services.WebMethod]
@@ -449,7 +439,5 @@ namespace Boutique.AdminPanel
 
         #endregion Delete Banner
 
-        
-        
     }
 }

@@ -159,8 +159,14 @@ namespace Boutique.DAL
         }
         #endregion
 
+        /// <summary>
+        /// To update status to avoid re delivering the same message
+        /// </summary>
+        /// <param name="MessageIDs">comma seperated message ids that are seperated</param>
+        /// <param name="person">"Customer" or "Reply"</param>
+        /// <returns></returns>
         #region Update Delivary status
-        public Int16 UpdateDeliveryStatus(string MessageIDs)
+        public Int16 UpdateDeliveryStatus(string MessageIDs,string person)
         {
             if (BoutiqueID == "")
             {
@@ -179,6 +185,7 @@ namespace Boutique.DAL
                 cmd.CommandText = "[UpdateChatDeliveryStatus]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@MessageIDs", SqlDbType.NVarChar, -1).Value = MessageIDs;
+                cmd.Parameters.Add("@Person", SqlDbType.NVarChar, 10).Value = person;
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();               

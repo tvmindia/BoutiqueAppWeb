@@ -81,13 +81,11 @@ $("document").ready(function (e) {
              }
          })
 
+//--------* Banner Delete Click *----------//
 
     $(".imgdelete").live({
         click: function (e) {// Clear controls
-
-            debugger;
-
-
+         
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -97,13 +95,6 @@ $("document").ready(function (e) {
             return false;
         }
     })
-
-    //function DeleteItem(e, p) {
-
-    //}
-
-
-
 
     //addboutique
     $(".AddBoutique").live({
@@ -213,12 +204,9 @@ $("document").ready(function (e) {
         }
     })    
 
-    //Add banner
-
-    $(".addBanner").live({
+    //---------- * Add banner *-------------//
+     $(".addBanner").live({
         click: function (e) {
-
-            debugger;
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -238,7 +226,6 @@ $("document").ready(function (e) {
      
                 if (BannerImgID == "") {
 
-              
                 var imgresult = "";
                 var _URL = window.URL || window.webkitURL;
                 var formData = new FormData();
@@ -249,8 +236,6 @@ $("document").ready(function (e) {
                     //img.onload = function ()
                     //{
                     var image = $('#BannerUpload')[0].files[0];
-
-
                     formData.append('imagefiles', image, imagefile.name);
                     
                     //};
@@ -261,7 +246,6 @@ $("document").ready(function (e) {
                     formData.append('imagefiles', imagefile.name);
                 }
              
-                
                 formData.append('ProductID', Boutique.ProductID);
                 formData.append('CategoryCode', Boutique.CategoryCode);
                 formData.append('BtqID', BoutiqueID);
@@ -287,8 +271,6 @@ $("document").ready(function (e) {
                     $('.alert-error').show();
                     $('.alert-error strong').text(Messages.InsertionFailure);
 
-                   
-                   
                 }
 
                 }
@@ -299,7 +281,6 @@ $("document").ready(function (e) {
 
                     if (result.status == "1") {
 
-                        
                         $('#rowfluidDiv').show();
                         $('.alert-success').show();
                         $('.alert-success strong').text(Messages.InsertionSuccessFull);
@@ -312,32 +293,28 @@ $("document").ready(function (e) {
                          $('#rowfluidDiv').show();
                          $('.alert-error').show();
                          $('.alert-error strong').text(Messages.InsertionFailure);
-                         
-                     }
-
-
-
+                      }
                 }
-
-
         }
         }
     })
     
-    //--- Banner reorder
-
+    //----------- * Banner reorder *---------//
     $("#BannerImageholder").sortable({
 
         update: function (event, ui) {
 
-            debugger;
+            //------------- * This event is fired on reordering images * ----------//
+            
+            //STEPS
+            // 1.Loop through images after reordering and push each of imageid to an array
+            // 2.From boutique class file , a comma seperated string of this array items will be created and passed to update stored procedure , then update will be done by splitting string by comma and then use that imageid for update
 
             var ImageInfo = [];
             var idval, orderno;
 
             $('#BannerImageholder img').each(function (index) {
 
-                debugger;
                 var idval = $(this).attr('id');
                 ImageInfo.push(idval);
                
@@ -358,7 +335,6 @@ $("document").ready(function (e) {
 
             //AutoScrollToAlertBox();
 
-
         }
                //else {
                //     $('#rowfluidDiv').show();
@@ -366,21 +342,10 @@ $("document").ready(function (e) {
                //     $('.alert-error strong').text(Messages.InsertionFailure);
                // }
 
-
-           
-
-
         }//when div image is reordered
     });
     $("#BannerImageholder").disableSelection();
-
-    //if (LoginUserRole[0] != Roles.Manager) {
-    //    BindAllImages();//list li of product images when images uploaded
-
-    //}
-
-    //Style setting for client side Validation
-    //CreatedBy Thomson
+   
 
     $('input[type=text],input[type=password]').on('focus', function () {
         $(this).css({ background: 'white' });
@@ -393,7 +358,7 @@ $("document").ready(function (e) {
 
     //end styling client validation
 
-//-----bind Dropdowns
+//---------* Bind Dropdowns *-----------//
     $(".products").select2({
         placeholder: "Choose related product",
         allowClear: true,
@@ -405,8 +370,7 @@ $("document").ready(function (e) {
         data: BindCategoryDropdown()
     });
 
-
-   
+    //--------* Cancel Click *----------//
 
     $(".bannerCancel").live({
         click: function (e) {// Clear controls
@@ -417,11 +381,6 @@ $("document").ready(function (e) {
         }
     })
     BindAllBannerImages();
-
-
-   
-   
-
 
 });
 //end of document.ready
@@ -443,7 +402,6 @@ function DeleteItem(e,p)
             $('#rowfluidDiv').show();
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.DeletionSuccessFull);
-
 
             AutoScrollToAlertBox();
             ClearBannerControls();
@@ -471,7 +429,6 @@ function DeleteItem(e,p)
                 $('.alert-success').show();
                 $('.alert-success strong').text(Messages.DeletionSuccessFull);
 
-
             }
             if (jsonResult != "1") {
                 BindAsyncOwnerTable()//Gridbind
@@ -482,7 +439,6 @@ function DeleteItem(e,p)
             }
         }
     }
-
 
 }
 
@@ -527,41 +483,6 @@ function handleFileSelect(evt) {
     reader.readAsDataURL(f);
     //}
 }
-
-function handleBannerSelect(evt) {
-
-    var files = evt.target.files; // FileList object
-    $("#imageList1").find(".thumb").remove();
-    // Loop through the FileList and render image files as thumbnails.
-    var f;
-    f = files[0];
-    //for (var i = 0, f; f = files[i]; i++) {
-
-    // Only process image files.
-    if (!f.type.match('image.*')) {
-        //continue;
-    }
-
-    var reader = new FileReader();
-
-    // Closure to capture the file information.
-    reader.onload = (function (theFile) {
-        return function (e) {
-            // Render thumbnail.
-
-           
-            var span = document.createElement('span');
-            span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                             '" title="', escape(theFile.name), '"/>'].join('');
-            document.getElementById('imageList1').insertBefore(span, null);
-        };
-    })(f);
-
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(f);
-    //}
-}
-
 
 //post File/blog to Server
 function handleLogoSelect(evt) {
@@ -887,8 +808,42 @@ function AddOwner()
 }
 //end Validation and Insert For Adding Owner
 
+//-------------------------------------------------- * BANNER TAB :METHODS * -------------------------------//
+
+function handleBannerSelect(evt) {
+
+   // ---- * It is used to give preview of selected image (by image upload control) * ---------------//
+
+    var files = evt.target.files; // FileList object
+    $("#imageList1").find(".thumb").remove();
+    var f;
+    f = files[0];
+
+    if (!f.type.match('image.*')) {
+        //continue;
+    }
+    var reader = new FileReader();
+    reader.onload = (function (theFile) {
+        return function (e) {
+            var span = document.createElement('span');
+            span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                             '" title="', escape(theFile.name), '"/>'].join('');
+            document.getElementById('imageList1').insertBefore(span, null);
+        };
+    })(f);
+
+    reader.readAsDataURL(f);
+    //}
+}
+
 function BindAllBannerImages() {
-   
+
+    //----- * STEPS * ----- //
+
+        // 1.Access required data from database
+        // 2.Fill div which is placed to bind images with accessed data
+        // 3.Image is binded using Image Service HANDLER by passing image id as querystring
+
     $("#BannerImageholder").find(".masonry-thumb").remove();
 
     var imagedivholder = $('#BannerImageholder');
@@ -903,11 +858,9 @@ function BindAllBannerImages() {
            + '<div class="image-box"><img id="' + totalimages[i].ImageID + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '"></img></div>'
            + '<div class="productDetailsdiv text-desc">'
            + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillControlsOnEdit(this);" " ProductID=' + totalimages[i].ProductID + '  CategoryCode=' + totalimages[i].CategoryCode + ' bannerImgID=' + totalimages[i].ImageID + ' ><i class="halflings-icon white edit"></i></a>'
-           + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '" data-lightbox="' + totalimages[i].ImageID + '" data-title="' + 'A' + '"><i class="icon-zoom-in"></i></a>'
+           + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?bannerImgID=' + totalimages[i].ImageID + '" data-lightbox="' + totalimages[i].ImageID +  '"><i class="icon-zoom-in"></i></a>'
            //+ '<div class="prodet"><span>Code:  </span><span>' + 'A' + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + 'A' + '</span></div><div class="prodet"><span>Price:  ₹  ' + 'A' + '</span></div><div class="prodet><span>Discount:  ₹ ' + 'A' + '</span></span></div><span class="pdescription" style="display:none;">' + 'A' + '</span></div>'
            + '</div>');
-
-        
 
         imagedivholder.append(html);
        
@@ -916,7 +869,12 @@ function BindAllBannerImages() {
 
 function FillControlsOnEdit(objthis)
 {
-    debugger;
+    //----- * STEPS * ----- //
+
+    // 1.This method is called by onclick event of edit toolbar , by passing its object(this)
+    // 2.All the values required for binding controls is accessed by , retrieving the attributes of the tootlbar's object (this)
+    // 3.Uploaded Image is Binded using ImageService HANDLER by passing ImageID as query string
+
     $('html, body').animate({
         scrollTop: $("#NewBanner").offset().top
     });
@@ -941,13 +899,11 @@ function FillControlsOnEdit(objthis)
         $(".categories").val(CatgryCode).trigger("change");
     }
 
-
-    if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
+    if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined')
+    {
         $("#imageList1").find(".thumb").remove();
         $("#imageList1").find(".imgdelete").remove();
-        //var divPre = document.getElementById("Preview");
-        //divPre.className = 'Maindiv';
-
+       
         var span = document.createElement('span');
 
         img1 = document.createElement('img');
@@ -965,40 +921,12 @@ function FillControlsOnEdit(objthis)
         del.src = '../Home/images/Deleteicon1.png';
         del.id = ImageID;
       
-
         divPre.appendChild(del);
        
-       
-
-       
-
-
-
-
-
-
-
-
-
     }
-
-
-}
-
-
-//function GetAllBannerImages(Boutiques) {
-//    debugger;
-//    var ds = {};
-//    var table = {};
-//    var data = "{'boutiqueObj':" + JSON.stringify(Boutiques) + "}";
-//    ds = getJsonData(data, "../AdminPanel/Profile.aspx/GetAllBannerImages");
-//    table = JSON.parse(ds.d);
-//    return table;
-//}
-
+} 
 
 function GetAllBannerImages() {
-
     var ds = {};
     var Boutique = new Object();
     var table = {};
@@ -1007,7 +935,6 @@ function GetAllBannerImages() {
     table = JSON.parse(ds.d);
     return table;
 }
-
 
 function BindProductDropdown() {
     var jsonResult = {};
@@ -1044,10 +971,8 @@ function GetAllCategories(Notify) {
     return table;
 }
 
-
 function UpdateorderNoOfBannerImage(Boutique) {
 
-    
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/UpdateorderNo");
     var table = {};
@@ -1056,35 +981,25 @@ function UpdateorderNoOfBannerImage(Boutique) {
 
 }
 
-
 function UpdateBannerDetailsByImgID(Boutique) {
-
-
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Profile.aspx/UpdateBannerDetailsByImgID");
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
-
 }
-
 
 function SetDefaultBannerImage()
 {
     if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
         $("#imageList1").find(".thumb").remove();
         $("#imageList1").find(".imgdelete").remove();
-
         var span = document.createElement('span');
-
         var defaultimg = "../img/No-Img_Chosen.png";
-
         span.innerHTML = ['<img class="thumb" src="', defaultimg,
                          '" />'].join('');
         document.getElementById('imageList1').insertBefore(span, null);
-
-    }
-
+   }
 }
 
 function ClearBannerControls()
@@ -1105,7 +1020,6 @@ function ClearBannerControls()
     //$('.alert-success').hide();
     //$('.alert-error').hide();
 
-    debugger;
     $(".products").select2("val", "");
     $(".categories").select2("val", "");
 
@@ -1113,7 +1027,6 @@ function ClearBannerControls()
     //$('#BannerUpload')[0].files[0].name = "No file selected";
     BindAllBannerImages();
 }
-
 
 function DeleteBannerImage(Boutique) {
     var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";

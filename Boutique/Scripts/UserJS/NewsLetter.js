@@ -44,11 +44,9 @@
 
     });
     $eventPdtsSelect.on("select2:close", function (e) {
-        debugger;
         "select2:close";
     });
     $eventPdtsSelect.on("select2:unselect", function (e) {
-        debugger;
         var ddlproduct = this;
         //alert($(this).data.val());
         //var imgid = $(this).attr('productid');
@@ -56,17 +54,16 @@
         // $("#NewsLetterimagehold").find(".masonry-thumb").remove();
     });
     $eventPdtsSelect.on("select2:removing", function (e) {
-        debugger;
-        alert("removed");
     });
 
     var $eventTemplatesSelect = $(".template");
 
     $eventTemplatesSelect.on("change", function (e) {
-        var ddlproduct = $(".template").val();
+        var ddltemplate = $(".template").val();
 
-        if (ddlproduct != null) {
-            BindTemplateImagesPreview(ddlproduct);
+        if (ddltemplate != null) {
+            BindTemplateImagesPreview(ddltemplate);
+            GetAllTemplateDetails(ddltemplate);
         }
     });
     //end styling client validation
@@ -83,7 +80,6 @@
     $(".sendMail").live(
     {
         click: function (e) {
-            debugger;
             editedrow = $(this).closest('tr');
             var MailSending = new Object();
             MailSending.mailNewsLetterID = editedrow.attr("newsletterid");
@@ -94,7 +90,6 @@
     })
     //mail sending
     $(".submitDetails").click(function () {
-        debugger;
         var UserMail = $(".audience").text();
         UserMail = UserMail.trim();
         var MailSending = new Object();
@@ -118,15 +113,23 @@
             //val.push($(this).attr('id'));
             var idval = $(this).attr('imageid');
             var pdtVal = $(this).attr('productid');
-            //var chkflag = document.getElementsByClassName("checkDes").checked;
-            //if (document.getElementById(pdtIDs[index]) != null) {
-            //    var chkflag = document.getElementById(pdtIDs[index]).checked;
+            $(this).find("input:checkbox").each(function () {
+                if ($(this).attr('checked')) {
+                    // pdtVal = $(this).parent().attr("productid");
+                    
+                    imageCount = imageCount + 1;
+                    ImageInfo.push(idval);
+                    pdtIDs.push(pdtVal);
+                }
+            });
+         //   if (document.getElementById(pdtIDs[index]) != null) {
+             //   var chkflag = document.getElementById(pdtIDs[index]).checked;
             //if (chkflag == true) {
-            imageCount = imageCount + 1;
-            ImageInfo.push(idval);
-            pdtIDs.push(pdtVal);
+            //imageCount = imageCount + 1;
+            //ImageInfo.push(idval);
+            //pdtIDs.push(pdtVal);
             //}
-            //}                  
+           // }                  
         });
         if (imageCount != 8) {
             CustomAlert("Please select 8 images for selected template!");
@@ -160,7 +163,6 @@
 
     $(".DraftsTemplatePreview").click(function () {
         // Clear image control
-        debugger;
         $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
         // var ImageInfo = [];
         editedrow = $(this).closest('tr');
@@ -189,6 +191,34 @@
     //});
 });
 //end of document.ready
+function ImageCheck(evt)
+{
+    var imageCount = 0;
+    $('#NewsLetterimagehold div').each(function (index) {
+        var idval = $(this).attr('imageid');
+        var pdtVal = $(this).attr('productid');
+        var chkflag = document.getElementsByClassName("checkDes").checked;
+        var chkflag = document.getElementById(pdtVal).checked;
+        if (chkflag == true) {
+            imageCount = imageCount + 1;
+           
+        }
+    });
+    document.getElementById('idSelectedImageCount').innerHTML =" "+ imageCount+" ";
+}
+function GetAllTemplateDetails(ddltemplate)
+{
+    var jsonResult = {};
+    var NewsLetters = new Object();
+    NewsLetters.TemplateID = ddltemplate;
+    jsonResult = GetAllTemplatesDetailsForNewsLetter(NewsLetters);
+    if (jsonResult != undefined) {
+        document.getElementById('lblproductno').style.visibility = "visible";
+        document.getElementById('idImageCount').innerHTML = " " + jsonResult[0].ImageCount + " ";
+        document.getElementById('idSelectedImageCount').innerHTML = " " + 0 + " ";
+        return jsonResult;
+    }
+}
 function GetAllNewsLetterEmailIds() {
     var jsonResult = {};
     var NewsLetters = new Object();
@@ -198,7 +228,6 @@ function GetAllNewsLetterEmailIds() {
     }
 }
 function BindNewsLetterTable() {
-    debugger;
     var jsonResult = {};
     var NewsLetters = new Object();
     jsonResult = GetAllNewsLetterDetails(NewsLetters);
@@ -207,7 +236,6 @@ function BindNewsLetterTable() {
     }
 }
 function SendNotificationMail(MailSending) {
-    debugger;
     var ds = {};
     var table = {};
     var data = "{'mailObj':" + JSON.stringify(MailSending) + "}";
@@ -224,7 +252,6 @@ function GetAllNewsLetterDetails(NewsLetters) {
     return table;
 }
 function FillNewsLetterTable(Records) {
-    debugger;
     var checkrole = $('#hdfRole').val();
     if (checkrole == Roles.Manager) {
         $("thead#newsLetterthead tr").remove();
@@ -250,7 +277,6 @@ function FillNewsLetterTable(Records) {
 
 }
 function BindTemplateDropdown() {
-    debugger;
     var jsonResult = {};
     var NewsLetters = new Object();
     jsonResult = GetAllTemplateNames(NewsLetters);
@@ -265,6 +291,15 @@ function BindNewsLetterProductDropdown() {
     if (jsonResult != undefined) {
         return jsonResult;
     }
+}
+function GetAllTemplatesDetailsForNewsLetter(NewsLetters)
+{
+    var ds = {};
+    var table = {};
+    var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
+    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/GetAllTemplateDetails");
+    table = JSON.parse(ds.d);
+    return table;
 }
 function GetAllEmailsForNewsLetter(NewsLetters) {
     var ds = {};
@@ -321,7 +356,7 @@ function BindAllProductImages(productId) {
         var html = ('<div class="masonry-thumb"  productid=' + totalimages[i].ProductID + ' imageid=' + totalimages[i].ImageID + '>'
         + '<a class="image-link" ImageID="' + totalimages[i].ImageID + '">'
         + '<img id="img' + i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages[i].ImageID + '"></img>'
-        + '<input id="' + totalimages[i].ProductID + '" class="checkDes" type="checkbox">'
+        + '<input id="' + totalimages[i].ProductID + '" class="checkDes" type="checkbox" onclick="ImageCheck(this);">'
         + '</a>' + '</div>');
 
         imagedivholder.append(html);

@@ -1052,9 +1052,10 @@ namespace Boutique.WebServices
         /// </summary>
         /// <param name="messageIDs">comma seperated message ids that are delivered</param>
         /// <param name="boutiqueID"></param>
+        /// /// <param name="person">"Customer" or "Reply"</param>
         /// <returns></returns>
         [WebMethod]
-        public string UpdateDeliveryStatus(string messageIDs, string boutiqueID)
+        public string UpdateDeliveryStatus(string messageIDs, string boutiqueID,string person)
         {   
             DataTable dt = new DataTable();
             try
@@ -1064,7 +1065,7 @@ namespace Boutique.WebServices
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));                
                 DataRow dr = dt.NewRow();
-                if (chat.UpdateDeliveryStatus(messageIDs) == 1)
+                if (chat.UpdateDeliveryStatus(messageIDs,person) == 1)
                 {
                     dr["Flag"] = true;
                     dr["Message"] = constants.Successfull;
