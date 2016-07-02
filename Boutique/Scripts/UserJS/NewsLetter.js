@@ -53,7 +53,7 @@
         //alert($(this).data.val());
         //var imgid = $(this).attr('productid');
         //imgid.$("#NewsLetterimagehold").find(".masonry-thumb").remove();
-       // $("#NewsLetterimagehold").find(".masonry-thumb").remove();
+        // $("#NewsLetterimagehold").find(".masonry-thumb").remove();
     });
     $eventPdtsSelect.on("select2:removing", function (e) {
         debugger;
@@ -80,7 +80,7 @@
         //    GetAllNewsLetterEmailIds();
         //}
     });
-    $(".notificationdelete").live(
+    $(".sendMail").live(
     {
         click: function (e) {
             debugger;
@@ -155,6 +155,38 @@
     $(".templatePreview").click(function () {
         MainImageClick(this);
     });
+
+  
+
+    $(".DraftsTemplatePreview").click(function () {
+        // Clear image control
+        debugger;
+        $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
+        // var ImageInfo = [];
+        editedrow = $(this).closest('tr');
+        //  ImageInfo.push(editedrow.attr("ImageID"));
+        var NewsLetters = new Object();
+        NewsLetters.NewsLetterID = editedrow.attr("newsletterid");
+        NewsLetters.BoutiqueID = editedrow.attr("boutiqueid");
+        // var templateDetails = {};
+        // templateDetails = TemplatePreviewForDrafts(NewsLetters);
+        //if (templateDetails != undefined) {
+        NewsLetters.imageID = editedrow.attr("ImageID");
+        NewsLetters.TemplateID = editedrow.attr("TemplateID");
+        NewsLetters.Description = editedrow.attr("Description");
+        var totalimages = {};
+        totalimages = AddSelectedImageTotemplate(NewsLetters);
+        var imagedivholder = $('#HtmlPreviewDisplay');
+
+        imagedivholder.append(totalimages);
+        Preview();
+    
+    });
+    //$(".DraftsTemplatePreview").on("click",function ()
+    //{
+   
+    //    //}
+    //});
 });
 //end of document.ready
 function GetAllNewsLetterEmailIds() {
@@ -201,7 +233,7 @@ function FillNewsLetterTable(Records) {
 
         $("tbody#newsLetterrows tr").remove();            //Remove all existing rows for refreshing
         $.each(Records, function (index, Records) {
-            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
             $("#NewsLetterTable").append(html);
         })
 
@@ -210,7 +242,7 @@ function FillNewsLetterTable(Records) {
 
         $("tbody#newsLetterrows tr").remove();            //Remove all existing rows for refreshing
         $.each(Records, function (index, Records) {
-            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-danger notificationdelete" href="#"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a></td></tr>'
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
             $("#NewsLetterTable").append(html);
         })
 
@@ -299,7 +331,8 @@ function BindAllProductImages(productId) {
 }
 function MainImageClick(checkedImage) {
 //    $(".PreviewTemplate").remove();
- //   $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
+    //   $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
+    $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
     var ImageInfo = [];
     var idval;
     var pdtIDs = [];
@@ -361,6 +394,14 @@ function AddSelectedImageTotemplate(NewsLetters) {
     var table = {};
     var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
     ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/AddSelectedImageToHtmlTemplate");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function TemplatePreviewForDrafts(NewsLetters) {
+    var ds = {};
+    var table = {};
+    var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
+    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/DraftsTemplatePreview");
     table = JSON.parse(ds.d);
     return table;
 }
