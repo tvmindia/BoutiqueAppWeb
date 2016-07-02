@@ -897,6 +897,9 @@ function FillControlsOnEdit(objthis)
     $('.alert-success').hide();
     $('.alert-error').hide();
 
+    document.getElementById("BannerUpload").disabled = true; //disable upload control on edit click
+    //document.getElementById("BannerUpload").title = "Image can't be changed";
+
     var ImageID = $(objthis).attr('bannerImgID');
      var ProductID = $(objthis).attr('ProductID');
     var CatgryCode = $(objthis).attr('CategoryCode');
@@ -1040,6 +1043,12 @@ function ClearBannerControls()
     SetDefaultBannerImage();
     //$('#BannerUpload')[0].files[0].name = "No file selected";
     BindAllBannerImages();
+
+    debugger;
+    document.getElementById("BannerUpload").disabled = false;
+  
+    //$('.filename').html("No file selected");
+   
 }
 
 function DeleteBannerImage(Boutique) {
