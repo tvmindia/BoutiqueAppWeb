@@ -234,5 +234,33 @@ namespace Boutique.AdminPanel
             return jsonResult; //Converting to Json
         }
         #endregion GetAllNewsLetterNotMailSendDetails
+
+        #region GetAllTemplateDetails
+         [System.Web.Services.WebMethod]
+        public static string GetAllTemplateDetails(NewsLetters newsObj)
+        {
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = newsObj.GetAllTemplateDetails();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion GetAllTemplateDetails
     }
 }
