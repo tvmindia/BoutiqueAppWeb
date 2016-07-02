@@ -158,9 +158,6 @@
     $(".templatePreview").click(function () {
         MainImageClick(this);
     });
-
-  
-
     $(".DraftsTemplatePreview").click(function () {
         // Clear image control
         $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
@@ -191,6 +188,9 @@
     //});
 });
 //end of document.ready
+function Preview() {
+    $('#HtmlPreview').modal('show');
+}
 function ImageCheck(evt)
 {
     var imageCount = 0;
@@ -234,6 +234,17 @@ function BindNewsLetterTable() {
     if (jsonResult != undefined) {
         FillNewsLetterTable(jsonResult);
     }
+}
+function ClearAllControls()
+{
+    document.getElementById('lblproductno').style.visibility = "hidden";
+    $('#templatePreviewImagehold').remove();
+    $('#NewsLetterimagehold').remove();
+    $("#txtNewsletterDescription").val('');
+    $(".template").val('').trigger('change');
+    $(".audience").val('').select2('val', '');
+   
+   
 }
 function SendNotificationMail(MailSending) {
     var ds = {};
