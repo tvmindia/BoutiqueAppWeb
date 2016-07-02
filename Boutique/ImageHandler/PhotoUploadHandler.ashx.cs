@@ -133,6 +133,9 @@ namespace Boutique.ImageHandler
 
                         if (  context.Request.Form.GetValues("BannerImgID") == null || context.Request.Form.GetValues("BannerImgID")[0] == string.Empty)
                         {
+                            if (fileExtension.ToLower() == ".jpg" || fileExtension.ToLower() == ".png" || fileExtension.ToLower() == ".gif" || fileExtension.ToLower() == ".jpeg")
+	                            {
+                                
                             if (context.Request.Files[s] == context.Request.Files["imagefiles"])
                             {
                                 image = new byte[file.ContentLength];
@@ -161,7 +164,7 @@ namespace Boutique.ImageHandler
                             {
                                 boutiqueObj.ProductID = ProductID[0];    
                             }
-                            var v = context.Request.Form.GetValues("BannerImgID");
+                            //var v = context.Request.Form.GetValues("BannerImgID");
 
                             if (CategoryCode != null)
                             {
@@ -169,10 +172,14 @@ namespace Boutique.ImageHandler
                             }
                             
                             result = boutiqueObj.InsertBannerImage().ToString();
+                       
                         }
-
-
-
+                            else
+                            {
+                                result = "-1"; //File format error
+                            }
+                    }
+                        
                     }
                 }
                 if (context.Request.Form.GetValues("BoutiqueId") != null)

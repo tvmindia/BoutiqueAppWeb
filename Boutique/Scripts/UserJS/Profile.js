@@ -251,8 +251,11 @@ $("document").ready(function (e) {
                 formData.append('BtqID', BoutiqueID);
                 formData.append('CreatedBy', CreatedBy);
                 formData.append('BannerImgID', BannerImgID);
-               
+                debugger;
                 var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
+
+                debugger;
+
                 if (result == "1") {
 
                     BindAllBannerImages();
@@ -266,7 +269,18 @@ $("document").ready(function (e) {
                    
                     ClearBannerControls();
                 }
-                if (result != "1" ) {
+
+                if (result == "-1") {
+
+                    BindAllBannerImages();
+
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text(Messages.FileFormaterror);
+
+                }
+
+                if (result != "1" && result != "-1") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                     $('.alert-error strong').text(Messages.InsertionFailure);
