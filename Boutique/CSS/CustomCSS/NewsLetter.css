@@ -99,5 +99,7 @@ input[type="checkbox"] {
    height:600px;
 }
 .modal{
+    height:600px;
+     width:700px;
     margin-left:-329px;
 }
