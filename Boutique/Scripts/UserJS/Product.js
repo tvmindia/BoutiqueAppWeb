@@ -260,10 +260,8 @@ $("document").ready(function (e) {
 
     });
 
-
-
     $("#load_more_buttontrends").click(function (e) { //user clicks on button
-       
+    
         var len = null;
         $(this).hide(); //hide load more button on click
         var n = $("div.imageholderTrends > .masonry-thumb").length;//check the count of thumb divs
@@ -306,9 +304,6 @@ $("document").ready(function (e) {
 
     $("#load_more_buttonoutofstock").click(function (e)
     { //user clicks on button
-       
-
-
         var len = null;
         $(this).hide(); //hide load more button on click
         var n = $("div.imageholderoutofstock > .masonry-thumb").length;//check the count of thumb divs
@@ -355,10 +350,10 @@ $("document").ready(function (e) {
         //$("#load_more_buttontrends").hide();
         //$("#load_more_buttonoutofstock").hide();
         //location.reload();
+        BindAllProductImagesRebind(0);
         var $mars = $('.imageholder').masonry(
             {
                 itemSelector: '.masonry-thumb',
-              
             });
       
         $mars.imagesLoaded().progress(function () {
@@ -372,7 +367,8 @@ $("document").ready(function (e) {
        // $("#load_more_button").hide();
        // $("#load_more_buttonoutofstock").hide();
        // $("#load_more_buttontrends").remove();
-        $("#productTrendsimagehold").find(".masonry-thumb").remove();
+        //$("#productTrendsimagehold").find(".masonry-thumb").remove();
+        BindTrendedProductImagesRebind(0);
          var $grid = $('.imageholderTrends').masonry({
             itemSelector: '.masonry-thumb',
     
@@ -383,7 +379,7 @@ $("document").ready(function (e) {
           
         });
         // BindTrendingAllProductImages(0);
-       BindTrendedProductImagesForEventLoad(0);
+       //BindTrendedProductImagesForEventLoad(0);
         //*******
        
 
@@ -410,13 +406,14 @@ $("document").ready(function (e) {
         //$("#load_more_buttonoutofstock").hide();
         //BindAllProductImagesOutOfStock(0);
         // BindOutStockProductImagesForEventLoad(0);
-        $("#productoutofstockimagehold").find(".masonry-thumb").remove();
-        BindOutOfStockProductsForTab(0);
+       // $("#productoutofstockimagehold").find(".masonry-thumb").remove();
+       // BindOutOfStockProductsForTab(0);
         //  var galleryoutofstockdiv = $('.imageholderoutofstock');
       
         // galleryoutofstockdiv.hide();
     
         //Masonary reinit
+        BindOutStockProductImagesRebind(0);
         var $marsoutofstock = $('.imageholderoutofstock').masonry({
             itemSelector: '.masonry-thumb',
          
@@ -436,8 +433,15 @@ $("document").ready(function (e) {
       
         var search = $("#txtsearchnewproducts").val();
         if (search != '') {
-            $("#productimagehold").find(".masonry-thumb").remove();
-            BindAllNewProductImagesSearch(0, search);
+           // $("#productimagehold").find(".masonry-thumb").remove();
+           BindAllNewProductImagesSearch(0, search);
+            var $mars = $('.imageholder').masonry(
+            {
+             itemSelector: '.masonry-thumb',
+         });
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
+            });
         }
         else
         {
@@ -450,6 +454,12 @@ $("document").ready(function (e) {
         var search = $("#txtsearchtrends").val();
         if (search != '') {
             BindNewTrendingAllProductImagesSearch(0, search);
+            var $mars = $('.imageholderTrends').masonry({
+                itemSelector: '.masonry-thumb',
+            });
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
+            });
         }
         else {
             CustomAlert("Please Search with Product No/Name!");
@@ -462,6 +472,13 @@ $("document").ready(function (e) {
         var search = $("#txtsearchoutofstock").val();
         if (search != '') {
             BindAllNewProductImagesOutOfStockSearch(0, search);
+            var $mars = $('.imageholderoutofstock').masonry({
+                itemSelector: '.masonry-thumb',
+            });
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
+            });
+
         }
         else {
             CustomAlert("Please Search with Product No/Name!");
@@ -678,23 +695,35 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllNewOutOfStockSearchDetails(Product);
-    $("#productoutofstockimagehold").find(".masonry-thumb").remove();
-
+    $("#outofstockproductgaldiv").find(".imageholderoutofstock").remove();
+    var parentdiv = $("#outofstockproductgaldiv");
+    var dynamicdiv = document.createElement('div');
+    dynamicdiv.setAttribute("id", "productoutofstockimagehold");
+    dynamicdiv.className = "imageholderoutofstock";
+    parentdiv.append(dynamicdiv);
+    var $marsoutofstock = $('.imageholderoutofstock');
+    var elems = $();
     for (var i = 0; i < totalimages.length; i++) {
+
         if (totalimages[i].Discount != null) {
 
-            imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+
+            elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
         }
         if (totalimages[i].Discount === null) {
 
-            imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+
         }
     }
+    $marsoutofstock.append(elems);
+    $marsoutofstock.masonry('appended', elems);
+    return totalimages.length;
 }
 //////////////////////////////////////////////////////
 
-function BindAllNewProductImagesSearch(Pagevalue, searchtext) {
-    var imagedivholder = $('#productimagehold');
+function BindAllNewProductImagesSearch(Pagevalue, searchtext) {//*************************************
+    
     var Product = new Object();
     if (Pagevalue != undefined) {
         Product.Paginationvalue = Pagevalue;
@@ -708,43 +737,44 @@ function BindAllNewProductImagesSearch(Pagevalue, searchtext) {
     else {
         Product.SearchText = "";
     }
-
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllNewProductsSearchDetails(Product);
-    $("#productimagehold").find(".masonry-thumb").remove();
-
+    $("#newproductgaldiv").find(".imageholder").remove();
+    var parentdiv = $("#newproductgaldiv");
+    var dynamicdiv = document.createElement('div');
+    dynamicdiv.setAttribute("id", "productimagehold");
+    dynamicdiv.className = "imageholder";
+    parentdiv.append(dynamicdiv);
+    var $mars = $('.imageholder');
+    var elems = $();
     for (var i = 0; i < totalimages.length; i++) {
-
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-
-
-                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
             }
-
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
             }
-
-
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
             }
             if (totalimages[i].Discount == null) {
 
-                imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
             }
-
         }
     }
-}
+    $mars.append(elems);
+    $mars.masonry('appended', elems);
+    return totalimages.length;
+ }
 
 /////////////////////////////////
 
@@ -768,37 +798,45 @@ function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllNewTrendingSearchDetails(Product);
-    $("#productTrendsimagehold").find(".masonry-thumb").remove();
+    $("#trendingproductgaldiv").find(".imageholderTrends").remove();
+    var parentdiv = $("#trendingproductgaldiv");
 
+    var dynamicdiv = document.createElement('div');
+    dynamicdiv.setAttribute("id", "productTrendsimagehold");
+    dynamicdiv.className = "imageholderTrends";
+    parentdiv.append(dynamicdiv);
+    var $marstrends = $('.imageholderTrends');
+    var elems = $();
     for (var i = 0; i < totalimages.length; i++) {
-         if (totalimages[i].Discount != null) {
+        if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
-                }
 
-                }
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            }
+        }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
-                }
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
 
-
-                }
+            }
+        }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-
-                imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
-                }
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+            }
             if (totalimages[i].Discount == null) {
 
-                imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
-                }
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+            }
+        }
 
-                }
     }
+    $marstrends.append(elems);
+    $marstrends.masonry('appended', elems);
+    return totalimages.length;
 }
 /////////////////////////////
 

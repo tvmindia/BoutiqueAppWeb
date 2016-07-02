@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                     <label class="" id="lblproductno" for="focusedInput" style="visibility:hidden;">You Have Selected <span id="idSelectedImageCount" class=""></span>product(s) out of <span id="idImageCount" class=""> </span></label>
+                                     <label class="productpaging" id="lblproductno" for="focusedInput" style="visibility:hidden;">You Have Selected <span id="idSelectedImageCount" class=""></span>product(s) out of <span id="idImageCount" class=""> </span></label>
 							 
                                  </div>
                             <div class="control-group">
