@@ -125,8 +125,8 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                     <label class="" id="lblproductno" for="focusedInput">You Have Selected <span id="idSelectedImageCount" class=""></span>products out of <span id="idImageCount" class=""> </span></label>
-							    <%--document.getElementById('idImageCount').innerHTML = 4;--%>
+                                     <label class="" id="lblproductno" for="focusedInput" style="visibility:hidden;">You Have Selected <span id="idSelectedImageCount" class=""></span>product(s) out of <span id="idImageCount" class=""> </span></label>
+							 
                                  </div>
                             <div class="control-group">
                                  <div class="NewsletterImageholder" id="NewsLetterimagehold">
