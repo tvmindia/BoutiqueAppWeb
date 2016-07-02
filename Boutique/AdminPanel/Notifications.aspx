@@ -184,7 +184,7 @@
                                     <div class="box-icon">
                                     </div>
                                 </div>
-                                <div class="box-content TableLayout" style="min-height: 500px;">
+                                <div class="box-content" style="min-height: 500px;">
 
                                     <table class="table table-striped table-bordered  bootstrap-datatable" id="PersonalisedNotificationTable">
                                         <thead>
