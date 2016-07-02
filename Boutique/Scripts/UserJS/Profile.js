@@ -85,8 +85,7 @@ $("document").ready(function (e) {
 
     $(".imgdelete").live({
         click: function (e) {// Clear controls
-          debugger;
-
+         
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -208,8 +207,6 @@ $("document").ready(function (e) {
     //---------- * Add banner *-------------//
      $(".addBanner").live({
         click: function (e) {
-
-            debugger;
 
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
@@ -1023,7 +1020,6 @@ function ClearBannerControls()
     //$('.alert-success').hide();
     //$('.alert-error').hide();
 
-    debugger;
     $(".products").select2("val", "");
     $(".categories").select2("val", "");
 
