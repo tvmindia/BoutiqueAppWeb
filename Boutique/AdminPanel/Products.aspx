@@ -180,7 +180,7 @@
 								 <%--Search box--%>
 
                                   <%--Gallery Trends--%>
-                                 <div class="row-fluid">
+                                 <div class="row-fluid" id="trendingproductgaldiv">
 				           
 					         	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
 							 
@@ -215,7 +215,7 @@
 								 <%--Search box--%>
 
                                   <%--Gallery Out of stock--%>
-                                 <div class="row-fluid">
+                                 <div class="row-fluid" id="outofstockproductgaldiv">
 				           
 					     	     <div class="imageholderoutofstock" style="width:100%;" id="productoutofstockimagehold">
 						

@@ -143,7 +143,7 @@ function ShowDetail(ReviewID)
                             +'<div style="height:10%;"></div>'
                             +'</div><div class="replyForm" style="padding-top:10px;">'
 							+'<fieldset>'
-     						+ '<div class="actions"><button type="submit" class="btn btn-danger" onclick="ReviewClick(1)">REJECT</button>\t<button type="submit" class="btn btn-success" onclick="ReviewClick(2)">APPROVE</button>'
+     						+ '<div class="actions"><a class="btn btn-danger" onclick="ReviewClick(1)">REJECT</a>\t<a class="btn btn-success" onclick="ReviewClick(2)">APPROVE</a>'
 							+ '</div></fieldset></div></div></div></div>');
     Reviewdivholder.append(html);
     }
@@ -160,7 +160,7 @@ function GetDetails(Product)
 }
 function ReviewClick(Count)
 {
-    debugger;
+  
     var Result;
     var ReviewID = document.getElementById('HdnReviewID').value;
     if (Count == '1')
@@ -170,8 +170,9 @@ function ReviewClick(Count)
         var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
         getJsonData(data, "../AdminPanel/ProductReview.aspx/UpdateReviewCancelled");
         var Reviewdivholder = $('#' + ReviewID);
-        Reviewdivholder.remove();
+      
         $("#ReviewDetails").find("#previewReviewDet").remove();
+        $("#ReviewPreview").find('#' + ReviewID).remove();
     }
     else if(Count=='2')
     {
@@ -180,10 +181,12 @@ function ReviewClick(Count)
         var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
         getJsonData(data, "../AdminPanel/ProductReview.aspx/UpdateReviewModatate");
         var Reviewdivholder = $('#' + ReviewID);
-        Reviewdivholder.remove();
+     
         $("#ReviewDetails").find("#previewReviewDet").remove();
+        $("#ReviewPreview").find('#' + ReviewID).remove();
       
     }
+    BindNotification();
     
 }
 

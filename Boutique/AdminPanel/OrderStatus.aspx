@@ -53,7 +53,7 @@
         <%--//END   Alert boxes --%>
 
         <div class="row-fluid sortable" id="Orders">
-            <div class="box span12" style="width: 90%">
+            <div class="box span12" style="width: 100%">
                 <div class="box-header">
                 </div>
                 <div class="box-content">
@@ -71,7 +71,7 @@
                                         <div class="box-icon">
                                         </div>
                                     </div>
-                            <div class="box-content TableLayout">
+                            <div class="box-content" style="min-height: 500px;">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="OrdersTable">
                                     <thead>
@@ -228,7 +228,7 @@
                                                       <div class="control-group">
                                                             <label class="control-label" for="Remarks">Remarks</label>
                                                             <div class="controls">
-                                                                <textarea class="form-control" style="max-width:95%;height:180px" rows="4" id="txtRemarks"></textarea>
+                                                                <textarea class="form-control" style="width:95%;height:225px" rows="4" id="txtRemarks"></textarea>
                                                                 
                                                             </div>
                                                         </div>
@@ -246,7 +246,7 @@
                                             <div class="span3" style="padding-top:9%">
                                                 <div>
                                               
-                                                    <img id="ImgProduct" style="width:100%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
+                                                    <img id="ImgProduct" style="width:70%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
                                              
 
                                                 
@@ -305,7 +305,7 @@
                                         <div class="box-icon">
                                         </div>
                                     </div>
-                            <div class="box-content TableLayout">
+                            <div class="box-content" style="min-height: 500px;">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="ClosedOrdersTable" >
                                     <thead>
