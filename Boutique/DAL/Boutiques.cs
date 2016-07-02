@@ -170,7 +170,7 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public string[] ImageInfo
+        public string[] ImageInfo //Array stores imageids
         {
             get;
             set;
@@ -443,7 +443,6 @@ namespace Boutique.DAL
         }
         #endregion EditBoutique
 
-
         #region DeleteBoutique
         /// <summary>
         /// Delete boutique
@@ -619,9 +618,9 @@ namespace Boutique.DAL
         }
         #endregion GetBoutiqueLogo
 
-        //---Banner
+        //-------------  * BANNER METHODS * ---------- //
 
-        #region Get banner images for mobile
+         #region Get banner images for mobile
         /// <summary>
         /// Getting Banner images batatable for mobile app (including varbinary images)
         /// </summary>
@@ -711,8 +710,13 @@ namespace Boutique.DAL
          }
          #endregion Get All Banner Images
 
-         #region GetBannerImageByImageID
+         #region Get BannerImage By ImageID
 
+        /// <summary>
+        /// Returns banner image bytes by imgID 
+        /// It is mainly called by Image Handlers ,inorder to get image by its id ( as json can't handle imagebytes which is more than json's capacity)
+        /// </summary>
+        /// <returns></returns>
          public byte[] GetBannerImageByImageID()
          {
              if (ImageID == "")
@@ -723,7 +727,7 @@ namespace Boutique.DAL
              dbConnection dcon = null;
              SqlCommand cmd = null;
              SqlDataReader rd = null;
-             byte[] imageproduct = null;
+             byte[] BannerImage = null;
              try
              {
                  dcon = new dbConnection();
@@ -736,7 +740,7 @@ namespace Boutique.DAL
                  rd = cmd.ExecuteReader();
                  if ((rd.Read()) && (rd.HasRows) && (rd["Image"] != DBNull.Value))
                  {
-                     imageproduct = (byte[])rd["Image"];
+                     BannerImage = (byte[])rd["Image"];
                  }
              }
              catch (Exception ex)
@@ -752,7 +756,7 @@ namespace Boutique.DAL
                      dcon.DisconectDB();
                  }
              }
-             return imageproduct;
+             return BannerImage;
 
          }
          #endregion GetBannerImageByImageID
@@ -809,11 +813,13 @@ namespace Boutique.DAL
          #region Update orderNo
          /// <summary>
          /// to update order no on reordering
+         /// comma seperated string of ImageInfo array items will be created
+         /// That string will be passed to update stored procedure 
+         /// update will be done by splitting string by comma and then use that imageid for update
          /// </summary>
          /// <returns>status</returns>
          public Int16 UpdateorderNo()
          {
-            
              if (BoutiqueID == "")
              {
                  throw new Exception("BoutiqueID is Empty!!");
@@ -827,7 +833,7 @@ namespace Boutique.DAL
             
              try
              {
-                 if (ImageInfo != null)
+                 if (ImageInfo != null) //converting imageids array into a comma seperated string
                  {
                      for (int i = 0; i < ImageInfo.Length; i++)
                      {
@@ -838,7 +844,6 @@ namespace Boutique.DAL
                      imaginfo = imaginfo + ",";
                  }
                
-                 
                  dcon = new dbConnection();
                  dcon.GetDBConnection();
                  cmd = new SqlCommand();
@@ -871,9 +876,9 @@ namespace Boutique.DAL
          }
          #endregion Update orderNo
 
-         #region Update Banner Daetails
+         #region Update Banner Details
          /// <summary>
-         /// to Update Banner Daetails (product,category) by image ID
+         /// to Update Banner Details (product,category) by image ID
          /// </summary>
          /// <returns>status</returns>
          public Int16 UpdateBannerDetailsByImgID()
@@ -888,7 +893,6 @@ namespace Boutique.DAL
              {
                  throw new Exception("ImageID is Empty!!");
              }
-
 
              dbConnection dcon = null;
              SqlCommand cmd = null;
@@ -932,8 +936,6 @@ namespace Boutique.DAL
          }
          #endregion Update orderNo
 
-
-
          #region DeleteBannerByImageID
          /// <summary>
         /// Delete boutique
@@ -941,8 +943,7 @@ namespace Boutique.DAL
         /// <param name="ImageID"></param>
         /// <returns></returns>
          public Int16 DeleteBannerByImageID()
-        {
-
+         {
             if (BoutiqueID == "" || BoutiqueID == null)
             {
                 throw new Exception("BoutiqueID is Empty!!");
@@ -991,7 +992,6 @@ namespace Boutique.DAL
 
         }
          #endregion DeleteBannerByImageID
-
 
         #endregion Methods
 
