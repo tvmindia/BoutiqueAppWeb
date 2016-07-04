@@ -1473,7 +1473,7 @@ namespace Boutique.DAL
             }
         #endregion GetAllTotalCount
 
-            #region GetAllProductMainImagesDetails
+        #region GetAllProductMainImagesDetails
             public DataSet GetAllProductMainImagesDetails()
             {
 
@@ -1523,7 +1523,49 @@ namespace Boutique.DAL
             }
             #endregion GetAllProductMainImagesDetails
 
-        #region GetAllOutOfStockProductMainImagesDetails
+            #region GetAllDeletedProductsDetails
+            public DataSet GetAllDeletedProductsDetails()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetAllDeletedProductsDetailsByBoutiqueid]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                return ds;
+            }
+
+            #endregion GetAllDeletedProductsDetails
+
+            #region GetAllOutOfStockProductMainImagesDetails
             public DataSet GetAllOutOfStockProductMainImagesDetails()
             {
 
@@ -2311,6 +2353,53 @@ namespace Boutique.DAL
         }
         #endregion GetNewProductDetailBySearch
 
+        #region GetDeletedProductDetailsBySearch
+        public DataSet GetDeletedProductDetailsBySearch()
+        {
+
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetDeletedProductsDetailBySearch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetDeletedProductDetailsBySearch
+
         #region Get related products of a product for app
         /// <summary>
         /// To get the related products including image for app
@@ -2497,5 +2586,52 @@ namespace Boutique.DAL
          }
 
          #endregion GetAllProductIDAndNameForNewsLetter
+
+
+        #region revive product
+         public Int16 ReviveProduct()
+         {
+             if (ProductID == "")
+             {
+                 throw new Exception("ProductID is Empty!!");
+             }
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+
+
+             SqlParameter outParameter = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[ReviveProduct]";
+                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //delete success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+         }
+        #endregion revive product
     }
 }

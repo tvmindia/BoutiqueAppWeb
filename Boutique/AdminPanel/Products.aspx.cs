@@ -326,6 +326,41 @@ namespace Boutique.AdminPanel
 
         #endregion GetAllTrendingProductsMainImagesDetails
 
+        #region GetAllDeletedProductDetails
+        [System.Web.Services.WebMethod]
+        public static string GetAllDeletedProductDetails(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetAllDeletedProductsDetails();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion GetAllDeletedProductDetails
+
         #region GetAllProductImages
 
         [System.Web.Services.WebMethod]
@@ -628,6 +663,42 @@ namespace Boutique.AdminPanel
         }
         #endregion GetAllNewProductMainDetailsBySearch
 
+        #region GetAllRevivedProductDetailsBySearch
+        [System.Web.Services.WebMethod]
+        public static string GetAllRevivedProductDetailsBySearch(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetDeletedProductDetailsBySearch();
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+        #endregion GetAllRevivedProductDetailsBySearch
+
         #region GetAllProductImagesFornewsLetter
 
         [System.Web.Services.WebMethod]
@@ -664,6 +735,40 @@ namespace Boutique.AdminPanel
         }
 
         #endregion GetAllProductImagesFornewsLetter
+
+        #region ReviveProduct
+        [System.Web.Services.WebMethod]
+
+        public static string ReviveProduct(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        productObj.BoutiqueID = UA.BoutiqueID;
+                        productObj.UpdatedBy = UA.userName;
+                        //returns status and productid
+                        productObj.status = productObj.ReviveProduct().ToString();
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return jsSerializer.Serialize(productObj);
+        }
+        #endregion ReviveProduct
 
     }
 }

@@ -252,7 +252,7 @@ input[type=text],input[type=password],textarea,select
 						<li><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet">People</span></a></li>--%>
 
 						<li class="navTitle" id ="Li_Category" runat="server"><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>
-						<li class="navTitle" id ="Li_Products" runat="server"><a href="Products.aspx"><i class="icon-align-justify"></i><span class="hidden-tablet"> Products</span></a></li>
+						<li class="navTitle" id ="Li_Products" runat="server"><a href="Products.aspx"><i class="icon-briefcase"></i><span class="hidden-tablet"> Products</span></a></li>
                         <li class="navTitle" id ="Li_ProductReview" runat="server"><a href="ProductReview.aspx"><i class="icon-pencil"></i><span class="hidden-tablet"> Products Review</span></a></li>			                       
                         <li class="navTitle" id ="Li_Notifications" runat="server"><a href="Notifications.aspx"><i class="icon-edit"></i><span class="hidden-tablet"> Notifications</span></a></li>
 						<li class="navTitle" id ="Li_NewsLetter" runat="server"><a href="../AdminPanel/NewsLetter.aspx"><i class="icon-envelope"></i><span class="hidden-tablet">NewsLetter</span></a></li> 

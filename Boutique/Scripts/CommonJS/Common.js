@@ -312,3 +312,15 @@ function isNumber(evt) {
     return true;
 }
 
+function HideAlertBox() {
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+}
+
+function ShowAlertBox()
+{
+    $('#rowfluidDiv').show();
+    $('.alert-success').show();
+    $('.alert-error').show();
+}

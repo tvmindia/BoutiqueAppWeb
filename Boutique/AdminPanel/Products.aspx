@@ -125,6 +125,7 @@
 							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i>New Products</a></li>
 							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i>Trending</a></li>
 							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i>Out of Stocks</a></li>
+                            <li><a id="idtabdeletedproducts" href="#deletedproducts"><i class="halflings-icon airplane"></i>Revive Products</a></li>
 						</ul>
 						
 						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
@@ -232,13 +233,51 @@
                               </div>
                              </div>
 
+                       
+
+                            <div class="tab-pane" id="deletedproducts">
+                                   <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">Out Of Stocks</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtdeletproductsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchreviveproduct" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshreviveproduct" href="#"><i class="halflings-icon white refresh"></i></a>
+								  </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
+
+
+                                  <%--Gallery Revive product--%>
+                                 <div class="row-fluid" id="reviveproductgaldiv">
+				           
+					     	     <div class="imageholderreviveproduct" style="width:100%;" id="productreviveimagehold">
+						
+				    	         </div>
+				
+			                     </div>
+                                  <%--Gallery Revive product--%>
+
+
+                                 <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <a class="btn btn-block loadMore" id="load_more_buttonreviveproducts" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
+                              </div>
+
+
+
+                             </div>
+
+
+                            </div>
+
                       
 
 						</div>
 					</div>
 				</div><!--/span-->
 			
-			   </div>	
+			 
 		   <%--Tab Content--%>
  
 	        
@@ -391,9 +430,10 @@
                    
               </div>
               <footer class="InnerFooter">
-                          <a class="btn btn-primary AddProduct" onclick="return ProductValidation();" href="#">Save</></a>
-                          <a class="btn btn-primary ModifyProduct" onclick="return ProductValidationEdit();" href="#"><i class="halflings-icon th"></i>Save</></a>
-						  <a class="btn btn-danger DeleteProduct" href="#">Delete</></a>
+                          <a class="btn btn-primary AddProduct" onclick="return ProductValidation();">Save</></a>
+                          <a class="btn btn-primary ModifyProduct" onclick="return ProductValidationEdit();"><i class="halflings-icon th"></i>Save</></a>
+						  <a class="btn btn-danger DeleteProduct">Delete</></a>
+                          <a class="btn btn-warning ReviveProduct">Revive</a>
                           <a class="btn btn-primary CancelProduct">New</a>
 						
              </footer> 
