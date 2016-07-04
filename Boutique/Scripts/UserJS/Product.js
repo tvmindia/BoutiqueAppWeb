@@ -1,5 +1,6 @@
 ﻿var LoginUserRole = '';
 $("document").ready(function (e) {
+   
     $('#lblproductno').hide();
     parent.document.title = Pages.Products;
     LoginUserRole = getRole(); //common function To Get Role
