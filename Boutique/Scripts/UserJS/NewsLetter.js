@@ -56,7 +56,7 @@
 
     $eventTemplatesSelect.on("change", function (e) {
         var ddltemplate = $(".template").val();
-
+        debugger;
         if (ddltemplate != null && ddltemplate!="") {
             BindTemplateImagesPreview(ddltemplate);
             GetAllTemplateDetails(ddltemplate);
