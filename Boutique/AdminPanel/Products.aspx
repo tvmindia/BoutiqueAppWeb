@@ -136,7 +136,7 @@
 								<label class="control-label">New Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchnewproducts" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
+									<input id="txtsearchnewproducts" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchnewproducts btntxtsearch" id="idbtnsearchnewproducts"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -159,7 +159,7 @@
                                  <%--Gallery new products--%>
 
 
-                              <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <div class="row-fluid" id="loadmoreproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore"  id="load_more_button">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                              </div>
@@ -174,7 +174,7 @@
 								<label class="control-label">Trending Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchtrends" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshtrends" href="#"><i class="halflings-icon white refresh"></i></a>
+									<input id="txtsearchtrends" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchtrends btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshtrends" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -209,7 +209,7 @@
 								<label class="control-label">Out Of Stocks</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchoutofstock" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshoutofproduct" href="#"><i class="halflings-icon white refresh"></i></a>
+									<input id="txtsearchoutofstock" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchoutofstock btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshoutofproduct" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
@@ -238,10 +238,10 @@
                             <div class="tab-pane" id="deletedproducts">
                                    <%--Search box--%>
                                  <div class="control-group">
-								<label class="control-label">Out Of Stocks</label>
+								<label class="control-label">Deleted Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtdeletproductsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchreviveproduct" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshreviveproduct" href="#"><i class="halflings-icon white refresh"></i></a>
+									<input id="txtdeletproductsearch" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchreviveproduct btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshreviveproduct" href="#"><i class="halflings-icon white refresh"></i></a>
 								  </div>
 								</div>
 							  </div>
