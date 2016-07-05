@@ -61,7 +61,7 @@
             BindTemplateImagesPreview(ddltemplate);
             GetAllTemplateDetails(ddltemplate);
         }
-        else
+        else 
         {
             $('#templatePreviewImagehold').remove();
             document.getElementById('lblproductno').style.visibility = "hidden";
