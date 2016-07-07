@@ -129,7 +129,7 @@
             });
               
         });
-        if (imageCount != 8) {
+        if (imageCount != 10) {
             CustomAlert("Please select 8 images for selected template!");
         }
         var NewsLetters = new Object();
@@ -443,7 +443,7 @@ function MainImageClick(checkedImage) {
         }
 
     });
-    if (imageCount != 8) {
+    if (imageCount != 10) {
         CustomAlert("Please select 8 images for selected template!");
     }
     var NewsLetters = new Object();
