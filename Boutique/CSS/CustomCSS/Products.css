@@ -193,7 +193,8 @@ img.sticker {
 
 .noproductgif
 {
+    opacity: 0.39;
     height: 255px;
-    padding-left: 35%;
+    padding-left: 34%;
     width: 319px;
 }
