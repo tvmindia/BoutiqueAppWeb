@@ -288,6 +288,7 @@
     <Content Include="font\glyphiconshalflings-regular.eot" />
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
+    <Content Include="NewsLetterImages\ppt.txt" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
     <Content Include="Scripts\CommonJS\Common.js" />
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
@@ -549,7 +550,6 @@
     <Folder Include="Media\GraphPic\" />
     <Folder Include="Media\NewsLetter\" />
     <Folder Include="Models\" />
-    <Folder Include="NewsLetterImages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
