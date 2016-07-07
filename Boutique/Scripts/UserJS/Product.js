@@ -7,41 +7,46 @@ $("document").ready(function (e) {
    //query string from dashboard for tab selection
     var qrStr = window.location.search;
     if (qrStr != "") {
-
+       
         qrStr = qrStr.split("?")[1].split("=")[1];
         if (qrStr == "trends") {
             $('#myTab li:eq(1) a').tab('show');
 
-             BindTrendingAllProductImages(0);
-             var gallerytrendsdiv = $('.imageholderTrends');
-             var $marstrends = $('.imageholderTrends').masonry({
-                  itemSelector: '.masonry-thumb',
-                 
-               });
-            
-             $marstrends.imagesLoaded().progress(function () {
-                 $marstrends.masonry('layout');
-              });
+            //BindTrendingAllProductImages(0);
+            if (BindTrendedProductImagesRebind(0) != -1)
+            {
+                var gallerytrendsdiv = $('.imageholderTrends');
+                var $marstrends = $('.imageholderTrends').masonry({
+                    itemSelector: '.masonry-thumb',
+
+                });
+                $marstrends.imagesLoaded().progress(function () {
+                    $marstrends.masonry('layout');
+                });
+            }
+           
 
         }
         if (qrStr == "OutOfStock") {
             $('#myTab li:eq(2) a').tab('show');
-              BindAllProductImagesOutOfStock(0);
-              var galleryoutofstockdiv = $('.imageholderoutofstock');
-             var $marsoutofstock = $('.imageholderoutofstock').masonry({
-                 itemSelector: '.masonry-thumb',
-               
-             });
-            
-             $marsoutofstock.imagesLoaded().progress(function () {
-                 $marsoutofstock.masonry('layout');
-              });
 
+           // BindAllProductImagesOutOfStock(0);
+            if (BindOutStockProductImagesRebind(0) != -1)
+            {
+                var galleryoutofstockdiv = $('.imageholderoutofstock');
+                var $marsoutofstock = $('.imageholderoutofstock').masonry({
+                    itemSelector: '.masonry-thumb',
 
-        }
+                });
+
+                $marsoutofstock.imagesLoaded().progress(function () {
+                    $marsoutofstock.masonry('layout');
+                });
+            }
+                
+         }
     }
    //query string from dashboard for tab selection
-
     $('.ModifyProduct').hide();//hides edit button
     $('.DeleteProduct').hide();//hides delete button
     //$('.image-link').viewbox({
@@ -55,18 +60,21 @@ $("document").ready(function (e) {
     // $("#productimagehold").find(".masonry-thumb").remove();
     //document.getElementById('imageupGallery').style.display = 'block';
   
-    BindAllProductImages(0);//binds masanory gallery with product under current boutique
-    var galerydiv = $('.imageholder');
-    var $mars = $('.imageholder').masonry(
-            {
-               
-                itemSelector: '.masonry-thumb',
-                
-            });
-   // galerydiv.hide();
-    $mars.imagesLoaded().progress(function () {
-        $mars.masonry('layout');
-    });
+    // BindAllProductImages(0);//binds masanory gallery with product under current boutique
+    if (BindAllProductImagesRebind(0) != -1) {
+
+        var galerydiv = $('.imageholder');
+        var $mars = $('.imageholder').masonry(
+                {
+
+                    itemSelector: '.masonry-thumb',
+
+                });
+        // galerydiv.hide();
+        $mars.imagesLoaded().progress(function () {
+            $mars.masonry('layout');
+        });
+    }
 
   //  BindAllProductImagesOutOfStock(0);
   //  var galleryoutofstockdiv = $('.imageholderoutofstock');
@@ -380,7 +388,7 @@ $("document").ready(function (e) {
     $("#idtabnewproducts").click(function (e) { //user clicks on button
         HideAlertBox();
         clearProductControls();
-        $('#loadmoreproductdiv').show();
+        $('#loadmorenewproductdiv').show();
         $('.ReviveProduct').hide();
         $('.AddProduct').show();
         $('.DeleteProduct').hide();
@@ -391,15 +399,19 @@ $("document").ready(function (e) {
         //$("#load_more_buttontrends").hide();
         //$("#load_more_buttonoutofstock").hide();
         //location.reload();
-        BindAllProductImagesRebind(0);
-        var $mars = $('.imageholder').masonry(
-            {
-                itemSelector: '.masonry-thumb',
+
+        if (BindAllProductImagesRebind(0) != -1)
+        {
+            var $mars = $('.imageholder').masonry(
+           {
+               itemSelector: '.masonry-thumb',
+           });
+
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
             });
-      
-        $mars.imagesLoaded().progress(function () {
-            $mars.masonry('layout');
-        });
+        }
+       
         //Masonary reinit
         //$("#load_more_button").hide();
     });
@@ -407,6 +419,7 @@ $("document").ready(function (e) {
     $("#idtabtrending").click(function (e) { //user clicks on button
         HideAlertBox();
         clearProductControls();
+        $('#loadmoretrendproductdiv').show();
         $('.ReviveProduct').hide();
         $('.AddProduct').show();
         $('.DeleteProduct').hide();
@@ -416,16 +429,19 @@ $("document").ready(function (e) {
        // $("#load_more_buttonoutofstock").hide();
        // $("#load_more_buttontrends").remove();
         //$("#productTrendsimagehold").find(".masonry-thumb").remove();
-        BindTrendedProductImagesRebind(0);
-         var $grid = $('.imageholderTrends').masonry({
-            itemSelector: '.masonry-thumb',
-    
-         });
-        $grid.imagesLoaded(function () {
-          
-            $grid.masonry('layout');
-          
-        });
+        if (BindTrendedProductImagesRebind(0) != -1)
+        {
+            var $grid = $('.imageholderTrends').masonry({
+                itemSelector: '.masonry-thumb',
+
+            });
+            $grid.imagesLoaded(function () {
+
+                $grid.masonry('layout');
+
+            });
+        }
+       
         // BindTrendingAllProductImages(0);
        //BindTrendedProductImagesForEventLoad(0);
         //*******
@@ -449,6 +465,7 @@ $("document").ready(function (e) {
     });
 
     $("#idtaboutofstock").click(function (e) { //user clicks on button
+        $('#loadmoreoutofstockproductdiv').show();
         HideAlertBox();
         clearProductControls();
         $('.ReviveProduct').hide();
@@ -468,15 +485,19 @@ $("document").ready(function (e) {
         // galleryoutofstockdiv.hide();
     
         //Masonary reinit
-        BindOutStockProductImagesRebind(0);
-        var $marsoutofstock = $('.imageholderoutofstock').masonry({
-            itemSelector: '.masonry-thumb',
-         
-        });
-        
-        $marsoutofstock.imagesLoaded().progress(function () {
-            $marsoutofstock.masonry('layout');
-        });
+
+        if (BindOutStockProductImagesRebind(0) != -1)
+        {
+            var $marsoutofstock = $('.imageholderoutofstock').masonry({
+                itemSelector: '.masonry-thumb',
+
+            });
+
+            $marsoutofstock.imagesLoaded().progress(function () {
+                $marsoutofstock.masonry('layout');
+            });
+        }
+       
         //$("#load_more_buttonoutofstock").show();
         //Masonary reinit
     });
@@ -484,6 +505,7 @@ $("document").ready(function (e) {
     $("#idtabdeletedproducts").click(function (e) { //user clicks on button
         HideAlertBox();
         clearProductControls();
+        $('#loadmoredeletedproductdiv').show();
        // $('.ReviveProduct').show();
         $('.ReviveProduct').show();
         $('.AddProduct').hide();
@@ -492,15 +514,18 @@ $("document").ready(function (e) {
         $('.CancelProduct').hide();
         
         //Masonary reinit
-      BindRevivedProductImagesRebinds(0);
-      var $marsrevive = $('.imageholderreviveproduct').masonry({
-            itemSelector: '.masonry-thumb',
+        if (BindRevivedProductImagesRebinds(0) != -1)
+        {
+            var $marsrevive = $('.imageholderreviveproduct').masonry({
+                itemSelector: '.masonry-thumb',
 
-        });
+            });
 
-        $marsrevive.imagesLoaded().progress(function () {
-            $marsrevive.masonry('layout');
-        });
+            $marsrevive.imagesLoaded().progress(function () {
+                $marsrevive.masonry('layout');
+            });
+        }
+    
        
         //Masonary reinit
     });
@@ -513,34 +538,36 @@ $("document").ready(function (e) {
         var search = $("#txtsearchnewproducts").val();
         if (search != '') {
             // $("#productimagehold").find(".masonry-thumb").remove();
-            $('#loadmoreproductdiv').hide();
-           BindAllNewProductImagesSearch(0, search);
-            var $mars = $('.imageholder').masonry(
-            {
-             itemSelector: '.masonry-thumb',
-         });
-            $mars.imagesLoaded().progress(function () {
-                $mars.masonry('layout');
-            });
+            $('#loadmorenewproductdiv').hide();
+            if (BindAllNewProductImagesSearch(0, search) != -1) {
+                var $mars = $('.imageholder').masonry(
+                {
+                    itemSelector: '.masonry-thumb',
+                });
+                $mars.imagesLoaded().progress(function () {
+                    $mars.masonry('layout');
+                });
+            }
         }
-        else
-        {
+        else {
             CustomAlert("Please Search with Product No/Name!");
         }
     });
 
 
     $(".btnsearchtrends").click(function (e) { //user clicks on button
+        $('#loadmoretrendproductdiv').hide();
         HideAlertBox();
         var search = $("#txtsearchtrends").val();
         if (search != '') {
-            BindNewTrendingAllProductImagesSearch(0, search);
-            var $mars = $('.imageholderTrends').masonry({
-                itemSelector: '.masonry-thumb',
-            });
-            $mars.imagesLoaded().progress(function () {
-                $mars.masonry('layout');
-            });
+            if (BindNewTrendingAllProductImagesSearch(0, search) != -1) {
+                var $mars = $('.imageholderTrends').masonry({
+                    itemSelector: '.masonry-thumb',
+                });
+                $mars.imagesLoaded().progress(function () {
+                    $mars.masonry('layout');
+                });
+            }
         }
         else {
             CustomAlert("Please Search with Product No/Name!");
@@ -549,16 +576,22 @@ $("document").ready(function (e) {
 
 
     $(".btnsearchoutofstock").click(function (e) { //user clicks on button
+        $('#loadmoreoutofstockproductdiv').hide();
         HideAlertBox();
         var search = $("#txtsearchoutofstock").val();
-        if (search != '') {
-            BindAllNewProductImagesOutOfStockSearch(0, search);
-            var $mars = $('.imageholderoutofstock').masonry({
-                itemSelector: '.masonry-thumb',
-            });
-            $mars.imagesLoaded().progress(function () {
-                $mars.masonry('layout');
-            });
+        if (search != '')
+        {
+            if (BindAllNewProductImagesOutOfStockSearch(0, search) != -1)
+            {
+                var $mars = $('.imageholderoutofstock').masonry({
+                    itemSelector: '.masonry-thumb',
+                });
+                $mars.imagesLoaded().progress(function () {
+                    $mars.masonry('layout');
+                });
+         
+           
+           }
         }
         else {
             CustomAlert("Please Search with Product No/Name!");
@@ -567,16 +600,18 @@ $("document").ready(function (e) {
 
 
     $(".btnsearchreviveproduct").click(function (e) {
+        $('#loadmoredeletedproductdiv').hide();
           HideAlertBox();
           var search = $("#txtdeletproductsearch").val();
           if (search != '') {
-              BindAllRevivedProductsSearch(0, search);
-              var $mars = $('.imageholderreviveproduct').masonry({
-                  itemSelector: '.masonry-thumb',
-              });
-              $mars.imagesLoaded().progress(function () {
-                  $mars.masonry('layout');
-              });
+              if (BindAllRevivedProductsSearch(0, search) != -1) {
+                  var $mars = $('.imageholderreviveproduct').masonry({
+                      itemSelector: '.masonry-thumb',
+                  });
+                  $mars.imagesLoaded().progress(function () {
+                      $mars.masonry('layout');
+                  });
+              }
           }
           else {
               CustomAlert("Please Search with Product No/Name!");
@@ -601,56 +636,70 @@ $("document").ready(function (e) {
 
     $(".btnRefreshnewproducts").click(function (e)
     {//
-        $('#loadmoreproductdiv').show();
+        $('#loadmorenewproductdiv').show();
         HideAlertBox();
         $("#txtsearchnewproducts").val('');//clears search text box
-        BindAllProductImagesRebind(0);
-        var $mars = $('.imageholder').masonry({
-              itemSelector: '.masonry-thumb',
-         });
-        $mars.imagesLoaded().progress(function () {
-            $mars.masonry('layout');
-        });
+        if (BindAllProductImagesRebind(0) != -1)
+        {
+            var $mars = $('.imageholder').masonry({
+                itemSelector: '.masonry-thumb',
+            });
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
+            });
+        }
+       
    });
 
 
 
     $(".btnRefreshtrends").click(function (e) {//
+        $('#loadmoretrendproductdiv').show();
         HideAlertBox();
         $("#txtsearchtrends").val('');//clears search text box
-        BindTrendedProductImagesRebind(0);
-        var $mars = $('.imageholderTrends').masonry({
-            itemSelector: '.masonry-thumb',
-         });
-        $mars.imagesLoaded().progress(function () {
-        $mars.masonry('layout');
-        });
+        if (BindTrendedProductImagesRebind(0) != -1)
+        {
+            var $mars = $('.imageholderTrends').masonry({
+                itemSelector: '.masonry-thumb',
+            });
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
+            });
+        }
+       
     });
 
     $(".btnRefreshoutofproduct").click(function (e) {//
+        $('#loadmoreoutofstockproductdiv').show();
         HideAlertBox();
         $("#txtsearchoutofstock").val('');//clears search text box
-        BindOutStockProductImagesRebind(0);
-        var $mars = $('.imageholderoutofstock').masonry({
-           itemSelector: '.masonry-thumb',
-       });
-        $mars.imagesLoaded().progress(function ()
+        if (BindOutStockProductImagesRebind(0) != -1)
         {
-            $mars.masonry('layout');
-        });
+            var $mars = $('.imageholderoutofstock').masonry({
+                itemSelector: '.masonry-thumb',
+            });
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
+            });
+        }
+       
      
     });
 
-     $(".btnRefreshreviveproduct").click(function (e) {//
+    $(".btnRefreshreviveproduct").click(function (e) {//
+        $('#loadmoredeletedproductdiv').show();
         HideAlertBox();
         $("#txtdeletproductsearch").val('');//clears search text box
-        BindRevivedProductImagesRebinds(0);
-         var $mars = $('.imageholderreviveproduct').masonry({
-                 itemSelector: '.masonry-thumb',
-              });
-              $mars.imagesLoaded().progress(function () {
-                  $mars.masonry('layout');
-              });
+        if (BindRevivedProductImagesRebinds(0) != -1)
+        {
+            var $mars = $('.imageholderreviveproduct').masonry({
+                itemSelector: '.masonry-thumb',
+            });
+            $mars.imagesLoaded().progress(function () {
+                $mars.masonry('layout');
+            });
+        }
+        
      });
 
 
@@ -658,18 +707,11 @@ $("document").ready(function (e) {
 
          HideAlertBox();
          var prodid = $("#hdfproductID").val();
-         if (prodid != '') {
-             var Product = new Object();
-             Product.ProductID = prodid;
-             ReviveProduct(Product);
-             BindRevivedProductImagesRebinds(0);
-             var $mars = $('.imageholderreviveproduct').masonry({
-                 itemSelector: '.masonry-thumb',
-             });
-             $mars.imagesLoaded().progress(function () {
-                 $mars.masonry('layout');
-             });
-         }
+         if (prodid != '')
+         {
+             var p = "Revive";
+             DeleteCustomAlert("Are you sure?", prodid, p);//revive confirm
+          }
 });
 
 
@@ -760,6 +802,35 @@ function DeleteItem(e, p) {
     }
 }
 
+function ReviveProducts(e,p)
+{
+    var Product = new Object();
+    Product.ProductID = e;
+    //var result = DeleteProduct(Product);
+    var result = ReviveProduct(Product);
+    if (result.status == "1") {
+        //which tab should rebind
+          $('#rowfluidDiv').show();
+         $('.alert-success').show();
+         if (BindRevivedProductImagesRebinds(0) != -1) {
+             var $mars = $('.imageholderreviveproduct').masonry({
+                 itemSelector: '.masonry-thumb',
+             });
+             $mars.imagesLoaded().progress(function () {
+                 $mars.masonry('layout');
+             });
+         }
+
+        AutoScrollToAlertBox();
+    }
+    if (result.status != "1")
+    {
+        $('#rowfluidDiv').show();
+        $('.alert-error').show();
+        AutoScrollToAlertBox();
+    }
+}
+
 function BindProductTextBoxes(thisobject)
 {
    
@@ -790,7 +861,7 @@ function BindProductTextBoxes(thisobject)
     {
         $("#txtDiscount").val(pdiscount);
     }
-   
+
     if (isoutstock == 'true') {
         // $('#OptisOutOfStockNo').parent().addClass('checked');
         $("#OptisOutOfStockNo").parent().removeClass('checked');
@@ -808,19 +879,13 @@ function BindProductTextBoxes(thisobject)
         $("#OptIsActiveYes").parent().removeClass('checked');
         $('#OptIsActiveNo').parent().addClass('checked');
     }
-
     if (categories != '') {
         var catarray = categories.split(',');
         var $catMulti = $(".ddlcategories").select2();
         $catMulti.val(catarray).trigger("change");
     }
-
     //binding related products drop down
     BindRelatedProductsOnDemand(productid);
-
-
-
-
     if (designerid != '') {
         var $desingnSingle = $(".ddlDesigners").select2();
         $desingnSingle.val(designerid).trigger("change");
@@ -831,11 +896,9 @@ function BindProductTextBoxes(thisobject)
         $('.ModifyProduct').show();//switches button to edit mode
         $('.DeleteProduct').show();
     }
-   
     $('#IframeProjectSwitching').show();
     $('#idproductno').text(productno);
     $('#lblproductno').show();
-
 }
 
 //////////////////////////////////////
@@ -862,6 +925,13 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productoutofstockimagehold");
     dynamicdiv.className = "imageholderoutofstock";
+   
+    if (totalimages.length < 1) {
+       
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
     parentdiv.append(dynamicdiv);
     var $marsoutofstock = $('.imageholderoutofstock');
     var elems = $();
@@ -908,6 +978,13 @@ function BindAllRevivedProductsSearch(Pagevalue, searchtext) {
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productreviveimagehold");
     dynamicdiv.className = "imageholderreviveproduct";
+    
+    if (totalimages.length < 1) {
+       
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
     parentdiv.append(dynamicdiv);
     var $marsrevive = $('.imageholderreviveproduct');
     var elems = $();
@@ -952,6 +1029,13 @@ function BindAllNewProductImagesSearch(Pagevalue, searchtext) {//***************
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productimagehold");
     dynamicdiv.className = "imageholder";
+    if (totalimages.length < 1) {
+       
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
+
     parentdiv.append(dynamicdiv);
     var $mars = $('.imageholder');
     var elems = $();
@@ -1011,6 +1095,12 @@ function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productTrendsimagehold");
     dynamicdiv.className = "imageholderTrends";
+
+    if (totalimages.length < 1) {
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
     parentdiv.append(dynamicdiv);
     var $marstrends = $('.imageholderTrends');
     var elems = $();
@@ -1046,7 +1136,17 @@ function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     return totalimages.length;
 }
 /////////////////////////////
-
+function BindNoProductImage()
+{
+    var div = document.createElement("div");
+    div.setAttribute("class", "noproductdiv");
+    img1 = document.createElement('img');
+    img1.src = "../img/noproduct.gif";
+    img1.className = "noproductgif";
+    div.appendChild(img1);
+    return div;
+   
+}
 
 
 
@@ -1621,6 +1721,13 @@ function BindAllProductImagesRebind(Pagevalue) {//where div is removed and recre
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productimagehold");
     dynamicdiv.className = "imageholder";
+
+    if (totalimages.length < 1) {
+
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
     parentdiv.append(dynamicdiv);
 
 
@@ -1716,6 +1823,13 @@ function BindOutStockProductImagesRebind(Pagevalue)
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productoutofstockimagehold");
     dynamicdiv.className = "imageholderoutofstock";
+
+    if (totalimages.length < 1) {
+
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
     parentdiv.append(dynamicdiv);
 
 
@@ -1834,6 +1948,12 @@ function BindRevivedProductImagesRebinds(Pagevalue)
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productreviveimagehold");
     dynamicdiv.className = "imageholderreviveproduct";
+    if (totalimages.length < 1) {
+
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
     parentdiv.append(dynamicdiv);
     var $marsrevive = $('.imageholderreviveproduct');
     var elems = $();
@@ -1876,6 +1996,12 @@ function BindTrendedProductImagesRebind(Pagevalue)
     var dynamicdiv = document.createElement('div');
     dynamicdiv.setAttribute("id", "productTrendsimagehold");
     dynamicdiv.className = "imageholderTrends";
+    if (totalimages.length < 1) {
+
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
     parentdiv.append(dynamicdiv);
 
 

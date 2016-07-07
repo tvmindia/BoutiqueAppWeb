@@ -159,7 +159,7 @@
                                  <%--Gallery new products--%>
 
 
-                              <div class="row-fluid" id="loadmoreproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <div class="row-fluid" id="loadmorenewproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore"  id="load_more_button">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                              </div>
@@ -192,7 +192,7 @@
 			                  </div>
                                   <%--Gallery Trends--%>
 
-                                <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                                <div class="row-fluid" id="loadmoretrendproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                               </div>
@@ -227,7 +227,7 @@
 
                             
 
-                                 <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                                 <div class="row-fluid" id="loadmoreoutofstockproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                               </div>
@@ -259,7 +259,7 @@
                                   <%--Gallery Revive product--%>
 
 
-                                 <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                                 <div class="row-fluid" id="loadmoredeletedproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore" id="load_more_buttonreviveproducts" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                               </div>

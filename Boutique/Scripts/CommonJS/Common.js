@@ -196,10 +196,14 @@ function DeleteCustomAlert(txt, e, p)
     if (p == "ProductImage") {
         btnYes.onclick = function () { DeleteProductImage(e, p); removeCustomAlert(); return false; }
     }
+  
+    if (p == "Revive")//it is not  delete it restore from the deleted products
+    {
+        btnYes.onclick = function () { ReviveProducts(e, p); removeCustomAlert(); return false; }
+    }
     else {
         btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
     }
-
     alertObj.style.display = "block";
 
     $("#alertBox").animate({ top: '50px' });
