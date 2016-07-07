@@ -22,9 +22,11 @@ namespace Boutique.AdminPanel
 
         #region SendNotificationMail
         [System.Web.Services.WebMethod]
-        public static void SendEmail(MailSending mailObj)
+        public static string SendEmail(MailSending mailObj)
         {
-
+            int ? result=null;
+            string jsonResult = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             NewsLetters newsObj = new NewsLetters();
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -45,21 +47,31 @@ namespace Boutique.AdminPanel
                 mailObj.recepientEmail = strDetailIDList.ToArray();
             }
             HttpContext ctx = HttpContext.Current;
-            new Thread(delegate()
+            try
             {
-                HttpContext.Current = ctx;
-                mailObj.PopulateBody(
-                    //"" + "Anija",
-                    //"" + "Boutique",
-                    //"https://www.google.co.in/" +
-                    //"Your Todays Deal.....",
-                    //"" + "Offers",
-                    //"https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
-                    //mailObj.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
-            );
-            }).Start();
+                new Thread(delegate()
+                {
+                    HttpContext.Current = ctx;
+                    result = mailObj.PopulateBody(
+                        //"" + "Anija",
+                        //"" + "Boutique",
+                        //"https://www.google.co.in/" +
+                        //"Your Todays Deal.....",
+                        //"" + "Offers",
+                        //"https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
+                        //mailObj.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
+                 );
+                }).Start();
+                result=1;
+            }
+            catch(Exception ex)
+            {
+                result = 0;
+                throw ex;
+            }
+            jsonResult = jsSerializer.Serialize(result);
 
-
+            return jsonResult;
         }
         #endregion SendNotificationMail
 

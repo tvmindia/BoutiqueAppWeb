@@ -84,7 +84,8 @@ var Messages = {
     DeletionFailure: "Deletion Not Successful ",
     SavingFailure: "Saving Not Successful ",
     AlreadyUsedForDeletion: "Already used . Can't be deleted",
-    AlreadyUsedForUpdation: "Already used . Can't be changed"
+    AlreadyUsedForUpdation: "Already used . Can't be changed",
+    MailSendSuccessfully:"Mail Send Successfully"
 }
 
 function IsCategoryExists() {   

@@ -78,8 +78,18 @@
             var MailSending = new Object();
             MailSending.mailNewsLetterID = editedrow.attr("newsletterid");
             MailSending.BoutiqueID = editedrow.attr("boutiqueid");
-            SendNotificationMail(MailSending);
-          
+            debugger;
+            var mailResult = SendNotificationMail(MailSending);
+         if (mailResult == "1") {
+             $('#rowfluidDiv').show();
+             $('.alert-success').show();
+             $('.alert-success strong').text(Messages.MailSendSuccessfully);
+             $('.alert-error').hide();
+         }
+         if (mailResult != "1") {
+             $('#rowfluidDiv').show();
+             $('.alert-error').show();
+         }
         }
     })
     //mail sending

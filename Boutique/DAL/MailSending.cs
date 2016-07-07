@@ -214,7 +214,7 @@ namespace Boutique.DAL
 
         #endregion Format And Send Email
 
-        public void PopulateBody()
+        public int PopulateBody()
         {
             NewsLetters newsObj = new NewsLetters();
             string imageUrl = "http://www.tiquesinn.com/NewsLetterImages/";
@@ -246,6 +246,7 @@ namespace Boutique.DAL
             emailBody = body;
             SendEmail();
             newsObj.UpdateNewsLetterIsmailSend();
+            return 2;
         }
 
         public void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
