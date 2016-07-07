@@ -52,7 +52,6 @@
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
                         <li><a href="#Notifications">Notifications</a></li>
-                        <li><a href="#NewsLetter">NewsLetter</a></li>
                         <li><a href="#PersonlizedNotification">Personalised Notifications</a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
@@ -306,99 +305,6 @@
                                 </div>
                         </div>
 
-                          <div class="tab-pane" id="NewsLetter">
-                                <div class="row-fluid">
-                                   <div class="box span12">
-                                       <div class="span12">
-                                       <div class="box-header">
-						                  <h2>NewsLetter</h2>
-						                 <div class="box-icon">
-							
-						                 </div>
-				                      	</div>
-                                       <div class="span6"  style="min-height:300px;" >
-                                      <%-- 	<div class="box-content " style="height: 500px; overflow:auto; " >--%>
-                                               	<div class="form-horizontal">
-                                                        <div class="alert alert-block" id="NewsletterErrorBox" style="display:none;">
-                                                        <div id="NewsletterDisplaydiv">
-
-                                                         </div>
-                                                         </div>
-                                                         <div class="control-group">
-								                        <label class="control-label" for="template">Template</label>
-							                         	<div class="controls">
-							 	                        <select class="template" >
-                                                        <option></option>
-								                        </select>
-								                        </div>
-							                           </div>
-                                                        <div class="control-group">
-                                                       <label class="control-label" for="products">Product</label>
-                                                       <div class="controls">
-                                                       <select class="input-large Newsletterproducts" multiple="multiple" id="idDdlNewsletterproducts">
-                            
-                                                      </select>
-                                                      </div>
-                                                      </div>
-
-                                                    
-                                                       	<div class="control-group">
-								 <label class="control-label" for="focusedInput">Description</label>
-								<div class="controls">
-								  <textarea class="form-control" style="max-width:68%" rows="4" name="Description" id="txtNewsletterDescription"></textarea>
-								</div>
-								</div>
-                                                        <div class="control-group">
-								<label class="control-label" for="audience">Audience</label>
-								<div class="controls">
-								  <select class="audience" >
-                                      <option></option>
-								  </select>
-								</div>
-							  </div>
-                                                     
-                             
-                                      
-                                                       </div>
-                                               </div>
-                                       <div class="span5" id="TemplatePreview" style="max-height:300px;min-height: 290px;overflow-y:auto;overflow-x:hidden;">
-                                        <div class="form-horizontal">
-                                        <div class="control-group">
-                                   
-                                        </div>
-                            
-                                   <div class="templatePreviewholder" style="width:100%;" id="templatePreviewImagehold">
-                                       </div>
-                            
-                        
-                        </div>
-                       
-                    </div>
-
-                                           <div class="span12">
-                                                  
-                                               <div class="NewsletterImageholder" style="width:100%;overflow:auto;" id="NewsLetterimagehold">
-				    	                   </div>
-                                                             
-                                               </div>
-                                        </div>
-                                    </div>
-                                
-                               <footer class="InnerFooter">
-                                      <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>
-                                   <a class="btn btn-primary templatePreview" runat="server" href="#">Template Preview</a>
-                            <a class="btn btn-primary submitDetails" runat="server" href="#">Send</a>
-                                    
-                         </footer>
-                                     
-                                 
-                                    </div>
-                               </div>
-
-
-
-
-
                         <%--  Notification grid--%>
                     </div>
                 </div>
@@ -409,5 +315,4 @@
     </div>
     <input type="hidden" id="hdfNotificationID" value="" />
     <input type="hidden" id="hdfRole" value="" />
-    <input type="hidden" id="hdfNewsLetterID" value="" />
 </asp:Content>
