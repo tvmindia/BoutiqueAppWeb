@@ -266,7 +266,7 @@ function GetAllNewsLetterDetails(NewsLetters) {
     var ds = {};
     var table = {};
     var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
-    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/GetAllNewsLetterSendMailDetails");
+    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/GetAllNewsLetterNotMailSendDetails");
     table = JSON.parse(ds.d);
     return table;
 }
