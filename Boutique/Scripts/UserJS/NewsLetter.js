@@ -90,6 +90,7 @@
              $('#rowfluidDiv').show();
              $('.alert-error').show();
          }
+         BindSendMailTable();
         }
     })
     //mail sending

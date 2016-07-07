@@ -1020,6 +1020,7 @@ function AddDesigner()
 
 
         if ((file = $('#fileUpload')[0].files[0])) {
+            debugger;
             img = new Image();
             img.onload = function () {
                 var image = $('#fileUpload')[0].files[0];
@@ -1041,7 +1042,7 @@ function AddDesigner()
         }
 
        
-        postBlobAjax(formData, "../AdminPanel/People.aspx/InserDesignerImage");
+        postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
     }
     
     if (result.status == "1") {
