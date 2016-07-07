@@ -4,7 +4,7 @@
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
     BindNewsLetterTable();
-
+    BindSendMailTable();
     //$('#NewsLetterTable').DataTable({
     //    "bPaginate": true,
     //    "iDisplayLength": 6,
@@ -133,6 +133,7 @@
             $('.alert-success').show();
             $('.alert-error').hide();
             $("#hdfNewsLetterID").val(result.NewsLetterID);
+            BindNewsLetterTable();
         }
         if (result.status != "1") {
             $('#rowfluidDiv').show();
@@ -222,6 +223,16 @@ function BindNewsLetterTable() {
         FillNewsLetterTable(jsonResult);
     }
 }
+function BindSendMailTable()
+{
+    debugger;
+    var jsonResult = {};
+    var NewsLetters = new Object();
+    jsonResult = GetAllNewsLetterSendDetails(NewsLetters);
+    if (jsonResult != undefined) {
+        FillNewsLetterSendMailTable(jsonResult);
+    }
+}
 function ClearAllControls()
 {
     document.getElementById('lblproductno').style.visibility = "hidden";
@@ -245,9 +256,42 @@ function GetAllNewsLetterDetails(NewsLetters) {
     var ds = {};
     var table = {};
     var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
-    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/GetAllNewsLetterNotMailSendDetails");
+    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/GetAllNewsLetterSendMailDetails");
     table = JSON.parse(ds.d);
     return table;
+}
+function GetAllNewsLetterSendDetails(NewsLetters) {
+    var ds = {};
+    var table = {};
+    var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
+    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/GetAllNewsLetterSendMailDetails");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function FillNewsLetterSendMailTable(Records) {
+    var checkrole = $('#hdfRole').val();
+    if (checkrole == Roles.Manager) {
+        $("thead#newsLetterSendthead tr").remove();
+        var html = '<tr><th>Template</th> <th>Description</th> <th>Audience</th> <th>Created Date</th></tr> ';
+        $("#newsLetterSendthead").append(html);
+
+        $("tbody#newsLetterSendrows tr").remove();            //Remove all existing rows for refreshing
+        $.each(Records, function (index, Records) {
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
+            $("#NewsLetterSendTable").append(html);
+        })
+
+    }
+    else {
+
+        $("tbody#newsLetterSendrows tr").remove();            //Remove all existing rows for refreshing
+        $.each(Records, function (index, Records) {
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
+            $("#NewsLetterSendTable").append(html);
+        })
+
+    }
+
 }
 function FillNewsLetterTable(Records) {
     var checkrole = $('#hdfRole').val();

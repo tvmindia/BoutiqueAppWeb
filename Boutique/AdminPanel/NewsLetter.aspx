@@ -63,6 +63,7 @@
                     <ul class="nav tab-menu nav-tabs" id="myTab">
                         <li><a href="#GenerateTemplate"><i class="halflings-icon list-alt"></i>New Template</a></li>
                         <li><a href="#SendMail" onclick="ClearAllControls();"><i class="halflings-icon envelope"></i>Drafts</a></li>
+                        <li><a href="#SendList" onclick="ClearAllControls();"><i class=" halflings-icon ok"></i>Sent</a></li>
                     </ul>
                      <div id="myTabContent" class="tab-content">
                            <div class="tab-pane active" id="GenerateTemplate">
@@ -144,7 +145,7 @@
                        </div>
                            <div class="tab-pane" id="SendMail">
                                <div class="box-header">
-                        <h2>Mail List</h2>
+                        <h2>Drafts</h2>
                         <div class="box-icon">
                         </div>
                     </div>
@@ -165,7 +166,29 @@
 
                                     </div>
      </div>
-                         
+                          <div class="tab-pane" id="SendList">
+                                <div class="box-header">
+                        <h2>Sent</h2>
+                        <div class="box-icon">
+                        </div>
+                    </div>
+                               <div class="box-content " style="min-height: 500px;">
+
+                                        <table class="table table-striped table-bordered  bootstrap-datatable" id="NewsLetterSendTable">
+                                            <thead id="newsLetterSendthead">
+                                                <tr>
+                                                    <th>Template</th>
+                                                    <th>Description</th>
+                                                    <th>Audience</th>
+                                                    <th>Created Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="newsLetterSendrows">
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                              </div>
                     </div>
                 </div>
 

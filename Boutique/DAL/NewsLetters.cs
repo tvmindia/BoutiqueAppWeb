@@ -131,7 +131,11 @@ namespace Boutique.DAL
             get;
             set;
         }
-          
+        public int audienceCount
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         MailSending mailObj = new MailSending();
@@ -508,7 +512,7 @@ namespace Boutique.DAL
 
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            DataSet ds = null;
+            DataSet ds,dsAudience = null;
             SqlDataAdapter sda = null;
 
             try
@@ -525,7 +529,16 @@ namespace Boutique.DAL
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
-
+                for (int intCount = 0; intCount < ds.Tables[0].Rows.Count; intCount++)
+                {
+                    if (ds.Tables[0].Rows[intCount]["AudienceMailID"].ToString() == "All")
+                    {
+                        dsAudience = GetAllEmailIdsToSendNewsLetterEmail();
+                        audienceCount = dsAudience.Tables[0].Rows.Count;
+                        ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
+                    }
+                }
+                ds.Tables[0].AcceptChanges();
             }
 
             catch (Exception ex)
@@ -543,6 +556,57 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetAllNewsLetterMailNotSendDetails
+
+        #region GetAllSendMailDetails
+        public DataSet GetAllSendMailDetails()
+        {
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds, dsAudience = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllSendMailDetails]";
+                // cmd.Parameters.Add("@NewsLetterID", SqlDbType.UniqueIdentifier).Value = NewsLetterID;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+                for (int intCount = 0; intCount < ds.Tables[0].Rows.Count; intCount++)
+                {
+                    if (ds.Tables[0].Rows[intCount]["AudienceMailID"].ToString() == "All")
+                    {
+                        dsAudience = GetAllEmailIdsToSendNewsLetterEmail();
+                        audienceCount = dsAudience.Tables[0].Rows.Count;
+                        ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
+                    }
+                }
+                ds.Tables[0].AcceptChanges();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllSendMailDetails
         #endregion Methods
     }
 }
