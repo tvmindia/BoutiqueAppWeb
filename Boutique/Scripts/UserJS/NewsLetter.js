@@ -330,6 +330,7 @@ function FillNewsLetterTable(Records) {
 
 }
 function BindTemplateDropdown() {
+    debugger;
     var jsonResult = {};
     var NewsLetters = new Object();
     jsonResult = GetAllTemplateNames(NewsLetters);
