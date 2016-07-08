@@ -5,8 +5,8 @@
     <link href="../CSS/CustomCSS/NewsLetter.css" rel="stylesheet" />
      <link href="../CSS/Common.css" rel="stylesheet" />
        <script src="../Scripts/select2.min.js"></script>
-     <link href="../CSS/viewbox.css" rel="stylesheet" />
-    <script src="../Scripts/jquery.viewbox.min.js"></script>
+ <%--    <link href="../CSS/viewbox.css" rel="stylesheet" />
+    <script src="../Scripts/jquery.viewbox.min.js"></script>--%>
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/NewsLetter.js"></script>
         <link href="../CSS/select2.min.css" rel="stylesheet" />
@@ -14,6 +14,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css"/>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+
 
 
     <div id="content" class="span10">
@@ -158,6 +160,7 @@
                                                     <th>Description</th>
                                                     <th>Audience</th>
                                                     <th>Created Date</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="newsLetterrows">
@@ -181,6 +184,7 @@
                                                     <th>Description</th>
                                                     <th>Audience</th>
                                                     <th>Created Date</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="newsLetterSendrows">

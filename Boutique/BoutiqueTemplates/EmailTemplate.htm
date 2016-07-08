@@ -13,16 +13,16 @@
                                 </div>
                                 <!-- Visually Hidden Preheader Text : END -->
                                 <!--
-                             Set the email width. Defined in two places:
-                            1. max-width for all clients except Desktop Windows Outlook, allowing the email to squish on narrow but never go wider than 600px.
-                            2. MSO tags for Desktop Windows Outlook enforce a 600px width.
-                            -->
+                     Set the email width. Defined in two places:
+                    1. max-width for all clients except Desktop Windows Outlook, allowing the email to squish on narrow but never go wider than 600px.
+                    2. MSO tags for Desktop Windows Outlook enforce a 600px width.
+                    -->
                                 <div style="max-width: 680px; margin: auto;">
                                     <!--[if (gte mso 9)|(IE)]>
-                                <table cellspacing="0" cellpadding="0" border="0" width="680" align="center">
-                                <tr>
-                                <td>
-                                <![endif]-->
+                        <table cellspacing="0" cellpadding="0" border="0" width="680" align="center">
+                        <tr>
+                        <td>
+                        <![endif]-->
                                     <!-- Email Header : BEGIN -->
                                     <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px;">
                                         <tbody>
@@ -33,20 +33,27 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
-                                    <!-- Email Header : END -->
-                                    <!-- Email Body : BEGIN -->
-                                    <div style="border-top:3px solid #22BCE5">&nbsp;</div>
-                                    <span style="font-family:Arial;font-size:20pt;color:blueviolet;">
-                                        Hello <b>{UserName}</b>,<br /><br />
-                                        A new article<br /><br />
-                                        <a style="color:#15e4b1" href="{Url}">{Title}</a><br />
-                                        {Description}
-                                        <br /><br />
-                                        Thank you<br />
-                                        TiquesInn
-                                    </span>
-                                </div>
+                    <tr>
+                        <span style="font-family:Arial;font-size:20pt;color:blueviolet;">
+                            Hello <b>{UserName}</b>,<br /><br />
+                            <a style="color:#15e4b1" href="{Url}">{Title}</a><br />
+                            {Description}
+                            <br /><br />
+                        </span>
+                    </tr>
+                    <!-- Email Header : END -->
+                    <!-- Email Body : BEGIN -->
+                    <!--<div style="border-top:3px solid #22BCE5">&nbsp;</div>
+        <span style="font-family:Arial;font-size:20pt;color:blueviolet;">
+            Hello <b>{UserName}</b>,<br /><br />
+            A new article<br /><br />
+            <a style="color:#15e4b1" href="{Url}">{Title}</a><br />
+            {Description}
+            <br /><br />
+            Thank you<br />
+            TiquesInn
+        </span>-->
+</div>
                                 <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="100%" style="max-width: 680px;">
 
                                     <!-- Hero Image, Flush : BEGIN -->
@@ -464,9 +471,16 @@
                                             </td>
                                         </tr>
                                         <!-- Thumbnail Right, Text Left : END -->
-
+                                       
                                     </tbody>
                                 </table>
+        <tr>
+            <span style="font-family:Arial;font-size:20pt;color:blueviolet;">
+                <br /><br />
+                Thank you<br />
+                TiquesInn
+            </span>
+        </tr>
                                 <!-- Email Body : END -->
                                 <!-- Email Footer : BEGIN -->
                                 <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px;">
