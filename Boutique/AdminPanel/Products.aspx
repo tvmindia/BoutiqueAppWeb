@@ -12,10 +12,7 @@
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Home/js/lightbox.js"></script>
     <script src="../Scripts/UserJS/Product.js"></script>
-     <script>
-        
-
-    </script>
+   
     <style>
         .thumb:hover{
             border:2px solid #ffd800;
@@ -122,10 +119,10 @@
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i>New Products</a></li>
-							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i>Trending</a></li>
-							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i>Out of Stocks</a></li>
-                            <li><a id="idtabdeletedproducts" href="#deletedproducts"><i class="halflings-icon airplane"></i>Revive Products</a></li>
+							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i> New Products</a></li>
+							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i> Trending</a></li>
+							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i> Out of Stocks</a></li>
+                            <li><a id="idtabdeletedproducts" href="#deletedproducts"><i class="halflings-icon repeat"></i> Revive Products</a></li>
 						</ul>
 						
 						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
