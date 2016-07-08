@@ -36,7 +36,7 @@ function GetReviews()
 function BindNotification() {
     $('#NotifyArea').find('li').remove();
     var Reviews = {};
-    ReviewsCount = GetAllReviews();
+    ReviewsCount = GetReviews();
     Reviews = GetReviewCountforBubble();
     var i = 0;
     $.each(Reviews, function (index, Records) {
