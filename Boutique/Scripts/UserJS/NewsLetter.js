@@ -169,6 +169,7 @@
         MainImageClick(this);
     });
     $(".DraftsTemplatePreview").click(function () {
+        debugger;
         // Clear image control
         $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
         // var ImageInfo = [];

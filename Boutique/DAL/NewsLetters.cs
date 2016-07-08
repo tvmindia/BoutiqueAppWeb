@@ -326,7 +326,7 @@ namespace Boutique.DAL
             //Url = "BoutiqueTemplates/EmailTemplate.htm";
             Url = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
             int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
-            imageCount = imageCount - 1;
+            imageCount = imageCount+1-2;
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
             {
