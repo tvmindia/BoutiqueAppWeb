@@ -5,13 +5,7 @@
     $('#hdfRole').val(LoginUserRole[0]);
     BindNewsLetterTable();
     BindSendMailTable();
-    //$('#NewsLetterTable').DataTable({
-    //    "bPaginate": true,
-    //    "iDisplayLength": 6,
-    //    "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]]
-
-    //    "fnPageChange": "next"
-    //});
+  
 
     $(".Newsletterproducts").select2({
         allowClear: true,
@@ -27,6 +21,22 @@
         allowClear: true,
         placeholder: "Choose audience",
         data: [{ id: 0, text: 'All' }]
+    });
+
+    //$('#NewsLetterTable').DataTable({
+    //    "bPaginate": true,
+    //    "iDisplayLength": 6,
+    //    "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+    //    "fnPageChange": "next"
+    //});
+    $('#NewsLetterTable').DataTable({
+        "pagingType": "full_numbers",
+        "aaSorting": [[4, 'desc']]
+    });
+    $('#NewsLetterSendTable').DataTable({
+        "pagingType": "full_numbers",
+        "aaSorting": [[4, 'desc']]
     });
     var $eventPdtsSelect = $(".Newsletterproducts");
     //$eventPdtsSelect.click(function () {

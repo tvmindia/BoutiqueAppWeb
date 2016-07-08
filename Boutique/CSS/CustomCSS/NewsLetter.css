@@ -55,7 +55,10 @@ img {
     width: auto;
 }
 /*tempore*/
-
+.TemplateLargeImg
+{
+    height:300px;
+}
 .checkDes
 {
    vertical-align: middle!important;
