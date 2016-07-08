@@ -79,6 +79,7 @@
     <Content Include="AdminPanel\Products.aspx" />
     <Content Include="AdminPanel\Profile.aspx" />
     <Content Include="AdminPanel\SaDashBoard.aspx" />
+    <Content Include="BoutiqueTemplates\BirthdayTemplate.html" />
     <Content Include="BoutiqueTemplates\EmailTemplate.htm" />
     <Content Include="BoutiqueTemplates\WhiteTemplate.html" />
     <Content Include="CSS\bootstrap-responsive.css" />
