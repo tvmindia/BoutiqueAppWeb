@@ -710,7 +710,7 @@ $("document").ready(function (e) {
          if (prodid != '')
          {
              var p = "Revive";
-             DeleteCustomAlert("Are you sure?", prodid, p);//revive confirm
+             DeleteCustomAlert("Are you sure?", prodid, p);//revive confirm--calls to common js
           }
 });
 
@@ -2406,10 +2406,20 @@ function EditProduct()
             $('#rowfluidDiv').show();
             $('.alert-success').show();
             $("#editLabel").text("Edit Product");
+            if (BindAllProductImagesRebind(0) != -1) {
 
-            // $(".AddProduct").text("Modify");
-            BindAllProductImages();
-            //document.getElementById('imageupGallery').style.display = 'block';
+                var galerydiv = $('.imageholder');
+                var $mars = $('.imageholder').masonry(
+                        {
+
+                            itemSelector: '.masonry-thumb',
+
+                        });
+                // galerydiv.hide();
+                $mars.imagesLoaded().progress(function () {
+                    $mars.masonry('layout');
+                });
+            }
             // Scroll page
             AutoScrollToAlertBox();
 
