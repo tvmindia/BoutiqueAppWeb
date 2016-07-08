@@ -63,7 +63,7 @@
         }
         else 
         {
-            $('#templatePreviewImagehold').remove();
+            $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
             document.getElementById('lblproductno').style.visibility = "hidden";
         }
     });
@@ -129,7 +129,8 @@
             });
               
         });
-        if (imageCount != 10) {
+        var selectedImage = document.getElementById('idSelectedImageCount').innerHTML;
+        if (imageCount != selectedImage) {
             CustomAlert("Please select 8 images for selected template!");
         }
         var NewsLetters = new Object();
@@ -364,6 +365,7 @@ function GetAllEmailsForNewsLetter(NewsLetters) {
     return table;
 }
 function GetAllTemplateNames(NewsLetters) {
+    debugger;
     var ds = {};
     var table = {};
     var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
@@ -444,7 +446,8 @@ function MainImageClick(checkedImage) {
         }
 
     });
-    if (imageCount != 10) {
+    var selectedImage = document.getElementById('idSelectedImageCount').innerHTML;
+    if (imageCount != selectedImage) {
         CustomAlert("Please select 8 images for selected template!");
     }
     var NewsLetters = new Object();
