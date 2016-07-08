@@ -28,18 +28,20 @@ namespace Boutique.AdminPanel
                 string BoutiqID = Request.QueryString["Session"].ToString();
                 BouObj.BoutiqueID = BoutiqID;
                 ds = BouObj.GetBoutique();
-
-                DataRow dr = ds.Tables[0].Rows[0];
-                string BoutiqueName = dr["Name"].ToString();
-                string CurrencyCode = dr["CurrencyCode"].ToString();
-                string FormatCode = dr["FormatCode"].ToString();
-                string symbol = dr["Symbol"].ToString();
-                DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, BoutiqID, BoutiqueName, UA.Role, CurrencyCode, FormatCode, symbol);
-                if (UA_Changed.ValidUser)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    Session[Const.LoginSession] = UA_Changed;
+                    DataRow dr = ds.Tables[0].Rows[0];
+                    string BoutiqueName = dr["Name"].ToString();
+                    string CurrencyCode = dr["CurrencyCode"].ToString();
+                    string FormatCode = dr["FormatCode"].ToString();
+                    string symbol = dr["Symbol"].ToString();
+                    DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, BoutiqID, BoutiqueName, UA.Role, CurrencyCode, FormatCode, symbol);
+                    if (UA_Changed.ValidUser)
+                    {
+                        Session[Const.LoginSession] = UA_Changed;
+                    }
+                    Response.Redirect("../AdminPanel/SaDashBoard.aspx");
                 }
-                Response.Redirect("../AdminPanel/SaDashBoard.aspx");
             }
 
         }
