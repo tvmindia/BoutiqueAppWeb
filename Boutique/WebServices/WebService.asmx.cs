@@ -19,6 +19,7 @@ namespace Boutique.WebServices
     public class WebService : System.Web.Services.WebService
     {
         Boutique.UIClasses.Const constants = new Boutique.UIClasses.Const();
+
         #region Products
         /// <summary>
         /// To get a product's details by product id
@@ -1093,6 +1094,50 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+        /// <summary>
+        /// To get product details on chat screen
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string GetProductDetailsOnChat(string productID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Chat chat = new Chat();
+                chat.BoutiqueID = boutiqueID;
+                chat.ProductID = productID;                
+                dt = chat.GetProductDetailForChat();
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion
 
         #region JSON converter
@@ -1242,5 +1287,6 @@ namespace Boutique.WebServices
             }
         }
         #endregion Utility Functions
+
     }
 }
