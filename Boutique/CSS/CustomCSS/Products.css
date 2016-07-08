@@ -189,7 +189,12 @@ img.sticker {
     padding: 0;
     border: 1px solid grey;
 }
-.prodet{
-    /*float:left;*/
 
+
+.noproductgif
+{
+    opacity: 0.39;
+    height: 255px;
+    padding-left: 34%;
+    width: 319px;
 }
