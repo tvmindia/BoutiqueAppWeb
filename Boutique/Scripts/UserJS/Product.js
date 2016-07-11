@@ -66,7 +66,6 @@ $("document").ready(function (e) {
         var galerydiv = $('.imageholder');
         var $mars = $('.imageholder').masonry(
                 {
-
                     itemSelector: '.masonry-thumb',
 
                 });
