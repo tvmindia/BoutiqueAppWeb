@@ -92,17 +92,20 @@
 
                             <div id="NewOrder" runat="server" class="row-fluid">
                                 <div class="box span12" style="width: 100%">
+
+                                    <div class="alert alert-block" id="ErrorBox" style="display: none;">
+                                                    <div id="Displaydiv">
+                                                    </div>
+                                                </div>
+
                                     <div class="box-header">
                                         <h2 id="editLabel">New Order</h2>
                                         <div class="box-icon">
                                         </div>
                                     </div>
 
-                                    <div class="box-content " style="height: 100%; overflow: auto;">
-                                         <div class="alert alert-block" id="ErrorBox" style="display: none;">
-                                                    <div id="Displaydiv">
-                                                    </div>
-                                                </div>
+                                    <div class="box-content " style="height: 100%;width:90%; overflow: auto;">
+                                         
 
                                         <div class="span12">
 
