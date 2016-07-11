@@ -278,6 +278,24 @@
 
     }
 
+    function BindPersonalisedNotificationTextBoxes(Records) {
+        $.each(Records, function (index, Records) {
+            debugger;
+            $(".Users").val(Records.UserID).trigger("change");
+
+            $("#PersonalisedtxtTitle").val(Records.Title);
+            $("#PersonalisedtxtDescription").val(Records.Description);
+            $("#PersonaliseddateStartDate").val(ConvertJsonToDate(Records.StartDate));
+            $("#PersonaliseddateEndDate").val(ConvertJsonToDate(Records.EndDate));
+            $("#ddlProducts").val(Records.ProductID).trigger("change");
+            $("#ddlCategories").val(Records.CategoryCode).trigger("change");
+            $("#hdfNotificationID1").val(Records.NotificationID);
+        });
+
+        $("#PersonalisededitLabel").text("Edit Notification");
+    }
+
+
     function BindUserDropdown() {
 
 
@@ -570,6 +588,98 @@
         });
     }
 
+    function AddPersonalisedNotification() {
+
+        debugger;
+
+
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+        $("#PersonalisedtxtTitle").val($("#PersonalisedtxtTitle").val().trim());
+        $("#PersonalisedtxtDescription").val($("#PersonalisedtxtDescription").val().trim());
+        var result = "";
+        var Notification = new Object();
+
+        if ($(".Users").val() != "") {
+            Notification.UserID = $(".Users").val();
+        }
+        else {
+            return;
+        }
+
+        alert($("#hdfNotificationID1").val());
+
+        Notification.NotificationID =  $("#hdfNotificationID1").val();
+
+        if ($("#PersonalisedtxtTitle").val() != "") {
+            Notification.Title = $("#PersonalisedtxtTitle").val();
+        }
+        else {
+
+            return;
+        }
+        if ($("#PersonaliseddateStartDate").val() != "") {
+            Notification.StartDate = $("#PersonaliseddateStartDate").val();
+        }
+        else {
+
+            return;
+        }
+        if ($("#PersonaliseddateEndDate").val() != "") {
+            Notification.EndDate = $("#PersonaliseddateEndDate").val();
+        }
+        else {
+
+            return;
+        }
+        //if ($("#PersonaliseddateStartDate").datepicker("getDate") > $("#PersonaliseddateEndDate").datepicker("getDate")) {
+
+        //    return;
+        //}
+        Notification.Description = $("#PersonalisedtxtDescription").val();
+        Notification.ProductID = $("#ddlProducts").val();
+        Notification.CategoryCode = $("#ddlCategories").val();
+
+        debugger;
+
+        result = InsertNotification(Notification);
+        if (result == "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-success').show();
+            $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+            ClearControlsOfPersonalNotifications();
+
+            $("#PersonalisedNotificationTable").dataTable().fnClearTable();
+            $("#PersonalisedNotificationTable").dataTable().fnDestroy();
+
+            BindPersonalisedNotifications();
+
+            $('#PersonalisedNotificationTable').DataTable({
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+                "fnPageChange": "next",
+                "aaSorting": [[4, 'desc']]     //Sort with Name column
+            });
+
+        }
+        if (result != "1") {
+            $('#rowfluidDiv').show();
+            $('.alert-error').show();
+            $('.alert-error strong').text(Messages.InsertionFailure);
+        }
+        //Scroll page
+        var offset = $('#rowfluidDiv').offset();
+        offset.left -= 20;
+        offset.top -= 20;
+        $('html, body').animate({
+            scrollTop: offset.top,
+            scrollLeft: offset.left
+        });
+    }
     /////////////////////////////////////////////////////////////Basic Validation/////////////////////////////////////////////////////////////////////
 
     //Basic Validation For New Notification

@@ -314,5 +314,6 @@
         <%--Tab Content--%>
     </div>
     <input type="hidden" id="hdfNotificationID" value="" />
+     <input type="hidden" id="hdfNotificationID1" value="" />
     <input type="hidden" id="hdfRole" value="" />
 </asp:Content>
