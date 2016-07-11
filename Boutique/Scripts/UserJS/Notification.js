@@ -79,8 +79,6 @@
    {
        click: function (e) {
 
-           debugger;
-
            $('#rowfluidDiv').hide();
            $('.alert-success').hide();
            $('.alert-error').hide();
@@ -202,7 +200,7 @@
 
     $(".PersonalisedCancel").live({
         click: function (e) {// Clear controls
-            debugger;
+           
             ClearControlsOfPersonalNotifications();
 
             $('#rowfluidDiv').hide();
@@ -232,8 +230,7 @@
     //--Personalised notification related functions
 
     function ClearControlsOfPersonalNotifications() {
-        debugger;
-
+        
         $("#PersonalisedtxtTitle").val("");
         $("#PersonalisedtxtDescription").val("");
         $("#PersonaliseddateStartDate").val("");
@@ -280,7 +277,7 @@
 
     function BindPersonalisedNotificationTextBoxes(Records) {
         $.each(Records, function (index, Records) {
-            debugger;
+          
             $(".Users").val(Records.UserID).trigger("change");
 
             $("#PersonalisedtxtTitle").val(Records.Title);
@@ -327,7 +324,6 @@
 
     function RemoveValidationStyle()
     {
-        debugger;
         $('input[type=text],input[type=password],textarea').css({ background: 'white' });
         $('#ErrorBox,#PersonalisedErrorBox,#PersonalisedDisplaydiv,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
     }
@@ -409,7 +405,7 @@
     }
 
     function SendNotificationMail(MailSending) {
-        debugger;
+      
         var ds = {};
         var table = {};
         var data = "{'mailObj':" + JSON.stringify(MailSending) + "}";
@@ -590,8 +586,6 @@
 
     function AddPersonalisedNotification() {
 
-        debugger;
-
 
         $('#rowfluidDiv').hide();
         $('.alert-success').hide();
@@ -607,8 +601,6 @@
         else {
             return;
         }
-
-        alert($("#hdfNotificationID1").val());
 
         Notification.NotificationID =  $("#hdfNotificationID1").val();
 
@@ -641,8 +633,6 @@
         Notification.ProductID = $("#ddlProducts").val();
         Notification.CategoryCode = $("#ddlCategories").val();
 
-        debugger;
-
         result = InsertNotification(Notification);
         if (result == "1") {
             $('#rowfluidDiv').show();
@@ -656,6 +646,8 @@
 
             BindPersonalisedNotifications();
 
+
+
             $('#PersonalisedNotificationTable').DataTable({
                 "bPaginate": true,
                 "iDisplayLength": 6,
@@ -664,6 +656,7 @@
                 "fnPageChange": "next",
                 "aaSorting": [[4, 'desc']]     //Sort with Name column
             });
+
 
         }
         if (result != "1") {
@@ -741,8 +734,6 @@
     }
 
     function PersoanlisedNotificationValidation() {
-
-        debugger;
 
         $('#Displaydiv').remove();
         var Title = $('#PersonalisedtxtTitle');
