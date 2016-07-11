@@ -133,11 +133,15 @@ namespace Boutique.ImageHandler
             }
             //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
             //body = fileName;
-            body = body.Replace("{UserName}", "UserName");
+            body = body.Replace("{UserName}", " ");
             body = body.Replace("{Title}", "Title");
             body = body.Replace("{Description}", "Description");
             //body = body.Replace("{Mainimage}", MainimageUrl);
             //body = body.Replace("{Images0}",altImage);
+            if (body.Contains("{ImgBirthday}"))
+            {
+                body = body.Replace("{ImgBirthday}", "../img/Templates/birthday.jpg");
+            }
             for (int i = 0; i <= imageCount; i++)
             {
                 body = body.Replace("{image" + i + "}", "../img/Default/adimage.png");

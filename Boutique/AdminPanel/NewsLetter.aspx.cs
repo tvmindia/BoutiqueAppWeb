@@ -81,12 +81,7 @@ namespace Boutique.AdminPanel
         {
             string jsonResult = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            var body = newsObj.PopulateBody("" + "Anija",
-                "" + "Boutique",
-                "https://www.google.co.in/" +
-                "Your Todays Deal.....",
-                "" + "Offers",
-                "https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
+            var body = newsObj.PopulateBody();
 
             jsonResult = jsSerializer.Serialize(body);
 
