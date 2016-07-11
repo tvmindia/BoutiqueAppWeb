@@ -306,7 +306,7 @@ namespace Boutique.DAL
         #endregion GetAllTemplateDetailsForDrafts
 
         #region PopulateBody
-        public string PopulateBody(string userName, string title, string url, string description, string MainimageUrl)
+        public string PopulateBody()
         {
            if(imageID!=null)
             {
@@ -334,12 +334,16 @@ namespace Boutique.DAL
             }
             //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
             //body = fileName;
-            body = body.Replace("{UserName}", userName);
-            body = body.Replace("{Title}", title);
-            body = body.Replace("{Url}", url);
+            body = body.Replace("{UserName}", " ");
+            body = body.Replace("{Title}", " ");
+            body = body.Replace("{Url}", "");
             body = body.Replace("{Description}", Description);
-            body = body.Replace("{Mainimage}", MainimageUrl);
+            body = body.Replace("{Mainimage}", "");
             body = body.Replace("{Images0}", altImage);
+            if (body.Contains("{ImgBirthday}"))
+            {
+                body = body.Replace("{ImgBirthday}", "../img/Templates/birthday.jpg");
+            }
             for (int i = 0; i <= imageCount; i++)
             {
                     //  string[] ids = { "5ff4eb3b-4f63-418d-94a8-e05b33a03008","5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124" };

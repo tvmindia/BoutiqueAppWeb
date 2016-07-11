@@ -232,11 +232,15 @@ namespace Boutique.DAL
             }
             //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
             //body = fileName;
-            body = body.Replace("{UserName}", "user");
+            body = body.Replace("{UserName}", " ");
             body = body.Replace("{Title}", "Your Todays Deal.....");
             body = body.Replace("{Url}", "url");
             body = body.Replace("{Description}", newsObj.Description);
             body = body.Replace("{Mainimage}", "MainimageUrl");
+            if (body.Contains("{ImgBirthday}"))
+            {
+                body = body.Replace("{ImgBirthday}", "http://192.168.1.107:222/img/Templates/birthday.jpg");
+            }
             char[] c = new char[] { ' ', ',' };
             string[] image = newsObj.ImageIDs[0].Split(c);
             for (int i = 0; i <= newsObj.imageCount - 1; i++)
