@@ -320,7 +320,7 @@ namespace Boutique.DAL
             DataSet ds = null;
             ds = GetAllTemplateDetails();
             string Url = "";
-            string imageUrl = null;
+            string imageUrl, logourl = null;
 
             string altImage = "http://www.simasa.co.uk/WebRoot/SIMASA/Shops/SIMA/5060/8140/8742/83EE/1AB2/0A00/0063/0C54/SpecialOffer_SIMA-1_m.jpg";
             //Url = "BoutiqueTemplates/EmailTemplate.htm";
@@ -343,6 +343,12 @@ namespace Boutique.DAL
             if (body.Contains("{ImgBirthday}"))
             {
                 body = body.Replace("{ImgBirthday}", "../img/Templates/birthday.jpg");
+            }
+            if (body.Contains("imgLogo"))
+            {
+              logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
+              string logo = "http://192.168.1.107:222/" + logourl.Replace("../", ""); ;
+              body = body.Replace("{imgLogo}", logo);
             }
             for (int i = 0; i <= imageCount; i++)
             {

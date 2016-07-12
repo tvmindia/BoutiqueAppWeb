@@ -218,7 +218,7 @@ namespace Boutique.DAL
         {
             NewsLetters newsObj = new NewsLetters();
             string imageUrl = "http://192.168.1.107:222/NewsLetterImages/";
-            string Url = "";
+            string Url, logourl = "";
             newsObj.NewsLetterID = mailNewsLetterID;
             newsObj.BoutiqueID = BoutiqueID;
             newsObj.GetAllNewsLetterDetails();
@@ -240,6 +240,11 @@ namespace Boutique.DAL
             if (body.Contains("{ImgBirthday}"))
             {
                 body = body.Replace("{ImgBirthday}", "http://192.168.1.107:222/img/Templates/birthday.jpg");
+            }
+            if (body.Contains("imgLogo"))
+            {
+                logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
+                body = body.Replace("{imgLogo}", logourl);
             }
             char[] c = new char[] { ' ', ',' };
             string[] image = newsObj.ImageIDs[0].Split(c);
