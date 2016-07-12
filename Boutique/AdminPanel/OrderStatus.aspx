@@ -11,7 +11,8 @@
     <style>
         img
         {
-            max-width:300%!important;
+           
+            max-width:100%!important;
         }
     </style>
     
@@ -101,7 +102,7 @@
                                         </div>
                                     </div>
 
-                                     <div class="alert alert-block" id="ErrorBox" style="display: none;">
+                                     <div class="alert alert-block" id="ErrorBox" style="display: none;background-color: #fdeaea !important;color: #ca6f74 !important;border: 1px solid #f27b81 !important;">
                                                     <div id="Displaydiv">
                                                     </div>
                                                 </div>
@@ -253,7 +254,7 @@
                                             <div class="span3" style="padding-top:9%">
                                                 <div>
                                               
-                                                    <img id="ImgProduct" style="width:70%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
+                                                    <img id="ImgProduct" style="width:77%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
                                              
 
                                                 
