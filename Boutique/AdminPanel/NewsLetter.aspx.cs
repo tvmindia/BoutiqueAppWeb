@@ -79,6 +79,11 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string AddSelectedImageToHtmlTemplate(NewsLetters newsObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            newsObj.BoutiqueID = UA.BoutiqueID;
             string jsonResult = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             var body = newsObj.PopulateBody();
