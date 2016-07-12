@@ -70,9 +70,7 @@ $("document").ready(function (e) {
 function DeleteItem(e,p)
 {
     var jsonResult = {};
-    //editedrow = $(e).closest('tr');
     var Category = new Object();
-
     Category.CategoryID = e;
     Category.CategoryCode = p;
     result = DeleteCategory(Category);
@@ -212,7 +210,7 @@ function CategoryValidation()
     $('.alert-success').hide();
     $('.alert-error').hide();  
     $('#Displaydiv1').remove();
-    var Cat_Order = $("#txtOrderno");
+    var Cat_Order = $('#txtOrderno');
     var Cat_Code = $('#txtCatCode');
     var Cat_Name = $('#txtCategoryName');
 

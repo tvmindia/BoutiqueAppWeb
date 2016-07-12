@@ -125,7 +125,7 @@
 						  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Category Code</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Category Code" id="txtCatCode" type="text" onblur="Cat_code_Check();"/>
+								  <input class="input-large focused" name="Category Code" id="txtCatCode" type="text"/>
                                      <label class="control-label" id="lblcatcode" style="display:none;" />
 								</div>
 								</div>
