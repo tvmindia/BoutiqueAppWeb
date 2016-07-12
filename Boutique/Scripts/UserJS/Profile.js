@@ -255,8 +255,6 @@ $("document").ready(function (e) {
                     debugger;
                     var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
 
-                    debugger;
-
                     if (result == "1") {
 
                         BindAllBannerImages();
@@ -319,7 +317,10 @@ $("document").ready(function (e) {
                          $('#rowfluidDiv').show();
                          $('.alert-error').show();
                          $('.alert-error strong').text(Messages.InsertionFailure);
-                      }
+                    }
+
+
+                    $("#hdfBannerImgID").val("");
                 }
         }
         }
@@ -1051,6 +1052,8 @@ function ClearBannerControls()
     //$('#rowfluidDiv').hide();
     //$('.alert-success').hide();
     //$('.alert-error').hide();
+
+    $("#hdfBannerImgID").val("");
 
     $(".products").select2("val", "");
     $(".categories").select2("val", "");
