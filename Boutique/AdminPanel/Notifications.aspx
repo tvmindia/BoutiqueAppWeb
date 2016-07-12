@@ -219,7 +219,7 @@
                                         </div>
                                         <div class="box-content" style="height: 503px; overflow: auto;">
                                             <div class="form-horizontal">
-                                                <div class="alert alert-block" id="PersonalisedErrorBox" style="display: none;">
+                                                <div class="alert alert-block" id="PersonalisedErrorBox" style="display: none;background-color: #fdeaea !important;color: #ca6f74 !important;border: 1px solid #f27b81 !important;">
                                                     <div id="PersonalisedDisplaydiv">
                                                     </div>
                                                 </div>

@@ -102,7 +102,7 @@
                                         </div>
                                     </div>
 
-                                     <div class="alert alert-block" id="ErrorBox" style="display: none;">
+                                     <div class="alert alert-block" id="ErrorBox" style="display: none;background-color: #fdeaea !important;color: #ca6f74 !important;border: 1px solid #f27b81 !important;">
                                                     <div id="Displaydiv">
                                                     </div>
                                                 </div>
