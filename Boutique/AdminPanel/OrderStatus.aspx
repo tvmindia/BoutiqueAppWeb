@@ -11,7 +11,8 @@
     <style>
         img
         {
-            max-width:300%!important;
+           
+            max-width:100%!important;
         }
     </style>
     
@@ -93,16 +94,20 @@
                             <div id="NewOrder" runat="server" class="row-fluid">
                                 <div class="box span12" style="width: 100%">
 
-                                    <div class="alert alert-block" id="ErrorBox" style="display: none;">
-                                                    <div id="Displaydiv">
-                                                    </div>
-                                                </div>
+                                   
 
                                     <div class="box-header">
                                         <h2 id="editLabel">New Order</h2>
                                         <div class="box-icon">
                                         </div>
                                     </div>
+
+                                     <div class="alert alert-block" id="ErrorBox" style="display: none;background-color: #fdeaea !important;color: #ca6f74 !important;border: 1px solid #f27b81 !important;">
+                                                    <div id="Displaydiv">
+                                                    </div>
+                                                </div>
+
+
 
                                     <div class="box-content " style="height: 100%;width:90%; overflow: auto;">
                                          
@@ -249,7 +254,7 @@
                                             <div class="span3" style="padding-top:9%">
                                                 <div>
                                               
-                                                    <img id="ImgProduct" style="width:70%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
+                                                    <img id="ImgProduct" style="width:77%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
                                              
 
                                                 

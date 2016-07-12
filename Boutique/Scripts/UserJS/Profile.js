@@ -207,7 +207,7 @@ $("document").ready(function (e) {
     //---------- * Add banner *-------------//
      $(".addBanner").live({
         click: function (e) {
-
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -226,66 +226,76 @@ $("document").ready(function (e) {
      
                 if (BannerImgID == "") {
 
-                var imgresult = "";
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile, logoFile, img;
+                    var imgresult = "";
+                    var _URL = window.URL || window.webkitURL;
+                    var formData = new FormData();
+                    var imagefile, logoFile, img;
 
-                if ((imagefile = $('#BannerUpload')[0].files[0]) != undefined) {
-                    img = new Image();
-                    //img.onload = function ()
-                    //{
-                    var image = $('#BannerUpload')[0].files[0];
-                    formData.append('imagefiles', image, imagefile.name);
+                    if ((imagefile = $('#BannerUpload')[0].files[0]) != undefined) {
+                        img = new Image();
+                        //img.onload = function ()
+                        //{
+                        var image = $('#BannerUpload')[0].files[0];
+                        formData.append('imagefiles', image, imagefile.name);
                     
-                    //};
-                }
-                else {
-                    imagefile = "";
-                    //formData.append('imagefiles', imagefile, imagefile.name);
-                    formData.append('imagefiles', imagefile.name);
-                }
+                        //};
+                    //}
+                    //else {
+                    //    //imagefile = "";
+                    //    //formData.append('imagefiles', imagefile.name);
+                    //    result = -1;
+                     
+                    //}
              
-                formData.append('ProductID', Boutique.ProductID);
-                formData.append('CategoryCode', Boutique.CategoryCode);
-                formData.append('BtqID', BoutiqueID);
-                formData.append('CreatedBy', CreatedBy);
-                formData.append('BannerImgID', BannerImgID);
-                debugger;
-                var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
+                    formData.append('ProductID', Boutique.ProductID);
+                    formData.append('CategoryCode', Boutique.CategoryCode);
+                    formData.append('BtqID', BoutiqueID);
+                    formData.append('CreatedBy', CreatedBy);
+                    formData.append('BannerImgID', BannerImgID);
+                    debugger;
+                    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
 
-                debugger;
+                    if (result == "1") {
 
-                if (result == "1") {
+                        BindAllBannerImages();
 
-                    BindAllBannerImages();
+                        $('#rowfluidDiv').show();
+                        $('.alert-success').show();
 
-                    $('#rowfluidDiv').show();
-                    $('.alert-success').show();
-
-                 $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                        $('.alert-success strong').text(Messages.InsertionSuccessFull);
                    
-                    AutoScrollToAlertBox();
+                        AutoScrollToAlertBox();
                    
-                    ClearBannerControls();
-                }
+                        ClearBannerControls();
+                    }
 
-                if (result == "-1") {
+                    if (result == "-1") {
 
-                    BindAllBannerImages();
+                        BindAllBannerImages();
 
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    $('.alert-error strong').text(Messages.FileFormaterror);
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text(Messages.FileFormaterror);
 
-                }
+                    }
 
-                if (result != "1" && result != "-1") {
-                    $('#rowfluidDiv').show();
-                    $('.alert-error').show();
-                    $('.alert-error strong').text(Messages.InsertionFailure);
+                    if (result != "1" && result != "-1") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text(Messages.InsertionFailure);
 
-                }
+                    }
+                    }
+
+                    else {
+                        BindAllBannerImages();
+
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text(Messages.FileFormaterror);
+                    }
+
+
 
                 }
 
@@ -307,7 +317,10 @@ $("document").ready(function (e) {
                          $('#rowfluidDiv').show();
                          $('.alert-error').show();
                          $('.alert-error strong').text(Messages.InsertionFailure);
-                      }
+                    }
+
+
+                    $("#hdfBannerImgID").val("");
                 }
         }
         }
@@ -826,6 +839,9 @@ function AddOwner()
 
 function handleBannerSelect(evt) {
 
+    $('.alert-error').hide();
+
+
    // ---- * It is used to give preview of selected image (by image upload control) * ---------------//
 
     var files = evt.target.files; // FileList object
@@ -1036,6 +1052,8 @@ function ClearBannerControls()
     //$('#rowfluidDiv').hide();
     //$('.alert-success').hide();
     //$('.alert-error').hide();
+
+    $("#hdfBannerImgID").val("");
 
     $(".products").select2("val", "");
     $(".categories").select2("val", "");

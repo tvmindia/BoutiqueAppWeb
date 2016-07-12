@@ -38,18 +38,14 @@
 						<table class="table table-striped table-bordered  bootstrap-datatable" id="CategoryTable">
 							  <thead id="Categorythead">
 								  <tr>
+                                      <th>Order No</th>
                                       <th>Category Code</th>
 									  <th>Category Name</th>
 									  <th>Actions</th>                                          
 								  </tr>
 							  </thead>   
 							  <tbody id="catrgoryrows">
-								
-								
-								
-								
-								                       
-							  </tbody>
+					      </tbody>
 						 </table>  
 						<%-- <div class="pagination pagination-centered">
 						  <ul>
@@ -119,6 +115,13 @@
                                                 </div>
                                                 </div>
 							<%--<fieldset>--%>
+                             <div class="control-group">
+								<label class="control-label" for="focusedInput">Order No</label>
+								<div class="controls">
+								  <input class="input-large focused" name="Order no" id="txtOrderno" type="text"/>
+								</div>
+								</div>
+
 						  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Category Code</label>
 								<div class="controls">
