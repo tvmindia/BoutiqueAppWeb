@@ -75,53 +75,10 @@ $("document").ready(function (e) {
         });
     }
 
-  //  BindAllProductImagesOutOfStock(0);
-  //  var galleryoutofstockdiv = $('.imageholderoutofstock');
-   // var $marsoutofstock = $('.imageholderoutofstock').masonry({
-   //     itemSelector: '.masonry-thumb',
-   //     isInitLayout: false
-   // });
-   // galleryoutofstockdiv.hide();
-   // $marsoutofstock.imagesLoaded().progress(function () {
-   //     $marsoutofstock.masonry('layout');
-  //  });
 
 
 
-  //  BindTrendingAllProductImages(0);
-  //  var gallerytrendsdiv = $('.imageholderTrends');
-  //  var $marstrends = $('.imageholderTrends').masonry({
-  //      itemSelector: '.masonry-thumb',
-  //      isInitLayout: false
-  //  });
-  //  gallerytrendsdiv.hide();
-  //  $marstrends.imagesLoaded().progress(function (){
-  //  $marstrends.masonry('layout');
-  //  });
-    //gallerytrendsdiv.show();
-
-
-
-
-    // $('input[type="checkbox"]').on('change', function () {
-
-    //   $('input[type="checkbox"]').not(this).prop('checked', false);
-    //  
-
-    //  }); 
-
-    //   $('input[type=checkbox]').click(function () {
-    // var chks = document.getElementById('<%= chkRoleInTransaction.ClientID %>').getElementsByTagName('INPUT');
-    ///      
-    //   var chks = $('.checkDes');
-    // for (i = 0; i < chks.length; i++) {
-    //      chks[i].checked = false;
-    //  }
-    //  if (chks.length > 1)
-    //       $(this)[0].checked = true;
-    //   });
-   
-
+  
 
     //prduct gallery slide effect
 
@@ -770,27 +727,29 @@ function DeleteItem(e, p) {
     if (result.status == "1") {
         //which tab should rebind
         var curtabname=$('#myTab .active').text();
-        if (curtabname === 'New Products') {
+        if (curtabname === ' New Products') {
             // BindAllProductImages(0);
             BindAllProductImagesRebind(0);
         }
-        if (curtabname === 'Trending')
+        if (curtabname === ' Trending')
         {
             BindTrendedProductImagesRebind(0);
         }
-        if (curtabname === 'Out of Stocks')
+        if (curtabname === ' Out of Stocks')
         {
             BindOutStockProductImagesRebind(0);
         }
         clearProductControls();
 
         $('#rowfluidDiv').show();
+        $('.alert-success strong').text(Messages.DeletionSuccessFull);
         $('.alert-success').show();
 
         AutoScrollToAlertBox();
     }
     if (result.status != "1") {
         $('#rowfluidDiv').show();
+        $('.alert-error strong').text(Messages.DeletionFailure);
         $('.alert-error').show();
         AutoScrollToAlertBox();
     }
@@ -885,11 +844,12 @@ function BindProductTextBoxes(thisobject)
         $desingnSingle.val(designerid).trigger("change");
     }
     $('.AddProduct').hide();
-    if ($('#myTab .active').text() != 'Revive Products')
+    if ($('#myTab .active').text() != ' Revive Products')
     {
         $('.ModifyProduct').show();//switches button to edit mode
         $('.DeleteProduct').show();
     }
+   
     $('#IframeProjectSwitching').show();
     $('#idproductno').text(productno);
     $('#lblproductno').show();
@@ -949,7 +909,8 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
 //////////////////////////////////////////////////////
 
 
-function BindAllRevivedProductsSearch(Pagevalue, searchtext) {
+function BindAllRevivedProductsSearch(Pagevalue, searchtext)
+{
     var imagedivholder = $('#productreviveimagehold');
     var Product = new Object();
     if (Pagevalue != undefined) {
@@ -1139,14 +1100,9 @@ function BindNoProductImage()
     img1.className = "noproductgif";
     div.appendChild(img1);
     return div;
-   
 }
 
-
-
 function BindOutOfStockProductsForTab(Pagevalue) {
-
-   
     var Product = new Object();
     if (Pagevalue != undefined) {
         Product.Paginationvalue = Pagevalue;
@@ -1181,27 +1137,22 @@ function BindAllProductImagesOutOfStock(Pagevalue) {
   
     var imagedivholder = $('#productoutofstockimagehold');
     var Product = new Object();
-    if (Pagevalue != undefined) {
+    if (Pagevalue != undefined){
         Product.Paginationvalue = Pagevalue;
     }
     else {
         Product.Paginationvalue = "";
     }
-
     //inserts from code behind
     var totalimages = {};
     totalimages = GetAllOutOfStockProductsImageDetailsunderBoutique(Product);
     $("#productoutofstockimagehold").find(".masonry-thumb").remove();
-
     for (var i = 0; i < totalimages.length; i++) {
-
         if (totalimages[i].Discount != null) {
-
             imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
         } 
         if (totalimages[i].Discount === null) {
-       
-            imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+              imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
         }
 
     }
@@ -1690,12 +1641,7 @@ function clearProductControls() {
     
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Binding Product Images into Masonry Container on Load Images Button
-//Created By Thomson Varkey, 21-06-2016
-////
-////All Product Images
-///
+
 function BindAllProductImagesRebind(Pagevalue) {//where div is removed and recreated
     
   //  var imagedivholder = $('#productimagehold');
@@ -1847,10 +1793,6 @@ function BindOutStockProductImagesRebind(Pagevalue)
     return totalimages.length;
 }
 
-
-////
-////Out Of Stock Images
-///
 function BindOutStockProductImagesForEventLoad(Pagevalue) {
 
    
@@ -2289,11 +2231,10 @@ function AddProduct() {
 
             $("#hdfproductID").val(result.ProductID);
             $('#rowfluidDiv').show();
+            $('.alert-success strong').text(Messages.InsertionSuccessFull);
             $('.alert-success').show();
-            // $(".AddProduct").text("Modify");
             $('.ModifyProduct').show();//displays editsave button
             $('.AddProduct').hide();//hides save
-            
             $('#IframeProjectSwitching').show();
             // Scroll page
             // AutoScrollToAlertBox();
@@ -2301,9 +2242,8 @@ function AddProduct() {
         }
         if (result.status != "1") {
             $('#rowfluidDiv').show();
+            $('.alert-error strong').text(Messages.InsertionFailure);
             $('.alert-error').show();
-
-
             // Scroll page
             AutoScrollToAlertBox();
 
@@ -2330,8 +2270,6 @@ function EditProduct()
         if ($("input[name=optionsRadiosActive]:checked")) {
             Product.IsActive = $("input[name=optionsRadiosActive]:checked").val();
         }
-
-
         var Categ = $("#idDdlCategories").val();
         var com = "";
         Product.Categories = "";
@@ -2354,34 +2292,15 @@ function EditProduct()
         else {
             Product.RelatedProductsIDs = relproducts;
         }
-
-
         if ($("#idDdlDesigners").val() != null) {
             Product.DesignerID = $("#idDdlDesigners").val();
         }
         else {
             Product.DesignerID = "";
         }
-
-
         //productimage id and order number
         var ImageInfo = [];
         var idval, orderno;
-
-        //$('#Preview div').each(function (index) {
-        //    //val.push($(this).attr('id'));
-        //    var idval = $(this).attr('id');
-        //    orderno = index;
-        //    ImageInfo.push(idval);
-
-        //    var chkflag = document.getElementById("checkDes" + index).checked;
-        //    if (chkflag == true) {
-        //        Product.MainImageID = idval;
-        //    }
-
-
-        //});
-
         $('#Preview div').each(function (index) {
             var idval = $(this).attr('id');
             ImageInfo.push(idval);
@@ -2398,6 +2317,7 @@ function EditProduct()
         if (result.status == "1") {
 
             $('#rowfluidDiv').show();
+            $('.alert-success strong').text(Messages.ProductAddSuccessfull);
             $('.alert-success').show();
             $("#editLabel").text("Edit Product");
             if (BindAllProductImagesRebind(0) != -1) {
@@ -2421,6 +2341,7 @@ function EditProduct()
         }
         if (result.status != "1") {
             $('#rowfluidDiv').show();
+            $('.alert-error strong').text(Messages.ProductAddFailure);
             $('.alert-error').show();
             // Scroll page
             AutoScrollToAlertBox();

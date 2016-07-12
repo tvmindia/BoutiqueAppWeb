@@ -87,22 +87,15 @@
 
                     <div class="box-content alerts">
 						<div class="alert alert-error" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
+					
+							<strong></strong> 
 						</div>
 						<div class="alert alert-success" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Successfull.</strong> 
+					
+							<strong></strong> 
 						</div>
-						<div class="alert alert-info" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
+						
+					
 					</div>
 
                 </div>
