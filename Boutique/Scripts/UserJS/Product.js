@@ -517,15 +517,11 @@ $("document").ready(function (e) {
         {
             var $marsrevive = $('.imageholderreviveproduct').masonry({
                 itemSelector: '.masonry-thumb',
-
             });
-
             $marsrevive.imagesLoaded().progress(function () {
                 $marsrevive.masonry('layout');
             });
         }
-    
-       
         //Masonary reinit
     });
 
@@ -533,7 +529,6 @@ $("document").ready(function (e) {
 
     $(".btnsearchnewproducts").click(function (e) { //user clicks on button
         HideAlertBox();
-        
         var search = $("#txtsearchnewproducts").val();
         if (search != '') {
             // $("#productimagehold").find(".masonry-thumb").remove();

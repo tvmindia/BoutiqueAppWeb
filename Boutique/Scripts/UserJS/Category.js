@@ -124,10 +124,10 @@ function BindCategoryTable(Records) {
     $("tbody#catrgoryrows tr").remove();
     $.each(Records, function (index, Records) {
         if (Records.CategoryCode == "NEW" || Records.CategoryCode == "OFR") {
-            var html = '<tr class="categoryrows" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger"disabled="disabled" data-toggle="tooltip" title="Deletion Disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            var html = '<tr class="categoryrows" OrderNo="' + Records.OrderNo + '" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.OrderNo + '</td><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger"disabled="disabled" data-toggle="tooltip" title="Deletion Disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         }
         else {
-            var html = '<tr class="categoryrows" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+            var html = '<tr class="categoryrows" OrderNo="' + Records.OrderNo + '" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.OrderNo + '</td><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
         }
         $("#CategoryTable").append(html);
     })
@@ -174,6 +174,7 @@ function GetCategory(Category) {
 
 function BindCategoryTextBoxes(Records) {
     $.each(Records, function (index, Records) {
+        $("#txtOrderno").val(Records.OrderNo);
 
         $("#txtCatCode").val(Records.CategoryCode);
         $("#txtCatCode").hide();
@@ -191,7 +192,7 @@ function BindCategoryTextBoxes(Records) {
 
 function ClearCategoryControls()
 {
-   
+    $("#txtOrderno").val('');
     $("#txtCatCode").val('');
     $("#txtCategoryName").val('');
     $('#rowfluidDiv').hide();
@@ -211,11 +212,12 @@ function CategoryValidation()
     $('.alert-success').hide();
     $('.alert-error').hide();  
     $('#Displaydiv1').remove();
-
+    var Cat_Order = $("#txtOrderno");
     var Cat_Code = $('#txtCatCode');
     var Cat_Name = $('#txtCategoryName');
 
     var container = [
+      { id: Cat_Order[0].id, name: Cat_Order[0].name, Value: Cat_Order[0].value },
       { id: Cat_Code[0].id, name: Cat_Code[0].name, Value: Cat_Code[0].value },
       { id: Cat_Name[0].id, name: Cat_Name[0].name, Value: Cat_Name[0].value }
       
@@ -286,7 +288,7 @@ function  AddCategory()
     $('.alert-error').hide();
     var result = "";
     var Category = new Object();
-
+    Category.CatOrderNo = $("#txtOrderno").val();
     Category.CategoryCode = $("#txtCatCode").val();
     Category.CategoryName = $("#txtCategoryName").val();
 

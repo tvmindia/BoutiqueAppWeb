@@ -126,6 +126,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public int CatOrderNo
+        {
+            get;
+            set;
+        }
         #endregion Categoryproperties
 
         #region productImagesproperties
@@ -1184,7 +1189,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                    
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
-                   
+                    cmd.Parameters.Add("@OrderNo", SqlDbType.Int).Value = CatOrderNo;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -1240,7 +1245,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
 
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
-
+                    cmd.Parameters.Add("@OrderNo", SqlDbType.Int).Value = CatOrderNo;
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -1523,7 +1528,7 @@ namespace Boutique.DAL
             }
             #endregion GetAllProductMainImagesDetails
 
-            #region GetAllDeletedProductsDetails
+        #region GetAllDeletedProductsDetails
             public DataSet GetAllDeletedProductsDetails()
             {
                 if (BoutiqueID == "")
@@ -1565,7 +1570,7 @@ namespace Boutique.DAL
 
             #endregion GetAllDeletedProductsDetails
 
-            #region GetAllOutOfStockProductMainImagesDetails
+        #region GetAllOutOfStockProductMainImagesDetails
             public DataSet GetAllOutOfStockProductMainImagesDetails()
             {
 
@@ -1705,7 +1710,6 @@ namespace Boutique.DAL
                 return dt;
             }
             #endregion
-
 
         #region GetProductImage
 
