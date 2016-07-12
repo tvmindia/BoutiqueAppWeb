@@ -33,6 +33,7 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             mailObj.BoutiqueID = UA.BoutiqueID;
+            mailObj.Boutique = UA.Boutique;
             DataSet ds = null;
             mailObj.msg = mailObj.msg;
             if (mailObj.audienceType == "All")
@@ -84,6 +85,7 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             newsObj.BoutiqueID = UA.BoutiqueID;
+            newsObj.Boutique = UA.Boutique;
             string jsonResult = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             var body = newsObj.PopulateBody();
