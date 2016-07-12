@@ -254,7 +254,7 @@
                                             <div class="span3" style="padding-top:9%">
                                                 <div>
                                               
-                                                    <img id="ImgProduct" style="width:100%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
+                                                    <img id="ImgProduct" style="width:77%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
                                              
 
                                                 
