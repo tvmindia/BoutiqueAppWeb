@@ -30,10 +30,8 @@
                 width: 100%;
             }
 
-            .logocls{
-                height:40px;
-                width:40px;
-            }
+           .BoutiqueNAm{font-family:TiquesFont;font-size:22px;}
+.AdminLogoClass{width:25px;height:25px;}
             #outlook a {
                 padding: 0;
             }
@@ -94,7 +92,10 @@
             .mcnImage {
                 vertical-align: bottom;
             }
-
+            .logoAndBoutique
+            {
+                width:150px;
+            }
             .mcnTextContent {
                 word-break: break-word;
             }
@@ -196,11 +197,7 @@
                     /*@editable*/ line-height: 150%;
                     /*@editable*/ text-align: left;
                 }
-                    /*
-        @tab Header
-        @section Header Link
-        @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-        */
+      
                     #templateHeader .mcnTextContent a, #templateHeader .mcnTextContent p a {
                         /*@editable*/ color: #2BAADF;
                         /*@editable*/ font-weight: normal;
@@ -431,11 +428,7 @@
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Heading 4
-        @tip Make the fourth-level headings larger in size for better readability on small screens.
-        */
+      
                 h4 {
                     /*@editable*/ font-size: 16px !important;
                     /*@editable*/ line-height: 150% !important;
@@ -443,11 +436,7 @@
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Boxed Text
-        @tip Make the boxed text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-        */
+        
                 .mcnBoxedTextContentContainer .mcnTextContent, .mcnBoxedTextContentContainer .mcnTextContent p {
                     /*@editable*/ font-size: 14px !important;
                     /*@editable*/ line-height: 150% !important;
@@ -455,22 +444,14 @@
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Preheader Visibility
-        @tip Set the visibility of the email's preheader on small screens. You can hide it to save space.
-        */
+         
                 #templatePreheader {
                     /*@editable*/ display: block !important;
                 }
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Preheader Text
-        @tip Make the preheader text larger in size for better readability on small screens.
-        */
+          
                 #templatePreheader .mcnTextContent, #templatePreheader .mcnTextContent p {
                     /*@editable*/ font-size: 14px !important;
                     /*@editable*/ line-height: 150% !important;
@@ -478,11 +459,7 @@
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Header Text
-        @tip Make the header text larger in size for better readability on small screens.
-        */
+         
                 #templateHeader .mcnTextContent, #templateHeader .mcnTextContent p {
                     /*@editable*/ font-size: 16px !important;
                     /*@editable*/ line-height: 150% !important;
@@ -490,11 +467,7 @@
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Upper Column Text
-        @tip Make the upper column text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-        */
+       
                 #templateUpperColumns .columnContainer .mcnTextContent, #templateUpperColumns .columnContainer .mcnTextContent p {
                     /*@editable*/ font-size: 16px !important;
                     /*@editable*/ line-height: 150% !important;
@@ -502,11 +475,7 @@
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Body Text
-        @tip Make the body text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-        */
+        
                 #templateBody .mcnTextContent, #templateBody .mcnTextContent p {
                     /*@editable*/ font-size: 16px !important;
                     /*@editable*/ line-height: 150% !important;
@@ -514,11 +483,7 @@
             }
 
             @media only screen and (max-width: 480px) {
-                /*
-        @tab Mobile Styles
-        @section Lower Column Text
-        @tip Make the lower column text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-        */
+          
                 #templateLowerColumns .columnContainer .mcnTextContent, #templateLowerColumns .columnContainer .mcnTextContent p {
                     /*@editable*/ font-size: 16px !important;
                     /*@editable*/ line-height: 150% !important;
@@ -542,7 +507,7 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td align="center" valign="top" id="templatePreheader">
-                             
+
                                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                                     <tr>
                                         <td valign="top" class="preheaderContainer">
@@ -550,20 +515,33 @@
                                                 <tbody class="mcnTextBlockOuter">
                                                     <tr>
                                                         <td class="mcnTextBlockInner" style="padding-top:9px;" valign="top">
-                                                     
+
                                                             <table style="max-width:390px;" class="mcnTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                 <tbody>
                                                                     <tr>
 
                                                                         <td class="mcnTextContent" style="padding: 0px 18px 9px;color: #000000;font-size: 14px;font-style: normal;line-height: 125%;text-align: justify;" valign="top">
 
-                                                                           <span><img alt="" class="logocls" src="{imgLogo}" /></span>
+                                                                          <table>
+                                                                              <tbody>
+                                                                                  <tr>
+                                                                                      <td><img alt="" class="AdminLogoClass" src="{imgLogo}" /></td>
+                                                                                      <td><label id="lblBoutique" class="BoutiqueNAm">{BoutiqueName}</label></td>
+                                                                                  </tr>
+                                                                              </tbody>
+                                                                          </table>
+
+                                                                            
+                                                                              
+
+                                                                              
+                                                                           
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                      
-                                                         
+
+
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -571,12 +549,12 @@
                                         </td>
                                     </tr>
                                 </table>
-                               
-                            </td>   
+
+                            </td>
                         </tr>
-                        <tr> 
+                        <tr>
                             <td align="center" valign="top" id="templateHeader">
-                        
+
                                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                                     <tr>
                                         <td valign="top" class="headerContainer">
@@ -624,7 +602,7 @@
                                                 <tbody class="mcnTextBlockOuter">
                                                     <tr>
                                                         <td class="mcnTextBlockInner" style="padding-top:9px;" valign="top">
-                                                     
+
                                                             <table style="max-width:100%; min-width:100%;" class="mcnTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                 <tbody>
                                                                     <tr>
@@ -635,7 +613,7 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                            
+
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -643,7 +621,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                              
+
                             </td>
                         </tr>
                         <tr>
@@ -651,7 +629,7 @@
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                                     <tr>
                                         <td valign="top">
-                                       
+
                                             <table align="left" border="0" cellpadding="0" cellspacing="0" width="200" class="columnWrapper">
                                                 <tr>
                                                     <td valign="top" class="columnContainer">
@@ -679,7 +657,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                       
+
                                             <table align="left" border="0" cellpadding="0" cellspacing="0" width="200" class="columnWrapper">
                                                 <tr>
                                                     <td valign="top" class="columnContainer">
@@ -707,7 +685,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                        
+
                                             <table align="left" border="0" cellpadding="0" cellspacing="0" width="200" class="columnWrapper">
                                                 <tr>
                                                     <td valign="top" class="columnContainer">
@@ -735,7 +713,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                        
+
                                         </td>
                                     </tr>
                                 </table>
@@ -743,13 +721,13 @@
                         </tr>
                         <tr>
                             <td align="center" valign="top" id="templateBody">
-                             
+
                                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                                     <tr>
                                         <td valign="top" class="bodyContainer"></td>
                                     </tr>
                                 </table>
-                            
+
                             </td>
                         </tr>
                         <tr>
@@ -757,7 +735,7 @@
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                                     <tr>
                                         <td valign="top">
-                                           
+
                                             <table align="left" border="0" cellpadding="0" cellspacing="0" width="200" class="columnWrapper">
                                                 <tr>
                                                     <td valign="top" class="columnContainer">
@@ -785,7 +763,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                     
+
                                             <table align="left" border="0" cellpadding="0" cellspacing="0" width="200" class="columnWrapper">
                                                 <tr>
                                                     <td valign="top" class="columnContainer">
@@ -813,7 +791,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                        
+
                                             <table align="left" border="0" cellpadding="0" cellspacing="0" width="200" class="columnWrapper">
                                                 <tr>
                                                     <td valign="top" class="columnContainer">
@@ -841,7 +819,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                         
+
                                         </td>
                                     </tr>
                                 </table>
@@ -849,7 +827,7 @@
                         </tr>
                         <tr>
                             <td align="center" valign="top" id="templateFooter">
-                          
+
                                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
                                     <tr>
                                         <td valign="top" class="footerContainer">
@@ -866,7 +844,7 @@
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                         
+
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -874,29 +852,22 @@
                                                 <tbody class="mcnTextBlockOuter">
                                                     <tr>
                                                         <td class="mcnTextBlockInner" style="padding-top:9px;" valign="top">
-                                                        
+
                                                             <table style="max-width:100%; min-width:100%;" class="mcnTextContentContainer" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
                                                                 <tbody>
                                                                     <tr>
 
                                                                         <td class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;" valign="top">
 
-                                                                            <em>Copyright © *|2016|* *|TiquesInn|*, All rights reserved.</em>
+                                                                            <em>Copyright © 2016 TiquesInn, All rights reserved.</em>
                                                                             <br>
-                                                                            *|IFNOT:ARCHIVE_PAGE|*
-                                                                            *|LIST:DESCRIPTION|*
-                                                                            <br>
-                                                                            <br>
-                                                                            <strong>Our mailing address is:</strong>
-                                                                            <br>
-                                                                            *|HTML:LIST_ADDRESS_HTML|* *|END:IF|*
-                                                                            <br>
-                                                                            
+
+
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
-                                                           
+
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -904,11 +875,11 @@
                                         </td>
                                     </tr>
                                 </table>
-                           
+
                             </td>
                         </tr>
                     </table>
-                  
+
                 </td>
             </tr>
         </table>

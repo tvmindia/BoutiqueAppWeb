@@ -99,7 +99,11 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string Boutique
+        {
+            get;
+            set;
+        }
         #endregion Global Variables
 
         #region Public Variables
@@ -246,6 +250,7 @@ namespace Boutique.DAL
                 logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
                 string logo = "http://192.168.1.107:222/" + logourl.Replace("../", ""); ;
                 body = body.Replace("{imgLogo}", logo);
+                body = body.Replace("{BoutiqueName}", Boutique);
             }
             char[] c = new char[] { ' ', ',' };
             string[] image = newsObj.ImageIDs[0].Split(c);
