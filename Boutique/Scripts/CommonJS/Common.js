@@ -76,6 +76,7 @@ var Messages = {
     DeletionSuccessFull: "Deleted Successfully",
     SuccessfulUpload: "Successfully Uploaded",
     SavedSuccessfull: "Successfully Saved!",
+    ProductAddSuccessfull: "New Product Created Successfully.",
 
     LoginFailed: "User Name / Password is wrong!",
     InsertionFailure: "Not Successfuly Saved Try Again",
@@ -85,7 +86,8 @@ var Messages = {
     SavingFailure: "Saving Not Successful ",
     AlreadyUsedForDeletion: "Already used . Can't be deleted",
     AlreadyUsedForUpdation: "Already used . Can't be changed",
-    MailSendSuccessfully:"Mail Send Successfully"
+    MailSendSuccessfully: "Mail Send Successfully",
+    ProductAddFailure: "Product Creation was not Successfull."
 }
 
 function IsCategoryExists() {   

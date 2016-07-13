@@ -42,10 +42,24 @@ namespace Boutique.AdminPanel
         }
 
 
-      
 
+        #region SessionCheck
+        public DAL.Security.UserAuthendication SessionCheck()
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            if (UA == null)
+            {
+                Response.Redirect(Const.LoginPageURL);
+                return UA;
+
+            }
+            return UA;
+        }
+        #endregion SessionCheck
         #region InsertProduct
-       
+
         [System.Web.Services.WebMethod]
        
         public static string InsertProduct(Product productObj)
@@ -203,7 +217,9 @@ namespace Boutique.AdminPanel
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
+        
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
             if (UA.BoutiqueID != "")
             {
                   productObj.BoutiqueID = UA.BoutiqueID;
