@@ -352,7 +352,7 @@ namespace Boutique.DAL
             if (body.Contains("imgLogo"))
             {
               logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
-              string logo = "http://TiqueInn.com/" + logourl.Replace("../", "");
+              string logo = "http://tiquesinn.com/" + logourl.Replace("../", "");
               body = body.Replace("{imgLogo}", logo);
               body = body.Replace("{BoutiqueName}", Boutique);
             }
