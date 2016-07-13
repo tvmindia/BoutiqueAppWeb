@@ -221,7 +221,7 @@ namespace Boutique.DAL
         public int PopulateBody()
         {
             NewsLetters newsObj = new NewsLetters();
-            string imageUrl = "http://192.168.1.107:222/NewsLetterImages/";
+            string imageUrl = "http://TiqueInn.com/NewsLetterImages/";
             string Url, logourl = "";
             newsObj.NewsLetterID = mailNewsLetterID;
             newsObj.BoutiqueID = BoutiqueID;

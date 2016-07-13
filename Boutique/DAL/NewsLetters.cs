@@ -538,7 +538,7 @@ namespace Boutique.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetMailNotSendNewsLetters]";
+                cmd.CommandText = "[GetNewsLetterDrafts]";
                // cmd.Parameters.Add("@NewsLetterID", SqlDbType.UniqueIdentifier).Value = NewsLetterID;
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(BoutiqueID);
                 sda = new SqlDataAdapter();
