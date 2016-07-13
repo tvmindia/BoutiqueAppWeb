@@ -352,7 +352,7 @@ namespace Boutique.DAL
             if (body.Contains("imgLogo"))
             {
               logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
-              string logo = "http://192.168.1.107:222/" + logourl.Replace("../", "");
+              string logo = "http://TiqueInn.com/" + logourl.Replace("../", "");
               body = body.Replace("{imgLogo}", logo);
               body = body.Replace("{BoutiqueName}", Boutique);
             }
