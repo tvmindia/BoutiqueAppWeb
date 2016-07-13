@@ -14,11 +14,11 @@
                 .ReadMsgBody {
                     width: 100%;
                 }
-                 .AdminLogoClass
+                 /*.AdminLogoClass
            {
                width:25px;
                height:25px;
-           }
+           }*/
                 .ExternalClass {
                     width: 100%;
                 }
@@ -55,7 +55,7 @@
                 }
           
                 body, #backgroundTable {
-                    /*@editable*/ background-color: #F7F5AE;
+                    /*@editable*/ background-color: #F7F5AE!important;
                 }
            
                 h1, .h1 {
@@ -347,7 +347,7 @@
 
 
     <center>
-        <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+        <table cellpadding="0" cellspacing="0" style="height:100%!important;width:100%!important;border:0!important;background-color: #F7F5AE!important;" id="backgroundTable">
             <tr>
                 <td align="center" valign="top">
                     <!-- // Begin Template Preheader \\ -->
@@ -356,22 +356,22 @@
                             <td valign="top" class="preheaderContent">
 
                                 <!-- // Begin Module: Standard Preheader \ -->
-                                <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                                <table style="height:100%!important;width:100%!important;border:0!important;" cellpadding=" 10" cellspacing="0">
                                     <tr>
                                         <td valign="top">
                                             <div mc:edit="std_preheader_content">
-                                                <table>
+                                                <table style="background-color:rgba(49, 42, 42, 0.19)!important;width:562px!important;height:40px!important;">
                                                     <tbody>
                                                         <tr>
-                                                            <td><img alt="" class="AdminLogoClass" src="{imgLogo}" /></td>
+                                                            <td><img alt="" src="{imgLogo}" style="height:25px!important;width:25px!important;" /></td>
                                                             <td><label id="lblBoutique" class="BoutiqueNAm">{BoutiqueName}</label></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </td>
-                                     
-                                     
+
+
                                     </tr>
                                 </table>
                                
