@@ -67,7 +67,8 @@
     $eventTemplatesSelect.on("change", function (e) {
         var ddltemplate = $(".template").val();
         debugger;
-        if (ddltemplate != null && ddltemplate!="") {
+        if (ddltemplate != null && ddltemplate != "") {
+            $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
             BindTemplateImagesPreview(ddltemplate);
             GetAllTemplateDetails(ddltemplate);
         }

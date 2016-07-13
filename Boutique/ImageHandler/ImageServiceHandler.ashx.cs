@@ -143,9 +143,10 @@ namespace Boutique.ImageHandler
             body = body.Replace("{Description}", "Description");
             //body = body.Replace("{Mainimage}", MainimageUrl);
             //body = body.Replace("{Images0}",altImage);
+            body = body.Replace("{imgLogo}", "../img/Default/nologo1.png");
             if (body.Contains("{ImgBirthday}"))
             {
-                body = body.Replace("{ImgBirthday}", "../img/Templates/birthday.jpg");
+                body = body.Replace("{ImgBirthday}", "../img/Templates/BirthdayImage.jpg");
             }
             for (int i = 0; i <= imageCount; i++)
             {

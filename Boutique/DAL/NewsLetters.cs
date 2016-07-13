@@ -347,12 +347,12 @@ namespace Boutique.DAL
             body = body.Replace("{Images0}", altImage);
             if (body.Contains("{ImgBirthday}"))
             {
-                body = body.Replace("{ImgBirthday}", "../img/Templates/birthday.jpg");
+                body = body.Replace("{ImgBirthday}", "../img/Templates/BirthdayImage.jpg");
             }
             if (body.Contains("imgLogo"))
             {
               logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
-              string logo = "http://192.168.1.107:222/" + logourl.Replace("../", "");
+              string logo = "http://tiquesinn.com/" + logourl.Replace("../", "");
               body = body.Replace("{imgLogo}", logo);
               body = body.Replace("{BoutiqueName}", Boutique);
             }
@@ -538,7 +538,7 @@ namespace Boutique.DAL
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[GetMailNotSendNewsLetters]";
+                cmd.CommandText = "[GetNewsLetterDrafts]";
                // cmd.Parameters.Add("@NewsLetterID", SqlDbType.UniqueIdentifier).Value = NewsLetterID;
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(BoutiqueID);
                 sda = new SqlDataAdapter();
