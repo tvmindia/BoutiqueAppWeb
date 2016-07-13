@@ -31,6 +31,7 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -50,6 +51,7 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -69,6 +71,7 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -86,6 +89,7 @@ namespace Boutique.ImageHandler
                     {
 
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -106,6 +110,7 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -126,7 +131,7 @@ namespace Boutique.ImageHandler
                     int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
                     imageCount=imageCount-1;
                     string body = string.Empty;
-                     string imageUrl=null;
+                    string imageUrl=null;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + template)))
             {
                 body = reader.ReadToEnd();

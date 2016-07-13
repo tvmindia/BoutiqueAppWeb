@@ -1378,7 +1378,6 @@ namespace Boutique.DAL
             #endregion InsertProductImage
 
             #endregion ProductImageMethods
-
         #region GetAllProductImages
             public DataSet GetAllProductImages()
             {
@@ -1431,7 +1430,6 @@ namespace Boutique.DAL
         }
 
         #endregion GetAllProductImages
-
         #region GetAllTotalCount
             public Int64 GetAllTotalCount()
             {
@@ -1477,7 +1475,6 @@ namespace Boutique.DAL
              
             }
         #endregion GetAllTotalCount
-
         #region GetAllProductMainImagesDetails
             public DataSet GetAllProductMainImagesDetails()
             {
@@ -1527,7 +1524,6 @@ namespace Boutique.DAL
                 return ds;
             }
             #endregion GetAllProductMainImagesDetails
-
         #region GetAllDeletedProductsDetails
             public DataSet GetAllDeletedProductsDetails()
             {
@@ -1569,7 +1565,6 @@ namespace Boutique.DAL
             }
 
             #endregion GetAllDeletedProductsDetails
-
         #region GetAllOutOfStockProductMainImagesDetails
             public DataSet GetAllOutOfStockProductMainImagesDetails()
             {
@@ -1616,7 +1611,6 @@ namespace Boutique.DAL
                 return ds;
             }
             #endregion GetAllProductMainImagesDetails
-
         #region GetAllTrendingProductsMainImagesDetails
              public DataSet GetAllTrendingProductsMainImagesDetails()
              {
@@ -1660,7 +1654,6 @@ namespace Boutique.DAL
                  return ds;
              }
             #endregion GetAllTrendingProductsMainImagesDetails
-
         #region Get Product Images for mobile
             /// <summary>
         /// Product images with varbinary files
@@ -1710,7 +1703,6 @@ namespace Boutique.DAL
                 return dt;
             }
             #endregion
-
         #region GetProductImage
 
          public byte[] GetProductImage()
@@ -1756,7 +1748,6 @@ namespace Boutique.DAL
             
          }
         #endregion GetProductImage
-
         #region GraphData
          public DataSet GetProductDetails()
          {
@@ -1798,8 +1789,6 @@ namespace Boutique.DAL
              return ds;
          }
         #endregion GraphData
-
-
         #region DeleteProudctImage
 
          public Int16 DeleteProudctImage()
@@ -1847,7 +1836,6 @@ namespace Boutique.DAL
 
          }
          #endregion DeleteProudctImage
-
         #region GetAllProductReviews
          public DataSet GetAllProductsReviews()
          {
@@ -1892,7 +1880,6 @@ namespace Boutique.DAL
              return ds;
          }
          #endregion GetAllProductReviews
-
         #region GetReviewById
         public DataSet GetReviewDetailsWithID()
          {
@@ -1933,7 +1920,6 @@ namespace Boutique.DAL
             return ds;
          }
         #endregion GetReviewById
-
         #region Get reviews of a product for app
         /// <summary>
         /// to get product reviews including the user's review
@@ -1988,7 +1974,6 @@ namespace Boutique.DAL
             return dt;
         }           
         #endregion
-
         #region Insert review from app
         /// <summary>
         /// to insert product review
@@ -2043,7 +2028,6 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion
-        
         #region Delete a product review
         /// <summary>
         /// to delete product review
@@ -2091,7 +2075,6 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion
-
         #region UpdateReviewTable
         
         #region UpdateReviewCancelled
@@ -2165,7 +2148,6 @@ namespace Boutique.DAL
         }
         #endregion UpdateReviewIsModarate
         #endregion UpdateReviewTable
-
         #region Get ImageID By ProductID
         public string GetImageIDByProductID()
         {
@@ -2215,7 +2197,6 @@ namespace Boutique.DAL
             return ImageID;
         }
         #endregion Get ImageID By ProductID
-
         #region GetNewTrendingDetailsBySearch
         public DataSet GetNewTrendingDetailsBySearch()
         {
@@ -2262,7 +2243,6 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetNewTrendingDetailsBySearch
-
         #region GetNewOutOfStockDetailBySearch
         public DataSet GetNewOutOfStockDetailBySearch()
         {
@@ -2309,7 +2289,6 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetNewOutOfStockDetailBySearch
-
         #region GetNewProductDetailBySearch
         public DataSet GetNewProductDetailBySearch()
         {
@@ -2356,7 +2335,6 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetNewProductDetailBySearch
-
         #region GetDeletedProductDetailsBySearch
         public DataSet GetDeletedProductDetailsBySearch()
         {
@@ -2403,7 +2381,6 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetDeletedProductDetailsBySearch
-
         #region Get related products of a product for app
         /// <summary>
         /// To get the related products including image for app
@@ -2453,7 +2430,6 @@ namespace Boutique.DAL
             }
         }
         #endregion
-
         #region GetAllProductIDandName
          public DataSet GetAllProductIDandName()
         {
@@ -2498,8 +2474,7 @@ namespace Boutique.DAL
         }
       
         #endregion GetAllProductIDandName
-
-         #region GetImageIdForNewsLetter
+        #region GetImageIdForNewsLetter
          public DataSet GetImageIdForNewsLetter()
          {
              if (BoutiqueID == "")
@@ -2541,9 +2516,7 @@ namespace Boutique.DAL
 
          }
          #endregion GetImageIdForNewsLetter
-
-
-         #region GetAllProductIDAndNameForNewsLetter
+        #region GetAllProductIDAndNameForNewsLetter
          public DataSet GetAllProductIDAndNameForNewsLetter()
          {
              if (BoutiqueID == "")
@@ -2590,8 +2563,6 @@ namespace Boutique.DAL
          }
 
          #endregion GetAllProductIDAndNameForNewsLetter
-
-
         #region revive product
          public Int16 ReviveProduct()
          {
