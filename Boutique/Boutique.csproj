@@ -218,6 +218,7 @@
     <Content Include="img\Default\defaultuser.jpg" />
     <Content Include="img\Default\invalid.png" />
     <Content Include="img\Default\loading.gif" />
+    <Content Include="img\Default\logo.png" />
     <Content Include="img\Default\newClose.png" />
     <Content Include="img\Default\newfff.png" />
     <Content Include="img\Default\nologo1.png" />
