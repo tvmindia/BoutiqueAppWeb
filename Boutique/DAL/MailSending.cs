@@ -243,7 +243,7 @@ namespace Boutique.DAL
             body = body.Replace("{Mainimage}", "MainimageUrl");
             if (body.Contains("{ImgBirthday}"))
             {
-                body = body.Replace("{ImgBirthday}", "http://192.168.1.107:222/img/Templates/birthday.jpg");
+                body = body.Replace("{ImgBirthday}", "http://192.168.1.107:222/img/Templates/BirthdayImage.jpg");
             }
             if (body.Contains("imgLogo"))
             {

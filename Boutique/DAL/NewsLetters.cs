@@ -347,7 +347,7 @@ namespace Boutique.DAL
             body = body.Replace("{Images0}", altImage);
             if (body.Contains("{ImgBirthday}"))
             {
-                body = body.Replace("{ImgBirthday}", "../img/Templates/birthday.jpg");
+                body = body.Replace("{ImgBirthday}", "../img/Templates/BirthdayImage.jpg");
             }
             if (body.Contains("imgLogo"))
             {
