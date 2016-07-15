@@ -75,9 +75,7 @@ namespace Boutique.ImageHandler
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
-                    
-
-                }
+                  }
 
                 if ((context.Request.QueryString["DesignerID"] != null) && (context.Request.QueryString["DesignerID"] != ""))
                 {
@@ -100,8 +98,6 @@ namespace Boutique.ImageHandler
                     }
 
                 }
-
-
                 if ((context.Request.QueryString["bannerImgID"] != null) && (context.Request.QueryString["bannerImgID"] != ""))
                 {
                     Boutiques boutiqueObj = new Boutiques();
@@ -115,13 +111,7 @@ namespace Boutique.ImageHandler
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
 
-                    //else
-                    //{
-                    //    context.Response.ContentType = "image/png";
-                    //    context.Response.WriteFile("~/img/No-Img_Chosen.png");
-                    //}
                 }
-
                 if ((context.Request.QueryString["templateID"] != null) && (context.Request.QueryString["templateID"] != ""))
                 {
                     NewsLetters newsObj = new NewsLetters();

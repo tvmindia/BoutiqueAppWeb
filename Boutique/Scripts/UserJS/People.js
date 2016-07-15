@@ -1,5 +1,4 @@
-﻿
-//document.ready
+﻿//document.ready
 $("document").ready(function (e) {
 
     parent.document.title = Pages.People;

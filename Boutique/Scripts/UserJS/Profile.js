@@ -207,7 +207,7 @@ $("document").ready(function (e) {
     //---------- * Add banner *-------------//
      $(".addBanner").live({
         click: function (e) {
-            debugger;
+           
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -233,27 +233,14 @@ $("document").ready(function (e) {
 
                     if ((imagefile = $('#BannerUpload')[0].files[0]) != undefined) {
                         img = new Image();
-                        //img.onload = function ()
-                        //{
                         var image = $('#BannerUpload')[0].files[0];
-                        formData.append('imagefiles', image, imagefile.name);
-                    
-                        //};
-                    //}
-                    //else {
-                    //    //imagefile = "";
-                    //    //formData.append('imagefiles', imagefile.name);
-                    //    result = -1;
-                     
-                    //}
-             
-                    formData.append('ProductID', Boutique.ProductID);
-                    formData.append('CategoryCode', Boutique.CategoryCode);
-                    formData.append('BtqID', BoutiqueID);
-                    formData.append('CreatedBy', CreatedBy);
-                    formData.append('BannerImgID', BannerImgID);
-                    debugger;
-                    var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
+                        formData.append('BannerFile', image, imagefile.name);
+                        formData.append('ProductID', Boutique.ProductID);
+                        formData.append('CategoryCode', Boutique.CategoryCode);
+                        formData.append('BtqID', BoutiqueID);
+                        formData.append('CreatedBy', CreatedBy);
+                        formData.append('BannerImgID', BannerImgID);
+                        var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
 
                     if (result == "1") {
 
