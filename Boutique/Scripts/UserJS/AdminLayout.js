@@ -38,12 +38,10 @@ function BindNotification() {
     var Reviews = {};
     ReviewsCount = GetReviews();
     Reviews = GetReviewCountforBubble();
-    var i = 0;
-    $.each(Reviews, function (index, Records) {
 
-        MultiReviewBind(Records, i, ReviewsCount[1].RDate);
-        i = i + 1;
-    })
+    $.each(Reviews, function (index, Records) {
+        MultiReviewBind(Records, index, ReviewsCount[index].RDate);
+     })
     return false;
 
 }

@@ -57,7 +57,7 @@
     .imgpreviewdiv{
         height: 200px;
         width:120px;
-        padding-left:10px;
+        padding-left:5px;
       }
 
 

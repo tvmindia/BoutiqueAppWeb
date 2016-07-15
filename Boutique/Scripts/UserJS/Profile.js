@@ -1049,7 +1049,7 @@ function ClearBannerControls()
     //$('#BannerUpload')[0].files[0].name = "No file selected";
     BindAllBannerImages();
 
-    debugger;
+ 
     document.getElementById("BannerUpload").disabled = false;
   
     //$('.filename').html("No file selected");

@@ -32,22 +32,14 @@
 
                 <div class="box-content alerts">
                     <div class="alert alert-error" style="display: none;">
-                        <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+                     
                         <strong>Operation Not Successfull.</strong>
                     </div>
                     <div class="alert alert-success" style="display: none;">
-                        <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
+                     
                         <strong>Successfull.</strong>
                     </div>
-                    <div class="alert alert-info" style="display: none;">
-                        <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-                        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-                    </div>
-                    <div class="alert alert-block" style="display: none;">
-                        <%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-                        <h4 class="alert-heading">Warning!</h4>
-                        <p>Best check yourself, you're not looking too good.</p>
-                    </div>
+                
                 </div>
 
             </div>
@@ -64,10 +56,10 @@
                 </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li class="icon active"> <a href="#Administrators">♔ Administrators</a></li>
-                        <li><a href="#Managers"><span class="icon-user"></span> Managers</a></li>
-                        <li><a href="#Designers">♝ Designers</a></li>
-                        <li><a href="#Users"> <span class="icon-group"></span>Users</a></li>
+                        <li class="icon active"> <a id="idTabAdministrator" href="#Administrators">♔ Administrators</a></li>
+                        <li><a id="idTabManagers" href="#Managers"><span class="icon-user"></span> Managers</a></li>
+                        <li><a id="idTabDesigners" href="#Designers">♝ Designers</a></li>
+                        <li><a id="idTabUsers" href="#Users"> <span class="icon-group"></span> Users</a></li>
                     </ul>
 
                     <div id="myTabContent" class="tab-content">
@@ -159,7 +151,7 @@
                                         </div>
                                         <footer class="InnerFooter">
                                             <a class="btn btn-primary AddAdmin" onclick="return AdminValidation()" href="#">Save</></a>
-                                            <a class="btn CancelAdmin">Cancel</a>
+                                            <a class="btn CancelAdmin">Clear</a>
                                         </footer>
 
                                     </div>
@@ -168,7 +160,7 @@
 
                                     <div class="box span6">
                                         <div class="box-header">
-                                            <h2>Current Administrator</h2>
+                                            <h2>Current Administrators</h2>
                                             <div class="box-icon">
                                             </div>
                                         </div>
@@ -180,11 +172,10 @@
                                                         <th>Mobile</th>
                                                         <th>Email</th>
                                                         <th>Actions</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody id="Adminrows">
-                                                </tbody>
+                                               </tbody>
                                             </table>
 
                                         </div>
@@ -287,7 +278,7 @@
                                         </div>
                                         <footer class="InnerFooter">
                                             <a class="btn btn-primary AddManager" onclick="return ManagerValidation()" href="#">Save</></a>
-                                            <a class="btn CancelManager">Cancel</a>
+                                            <a class="btn CancelManager">Clear</a>
                                         </footer>
 
                                     </div>
@@ -301,7 +292,7 @@
                                             </div>
                                         </div>
                                         <div class="box-content TableLayout" style="height: 500px; overflow: auto;">
-                                            <table class="table table-striped table-bordered  bootstrap-datatable" id="ManagerTable">
+                                           <table class="table table-striped table-bordered  bootstrap-datatable" id="ManagerTable">
                                                 <thead id="managerthead">
                                                     <tr>
                                                         <th>Name</th>
@@ -372,7 +363,7 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Photo</label>
                                                     <div class="controls">
-                                                        <%--  <iframe id="IframeProjectSwitching" src="PhotoUploader.aspx" style="width: 250px;min-height:195px;max-height:350px;overflow-y:hidden;overflow-x:hidden;border:none"></iframe> --%>
+                                     
                                                         <input id="fileUpload" type="file" size="60" name="myfile" />
 
                                                     </div>
@@ -389,7 +380,7 @@
                                         </div>
                                         <footer class="InnerFooter">
                                             <a class="btn btn-primary AddDesigner" onclick="return DesignerValidate()" href="#">Save</></a>
-                                            <a class="btn CancelDesigner">Cancel</a>
+                                            <a class="btn CancelDesigner">Clear</a>
                                         </footer>
 
                                     </div>
@@ -498,7 +489,7 @@
 
                                             <a class="btn btn-primary AddUser" onclick="return UserValidate()" href="#">Save</></a>
 
-                                            <a class="btn CancelUser">Cancel</a>
+                                            <a class="btn CancelUser">Clear</a>
 
                                         </footer>
 

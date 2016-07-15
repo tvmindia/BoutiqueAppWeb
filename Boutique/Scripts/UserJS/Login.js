@@ -24,7 +24,7 @@ function ForgotPassword() {
 }
 
 function SendVerificationCode() {
-    debugger;
+   
     $('#Sendinggif').show();
     var Email = $('#txtEmail');
     var EmailAddress = Email[0].value;

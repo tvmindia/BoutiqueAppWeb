@@ -69,19 +69,12 @@ $("document").ready(function (e) {
                     itemSelector: '.masonry-thumb',
 
                 });
-        // galerydiv.hide();
-        $mars.imagesLoaded().progress(function () {
+            $mars.imagesLoaded().progress(function () {
             $mars.masonry('layout');
         });
     }
 
-
-
-
-  
-
     //prduct gallery slide effect
-
     $("#Preview").sortable({
 
         update: function (event, ui) { }//when div image is reordered
@@ -111,9 +104,6 @@ $("document").ready(function (e) {
        , placeholder: "Select a Designer"
     });
 
-   
-
-    
     $(".DeleteProduct").live({
         click: function (e) {// Delete button click
             var e = $("#hdfproductID").val();
@@ -132,8 +122,6 @@ $("document").ready(function (e) {
             return false;
         }
     })
-
-
 
     $(".CancelProduct").live({
         click: function (e) {// Clear controls
@@ -2029,9 +2017,6 @@ function BindTrendedProductImagesForEventLoad(Pagevalue) {
     $marstrends.masonry('appended', elems);
     return totalimages.length;
 }
-//End Binding Product Images into Masonry Container on Load Images Button
-//Created By Thomson Varkey,21-0-2016
-///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 function GetTotalProductCount(Product)
@@ -2044,8 +2029,6 @@ function GetTotalProductCount(Product)
     return table;
 }
 
-//Basic Validation For New Notification
-//CreatedBy Thomson
 function ProductValidation() {
     
     $('#Displaydiv').remove();

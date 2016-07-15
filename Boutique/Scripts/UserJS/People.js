@@ -19,13 +19,8 @@ $("document").ready(function (e) {
             alert('The File APIs are not fully supported in this browser.');
         }
     }
-
-    BindAsyncUserTable();
-    BindAsycDesignerTable();
     BindAsyncAdminsTable();
-    BindAsyncManagersTable();
-
-    $('#AdministratorTable').DataTable({
+     $('#AdministratorTable').DataTable({
         "bPaginate": true,
         "iDisplayLength": 6,
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
@@ -49,6 +44,24 @@ $("document").ready(function (e) {
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],  
         "fnPageChange": "next"
     });
+
+
+
+    $("#idTabAdministrator").click(function (e) {
+        BindAsyncAdminsTable();
+    });
+
+    $("#idTabManagers").click(function (e) {
+        BindAsyncManagersTable();
+    });
+
+    $("#idTabDesigners").click(function (e) {
+        BindAsycDesignerTable();
+    });
+    $("#idTabUsers").click(function (e) {
+        BindAsyncUserTable();
+    });
+
 
     //EDIT REGION
     $(".adminedit").live(
@@ -106,13 +119,14 @@ $("document").ready(function (e) {
        })
     $(".designeredit").live(
      {
+
          click: function (e) {
 
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
 
-
+         
              editedrow = $(this).closest('tr');
              var Designer = new Object();
              Designer.DesignerID = editedrow.attr("designerID");
@@ -606,7 +620,7 @@ function clearManagerControls() {
     $("#txtManagerPass").val('');
     $("#txtManagerConPass").val('');
     $("#txtManagerEmail").val('');
-    $("#chkActiveManager").val('');
+    $('#chkActiveManager').parent().addClass('checked');
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -634,7 +648,7 @@ function clearAdminControls() {
     $("#txtAdminPass").val('');
     $("#txtAdminConPass").val('');
     $("#txtAdminEmail").val('');
-    $("#chkActiveAdmin").val('');
+    $('#chkActiveAdmin').parent().addClass('checked');
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -741,15 +755,14 @@ function BindUserTextBoxes(Records) {
         $("#txtMobile").val(Records.Mobile);
         $("#txtEmail").val(Records.Email);
 
-        if (Records.Active = 'true') {
-            // $("#chkActive").attr('checked', 'checked');
-            // $(".chkActive").attr("checked", "checked
-            $(".chkActive").prop('checked', true);
-
+        if (Records.Active === true) {
+         
+         
+            $('#chkActive').parent().addClass('checked');
         }
         else {
-            // $("#chkActive").removeAttr('checked');
-            $(".chkActive").prop('checked', false);
+                   
+            $('#chkActive').parent().removeClass('checked');
         }
         $("#chkActive").val(Records.IsActive);
         $("#txtCaption").val(Records.Caption);
@@ -765,6 +778,7 @@ function BindUserTextBoxes(Records) {
 }
 
 function BindAdminTextBoxes(Records) {
+   
     $.each(Records, function (index, Records) {
         $("#txtAdminName").val(Records.Name);
         $("#txtMobileAdmin").val(Records.Mobile);
@@ -778,20 +792,14 @@ function BindAdminTextBoxes(Records) {
       
         $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
-        if (Records.Active = 'true') {
-            // $("#chkActive").attr('checked', 'checked');
-            // $(".chkActive").attr("checked", "checked
-            $("#chkActiveAdmin").prop('checked', true);
-
+        if (Records.Active === true) {
+                     
+            $('#chkActiveAdmin').parent().addClass('checked');
         }
         else {
-            // $("#chkActive").removeAttr('checked');
-            $("#chkActiveAdmin").prop('checked', false);
+         $('#chkActiveAdmin').parent().removeClass('checked');
         }
         $("#chkActiveAdmin").val(Records.IsActive);
-        // $("#txtCaption").val(Records.Caption);
-
-
         $("#hdfUserID").val(Records.UserID);
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
@@ -816,20 +824,15 @@ function BindManagerTextBoxes(Records) {
 
         $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
-        if (Records.Active = 'true') {
-            // $("#chkActive").attr('checked', 'checked');
-            // $(".chkActive").attr("checked", "checked
-            $("#chkActiveManager").prop('checked', true);
-
+        if (Records.Active === true)
+        {
+         $('#chkActiveManager').parent().addClass('checked');
         }
-        else {
-            // $("#chkActive").removeAttr('checked');
-            $("#chkActiveManager").prop('checked', false);
+        else
+        {
+         $('#chkActiveManager').parent().removeClass('checked');
         }
         $("#chkActiveManager").val(Records.IsActive);
-        //$("#txtCaption").val(Records.Caption);
-
-
         $("#hdfUserID").val(Records.UserID);
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
@@ -994,6 +997,7 @@ function AddManager() {
 //Add New Designer
 function AddDesigner()
 {
+  
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1019,17 +1023,13 @@ function AddDesigner()
 
 
         if ((file = $('#fileUpload')[0].files[0])) {
-            debugger;
+         
             img = new Image();
             img.onload = function () {
                 var image = $('#fileUpload')[0].files[0];
-
-
                 formData.append('files', image, file.name);
                 formData.append('', Designer.DesignerID);
-               
-            };
-            
+                };
             var image = $('#fileUpload')[0].files[0];
             formData.append('files', image, file.name);
             formData.append('DesignerId', result.DesignerID);
@@ -1037,10 +1037,8 @@ function AddDesigner()
             formData.append('Name', result.Name);
             formData.append('profile', result.Profile);
             formData.append('mobile', result.Mobile);
-            formData.append('updatedBy', result.userName)
+            formData.append('updatedBy', result.userName);
         }
-
-       
         postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
     }
     
@@ -1364,22 +1362,22 @@ function EmailValidation() {
   
     var value;
     if ($('#txtAdminEmail').val() != "") {
-        debugger;
+   
         var Email = $('#txtAdminEmail').val();
         value = 0;
     }
     else {
-        debugger;
+  
         $('#imgfail').hide();
         $('#imgsuccess').hide();
     }
     if ($('#txtManagerEmail').val() != "") {
-        debugger;
+    
         var Email = $('#txtManagerEmail').val();
          value = 1;
         }
     else {
-        debugger;
+      
           $('#imgfail1').hide();
         $('#imgsuccess1').hide();
 
