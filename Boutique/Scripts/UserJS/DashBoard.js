@@ -198,12 +198,10 @@ function BindAllTiles()
   }
 
   function BindAllImages() {
+      
       var imageids = {};
       var ProductLog = {};
-     
-      
       imageids = GetAllProductImages();
-    
       var options = {
           chart: {
               renderTo: 'container',
@@ -246,16 +244,15 @@ function BindAllTiles()
               name: 'Trends',
               colorByPoint: true,
               data: [
-                  { name: imageids[0].Name, y: imageids[0].prductcounts, id: imageids[0].ProductNo, Imagenum:0 },
-                  { name: imageids[1].Name, y: imageids[1].prductcounts, id: imageids[1].ProductNo, Imagenum:1 },
-                  { name: imageids[2].Name, y: imageids[2].prductcounts, id: imageids[2].ProductNo, Imagenum:2 },
-                  { name: imageids[3].Name, y: imageids[3].prductcounts, id: imageids[3].ProductNo, Imagenum:3 },
-                  { name: imageids[4].Name, y: imageids[4].prductcounts, id: imageids[4].ProductNo, Imagenum:4 },
-                  { name: imageids[5].Name, y: imageids[5].prductcounts, id: imageids[5].ProductNo, Imagenum:5 },
-                  { name: imageids[6].Name, y: imageids[6].prductcounts, id: imageids[6].ProductNo, Imagenum:6 },
-                  { name: imageids[7].Name, y: imageids[7].prductcounts, id: imageids[7].ProductNo, Imagenum:7 },
-                  { name: imageids[8].Name, y: imageids[8].prductcounts, id: imageids[8].ProductNo, Imagenum:8 },
-                  { name: imageids[9].Name, y: imageids[9].prductcounts, id: imageids[9].ProductNo, Imagenum:9 }
+                  { name: imageids[0].Name, y: imageids[0].prductcounts, id: imageids[0].ProductNo, Imagenum: imageids[0].ImageID },
+                  { name: imageids[1].Name, y: imageids[1].prductcounts, id: imageids[1].ProductNo, Imagenum: imageids[1].ImageID },
+                  { name: imageids[2].Name, y: imageids[2].prductcounts, id: imageids[2].ProductNo, Imagenum: imageids[2].ImageID },
+                  { name: imageids[3].Name, y: imageids[3].prductcounts, id: imageids[3].ProductNo, Imagenum: imageids[3].ImageID },
+                  { name: imageids[4].Name, y: imageids[4].prductcounts, id: imageids[4].ProductNo, Imagenum: imageids[4].ImageID },
+                  { name: imageids[5].Name, y: imageids[5].prductcounts, id: imageids[5].ProductNo, Imagenum: imageids[5].ImageID },
+                  { name: imageids[6].Name, y: imageids[6].prductcounts, id: imageids[6].ProductNo, Imagenum: imageids[6].ImageID },
+                  { name: imageids[8].Name, y: imageids[8].prductcounts, id: imageids[8].ProductNo, Imagenum: imageids[8].ImageID },
+                  { name: imageids[9].Name, y: imageids[9].prductcounts, id: imageids[9].ProductNo, Imagenum: imageids[9].ImageID }
               ]
 
           }]
