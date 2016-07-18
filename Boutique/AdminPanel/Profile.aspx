@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/Imageload.css" rel="stylesheet" />
-   <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
+    <link href="../CSS/CustomCSS/Products.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
@@ -18,7 +18,6 @@
              bottom: 30px;
              left: -30px;
              position: relative;
-
          }
 
     </style>
@@ -91,7 +90,7 @@
                                         <div class="box-icon">
                                             <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-							<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
+					 		<a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>--%>
                                         </div>
                                     </div>
                                     <div class="box-content" style="height: 650px; overflow: auto;">
@@ -487,6 +486,7 @@
               </div>
                 <footer class="InnerFooter">
                                         <a class="btn btn-primary addBanner"  href="#">Save</></a>
+                                        <a style="display:none;" class="btn btn-danger imgdelete">Delete</></a>
                                         <a class="btn bannerCancel">Cancel</a>
                                     </footer>
              

@@ -42,15 +42,16 @@ namespace Boutique.AdminPanel
             boutiqueObj.BoutiqueID = UA.BoutiqueID;
 
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer(); 
-            if (boutiqueObj.BoutiqueID == null)
+            if (boutiqueObj.BoutiqueID!=null)
             {
-               // status = boutiqueobj.NewBoutique().ToString();
+              
+                boutiqueObj.UpdatedBy = UA.userName;
+                boutiqueObj.status = boutiqueObj.EditBoutique().ToString();
             }
             else
             {
-
-                boutiqueObj.UpdatedBy = UA.userName;
-              boutiqueObj.status = boutiqueObj.EditBoutique().ToString();
+                // status = boutiqueobj.NewBoutique().ToString();
+             
             }
 
 

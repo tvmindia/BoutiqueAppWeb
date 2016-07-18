@@ -110,7 +110,7 @@ namespace Boutique.AdminPanel
                 if (boutiqueobj.BoutiqueID == null) //new boutique
                 {
                     DAL.Loyalty loyalObj = new DAL.Loyalty();
-                    boutiqueobj.UpdatedBy = UA.userName;
+                    boutiqueobj.CreatedBy = UA.userName;
                     Boutique_ID = boutiqueobj.NewBoutique();//creating new boutique and receiving Boutique ID
 
                     if (Boutique_ID != "")

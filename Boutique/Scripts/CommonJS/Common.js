@@ -331,3 +331,17 @@ function ShowAlertBox()
     $('.alert-success').show();
     $('.alert-error').show();
 }
+function getboutiqueID() {
+    var table = {};
+    var boutique = new Object();
+    table = GetBoutique_id(boutique);
+    return table;
+}
+function GetBoutique_id(boutique) {
+    var ds = {};
+    var table = {};
+    var data = "{'boutiqueObj':" + JSON.stringify(boutique) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/BoutiqueID");
+    table = JSON.parse(ds.d);
+    return table;
+}

@@ -1,6 +1,7 @@
 ﻿
 //document.ready
 $("document").ready(function (e) {
+    $('.imgdelete').hide();
     parent.document.title = Pages.Profile;
    
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -85,13 +86,18 @@ $("document").ready(function (e) {
 
     $(".imgdelete").live({
         click: function (e) {// Clear controls
-         
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-            var e = $(this).attr('id');
-            var p = "DeleteBanner";
-            DeleteCustomAlert("Are you sure?", e, p)
+            var bid=$("#hdfBannerImgID").val();
+            if (bid != '')
+            {
+                var e = bid;
+                var p = "DeleteBanner";
+                DeleteCustomAlert("Are you sure?", e, p)
+            }
+           
             return false;
         }
     })
@@ -99,14 +105,14 @@ $("document").ready(function (e) {
     //addboutique
     $(".AddBoutique").live({
         click: function (e)
-        {// submit button click         
+        {// submit button click       
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
             var boutiquid = $("#hdfBoutiqueID").val();
             var result = "";
             var Boutique = new Object();
-
             Boutique.AppVersion = $("#txtAppVersion").val();
             Boutique.Name = $("#txtBouquetName").val();
             Boutique.StartedYear = $("#txtStartYear").val();
@@ -120,88 +126,89 @@ $("document").ready(function (e) {
             Boutique.FbLink = $("#txtFacebooklink").val();
             Boutique.InstagramLink = $("#txtInstatgramlink").val();
             Boutique.Latitude = $("#txtLatitude").val();
-            Boutique.Longitude = $("#txtLongitude").val();        
-          
+            Boutique.Longitude = $("#txtLongitude").val();
+            Boutique.BoutiqueID = boutiquid;
+            var loginuser = $("#LoginName").text();
             if (boutiquid != null)
             {
-                var imgresult = "";
-                var _URL = window.URL || window.webkitURL;
-                var formData = new FormData();
-                var imagefile, logoFile, img;
-
-                if ((imagefile = $('#imageUpload')[0].files[0])!=undefined)
+                if (((imagefile = $('#imageUpload')[0].files[0])!=undefined) || ((logoFile = $('#logoUpload')[0].files[0])!=undefined))
                 {
-                    img = new Image();
-                    //img.onload = function ()
-                    //{
+                    var formData = new FormData();
+                    var imagefile, logoFile, img;
+                    ///images
+                    if ((imagefile = $('#imageUpload')[0].files[0]) != undefined) {
                         var image = $('#imageUpload')[0].files[0];
-                       
-
                         formData.append('imagefiles', image, imagefile.name);
                         formData.append('', boutiquid);
-                      
-                    //};
-                }
-                else
+                    }
+                    else {
+                        imagefile = "";
+                        formData.append('imagefiles', imagefile.name);
+                    }
+
+                    if ((logoFile = $('#logoUpload')[0].files[0]) != undefined) {
+                       var logo = $('#logoUpload')[0].files[0];
+                       formData.append('logofiles', logo, logoFile.name);
+                       formData.append('', boutiquid);
+                    }
+                    else {
+                        logoFile = "";
+                        formData.append('logofiles', logoFile.name);
+                    }
+                    ///images
+
+                    //form contents to formdata
+                    formData.append('Longitude', Boutique.Longitude);
+                    formData.append('Latitude', Boutique.Latitude);
+                    formData.append('BoutiqueId', boutiquid);
+                    formData.append('AppVersion', Boutique.AppVersion);
+                    formData.append('Name', Boutique.Name);
+                    formData.append('StartYear', Boutique.StartedYear);
+                    formData.append('AboutUs', Boutique.AboutUs);
+                    formData.append('Caption', Boutique.Caption);
+                    formData.append('Location', Boutique.Location);
+                    formData.append('Address', Boutique.Address);
+                    formData.append('Phone', Boutique.Phone);
+                    formData.append('Timing', Boutique.Timing);
+                    formData.append('WorkingDays', Boutique.WorkingDays);
+                    formData.append('FbLink', Boutique.FbLink);
+                    formData.append('InstagramLink', Boutique.InstagramLink);
+                    formData.append('ActionTyp', 'BoutiqueUpdate');
+                    formData.append('updatedBy', loginuser);
+                    result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+                    if (result == "1" || result == "2" || result == "3") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                        AutoScrollToAlertBox();
+                    }
+                    if (result != "1" && result != "2" && result != "3") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text(Messages.InsertionFailure);
+                    }
+
+                }//if file exist in uploader
+                else//no files in both uploader hence simple update
                 {
-                    imagefile = "";
-                    //formData.append('imagefiles', imagefile, imagefile.name);
-                    formData.append('imagefiles', imagefile.name);
-                }
-                if ((logoFile = $('#logoUpload')[0].files[0])!=undefined)
-                {
-                    img = new Image();
-                    //img.onload = function ()
-                    //{
-                        var logo = $('#logoUpload')[0].files[0];
+                    result = UpdateBoutique(Boutique);
+                    if (result == "1" || result == "2" || result == "3") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-success').show();
+                        $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                        AutoScrollToAlertBox();
+                    }
+                    if (result != "1" && result != "2" && result != "3") {
+                        $('#rowfluidDiv').show();
+                        $('.alert-error').show();
+                        $('.alert-error strong').text(Messages.InsertionFailure);
+                    }
+                }//end of else
 
 
-                        formData.append('logofiles', logo, logoFile.name);
-                        formData.append('', boutiquid);
-                       
-                    //};
-                }
-                else
-                {
-                    logoFile = "";
-                    //formData.append('logofiles', logo, logoFile.name);
-
-                    formData.append('logofiles',logoFile.name);
-                }
-                        //var logo = $('#logoUpload')[0].files[0];
-                        //formData.append('logofiles', logo, logoFile.name);
-                        formData.append('Longitude', Boutique.Longitude);
-                        formData.append('Latitude',Boutique.Latitude);
-                        formData.append('BoutiqueId', boutiquid);
-                        formData.append('AppVersion', Boutique.AppVersion);
-                        formData.append('Name', Boutique.Name);
-                        formData.append('StartYear',Boutique.StartedYear);
-                        formData.append('AboutUs',Boutique.AboutUs);
-                        formData.append('Caption',Boutique.Caption);
-                        formData.append('Location',Boutique.Location);
-                        formData.append('Address', Boutique.Address);
-                        formData.append('Phone',Boutique.Phone);
-                        formData.append('Timing',Boutique.Timing);
-                        formData.append('WorkingDays',Boutique.WorkingDays);
-                        formData.append('FbLink',Boutique.FbLink);
-                        formData.append('InstagramLink',Boutique.InstagramLink);
-                        var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
-                        if (result == "1" || result == "2"||result=="3") {
-                            $('#rowfluidDiv').show();
-                            $('.alert-success').show();
-                            $('.alert-success strong').text(Messages.InsertionSuccessFull);
-
-                            AutoScrollToAlertBox();
-                           
-                           
-                        }
-                        if (result != "1" && result!="2" && result!="3") {
-                            $('#rowfluidDiv').show();
-                            $('.alert-error').show();
-                            $('.alert-error strong').text(Messages.InsertionFailure);
-                        }
-            }
-        }
+            }//boutiquid not null if
+           
+          }
     })    
 
     //---------- * Add banner *-------------//
@@ -240,7 +247,8 @@ $("document").ready(function (e) {
                         formData.append('BtqID', BoutiqueID);
                         formData.append('CreatedBy', CreatedBy);
                         formData.append('BannerImgID', BannerImgID);
-                        var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx?BannerImgID=" + BannerImgID);
+                        formData.append('ActionTyp', 'BannerInsert');
+                        var result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
 
                     if (result == "1") {
 
@@ -693,6 +701,14 @@ function InsertOwner(Owners) {
     return table;
 }
 
+function UpdateBoutique(Boutique){
+    var data = "{'boutiqueobj':" + JSON.stringify(Boutique) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/NewBoutique");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
 function DeleteOwner(Owner) {
     var ds = {};
     var table = {};
@@ -922,7 +938,7 @@ function FillControlsOnEdit(objthis)
     if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined')
     {
         $("#imageList1").find(".thumb").remove();
-        $("#imageList1").find(".imgdelete").remove();
+      //  $("#imageList1").find(".imgdelete").remove();
        
         var span = document.createElement('span');
 
@@ -935,15 +951,16 @@ function FillControlsOnEdit(objthis)
         
         divPre.appendChild(img1);
 
-        var del = document.createElement('input');
-        del.className = 'imgdelete';
-        del.type = 'image';
-        del.src = '../Home/images/Deleteicon1.png';
-        del.id = ImageID;
+      //  var del = document.createElement('input');
+      //  del.className = 'imgdelete';
+      //  del.type = 'image';
+     //   del.src = '../Home/images/Deleteicon1.png';
+     //   del.id = ImageID;
       
-        divPre.appendChild(del);
+       // divPre.appendChild(del);
        
     }
+    $('.imgdelete').show();
 } 
 
 function GetAllBannerImages() {
@@ -1013,7 +1030,7 @@ function SetDefaultBannerImage()
 {
     if ($("#imageList1").find(".thumb") != null || $("#imageList1").find(".thumb") != 'undefined') {
         $("#imageList1").find(".thumb").remove();
-        $("#imageList1").find(".imgdelete").remove();
+      //  $("#imageList1").find(".imgdelete").remove();
         var span = document.createElement('span');
         var defaultimg = "../img/No-Img_Chosen.png";
         span.innerHTML = ['<img class="thumb" src="', defaultimg,
@@ -1051,7 +1068,7 @@ function ClearBannerControls()
 
  
     document.getElementById("BannerUpload").disabled = false;
-  
+    $('.imgdelete').hide();
     //$('.filename').html("No file selected");
    
 }

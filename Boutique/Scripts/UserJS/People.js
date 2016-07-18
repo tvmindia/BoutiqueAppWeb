@@ -121,12 +121,25 @@ $("document").ready(function (e) {
      {
 
          click: function (e) {
-
+          
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
-
+             $('#fileUpload').replaceWith($('#fileUpload').clone());
+             if (window.File && window.FileReader && window.FileList && window.Blob)
+             {
+                    //  Great success! All the File APIs are supported.     
+                     document.getElementById('fileUpload').addEventListener('change', handleFileSelect, false);
+              }
+              else {
+                     alert('The File APIs are not fully supported in this browser.');
+                 }
          
+          
+             var $el = $('#fileUpload');
+              $el.wrap('<form>').closest('form').get(0).reset();
+             $el.unwrap();
+             
              editedrow = $(this).closest('tr');
              var Designer = new Object();
              Designer.DesignerID = editedrow.attr("designerID");
@@ -138,9 +151,6 @@ $("document").ready(function (e) {
                  BindDesignerTextBoxes(jsonResult[0]);
                  GetDesignerImage(Designer.DesignerID, ImageIsNull)
              }
-
-
-
              return false;
          }
      })
@@ -736,7 +746,8 @@ function GetDesignerImage(DesignerID, ImageIsNull) {
     document.getElementById('list').insertBefore(span, null);
 
     var imgdes = document.getElementById('designerimage');
-    imgdes.src = "../ImageHandler/ImageServiceHandler.ashx?DesignerId=" + DesignerID;
+  
+    imgdes.src = "../ImageHandler/ImageServiceHandler.ashx?DesignerId=" + DesignerID + "&forcebrowsernewimage=" + new Date().getTime();
     //if (ImageIsNull == "0") {
     //    $("#list").find(".thumb").remove();
     //    var span = document.createElement('span');
@@ -997,66 +1008,150 @@ function AddManager() {
 //Add New Designer
 function AddDesigner()
 {
-  
+    debugger;
+    var boutique_id = getboutiqueID();
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-
     var result = "";
-    var Designer = new Object();
-    if ($("#hdfDesignerID").val() != "") {
-        Designer.DesignerID = $("#hdfDesignerID").val();
-    }
-
-    Designer.Name = $("#txtDesignerName").val();
-    Designer.Mobile = $("#txtDesignerMobile").val();
-    Designer.Profile = $("#txtDesignerProfile").val();
-
-    result = InsertDesigner(Designer);
-    if (result.DesignerID != null) {
-
-        var imgresult = "";
-        //imageupload
-        var _URL = window.URL || window.webkitURL;
+    
+    //if ($("#hdfDesignerID").val() != "") {
+    //    Designer.DesignerID = $("#hdfDesignerID").val();
+    // }
+   
+    var designame = $("#txtDesignerName").val();
+    var designMobile = $("#txtDesignerMobile").val();
+    var designProfile = $("#txtDesignerProfile").val();
+    var loginuser = $("#LoginName").text();
+    if ($("#hdfDesignerID").val() === "")//insert designer
+    {
         var formData = new FormData();
         var file, img;
 
-
-        if ((file = $('#fileUpload')[0].files[0])) {
-         
-            img = new Image();
-            img.onload = function () {
-                var image = $('#fileUpload')[0].files[0];
-                formData.append('files', image, file.name);
-                formData.append('', Designer.DesignerID);
-                };
+        if ((file = $('#fileUpload')[0].files[0]))
+        {
+           // img = new Image();
+           // img.onload = function () {
+           //     var image = $('#fileUpload')[0].files[0];
+           //     formData.append('files', image, file.name);
+                //formData.append('', Designer.DesignerID);
+            // };
+           
             var image = $('#fileUpload')[0].files[0];
-            formData.append('files', image, file.name);
-            formData.append('DesignerId', result.DesignerID);
-            formData.append('BoutiqueId', result.BoutiqueID);
-            formData.append('Name', result.Name);
-            formData.append('profile', result.Profile);
-            formData.append('mobile', result.Mobile);
-            formData.append('updatedBy', result.userName);
+            formData.append('designerimage', image, file.name);
+            formData.append('BoutiqueId', boutique_id);
+            formData.append('Name', designame);
+            formData.append('profile', designProfile);
+            formData.append('mobile', designMobile);
+            formData.append('createdby', loginuser);
+            formData.append('ActionTyp', 'DesignerInsert');
+            result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");//calling handler to insert image and form values
+            if (result == "1") {
+                clearDesignerControls();
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
         }
-        postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
-    }
-    
-    if (result.status == "1") {
-        clearDesignerControls();
-        $('#rowfluidDiv').show();
-        $('.alert-success').show();
-        $('.alert-success strong').text(Messages.InsertionSuccessFull);
-        AutoScrollToAlertBox();
-        BindAsycDesignerTable();
-    }
-    if (result.status != "1") {
-        $('#rowfluidDiv').show();
-        $('.alert-error').show();
-        $('.alert-error strong').text(Messages.InsertionFailure);
-        AutoScrollToAlertBox();
-        BindAsycDesignerTable();
-    }
+        else//file not present in uploader
+        {
+            var Designer = new Object();
+            Designer.Name = designame;
+            Designer.Mobile = designMobile;
+            Designer.Profile = designProfile
+            result = InsertDesigner(Designer);//calling usual web method
+            ///Alert method
+            if (result.status == "1") {
+                clearDesignerControls();
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
+            if (result.status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
+            ///Alert method
+
+        }//end of else
+      }//end of insert
+      if ($("#hdfDesignerID").val() != "") //update designer
+      {
+          var imgresult = "";
+          var formData = new FormData();
+          var file, img;
+          var desigrid = $("#hdfDesignerID").val();
+          if ((file = $('#fileUpload')[0].files[0]))//update with file
+          {
+              var image = $('#fileUpload')[0].files[0];
+              formData.append('designerimage', image, file.name);
+              formData.append('DesignerId', desigrid);
+              formData.append('BoutiqueId', boutique_id);
+              formData.append('Name', designame);
+              formData.append('profile', designProfile);
+              formData.append('mobile', designMobile);
+              formData.append('updatedBy', loginuser);
+              formData.append('ActionTyp', 'DesignerUpdate');
+              result=postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+              if (result == "1") {
+                  clearDesignerControls();
+                  $('#rowfluidDiv').show();
+                  $('.alert-success').show();
+                  $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+              if (result != "1") {
+                  $('#rowfluidDiv').show();
+                  $('.alert-error').show();
+                  $('.alert-error strong').text(Messages.InsertionFailure);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+          }
+          else//update without file
+          {
+              var Designer = new Object();
+              Designer.DesignerID = desigrid;
+              Designer.Name = designame;
+              Designer.Mobile = designMobile;
+              Designer.Profile = designProfile
+              result = InsertDesigner(Designer);//calling usual web method which has update call also
+              ///Alert method
+              if (result.status == "1") {
+                  clearDesignerControls();
+                  $('#rowfluidDiv').show();
+                  $('.alert-success').show();
+                  $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+              if (result.status != "1") {
+                  $('#rowfluidDiv').show();
+                  $('.alert-error').show();
+                  $('.alert-error strong').text(Messages.InsertionFailure);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+              ///Alert method
+          }
+         
+      }//end of update
+ 
 }
 //Add New User
 function AddUser()
