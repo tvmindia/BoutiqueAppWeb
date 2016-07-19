@@ -1008,17 +1008,12 @@ function AddManager() {
 //Add New Designer
 function AddDesigner()
 {
-    debugger;
+   
     var boutique_id = getboutiqueID();
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
     var result = "";
-    
-    //if ($("#hdfDesignerID").val() != "") {
-    //    Designer.DesignerID = $("#hdfDesignerID").val();
-    // }
-   
     var designame = $("#txtDesignerName").val();
     var designMobile = $("#txtDesignerMobile").val();
     var designProfile = $("#txtDesignerProfile").val();
@@ -1030,13 +1025,7 @@ function AddDesigner()
 
         if ((file = $('#fileUpload')[0].files[0]))
         {
-           // img = new Image();
-           // img.onload = function () {
-           //     var image = $('#fileUpload')[0].files[0];
-           //     formData.append('files', image, file.name);
-                //formData.append('', Designer.DesignerID);
-            // };
-           
+                     
             var image = $('#fileUpload')[0].files[0];
             formData.append('designerimage', image, file.name);
             formData.append('BoutiqueId', boutique_id);

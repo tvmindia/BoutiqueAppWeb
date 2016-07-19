@@ -395,7 +395,7 @@ function BindException()
     //}, 500);
 }
 function Validation() {
-    debugger;
+ 
 
     $('#Displaydiv').remove();
     var AppVer = $('#txtAppVersion');
@@ -462,7 +462,7 @@ function Validation() {
 }
 function AddBoutiques()
 {
-    debugger;
+   
 
     
     $('#rowfluidDiv').hide();
@@ -478,7 +478,7 @@ function AddBoutiques()
     if ($(".ddlCurrency").val() != "") {
         Boutique.CurrencyCode = $(".ddlCurrency").val();
     }
-    debugger;
+ 
 
 
     //Boutique.CurrencyCode = $("#idDdlCurrency").val();
@@ -513,7 +513,7 @@ function AddBoutiques()
 }
 function AdminValidation()
 {
-    debugger;
+ 
     $('#Displaydiv1').remove();
     var DdlBoutique = $('#idDdlboutiques');
     var Name = $('#txtUserName');
@@ -591,9 +591,6 @@ function AddAdmin()
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-
-    debugger;
-
     var result = "";
     var Admin = new Object();
     if ($("#idDdlboutiques").val() != null) {
@@ -602,8 +599,6 @@ function AddAdmin()
     else {
         Admin.BoutiqueID = "";
     }
-
-
     Admin.Name = $("#txtUserName").val();
     Admin.LoginName = $("#txtAdminLoginName").val();
     Admin.Password = $("#txtAdminConPass").val();

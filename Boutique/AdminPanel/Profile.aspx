@@ -72,8 +72,8 @@
                 <div class="box-content">
 
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li class="icon active"><a href="#Profiles"><i class="icon-copy"></i>Profiles</a></li>
-                        <li><a href="#Banners"><i class="icon-paste"></i>Banners</a></li>
+                        <li id="idtabProfiles" class="icon active"><a href="#Profiles"><i class="icon-copy"></i>Profiles</a></li>
+                        <li id="idtabBanners"><a href="#Banners"><i class="icon-paste"></i>Banners</a></li>
 
                     </ul>
 

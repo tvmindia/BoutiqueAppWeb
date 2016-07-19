@@ -148,7 +148,7 @@ $("document").ready(function (e) {
     {
         click: function (e) {
          
-            debugger;
+       
 
 
             var Insert = false;
@@ -162,7 +162,7 @@ $("document").ready(function (e) {
 
             if ($(".Users").val() != "") //check if  change for product items (Header only)
             {
-                debugger;
+            
                 Order.UserID = $(".Users").val();
                 var Users = new Object(); 
 
@@ -174,7 +174,7 @@ $("document").ready(function (e) {
 
                 $.each(userDeatils, function (index, userDeatils) {
 
-                    debugger;
+                 
 
                     MailSending.EmailID = userDeatils.Email;
                     MailSending.UsrName = userDeatils.Name;
@@ -270,7 +270,7 @@ $("document").ready(function (e) {
                
                
             //}
-            debugger;
+      
 
             MailSending.TotalPrice = Order.TotalOrderAmount;
             MailSending.OrderDate = Order.OrderDate;
@@ -315,7 +315,7 @@ $("document").ready(function (e) {
 
                 if (rowCount > 0) //check if  change for product items (Header only)  
                 {
-                    debugger;
+                 
                     //----------- * HEADER ONLY-- START ---------- *//
 
                     var resultItem = "";
@@ -325,21 +325,21 @@ $("document").ready(function (e) {
                     var productNames = "";
                     var remarks = "";
                     $('#OrderItemTable tbody tr').each(function () {
-                        debugger;
+                     
                         var NewProduct = true; //--- checking product list if it is newly added or already existing product
                         var productId = $(this).attr("ProductID");
 
                         if (InitialProducts != undefined) {
 
-                            debugger;
+                         
 
                             $.each(InitialProducts, function (index, InitialProducts) {
-                                debugger;
+                              
 
                                 if (InitialProducts.ProductID == productId) {
 
 
-                                    debugger;
+                                 
 
                                     //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
 
@@ -355,7 +355,7 @@ $("document").ready(function (e) {
                         }
                         if (NewProduct == true || Insert == true) {
                             var productname = $(this).find('td').eq(0).text();
-                            debugger;
+                          
                             NoOfNewProducts = NoOfNewProducts + 1;
 
                             var remarks = $(this).find('td').eq(1).text();
@@ -1202,7 +1202,7 @@ function ConvertJsonToDate(jsonDate) {
 function OrderStatusValidation() {
 
 
-    debugger;
+  
 
     $('#Displaydiv').remove();
     var container;

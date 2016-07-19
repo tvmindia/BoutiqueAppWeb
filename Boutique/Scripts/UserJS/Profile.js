@@ -86,7 +86,7 @@ $("document").ready(function (e) {
 
     $(".imgdelete").live({
         click: function (e) {// Clear controls
-            debugger;
+          
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -106,7 +106,7 @@ $("document").ready(function (e) {
     $(".AddBoutique").live({
         click: function (e)
         {// submit button click       
-            debugger;
+           
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -402,7 +402,24 @@ $("document").ready(function (e) {
             $('.alert-error').hide();
         }
     })
-    BindAllBannerImages();
+  
+
+
+
+
+    $("#idtabProfiles").click(function (e) { //user clicks on tab
+        HideAlertBox();
+        ClearBannerControls();
+     
+    });
+
+
+    $("#idtabBanners").click(function (e) { //user clicks on tab
+        HideAlertBox();
+        BindAllBannerImages();
+
+    });
+
 
 });
 //end of document.ready

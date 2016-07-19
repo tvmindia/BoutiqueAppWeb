@@ -28,7 +28,7 @@
 
                <div class="box span12">
 					<div class="box-header">
-						<h2> Categories</h2>
+						
 						<div class="box-icon">
 							
 						</div>
@@ -147,7 +147,7 @@
                 				
 
                           <a class="btn btn-primary " onclick="return CategoryValidation()" href="#">Save</></a>						 
-                           <a class="btn CancelCategory">Cancel</a>
+                           <a class="btn CancelCategory">Clear</a>
 						
                      </footer> 
                     </div>

@@ -5,31 +5,11 @@
 });//end of document.ready
 
 
-//---getting data as json-----//
-function getJsonData(data, page) {
-    var jsonResult = {};
-    // $("#loadingimage").show();
-    var req = $.ajax({
-        type: "post",
-        url: page,
-        data: data,
-        delay: 3,
-        async: false,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
 
-    }).done(function (data) {
-
-        //     $("#loadingimage").hide();
-        jsonResult = data;
-    });
-    return jsonResult;
-}
-//---end of getting data as json -----//
 
 
 function getboutiqueID() {
-    debugger;
+  
     var table = {};
     var boutique = new Object();
     table = GetBoutique_id(boutique);
@@ -37,7 +17,7 @@ function getboutiqueID() {
 }
 
 function GetBoutique_id(boutique) {
-    debugger;
+   
 
     var ds = {};
     var table = {};
@@ -122,7 +102,7 @@ function ConvertJsonToDate(jsonDate) {
 }
 function ShowDetail(ReviewID)
 {
-    debugger;
+  
     var Reviewdivholder = $('#ReviewDetails');
     var ReviewDetailed = {};
     var Product = new Object();

@@ -170,16 +170,7 @@
       }
   })
 
-    //Newsletter checkbox
-    //$(".checkDes").live(
-    //    {
-    //        click:function(e)
-    //        {
-    //            debugger;
-    //            //MainImageClick(this);
-    //        }
-    //    })
-
+  
 
     //Cancel button-----------
     $(".Cancel").live({

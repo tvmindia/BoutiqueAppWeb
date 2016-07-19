@@ -138,45 +138,6 @@ $("document").ready(function (e) {
         }
     })
 
-    //$(".masonry-thumb").live({
-    //    click: function (e) {
-    //        debugger;
-    //        $('#rowfluidDiv').hide();
-    //        $('.alert-success').hide();
-    //        $('.alert-error').hide();
-         
-    //        var imageid = $(this).attr('imageid');
-    //        var p = $(this).attr('pname');
-
-    //        if (LoginUserRole[0] != Roles.Manager) {                
-    //            BindProductTextBoxes(this);
-    //            BindAllImages();
-    //            AutoScrollToEdit();
-
-    //        }
-    //        return false;
-    //    }
-    //})
-    //image galery show after all images loaded in masonary
-    //galerydiv.show();
-   // galleryoutofstockdiv.show();
-   // gallerytrendsdiv.show();
-
-    //$(".image-link").on('click', function () {
-    //    debugger;
-    //    $('#rowfluidDiv').hide();
-    //    $('.alert-success').hide();
-    //    $('.alert-error').hide();
-    //    var imageid = $(this).attr('imageid');
-    //    var p = $(this).attr('pname');
-
-    //    if (LoginUserRole[0] != Roles.Manager) {
-    //        //AutoScrollToEdit();
-    //        BindProductTextBoxes(this);
-    //        BindAllImages();
-
-    //    }
-    //});
 
 
     $("#load_more_button").click(function (e) { //user clicks on button
@@ -386,26 +347,7 @@ $("document").ready(function (e) {
             });
         }
        
-        // BindTrendingAllProductImages(0);
-       //BindTrendedProductImagesForEventLoad(0);
-        //*******
-       
-
-       
-
-        //*******
-        //Masonary reinit
-       // var $marstrends = $('#productTrendsimagehold').masonry({
-       //     itemSelector: '.masonry-thumb',
-      //      isInitLayout: false
-     //   });
-        
-       //   $marstrends.imagesLoaded().progress(function () {
-
-       //        $marstrends.masonry('layout');
-      //  });
-        //Masonary reinit
-       // $("#load_more_buttontrends").show();
+     
     });
 
     $("#idtaboutofstock").click(function (e) { //user clicks on button
@@ -417,18 +359,8 @@ $("document").ready(function (e) {
         $('.DeleteProduct').hide();
         $('.ModifyProduct').hide();
         $('.CancelProduct').show();
-        //$("#load_more_button").hide();
-        //$("#load_more_buttontrends").hide();
-        //$("#load_more_buttonoutofstock").hide();
-        //BindAllProductImagesOutOfStock(0);
-        // BindOutStockProductImagesForEventLoad(0);
-       // $("#productoutofstockimagehold").find(".masonry-thumb").remove();
-       // BindOutOfStockProductsForTab(0);
-        //  var galleryoutofstockdiv = $('.imageholderoutofstock');
-      
-        // galleryoutofstockdiv.hide();
-    
-        //Masonary reinit
+       
+   
 
         if (BindOutStockProductImagesRebind(0) != -1)
         {
@@ -1010,10 +942,6 @@ function BindAllNewProductImagesSearch(Pagevalue, searchtext) {//***************
     return totalimages.length;
  }
 
-/////////////////////////////////
-
-///////////////////////////////
-///////////////////////////
 function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     var imagedivholder = $('#productTrendsimagehold');
     var Product = new Object();
@@ -1078,7 +1006,7 @@ function BindNewTrendingAllProductImagesSearch(Pagevalue, searchtext) {
     $marstrends.masonry('appended', elems);
     return totalimages.length;
 }
-/////////////////////////////
+
 function BindNoProductImage()
 {
     var div = document.createElement("div");
@@ -1120,7 +1048,7 @@ function BindOutOfStockProductsForTab(Pagevalue) {
     $marsoutofstock.masonry('appended', elems);
     return totalimages.length;
 }
-///////////////////////////
+
 function BindAllProductImagesOutOfStock(Pagevalue) {
   
     var imagedivholder = $('#productoutofstockimagehold');
@@ -1145,9 +1073,8 @@ function BindAllProductImagesOutOfStock(Pagevalue) {
 
     }
 }
-///////////////////////////////
 
-///////////////////////////////
+
 function BindTrendingAllProductImages(Pagevalue) {
     var imagedivholder = $('#productTrendsimagehold');
     var Product = new Object();
@@ -1193,8 +1120,7 @@ function BindTrendingAllProductImages(Pagevalue) {
         }
     }
 }
-////////////////////////////////
-///////////////////////////////////////////////////////////////////
+
 
 function HtmlBindProductWithOffer(totalimages)
 {
@@ -1302,7 +1228,7 @@ function BindAllProductImages(Pagevalue) {
     }
 }
 
-//////////////////////////////////////////////////////////////////////
+
 function BindAllImages()
 {
     //var boutiqid = $("#hdfBoutiqueID").val();

@@ -39,10 +39,7 @@
         "aaSorting": [[4, 'desc']]
     });
     var $eventPdtsSelect = $(".Newsletterproducts");
-    //$eventPdtsSelect.click(function () {
-    //    debugger;
-
-    //});
+ 
     $eventPdtsSelect.on("change", function (e) {
         var ddlproduct = [];
         ddlproduct = $(".Newsletterproducts").val();
@@ -66,7 +63,7 @@
 
     $eventTemplatesSelect.on("change", function (e) {
         var ddltemplate = $(".template").val();
-        debugger;
+     
         if (ddltemplate != null && ddltemplate != "") {
             $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
             BindTemplateImagesPreview(ddltemplate);
@@ -89,7 +86,7 @@
             var MailSending = new Object();
             MailSending.mailNewsLetterID = editedrow.attr("newsletterid");
             MailSending.BoutiqueID = editedrow.attr("boutiqueid");
-            debugger;
+          
             var mailResult = SendNotificationMail(MailSending);
          if (mailResult == "1") {
              $('#rowfluidDiv').show();
@@ -117,7 +114,7 @@
     });
 
     $(".saveDetails").click(function () {
-        debugger;
+  
         var result = "";
         var idval;
         var ImageInfo = [];
@@ -170,7 +167,7 @@
         MainImageClick(this);
     });
     $(".DraftsTemplatePreview").click(function () {
-        debugger;
+     
         // Clear image control
         $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
         // var ImageInfo = [];
@@ -249,7 +246,7 @@ function BindNewsLetterTable() {
 }
 function BindSendMailTable()
 {
-    debugger;
+  
     var jsonResult = {};
     var NewsLetters = new Object();
     jsonResult = GetAllNewsLetterSendDetails(NewsLetters);
@@ -343,7 +340,7 @@ function FillNewsLetterTable(Records) {
 
 }
 function BindTemplateDropdown() {
-    debugger;
+  
     var jsonResult = {};
     var NewsLetters = new Object();
     jsonResult = GetAllTemplateNames(NewsLetters);
@@ -377,7 +374,7 @@ function GetAllEmailsForNewsLetter(NewsLetters) {
     return table;
 }
 function GetAllTemplateNames(NewsLetters) {
-    debugger;
+  
     var ds = {};
     var table = {};
     var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";

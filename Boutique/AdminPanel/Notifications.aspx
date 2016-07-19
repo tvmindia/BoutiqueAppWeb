@@ -164,7 +164,7 @@
 				    	 <button class="btn">Cancel</button>--%>
                                             <a class="btn btn-primary submitDetails" onclick="return NotificationValidation()" href="#">Save</></a>
 
-                                            <a class="btn Cancel">Cancel</a>
+                                            <a class="btn Cancel">Clear</a>
                                         </footer>
 
                                     </div>
