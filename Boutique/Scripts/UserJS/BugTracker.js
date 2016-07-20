@@ -1,8 +1,10 @@
 ﻿$("document").ready(function (e) {
    // $('#example').DataTable();
     $('#example').DataTable({
-        "bProcessing": true,
-        //"bServerSide": true,
+
+        "ajax": {
+            "url": "../AdminPanel/BugTracker.aspx/GetAllErrorDetails"
+                }
        
        
     });
