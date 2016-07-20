@@ -254,17 +254,7 @@
         return table;
     }
 
-    function FillPersonalisedNotificationTable(Records) {
-
-        $("#PersonalisedNotificationTable").width("100%");
-
-        $("tbody#PersonalisedNotificationrows tr").remove();            //Remove all existing rows for refreshing
-        $.each(Records, function (index, Records) {
-            var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info Prsnlnotificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Prsnlnotificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
-            $("#PersonalisedNotificationTable").append(html);
-        })
-
-    }
+   
 
     function BindPersonalisedNotificationTextBoxes(Records) {
         $.each(Records, function (index, Records) {
@@ -318,7 +308,7 @@
         $('input[type=text],input[type=password],textarea').css({ background: 'white' });
         $('#ErrorBox,#PersonalisedErrorBox,#PersonalisedDisplaydiv,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
     }
-
+    
 
     function DeleteItem(e, p) {
         var jsonResult = {};
@@ -331,7 +321,8 @@
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.DeletionSuccessFull);
 
-
+            BindNotificationsTable();
+            ReinitNotificationTable();
 
         }
         if (result != "1") {
@@ -340,7 +331,7 @@
             $('.alert-error strong').text(Messages.DeletionFailure);
 
         }
-        BindNotificationsTable();
+      
         $("#txtTitle").val("");
         $("#txtDescription").val("");
         $("#dateStartDate").val("");
@@ -404,30 +395,47 @@
         table = JSON.parse(ds.d);
         return table;
     }
-    function FillNotificationTable(Records) {
 
+    function FillNotificationTable(Records) {
+      
         var checkrole = $('#hdfRole').val();
         if (checkrole == Roles.Manager) {
-            $("thead#notificationthead tr").remove();
-            var html = '<tr><th>Title</th> <th>Description</th> <th>Start Date</th> <th>End Date</th></tr> ';
-            $("#notificationthead").append(html);
-
-            $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
+            $("#NotificationTable").find(".notfyrow").remove();
+           // $("thead#notificationthead tr").remove();
+            var html = '<tr class="notfyrow"><th>Title</th> <th>Description</th> <th>Start Date</th> <th>End Date</th></tr> ';
+           // $("#notificationthead").append(html);
+            $("#NotificationTable").append(html);
+            //  $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
+            $("#NotificationTable").find(".notfyrow").remove();
             $.each(Records, function (index, Records) {
-                var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td></tr>'
+                var html = '<tr class="notfyrow" NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td></tr>'
+                // $("#NotificationTable").append(html);
                 $("#NotificationTable").append(html);
             })
 
         }
         else {
-
-            $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
+            $("#NotificationTable").find(".notfyrow").remove();
+           // $("tbody#notificationrows tr").remove();            //Remove all existing rows for refreshing
             $.each(Records, function (index, Records) {
-                var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info notificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger notificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
+                var html = '<tr class="notfyrow" NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info notificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger notificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
                 $("#NotificationTable").append(html);
             })
 
         }
+       
+
+    }
+
+    function FillPersonalisedNotificationTable(Records) {
+
+        $("#PersonalisedNotificationTable").width("100%");
+
+        $("tbody#PersonalisedNotificationrows tr").remove();            //Remove all existing rows for refreshing
+        $.each(Records, function (index, Records) {
+            var html = '<tr NotificationID="' + Records.NotificationID + '" BoutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Title + '</td><td class="center">' + Records.Description + '</td><td class="center">' + ConvertJsonToDate(Records.StartDate) + '</td><td class="center">' + ConvertJsonToDate(Records.EndDate) + '</td><td class="center"><a class="btn btn-info Prsnlnotificationedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Prsnlnotificationdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>'
+            $("#PersonalisedNotificationTable").append(html);
+        })
 
     }
 
@@ -550,6 +558,7 @@
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.InsertionSuccessFull);
             BindNotificationsTable();
+            ReinitNotificationTable();
             $("#txtTitle").val("");
             $("#txtDescription").val("");
             $("#dateStartDate").val("");
@@ -761,8 +770,6 @@
 
             }
 
-
-
         }
         if (j == '1') {
             var p = document.createElement('p');
@@ -779,4 +786,8 @@
             AddPersonalisedNotification();
             return true;
         }
+    }
+
+    function ReinitNotificationTable() {
+        $('#NotificationTable').DataTable({ "bDestroy": true });//reinit jquery datatable
     }

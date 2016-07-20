@@ -44,8 +44,8 @@
        })
 
     $(".Delete").live({    
-        click: function (e) {
-      
+        click: function (e)
+           {
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();            
@@ -53,9 +53,7 @@
                editedrow = $(this).closest('tr');
                var e = editedrow.attr("boutiqueID");
                var p = "";
-          
                DeleteCustomAlert('Are You Sure?', e, p);
-            
                return false;
            }
        })

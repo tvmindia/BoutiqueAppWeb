@@ -259,6 +259,7 @@ input[type=text],input[type=password],textarea,select
                         <li class="navTitle" id ="Li_Loyalty" runat="server"><a href="Loyalty.aspx"><i class="icon-star"></i><span class="hidden-tablet"> Loyalty</span></a></li>
 						<li class="navTitle" id ="Li_LoyaltySettings" runat="server"><a href="LoyaltySettings.aspx"><i class="icon-cog"></i><span class="hidden-tablet"> Loyalty Setting</span></a></li>					
 						<li class="navTitle" id ="Li_OrderStatus" runat="server"><a href="../AdminPanel/OrderStatus.aspx"><i class="icon-shopping-cart"></i><span class="hidden-tablet"> Order Status</span></a></li>
+                        <li class="navTitle" id ="Li_BugTrack" runat="server"><a href="../AdminPanel/BugTracker.aspx"><i class="icon-magnet"></i><span class="hidden-tablet"> Bug Tracker</span></a></li>
                        
 					
 					<%--	<li><a href="Category.aspx"><i class="icon-eye-open"></i><span class="hidden-tablet"> Category</span></a></li>

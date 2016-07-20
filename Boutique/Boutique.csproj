@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminPanel\AccessDenied.aspx" />
+    <Content Include="AdminPanel\BugTracker.aspx" />
     <Content Include="AdminPanel\Category.aspx" />
     <Content Include="AdminPanel\DashBoard.aspx" />
     <Content Include="AdminPanel\Login.aspx" />
@@ -303,6 +304,7 @@
     <Content Include="Scripts\masonry.pkgd.min.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\UserJS\AdminLayout.js" />
+    <Content Include="Scripts\UserJS\BugTracker.js" />
     <Content Include="Scripts\UserJS\Category.js" />
     <Content Include="Scripts\UserJS\DashBoard.js" />
     <Content Include="Scripts\UserJS\Login.js" />
@@ -376,6 +378,13 @@
     </Compile>
     <Compile Include="AdminPanel\AccessDenied.aspx.designer.cs">
       <DependentUpon>AccessDenied.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\BugTracker.aspx.cs">
+      <DependentUpon>BugTracker.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\BugTracker.aspx.designer.cs">
+      <DependentUpon>BugTracker.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminPanel\Category.aspx.cs">
       <DependentUpon>Category.aspx</DependentUpon>
@@ -487,6 +496,7 @@
     <Compile Include="DAL\Chat.cs" />
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="DAL\Designers.cs" />
+    <Compile Include="DAL\ExceptionTrack.cs" />
     <Compile Include="DAL\Loyalty.cs" />
     <Compile Include="DAL\MailSending.cs" />
     <Compile Include="DAL\NewsLetters.cs">
