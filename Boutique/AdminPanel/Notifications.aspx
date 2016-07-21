@@ -6,11 +6,12 @@
 
     <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
+        <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
-    <script src="../Scripts/UserJS/Notification.js"></script>
+   
     <link href="../CSS/select2.min.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
-
+     <script src="../Scripts/UserJS/Notification.js"></script>
     <div id="content" class="span10">
         <ul class="breadcrumb">
             <li>

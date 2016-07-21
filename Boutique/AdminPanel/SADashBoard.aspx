@@ -8,6 +8,7 @@
     <link href="../CSS/CustomCSS/saDashboard.css" rel="stylesheet"/>
     <link href="../CSS/select2.min.css" rel="stylesheet" />
      <link href="../CSS/Common.css" rel="stylesheet" />
+      <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/select2.min.js"></script>
   
     <script src="../Scripts/CommonJS/Common.js"></script>

@@ -15,7 +15,7 @@
 <script src="../Scripts/bootstrap.min.js"></script>
 <script src="../Scripts/jquery.cookie.js"></script>
 <script src="../Scripts/fullcalendar.min.js"></script>
-<script src="../Scripts/jquery.dataTables.min.js"></script>
+
 <script src="../Scripts/excanvas.js"></script>
 <script src="../Scripts/jquery.flot.js"></script>
 <script src="../Scripts/jquery.flot.pie.js"></script>

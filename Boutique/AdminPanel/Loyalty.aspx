@@ -8,9 +8,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <link href="../CSS/CustomCSS/Loyalty.css" rel="stylesheet" />
+    <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/Loyalty.js"></script>
-    <script src="../Scripts/CommonJS/Common.js"></script> 
+  
    <%--  <script src="../Scripts/select2.min.js"></script> 
 
   <link href="../CSS/select2.min.css" rel="stylesheet" />--%>
