@@ -7,6 +7,7 @@ using Boutique.DAL;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 
 namespace Boutique.ImageHandler
@@ -121,11 +122,12 @@ namespace Boutique.ImageHandler
                     int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
                     imageCount=imageCount-1;
                     string body = string.Empty;
-                    string imageUrl=null;
+                    Regex rx = new Regex("(?<=<img[^>]*src=\")[^\"]+", RegexOptions.IgnoreCase);
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + template)))
             {
                 body = reader.ReadToEnd();
             }
+            
             //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
             //body = fileName;
             body = body.Replace("{UserName}", " ");
@@ -140,8 +142,11 @@ namespace Boutique.ImageHandler
             }
             for (int i = 0; i <= imageCount; i++)
             {
-                body = body.Replace("{image" + i + "}", "../img/Default/adimage.png");
+                body = rx.Replace(body, m => "../img/Default/adimage.png");
+                // body = body.Replace("{image" + i + "}", "../img/Default/adimage.png");
             }
+            string header = newsObj.TemplateHeader();
+            body = header + body;
                     if (template != null)
                     {
                         context.Response.ContentType = "text/html";
