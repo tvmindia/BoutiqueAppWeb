@@ -62,15 +62,19 @@ namespace Boutique.AdminPanel
 
         #region GetAllErrorDetails
         [System.Web.Services.WebMethod]
-        public static string GetAllErrorDetails(ExceptionTrack ETObj)
+       
+        public static string GetAllErrorDetails()
         {
+          //  var echo = int.Parse(HttpContext.Current.Request.Params["sEcho"]);
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            ExceptionTrack ETObj=null;
             if (UA != null)
             {
-                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj = new ExceptionTrack();
+             
                 DataSet ds = null;
                 ds = ETObj.GetAllErrorDetails();
                 //Converting to Json

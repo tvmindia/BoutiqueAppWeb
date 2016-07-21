@@ -497,6 +497,7 @@
     <Compile Include="DAL\dbConnection.cs" />
     <Compile Include="DAL\Designers.cs" />
     <Compile Include="DAL\ExceptionTrack.cs" />
+    <Compile Include="DAL\JQDataTableModel.cs" />
     <Compile Include="DAL\Loyalty.cs" />
     <Compile Include="DAL\MailSending.cs" />
     <Compile Include="DAL\NewsLetters.cs">

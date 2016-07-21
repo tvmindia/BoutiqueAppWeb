@@ -313,7 +313,7 @@ input[type=text],input[type=password],textarea,select
 	<footer style="background-color:#e45b00;">
 
 		<p>
-			<span style="text-align:center;float:left;position:fixed;z-index:199;bottom:13px;;"><span style="font-size:x-small">Powered by </span><a style="text-decoration:none;color:white;font-family:'Lato', sans-serif;" href="http://www.tiquesinn.com/Home">TiquesInn </a> </span>
+			<span style="text-align:center;float:left;position:fixed;z-index:199;bottom:13px;"><span style="font-size:x-small">Powered by </span><a style="text-decoration:none;color:white;font-family:'Lato', sans-serif;" href="http://www.tiquesinn.com/Home">TiquesInn </a> </span>
 			<span style="text-align:center;float:right;font-family:'Lato', sans-serif;"> &copy; 2016 Thrithvam Technology</span>
 		</p>
 
