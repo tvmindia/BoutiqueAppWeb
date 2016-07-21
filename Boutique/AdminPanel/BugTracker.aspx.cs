@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Newtonsoft.Json;
+
 
 namespace Boutique.AdminPanel
 {
@@ -62,19 +64,17 @@ namespace Boutique.AdminPanel
 
         #region GetAllErrorDetails
         [System.Web.Services.WebMethod]
-       
-        public static string GetAllErrorDetails()
+
+        public static string GetAllErrorDetails(object aoData)
         {
-          //  var echo = int.Parse(HttpContext.Current.Request.Params["sEcho"]);
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+           
             ExceptionTrack ETObj=null;
             if (UA != null)
             {
                 ETObj = new ExceptionTrack();
-             
                 DataSet ds = null;
                 ds = ETObj.GetAllErrorDetails();
                 //Converting to Json
@@ -92,11 +92,12 @@ namespace Boutique.AdminPanel
                         parentRow.Add(childRow);
                     }
                 }
-                return jsSerializer.Serialize(parentRow);
+               return JsonConvert.SerializeObject(parentRow);
+             
             }
-            return jsSerializer.Serialize("");
+            return JsonConvert.SerializeObject("");
+         
         }
-
         #endregion GetAllErrorDetails
 
 

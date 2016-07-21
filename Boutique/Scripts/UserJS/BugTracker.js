@@ -28,7 +28,8 @@
             "type": "POST",
             "url": sSource,
             //"data": aoData,
-            "data": JSON.stringify({aoData}),
+            "data": JSON.stringify({ aoData: aoData }),
+           
             "success": function (msg)
             {
                 var json = jQuery.parseJSON(msg.d);

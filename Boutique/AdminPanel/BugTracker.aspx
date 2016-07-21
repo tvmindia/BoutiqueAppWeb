@@ -25,22 +25,23 @@
 				<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Boutique</th>
+                <th>User</th>
+                <th>Module</th>
+                <th>Method</th>
+                <th>Source</th>
+                <th>Version</th>
             </tr>
         </thead>
+
         <tfoot>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Boutique</th>
+                <th>User</th>
+                <th>Module</th>
+                <th>Method</th>
+                <th>Source</th>
+                <th>Version</th>
             </tr>
         </tfoot>
         

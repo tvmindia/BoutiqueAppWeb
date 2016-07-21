@@ -11,7 +11,9 @@
     <script src="../Home/js/lightbox.js"></script>
     <link href="../CSS/CustomCSS/Profile.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
+      <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
+
     <script src="../Scripts/UserJS/Profile.js"></script>
     <style>
      input[type="image"].imgdelete{
