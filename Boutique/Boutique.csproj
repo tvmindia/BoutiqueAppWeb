@@ -84,6 +84,7 @@
     <Content Include="BoutiqueTemplates\ClassicTemplate.html" />
     <Content Include="BoutiqueTemplates\EmailTemplate.htm" />
     <Content Include="BoutiqueTemplates\FashionTrends.html" />
+    <Content Include="BoutiqueTemplates\Unsubscribe.html" />
     <Content Include="BoutiqueTemplates\WhiteTemplate.html" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />

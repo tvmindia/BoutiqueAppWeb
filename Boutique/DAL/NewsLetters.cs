@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Boutique.DAL
@@ -339,6 +340,7 @@ namespace Boutique.DAL
             int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
             imageCount = imageCount+1-2;
             string body = string.Empty;
+            Regex rx = new Regex("(?<=<img[^>]*src=\")[^\"]+", RegexOptions.IgnoreCase);
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
             {
                 body = reader.ReadToEnd();
@@ -674,6 +676,7 @@ namespace Boutique.DAL
         }
         #endregion AddNewTemplate
 
+        #region TemplateHeader
         public string TemplateHeader()
         {
             string header = " <table border='0' cellpadding='10' cellspacing='0' width='600' id='templatePreheader'>"+
@@ -700,6 +703,34 @@ namespace Boutique.DAL
                 "</table>";
             header = header.Replace("{imgLogo}", "../img/Default/nologo1.png");
             return header;
+        }
+        #endregion TemplateHeader
+
+        public string TemplateFooter()
+        {
+            string footer = "<tr>" +
+                "<td align='center' valign='top'>"+
+                    " <table border='0' cellpadding='10' cellspacing='0' width='600' id='templateFooter'>"+
+                        "<tr>" +
+                        "<td valign='top' class='footerContent'>"+
+                            "<table border='0' cellpadding='10' cellspacing='0' width='100%'>"+
+                                "<tr>" +
+                                "<td valign='top' width='350' style='color: #cc6699;'>" +
+                                " <div mc:edit='std_footer'>"+
+                                "<em>Copyright © 2016 TiquesInn, All rights reserved.</em>" +
+                                "<br />" +
+                                "<em><a href='../BoutiqueTemplates/Unsubscribe.html' target='_blank'>unsubscribe</a></em>"+
+                                "<br>"+
+                                "</div>"+
+                                "</td>"+
+                                "</tr>" +
+                            "</table>"+
+                        "</td>"+
+                        " </tr>" +
+                    "</table>"+
+                "</td>"+
+                " </tr>";
+            return footer;
         }
         #endregion Methods
     }
