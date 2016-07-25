@@ -10,6 +10,17 @@ namespace Boutique.DAL
     public class ExceptionTrack
     {
         #region properties
+
+        public string BoutiqueName
+        {
+            get;
+            set;
+        }
+        public string UserName
+        {
+            get;
+            set;
+        }
         public string ErrorID
         {
             get;
@@ -96,6 +107,29 @@ namespace Boutique.DAL
             set;
         }
         #endregion properties
+
+        #region JqueryDataTable properties
+
+        public int draw
+        {
+            get;
+            set;
+        }
+        public int recordsTotal
+        {
+            get;
+            set;
+        }
+        public int recordsFiltered
+        {
+            get;
+            set;
+        }
+        public int UserId { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public int Age { get; set; }
+        #endregion JqueryDataTable properties
         #region Methods
         #region InsertErrorDetails
         public Int16 InsertErrorDetails()

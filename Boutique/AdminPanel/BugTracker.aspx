@@ -22,7 +22,19 @@
 						
 					</div>
 					<div class="box-content">
-				<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <table id="tblData" class="hover">  
+           <thead>
+              <tr class="gridStyle">
+                 <th>Boutique</th>
+                 <th>User</th>
+                 <th>Module</th>
+                 <th>Source</th>
+                 <th>Version</th>
+              </tr>
+           </thead>
+           <tbody></tbody>
+        </table>
+				<%--<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>Boutique</th>
@@ -45,7 +57,7 @@
             </tr>
         </tfoot>
         
-    </table>   
+    </table>   --%>
 					</div>
 				</div><!--/span-->
 		
@@ -54,10 +66,18 @@
          End: Content -->
 
     
-    <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" /> 
+   <%--  <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" /> --%>
      <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
-     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+  <%--   <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>--%>
+    
+   <%-- <script src="../Scripts/jquery.dataTables.min.js"></script>--%>
+   <%--  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--%>
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="../CSS/DataTables-1.10.4/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>
+   
+
+
      <script src="../Scripts/UserJS/BugTracker.js"></script>
 </asp:Content>
