@@ -96,6 +96,26 @@ namespace Boutique.DAL
             set;
         }
         #endregion properties
+
+        #region JqueryDataTable properties
+
+        public int draw
+        {
+            get;
+            set;
+        }
+        public int recordsTotal
+        {
+            get;
+            set;
+        }
+        public int recordsFiltered
+        {
+            get;
+            set;
+        }
+       
+        #endregion JqueryDataTable properties
         #region Methods
         #region InsertErrorDetails
         public Int16 InsertErrorDetails()

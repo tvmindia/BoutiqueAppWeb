@@ -50,13 +50,7 @@ namespace Boutique.DAL
 
         public int isortingcols { get; set; }
         
-
-
-
-
-
- //Object { name="roleId",  value="admin"}]
-
+        //Object { name="roleId",  value="admin"}]
 
     }
 }

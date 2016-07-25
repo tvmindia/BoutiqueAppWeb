@@ -57,7 +57,9 @@
     <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" /> 
      <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
      <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    
+   <%-- <script src="../Scripts/jquery.dataTables.min.js"></script>--%>
+   <%-- <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--%>
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
      <script src="../Scripts/UserJS/BugTracker.js"></script>
 </asp:Content>
