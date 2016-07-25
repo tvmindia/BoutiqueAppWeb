@@ -111,8 +111,20 @@
                             <div class="control-group">
                                 <label class="control-label" for="audience">Audience</label>
                                 <div class="controls">
-                                    <select class="audience">
-                                        <option></option>
+                                          <div id="isActiverdbtn">
+								  <label class="radio">
+									<input type="radio" name="optionsRadiosActive" id="OptAll" value="true" checked="" style="text-align:left"/>
+									All
+								  </label>
+								
+								  <label class="radio">
+									<input type="radio" name="optionsRadiosActive" id="OptCustomize" value="false"/>
+									Customize
+								  </label>
+                                        </div>
+                                </div>
+                                <div class="controls" id="audienceDropDown">
+                                    <select class="input-large NewsletterAudience" multiple="multiple" id="idDdlAudience">
                                     </select>
                                 </div>
                             </div>
@@ -137,7 +149,7 @@
 
                         </div>
 
-                    </div>
+                    </div> 
                       </div>
                      <footer class="InnerFooter">
                       <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>

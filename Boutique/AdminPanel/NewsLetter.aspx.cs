@@ -19,7 +19,39 @@ namespace Boutique.AdminPanel
         {
             UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
         }
+        #region GetAllAudienceMailID
+         [System.Web.Services.WebMethod]
+        public static string GetAllAudienceMailID(NewsLetters newsObj)
+        {
+            string jsonResult = null;
+            DataSet ds = null;
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
 
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            newsObj.BoutiqueID = UA.BoutiqueID;
+            newsObj.Boutique = UA.Boutique;
+            ds = newsObj.GetAllNewsLetterMailIDs();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion GetAllAudienceMailID
         #region SendNotificationMail
         [System.Web.Services.WebMethod]
         public static string SendEmail(MailSending mailObj)
@@ -46,6 +78,10 @@ namespace Boutique.AdminPanel
                     strDetailIDList.Add(row["Email"].ToString());
                 }
                 mailObj.recepientEmail = strDetailIDList.ToArray();
+            }
+            else
+            {
+                mailObj.recepientEmail =new string[]{ mailObj.audienceType};
             }
             HttpContext ctx = HttpContext.Current;
             try
@@ -314,5 +350,33 @@ namespace Boutique.AdminPanel
              return jsonResult; //Converting to Json
          }
          #endregion GetAllNewsLetterSendMailDetails
+
+         #region UnsubscribeNewsLetter
+         [System.Web.Services.WebMethod]
+         public static string UnsubscribeNewsLetter(NewsLetters newsObj)
+         {
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
+
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+             newsObj.BoutiqueID = UA.BoutiqueID;
+             string status = null;
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             Product productObj = new Product();
+             try
+             {
+
+                 status = newsObj.UnsubscribeEmail().ToString();
+             }
+             catch (Exception)
+             {
+                 status = "500";//Exception of foreign key
+             }
+             finally
+             {
+             }
+             return jsSerializer.Serialize(newsObj);
+         }
+         #endregion UnsubscribeNewsLetter
     }
 }
