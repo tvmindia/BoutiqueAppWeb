@@ -102,6 +102,12 @@ namespace Boutique.AdminPanel
         {
             string jsonResult = null;
             DataSet ds = null;
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            newsObj.BoutiqueID = UA.BoutiqueID;
+            newsObj.Boutique = UA.Boutique;
             ds = newsObj.GetAllTemplateIDandName();
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using Boutique.DAL;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace Boutique.ImageHandler
 {
@@ -19,6 +21,7 @@ namespace Boutique.ImageHandler
      {
          Designers designerObj = new Designers();
          Boutiques boutiqueObj = new Boutiques();
+         NewsLetters newsLetterObj = new NewsLetters();
          Thread.Sleep(200);
          context.Response.ContentType = "text/plain";
          try
@@ -28,6 +31,9 @@ namespace Boutique.ImageHandler
              byte[] image = null;
              byte[] myData = null;
              string fileExtension = "";
+             string TemplatePath = "";
+             string templateName = "";
+             int imageCount=0;
              if (context.Request.Files.Count > 0)
              {
                 
@@ -55,6 +61,44 @@ namespace Boutique.ImageHandler
                               file.InputStream.Read(image, 0, file.ContentLength);
                               fileExtension = Path.GetExtension(file.FileName);
                               break;
+                         case "tempfile":
+                              string fn = System.IO.Path.GetFileName(file.FileName);
+                              string SaveLocation = HttpContext.Current.Server.MapPath("~/BoutiqueTemplates/");
+                              try
+                              {
+                                  HttpPostedFile postedFile = context.Request.Files["tempfile"];
+                                  if (Directory.Exists(SaveLocation))
+                                  {
+                                      postedFile.SaveAs(SaveLocation + @"\" + fn);
+                                      string fileName = postedFile.FileName;
+                                      string body = string.Empty;
+                                      using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/BoutiqueTemplates/" + fileName)))
+                                      {
+                                          body = reader.ReadToEnd();
+                                      }
+
+                                      List<Uri> links = new List<Uri>();
+                                      string regexImgSrc = @"<img[^>]*?src\s*=\s*[""']?([^'"" >]+?)[ '""][^>]*?>";
+                                      MatchCollection matchesImgSrc = Regex.Matches(body, regexImgSrc, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+                                    //  context.Response.Write(matchesImgSrc.Count);
+                                      imageCount = matchesImgSrc.Count;
+                                      templateName = fileName.Replace(".html","");
+                                      TemplatePath = "~/BoutiqueTemplates/" + fileName;
+                                  }
+                                  else
+                                  {
+                                      Directory.CreateDirectory(SaveLocation);                                   
+                                      postedFile.SaveAs(SaveLocation + @"\" + fn);
+                                      context.Response.Write(SaveLocation + "/" + fn);
+                                      context.Response.StatusCode = 200;
+                                  }
+                              }
+                              catch (Exception ex)
+                              {
+                                
+                              }
+                             break;
                      }
                    }//end of loop
         
@@ -122,6 +166,7 @@ namespace Boutique.ImageHandler
                             boutiqueObj.CategoryCode = context.Request.Form.GetValues("CategoryCode")[0];
                             result = boutiqueObj.InsertBannerImage().ToString();
                             context.Response.Write(result);
+                        
                             }
                             else
                             {
@@ -129,7 +174,18 @@ namespace Boutique.ImageHandler
                                 context.Response.Write(result);
                             }
                          break;
-
+                         case "NewsLetterTemplate":
+                         newsLetterObj.templateFile = TemplatePath.Replace("~/","");
+                         newsLetterObj.imageCount = imageCount;
+                         newsLetterObj.templateName = templateName;
+                         newsLetterObj.BoutiqueID = context.Request.Form.GetValues("BoutiqueID")[0];
+                         int tempresult = newsLetterObj.AddNewTemplate();
+                         context.Response.Write(tempresult);
+                         context.Response.Write(",");
+                         context.Response.Write(templateName);
+                         context.Response.Write(",");
+                         context.Response.Write(imageCount);
+                         break;
                      }//end of switch
 
 

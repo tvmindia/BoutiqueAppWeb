@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Boutique.DAL
@@ -121,6 +122,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string templateName
+        {
+            get;
+            set;
+        }
         public string status
         {
             get;
@@ -162,6 +168,7 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetAllTemplateIDAndName]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
@@ -333,6 +340,7 @@ namespace Boutique.DAL
             int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
             imageCount = imageCount+1-2;
             string body = string.Empty;
+            Regex rx = new Regex("(?<=<img[^>]*src=\")[^\"]+", RegexOptions.IgnoreCase);
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
             {
                 body = reader.ReadToEnd();
@@ -484,7 +492,7 @@ namespace Boutique.DAL
         }
         #endregion GetAllNewsLetterDetails
 
-        #region InsertNewsLetterTrackingDetails
+        #region UpdateNewsLetterMailSendDetails
         public void UpdateNewsLetterIsmailSend()
         {
             if (BoutiqueID == "")
@@ -520,7 +528,7 @@ namespace Boutique.DAL
 
 
         }
-        #endregion UpdateNewsLetterIsmailSend
+        #endregion UpdateNewsLetterMailSendDetails
 
         #region GetAllNewsLetterMailNotSendDetails
         public DataSet GetAllNewsLetterMailNotSendDetails()
@@ -623,6 +631,107 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetAllSendMailDetails
+
+        #region AddNewTemplate
+        public Int16 AddNewTemplate()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[AddNewTemplate]";
+                cmd.Parameters.Add("@TemplateName", SqlDbType.NVarChar,256).Value = templateName;
+                cmd.Parameters.Add("@TemplateFile", SqlDbType.NVarChar, -1).Value = templateFile;
+                cmd.Parameters.Add("@ImageCount", SqlDbType.Int).Value = imageCount;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                //outnotificationid = cmd.Parameters.Add("@TemplateID", SqlDbType.UniqueIdentifier);
+                //outnotificationid.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+                //TemplateID = outnotificationid.Value.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            status = outParameter.Value.ToString();
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion AddNewTemplate
+
+        #region TemplateHeader
+        public string TemplateHeader()
+        {
+            string header = " <table border='0' cellpadding='10' cellspacing='0' width='600' id='templatePreheader'>"+
+                "  <tr>" +
+                "<td valign='top' class='preheaderContent'>"+
+                "<table style='height:100%!important;width:100%!important;border:0!important;' cellpadding=' 10' cellspacing='0'>"+
+                "<tr>" +
+                "<td valign='top'>"+
+                "<div mc:edit='std_preheader_content'>"+
+                "<table style='background-color:rgba(49, 42, 42, 0.19)!important;width:562px!important;height:40px!important;'>"+
+                "<tbody>" +
+                "<tr>" +
+                "<td><img alt='' src='{imgLogo}' style='height:25px!important;width:25px!important;' /></td>"+
+                "<td><label id='lblBoutique' >{BoutiqueName}</label></td>"+
+                "</tr>" +
+                "</tbody>" +
+                "</table>"+
+                "</div>" +
+                "</td>"+
+                "</tr>" +
+                " </table>"+
+                "</td>"+
+                " </tr>" +
+                "</table>";
+            header = header.Replace("{imgLogo}", "../img/Default/nologo1.png");
+            return header;
+        }
+        #endregion TemplateHeader
+
+        public string TemplateFooter()
+        {
+            string footer = "<tr>" +
+                "<td align='center' valign='top'>"+
+                    " <table border='0' cellpadding='10' cellspacing='0' width='600' id='templateFooter'>"+
+                        "<tr>" +
+                        "<td valign='top' class='footerContent'>"+
+                            "<table border='0' cellpadding='10' cellspacing='0' width='100%'>"+
+                                "<tr>" +
+                                "<td valign='top' width='350' style='color: #cc6699;'>" +
+                                " <div mc:edit='std_footer'>"+
+                                "<em>Copyright © 2016 TiquesInn, All rights reserved.</em>" +
+                                "<br />" +
+                                "<em><a href='../BoutiqueTemplates/Unsubscribe.html' target='_blank'>unsubscribe</a></em>"+
+                                "<br>"+
+                                "</div>"+
+                                "</td>"+
+                                "</tr>" +
+                            "</table>"+
+                        "</td>"+
+                        " </tr>" +
+                    "</table>"+
+                "</td>"+
+                " </tr>";
+            return footer;
+        }
         #endregion Methods
     }
 }

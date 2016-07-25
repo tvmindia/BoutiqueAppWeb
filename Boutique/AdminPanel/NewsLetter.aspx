@@ -8,6 +8,7 @@
  <%--    <link href="../CSS/viewbox.css" rel="stylesheet" />
     <script src="../Scripts/jquery.viewbox.min.js"></script>--%>
     <script src="../Scripts/CommonJS/Common.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script> 
     <script src="../Scripts/UserJS/NewsLetter.js"></script>
         <link href="../CSS/select2.min.css" rel="stylesheet" />
  
@@ -63,9 +64,10 @@
                       </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li><a href="#GenerateTemplate"><i class="halflings-icon list-alt"></i>New Template</a></li>
+                        <li><a href="#GenerateTemplate" onclick="ClearAllControls();"><i class="halflings-icon list-alt"></i>NewsLetter</a></li>
                         <li><a href="#SendMail" onclick="ClearAllControls();"><i class="halflings-icon envelope"></i>Drafts</a></li>
                         <li><a href="#SendList" onclick="ClearAllControls();"><i class=" halflings-icon ok"></i>Sent</a></li>
+                        <li><a href="#CreateTemplate" onclick="ClearAllControls();"><i class="halflings-icon edit"></i>New Template</a></li>
                     </ul>
                      <div id="myTabContent" class="tab-content">
                            <div class="tab-pane active" id="GenerateTemplate">
@@ -73,7 +75,7 @@
 
                              <div class="row-fluid">
                     <div class="box-header">
-                        <h2 id="editLabel">Generate Template</h2>
+                        <h2 id="editLabel">Generate NewsLetter</h2>
                         <div class="box-icon">
                         </div>
                     </div>
@@ -139,7 +141,7 @@
                       </div>
                      <footer class="InnerFooter">
                       <a class="btn btn-primary saveDetails" runat="server" href="#">Save</a>
-                      <a class="btn btn-primary templatePreview" runat="server" onclick="Preview();" href="#">Template Preview</a>
+                      <a class="btn btn-primary templatePreview" runat="server" onclick="Preview();" href="#">NewsLetter Preview</a>
                       </footer>
                          
                         </div>
@@ -193,6 +195,48 @@
 
                                     </div>
                               </div>
+                         <div class="tab-pane" id="CreateTemplate">
+                                <div class="row-fluid">
+                                     <div class="row-fluid">
+                                  <div class="box-header">
+                        <h2>Create Template</h2>
+                        <div class="box-icon">
+                        </div>
+                    </div>
+                               <div class="span6">
+                               <div class="form-horizontal">
+                                   
+                            <div class="control-group">
+                            </div>
+                             <div class="control-group">
+                                <label class="control-label" for="focusedInput">Name</label>
+                                <div class="controls">
+                                     <input class="input-large focused" name="Title" id="txtTempName" type="text" disabled="disabled"/>
+                                </div>
+                            </div> 
+                                      <div class="control-group">
+                                <label class="control-label" for="focusedInput">No Of Images</label>
+                                <div class="controls">
+                                     <input class="input-large focused" name="Title" id="txtImgCount" type="text" disabled="disabled" />
+                                </div>
+                            </div>
+                                    <div class="control-group">
+                                <label class="control-label" for="focusedInput">file</label>
+                                <div class="controls">
+                                     <input id="tempUpload" type="file" size="60" name="myfile" />
+                                </div>
+                            </div>
+                             </div>
+                         </div>
+                               <div class="span5" id="tempPreview">
+                        <div class="form-horizontal">
+                            </div></div>
+                                         </div>
+                                      <footer class="InnerFooter">
+                      <a class="btn btn-primary saveNewTempDetails" href="#">Save</a>
+                      </footer>
+                                    </div>
+                               </div>
                     </div>
                 </div>
 
@@ -208,7 +252,7 @@
                 <div class="modal-content">
                     <div class="modal-header" style="border-color: #3661C7;">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Template Preview</h3>
+                        <h3 class="modal-title">NewsLetter Preview</h3>
                     </div>
                     <div class="modal-body" style="max-height: 475px;"> 
                         <div id="HtmlPreviewDisplay">
@@ -223,4 +267,5 @@
         <%--Tab Content--%>
           </div>
      <input type="hidden" id="hdfRole" value="" />
+    <input type="hidden" id="hdfBoutiqueID" value="" />
 </asp:Content>

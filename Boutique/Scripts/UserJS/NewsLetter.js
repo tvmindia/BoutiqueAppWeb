@@ -1,6 +1,13 @@
 ﻿$("document").ready(function (e) {
+    var boutiqueID = {};
+    boutiqueID = getboutiqueID();
+    hdfBoutiqueID = boutiqueID;
     parent.document.title = Pages.NewsLetter;
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
 
+        // Great success! All the File APIs are supported.     
+        document.getElementById('tempUpload').addEventListener('change', handleFileSelect, false);
+    }
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
     BindNewsLetterTable();
@@ -162,10 +169,43 @@
         }
     })
 
+    $(".saveNewTempDetails").click(function () {
+        debugger;
+        $('#rowfluidDiv').hide();
+        $('.alert-success').hide();
+        $('.alert-error').hide();
+
+        var result = "";
+        if (((imagefile = $('#tempUpload')[0].files[0]) != undefined)) {
+            var formData = new FormData();
+            var tempFile;
+            if ((tempFile = $('#tempUpload')[0].files[0]) != undefined) {
+                formData.append('tempfile', tempFile, tempFile.name);
+            }
+            formData.append('ActionTyp', 'NewsLetterTemplate');
+            formData.append('BoutiqueID', hdfBoutiqueID);
+            result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+            var resultData = result.split(",");
+            if (resultData[0] != "0") {
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                $('#txtTempName').val(resultData[1]);
+                $('#txtImgCount').val(resultData[2]);
+                AutoScrollToAlertBox();
+            }
+            if (resultData[0] == "0") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
+            }
+        }
+    });
     //Generate Preview
     $(".templatePreview").click(function () {
         MainImageClick(this);
     });
+
     $(".DraftsTemplatePreview").click(function () {
      
         // Clear image control
@@ -190,11 +230,6 @@
         Preview();
     
     });
-    //$(".DraftsTemplatePreview").on("click",function ()
-    //{
-   
-    //    //}
-    //});
 });
 //end of document.ready
 function Preview() {
@@ -256,14 +291,22 @@ function BindSendMailTable()
 }
 function ClearAllControls()
 {
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
     document.getElementById('lblproductno').style.visibility = "hidden";
     $('#templatePreviewImagehold').remove();
     $('#NewsLetterimagehold').remove();
     $("#txtNewsletterDescription").val('');
     $(".template").val('').trigger('change');
     $(".audience").val('').select2('val', '');
+    ClearTempControls();
    
-   
+}
+function ClearTempControls()
+{
+    $('#txtTempName').val("");
+    $('#txtImgCount').val("");
 }
 function SendNotificationMail(MailSending) {
     var ds = {};
@@ -513,4 +556,37 @@ function GetAllProductsImageDetailsForNewsLetter(Product) {
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductImagesFornewsLetter");
     table = JSON.parse(ds.d);
     return table;
+}
+
+
+function handleFileSelect(evt) {
+
+    var files = evt.target.files; // FileList object
+   // $("#imageList").find(".thumb").remove();
+    // Loop through the FileList and render image files as thumbnails.
+    var f;
+    f = files[0];
+    //for (var i = 0, f; f = files[i]; i++) {
+
+    // Only process image files.
+    if (!f.type.match('image.*')) {
+        //continue;
+    }
+
+    var reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function (theFile) {
+        return function (e) {
+            // Render thumbnail.
+            var span = document.createElement('span');
+            span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                             '" title="', escape(theFile.name), '"/>'].join('');
+            document.getElementById('imageList').insertBefore(span, null);
+        };
+    })(f);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(f);
+    //}
 }
