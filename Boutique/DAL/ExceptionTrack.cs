@@ -125,10 +125,7 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public int Age { get; set; }
+   
         #endregion JqueryDataTable properties
         #region Methods
         #region InsertErrorDetails

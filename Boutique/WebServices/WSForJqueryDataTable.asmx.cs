@@ -125,7 +125,7 @@ namespace Boutique.WebServices
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        exceptonList.Add(new ExceptionTrack { BoutiqueName = Convert.ToString(dr["BoutiqueName"]), UserName = Convert.ToString(dr["UserName"]), Module = Convert.ToString(dr["Module"]), Method = Convert.ToString(dr["Method"]), ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
+                        exceptonList.Add(new ExceptionTrack { BoutiqueName = Convert.ToString(dr["BoutiqueName"]), UserName = Convert.ToString(dr["UserName"]), Module = Convert.ToString(dr["Module"]),Method=Convert.ToString(dr["Method"]),ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
                     }
                 }
                

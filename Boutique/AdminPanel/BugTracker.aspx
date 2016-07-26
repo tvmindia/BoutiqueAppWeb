@@ -15,7 +15,7 @@
 				<li><a href="#">Bug Tracker</a></li>
 			</ul>
 
-			<div class="row-fluid sortable">		
+			<div class="row-fluid">		
 				<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2>Bugs</h2>
@@ -28,42 +28,34 @@
                  <th>Boutique</th>
                  <th>User</th>
                  <th>Module</th>
+                 <th>Method</th>
                  <th>Source</th>
                  <th>Version</th>
               </tr>
            </thead>
            <tbody></tbody>
         </table>
-				<%--<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Boutique</th>
-                <th>User</th>
-                <th>Module</th>
-                <th>Method</th>
-                <th>Source</th>
-                <th>Version</th>
-            </tr>
-        </thead>
-
-        <tfoot>
-            <tr>
-                <th>Boutique</th>
-                <th>User</th>
-                <th>Module</th>
-                <th>Method</th>
-                <th>Source</th>
-                <th>Version</th>
-            </tr>
-        </tfoot>
-        
-    </table>   --%>
+			
 					</div>
 				</div><!--/span-->
 		
-			</div><!--/row-->
+			</div>
+
+            <div class="row-fluid">
+                	<div class="box span12">
+					<div class="box-header" data-original-title>
+						<h2>Details</h2>
+						
+					</div>
+					<div class="box-content">
+               
+			
+					</div>
+				</div><!--/span-->
+            </div>
+
         </div>
-         End: Content -->
+        <!-- End: Content -->
 
     
    <%--  <link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" /> --%>

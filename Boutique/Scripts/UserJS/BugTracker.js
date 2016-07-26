@@ -108,7 +108,7 @@
             });
         },
         fnDrawCallback: function () {
-            $('.image-details').bind("click", showDetails);
+           // $('.image-details').bind("click", showDetails);
         }
     });
 
