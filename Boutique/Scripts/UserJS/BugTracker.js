@@ -75,6 +75,7 @@
 
 
     var table = $('#tblData').DataTable({
+       
         "filter": false,
         "pagingType": "simple_numbers",
         "orderClasses": false,
