@@ -129,7 +129,11 @@ namespace Boutique.ImageHandler
             {
                 body = reader.ReadToEnd();
             }
-           
+            for (int i = 0; i <= imageCount; i++)
+            {
+              
+                body = rx.Replace(body, m => "{image"+i+"}");
+            }
             body = body.Replace("{UserName}", " ");
             body = body.Replace("{Title}", "Title");
             body = body.Replace("{Description}", "Description");
