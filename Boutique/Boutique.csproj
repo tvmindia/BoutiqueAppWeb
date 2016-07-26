@@ -407,9 +407,9 @@
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
     <Content Include="Home\fonts\trench.100.otf" />
-    <Content Include="WebServices\WSForJqueryDataTable.asmx" />
     <Content Include="CSS\DataTables-1.10.4\css\dataTables.jqueryui.scss" />
     <Content Include="CSS\DataTables-1.10.4\css\dataTables.responsive.scss" />
+    <Content Include="WebServices\WSForJqueryDataTable.asmx" />
     <None Include="Properties\PublishProfiles\Albert.pubxml" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Properties\PublishProfiles\web publish.pubxml" />
@@ -645,7 +645,6 @@
     </Compile>
     <Compile Include="WebServices\WSForJqueryDataTable.asmx.cs">
       <DependentUpon>WSForJqueryDataTable.asmx</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
