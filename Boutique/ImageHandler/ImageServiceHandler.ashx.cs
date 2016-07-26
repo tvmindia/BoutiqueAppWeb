@@ -131,9 +131,7 @@ namespace Boutique.ImageHandler
             }
             for (int i = 0; i <= imageCount; i++)
             {
-                //HtmlDocument doc = new HtmlDocument();
-                //doc.LoadHtml(html);
-                //var imgs = doc.DocumentNode.SelectNodes("//img");
+              
                 body = rx.Replace(body, m => "{image"+i+"}");
             }
             body = body.Replace("{UserName}", " ");
