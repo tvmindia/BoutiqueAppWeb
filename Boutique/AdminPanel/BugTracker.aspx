@@ -98,6 +98,5 @@
    
 
     <link href="../CSS/CustomCSS/BugTracker.css" rel="stylesheet" />
-
-     <script src="../Scripts/UserJS/BugTracker.js"></script>
+    <script src="../Scripts/UserJS/BugTracker.js"></script>
 </asp:Content>
