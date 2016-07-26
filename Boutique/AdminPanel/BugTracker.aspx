@@ -48,9 +48,36 @@
 						
 					</div>
 					<div class="box-content">
-               
+                     
+                             <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Name</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="Admin Name" id="txtAdminName" type="text" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label" for="focusedInput">Mobile</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="Mobile Number" id="txtMobileAdmin" type="text" onkeypress="return isNumber(event)" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">LoginName</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="Login Name" id="txtAdminLoginName" type="text" />
+                                                           <label class="control-label"  id="lblAdminLoginName" style=" padding-left:10px; display:none;" />
+                                                    </div>
+                                                </div>
 			
 					</div>
+                    <footer class="InnerFooter">
+                    <a class="btn btn-primary AddAdmin" onclick="return AdminValidation()" href="#">Save</></a>
+                    <a class="btn CancelAdmin">Clear</a>
+                    </footer>
 				</div><!--/span-->
             </div>
 
@@ -70,6 +97,6 @@
     <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>
    
 
-
+    <link href="../CSS/CustomCSS/BugTracker.css" rel="stylesheet" />
      <script src="../Scripts/UserJS/BugTracker.js"></script>
 </asp:Content>

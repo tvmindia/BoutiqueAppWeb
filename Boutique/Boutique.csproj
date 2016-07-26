@@ -93,6 +93,7 @@
     <Content Include="CSS\bootstrap.min.css" />
     <Content Include="CSS\chosen.css" />
     <Content Include="CSS\Common.css" />
+    <Content Include="CSS\CustomCSS\BugTracker.css" />
     <Content Include="CSS\CustomCSS\Category.css" />
     <Content Include="CSS\CustomCSS\DashBoard.css" />
     <Content Include="CSS\CustomCSS\Imageload.css" />
