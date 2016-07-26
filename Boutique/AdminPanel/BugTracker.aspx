@@ -25,12 +25,14 @@
                     <table id="tblData" class="hover">  
            <thead>
               <tr class="gridStyle">
+                  <th>ErrorID</th>
                  <th>Boutique</th>
                  <th>User</th>
                  <th>Module</th>
                  <th>Method</th>
                  <th>Source</th>
                  <th>Version</th>
+                  <th>Action</th>
               </tr>
            </thead>
            <tbody></tbody>
@@ -47,31 +49,100 @@
 						<h2>Details</h2>
 						
 					</div>
-					<div class="box-content">
+					<div class="box-content" style="height: 350px;">
+                          <div class="form-horizontal">
+                              <div class="span6">
                      
-                             <div class="control-group">
-
-                                                    <label class="control-label" for="focusedInput">Name</label>
-                                                    <div class="controls">
-                                                        <input class="input-large focused" name="Admin Name" id="txtAdminName" type="text" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="control-group">
-                                                    <label class="control-label" for="focusedInput">Mobile</label>
-                                                    <div class="controls">
-                                                        <input class="input-large focused" name="Mobile Number" id="txtMobileAdmin" type="text" onkeypress="return isNumber(event)" />
-                                                    </div>
-                                                </div>
-
                                                 <div class="control-group">
 
-                                                    <label class="control-label" for="focusedInput">LoginName</label>
+                                                    <label class="control-label" for="focusedInput">Boutique</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Login Name" id="txtAdminLoginName" type="text" />
-                                                           <label class="control-label"  id="lblAdminLoginName" style=" padding-left:10px; display:none;" />
+                                                        <input class="input-large focused" name="Boutique Name" id="txtBoutique" type="text"/>
                                                     </div>
                                                 </div>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="focusedInput">User</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="user name" id="txtUserName" type="text"/>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Description</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="Description" id="txtDescription" type="text" />
+                                                          
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Error Date</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="errror date" id="txtErrorDate" type="text"/>
+                                                          
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+ 
+                                                    <label class="control-label" for="focusedInput">Module</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="module" id="txtModule" type="text"/>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+ 
+                                                    <label class="control-label" for="focusedInput">Method</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="method" id="txtMethod" type="text"/>
+                                                    </div>
+                                                </div>
+                         
+                               </div>
+                                <div class="span6">
+                                                    <div class="control-group">
+ 
+                                                    <label class="control-label" for="focusedInput">Error Fixed?</label>
+                                                    <div class="controls">
+                                                      <label class="checkbox">
+                                                            <input type="checkbox" id="chkIsFixedYes"/>Yes</label>
+                                                         <label class="checkbox">
+                                                            <input type="checkbox" id="chkIsFixedNo"/>No</label>
+                                                    </div>
+                                                </div>
+                                                    <div class="control-group">
+ 
+                                                    <label class="control-label" for="focusedInput">Bug Fix Date</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="Date" id="txtbugfixdate" type="text"/>
+                                                    </div>
+                                                </div>
+                                                    <div class="control-group">
+ 
+                                                    <label class="control-label" for="focusedInput">Source</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="Source" id="txtErrorSource" type="text"/>
+                                                    </div>
+                                                </div>
+                                                    <div class="control-group">
+ 
+                                                    <label class="control-label" for="focusedInput">Is Mobile</label>
+                                                    <div class="controls">
+                                                       <label class="checkbox">
+                                                            <input type="checkbox" id="chkIsMobileYes"/>Yes</label>
+                                                         <label class="checkbox inline">
+                                                            <input type="checkbox" id="chkIsMobileNo"/>No</label>
+                                                    </div>
+                                                </div>
+                                                    <div class="control-group">
+ 
+                                                    <label class="control-label" for="focusedInput">Version</label>
+                                                    <div class="controls">
+                                                        <input class="input-large focused" name="version" id="txtVersion" type="text"/>
+                                                    </div>
+                                                </div>
+
+                               </div>
+                                </div>                    
 			
 					</div>
                     <footer class="InnerFooter">

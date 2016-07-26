@@ -66,14 +66,15 @@ namespace Boutique.WebServices
                 }
 
                 sb.Append("[");
+                sb.Append("\"" + result.ErrorID + "\",");
                 sb.Append("\"" + result.BoutiqueName + "\",");
                 sb.Append("\"" + result.UserName + "\",");
                 sb.Append("\"" + result.Module + "\",");
                 sb.Append("\"" + result.Method + "\",");
                 sb.Append("\"" + result.ErrorSource + "\",");
-                sb.Append("\"" + result.Version + "\"");
-              //  sb.Append("\"<img class='image-details' src='conalt='View Details'/>\"");
-               
+                sb.Append("\"" + result.Version + "\",");
+                //sb.Append("\"<img class='image-details' src='conalt='View Details'/>\"");
+                sb.Append("\"<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>\"");
                 sb.Append("]");
                 hasMoreRecords = false;
             }
@@ -125,7 +126,7 @@ namespace Boutique.WebServices
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        exceptonList.Add(new ExceptionTrack { BoutiqueName = Convert.ToString(dr["BoutiqueName"]), UserName = Convert.ToString(dr["UserName"]), Module = Convert.ToString(dr["Module"]),Method=Convert.ToString(dr["Method"]),ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
+                        exceptonList.Add(new ExceptionTrack { ErrorID=Convert.ToString(dr["ErrorID"]), BoutiqueName = Convert.ToString(dr["BoutiqueName"]), UserName = Convert.ToString(dr["UserName"]), Module = Convert.ToString(dr["Module"]),Method=Convert.ToString(dr["Method"]),ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
                     }
                 }
                
