@@ -19,6 +19,7 @@ namespace Boutique.ImageHandler
     public class ImageServiceHandler : IHttpHandler
     {
         DataSet ds = null;
+      
           public void ProcessRequest(HttpContext context)
           {
              
@@ -124,16 +125,64 @@ namespace Boutique.ImageHandler
                     imageCount=imageCount-1;
                     string body = string.Empty;
                     Regex rx = new Regex("(?<=<img[^>]*src=\")[^\"]+", RegexOptions.IgnoreCase);
+                  // Regex rx  =new Regex(@"<img.*?src=""(.*?)""", RegexOptions.IgnoreCase);
            
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + template)))
             {
                 body = reader.ReadToEnd();
             }
-            for (int i = 0; i <= imageCount; i++)
-            {
-              
-                body = rx.Replace(body, m => "{image"+i+"}");
-            }
+         //   int k = 0;
+          //  string html = "<img id=\"img1\" src=\"images/img1.jpg\"></br><img id=\"img2\" src=\"images/img2.jpg\">";
+           
+            //foreach (Match m in Regex.Matches(body, "(<img.*?src=[\"'])([^\"]*)(['\"].*?>)", RegexOptions.IgnoreCase))
+            //{
+
+            //    body = body.Replace(m.Value, String.Format("{0}image{1}", m.Groups[k], k, m.Groups[k]));
+            //        k = k + 1;
+            //    }
+            
+            //for (int i = 0; i <= imageCount; i++)
+            //{
+
+            //    body = rx.Replace(body, m => "{image"+i+"}");
+            //}
+            //List<string> images = new List<string>();
+            //string pattern = @"<(img)\b[^>]*>";
+
+            //Regex rgx = new Regex(pattern, RegexOptions.IgnoreCase);
+            //MatchCollection matches = rgx.Matches(body);
+
+            //for (int i = 0, l = matches.Count; i < l; i++)
+            //{
+            //    images.Add(matches[i].Value);
+            //}
+            //string imaList = string.Join(",", images.ToArray());
+            //for (int i = 0, l = matches.Count; i < l; i++)
+            //{
+            //    imaList.Replace("","{}");
+            //}
+                  
+    //  string input = "This is   text with   far  too   much   " + 
+               //      "whitespace.";
+     // string pattern = "\\s+";
+          //  string pattern = "src="+"";
+     // string replacement = "src="+"{img}";
+    //  replacement = replacement.TrimEnd();
+   //   replacement = replacement.TrimEnd();
+     
+      
+      //int k = 0;
+      //for (int b = 0; b <= 6;b++ )
+
+      //{
+
+      //    body = body.Replace(pattern, "src={image"+b+"}");
+         
+      //}
+    //  Regex rgx = new Regex(pattern);
+  //    body = body.Replace(pattern, replacement);                       
+   
+
             body = body.Replace("{UserName}", " ");
             body = body.Replace("{Title}", "Title");
             body = body.Replace("{Description}", "Description");
