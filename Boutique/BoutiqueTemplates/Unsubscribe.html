@@ -2,31 +2,133 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Unsubscribe</title>
+    <script src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script src="../Scripts/CommonJS/Common.js"></script>
+    <style>
+        .btnSubmit {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        table {
+            width:562px!important;
+            height:250px;
+    border: 2px solid rgba(49, 42, 42, 0.19);
+background:#f5d3d3;
+}
+    </style>
 </head>
-<body>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <label for="email">Email</label>
-                </td>
-                <td>
-                    <input type="text" id="txtEmail" />
-                </td>
-            </tr>
-            <tr>
-               &nbsp;
-            </tr>
-            <tr>
-                &nbsp;
-                
-            </tr>
 
-            <tr>
-                <td></td>
-                <td><button type="button" onclick="">Submit</button></td>
-            </tr>
-        </tbody>
-    </table>
+<body style="background-color:#f1f6f6;">
+
+    <form autocomplete="off" style="margin-left:30% !important;margin-top:5%;background:#ffffff;border:2px solid #510606;padding-left:25px;padding-bottom:10px;padding-top:50px;width:594px;" method="post" id="formoid" class="formun">
+        <div mc:edit="std_preheader_content">
+            <table style="background-color:#f5d3d3;width:562px!important;height:40px!important;">
+                <tbody>
+                    <tr>
+                        <td><img alt="" src="{imgLogo}" id="imgLogo" style="height:25px!important;width:25px!important;" /></td>
+                        <td><label id="lblBoutique">{BoutiqueName}</label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div><h2 class="title">Do you want to unsubscribe?</h2></div>
+        <div><label class="title">Email to unsubscribe:</label><input autocomplete="on" type="text" name="email" id="txtEmail"></div>
+        <div>
+            <label class="title">Please let us know why you are unsubscribing:</label>
+            <div>
+                <input type="radio" name="answer" value="Inappropriate emails"><span>Inappropriate emails</span><br>
+                <input type="radio" name="answer" value="Not interested anymore"><span>Not interested anymore</span><br>
+                <input type="radio" name="answer" value="Never signed up"><span>Never signed up</span><br>
+                <input type="radio" name="answer" value="Too often"><span>Too often</span><br>
+                <input type="radio" name="answer" value="Bad products"><span>Bad products</span><br>
+                <input type="radio" name="answer" value="Awful support"><span>Awful support</span><br>
+                <input type="radio" name="answer" value="Spam!"><span>Spam!</span><br>
+            </div>
+        </div>
+        <div><input type="submit" name="unsubscribe" value="Unsubscribe" style="background-color:#006dcc;border-color:#1598d9;border:2px solid #1598d9;height:35px;width:135px;"></div>
+
+    </form>
+
+    <script>
+        //$("document").ready(function (e) {
+        //    debugger;
+        //    var boutiqueID = {};
+        //    boutiqueID = getboutiqueID();
+        //    $("#imgLogo").attr("src", "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + boutiqueID);
+
+        //});
+        function loadImage() {
+            alert("Image is loaded");
+        }
+        window.onload = function () {
+                debugger;
+                var boutiqueID = {};
+                boutiqueID = getboutiqueID();
+                $("#imgLogo").attr("src", "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + boutiqueID);
+                var jsonResult = {};
+                jsonResult = GetBoutiques();
+                $("#lblBoutique").text(jsonResult[0].Name);
+        }
+        function GetBoutiques() {
+
+            var ds = {};
+            var Boutique = new Object();
+            var table = {};
+            var data = "{'boutiqueObj':" + JSON.stringify(Boutique) + "}";
+            ds = getJsonData(data, "../AdminPanel/Profile.aspx/BindBoutiqueDetails");
+            table = JSON.parse(ds.d);
+            return table;
+        }
+        function getUnsubscribeMailId() {
+
+            var result = "";
+            var NewsLetters = new Object();
+            NewsLetters.EmailId = $("#txtEmail").val();
+            result = UnsubscribeEmail(NewsLetters)
+            if (result.status == "1") {
+                alert("successfull..!!!");
+            }
+            else {
+                alert("Error..!!!");
+            }
+        }
+        function UnsubscribeEmail(NewsLetters) {
+            var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
+            jsonResult = getJsonData(data, "../AdminPanel/NewsLetter.aspx/UnsubscribeNewsLetter");
+            var table = {};
+            table = JSON.parse(jsonResult.d);
+            return table;
+        }
+        function getJsonData(data, page) {
+            var jsonResult = {};
+            // $("#loadingimage").show();
+            var req = $.ajax({
+                type: "post",
+                url: page,
+                data: data,
+                delay: 3,
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+
+            }).done(function (data) {
+
+                //     $("#loadingimage").hide();
+                jsonResult = data;
+            });
+            return jsonResult;
+        }
+    </script>
 </body>
+
+
+
 </html>

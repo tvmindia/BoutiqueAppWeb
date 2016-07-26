@@ -147,6 +147,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string EmailId
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         MailSending mailObj = new MailSending();
@@ -472,6 +477,10 @@ namespace Boutique.DAL
                         }
                         audienceMailIDs = strDetailIDList.ToArray();
                     }
+                    else
+                    {
+                        audienceMailIDs =new string[]{ audienceMailType};
+                    }
                 }
 
             }
@@ -561,6 +570,12 @@ namespace Boutique.DAL
                         audienceCount = dsAudience.Tables[0].Rows.Count;
                         ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
                     }
+                    else
+                    {
+                        string mailIDs =ds.Tables[0].Rows[intCount]["AudienceMailID"].ToString();
+                        audienceCount = mailIDs.Split(',').Length;
+                        ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
+                    }
                 }
                 ds.Tables[0].AcceptChanges();
             }
@@ -610,6 +625,12 @@ namespace Boutique.DAL
                     {
                         dsAudience = GetAllEmailIdsToSendNewsLetterEmail();
                         audienceCount = dsAudience.Tables[0].Rows.Count;
+                        ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
+                    }
+                    else
+                    {
+                        string mailIDs = ds.Tables[0].Rows[intCount]["AudienceMailID"].ToString();
+                        audienceCount = mailIDs.Split(',').Length;
                         ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
                     }
                 }
@@ -706,6 +727,7 @@ namespace Boutique.DAL
         }
         #endregion TemplateHeader
 
+        #region TemplateFooter
         public string TemplateFooter()
         {
             string footer = "<tr>" +
@@ -732,6 +754,90 @@ namespace Boutique.DAL
                 " </tr>";
             return footer;
         }
+        #endregion TemplateFooter
+
+        #region UnsubscribeEmail
+        public Int16 UnsubscribeEmail()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UnsubscribeEmail]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = EmailId;
+                cmd.Parameters.Add("@IsUnsubscribed", SqlDbType.Bit).Value = true;
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            status = outParameter.Value.ToString();
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion UnsubscribeEmail
+
+        #region GetAllNewsLetterMailIDs
+        public DataSet GetAllNewsLetterMailIDs()
+        {
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllNewsLetterMailIDs]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllNewsLetterMailIDs
+
+       
         #endregion Methods
     }
 }
