@@ -57,7 +57,11 @@ $("document").ready(function (e) {
             $(".NewsletterAudience").select2({
                 allowClear: true,
                 placeholder: "Choose Audience",
-                data: BindNewsLetterAudience()
+                data: BindNewsLetterAudience(),
+                templateResult: formatState
+                //allowClear: true,
+                //placeholder: "Choose Audience",
+                //
             });
         }
         if ($('#OptAll').is(':checked'))
@@ -264,6 +268,14 @@ $("document").ready(function (e) {
     });
 });
 //end of document.ready
+function formatState(state) {
+    debugger;
+    if (!state.id) { return state.text; }
+    var $state = $(
+      '<input type="checkbox"  /> ' + state.text + ''
+    );
+    return $state;
+};
 function Preview() {
     $('#HtmlPreview').modal('show');
 }

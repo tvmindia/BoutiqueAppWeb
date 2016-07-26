@@ -12,6 +12,14 @@
     <script src="../Scripts/UserJS/NewsLetter.js"></script>
         <link href="../CSS/select2.min.css" rel="stylesheet" />
  
+    <!-- Include Twitter Bootstrap and jQuery: -->
+    <link href="../CSS/bootstrap.min.css" rel="stylesheet" />
+    <script src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+ 
+<!-- Include the plugin's CSS and JS: -->
+<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css"/>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
