@@ -56,7 +56,7 @@ $("document").ready(function (e) {
         {
             $("#audienceDropDown").show();
             $(".NewsletterAudience").multiselect({
-             
+               
             });
         }
         if ($('#OptAll').is(':checked'))
@@ -440,7 +440,7 @@ function BindNewsLetterAudience()
     if (jsonResult != undefined) {
        
         for (var i = 0; i < jsonResult.length; i++) {
-            $(".NewsletterAudience").append('<option  value="' + jsonResult[i].id + '"selected="selected">"' + jsonResult[i].text + '"</option>');
+            $(".NewsletterAudience").append('<option  value="' + jsonResult[i].id + '"selected="selected">' + jsonResult[i].text + '</option>');
         }
        // return jsonResult;
     }

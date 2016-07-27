@@ -12,7 +12,7 @@
 <script src="../Scripts/jquery-ui-1.10.0.custom.min.js"></script>
 <script src="../Scripts/jquery.ui.touch-punch.js"></script>
 <script src="../Scripts/modernizr.js"></script>
-<script src="../Scripts/bootstrap.min.js"></script>
+<script src="../scripts/bootstrap.min.js"></script>
 <script src="../Scripts/jquery.cookie.js"></script>
 <script src="../Scripts/fullcalendar.min.js"></script>
 

@@ -9,17 +9,21 @@
     <script src="../Scripts/jquery.viewbox.min.js"></script>--%>
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script> 
-     <script src="../Scripts/bootstrap-multiselect.js"></script>
-    <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />
+<%--     <script src="../Scripts/bootstrap-multiselect.js"></script>
+    <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />--%>
    
-    <script src="../Scripts/UserJS/NewsLetter.js"></script>
+    <script src="../Scripts/jquery-ui.min1.10.2.js"></script>
+    <link href="../CSS/jquery-ui1.10.2.css" rel="stylesheet" />
+    <script src="../Scripts/jquery.multiselect.js"></script>
+    <link href="../CSS/jquery.multiselect.css" rel="stylesheet" />
+     <script src="../Scripts/UserJS/NewsLetter.js"></script>
         <link href="../CSS/select2.min.css" rel="stylesheet" />
  
 
-   
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css"/>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"/>
+    
+    <link href="../CSS/bootstrap-dialog.min.css" rel="stylesheet" />
+    <script src="../Scripts/bootstrap-dialog.min.js"></script>
+    <link href="../CSS/jquery.dataTables.min.css" rel="stylesheet" />
  
 <!-- Include the plugin's CSS and JS: -->
    

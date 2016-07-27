@@ -86,7 +86,7 @@
     <Content Include="BoutiqueTemplates\FashionTrends.html" />
     <Content Include="BoutiqueTemplates\Unsubscribe.html" />
     <Content Include="BoutiqueTemplates\WhiteTemplate.html" />
-    <Content Include="CSS\bootstrap-multiselect.css" />
+    <Content Include="CSS\bootstrap-dialog.min.css" />
     <Content Include="CSS\bootstrap-responsive.css" />
     <Content Include="CSS\bootstrap-responsive.min.css" />
     <Content Include="CSS\bootstrap-select-1.6.3.css" />
@@ -178,10 +178,13 @@
     <Content Include="CSS\jasny-bootstrap.css.map" />
     <Content Include="CSS\jasny-bootstrap.min.css" />
     <Content Include="CSS\jquery-ui-1.8.21.custom.css" />
+    <Content Include="CSS\jquery-ui1.10.2.css" />
     <Content Include="CSS\jquery.alerts.css" />
     <Content Include="CSS\jquery.cleditor.css" />
+    <Content Include="CSS\jquery.dataTables.min.css" />
     <Content Include="CSS\jquery.gritter.css" />
     <Content Include="CSS\jquery.iphone.toggle.css" />
+    <Content Include="CSS\jquery.multiselect.css" />
     <Content Include="CSS\jquery.noty.css" />
     <Content Include="CSS\lightbox.css" />
     <Content Include="CSS\noty_theme_default.css" />
@@ -353,7 +356,7 @@
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
     <Content Include="NewsLetterImages\ppt.txt" />
-    <Content Include="Scripts\bootstrap-multiselect.js" />
+    <Content Include="Scripts\bootstrap-dialog.min.js" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
     <Content Include="Scripts\CommonJS\Common.js" />
     <Content Include="Scripts\DataTables-1.10.4\dataTables.autoFill.js" />
@@ -380,7 +383,9 @@
     <Content Include="Scripts\DataTables-1.10.4\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.10.4\jquery.dataTables.min.js" />
     <Content Include="Scripts\imagesloaded.pkgd.min.js" />
+    <Content Include="Scripts\jquery-ui.min1.10.2.js" />
     <Content Include="Scripts\jquery.alerts.js" />
+    <Content Include="Scripts\jquery.multiselect.js" />
     <Content Include="Scripts\jquery.ui.draggable.js" />
     <Content Include="Scripts\jquery.validation.js" />
     <Content Include="Scripts\masonry.pkgd.min.js" />
