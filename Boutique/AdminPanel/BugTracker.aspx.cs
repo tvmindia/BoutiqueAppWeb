@@ -37,7 +37,6 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             if (UA != null)
             {
-                ETObj.BoutiqueID = UA.BoutiqueID;
                 DataSet ds = null;
                 ds = ETObj.GetErrorDetailByErrorID();
                 //Converting to Json
