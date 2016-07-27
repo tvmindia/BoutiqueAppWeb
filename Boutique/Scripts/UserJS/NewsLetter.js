@@ -9,6 +9,7 @@ $("document").ready(function (e) {
         // Great success! All the File APIs are supported.     
         document.getElementById('tempUpload').addEventListener('change', handleFileSelect, false);
     }
+    BindNewsLetterAudience();
     var LoginUserRole = getRole();
     $('#hdfRole').val(LoginUserRole[0]);
     BindNewsLetterTable();
@@ -54,14 +55,8 @@ $("document").ready(function (e) {
         if ($('#OptCustomize').is(':checked'))
         {
             $("#audienceDropDown").show();
-            $(".NewsletterAudience").select2({
-                allowClear: true,
-                placeholder: "Choose Audience",
-                data: BindNewsLetterAudience(),
-                templateResult: formatState
-                //allowClear: true,
-                //placeholder: "Choose Audience",
-                //
+            $(".NewsletterAudience").multiselect({
+               
             });
         }
         if ($('#OptAll').is(':checked'))
@@ -268,14 +263,7 @@ $("document").ready(function (e) {
     });
 });
 //end of document.ready
-function formatState(state) {
-    debugger;
-    if (!state.id) { return state.text; }
-    var $state = $(
-      '<input type="checkbox"  /> ' + state.text + ''
-    );
-    return $state;
-};
+
 function Preview() {
     $('#HtmlPreview').modal('show');
 }
@@ -445,11 +433,16 @@ function BindNewsLetterProductDropdown() {
 }
 function BindNewsLetterAudience()
 {
+    debugger;
     var jsonResult = {};
     var NewsLetters = new Object();
     jsonResult = GetAllAudienceMailId(NewsLetters);
     if (jsonResult != undefined) {
-        return jsonResult;
+       
+        for (var i = 0; i < jsonResult.length; i++) {
+            $(".NewsletterAudience").append('<option  value="' + jsonResult[i].id + '"selected="selected">' + jsonResult[i].text + '</option>');
+        }
+       // return jsonResult;
     }
 }
 function GetAllTemplatesDetailsForNewsLetter(NewsLetters)
