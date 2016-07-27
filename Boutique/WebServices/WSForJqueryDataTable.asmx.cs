@@ -72,9 +72,9 @@ namespace Boutique.WebServices
                 sb.Append("\"" + result.Module + "\",");
                 sb.Append("\"" + result.Method + "\",");
                 sb.Append("\"" + result.ErrorSource + "\",");
-                sb.Append("\"" + result.Version + "\",");
+                sb.Append("\"" + result.Version + "\"");
                 //sb.Append("\"<img class='image-details' src='conalt='View Details'/>\"");
-                sb.Append("\"<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>\"");
+                // sb.Append("\"<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>\"");
                 sb.Append("]");
                 hasMoreRecords = false;
             }

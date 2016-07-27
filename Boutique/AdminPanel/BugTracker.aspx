@@ -98,15 +98,21 @@
                                                 </div>
                          
                                </div>
+
+
                                 <div class="span6">
                                                     <div class="control-group">
  
                                                     <label class="control-label" for="focusedInput">Error Fixed?</label>
                                                     <div class="controls">
-                                                      <label class="checkbox">
-                                                            <input type="checkbox" id="chkIsFixedYes"/>Yes</label>
-                                                         <label class="checkbox">
-                                                            <input type="checkbox" id="chkIsFixedNo"/>No</label>
+                                                       <label class="radio">
+								                  	   <input type="radio" name="optionsRadiosFixed" id="OptIsFixedYes" value="true" checked=""/>
+									                    Yes
+								                      </label>
+				                                      <label class="radio">
+									                  <input type="radio" name="optionsRadiosFixed" id="OptIsFixedNo" value="false"/>
+									                    No
+								                      </label>
                                                     </div>
                                                 </div>
                                                     <div class="control-group">
@@ -142,6 +148,7 @@
                                                 </div>
 
                                </div>
+
                                 </div>                    
 			
 					</div>
@@ -162,12 +169,13 @@
     
    <%-- <script src="../Scripts/jquery.dataTables.min.js"></script>--%>
    <%--  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--%>
-     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <%-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />--%>
 
     <link href="../CSS/DataTables-1.10.4/css/jquery.dataTables.css" rel="stylesheet" />
     <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>
    
 
     <link href="../CSS/CustomCSS/BugTracker.css" rel="stylesheet" />
+     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/BugTracker.js"></script>
 </asp:Content>

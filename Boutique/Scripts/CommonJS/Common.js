@@ -4,13 +4,19 @@ var deleteReturn = false;
 //-----------*  document.ready * ---------------//
 $("document").ready(function (e) {
 
-    $(".DialogDeleteYes").live({
-        click: function (e) {// Clear controls
-            deleteReturn = true;
-            //alert(deleteReturn);
-            return true;
-        }
-    })
+    //$(".DialogDeleteYes").live({
+    //    click: function (e) {// Clear controls
+    //        deleteReturn = true;
+    //        //alert(deleteReturn);
+    //        return true;
+    //    }
+    //})
+
+    $(".DialogDeleteYes").click(function (e) { //user clicks on button
+        deleteReturn = true;
+        return true;
+    });
+
 });
 
 
