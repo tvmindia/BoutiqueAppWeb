@@ -53,23 +53,13 @@ background:#f5d3d3;
                 <input type="radio" name="answer" value="Spam!"><span>Spam!</span><br>
             </div>
         </div>
-        <div><input type="submit" name="unsubscribe" value="Unsubscribe" style="background-color:#006dcc;border-color:#1598d9;border:2px solid #1598d9;height:35px;width:135px;"></div>
+        <div><input type="button" name="unsubscribe" onclick="getUnsubscribeMailId();" value="Unsubscribe" style="background-color:#006dcc;border-color:#1598d9;border:2px solid #1598d9;height:35px;width:135px;"></div>
 
     </form>
 
     <script>
-        //$("document").ready(function (e) {
-        //    debugger;
-        //    var boutiqueID = {};
-        //    boutiqueID = getboutiqueID();
-        //    $("#imgLogo").attr("src", "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + boutiqueID);
-
-        //});
-        function loadImage() {
-            alert("Image is loaded");
-        }
+       
         window.onload = function () {
-                debugger;
                 var boutiqueID = {};
                 boutiqueID = getboutiqueID();
                 $("#imgLogo").attr("src", "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + boutiqueID);
@@ -88,7 +78,7 @@ background:#f5d3d3;
             return table;
         }
         function getUnsubscribeMailId() {
-
+            debugger;
             var result = "";
             var NewsLetters = new Object();
             NewsLetters.EmailId = $("#txtEmail").val();
@@ -99,8 +89,10 @@ background:#f5d3d3;
             else {
                 alert("Error..!!!");
             }
+            return false;
         }
         function UnsubscribeEmail(NewsLetters) {
+            debugger;
             var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
             jsonResult = getJsonData(data, "../AdminPanel/NewsLetter.aspx/UnsubscribeNewsLetter");
             var table = {};

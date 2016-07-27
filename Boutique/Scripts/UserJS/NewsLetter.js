@@ -56,6 +56,7 @@ $("document").ready(function (e) {
         {
             $("#audienceDropDown").show();
             $(".NewsletterAudience").multiselect({
+                menuWidth:350,minwidth:190
                
             });
         }

@@ -111,7 +111,7 @@ input[type="checkbox"] {
 font-size: 12px!important;
 font-weight:600!important;
 }
-.ui-multiselect { height:25px;border:solid 1px #c0c0c0; overflow-x:hidden; padding:2px 0 2px 4px; text-align:left }
+/*.ui-multiselect { height:25px;border:solid 1px #c0c0c0; overflow-x:hidden; padding:2px 0 2px 4px; text-align:left }*/
+/*.ui-multiselect-menu ui-widget ui-widget-content ui-corner-all{width:330px!important;}*/
 
 
- 

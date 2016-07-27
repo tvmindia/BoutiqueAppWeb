@@ -29,7 +29,7 @@
     options: {
       header: true,
       height: 175,
-      minWidth: 225,
+      minWidth: 250,
       classes: '',
       checkAllText: 'Check all',
       uncheckAllText: 'Uncheck all',
