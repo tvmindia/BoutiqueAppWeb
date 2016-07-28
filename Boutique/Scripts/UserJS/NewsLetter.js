@@ -51,7 +51,7 @@ $("document").ready(function (e) {
     var $rdoAudienceSelect = $(".radio");
 
     $(".radio").on("change", function (e) {
-        debugger;
+       
         if ($('#OptCustomize').is(':checked'))
         {
             $("#audienceDropDown").show();
@@ -74,6 +74,7 @@ $("document").ready(function (e) {
     var $eventPdtsSelect = $(".Newsletterproducts");
  
     $eventPdtsSelect.on("change", function (e) {
+        debugger;
         var ddlproduct = [];
         ddlproduct = $(".Newsletterproducts").val();
         $("#NewsLetterimagehold").find(".masonry-thumb").remove();
@@ -96,7 +97,7 @@ $("document").ready(function (e) {
 
     $eventTemplatesSelect.on("change", function (e) {
         var ddltemplate = $(".template").val();
-     
+        debugger;
         if (ddltemplate != null && ddltemplate != "") {
             $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
             BindTemplateImagesPreview(ddltemplate);
@@ -113,7 +114,7 @@ $("document").ready(function (e) {
     $(".sendMail").live(
     {
         click: function (e) {
-            debugger;
+         
             editedrow = $(this).closest('tr');
             var MailSending = new Object();
             MailSending.mailNewsLetterID = editedrow.attr("newsletterid");
@@ -146,7 +147,7 @@ $("document").ready(function (e) {
     });
 
     $(".saveDetails").click(function () {
-        debugger;
+       
         var result = "";
         var idval;
         var ImageInfo = [];
@@ -224,6 +225,11 @@ $("document").ready(function (e) {
                 $('.alert-success strong').text(Messages.InsertionSuccessFull);
                 $('#txtTempName').val(resultData[1]);
                 $('#txtImgCount').val(resultData[2]);
+                $(".template").select2({
+                    allowClear: true,
+                    placeholder: "Choose template",
+                    data: BindTemplateDropdown()
+                });
                 AutoScrollToAlertBox();
             }
             if (resultData[0] == "0") {
@@ -238,10 +244,12 @@ $("document").ready(function (e) {
         MainImageClick(this);
     });
 
-    $(".DraftsTemplatePreview").click(function () {
-     
+    $(".DraftsTemplatePreview").live(
+       {
+        click: function () {
+            debugger;
         // Clear image control
-        $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
+            $("#HtmlPreviewDisplay").find("#bodyTable").remove();
         // var ImageInfo = [];
         editedrow = $(this).closest('tr');
         //  ImageInfo.push(editedrow.attr("ImageID"));
@@ -260,12 +268,79 @@ $("document").ready(function (e) {
 
         imagedivholder.append(totalimages);
         Preview();
-    
+    }
+    });
+    $(".AudiencePopup").click(function () {
+        editedrow = $(this).closest('tr');
+        debugger;
+        $('#AudiencePreview').modal('show');
+        var audiencedivholder = $('#AudiencePreviewDisplay');
+        audiencedivholder.empty();
+        var totalemails = [];
+        var jsonResult = {};
+        var email = {};
+
+        jsonResult = GetEmailsForPopup(editedrow.attr("boutiqueid"), editedrow.attr("newsletterid"));
+        if (jsonResult != undefined) {
+            var len = jsonResult.length;
+            var i = 0;
+            while (i != len) {
+
+                email = jsonResult[i].AudienceMailID + "<br>";
+                if (email == "undefined<br>") {
+                    email = jsonResult[i].Email + "<br>";
+                }
+                //email.append("<br>");
+                totalemails.push(email);
+                i = i + 1;
+            }
+            audiencedivholder.append(totalemails);
+
+        }
+    });
+    $(".AudienceDraftPopup").click(function () {
+        editedrow = $(this).closest('tr');
+        debugger;
+        $('#AudiencePreview').modal('show');
+        var audiencedivholder = $('#AudiencePreviewDisplay');
+        audiencedivholder.empty();
+        var totalemails = [];
+        var jsonResult = {};
+        var email = {};
+
+        jsonResult = GetEmailsForPopup(editedrow.attr("boutiqueid"), editedrow.attr("newsletterid"));
+        if (jsonResult != undefined) {
+            var len = jsonResult.length;
+            var i = 0;
+            while (i != len) {
+
+                email = jsonResult[i].Email + "<br>";
+                if (email == "undefined<br>")
+                {
+                    email = jsonResult[i].AudienceMailID + "<br>";
+                }
+                //email.append("<br>");
+                totalemails.push(email);
+                i = i + 1;
+            }
+            audiencedivholder.append(totalemails);
+
+        }
     });
 });
 //end of document.ready
-
+function GetEmailsForPopup(boutiqId,newsId) {
+    var jsonResult = {};
+    var NewsLetters = new Object();
+    NewsLetters.BoutiqueID = boutiqId;
+    NewsLetters.NewsLetterID = newsId;
+    jsonResult = GetEmailIDsOfNewsletter(NewsLetters);
+    if (jsonResult != undefined) {
+       return jsonResult;
+    }
+}
 function Preview() {
+    
     $('#HtmlPreview').modal('show');
 }
 function ImageCheck(evt)
@@ -374,7 +449,7 @@ function FillNewsLetterSendMailTable(Records) {
 
         $("tbody#newsLetterSendrows tr").remove();            //Remove all existing rows for refreshing
         $.each(Records, function (index, Records) {
-            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
             $("#NewsLetterSendTable").append(html);
         })
 
@@ -383,7 +458,7 @@ function FillNewsLetterSendMailTable(Records) {
 
         $("tbody#newsLetterSendrows tr").remove();            //Remove all existing rows for refreshing
         $.each(Records, function (index, Records) {
-            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
             $("#NewsLetterSendTable").append(html);
         })
 
@@ -399,7 +474,7 @@ function FillNewsLetterTable(Records) {
 
         $("tbody#newsLetterrows tr").remove();            //Remove all existing rows for refreshing
         $.each(Records, function (index, Records) {
-            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
             $("#NewsLetterTable").append(html);
         })
 
@@ -408,7 +483,7 @@ function FillNewsLetterTable(Records) {
 
         $("tbody#newsLetterrows tr").remove();            //Remove all existing rows for refreshing
         $.each(Records, function (index, Records) {
-            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center">' + Records.AudienceMailID + '</td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
+            var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
             $("#NewsLetterTable").append(html);
         })
 
@@ -434,7 +509,7 @@ function BindNewsLetterProductDropdown() {
 }
 function BindNewsLetterAudience()
 {
-    debugger;
+   
     var jsonResult = {};
     var NewsLetters = new Object();
     jsonResult = GetAllAudienceMailId(NewsLetters);
@@ -445,6 +520,14 @@ function BindNewsLetterAudience()
         }
        // return jsonResult;
     }
+}
+function GetEmailIDsOfNewsletter(NewsLetters) {
+    var ds = {};
+    var table = {};
+    var data = "{'newsObj':" + JSON.stringify(NewsLetters) + "}";
+    ds = getJsonData(data, "../AdminPanel/NewsLetter.aspx/GetNewsLetterEmails");
+    table = JSON.parse(ds.d);
+    return table;
 }
 function GetAllTemplatesDetailsForNewsLetter(NewsLetters)
 {
