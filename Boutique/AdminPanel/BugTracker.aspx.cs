@@ -63,57 +63,57 @@ namespace Boutique.AdminPanel
         #endregion GetErrorDetailByErrorID
 
         #region GetAllErrorDetails
-        [System.Web.Services.WebMethod]
+        //[System.Web.Services.WebMethod]
 
-        public static string GetAllErrorDetails(List<object> aoData)
-        {
-            //object aoData
+        //public static string GetAllErrorDetails(List<object> aoData)
+        //{
+        //    //object aoData
 
 
-            DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            var sb = new StringBuilder();
-            ExceptionTrack ETObj = null;
-            if (UA != null)
-            {
-                ETObj = new ExceptionTrack();
-                DataSet ds = null;
-                ds = ETObj.GetAllErrorDetails();
+        //    DAL.Security.UserAuthendication UA;
+        //    UIClasses.Const Const = new UIClasses.Const();
+        //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+        //    var sb = new StringBuilder();
+        //    ExceptionTrack ETObj = null;
+        //    if (UA != null)
+        //    {
+        //        ETObj = new ExceptionTrack();
+        //        DataSet ds = null;
+        //        ds = ETObj.GetAllErrorDetails();
 
-                //Build Json
-                var echo = 1;
-                var iTotalRecords= 1;
-                var iTotalDisplayRecords = 1;
-                var hasMoreRecords = false;
+        //        //Build Json
+        //        var echo = 1;
+        //        var iTotalRecords= 1;
+        //        var iTotalDisplayRecords = 1;
+        //        var hasMoreRecords = false;
                
 
-                sb.Append(@"{" + "\"sEcho\": " + echo + ",");
-               // sb.Append("\"recordsTotal\": " + records.Count + ",");
-              //  sb.Append("\"recordsFiltered\": " + records.Count + ",");
-                sb.Append("\"iTotalRecords\": " + iTotalRecords + ",");
-                sb.Append("\"iTotalDisplayRecords\": " + iTotalDisplayRecords + ",");
-                sb.Append("\"aoData\": [");
+        //        sb.Append(@"{" + "\"sEcho\": " + echo + ",");
+        //       // sb.Append("\"recordsTotal\": " + records.Count + ",");
+        //      //  sb.Append("\"recordsFiltered\": " + records.Count + ",");
+        //        sb.Append("\"iTotalRecords\": " + iTotalRecords + ",");
+        //        sb.Append("\"iTotalDisplayRecords\": " + iTotalDisplayRecords + ",");
+        //        sb.Append("\"aoData\": [");
 
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    if (hasMoreRecords)
-                    {
-                        sb.Append(",");
-                    }
+        //        foreach (DataRow dr in ds.Tables[0].Rows)
+        //        {
+        //            if (hasMoreRecords)
+        //            {
+        //                sb.Append(",");
+        //            }
 
-                    sb.Append("[");
-                    sb.Append("\"" + dr["BoutiqueName"].ToString() + "\",");
-                    sb.Append("\"" + dr["UserName"].ToString() + "\",");
-                    sb.Append("\"" + dr["Module"].ToString() + "\",");
-                    sb.Append("\"" + dr["Method"].ToString() + "\",");
-                    sb.Append("\"" + dr["ErrorSource"].ToString() + "\",");
-                   // sb.Append("\"" + dr["Version"].ToString() + "\",");
-                    //sb.Append("\"<img class='image-details' src='images/details-icon.png' runat='server' height='16' width='16' alt='View Details'/>\"");
-                    sb.Append("]");
-                    hasMoreRecords = true;
-                }
-                sb.Append("]}");
+        //            sb.Append("[");
+        //            sb.Append("\"" + dr["BoutiqueName"].ToString() + "\",");
+        //            sb.Append("\"" + dr["UserName"].ToString() + "\",");
+        //            sb.Append("\"" + dr["Module"].ToString() + "\",");
+        //            sb.Append("\"" + dr["Method"].ToString() + "\",");
+        //            sb.Append("\"" + dr["ErrorSource"].ToString() + "\",");
+        //           // sb.Append("\"" + dr["Version"].ToString() + "\",");
+        //            //sb.Append("\"<img class='image-details' src='images/details-icon.png' runat='server' height='16' width='16' alt='View Details'/>\"");
+        //            sb.Append("]");
+        //            hasMoreRecords = true;
+        //        }
+        //        sb.Append("]}");
                
 
 
@@ -141,9 +141,9 @@ namespace Boutique.AdminPanel
 
            
             //return JsonConvert.SerializeObject("");
-            }
-            return JsonConvert.SerializeObject(sb.ToString());
-        }
+        //    }
+        //    return JsonConvert.SerializeObject(sb.ToString());
+        //}
         #endregion GetAllErrorDetails
 
 
@@ -195,7 +195,7 @@ namespace Boutique.AdminPanel
             {
                 if (UA != null)
                 {
-                    if (UA.BoutiqueID != "")
+                    if (ETObj.ErrorID != "")
                     {
                        
                         ETObj.UpdatedBy = UA.userName;

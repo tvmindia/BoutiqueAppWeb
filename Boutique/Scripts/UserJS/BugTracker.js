@@ -99,15 +99,32 @@
       //  alert(data[0] + "'s salary is: " + data[5]);
         var ExceptionTrack = new Object();
         ExceptionTrack.ErrorID = data[0];//hidden ErrorID
+        $("#hdfErrorID").val(ExceptionTrack.ErrorID);
         var jsonResult = GetErrorDetailByErrorID(ExceptionTrack);
         BindTextBoxes(jsonResult);
+        HideAlertBox();
         return false;
     });
 
    
+    $(".UpdateErrror").click(function (e) {//
+        HideAlertBox();
+        if (($("#hdfErrorID").val() != '') && ($("input[name=optionsRadiosFixed]:checked").val()=='true')){
+            var e = $("#hdfErrorID").val();
+            var p = "ErrorFix";
+            DeleteCustomAlert("Really Fixed?", e, p);
+          
+        }
+        else
+        {
+            CustomAlert('Please Fix The Issue!');
+        }
+       
+    });
 
 
-    
+  
+
 
 
 
@@ -125,42 +142,71 @@ function GetErrorDetailByErrorID(ExceptionTrack) {
 function BindTextBoxes(Records)
 {
     $.each(Records, function (index, Records) {
-        $("#txtBoutique").val(Records.BoutiqueName);
-        $("#txtUserName").val(Records.UserName);
-        $("#txtDescription").val(Records.Description);
-        $("#txtErrorDate").val(Records.Date);
-        $("#txtModule").val(Records.Module);
-        $("#txtMethod").val(Records.Method);
-        debugger;
-       
+        $("#txtBoutique").text(Records.BoutiqueName);
+        $("#txtUserName").text(Records.UserName);
+      
+        $("#txtDescription").text(Records.Description);
+        $("#txtErrorDate").text(Records.Date);
+        $("#txtModule").text(Records.Module);
+        $("#txtMethod").text(Records.Method);
         if (Records.IsFixed === true) {
-            $("#OptIsFixedNo").parent().removeClass('checked');
-            $('#OptIsFixedYes').parent().addClass('checked');
+        $("#OptIsFixedYes").prop("checked", true);
         }
         if (Records.IsFixed === false) {
-
-            $("#OptIsFixedYes").parent().removeClass('checked');
-            $('#OptIsFixedNo').parent().addClass('checked');
+        $("#OptIsFixedNo").prop("checked", true);
         }
-        $("#txtbugfixdate").val(Records.BugFixDate);
-        $("#txtErrorSource").val(Records.ErrorSource);
-
-
-        if (Records.IsFixed === true) {
-            $("#OptIsFixedNo").parent().removeClass('checked');
-            $('#OptIsFixedYes').parent().addClass('checked');
+     
+        $("#txtErrorSource").text(Records.ErrorSource);
+        if (Records.IsMobile === true)
+        {
+            
+            $("#txtIsMobile").text('Yes');
         }
-        if (Records.IsFixed === false) {
-
-            $("#OptIsFixedYes").parent().removeClass('checked');
-            $('#OptIsFixedNo').parent().addClass('checked');
+        if (Records.IsMobile === false)
+        {
+            $("#txtIsMobile").text('No');
         }
-
-        $("#txtVersion").val(Records.Version);
-
-
-
+        $("#txtVersion").text(Records.Version);
     })
+}
+
+function UpdateErrorDetails(ExceptionTrack)
+{
+    var data = "{'ETObj':" + JSON.stringify(ExceptionTrack) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/BugTracker.aspx/UpdateErrorDetails");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    return table;
+}
+
+
+
+
+
+function ErrorFix(e, p)
+{
+   
+    var ExceptionTrack = new Object();
+    ExceptionTrack.ErrorID = e;
+
+    if ($("input[name=optionsRadiosFixed]:checked")) {
+        ExceptionTrack.IsFixed = $("input[name=optionsRadiosFixed]:checked").val();
+    }
+
+    var result=UpdateErrorDetails(ExceptionTrack);
+  
+    if (result.status == "1") {
+      
+        $('#rowfluidDiv').show();
+        $('.alert-success strong').text(Messages.ErrorFix);
+        $('.alert-success').show();
+         AutoScrollToAlertBox();
+    }
+    if (result.status != "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-error strong').text(Messages.ErrorFixNOT);
+        AutoScrollToAlertBox();
+    }
 }
 
 
