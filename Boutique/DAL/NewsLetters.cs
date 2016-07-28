@@ -837,7 +837,48 @@ namespace Boutique.DAL
         }
         #endregion GetAllNewsLetterMailIDs
 
-       
+        #region GetEmailIDBasedOnNewsLetter
+        public DataSet GetEmailIDBasedOnNewsLetter()
+        {
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetEmailIDBasedOnNewsLetter]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@NewsLetterID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(NewsLetterID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetEmailIDBasedOnNewsLetter
+
         #endregion Methods
     }
 }

@@ -181,7 +181,7 @@
                                                 <tr>
                                                     <th>Template</th>
                                                     <th>Description</th>
-                                                    <th>Audience</th>
+                                                    <th>Audience Count</th>
                                                     <th>Created Date</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -205,7 +205,7 @@
                                                 <tr>
                                                     <th>Template</th>
                                                     <th>Description</th>
-                                                    <th>Audience</th>
+                                                    <th>Audience Count</th>
                                                     <th>Created Date</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -283,7 +283,21 @@
                     </div>
                 </div>
             </div>
+        <div class="modal fade" id="AudiencePreview" role="dialog" style="display:none;height:auto;width:400px;left:65%;">
+ <div class="modal-dialog">
+     <div class="modal-content">
+         <div class="modal-header" style="border-color: #3661C7;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Audience EmailIDs</h3>
+                    </div>
+         <div class="modal-body" style="max-height: 475px;"> 
+                        <div id="AudiencePreviewDisplay">
 
+                        </div>
+                        </div>
+     </div>
+ </div>
+        </div>
 
         <%--Tab Content--%>
           </div>
