@@ -107,6 +107,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string Tags
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -299,6 +304,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
                     cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, -1).Value = relproids;
+                    cmd.Parameters.Add("@Tags", SqlDbType.NVarChar, 255).Value = Tags;
                     if (DesignerID!="")
                     {
                         cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
@@ -403,6 +409,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
+                    cmd.Parameters.Add("@Tags", SqlDbType.NVarChar, 255).Value = Tags;
                     cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, -1).Value = relproids;
                     if(DesignerID!="")
                     {

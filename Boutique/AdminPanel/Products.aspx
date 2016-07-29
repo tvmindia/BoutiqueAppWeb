@@ -392,7 +392,16 @@
                                    </select>
 								</div>
 							  </div>
-
+                                <div class="control-group">
+								 <label class="control-label" for="focusedInput">Tags</label>
+								<div class="controls">
+								 <%-- <textarea class="form-control" style="max-width:68%" rows="4" id="txtTags"></textarea>--%>
+                                     <div id="tags">
+ 
+    <input type="text" value="" id="txtTags" placeholder="Add a tag" />
+  </div>
+								</div>
+								</div>
 						</div>
                     </div>
                     <div class="span5" id="imageupGallery" style="max-height:550px;overflow-y:auto;overflow-x:hidden;">
