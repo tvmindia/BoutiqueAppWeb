@@ -74,7 +74,7 @@ $("document").ready(function (e) {
     var $eventPdtsSelect = $(".Newsletterproducts");
  
     $eventPdtsSelect.on("change", function (e) {
-        debugger;
+      
         var ddlproduct = [];
         ddlproduct = $(".Newsletterproducts").val();
         $("#NewsLetterimagehold").find(".masonry-thumb").remove();
@@ -97,7 +97,7 @@ $("document").ready(function (e) {
 
     $eventTemplatesSelect.on("change", function (e) {
         var ddltemplate = $(".template").val();
-        debugger;
+ 
         if (ddltemplate != null && ddltemplate != "") {
             $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
             BindTemplateImagesPreview(ddltemplate);
@@ -241,15 +241,17 @@ $("document").ready(function (e) {
     });
     //Generate Preview
     $(".templatePreview").click(function () {
+      
         MainImageClick(this);
     });
 
     $(".DraftsTemplatePreview").live(
        {
         click: function () {
-            debugger;
-        // Clear image control
-            $("#HtmlPreviewDisplay").find("#bodyTable").remove();
+          
+            // Clear image control
+            $("#bodyTable").remove();
+           // $("#HtmlPreviewDisplay").find("#bodyTable").remove();
         // var ImageInfo = [];
         editedrow = $(this).closest('tr');
         //  ImageInfo.push(editedrow.attr("ImageID"));
@@ -272,7 +274,7 @@ $("document").ready(function (e) {
     });
     $(".AudiencePopup").click(function () {
         editedrow = $(this).closest('tr');
-        debugger;
+      
         $('#AudiencePreview').modal('show');
         var audiencedivholder = $('#AudiencePreviewDisplay');
         audiencedivholder.empty();
@@ -300,7 +302,7 @@ $("document").ready(function (e) {
     });
     $(".AudienceDraftPopup").click(function () {
         editedrow = $(this).closest('tr');
-        debugger;
+       
         $('#AudiencePreview').modal('show');
         var audiencedivholder = $('#AudiencePreviewDisplay');
         audiencedivholder.empty();
@@ -409,7 +411,6 @@ function ClearAllControls()
     $(".template").val('').trigger('change');
     $(".audience").val('').select2('val', '');
     ClearTempControls();
-   
 }
 function ClearTempControls()
 {
@@ -581,11 +582,25 @@ function InsertNewsLetter(NewsLetters) {
 }
 
 function BindTemplateImagesPreview(templateID) {
+   
     var templ = $('#templatePreviewImagehold');
     var iframe = document.createElement('iframe');
     iframe.className = "PreviewTemplate"
     iframe.src = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID;
     templ.append(iframe);
+    if($("#templatePreviewImagehold").find(".PreviewTemplate").length>0){
+        
+    }
+    else
+    {
+
+        var templ = $('#templatePreviewImagehold');
+        var iframe = document.createElement('iframe');
+        iframe.className = "PreviewTemplate1"
+        iframe.src = "../ImageHandler/ImageServiceHandler.ashx?TemplateID=" + templateID;
+        templ.append(iframe);
+      
+    }
 }
 
 function BindAllProductImages(productId) {
@@ -610,6 +625,10 @@ function BindAllProductImages(productId) {
 
 
     }
+}
+function reloadNewsLetter() {
+   
+    window.location.reload();
 }
 function MainImageClick(checkedImage) {
 //    $(".PreviewTemplate").remove();
@@ -699,7 +718,7 @@ function GetAllProductsImageDetailsForNewsLetter(Product) {
 
 
 function handleFileSelect(evt) {
-
+   
     var files = evt.target.files; // FileList object
    // $("#imageList").find(".thumb").remove();
     // Loop through the FileList and render image files as thumbnails.

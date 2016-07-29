@@ -73,7 +73,7 @@
                       </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li><a href="#GenerateTemplate" onclick="ClearAllControls();"><i class="halflings-icon list-alt"></i>NewsLetter</a></li>
+                        <li><a href="#GenerateTemplate" onclick="reloadNewsLetter();"><i class="halflings-icon list-alt"></i>NewsLetter</a></li>
                         <li><a href="#SendMail" onclick="ClearAllControls();"><i class="halflings-icon envelope"></i>Drafts</a></li>
                         <li><a href="#SendList" onclick="ClearAllControls();"><i class=" halflings-icon ok"></i>Sent</a></li>
                         <li><a href="#CreateTemplate" onclick="ClearAllControls();"><i class="halflings-icon edit"></i>New Template</a></li>
