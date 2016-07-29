@@ -162,6 +162,46 @@ namespace Boutique.WebServices
             return getDbDataAsJSON(dt);
         }
         #endregion
+
+        #region Products By Search
+        [WebMethod]
+        public string ProductsBySearch(string searchString, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product products = new Product();
+                products.BoutiqueID = boutiqueID;
+                dt = products.GetProductsBySearch(searchString);
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #endregion Products
 
         #region Categories
