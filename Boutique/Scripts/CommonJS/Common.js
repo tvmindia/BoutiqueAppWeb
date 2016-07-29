@@ -96,7 +96,9 @@ var Messages = {
     ProductAddFailure: "Product Creation was not Successfull.",
 
     ErrorFix: "Bug Rectified Successfully.",
-    ErrorFixNOT: "Operation was Not Successfull."
+    ErrorFixNOT: "Operation was Not Successfull.",
+    
+    ProductReviewEmpty:"No Items To Display."
 }
 
 function IsCategoryExists() {   

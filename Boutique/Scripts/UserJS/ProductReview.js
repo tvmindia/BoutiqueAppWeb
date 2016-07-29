@@ -28,26 +28,37 @@ function GetBoutique_id(boutique) {
 }
 
 function BindReview() {
-  
+    debugger;
     var Reviews = {};
     Reviews = GetAllReviews();
-    var i = 0;
-    $.each(Reviews, function (index, Records) {
-       
-        MultiImageBind(Records, i);
-        i = i + 1;
-    })
+    if (Reviews == "1") {
+        $('#rowfluidDiv').show();
+        $('.alert-info').text(Messages.ProductReviewEmpty).show();
+    }
+    else {
+        var i = 0;
+        $.each(Reviews, function (index, Records) {
+
+            MultiImageBind(Records, i);
+            i = i + 1;
+        })
+    }
     return false;
     
 }
 function GetAllReviews() {
-   
     var ds = {};
     var table = {};
     var data = {};
     ds = getJsonData(data, "../AdminPanel/ProductReview.aspx/GetReviewDetails");
     table = JSON.parse(ds.d);
-    return table;
+    if (table.length > 0) {
+        return table;
+    }
+    else
+    {
+        return "1";
+    }
 }
 
 function MultiImageBind(Records, i) {
