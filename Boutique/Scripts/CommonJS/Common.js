@@ -93,7 +93,10 @@ var Messages = {
     AlreadyUsedForDeletion: "Already used . Can't be deleted",
     AlreadyUsedForUpdation: "Already used . Can't be changed",
     MailSendSuccessfully: "Mail Send Successfully",
-    ProductAddFailure: "Product Creation was not Successfull."
+    ProductAddFailure: "Product Creation was not Successfull.",
+
+    ErrorFix: "Bug Rectified Successfully.",
+    ErrorFixNOT: "Operation was Not Successfull."
 }
 
 function IsCategoryExists() {   
@@ -209,6 +212,10 @@ function DeleteCustomAlert(txt, e, p)
     if (p == "Revive")//it is not  delete it restore from the deleted products
     {
         btnYes.onclick = function () { ReviveProducts(e, p); removeCustomAlert(); return false; }
+    }
+    if(p == "ErrorFix")
+    {
+        btnYes.onclick = function () { ErrorFix(e, p); removeCustomAlert(); return false; }
     }
     else {
         btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
