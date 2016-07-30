@@ -103,22 +103,31 @@ $("document").ready(function (e) {
        , allowClear: true
        , placeholder: "Select a Designer"
     });
-
+    
     $(".DeleteProduct").live({
+       
         click: function (e) {// Delete button click
+            debugger;
             var e = $("#hdfproductID").val();
             var p = "";
             DeleteCustomAlert("Are you sure?", e, p);
         }
     })
+    
     $(".imgdelete").live({
         click: function (e) {// Clear controls
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
             var e = $(this).attr('id');
             var p = "ProductImage";
-            DeleteCustomAlert("Are you sure?", e, p)
+            if (e.which === 1) {
+                e.preventDefault();
+            }
+            else {
+                DeleteCustomAlert("Are you sure?", e, p)
+            }
             return false;
         }
     })
@@ -721,7 +730,6 @@ function ReviveProducts(e,p)
 
 function BindProductTextBoxes(thisobject)
 {
-    debugger;
     var productname=$(thisobject).find(".proname").text();
     //var productname = $(thisobject).attr('pname');
    
@@ -754,15 +762,24 @@ function BindProductTextBoxes(thisobject)
     if (tags === "null")
     {
         $("#txtTags").val('');
+        $("#txtTags").siblings('span').remove();
     }
     else
     {
-        var tcount = function () {
-            var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig, ''); // allowed characters
-            if (txt) $("<span/>", { text: txt.toLowerCase(), insertBefore: this });
-            this.value = "";
+        $("#txtTags").siblings('span').remove();
+        var str = tags;
+        var str_array = str.split(',');
+       
+        for (var i = 0; i < str_array.length; i++) {
+            str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+            var tcount = function () {
+                var txt = str_array[i].replace(/[^a-z0-9\+\-\.\#]/ig, ''); // allowed characters
+                if (txt) $("<span/>", { text: txt.toLowerCase(), insertBefore: this });
+                this.value = "";
+
+            }
+            $("#txtTags").val(tcount);
         }
-        $("#txtTags").val(tcount);
     }
     if (isoutstock == 'true') {
         // $('#OptisOutOfStockNo').parent().addClass('checked');
@@ -1482,6 +1499,7 @@ function InsertProduct(Product) {
 }
 
 function UpdateProduct(Product) {
+    debugger;
     var data = "{'productObj':" + JSON.stringify(Product) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/UpdateProduct");
     var table = {};
@@ -2200,7 +2218,7 @@ function EditProduct()
 {
     debugger;
     if ($("#hdfproductID").val() != '') {
-
+        var lines = [];
         var Product = new Object();
         Product.ProductID = $("#hdfproductID").val();
 
@@ -2208,7 +2226,20 @@ function EditProduct()
         Product.Description = $("#txtDescription").val();
         Product.Price = $("#txtPrice").val();
         Product.Discount = $("#txtDiscount").val();
-        Product.Tags = $("#txtTags").val();
+        $('#tags span').each(function () {
+            //  tags.push($(this).text()) + " ";
+            var split = $(this).text().split('\n');
+           
+            for (var i = 0; i < split.length; i++)
+                if (split[i]) lines.push(split[i]);
+          
+            
+        });
+
+       
+
+
+        Product.Tags =lines.toString();
         if ($("input[name=optionsRadiosOutStock]:checked")) {
             Product.IsOutOfStock = $("input[name=optionsRadiosOutStock]:checked").val();
         }
