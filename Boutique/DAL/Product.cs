@@ -2337,6 +2337,7 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetNewOutOfStockDetailBySearch
+
         #region GetNewProductDetailBySearch
         public DataSet GetNewProductDetailBySearch()
         {
@@ -2383,6 +2384,7 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetNewProductDetailBySearch
+
         #region GetDeletedProductDetailsBySearch
         public DataSet GetDeletedProductDetailsBySearch()
         {
@@ -2429,6 +2431,7 @@ namespace Boutique.DAL
             return ds;
         }
         #endregion GetDeletedProductDetailsBySearch
+
         #region Get related products of a product for app
         /// <summary>
         /// To get the related products including image for app
@@ -2478,6 +2481,7 @@ namespace Boutique.DAL
             }
         }
         #endregion
+
         #region GetAllProductIDandName
          public DataSet GetAllProductIDandName()
         {
@@ -2522,6 +2526,7 @@ namespace Boutique.DAL
         }
       
         #endregion GetAllProductIDandName
+
         #region GetImageIdForNewsLetter
          public DataSet GetImageIdForNewsLetter()
          {
@@ -2564,6 +2569,7 @@ namespace Boutique.DAL
 
          }
          #endregion GetImageIdForNewsLetter
+
         #region GetAllProductIDAndNameForNewsLetter
          public DataSet GetAllProductIDAndNameForNewsLetter()
          {
@@ -2611,6 +2617,7 @@ namespace Boutique.DAL
          }
 
          #endregion GetAllProductIDAndNameForNewsLetter
+
         #region revive product
          public Int16 ReviveProduct()
          {
@@ -2656,5 +2663,53 @@ namespace Boutique.DAL
              return Int16.Parse(outParameter.Value.ToString());
          }
         #endregion revive product
+
+         #region GetSortReults
+         public DataSet GetSortReults()
+         {
+
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetSortReults]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                 cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                 sda = new SqlDataAdapter();
+                 sda.SelectCommand = cmd;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+             }
+
+
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             return ds;
+         }
+         #endregion GetSortReults
     }
 }

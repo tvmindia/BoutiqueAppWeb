@@ -128,7 +128,17 @@
 								<div class="controls">
 								  <div class="input-append">
 									<input id="txtsearchnewproducts" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchnewproducts btntxtsearch" id="idbtnsearchnewproducts"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
-								  </div>
+      
+                                          <select class="Sort">
+                 <option hidden >Sort By</option>
+        <option value="ProductNo">Product No</option>
+        <option value="Category">Category</option>
+        <option value="Price">Price</option>
+         <option value="Date">Date</option>
+
+       
+      </select>
+                                      					  </div>
 								</div>
 							  </div>
 								 <%--Search box--%>
