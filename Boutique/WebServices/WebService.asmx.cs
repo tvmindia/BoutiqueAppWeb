@@ -19,6 +19,7 @@ namespace Boutique.WebServices
     public class WebService : System.Web.Services.WebService
     {
         Boutique.UIClasses.Const constants = new Boutique.UIClasses.Const();
+
         #region Products
         /// <summary>
         /// To get a product's details by product id
@@ -161,6 +162,46 @@ namespace Boutique.WebServices
             return getDbDataAsJSON(dt);
         }
         #endregion
+
+        #region Products By Search
+        [WebMethod]
+        public string ProductsBySearch(string searchString, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product products = new Product();
+                products.BoutiqueID = boutiqueID;
+                dt = products.GetProductsBySearch(searchString);
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #endregion Products
 
         #region Categories
@@ -496,6 +537,59 @@ namespace Boutique.WebServices
                 user.BoutiqueID = boutiqueID;
                 user.UserID = userID;
                 dt = user.SelectUserByUserID().Tables[0];
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        /// <summary>
+        /// Reply person's login in chatting app
+        /// </summary>
+        /// <returns></returns>
+        [WebMethod]
+        public string ChatAppUserLogin(string username, string password)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Security.UserAuthendication user = new Security.UserAuthendication(username, password);
+                if (user.ValidUser)
+                {
+                    dt.Columns.Add("Flag", typeof(Boolean));
+                    dt.Columns.Add("BoutiqueName", typeof(String));
+                    dt.Columns.Add("BoutiqueID", typeof(String));
+                    dt.Columns.Add("RoleName", typeof(String));
+                    dt.Columns.Add("UserID", typeof(String));
+                    DataRow dr = dt.NewRow();
+                    dr["Flag"] = true;
+                    dr["BoutiqueName"] = user.Boutique;
+                    dr["BoutiqueID"] = user.BoutiqueID;
+                    dr["RoleName"] = user.Role;
+                    dr["UserID"] = user.UserID;
+                    dt.Rows.Add(dr);
+                }
+                else
+                {
+                    dt.Columns.Add("Flag", typeof(Boolean));
+                    dt.Columns.Add("Message", typeof(String));
+                    DataRow dr = dt.NewRow();
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                    dt.Rows.Add(dr);
+                }
             }
             catch (Exception ex)
             {
@@ -999,9 +1093,10 @@ namespace Boutique.WebServices
         /// </summary>
         /// <param name="messageIDs">comma seperated message ids that are delivered</param>
         /// <param name="boutiqueID"></param>
+        /// /// <param name="person">"Customer" or "Reply"</param>
         /// <returns></returns>
         [WebMethod]
-        public string UpdateDeliveryStatus(string messageIDs, string boutiqueID)
+        public string UpdateDeliveryStatus(string messageIDs, string boutiqueID,string person)
         {   
             DataTable dt = new DataTable();
             try
@@ -1011,7 +1106,7 @@ namespace Boutique.WebServices
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));                
                 DataRow dr = dt.NewRow();
-                if (chat.UpdateDeliveryStatus(messageIDs) == 1)
+                if (chat.UpdateDeliveryStatus(messageIDs,person) == 1)
                 {
                     dr["Flag"] = true;
                     dr["Message"] = constants.Successfull;
@@ -1022,6 +1117,50 @@ namespace Boutique.WebServices
                     dr["Message"] = constants.UnSuccessfull;
                 }
                 dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        /// <summary>
+        /// To get product details on chat screen
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <param name="boutiqueID"></param>
+        /// <returns></returns>
+        [WebMethod]
+        public string GetProductDetailsOnChat(string productID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Chat chat = new Chat();
+                chat.BoutiqueID = boutiqueID;
+                chat.ProductID = productID;                
+                dt = chat.GetProductDetailForChat();
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
             }
             catch (Exception ex)
             {
@@ -1188,5 +1327,6 @@ namespace Boutique.WebServices
             }
         }
         #endregion Utility Functions
+
     }
 }

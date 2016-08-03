@@ -52,7 +52,7 @@ namespace Boutique.AdminPanel
             string status = null;
             try
             {
-                if (notificationObj.NotificationID != "")
+                if (notificationObj.NotificationID != "" && notificationObj.NotificationID != null)
                 {
                     status = notificationObj.UpdateNotification().ToString();
                 }

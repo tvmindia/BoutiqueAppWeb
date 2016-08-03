@@ -14,7 +14,7 @@ namespace Boutique.UIClasses
         {
             get
             {
-                return "LoginDetails";
+              return "LoginDetails";
 
             }
         }

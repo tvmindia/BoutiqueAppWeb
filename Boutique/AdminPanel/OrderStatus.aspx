@@ -1,17 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="OrderStatus.aspx.cs" Inherits="Boutique.AdminPanel.OrderStatus" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      <script src="../Scripts/jquery.dataTables.min.js"></script>
+      <script src="../Scripts/select2.min.js"></script>
+    <script src="../Scripts/CommonJS/Common.js"></script>   
     <script src="../Scripts/UserJS/OrderStatus.js"></script>
     <link href="../CSS/CustomCSS/OrderStatus.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
-    <script src="../Scripts/select2.min.js"></script>
-    <script src="../Scripts/CommonJS/Common.js"></script>   
+  
     
     <style>
         img
         {
-            max-width:300%!important;
+           
+            max-width:100%!important;
         }
     </style>
     
@@ -53,7 +56,7 @@
         <%--//END   Alert boxes --%>
 
         <div class="row-fluid sortable" id="Orders">
-            <div class="box span12" style="width: 90%">
+            <div class="box span12" style="width: 100%">
                 <div class="box-header">
                 </div>
                 <div class="box-content">
@@ -71,7 +74,7 @@
                                         <div class="box-icon">
                                         </div>
                                     </div>
-                            <div class="box-content TableLayout">
+                            <div class="box-content" style="min-height: 500px;">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="OrdersTable">
                                     <thead>
@@ -92,17 +95,24 @@
 
                             <div id="NewOrder" runat="server" class="row-fluid">
                                 <div class="box span12" style="width: 100%">
+
+                                   
+
                                     <div class="box-header">
                                         <h2 id="editLabel">New Order</h2>
                                         <div class="box-icon">
                                         </div>
                                     </div>
 
-                                    <div class="box-content " style="height: 100%; overflow: auto;">
-                                         <div class="alert alert-block" id="ErrorBox" style="display: none;">
+                                     <div class="alert alert-block" id="ErrorBox" style="display: none;background-color: #fdeaea !important;color: #ca6f74 !important;border: 1px solid #f27b81 !important;">
                                                     <div id="Displaydiv">
                                                     </div>
                                                 </div>
+
+
+
+                                    <div class="box-content " style="height: 100%;width:90%; overflow: auto;">
+                                         
 
                                         <div class="span12">
 
@@ -228,7 +238,7 @@
                                                       <div class="control-group">
                                                             <label class="control-label" for="Remarks">Remarks</label>
                                                             <div class="controls">
-                                                                <textarea class="form-control" style="max-width:95%;height:180px" rows="4" id="txtRemarks"></textarea>
+                                                                <textarea class="form-control" style="width:95%;height:225px" rows="4" id="txtRemarks"></textarea>
                                                                 
                                                             </div>
                                                         </div>
@@ -246,7 +256,7 @@
                                             <div class="span3" style="padding-top:9%">
                                                 <div>
                                               
-                                                    <img id="ImgProduct" style="width:100%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
+                                                    <img id="ImgProduct" style="width:77%; height:211px; border: none" src="../img/No-Img_Chosen.png" />
                                              
 
                                                 
@@ -305,7 +315,7 @@
                                         <div class="box-icon">
                                         </div>
                                     </div>
-                            <div class="box-content TableLayout">
+                            <div class="box-content" style="min-height: 500px;">
 
                                 <table class="table table-striped table-bordered  bootstrap-datatable" id="ClosedOrdersTable" >
                                     <thead>

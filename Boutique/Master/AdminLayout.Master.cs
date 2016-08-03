@@ -79,6 +79,7 @@ namespace Boutique.Master
                 if (currRole == Const.Administrator)
                 {
                     Li_SaDashBoard.Visible = false;
+                    Li_BugTrack.Visible = false;
 
                     if (currPage.ToUpper() == Const.SaDashBoardPage.ToUpper() )
                     {
@@ -92,6 +93,7 @@ namespace Boutique.Master
                 {
                     
                     Li_SaDashBoard.Visible = false;
+                    Li_BugTrack.Visible = false;
                     Li_Category.Visible = false;
                     //Li_Products.Visible = false;
                     //Li_Notifications.Visible = false;

@@ -124,10 +124,6 @@ namespace Boutique.DAL
             {
                 throw new Exception("BoutiqueID is Empty!!");
             }
-            if (UserID == "")
-            {
-                throw new Exception("UserID is Empty!!");
-            }
             dbConnection dcon = null;
             SqlCommand cmd = null;
             DataTable dt = null;
@@ -141,7 +137,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetMessagesForMobile]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                if (UserID != "") cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 if(ReplyPersonID!="") cmd.Parameters.Add("@ReplyPersonID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ReplyPersonID);
                 sda = new SqlDataAdapter();
                 sda.SelectCommand = cmd;
@@ -163,8 +159,15 @@ namespace Boutique.DAL
         }
         #endregion
 
+        
         #region Update Delivary status
-        public Int16 UpdateDeliveryStatus(string MessageIDs)
+        /// <summary>
+        /// To update status to avoid re delivering the same message
+        /// </summary>
+        /// <param name="MessageIDs">comma seperated message ids that are seperated</param>
+        /// <param name="person">"Customer" or "Reply"</param>
+        /// <returns></returns>
+        public Int16 UpdateDeliveryStatus(string MessageIDs,string person)
         {
             if (BoutiqueID == "")
             {
@@ -183,6 +186,7 @@ namespace Boutique.DAL
                 cmd.CommandText = "[UpdateChatDeliveryStatus]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@MessageIDs", SqlDbType.NVarChar, -1).Value = MessageIDs;
+                cmd.Parameters.Add("@Person", SqlDbType.NVarChar, 10).Value = person;
                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();               
@@ -199,6 +203,51 @@ namespace Boutique.DAL
                 }
             }
             return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion
+
+        #region Product detail for Chat
+        public DataTable GetProductDetailForChat()
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataTable dt = null;
+            SqlDataAdapter sda = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetProductDetailsForChat]";
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
         }
         #endregion
 

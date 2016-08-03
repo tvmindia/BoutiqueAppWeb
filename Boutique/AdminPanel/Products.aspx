@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="Boutique.AdminPanel.Products" %>
+﻿
+<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="Boutique.AdminPanel.Products" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -8,14 +9,11 @@
     <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
+   <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Home/js/lightbox.js"></script>
     <script src="../Scripts/UserJS/Product.js"></script>
-    
-    <script>
-        
-
-    </script>
+   
     <style>
         .thumb:hover{
             border:2px solid #ffd800;
@@ -60,7 +58,7 @@
     .imgpreviewdiv{
         height: 200px;
         width:120px;
-        padding-left:10px;
+        padding-left:5px;
       }
 
 
@@ -90,22 +88,15 @@
 
                     <div class="box-content alerts">
 						<div class="alert alert-error" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Operation Not Successfull.</strong> 
+					
+							<strong></strong> 
 						</div>
 						<div class="alert alert-success" style="display:none;">
-						<%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Successfull.</strong> 
+					
+							<strong></strong> 
 						</div>
-						<div class="alert alert-info" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-						</div>
-						<div class="alert alert-block" style="display:none;">
-							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
-							<h4 class="alert-heading">Warning!</h4>
-							<p>Best check yourself, you're not looking too good.</p>
-						</div>
+						
+					
 					</div>
 
                 </div>
@@ -122,9 +113,10 @@
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i>New Products</a></li>
-							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i>Trending</a></li>
-							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i>Out of Stocks</a></li>
+							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i> New Products</a></li>
+							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i> Trending</a></li>
+							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i> Out of Stocks</a></li>
+                            <li><a id="idtabdeletedproducts" href="#deletedproducts"><i class="halflings-icon repeat"></i> Revive Products</a></li>
 						</ul>
 						
 						<div id="myTabContent" class="tab-content" style="overflow-x:hidden;overflow-y:hidden;">
@@ -135,8 +127,25 @@
 								<label class="control-label">New Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchnewproducts" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchnewproducts" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
-								  </div>
+									<input id="txtsearchnewproducts" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchnewproducts btntxtsearch" id="idbtnsearchnewproducts"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
+   
+                                     
+                                      <select class="CategorySort">
+                                          <option value="" disabled selected hidden>Select Category..</option>
+                                          <option value="All">All</option>
+                                      </select>   
+                                          <select  class="NewProductsSort">
+                 <option hidden >Sort By</option>
+        <option value="ProductNo">Product No</option>
+      <option value="Discount">Discount</option>
+        <option value="Price">Price</option>
+         <option value="Date">Date</option>
+
+       
+      </select>
+                                
+                                     
+                                      					  </div>
 								</div>
 							  </div>
 								 <%--Search box--%>
@@ -144,10 +153,13 @@
                               
 
                                  <%--Gallery new products--%>
-                                 <div class="row-fluid">
+                                 <div class="row-fluid" id="newproductgaldiv">
 				           
 						          <div class="imageholder" style="width:100%;" id="productimagehold">
 									
+                                      
+
+
 								
 				    	         </div>
                           
@@ -155,7 +167,7 @@
                                  <%--Gallery new products--%>
 
 
-                              <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <div class="row-fluid" id="loadmorenewproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore"  id="load_more_button">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                              </div>
@@ -170,14 +182,28 @@
 								<label class="control-label">Trending Products</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchtrends" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchtrends" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
-								  </div>
+									<input id="txtsearchtrends" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchtrends btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshtrends" href="#"><i class="halflings-icon white refresh"></i></a>
+								  
+                                      <select class="CategorySort">
+                                          <option value="" disabled selected hidden>Select Category..</option>
+                                          <option value="All">All</option>
+                                      </select>   
+                                          <select  class="TrendingSort">
+                 <option hidden >Sort By</option>
+        <option value="ProductNo">Product No</option>
+      <option value="Discount">Discount</option>
+        <option value="Price">Price</option>
+         <option value="Date">Date</option>
+
+       
+      </select>
+                                  </div>
 								</div>
 							  </div>
 								 <%--Search box--%>
 
                                   <%--Gallery Trends--%>
-                                 <div class="row-fluid">
+                                 <div class="row-fluid" id="trendingproductgaldiv">
 				           
 					         	<div class="imageholderTrends" style="width:100%;" id="productTrendsimagehold">
 							 
@@ -188,7 +214,7 @@
 			                  </div>
                                   <%--Gallery Trends--%>
 
-                                <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                                <div class="row-fluid" id="loadmoretrendproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore" id="load_more_buttontrends" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                               </div>
@@ -205,14 +231,28 @@
 								<label class="control-label">Out Of Stocks</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="txtsearchoutofstock" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-primary btnsearchoutofstock" href="#"><i class="halflings-icon search"></i>Search</a><a class="btn btn-primary btnRefreshnewproducts" href="#"><i class="halflings-icon refresh"></i>Refresh</a>
-								  </div>
+									<input id="txtsearchoutofstock" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchoutofstock btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshoutofproduct" href="#"><i class="halflings-icon white refresh"></i></a>
+								 
+                                      <select class="CategorySort">
+                                          <option value="" disabled selected hidden>Select Category..</option>
+                                          <option value="All">All</option>
+                                      </select>   
+                                          <select  class="OutOfStockSort">
+                 <option hidden >Sort By</option>
+        <option value="ProductNo">Product No</option>
+      <option value="Discount">Discount</option>
+        <option value="Price">Price</option>
+         <option value="Date">Date</option>
+
+       
+      </select>
+                                       </div>
 								</div>
 							  </div>
 								 <%--Search box--%>
 
                                   <%--Gallery Out of stock--%>
-                                 <div class="row-fluid">
+                                 <div class="row-fluid" id="outofstockproductgaldiv">
 				           
 					     	     <div class="imageholderoutofstock" style="width:100%;" id="productoutofstockimagehold">
 						
@@ -223,11 +263,63 @@
 
                             
 
-                                 <div class="row-fluid" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                                 <div class="row-fluid" id="loadmoreoutofstockproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
                               <a class="btn btn-block loadMore" id="load_more_buttonoutofstock" href="#">Load More Products</></a>
                               <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
                               </div>
                              </div>
+
+                       
+
+                            <div class="tab-pane" id="deletedproducts">
+                                   <%--Search box--%>
+                                 <div class="control-group">
+								<label class="control-label">Deleted Products</label>
+								<div class="controls">
+								  <div class="input-append">
+									<input id="txtdeletproductsearch" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchreviveproduct btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshreviveproduct" href="#"><i class="halflings-icon white refresh"></i></a>
+								 
+                                      <select class="CategorySort">
+                                          <option value="" disabled selected hidden>Select Category..</option>
+                                          <option value="All">All</option>
+                                      </select>   
+                                          <select  class="ReviveSort">
+                 <option hidden >Sort By</option>
+        <option value="ProductNo">Product No</option>
+      <option value="Discount">Discount</option>
+        <option value="Price">Price</option>
+         <option value="Date">Date</option>
+
+       
+      </select>
+                                       </div>
+								</div>
+							  </div>
+								 <%--Search box--%>
+
+
+                                  <%--Gallery Revive product--%>
+                                 <div class="row-fluid" id="reviveproductgaldiv">
+				           
+					     	     <div class="imageholderreviveproduct" style="width:100%;" id="productreviveimagehold">
+						
+				    	         </div>
+				
+			                     </div>
+                                  <%--Gallery Revive product--%>
+
+
+                                 <div class="row-fluid" id="loadmoredeletedproductdiv" style="margin-top:25px;text-align:center;position:relative;bottom:0;">
+                              <a class="btn btn-block loadMore" id="load_more_buttonreviveproducts" href="#">Load More Products</></a>
+                              <div class="animation_image" style="display:none;"><img style="height:20px;width:auto;" src="../img/ajax-loader.gif"/>Loading...</div>
+                              </div>
+
+
+
+                             </div>
+
+
+                            </div>
 
                       
 
@@ -235,7 +327,7 @@
 					</div>
 				</div><!--/span-->
 			
-			   </div>	
+			 
 		   <%--Tab Content--%>
  
 	        
@@ -283,9 +375,9 @@
 					          <div class="control-group">
 								 <label class="control-label" for="focusedInput">Price</label>
 								<div class="controls">
-                                      <div class="input-prepend">
-								  <span class="add-on">Rs</span><input class="input-large focused" id="txtPrice" type="text"/>
-                                      </div>
+                                      
+								<input class="input-large focused" id="txtPrice" placeholder =<%= this.UA.BoutiqueCurrencySymbol %> type="text" onkeypress="return isNumber(event)"/>
+                                      
 								</div>
 								</div>
 
@@ -293,11 +385,15 @@
                              <div class="control-group">
 								 <label class="control-label" for="focusedInput">Discount</label>
 								<div class="controls">
-                                     <div class="input-prepend">
-								  <span class="add-on">Rs</span><input class="input-large focused" id="txtDiscount" type="text"/>
-                                         </div>
+                                    
+								  <input class="input-large focused" id="txtDiscount" placeholder=<%= this.UA.BoutiqueCurrencySymbol %> type="text" onkeypress="return isNumber(event)"/>
+                                        
 								</div>
 								</div>
+
+
+                        
+
                               <div class="control-group">
                                  
 								<label class="control-label">Is OutofStock</label>
@@ -355,7 +451,16 @@
                                    </select>
 								</div>
 							  </div>
-
+                                <div class="control-group">
+								 <label class="control-label" for="focusedInput">Tags</label>
+								<div class="controls">
+								 <%-- <textarea class="form-control" style="max-width:68%" rows="4" id="txtTags"></textarea>--%>
+                                     <div id="tags">
+ 
+    <input type="text" value="" id="txtTags" placeholder="Add a tag" />
+  </div>
+								</div>
+								</div>
 						</div>
                     </div>
                     <div class="span5" id="imageupGallery" style="max-height:550px;overflow-y:auto;overflow-x:hidden;">
@@ -363,7 +468,7 @@
                                <div class="control-group">
                                </div>
                                <div class="control-group">
-                                     <label class="control-label" for="focusedInput">Product No: <span id="idproductno" class=""></span></label>
+                                     <label class="control-label" id="lblproductno" for="focusedInput">Product No: <span id="idproductno" class=""></span></label>
 							    </div>
                                <div class="control-group">
                                  
@@ -384,10 +489,11 @@
                    
               </div>
               <footer class="InnerFooter">
-                          <a class="btn btn-primary AddProduct" onclick="return ProductValidation();" href="#">Save</></a>
-                          <a class="btn btn-primary ModifyProduct" onclick="return ProductValidationEdit();" href="#"><i class="halflings-icon th"></i>Save</></a>
-						  <a class="btn btn-primary DeleteProduct" href="#">Delete</></a>
-                          <a class="btn CancelProduct">Cancel</a>
+                          <a class="btn btn-primary AddProduct" onclick="return ProductValidation();">Save</></a>
+                          <a class="btn btn-primary ModifyProduct" onclick="return ProductValidationEdit();"><i class="halflings-icon th"></i>Save</></a>
+						  <a class="btn btn-danger DeleteProduct">Delete</></a>
+                          <a class="btn btn-warning ReviveProduct">Revive</a>
+                          <a class="btn btn-primary CancelProduct">New</a>
 						
              </footer> 
              

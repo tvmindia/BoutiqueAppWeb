@@ -4,13 +4,19 @@ var deleteReturn = false;
 //-----------*  document.ready * ---------------//
 $("document").ready(function (e) {
 
-    $(".DialogDeleteYes").live({
-        click: function (e) {// Clear controls
-            deleteReturn = true;
-            //alert(deleteReturn);
-            return true;
-        }
-    })
+    //$(".DialogDeleteYes").live({
+    //    click: function (e) {// Clear controls
+    //        deleteReturn = true;
+    //        //alert(deleteReturn);
+    //        return true;
+    //    }
+    //})
+
+    $(".DialogDeleteYes").click(function (e) { //user clicks on button
+        deleteReturn = true;
+        return true;
+    });
+
 });
 
 
@@ -47,7 +53,7 @@ var Pages = {
 
 //--------------* Messages * ---------------//
 var Messages = {
-
+    FileFormaterror: "Please select a valid Image",
     exists: "The operation can’t be completed because the category is in use .",
     existsBoutique: "The operation can’t be completed because the Boutique is in use .",
 
@@ -76,6 +82,7 @@ var Messages = {
     DeletionSuccessFull: "Deleted Successfully",
     SuccessfulUpload: "Successfully Uploaded",
     SavedSuccessfull: "Successfully Saved!",
+    ProductAddSuccessfull: "New Product Created Successfully.",
 
     LoginFailed: "User Name / Password is wrong!",
     InsertionFailure: "Not Successfuly Saved Try Again",
@@ -84,7 +91,14 @@ var Messages = {
     DeletionFailure: "Deletion Not Successful ",
     SavingFailure: "Saving Not Successful ",
     AlreadyUsedForDeletion: "Already used . Can't be deleted",
-    AlreadyUsedForUpdation: "Already used . Can't be changed"
+    AlreadyUsedForUpdation: "Already used . Can't be changed",
+    MailSendSuccessfully: "Mail Send Successfully",
+    ProductAddFailure: "Product Creation was not Successfull.",
+
+    ErrorFix: "Bug Rectified Successfully.",
+    ErrorFixNOT: "Operation was Not Successfull.",
+    
+    ProductReviewEmpty:"No Items To Display."
 }
 
 function IsCategoryExists() {   
@@ -196,10 +210,18 @@ function DeleteCustomAlert(txt, e, p)
     if (p == "ProductImage") {
         btnYes.onclick = function () { DeleteProductImage(e, p); removeCustomAlert(); return false; }
     }
+  
+    if (p == "Revive")//it is not  delete it restore from the deleted products
+    {
+        btnYes.onclick = function () { ReviveProducts(e, p); removeCustomAlert(); return false; }
+    }
+    if(p == "ErrorFix")
+    {
+        btnYes.onclick = function () { ErrorFix(e, p); removeCustomAlert(); return false; }
+    }
     else {
         btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
     }
-
     alertObj.style.display = "block";
 
     $("#alertBox").animate({ top: '50px' });
@@ -312,3 +334,29 @@ function isNumber(evt) {
     return true;
 }
 
+function HideAlertBox() {
+    $('#rowfluidDiv').hide();
+    $('.alert-success').hide();
+    $('.alert-error').hide();
+}
+
+function ShowAlertBox()
+{
+    $('#rowfluidDiv').show();
+    $('.alert-success').show();
+    $('.alert-error').show();
+}
+function getboutiqueID() {
+    var table = {};
+    var boutique = new Object();
+    table = GetBoutique_id(boutique);
+    return table;
+}
+function GetBoutique_id(boutique) {
+    var ds = {};
+    var table = {};
+    var data = "{'boutiqueObj':" + JSON.stringify(boutique) + "}";
+    ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/BoutiqueID");
+    table = JSON.parse(ds.d);
+    return table;
+}

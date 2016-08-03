@@ -22,15 +22,27 @@ $("document").ready(function (e) {
 
     BindOrdersTable();
 
+    //$('#OrdersTable').DataTable({
+    //    "bPaginate": false,       //Search and Paging implementation
+    //    "aaSorting": [[0, 'desc']] ,    //Sort with Date coloumn
+   
+    //});
+
     $('#OrdersTable').DataTable({
-        "bPaginate": false,       //Search and Paging implementation
-        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+        "aaSorting": [[0, 'desc']],
+        "fnPageChange": "next"
     });
 
     BindClosedOrdersTable();
     $('#ClosedOrdersTable').DataTable({
-        "bPaginate": false,       //Search and Paging implementation
-        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
+        "bPaginate": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+        "aaSorting": [[0, 'desc']],
+        "fnPageChange": "next"
     });   
    
     $(".OrderEdit").live(
@@ -136,7 +148,7 @@ $("document").ready(function (e) {
     {
         click: function (e) {
          
-            debugger;
+       
 
 
             var Insert = false;
@@ -150,7 +162,7 @@ $("document").ready(function (e) {
 
             if ($(".Users").val() != "") //check if  change for product items (Header only)
             {
-                debugger;
+            
                 Order.UserID = $(".Users").val();
                 var Users = new Object(); 
 
@@ -162,7 +174,7 @@ $("document").ready(function (e) {
 
                 $.each(userDeatils, function (index, userDeatils) {
 
-                    debugger;
+                 
 
                     MailSending.EmailID = userDeatils.Email;
                     MailSending.UsrName = userDeatils.Name;
@@ -258,7 +270,7 @@ $("document").ready(function (e) {
                
                
             //}
-            debugger;
+      
 
             MailSending.TotalPrice = Order.TotalOrderAmount;
             MailSending.OrderDate = Order.OrderDate;
@@ -303,7 +315,7 @@ $("document").ready(function (e) {
 
                 if (rowCount > 0) //check if  change for product items (Header only)  
                 {
-                    debugger;
+                 
                     //----------- * HEADER ONLY-- START ---------- *//
 
                     var resultItem = "";
@@ -313,21 +325,21 @@ $("document").ready(function (e) {
                     var productNames = "";
                     var remarks = "";
                     $('#OrderItemTable tbody tr').each(function () {
-                        debugger;
+                     
                         var NewProduct = true; //--- checking product list if it is newly added or already existing product
                         var productId = $(this).attr("ProductID");
 
                         if (InitialProducts != undefined) {
 
-                            debugger;
+                         
 
                             $.each(InitialProducts, function (index, InitialProducts) {
-                                debugger;
+                              
 
                                 if (InitialProducts.ProductID == productId) {
 
 
-                                    debugger;
+                                 
 
                                     //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
 
@@ -343,7 +355,7 @@ $("document").ready(function (e) {
                         }
                         if (NewProduct == true || Insert == true) {
                             var productname = $(this).find('td').eq(0).text();
-                            debugger;
+                          
                             NoOfNewProducts = NoOfNewProducts + 1;
 
                             var remarks = $(this).find('td').eq(1).text();
@@ -403,9 +415,11 @@ $("document").ready(function (e) {
                         BindOrdersTable(); //To bind table with new or modified entry
 
                         $('#OrdersTable').DataTable({
-                            "bPaginate": false,       //Search and Paging implementation
-                            "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                            "bPaginate": true,
+                            "iDisplayLength": 6,
+                            "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                            "aaSorting": [[0, 'desc']],
+                            "fnPageChange": "next"
                         });
 
                         //$("#OrderItemTable").dataTable().fnClearTable();
@@ -492,9 +506,11 @@ $("document").ready(function (e) {
                     BindOrdersTable(); //To bind table with new or modified entry
 
                     $('#OrdersTable').DataTable({
-                        "bPaginate": false,       //Search and Paging implementation
-                        "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                        "bPaginate": true,
+                        "iDisplayLength": 6,
+                        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                        "aaSorting": [[0, 'desc']],
+                        "fnPageChange": "next"
                     });
 
 
@@ -528,9 +544,11 @@ $("document").ready(function (e) {
             BindOrdersTable(); //To bind table with new or modified entry
 
             $('#OrdersTable').DataTable({
-                "bPaginate": false,       //Search and Paging implementation
-                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "aaSorting": [[0, 'desc']],
+                "fnPageChange": "next"
             });
 
             $("#ClosedOrdersTable").dataTable().fnClearTable();
@@ -539,11 +557,12 @@ $("document").ready(function (e) {
             BindClosedOrdersTable();//To bind table with new or modified entry
 
             $('#ClosedOrdersTable').DataTable({
-                "bPaginate": false,       //Search and Paging implementation
-                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-               
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "aaSorting": [[0, 'desc']],
+                "fnPageChange": "next"
             });
-
         }
     })
      //----------- Cancel button Click -----------//
@@ -563,9 +582,11 @@ $("document").ready(function (e) {
             BindOrdersTable(); //To bind table with new or modified entry
 
             $('#OrdersTable').DataTable({
-                "bPaginate": false,       //Search and Paging implementation
-                "aaSorting": [[0, 'desc']]     //Sort with Date coloumn
-
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "aaSorting": [[0, 'desc']],
+                "fnPageChange": "next"
             });
 
             RemoveStyle();
@@ -858,7 +879,7 @@ function AddToList() {
 
     var data = $('.products').select2('data');
     var ProductName = data[0].text;
-    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn  OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
 
     $("#OrderItemTable").append(html);
@@ -1181,7 +1202,7 @@ function ConvertJsonToDate(jsonDate) {
 function OrderStatusValidation() {
 
 
-    debugger;
+  
 
     $('#Displaydiv').remove();
     var container;

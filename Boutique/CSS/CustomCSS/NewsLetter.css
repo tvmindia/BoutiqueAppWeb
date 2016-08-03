@@ -55,7 +55,10 @@ img {
     width: auto;
 }
 /*tempore*/
-
+.TemplateLargeImg
+{
+    height:300px;
+}
 .checkDes
 {
    vertical-align: middle!important;
@@ -92,9 +95,23 @@ input[type="checkbox"] {
 }
 .PreviewTemplate
 {
-    height:100%;
+    height:585px!important;
 }
 .templatePreviewholder
 {
-   height:450px;
+   height:600px;
 }
+.modal{
+    height:600px;
+     width:700px;
+    margin-left:-329px;
+}
+.productpaging
+{
+font-size: 12px!important;
+font-weight:600!important;
+}
+/*.ui-multiselect { height:25px;border:solid 1px #c0c0c0; overflow-x:hidden; padding:2px 0 2px 4px; text-align:left }*/
+/*.ui-multiselect-menu ui-widget ui-widget-content ui-corner-all{width:330px!important;}*/
+
+

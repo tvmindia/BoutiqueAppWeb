@@ -1,5 +1,4 @@
-﻿
-//document.ready
+﻿//document.ready
 $("document").ready(function (e) {
 
     parent.document.title = Pages.People;
@@ -20,13 +19,8 @@ $("document").ready(function (e) {
             alert('The File APIs are not fully supported in this browser.');
         }
     }
-
-    BindAsyncUserTable();
-    BindAsycDesignerTable();
     BindAsyncAdminsTable();
-    BindAsyncManagersTable();
-
-    $('#AdministratorTable').DataTable({
+     $('#AdministratorTable').DataTable({
         "bPaginate": true,
         "iDisplayLength": 6,
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
@@ -50,6 +44,24 @@ $("document").ready(function (e) {
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],  
         "fnPageChange": "next"
     });
+
+
+
+    $("#idTabAdministrator").click(function (e) {
+        BindAsyncAdminsTable();
+    });
+
+    $("#idTabManagers").click(function (e) {
+        BindAsyncManagersTable();
+    });
+
+    $("#idTabDesigners").click(function (e) {
+        BindAsycDesignerTable();
+    });
+    $("#idTabUsers").click(function (e) {
+        BindAsyncUserTable();
+    });
+
 
     //EDIT REGION
     $(".adminedit").live(
@@ -107,13 +119,27 @@ $("document").ready(function (e) {
        })
     $(".designeredit").live(
      {
-         click: function (e) {
 
+         click: function (e) {
+          
              $('#rowfluidDiv').hide();
              $('.alert-success').hide();
              $('.alert-error').hide();
-
-
+             $('#fileUpload').replaceWith($('#fileUpload').clone());
+             if (window.File && window.FileReader && window.FileList && window.Blob)
+             {
+                    //  Great success! All the File APIs are supported.     
+                     document.getElementById('fileUpload').addEventListener('change', handleFileSelect, false);
+              }
+              else {
+                     alert('The File APIs are not fully supported in this browser.');
+                 }
+         
+          
+             var $el = $('#fileUpload');
+              $el.wrap('<form>').closest('form').get(0).reset();
+             $el.unwrap();
+             
              editedrow = $(this).closest('tr');
              var Designer = new Object();
              Designer.DesignerID = editedrow.attr("designerID");
@@ -125,9 +151,6 @@ $("document").ready(function (e) {
                  BindDesignerTextBoxes(jsonResult[0]);
                  GetDesignerImage(Designer.DesignerID, ImageIsNull)
              }
-
-
-
              return false;
          }
      })
@@ -607,7 +630,7 @@ function clearManagerControls() {
     $("#txtManagerPass").val('');
     $("#txtManagerConPass").val('');
     $("#txtManagerEmail").val('');
-    $("#chkActiveManager").val('');
+    $('#chkActiveManager').parent().addClass('checked');
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -635,7 +658,7 @@ function clearAdminControls() {
     $("#txtAdminPass").val('');
     $("#txtAdminConPass").val('');
     $("#txtAdminEmail").val('');
-    $("#chkActiveAdmin").val('');
+    $('#chkActiveAdmin').parent().addClass('checked');
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -723,7 +746,8 @@ function GetDesignerImage(DesignerID, ImageIsNull) {
     document.getElementById('list').insertBefore(span, null);
 
     var imgdes = document.getElementById('designerimage');
-    imgdes.src = "../ImageHandler/ImageServiceHandler.ashx?DesignerId=" + DesignerID;
+  
+    imgdes.src = "../ImageHandler/ImageServiceHandler.ashx?DesignerId=" + DesignerID + "&forcebrowsernewimage=" + new Date().getTime();
     //if (ImageIsNull == "0") {
     //    $("#list").find(".thumb").remove();
     //    var span = document.createElement('span');
@@ -742,15 +766,14 @@ function BindUserTextBoxes(Records) {
         $("#txtMobile").val(Records.Mobile);
         $("#txtEmail").val(Records.Email);
 
-        if (Records.Active = 'true') {
-            // $("#chkActive").attr('checked', 'checked');
-            // $(".chkActive").attr("checked", "checked
-            $(".chkActive").prop('checked', true);
-
+        if (Records.Active === true) {
+         
+         
+            $('#chkActive').parent().addClass('checked');
         }
         else {
-            // $("#chkActive").removeAttr('checked');
-            $(".chkActive").prop('checked', false);
+                   
+            $('#chkActive').parent().removeClass('checked');
         }
         $("#chkActive").val(Records.IsActive);
         $("#txtCaption").val(Records.Caption);
@@ -766,6 +789,7 @@ function BindUserTextBoxes(Records) {
 }
 
 function BindAdminTextBoxes(Records) {
+   
     $.each(Records, function (index, Records) {
         $("#txtAdminName").val(Records.Name);
         $("#txtMobileAdmin").val(Records.Mobile);
@@ -779,20 +803,14 @@ function BindAdminTextBoxes(Records) {
       
         $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
-        if (Records.Active = 'true') {
-            // $("#chkActive").attr('checked', 'checked');
-            // $(".chkActive").attr("checked", "checked
-            $("#chkActiveAdmin").prop('checked', true);
-
+        if (Records.Active === true) {
+                     
+            $('#chkActiveAdmin').parent().addClass('checked');
         }
         else {
-            // $("#chkActive").removeAttr('checked');
-            $("#chkActiveAdmin").prop('checked', false);
+         $('#chkActiveAdmin').parent().removeClass('checked');
         }
         $("#chkActiveAdmin").val(Records.IsActive);
-        // $("#txtCaption").val(Records.Caption);
-
-
         $("#hdfUserID").val(Records.UserID);
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
@@ -817,20 +835,15 @@ function BindManagerTextBoxes(Records) {
 
         $("#hdfMobile").val(Records.Mobile);
         $("#hdfAdminID").val(Records.AdminID);
-        if (Records.Active = 'true') {
-            // $("#chkActive").attr('checked', 'checked');
-            // $(".chkActive").attr("checked", "checked
-            $("#chkActiveManager").prop('checked', true);
-
+        if (Records.Active === true)
+        {
+         $('#chkActiveManager').parent().addClass('checked');
         }
-        else {
-            // $("#chkActive").removeAttr('checked');
-            $("#chkActiveManager").prop('checked', false);
+        else
+        {
+         $('#chkActiveManager').parent().removeClass('checked');
         }
         $("#chkActiveManager").val(Records.IsActive);
-        //$("#txtCaption").val(Records.Caption);
-
-
         $("#hdfUserID").val(Records.UserID);
         $("#hdfCardNo").val(Records.LoyaltyCardNo);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
@@ -995,70 +1008,139 @@ function AddManager() {
 //Add New Designer
 function AddDesigner()
 {
+   
+    var boutique_id = getboutiqueID();
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-
     var result = "";
-    var Designer = new Object();
-    if ($("#hdfDesignerID").val() != "") {
-        Designer.DesignerID = $("#hdfDesignerID").val();
-    }
-
-    Designer.Name = $("#txtDesignerName").val();
-    Designer.Mobile = $("#txtDesignerMobile").val();
-    Designer.Profile = $("#txtDesignerProfile").val();
-
-    result = InsertDesigner(Designer);
-    if (result.DesignerID != null) {
-
-        var imgresult = "";
-        //imageupload
-        var _URL = window.URL || window.webkitURL;
+    var designame = $("#txtDesignerName").val();
+    var designMobile = $("#txtDesignerMobile").val();
+    var designProfile = $("#txtDesignerProfile").val();
+    var loginuser = $("#LoginName").text();
+    if ($("#hdfDesignerID").val() === "")//insert designer
+    {
         var formData = new FormData();
         var file, img;
 
-
-        if ((file = $('#fileUpload')[0].files[0])) {
-            img = new Image();
-            img.onload = function () {
-                var image = $('#fileUpload')[0].files[0];
-
-
-                formData.append('files', image, file.name);
-                formData.append('', Designer.DesignerID);
-               
-            };
-            
+        if ((file = $('#fileUpload')[0].files[0]))
+        {
+                     
             var image = $('#fileUpload')[0].files[0];
-            formData.append('files', image, file.name);
-            formData.append('DesignerId', result.DesignerID);
-            formData.append('BoutiqueId', result.BoutiqueID);
-            formData.append('Name', result.Name);
-            formData.append('profile', result.Profile);
-            formData.append('mobile', result.Mobile);
-            formData.append('updatedBy', result.userName)
+            formData.append('designerimage', image, file.name);
+            formData.append('BoutiqueId', boutique_id);
+            formData.append('Name', designame);
+            formData.append('profile', designProfile);
+            formData.append('mobile', designMobile);
+            formData.append('createdby', loginuser);
+            formData.append('ActionTyp', 'DesignerInsert');
+            result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");//calling handler to insert image and form values
+            if (result == "1") {
+                clearDesignerControls();
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
+            if (result != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
         }
+        else//file not present in uploader
+        {
+            var Designer = new Object();
+            Designer.Name = designame;
+            Designer.Mobile = designMobile;
+            Designer.Profile = designProfile
+            result = InsertDesigner(Designer);//calling usual web method
+            ///Alert method
+            if (result.status == "1") {
+                clearDesignerControls();
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
+            if (result.status != "1") {
+                $('#rowfluidDiv').show();
+                $('.alert-error').show();
+                $('.alert-error strong').text(Messages.InsertionFailure);
+                AutoScrollToAlertBox();
+                BindAsycDesignerTable();
+            }
+            ///Alert method
 
-       
-        postBlobAjax(formData, "../AdminPanel/People.aspx/InserDesignerImage");
-    }
-    
-    if (result.status == "1") {
-        clearDesignerControls();
-        $('#rowfluidDiv').show();
-        $('.alert-success').show();
-        $('.alert-success strong').text(Messages.InsertionSuccessFull);
-        AutoScrollToAlertBox();
-        BindAsycDesignerTable();
-    }
-    if (result.status != "1") {
-        $('#rowfluidDiv').show();
-        $('.alert-error').show();
-        $('.alert-error strong').text(Messages.InsertionFailure);
-        AutoScrollToAlertBox();
-        BindAsycDesignerTable();
-    }
+        }//end of else
+      }//end of insert
+      if ($("#hdfDesignerID").val() != "") //update designer
+      {
+          var imgresult = "";
+          var formData = new FormData();
+          var file, img;
+          var desigrid = $("#hdfDesignerID").val();
+          if ((file = $('#fileUpload')[0].files[0]))//update with file
+          {
+              var image = $('#fileUpload')[0].files[0];
+              formData.append('designerimage', image, file.name);
+              formData.append('DesignerId', desigrid);
+              formData.append('BoutiqueId', boutique_id);
+              formData.append('Name', designame);
+              formData.append('profile', designProfile);
+              formData.append('mobile', designMobile);
+              formData.append('updatedBy', loginuser);
+              formData.append('ActionTyp', 'DesignerUpdate');
+              result=postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
+              if (result == "1") {
+                  clearDesignerControls();
+                  $('#rowfluidDiv').show();
+                  $('.alert-success').show();
+                  $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+              if (result != "1") {
+                  $('#rowfluidDiv').show();
+                  $('.alert-error').show();
+                  $('.alert-error strong').text(Messages.InsertionFailure);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+          }
+          else//update without file
+          {
+              var Designer = new Object();
+              Designer.DesignerID = desigrid;
+              Designer.Name = designame;
+              Designer.Mobile = designMobile;
+              Designer.Profile = designProfile
+              result = InsertDesigner(Designer);//calling usual web method which has update call also
+              ///Alert method
+              if (result.status == "1") {
+                  clearDesignerControls();
+                  $('#rowfluidDiv').show();
+                  $('.alert-success').show();
+                  $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+              if (result.status != "1") {
+                  $('#rowfluidDiv').show();
+                  $('.alert-error').show();
+                  $('.alert-error strong').text(Messages.InsertionFailure);
+                  AutoScrollToAlertBox();
+                  BindAsycDesignerTable();
+              }
+              ///Alert method
+          }
+         
+      }//end of update
+ 
 }
 //Add New User
 function AddUser()
@@ -1364,22 +1446,22 @@ function EmailValidation() {
   
     var value;
     if ($('#txtAdminEmail').val() != "") {
-        debugger;
+   
         var Email = $('#txtAdminEmail').val();
         value = 0;
     }
     else {
-        debugger;
+  
         $('#imgfail').hide();
         $('#imgsuccess').hide();
     }
     if ($('#txtManagerEmail').val() != "") {
-        debugger;
+    
         var Email = $('#txtManagerEmail').val();
          value = 1;
         }
     else {
-        debugger;
+      
           $('#imgfail1').hide();
         $('#imgsuccess1').hide();
 

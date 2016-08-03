@@ -7,6 +7,8 @@ using Boutique.DAL;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
+using System.Web.UI.HtmlControls;
 
 
 namespace Boutique.ImageHandler
@@ -17,6 +19,7 @@ namespace Boutique.ImageHandler
     public class ImageServiceHandler : IHttpHandler
     {
         DataSet ds = null;
+      
           public void ProcessRequest(HttpContext context)
           {
              
@@ -31,6 +34,7 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -50,6 +54,7 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -69,12 +74,11 @@ namespace Boutique.ImageHandler
                     if (productimg != null)
                     {
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
-                    
-
-                }
+                  }
 
                 if ((context.Request.QueryString["DesignerID"] != null) && (context.Request.QueryString["DesignerID"] != ""))
                 {
@@ -84,7 +88,9 @@ namespace Boutique.ImageHandler
                     byte[] productimg = designObj.GetDesignerImage();
                     if (productimg != null)
                     {
+
                         MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
                         Image proimg = Image.FromStream(memoryStream);
                         proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                     }
@@ -95,32 +101,59 @@ namespace Boutique.ImageHandler
                     }
 
                 }
+                if ((context.Request.QueryString["bannerImgID"] != null) && (context.Request.QueryString["bannerImgID"] != ""))
+                {
+                    Boutiques boutiqueObj = new Boutiques();
+                    boutiqueObj.ImageID = context.Request.QueryString["bannerImgID"];
+                    byte[] productimg = boutiqueObj.GetBannerImageByImageID();
+                    if (productimg != null)
+                    {
+                        MemoryStream memoryStream = new MemoryStream(productimg, false);
+                        memoryStream.Position = 0;
+                        Image proimg = Image.FromStream(memoryStream);
+                        proimg.Save(context.Response.OutputStream, ImageFormat.Jpeg);
+                    }
 
+                }
                 if ((context.Request.QueryString["templateID"] != null) && (context.Request.QueryString["templateID"] != ""))
                 {
                     NewsLetters newsObj = new NewsLetters();
-                    newsObj.TemplateID = Guid.Parse(context.Request.QueryString["templateID"]);
+                    newsObj.TemplateID = Guid.Parse(context.Request.QueryString["templateID"]).ToString();
                     ds = newsObj.GetAllTemplateDetails();
                     string template =ds.Tables[0].Rows[0]["TemplateFile"].ToString();
                     int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
                     imageCount=imageCount-1;
                     string body = string.Empty;
-                     string imageUrl=null;
+                    Regex rx = new Regex("(?<=<img[^>]*src=\")[^\"]+", RegexOptions.IgnoreCase);
+                  // Regex rx  =new Regex(@"<img.*?src=""(.*?)""", RegexOptions.IgnoreCase);
+           
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + template)))
             {
                 body = reader.ReadToEnd();
             }
-            //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
-            //body = fileName;
-            body = body.Replace("{UserName}", "UserName");
+         
+            body = body.Replace("{UserName}", " ");
             body = body.Replace("{Title}", "Title");
             body = body.Replace("{Description}", "Description");
-            //body = body.Replace("{Mainimage}", MainimageUrl);
-            //body = body.Replace("{Images0}",altImage);
-            for (int i = 0; i <= imageCount; i++)
-            {
-                body = body.Replace("{image" + i + "}", "../img/Default/adimage.png");
-            }
+            body = body.Replace("{imgLogo}", "../img/Default/nologo1.png");
+           
+                
+                if (body.Contains("{ImgBirthday}"))
+                {
+                    body = body.Replace("{ImgBirthday}", "../img/Templates/BirthdayImage.jpg");
+                }
+           
+                    
+            
+                for (int i = 0; i <= imageCount; i++)
+                {
+                    body = rx.Replace(body, m => "../img/Default/adimage.png");
+                }
+            
+            string header = newsObj.TemplateHeader();
+            string footer = newsObj.TemplateFooter();
+            body = header + body;
+            body = body + footer;
                     if (template != null)
                     {
                         context.Response.ContentType = "text/html";

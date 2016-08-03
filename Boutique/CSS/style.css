@@ -1979,7 +1979,7 @@ fieldset[disabled] .btn-link:focus {
 	border: none;
   	-webkit-border-radius: 0px;
        -moz-border-radius: 0px;
-            border-radius: 0px;
+            border-radius: 8px;
 }
 
 .tab-menu.nav-tabs > li > a:hover {

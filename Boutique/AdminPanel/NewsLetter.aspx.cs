@@ -19,18 +19,53 @@ namespace Boutique.AdminPanel
         {
             UA = (DAL.Security.UserAuthendication)Session[Const.LoginSession];
         }
-
-        #region SendNotificationMail
-        [System.Web.Services.WebMethod]
-        public static void SendEmail(MailSending mailObj)
+        #region GetAllAudienceMailID
+         [System.Web.Services.WebMethod]
+        public static string GetAllAudienceMailID(NewsLetters newsObj)
         {
-
-            NewsLetters newsObj = new NewsLetters();
+            string jsonResult = null;
+            DataSet ds = null;
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             newsObj.BoutiqueID = UA.BoutiqueID;
+            newsObj.Boutique = UA.Boutique;
+            ds = newsObj.GetAllNewsLetterMailIDs();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion GetAllAudienceMailID
+        #region SendNotificationMail
+        [System.Web.Services.WebMethod]
+        public static string SendEmail(MailSending mailObj)
+        {
+            int ? result=null;
+            string jsonResult = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            NewsLetters newsObj = new NewsLetters();
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            mailObj.BoutiqueID = UA.BoutiqueID;
+            mailObj.Boutique = UA.Boutique;
             DataSet ds = null;
             mailObj.msg = mailObj.msg;
             if (mailObj.audienceType == "All")
@@ -44,22 +79,36 @@ namespace Boutique.AdminPanel
                 }
                 mailObj.recepientEmail = strDetailIDList.ToArray();
             }
-            HttpContext ctx = HttpContext.Current;
-            new Thread(delegate()
+            else
             {
-                HttpContext.Current = ctx;
-                mailObj.PopulateBody(
-                    //"" + "Anija",
-                    //"" + "Boutique",
-                    //"https://www.google.co.in/" +
-                    //"Your Todays Deal.....",
-                    //"" + "Offers",
-                    //"https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
-                    //mailObj.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
-            );
-            }).Start();
+                mailObj.recepientEmail =new string[]{ mailObj.audienceType};
+            }
+            HttpContext ctx = HttpContext.Current;
+            try
+            {
+                new Thread(delegate()
+                {
+                    HttpContext.Current = ctx;
+                    result = mailObj.PopulateBody(
+                        //"" + "Anija",
+                        //"" + "Boutique",
+                        //"https://www.google.co.in/" +
+                        //"Your Todays Deal.....",
+                        //"" + "Offers",
+                        //"https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
+                        //mailObj.SendHtmlFormattedEmail("anija.g@thrithvam.me;thomson.varkey@thrithvam.me", "TiqueInn Deal", body);
+                 );
+                }).Start();
+                result=1;
+            }
+            catch(Exception ex)
+            {
+                result = 0;
+                throw ex;
+            }
+            jsonResult = jsSerializer.Serialize(result);
 
-
+            return jsonResult;
         }
         #endregion SendNotificationMail
 
@@ -67,14 +116,15 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string AddSelectedImageToHtmlTemplate(NewsLetters newsObj)
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            newsObj.BoutiqueID = UA.BoutiqueID;
+            newsObj.Boutique = UA.Boutique;
             string jsonResult = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            var body = newsObj.PopulateBody("" + "Anija",
-                "" + "Boutique",
-                "https://www.google.co.in/" +
-                "Your Todays Deal.....",
-                "" + "Offers",
-                "https://ci5.googleusercontent.com/proxy/6y-FQARPH8tJQD62EWwrkebbdbfsFJyXdIFC_nRIqtB96RJizlM4KcN0A0EWze5jvlC4S1yLnMG92Z_CTG8L2A7EtRHcEQYPtiZTXo_yeRwFSjR3yqESQJXD87xtrx-dfZh0Rybcjs9OE3Bn0m-WGIdVVg5MZig1l7ZoMI0EHmd7=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/23new.jpg");
+            var body = newsObj.PopulateBody();
 
             jsonResult = jsSerializer.Serialize(body);
 
@@ -88,6 +138,12 @@ namespace Boutique.AdminPanel
         {
             string jsonResult = null;
             DataSet ds = null;
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            newsObj.BoutiqueID = UA.BoutiqueID;
+            newsObj.Boutique = UA.Boutique;
             ds = newsObj.GetAllTemplateIDandName();
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
@@ -161,20 +217,20 @@ namespace Boutique.AdminPanel
             newsObj.UpdatedBy = UA.userName;
             newsObj.CreatedBy = UA.userName;
             string status = null;
-            DataSet ds = null;
+           // DataSet ds = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             Product productObj = new Product();
-            if (newsObj.audienceMailType == "All")
-            {
-                ds = newsObj.GetAllEmailIdsToSendNewsLetterEmail();
-                List<string> strDetailIDList = new List<string>();
+            //if (newsObj.audienceMailType == "All")
+            //{
+            //    ds = newsObj.GetAllEmailIdsToSendNewsLetterEmail();
+            //    List<string> strDetailIDList = new List<string>();
 
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    strDetailIDList.Add(row["Email"].ToString());
-                }
-                newsObj.audienceMailIDs = strDetailIDList.ToArray();
-            }
+            //    foreach (DataRow row in ds.Tables[0].Rows)
+            //    {
+            //        strDetailIDList.Add(row["Email"].ToString());
+            //    }
+            //    newsObj.audienceMailIDs = strDetailIDList.ToArray();
+            //}
             try
             {
 
@@ -202,6 +258,154 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize(newsObj);
         }
         #endregion AddNesLetterMailTrackingDetails
+
+        #region GetAllNewsLetterNotMailSendDetails
+        [System.Web.Services.WebMethod]
+        public static string GetAllNewsLetterNotMailSendDetails(NewsLetters newsObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            newsObj.BoutiqueID = UA.BoutiqueID;
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = newsObj.GetAllNewsLetterMailNotSendDetails();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion GetAllNewsLetterNotMailSendDetails
+
+        #region GetAllTemplateDetails
+         [System.Web.Services.WebMethod]
+        public static string GetAllTemplateDetails(NewsLetters newsObj)
+        {
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = newsObj.GetAllTemplateDetails();
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion GetAllTemplateDetails
+
+         #region GetAllNewsLetterSendMailDetails
+         [System.Web.Services.WebMethod]
+         public static string GetAllNewsLetterSendMailDetails(NewsLetters newsObj)
+         {
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+             newsObj.BoutiqueID = UA.BoutiqueID;
+             string jsonResult = null;
+             DataSet ds = null;
+             ds = newsObj.GetAllSendMailDetails();
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+             Dictionary<string, object> childRow;
+             if (ds.Tables[0].Rows.Count > 0)
+             {
+                 foreach (DataRow row in ds.Tables[0].Rows)
+                 {
+                     childRow = new Dictionary<string, object>();
+                     foreach (DataColumn col in ds.Tables[0].Columns)
+                     {
+                         childRow.Add(col.ColumnName, row[col]);
+                     }
+                     parentRow.Add(childRow);
+                 }
+             }
+             jsonResult = jsSerializer.Serialize(parentRow);
+
+             return jsonResult; //Converting to Json
+         }
+         #endregion GetAllNewsLetterSendMailDetails
+
+         #region UnsubscribeNewsLetter
+         [System.Web.Services.WebMethod]
+         public static string UnsubscribeNewsLetter(NewsLetters newsObj)
+         {
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
+
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+             newsObj.BoutiqueID = UA.BoutiqueID;
+             string status = null;
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             Product productObj = new Product();
+             try
+             {
+
+                 status = newsObj.UnsubscribeEmail().ToString();
+             }
+             catch (Exception)
+             {
+                 status = "500";//Exception of foreign key
+             }
+             finally
+             {
+             }
+             return jsSerializer.Serialize(newsObj);
+         }
+         #endregion UnsubscribeNewsLetter
+
+         #region GetNewsLetterEmails
+         [System.Web.Services.WebMethod]
+         public static string GetNewsLetterEmails(NewsLetters newsObj)
+         {
+             string jsonResult = null;
+             DataSet ds = null;
+             ds = newsObj.GetEmailIDBasedOnNewsLetter();
+             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+             Dictionary<string, object> childRow;
+             if (ds.Tables[0].Rows.Count > 0)
+             {
+                 foreach (DataRow row in ds.Tables[0].Rows)
+                 {
+                     childRow = new Dictionary<string, object>();
+                     foreach (DataColumn col in ds.Tables[0].Columns)
+                     {
+                         childRow.Add(col.ColumnName, row[col]);
+                     }
+                     parentRow.Add(childRow);
+                 }
+             }
+             jsonResult = jsSerializer.Serialize(parentRow);
+
+             return jsonResult; //Converting to Json
+         }
+         #endregion GetNewsLetterEmails
 
     }
 }

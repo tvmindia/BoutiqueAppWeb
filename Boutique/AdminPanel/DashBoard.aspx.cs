@@ -373,8 +373,8 @@ namespace Boutique.AdminPanel
                  mainObj.BoutiqueID = UA.BoutiqueID.ToString();
                  DataSet ds = null;
                  string[] filePaths = Directory.GetFiles(HttpContext.Current.Server.MapPath("~/Media/GraphPic/"));
-                 foreach (string filePath in filePaths)
-                     File.Delete(filePath);
+                 //foreach (string filePath in filePaths)
+                 //    File.Delete(filePath);
                  ds = mainObj.GetProductDetails();
                  for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                  {
@@ -383,7 +383,7 @@ namespace Boutique.AdminPanel
                      byte[] ImgBack = mainObj.GetProductImage();  //Function Call to Get Patient Details
 
                      string fileExtension = ".Jpeg";
-                     string str_image = "Tiquepic_" + i.ToString() + fileExtension;
+                     string str_image = "Tiquepic_" + mainObj.ImageID.ToString() + fileExtension;
                      string filePath = HttpContext.Current.Server.MapPath("~/Media/GraphPic/");
                      string XfileURL = str_image.Trim();
                      string fileURL = filePath + XfileURL.Trim();

@@ -149,7 +149,7 @@
 });
 //------------Load Loyalty settings------------
 function LoadLoyaltySettings() {
-    debugger;
+  
     var jsonResult = {};
     var Loyalty = new Object();
     jsonResult = GetLoyaltySettings(Loyalty);
@@ -158,7 +158,6 @@ function LoadLoyaltySettings() {
     }
 }
 function GetLoyaltySettings(Loyalty) {
-    debugger;
     var ds = {};
     var table = {};
     var data = "{'loyaltyObj':" + JSON.stringify(Loyalty) + "}";

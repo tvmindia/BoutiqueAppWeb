@@ -9,6 +9,13 @@ namespace Boutique.DAL
 {
     public class Boutiques
     {
+        #region Global Variables
+
+        DAL.Security.UserAuthendication UA;
+        UIClasses.Const Const = new UIClasses.Const();
+
+        #endregion Global variables
+
         #region properties
         public string BoutiqueID
         {
@@ -133,6 +140,42 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        //--- Banner properties
+
+        public string ImageID
+        {
+            get;
+            set;
+        }
+
+        public string ProductID
+        {
+            get;
+            set;
+        }
+
+        public string CategoryCode
+        {
+            get;
+            set;
+        }
+        public byte[] ImageFile//of images
+        {
+            get;
+            set;
+        }
+        public string FileType
+        {
+            get;
+            set;
+        }
+        public string[] ImageInfo //Array stores imageids
+        {
+            get;
+            set;
+        }
+
         #endregion properties
 
         #region Methods
@@ -400,7 +443,6 @@ namespace Boutique.DAL
         }
         #endregion EditBoutique
 
-
         #region DeleteBoutique
         /// <summary>
         /// Delete boutique
@@ -576,7 +618,9 @@ namespace Boutique.DAL
         }
         #endregion GetBoutiqueLogo
 
-        #region Get banner images for mobile
+        //-------------  * BANNER METHODS * ---------- //
+
+         #region Get banner images for mobile
         /// <summary>
         /// Getting Banner images batatable for mobile app (including varbinary images)
         /// </summary>
@@ -620,6 +664,335 @@ namespace Boutique.DAL
                 return dt;
             }
         #endregion
+
+         #region Get All Banner Images
+         /// <summary>
+         /// Getting all Banner images 
+         /// </summary>
+         /// <returns></returns>
+         public DataSet GetBannerImages()
+         {
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet  ds = null;
+             SqlDataAdapter sda = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[SelectAllBanners]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                 sda = new SqlDataAdapter();
+                 sda.SelectCommand = cmd;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             return ds;
+         }
+         #endregion Get All Banner Images
+
+         #region Get BannerImage By ImageID
+
+        /// <summary>
+        /// Returns banner image bytes by imgID 
+        /// It is mainly called by Image Handlers ,inorder to get image by its id ( as json can't handle imagebytes which is more than json's capacity)
+        /// </summary>
+        /// <returns></returns>
+         public byte[] GetBannerImageByImageID()
+         {
+             if (ImageID == "")
+             {
+                 throw new Exception("ImageID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlDataReader rd = null;
+             byte[] BannerImage = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetBannerImageByImageID]";
+                 cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+                 rd = cmd.ExecuteReader();
+                 if ((rd.Read()) && (rd.HasRows) && (rd["Image"] != DBNull.Value))
+                 {
+                     BannerImage = (byte[])rd["Image"];
+                 }
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     rd.Close();
+                     dcon.DisconectDB();
+                 }
+             }
+             return BannerImage;
+
+         }
+         #endregion GetBannerImageByImageID
+
+         #region Insert Banner Image
+         public Int16 InsertBannerImage()
+         {
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlParameter outParameter = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "InsertBannerImage";
+                
+                 cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@FileType", SqlDbType.VarChar, 5).Value = FileType;
+                 if (ProductID != "" && ProductID != null) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                 if (CategoryCode != "" && CategoryCode != null) cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+
+                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //insert success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+
+         }
+         #endregion Insert Banner Image
+
+         #region Update orderNo
+         /// <summary>
+         /// to update order no on reordering
+         /// comma seperated string of ImageInfo array items will be created
+         /// That string will be passed to update stored procedure 
+         /// update will be done by splitting string by comma and then use that imageid for update
+         /// </summary>
+         /// <returns>status</returns>
+         public Int16 UpdateorderNo()
+         {
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+             
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlParameter outParameter = null;
+             string imaginfo = "";
+             string com = "";
+            
+             try
+             {
+                 if (ImageInfo != null) //converting imageids array into a comma seperated string
+                 {
+                     for (int i = 0; i < ImageInfo.Length; i++)
+                     {
+                         //imaginfo = imaginfo + ImageInfo[i].ToString();
+                         imaginfo = imaginfo + com + ImageInfo[i].ToString();
+                         com = ",";
+                     }
+                     imaginfo = imaginfo + ",";
+                 }
+               
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[UpdateorderNoOfBannerImage]";
+                
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@ImageInfo", SqlDbType.VarChar, -1).Value = imaginfo;
+                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //update success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+
+         }
+         #endregion Update orderNo
+
+         #region Update Banner Details
+         /// <summary>
+         /// to Update Banner Details (product,category) by image ID
+         /// </summary>
+         /// <returns>status</returns>
+         public Int16 UpdateBannerDetailsByImgID()
+         {
+
+             if (BoutiqueID == "" || BoutiqueID == null)
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             if (ImageID == "" || ImageID == null)
+             {
+                 throw new Exception("ImageID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             SqlParameter outParameter = null;
+             
+             try
+             {
+                 
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[UpdateBannerDetailsByImageID]";
+
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+                 if (ProductID != "" && ProductID != null) cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                 if (CategoryCode != "" && CategoryCode != null) cmd.Parameters.Add("@CategoryCode", SqlDbType.NVarChar, 50).Value = CategoryCode;
+
+                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //update success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+
+         }
+         #endregion Update orderNo
+
+         #region DeleteBannerByImageID
+         /// <summary>
+        /// Delete boutique
+        /// </summary>
+        /// <param name="ImageID"></param>
+        /// <returns></returns>
+         public Int16 DeleteBannerByImageID()
+         {
+            if (BoutiqueID == "" || BoutiqueID == null)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            if (ImageID == "" || ImageID == null)
+            {
+                throw new Exception("ImageID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+          
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteBannerByImageID]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ImageID);
+
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+         #endregion DeleteBannerByImageID
+
         #endregion Methods
 
     }

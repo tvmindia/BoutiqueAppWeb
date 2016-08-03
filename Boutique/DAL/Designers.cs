@@ -134,7 +134,7 @@ namespace Boutique.DAL
         /// </summary>
         /// <returns>status</returns>
             public Int16 InsertDesigner()
-            {
+                {
                 if (BoutiqueID == "")
                 {
                     throw new Exception("BoutiqueID is Empty!!");
@@ -156,7 +156,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@Mobile", SqlDbType.NVarChar, 20).Value = Mobile;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                  
+                    cmd.Parameters.Add("@Image", SqlDbType.VarBinary).Value = ImageFile;
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                     outParameter.Direction = ParameterDirection.Output;
                     outDesignerID = cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier);

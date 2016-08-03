@@ -388,8 +388,7 @@ function BindCurrencyDropdown() {
     if (jsonResult != undefined) {
         $.each(jsonResult, function (key, value) {
 
-
-            debugger;
+  
             $(".Currency").append($("<option></option>").val(value.id).html(value.text));
         });
       

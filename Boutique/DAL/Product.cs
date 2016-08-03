@@ -107,6 +107,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string Tags
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -122,6 +127,11 @@ namespace Boutique.DAL
             set;
         }
         public string CategoryID
+        {
+            get;
+            set;
+        }
+        public int CatOrderNo
         {
             get;
             set;
@@ -288,12 +298,13 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                    cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
+                    cmd.Parameters.Add("@Price", SqlDbType.Money).Value = Price;
                     cmd.Parameters.Add("@Discount", SqlDbType.Int).Value = Discount;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
                     cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, -1).Value = relproids;
+                    cmd.Parameters.Add("@Tags", SqlDbType.NVarChar, 255).Value = Tags;
                     if (DesignerID!="")
                     {
                         cmd.Parameters.Add("@DesignerID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(DesignerID);
@@ -393,11 +404,12 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = Name;
                     cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                    cmd.Parameters.Add("@Price", SqlDbType.SmallMoney).Value = Price;
+                    cmd.Parameters.Add("@Price", SqlDbType.Money).Value = Price;
                     cmd.Parameters.Add("@Discount", SqlDbType.Int).Value = Discount;
                     cmd.Parameters.Add("@IsOutOfStock", SqlDbType.Bit).Value = IsOutOfStock;
                     cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = IsActive;
                     cmd.Parameters.Add("@Categories", SqlDbType.NVarChar, 200).Value = Categories;
+                    cmd.Parameters.Add("@Tags", SqlDbType.NVarChar, 255).Value = Tags;
                     cmd.Parameters.Add("@RelatedProductsIDs", SqlDbType.NVarChar, -1).Value = relproids;
                     if(DesignerID!="")
                     {
@@ -410,6 +422,10 @@ namespace Boutique.DAL
                    
                     cmd.Parameters.Add("@ImageInfo", SqlDbType.VarChar, -1).Value = imaginfo;
                     cmd.Parameters.Add("@MainImageID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(MainImageID);
+                    //for product linker insert
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                    cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                    //for product linker insert
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
@@ -872,6 +888,47 @@ namespace Boutique.DAL
                 }
             }
             #endregion
+
+            #region Products By Search
+            public DataTable GetProductsBySearch(string searchString)
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                SqlDataAdapter sda = null;
+                DataTable dt = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    sda = new SqlDataAdapter();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetProductsBySearch]";
+                    cmd.Parameters.Add("@Text", SqlDbType.NVarChar, 50).Value = searchString;
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                    sda.SelectCommand = cmd;
+                    dt = new DataTable();
+                    sda.Fill(dt);
+                    return dt;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+            }
+            #endregion
            #endregion Methods
 
         #region CheckCategory
@@ -1180,7 +1237,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                    
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
-                   
+                    cmd.Parameters.Add("@OrderNo", SqlDbType.Int).Value = CatOrderNo;
                     cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -1236,7 +1293,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
 
                     cmd.Parameters.Add("@Name", SqlDbType.NVarChar, -1).Value = CategoryName;
-
+                    cmd.Parameters.Add("@OrderNo", SqlDbType.Int).Value = CatOrderNo;
                     cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                     cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -1469,7 +1526,7 @@ namespace Boutique.DAL
             }
         #endregion GetAllTotalCount
 
-            #region GetAllProductMainImagesDetails
+        #region GetAllProductMainImagesDetails
             public DataSet GetAllProductMainImagesDetails()
             {
 
@@ -1518,6 +1575,48 @@ namespace Boutique.DAL
                 return ds;
             }
             #endregion GetAllProductMainImagesDetails
+
+        #region GetAllDeletedProductsDetails
+            public DataSet GetAllDeletedProductsDetails()
+            {
+                if (BoutiqueID == "")
+                {
+                    throw new Exception("BoutiqueID is Empty!!");
+                }
+                dbConnection dcon = null;
+                SqlCommand cmd = null;
+                DataSet ds = null;
+                SqlDataAdapter sda = null;
+                try
+                {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "[GetAllDeletedProductsDetailsByBoutiqueid]";
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                    cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+                    sda.Fill(ds);
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    if (dcon.SQLCon != null)
+                    {
+                        dcon.DisconectDB();
+                    }
+                }
+                return ds;
+            }
+
+            #endregion GetAllDeletedProductsDetails
 
         #region GetAllOutOfStockProductMainImagesDetails
             public DataSet GetAllOutOfStockProductMainImagesDetails()
@@ -1660,7 +1759,6 @@ namespace Boutique.DAL
             }
             #endregion
 
-
         #region GetProductImage
 
          public byte[] GetProductImage()
@@ -1748,7 +1846,6 @@ namespace Boutique.DAL
              return ds;
          }
         #endregion GraphData
-
 
         #region DeleteProudctImage
 
@@ -1993,7 +2090,7 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion
-        
+
         #region Delete a product review
         /// <summary>
         /// to delete product review
@@ -2307,6 +2404,53 @@ namespace Boutique.DAL
         }
         #endregion GetNewProductDetailBySearch
 
+        #region GetDeletedProductDetailsBySearch
+        public DataSet GetDeletedProductDetailsBySearch()
+        {
+
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetDeletedProductsDetailBySearch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion GetDeletedProductDetailsBySearch
+
         #region Get related products of a product for app
         /// <summary>
         /// To get the related products including image for app
@@ -2402,7 +2546,7 @@ namespace Boutique.DAL
       
         #endregion GetAllProductIDandName
 
-         #region GetImageIdForNewsLetter
+        #region GetImageIdForNewsLetter
          public DataSet GetImageIdForNewsLetter()
          {
              if (BoutiqueID == "")
@@ -2445,8 +2589,7 @@ namespace Boutique.DAL
          }
          #endregion GetImageIdForNewsLetter
 
-
-         #region GetAllProductIDAndNameForNewsLetter
+        #region GetAllProductIDAndNameForNewsLetter
          public DataSet GetAllProductIDAndNameForNewsLetter()
          {
              if (BoutiqueID == "")
@@ -2493,5 +2636,291 @@ namespace Boutique.DAL
          }
 
          #endregion GetAllProductIDAndNameForNewsLetter
+
+        #region revive product
+         public Int16 ReviveProduct()
+         {
+             if (ProductID == "")
+             {
+                 throw new Exception("ProductID is Empty!!");
+             }
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+
+
+             SqlParameter outParameter = null;
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[ReviveProduct]";
+                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                 outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                 outParameter.Direction = ParameterDirection.Output;
+                 cmd.ExecuteNonQuery();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             //delete success or failure
+             return Int16.Parse(outParameter.Value.ToString());
+         }
+        #endregion revive product
+
+         #region GetSortReults
+         public DataSet GetSortReults()
+         {
+
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetSortReults]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                 cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                 sda = new SqlDataAdapter();
+                 sda.SelectCommand = cmd;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+             }
+
+
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             return ds;
+         }
+         #endregion GetSortReults
+
+         #region GetReviveSortReults
+         public DataSet GetReviveSortReults()
+         {
+
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetReviveSortReults]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                 cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                 sda = new SqlDataAdapter();
+                 sda.SelectCommand = cmd;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+             }
+
+
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             return ds;
+         }
+         #endregion GetReviveSortReults
+
+         #region GetTrendsSortReults
+         public DataSet GetTrendsSortReults()
+         {
+
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetTrendsSortReults]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                 cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                 sda = new SqlDataAdapter();
+                 sda.SelectCommand = cmd;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+             }
+
+
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             return ds;
+         }
+         #endregion GetTrendsSortReults
+
+         #region GetOutOfStockSortReults
+         public DataSet GetOutOfStockSortReults()
+         {
+
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetOutOfStockSortReults]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                 cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                 sda = new SqlDataAdapter();
+                 sda.SelectCommand = cmd;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+             }
+
+
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             return ds;
+         }
+         #endregion GetOutOfStockSortReults
+
+         #region GetCategorySortReults
+         public DataSet GetCategorySortReults()
+         {
+
+             if (BoutiqueID == "")
+             {
+                 throw new Exception("BoutiqueID is Empty!!");
+             }
+
+             dbConnection dcon = null;
+             SqlCommand cmd = null;
+             DataSet ds = null;
+             SqlDataAdapter sda = null;
+
+             try
+             {
+                 dcon = new dbConnection();
+                 dcon.GetDBConnection();
+                 cmd = new SqlCommand();
+                 cmd.Connection = dcon.SQLCon;
+                 cmd.CommandType = CommandType.StoredProcedure;
+                 cmd.CommandText = "[GetCategoryBasedSortReults]";
+                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                 cmd.Parameters.Add("@text", SqlDbType.NVarChar, 50).Value = SearchText;
+                 cmd.Parameters.Add("@Paginationvalue", SqlDbType.BigInt).Value = Paginationvalue;
+                 sda = new SqlDataAdapter();
+                 sda.SelectCommand = cmd;
+                 ds = new DataSet();
+                 sda.Fill(ds);
+             }
+
+
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+
+             finally
+             {
+                 if (dcon.SQLCon != null)
+                 {
+                     dcon.DisconectDB();
+                 }
+             }
+             return ds;
+         }
+        #endregion GetCategorySortReults
     }
 }

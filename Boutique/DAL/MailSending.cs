@@ -94,8 +94,16 @@ namespace Boutique.DAL
             get;
             set;
         }
-
-
+        public string BoutiqueID
+        {
+            get;
+            set;
+        }
+        public string Boutique
+        {
+            get;
+            set;
+        }
         #endregion Global Variables
 
         #region Public Variables
@@ -210,15 +218,16 @@ namespace Boutique.DAL
 
         #endregion Format And Send Email
 
-        public void PopulateBody()
+        public int PopulateBody()
         {
             NewsLetters newsObj = new NewsLetters();
-            string imageUrl = "http://www.tiquesinn.com/NewsLetterImages/";
-            string Url = "";
+            string imageUrl = "http://tiquesinn.com/NewsLetterImages/";
+            string Url, logourl = "";
             newsObj.NewsLetterID = mailNewsLetterID;
+            newsObj.BoutiqueID = BoutiqueID;
             newsObj.GetAllNewsLetterDetails();
             Url = newsObj.templateFile;
-
+            recepientEmail = newsObj.audienceMailIDs;
           //  int imageCount = Convert.ToInt32(8);
             string body = string.Empty;
             using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
@@ -227,11 +236,22 @@ namespace Boutique.DAL
             }
             //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
             //body = fileName;
-            body = body.Replace("{UserName}", "user");
+            body = body.Replace("{UserName}", " ");
             body = body.Replace("{Title}", "Your Todays Deal.....");
             body = body.Replace("{Url}", "url");
             body = body.Replace("{Description}", newsObj.Description);
             body = body.Replace("{Mainimage}", "MainimageUrl");
+            if (body.Contains("{ImgBirthday}"))
+            {
+                body = body.Replace("{ImgBirthday}", "http://tiquesinn.com/img/Templates/BirthdayImage.jpg");
+            }
+            if (body.Contains("imgLogo"))
+            {
+                logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
+                string logo = "http://tiquesinn.com/" + logourl.Replace("../", ""); ;
+                body = body.Replace("{imgLogo}", logo);
+                body = body.Replace("{BoutiqueName}", Boutique);
+            }
             char[] c = new char[] { ' ', ',' };
             string[] image = newsObj.ImageIDs[0].Split(c);
             for (int i = 0; i <= newsObj.imageCount - 1; i++)
@@ -241,6 +261,7 @@ namespace Boutique.DAL
             emailBody = body;
             SendEmail();
             newsObj.UpdateNewsLetterIsmailSend();
+            return 2;
         }
 
         public void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)

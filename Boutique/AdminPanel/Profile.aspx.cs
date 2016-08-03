@@ -42,15 +42,16 @@ namespace Boutique.AdminPanel
             boutiqueObj.BoutiqueID = UA.BoutiqueID;
 
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer(); 
-            if (boutiqueObj.BoutiqueID == null)
+            if (boutiqueObj.BoutiqueID!=null)
             {
-               // status = boutiqueobj.NewBoutique().ToString();
+              
+                boutiqueObj.UpdatedBy = UA.userName;
+                boutiqueObj.status = boutiqueObj.EditBoutique().ToString();
             }
             else
             {
-
-                boutiqueObj.UpdatedBy = UA.userName;
-              boutiqueObj.status = boutiqueObj.EditBoutique().ToString();
+                // status = boutiqueobj.NewBoutique().ToString();
+             
             }
 
 
@@ -277,7 +278,6 @@ namespace Boutique.AdminPanel
         }
         #endregion GetAllOwners
 
-
         #region Role
 
         [System.Web.Services.WebMethod]
@@ -302,5 +302,143 @@ namespace Boutique.AdminPanel
 
 
         #endregion 
+
+        //---------- * Banners *------------//
+
+        #region Get All Banner Images
+
+        [System.Web.Services.WebMethod]
+        public static string GetAllBannerImages(Boutiques boutiqueObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                boutiqueObj.BoutiqueID = UA.BoutiqueID;
+
+                //boutiqueObj.BoutiqueID = "E4CE4213-B1DC-443F-8576-4778F35E7383";
+
+
+                DataSet ds = null;
+                ds = boutiqueObj.GetBannerImages();
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion GetAllBannerImages
+
+        #region Update OrderNo
+        [System.Web.Services.WebMethod]
+        public static string UpdateorderNo(Boutiques boutiqueObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        boutiqueObj.BoutiqueID = UA.BoutiqueID;
+                        boutiqueObj.UpdatedBy = UA.userName;
+                        //returns status and productid
+                        boutiqueObj.status = boutiqueObj.UpdateorderNo().ToString();
+
+                    }
+                }
+               
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return jsSerializer.Serialize(boutiqueObj);
+         }
+        #endregion UpdateorderNo
+
+        #region Update Banner Details By ImageID
+        [System.Web.Services.WebMethod]
+        public static string UpdateBannerDetailsByImgID(Boutiques boutiqueObj)
+        {
+        
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        boutiqueObj.BoutiqueID = UA.BoutiqueID;
+                        boutiqueObj.UpdatedBy = UA.userName;
+                        //returns status and productid
+                        boutiqueObj.status = boutiqueObj.UpdateBannerDetailsByImgID().ToString();
+                    }
+                }
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return jsSerializer.Serialize(boutiqueObj);
+         }
+        #endregion Update Banner Details By ImageID
+
+        #region Delete Banner
+        [System.Web.Services.WebMethod]
+        public static string DeleteBannerByImageID(Boutiques boutiqueObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            boutiqueObj.BoutiqueID = UA.BoutiqueID;
+
+            string status = null;
+            try
+            {
+
+                status = boutiqueObj.DeleteBannerByImageID().ToString();
+
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+
+        #endregion Delete Banner
+
     }
 }
