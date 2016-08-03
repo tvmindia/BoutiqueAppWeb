@@ -34,14 +34,15 @@ function GetReviews()
     return table;
 }
 function BindNotification() {
-    $('#NotifyArea').find('li').remove();
-    var Reviews = {};
-    ReviewsCount = GetReviews();
-    Reviews = GetReviewCountforBubble();
 
+    var Reviews = {};
+    Reviews = GetReviews();
+    var i = 0;
     $.each(Reviews, function (index, Records) {
-        MultiReviewBind(Records, index, ReviewsCount[index].RDate);
-     })
+
+        MultiReviewBind(Records, i);
+        i = i + 1;
+    })
     return false;
 
 }
@@ -63,7 +64,7 @@ function MultiReviewBind(Records, i,Date) {
     var li = document.createElement("li");
     var ali = document.createElement("a");
     ali.setAttribute("href", "../AdminPanel/ProductReview.aspx")
-    li.setAttribute("id", Records.Name);
+    li.setAttribute("id", Records.ReviewID);
     //li.setAttribute("onclick", "ShowDetail(\"" + Records.ReviewID + "\")")
     var Spanform = document.createElement('span');
     Spanform.className = "icon-comment-alt";
@@ -73,7 +74,7 @@ function MultiReviewBind(Records, i,Date) {
     Spanform.appendChild(ic);
     var SpanMsg = document.createElement('span');
     SpanMsg.className = "message";   
-    SpanMsg.innerHTML = +Records.counts+'Comment for ' + Records.Name ;
+    SpanMsg.innerHTML = 'Comment for ' + Records.Product_Nam ;
     var Spantime = document.createElement('span');
     Spantime.className = "time";
     Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Date);
