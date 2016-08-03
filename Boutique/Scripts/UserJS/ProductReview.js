@@ -5,11 +5,31 @@
 });//end of document.ready
 
 
+//---getting data as json-----//
+function getJsonData(data, page) {
+    var jsonResult = {};
+    // $("#loadingimage").show();
+    var req = $.ajax({
+        type: "post",
+        url: page,
+        data: data,
+        delay: 3,
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
 
+    }).done(function (data) {
+
+        //     $("#loadingimage").hide();
+        jsonResult = data;
+    });
+    return jsonResult;
+}
+//---end of getting data as json -----//
 
 
 function getboutiqueID() {
-  
+    debugger;
     var table = {};
     var boutique = new Object();
     table = GetBoutique_id(boutique);
@@ -17,7 +37,7 @@ function getboutiqueID() {
 }
 
 function GetBoutique_id(boutique) {
-   
+    debugger;
 
     var ds = {};
     var table = {};
@@ -28,37 +48,26 @@ function GetBoutique_id(boutique) {
 }
 
 function BindReview() {
-    debugger;
+  
     var Reviews = {};
     Reviews = GetAllReviews();
-    if (Reviews == "1") {
-        $('#rowfluidDiv').show();
-        $('.alert-info').text(Messages.ProductReviewEmpty).show();
-    }
-    else {
-        var i = 0;
-        $.each(Reviews, function (index, Records) {
-
-            MultiImageBind(Records, i);
-            i = i + 1;
-        })
-    }
+    var i = 0;
+    $.each(Reviews, function (index, Records) {
+       
+        MultiImageBind(Records, i);
+        i = i + 1;
+    })
     return false;
     
 }
 function GetAllReviews() {
+   
     var ds = {};
     var table = {};
     var data = {};
     ds = getJsonData(data, "../AdminPanel/ProductReview.aspx/GetReviewDetails");
     table = JSON.parse(ds.d);
-    if (table.length > 0) {
-        return table;
-    }
-    else
-    {
-        return "1";
-    }
+    return table;
 }
 
 function MultiImageBind(Records, i) {
@@ -113,7 +122,7 @@ function ConvertJsonToDate(jsonDate) {
 }
 function ShowDetail(ReviewID)
 {
-  
+    debugger;
     var Reviewdivholder = $('#ReviewDetails');
     var ReviewDetailed = {};
     var Product = new Object();
@@ -134,7 +143,7 @@ function ShowDetail(ReviewID)
                             +'<div style="height:10%;"></div>'
                             +'</div><div class="replyForm" style="padding-top:10px;">'
 							+'<fieldset>'
-     						+ '<div class="actions"><a class="btn btn-danger" onclick="ReviewClick(1)">REJECT</a>\t<a class="btn btn-success" onclick="ReviewClick(2)">APPROVE</a>'
+     						+ '<div class="actions"><button type="submit" class="btn btn-danger" onclick="ReviewClick(1)">REJECT</button>\t<button type="submit" class="btn btn-success" onclick="ReviewClick(2)">APPROVE</button>'
 							+ '</div></fieldset></div></div></div></div>');
     Reviewdivholder.append(html);
     }
@@ -151,7 +160,7 @@ function GetDetails(Product)
 }
 function ReviewClick(Count)
 {
-  
+    debugger;
     var Result;
     var ReviewID = document.getElementById('HdnReviewID').value;
     if (Count == '1')
@@ -161,9 +170,8 @@ function ReviewClick(Count)
         var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
         getJsonData(data, "../AdminPanel/ProductReview.aspx/UpdateReviewCancelled");
         var Reviewdivholder = $('#' + ReviewID);
-      
+        Reviewdivholder.remove();
         $("#ReviewDetails").find("#previewReviewDet").remove();
-        $("#ReviewPreview").find('#' + ReviewID).remove();
     }
     else if(Count=='2')
     {
@@ -172,12 +180,10 @@ function ReviewClick(Count)
         var data = "{'ProductObj':" + JSON.stringify(Product) + "}";
         getJsonData(data, "../AdminPanel/ProductReview.aspx/UpdateReviewModatate");
         var Reviewdivholder = $('#' + ReviewID);
-     
+        Reviewdivholder.remove();
         $("#ReviewDetails").find("#previewReviewDet").remove();
-        $("#ReviewPreview").find('#' + ReviewID).remove();
       
     }
-    BindNotification();
     
 }
 

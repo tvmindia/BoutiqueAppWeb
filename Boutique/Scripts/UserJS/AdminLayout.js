@@ -34,28 +34,20 @@ function GetReviews()
     return table;
 }
 function BindNotification() {
-    $('#NotifyArea').find('li').remove();
-    var Reviews = {};
-    ReviewsCount = GetReviews();
-    Reviews = GetReviewCountforBubble();
 
+    var Reviews = {};
+    Reviews = GetReviews();
+    var i = 0;
     $.each(Reviews, function (index, Records) {
-        MultiReviewBind(Records, index, ReviewsCount[index].RDate);
-     })
+
+        MultiReviewBind(Records, i);
+        i = i + 1;
+    })
     return false;
 
 }
-function GetReviewCountforBubble() {
 
-    var ds = {};
-    var table = {};
-    var data = {};
-    ds = getJsonData(data, "../AdminPanel/ProductReview.aspx/GetReviewCountforBubble");
-    table = JSON.parse(ds.d);
-    return table;
-}
-
-function MultiReviewBind(Records, i,Date) {
+function MultiReviewBind(Records, i) {
     
     var spancount = document.getElementById("countspan");
     spancount.innerHTML = i+1;  
@@ -63,7 +55,7 @@ function MultiReviewBind(Records, i,Date) {
     var li = document.createElement("li");
     var ali = document.createElement("a");
     ali.setAttribute("href", "../AdminPanel/ProductReview.aspx")
-    li.setAttribute("id", Records.Name);
+    li.setAttribute("id", Records.ReviewID);
     //li.setAttribute("onclick", "ShowDetail(\"" + Records.ReviewID + "\")")
     var Spanform = document.createElement('span');
     Spanform.className = "icon-comment-alt";
@@ -73,10 +65,10 @@ function MultiReviewBind(Records, i,Date) {
     Spanform.appendChild(ic);
     var SpanMsg = document.createElement('span');
     SpanMsg.className = "message";   
-    SpanMsg.innerHTML = +Records.counts+'Comment for ' + Records.Name ;
+    SpanMsg.innerHTML = 'Comment for ' + Records.Product_Nam ;
     var Spantime = document.createElement('span');
     Spantime.className = "time";
-    Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Date);
+    Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Records.RDate);
     ali.appendChild(Spanform);
     ali.appendChild(SpanMsg);
     ali.appendChild(Spantime);
