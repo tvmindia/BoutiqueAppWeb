@@ -36,7 +36,7 @@
 <script src="../Scripts/jquery.sparkline.min.js"></script>
 <script src="../Scripts/counter.js"></script>
 <%--<script src="../Scripts/retina.js"></script>--%>
-<script src="../Scripts/custom.js"></script>
+<%--<script src="../Scripts/custom.js"></script>--%>
 <script src="../Scripts/UserJS/AdminLayout.js"></script>
     <%-- first test till above --%>
 

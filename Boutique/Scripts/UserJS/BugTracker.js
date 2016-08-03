@@ -13,12 +13,14 @@
     //        $(this).addClass('selected');
     //    }
     //});
-
+  
     var $errorTable= $('#tblData').DataTable({
        
 
         "processing": true,
         "serverSide": true,
+      
+	    
         "ajax": {
             
             type: "POST",
@@ -26,28 +28,16 @@
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             data: function (d) {
-
-               
                return "{'TObj':" + JSON.stringify(d) + "}";
             },
             
             dataSrc: function (jsn) {
-               
-              
-                jsn = JSON.parse(jsn.d);
-                debugger;
-                return jsn.data;
+            debugger;
+            jsn = JSON.parse(jsn.d);
+          //  alert(jsn.data);
+            return jsn.data;
             }
-          
-          
-           
-            //dataSrc: function (data) {
-            //    debugger;
-            //    var jsn = jQuery.parseJSON(data.d);
-             
-            //    return jsn;
-            //}
-           
+  
         },
         //"columns": [
         //{ "data": "ErrorID" },
@@ -62,7 +52,7 @@
             { targets: [0], visible: false },
             { "targets": -1, "data": null, "defaultContent": "<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>" }
          
-        ],
+        ]
        
         
  

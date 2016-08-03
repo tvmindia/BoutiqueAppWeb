@@ -4082,13 +4082,13 @@
 	 */
 	function _fnAjaxUpdateDraw ( settings, json )
 	{
-	    debugger;
+	   
 		// v1.10 uses camelCase variables, while 1.9 uses Hungarian notation.
 		// Support both
 		var compat = function ( old, modern ) {
 			return json[old] !== undefined ? json[old] : json[modern];
 		};
-	
+		debugger;
 		var data = _fnAjaxDataSrc( settings, json );
 		var draw            = compat( 'sEcho',                'draw' );
 		var recordsTotal    = compat( 'iTotalRecords',        'recordsTotal' );
