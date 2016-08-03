@@ -418,6 +418,7 @@
     <Content Include="CSS\DataTables-1.10.4\css\dataTables.jqueryui.scss" />
     <Content Include="CSS\DataTables-1.10.4\css\dataTables.responsive.scss" />
     <Content Include="WebServices\WSForJqueryDataTable.asmx" />
+    <Content Include="Website\tiqSite.aspx" />
     <None Include="Properties\PublishProfiles\Albert.pubxml" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Properties\PublishProfiles\web publish.pubxml" />
@@ -655,12 +656,22 @@
       <DependentUpon>WSForJqueryDataTable.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Website\tiqSite.aspx.cs">
+      <DependentUpon>tiqSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Website\tiqSite.aspx.designer.cs">
+      <DependentUpon>tiqSite.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Media\GraphPic\" />
     <Folder Include="Media\NewsLetter\" />
     <Folder Include="Models\" />
+    <Folder Include="Website\css\" />
+    <Folder Include="Website\images\" />
+    <Folder Include="Website\script\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="MSHTML">
