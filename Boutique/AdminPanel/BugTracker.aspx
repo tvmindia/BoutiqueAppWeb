@@ -65,7 +65,7 @@
 		
 			</div>
 
-            <div class="row-fluid">
+            <div class="row-fluid" id="rowfluidDetails">
                 	<div class="box span12">
 					<div class="box-header" data-original-title>
 						<h2>Details</h2>
@@ -104,7 +104,7 @@
                                                 </div>
                                                 <div class="control-group">
 
-                                                    <label class="control-label" for="focusedInput">Error Date</label>
+                                                    <label class="control-label" for="focusedInput">Date & Time</label>
                                                     <div class="controls">
                                                       
                                                              <label class="control-label" id="txtErrorDate" />
@@ -202,10 +202,11 @@
    <%--  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--%>
     <%-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />--%>
 
-      <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+    <script src="../Scripts/jquery-1.12.3.js"></script>
 
     <link href="../CSS/DataTables-1.10.4/css/jquery.dataTables.css" rel="stylesheet" />
-    <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>
+    <script src="../Scripts/jquery.dataTables-1.10.12.js"></script>
+   <%-- <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>--%>
    
     <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/CustomCSS/BugTracker.css" rel="stylesheet" />

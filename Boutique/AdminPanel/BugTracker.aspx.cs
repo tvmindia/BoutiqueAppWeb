@@ -49,7 +49,7 @@ namespace Boutique.AdminPanel
                         childRow = new Dictionary<string, object>();
                         foreach (DataColumn col in ds.Tables[0].Columns)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow.Add(col.ColumnName, row[col].ToString());
                         }
                         parentRow.Add(childRow);
                     }

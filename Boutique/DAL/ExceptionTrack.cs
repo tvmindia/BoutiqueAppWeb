@@ -106,27 +106,29 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public int ROWNUMBER
+        {
+            get;
+            set;
+        }
+        public int TotalCount
+        {
+            get;
+            set;
+        }
+        public int StartIndex
+        {
+            get;
+            set;
+        }
+        public int EndIndex
+        {
+            get;
+            set;
+        }
         #endregion properties
 
-        #region JqueryDataTable properties
-
-        public int draw
-        {
-            get;
-            set;
-        }
-        public int recordsTotal
-        {
-            get;
-            set;
-        }
-        public int recordsFiltered
-        {
-            get;
-            set;
-        }
-   
-        #endregion JqueryDataTable properties
+      
         #region Methods
         #region InsertErrorDetails
         public Int16 InsertErrorDetails()
@@ -254,10 +256,15 @@ namespace Boutique.DAL
                     cmd.Connection = dcon.SQLCon;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "[GetAllErrorDetails]";
+                    cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = StartIndex;
+                    cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = EndIndex;
+                    SqlParameter outparmeter= cmd.Parameters.Add("@OutTotalCount", SqlDbType.BigInt);
+                    outparmeter.Direction = ParameterDirection.Output;
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
                     sda.Fill(ds);
+                    TotalCount= int.Parse(outparmeter.Value.ToString());
                 
             }
 

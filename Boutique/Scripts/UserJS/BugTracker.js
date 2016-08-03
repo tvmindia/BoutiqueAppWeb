@@ -4,82 +4,119 @@
         cache: false
     });
 
-    //$('#example').DataTable({
+    //$('#tblData tbody').on('click', 'tr', function () {
+    //    if ($(this).hasClass('selected')) {
+    //        $(this).removeClass('selected');
+    //    }
+    //    else {
+    //        table.$('tr.selected').removeClass('selected');
+    //        $(this).addClass('selected');
+    //    }
+    //});
 
+    var $errorTable= $('#tblData').DataTable({
        
-    //    "processing": true,
-    //    "serverSide": true,
-    //    "ajax": {
+
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
             
-    //        "type": "POST",
-    //        "url": "../AdminPanel/BugTracker.aspx/GetAllErrorDetails",
-    //        "dataType": 'json',
-    //        "contentType": "application/json; charset=utf-8",
-    //        "data": function (data) {
-    //            debugger;
-    //            return data = JSON.stringify(data);
-    //        }
-    //     },
-    //     "columns": [
-    //      { "data": "BoutiqueName" },
-    //      { "data": "UserName" },
-    //      { "data": "Module" },
-    //      { "data": "Method" },
-    //      { "data": "Source" },
-    //      { "data": "Version" }
-    //    ]
+            type: "POST",
+            url: "../WebServices/WSForJqueryDataTable.asmx/GetAllTableData",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: function (d) {
+
+               
+               return "{'TObj':" + JSON.stringify(d) + "}";
+            },
+            
+            dataSrc: function (jsn) {
+               
+              
+                jsn = JSON.parse(jsn.d);
+                debugger;
+                return jsn.data;
+            }
+          
+          
+           
+            //dataSrc: function (data) {
+            //    debugger;
+            //    var jsn = jQuery.parseJSON(data.d);
+             
+            //    return jsn;
+            //}
+           
+        },
+        //"columns": [
+        //{ "data": "ErrorID" },
+        //{ "data": "BoutiqueName" },
+        //{ "data": "UserName" },
+        //{ "data": "Module" },
+        //{ "data": "Method" },
+        //{ "data": "ErrorSource" },
+        //{ "data": "Version" }
+        //]
+        "columnDefs": [
+            { targets: [0], visible: false },
+            { "targets": -1, "data": null, "defaultContent": "<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>" }
+         
+        ],
+       
+        
  
-    //});//end of datatable
+    });//end of datatable
 
     
 
 
 
 
-    var $errorTable = $('#tblData').DataTable({
-        "aoColumnDefs": [
-                        { "bSearchable": false, "bVisible": false, "aTargets": [0] },
-                        { "targets": -1, "data": null, "defaultContent": "<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>" }
+    //var $errorTable = $('#tblData').DataTable({
+    //    "aoColumnDefs": [
+    //                    { "bSearchable": false, "bVisible": false, "aTargets": [0] },
+    //                    { "targets": -1, "data": null, "defaultContent": "<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>" }
 
-        ],
-        "filter": false,
-        "pagingType": "simple_numbers",
-        "orderClasses": false,
-        "order": [[0, "asc"]],
-        "info": false,
-        "scrollY": "450px",
-        "scrollCollapse": true,
-        "bProcessing": true,
-        "bServerSide": true,
-        "sAjaxSource": "../WebServices/WSForJqueryDataTable.asmx/GetTableData",
-        "fnServerData": function (sSource, aoData, fnCallback) {
-            aoData.push({ "name": "roleId", "value": "admin" });
-            $.ajax({
-                "dataType": 'json',
-                "contentType": "application/json; charset=utf-8",
-                "type": "GET",
-                "url": sSource,
-                "data": aoData,
-                "success": function (msg) {
-                    var json = jQuery.parseJSON(msg.d);
-                    fnCallback(json);
-                    $("#tblData").show();
-                },
-                "error": function (xhr, textStatus, error) {
-                    if (typeof console == "object") {
-                        console.log(xhr.status + "," + xhr.responseText + "," + textStatus + "," + error);
-                    }
-                }
-            });
-        },
-        "fnDrawCallback": function () {
-           // $('.Exceptionedit').bind("click", BindBugDetailsByErrorID);
-            // $('.Exceptionedit').bind("click", function () {
-            //$("#tblData tbody tr").click(function () {
+    //    ],
+    //    "filter": false,
+    //    "pagingType": "simple_numbers",
+    //    "orderClasses": false,
+    //    "order": [[0, "asc"]],
+    //    "info": false,
+    //    "scrollY": "450px",
+    //    "scrollCollapse": true,
+    //    "bProcessing": true,
+    //    "bServerSide": true,
+    //    "sAjaxSource": "../WebServices/WSForJqueryDataTable.asmx/GetTableData",
+    //    "fnServerData": function (sSource, aoData, fnCallback) {
+    //        aoData.push({ "name": "roleId", "value": "admin" });
+    //        $.ajax({
+    //            "dataType": 'json',
+    //            "contentType": "application/json; charset=utf-8",
+    //            "type": "GET",
+    //            "url": sSource,
+    //            "data": aoData,
+    //            "success": function (msg) {
+    //                var json = jQuery.parseJSON(msg.d);
+    //                fnCallback(json);
+    //                $("#tblData").show();
+    //            },
+    //            "error": function (xhr, textStatus, error) {
+    //                if (typeof console == "object") {
+    //                    console.log(xhr.status + "," + xhr.responseText + "," + textStatus + "," + error);
+    //                }
+    //            }
+    //        });
+    //    },
+    //    "fnDrawCallback": function () {
+    //       // $('.Exceptionedit').bind("click", BindBugDetailsByErrorID);
+    //        // $('.Exceptionedit').bind("click", function () {
+    //        //$("#tblData tbody tr").click(function () {
 
-            //});
-        }
-    });
+    //        //});
+    //    }
+    //});
   
    // row click
     //$("#tblData").on("click", 'tbody td', function () {
@@ -95,12 +132,13 @@
 
   
     $('#tblData tbody').on('click', 'a', function () {
+        debugger;
         var data = $errorTable.row($(this).parents('tr')).data();
-      //  alert(data[0] + "'s salary is: " + data[5]);
         var ExceptionTrack = new Object();
         ExceptionTrack.ErrorID = data[0];//hidden ErrorID
         $("#hdfErrorID").val(ExceptionTrack.ErrorID);
         var jsonResult = GetErrorDetailByErrorID(ExceptionTrack);
+        ScrollToBottom();
         BindTextBoxes(jsonResult);
         HideAlertBox();
         return false;
@@ -129,6 +167,7 @@
 
 
 });//end of document.ready
+
 
 
 function GetErrorDetailByErrorID(ExceptionTrack) {
@@ -168,6 +207,7 @@ function BindTextBoxes(Records)
         }
         $("#txtVersion").text(Records.Version);
     })
+   
 }
 
 function UpdateErrorDetails(ExceptionTrack)
@@ -177,6 +217,17 @@ function UpdateErrorDetails(ExceptionTrack)
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
+}
+
+function ScrollToBottom()
+{
+    var offset = $('#rowfluidDetails').offset();
+    offset.left -= 20;
+    offset.top -= 20;
+    $('html, body').animate({
+        scrollTop: offset.top,
+        scrollLeft: offset.left
+    });
 }
 
 
