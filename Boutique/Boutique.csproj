@@ -418,6 +418,16 @@
     <Content Include="CSS\DataTables-1.10.4\css\dataTables.jqueryui.scss" />
     <Content Include="CSS\DataTables-1.10.4\css\dataTables.responsive.scss" />
     <Content Include="WebServices\WSForJqueryDataTable.asmx" />
+    <Content Include="Website\css\css.css" />
+    <Content Include="Website\css\desktop.css" />
+    <Content Include="Website\css\player.css" />
+    <Content Include="Website\css\screen.css" />
+    <Content Include="Website\images\Demo.GIF" />
+    <Content Include="Website\script\cloudflare.min.js" />
+    <Content Include="Website\script\ga.js" />
+    <Content Include="Website\script\player.js" />
+    <Content Include="Website\script\rocket.js" />
+    <Content Include="Website\script\vuid.min.js" />
     <Content Include="Website\tiqSite.aspx" />
     <None Include="Properties\PublishProfiles\Albert.pubxml" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
@@ -669,9 +679,6 @@
     <Folder Include="Media\GraphPic\" />
     <Folder Include="Media\NewsLetter\" />
     <Folder Include="Models\" />
-    <Folder Include="Website\css\" />
-    <Folder Include="Website\images\" />
-    <Folder Include="Website\script\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="MSHTML">
