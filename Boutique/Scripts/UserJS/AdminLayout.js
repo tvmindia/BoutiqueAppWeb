@@ -33,7 +33,19 @@ function GetReviews()
     table = JSON.parse(ds.d);
     return table;
 }
-function GetReviewsCountforbubble() {
+function BindNotification() {
+    $('#NotifyArea').find('li').remove();
+    var Reviews = {};
+    ReviewsCount = GetReviews();
+    Reviews = GetReviewCountforBubble();
+
+    $.each(Reviews, function (index, Records) {
+        MultiReviewBind(Records, index, ReviewsCount[index].RDate);
+     })
+    return false;
+
+}
+function GetReviewCountforBubble() {
 
     var ds = {};
     var table = {};
@@ -41,21 +53,6 @@ function GetReviewsCountforbubble() {
     ds = getJsonData(data, "../AdminPanel/ProductReview.aspx/GetReviewCountforBubble");
     table = JSON.parse(ds.d);
     return table;
-}
-function BindNotification() {
-    debugger;
-    $('#NotifyArea').find('li').remove();
-    var Reviews = {};
-    ReviewsCount = GetReviews();
-    Reviews=GetReviewsCountforbubble();
-    var i = 0;
-    $.each(Reviews, function (index, Records) {
-
-        MultiReviewBind(Records, i, ReviewsCount[i].RDate);
-        i = i + 1;
-    })
-    return false;
-
 }
 
 function MultiReviewBind(Records, i,Date) {
@@ -65,9 +62,8 @@ function MultiReviewBind(Records, i,Date) {
     var ul = document.getElementById("NotifyArea");
     var li = document.createElement("li");
     var ali = document.createElement("a");
-     ali.setAttribute("href", "../AdminPanel/ProductReview.aspx")
-     li.setAttribute("id", Records.Name);
-     li.setAttribute("class", "Nofification");
+    ali.setAttribute("href", "../AdminPanel/ProductReview.aspx")
+    li.setAttribute("id", Records.Name);
     //li.setAttribute("onclick", "ShowDetail(\"" + Records.ReviewID + "\")")
     var Spanform = document.createElement('span');
     Spanform.className = "icon-comment-alt";
@@ -77,8 +73,7 @@ function MultiReviewBind(Records, i,Date) {
     Spanform.appendChild(ic);
     var SpanMsg = document.createElement('span');
     SpanMsg.className = "message";   
-    SpanMsg.innerHTML = +Records.counts + 'Comment for ' + Records.Name;
-    SpanMsg.setAttribute = ("style", "overflow:hidden!important;width:50px!important;text-overflow: ellipsis!important;");
+    SpanMsg.innerHTML = +Records.counts+'Comment for ' + Records.Name ;
     var Spantime = document.createElement('span');
     Spantime.className = "time";
     Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Date);
