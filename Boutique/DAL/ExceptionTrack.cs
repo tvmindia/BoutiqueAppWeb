@@ -126,6 +126,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public string SearchText
+        {
+            get;
+            set;
+        }
         #endregion properties
 
       
@@ -258,6 +264,7 @@ namespace Boutique.DAL
                     cmd.CommandText = "[GetAllErrorDetails]";
                     cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = StartIndex;
                     cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = EndIndex;
+                    cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, -1).Value = SearchText;
                     SqlParameter outparmeter= cmd.Parameters.Add("@OutTotalCount", SqlDbType.BigInt);
                     outparmeter.Direction = ParameterDirection.Output;
                     sda = new SqlDataAdapter();

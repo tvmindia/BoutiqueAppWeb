@@ -1,4 +1,5 @@
 ﻿using Boutique.DAL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -126,7 +127,9 @@ namespace Boutique.WebServices
                 hasMoreRecords = false;
             }
             sb.Append("]}");
+           
             return sb.ToString();
+           
         }
 
         private static IEnumerable<ExceptionTrack> GetRecordsFromDatabaseWithFilter(JQDataTableModel TObj)
@@ -146,6 +149,7 @@ namespace Boutique.WebServices
                 DataSet ds = null;
                 ETObj.StartIndex = TObj.Start;
                 ETObj.EndIndex =TObj.Start + TObj.Length;
+                ETObj.SearchText = TObj.Search.Value;
                // ETObj.EndIndex = TObj.Length;
                 ds = ETObj.GetAllErrorDetails();
 
