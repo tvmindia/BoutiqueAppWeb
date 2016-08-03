@@ -33,29 +33,41 @@ function GetReviews()
     table = JSON.parse(ds.d);
     return table;
 }
-function BindNotification() {
+function GetReviewsCountforbubble() {
 
+    var ds = {};
+    var table = {};
+    var data = {};
+    ds = getJsonData(data, "../AdminPanel/ProductReview.aspx/GetReviewCountforBubble");
+    table = JSON.parse(ds.d);
+    return table;
+}
+function BindNotification() {
+    debugger;
+    $('#NotifyArea').find('li').remove();
     var Reviews = {};
-    Reviews = GetReviews();
+    ReviewsCount = GetReviews();
+    Reviews=GetReviewsCountforbubble();
     var i = 0;
     $.each(Reviews, function (index, Records) {
 
-        MultiReviewBind(Records, i);
+        MultiReviewBind(Records, i, ReviewsCount[i].RDate);
         i = i + 1;
     })
     return false;
 
 }
 
-function MultiReviewBind(Records, i) {
+function MultiReviewBind(Records, i,Date) {
     
     var spancount = document.getElementById("countspan");
     spancount.innerHTML = i+1;  
     var ul = document.getElementById("NotifyArea");
     var li = document.createElement("li");
     var ali = document.createElement("a");
-    ali.setAttribute("href", "../AdminPanel/ProductReview.aspx")
-    li.setAttribute("id", Records.ReviewID);
+     ali.setAttribute("href", "../AdminPanel/ProductReview.aspx")
+     li.setAttribute("id", Records.Name);
+     li.setAttribute("class", "Nofification");
     //li.setAttribute("onclick", "ShowDetail(\"" + Records.ReviewID + "\")")
     var Spanform = document.createElement('span');
     Spanform.className = "icon-comment-alt";
@@ -65,10 +77,11 @@ function MultiReviewBind(Records, i) {
     Spanform.appendChild(ic);
     var SpanMsg = document.createElement('span');
     SpanMsg.className = "message";   
-    SpanMsg.innerHTML = 'Comment for ' + Records.Product_Nam ;
+    SpanMsg.innerHTML = +Records.counts + 'Comment for ' + Records.Name;
+    SpanMsg.setAttribute = ("style", "overflow:hidden!important;width:50px!important;text-overflow: ellipsis!important;");
     var Spantime = document.createElement('span');
     Spantime.className = "time";
-    Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Records.RDate);
+    Spantime.innerHTML = "\t &nbsp;&nbsp;&nbsp;" + ConvertJsonToDat(Date);
     ali.appendChild(Spanform);
     ali.appendChild(SpanMsg);
     ali.appendChild(Spantime);

@@ -143,29 +143,64 @@
     <Content Include="Home\Default.aspx" />
     <Content Include="Home\fonts\fontawesome-webfont.svg" />
     <Content Include="Home\getstarted.aspx" />
+    <Content Include="Home\Home.aspx" />
+    <Content Include="Home\Homecss\animate.css" />
+    <Content Include="Home\Homecss\icomoon.css" />
+    <Content Include="Home\Homecss\magnific-popup.css" />
+    <Content Include="Home\Homecss\owl.carousel.min.css" />
+    <Content Include="Home\Homecss\owl.theme.default.min.css" />
+    <Content Include="Home\Homecss\simple-line-icons.css" />
+    <Content Include="Home\Homecss\style.css" />
+    <Content Include="Home\Homejs\bootstrap.min.js" />
+    <Content Include="Home\Homejs\jquery.countTo.js" />
+    <Content Include="Home\Homejs\jquery.easing.1.3.js" />
+    <Content Include="Home\Homejs\jquery.magnific-popup.min.js" />
+    <Content Include="Home\Homejs\jquery.min.js" />
+    <Content Include="Home\Homejs\jquery.waypoints.min.js" />
+    <Content Include="Home\Homejs\main.js" />
+    <Content Include="Home\Homejs\modernizr-2.6.2.min.js" />
+    <Content Include="Home\Homejs\owl.carousel.min.js" />
+    <Content Include="Home\Homejs\respond.min.js" />
     <Content Include="Home\images\about.jpg" />
     <Content Include="Home\images\about1.jpg" />
     <Content Include="Home\images\Background.jpg" />
+    <Content Include="Home\images\bg_1.jpg" />
+    <Content Include="Home\images\bg_2.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg4.jpg" />
     <Content Include="Home\images\bokeh_car_lights_bg5.jpg" />
     <Content Include="Home\images\boutiquelaunch.jpg" />
+    <Content Include="Home\images\client_1.png" />
+    <Content Include="Home\images\client_2.png" />
+    <Content Include="Home\images\client_3.png" />
+    <Content Include="Home\images\client_4.png" />
+    <Content Include="Home\images\client_5.png" />
     <Content Include="Home\images\contact.jpg" />
     <Content Include="Home\images\dark_tint.png" />
     <Content Include="Home\images\Deleteicon1.png" />
     <Content Include="Home\images\engine.png" />
+    <Content Include="Home\images\hero_bg.jpg" />
     <Content Include="Home\images\iphone.png" />
+    <Content Include="Home\images\iphone_6_3.png" />
+    <Content Include="Home\images\iphone_blank_2.png" />
     <Content Include="Home\images\pic02.jpg" />
     <Content Include="Home\images\pic03.jpg" />
     <Content Include="Home\images\pic04.jpg" />
     <Content Include="Home\images\pic07.jpg" />
     <Content Include="Home\images\pic08.jpg" />
+    <Content Include="Home\images\product_1.jpg" />
+    <Content Include="Home\images\product_2.jpg" />
+    <Content Include="Home\images\product_3.jpg" />
+    <Content Include="Home\images\product_4.jpg" />
     <Content Include="Home\images\profile_placeholder.gif" />
     <Content Include="Home\images\samsung.jpg" />
     <Content Include="Home\images\social.jpg" />
     <Content Include="Home\images\testrimonials.jpg" />
     <Content Include="Home\images\testrimonials1.jpg" />
     <Content Include="Home\images\underconstruction.jpg" />
+    <Content Include="Home\images\user.jpg" />
+    <Content Include="Home\images\user_2.jpg" />
+    <Content Include="Home\images\user_3.jpg" />
     <Content Include="Home\images\why.jpg" />
     <Content Include="Home\images\why1.jpg" />
     <Content Include="Home\js\bootstrap.min.js" />
@@ -319,6 +354,7 @@
     <Content Include="Home\fonts\fontawesome-webfont.woff" />
     <Content Include="Home\fonts\FontAwesome.otf" />
     <Content Include="Home\fonts\trench.100.otf" />
+    <Content Include="Home\Homecss\style.css.map" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Properties\PublishProfiles\web publish.pubxml" />
     <None Include="Web.Debug.config">
@@ -520,6 +556,13 @@
     </Compile>
     <Compile Include="Home\getstarted.aspx.designer.cs">
       <DependentUpon>getstarted.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="ImageHandler\ImageServiceHandler.ashx.cs">
       <DependentUpon>ImageServiceHandler.ashx</DependentUpon>
