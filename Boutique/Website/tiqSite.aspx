@@ -11,7 +11,7 @@
     <link href="css/desktop.css" rel="stylesheet" />    
     <link href="css/css.css" rel="stylesheet" />
 </head>
-<body>
+<body style="background-color:#f1f1f1;">
     <svg style="display: none;" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
 
 <defs>
@@ -48,7 +48,7 @@
       
       <div>
         <label for="menuToggle" class="toggle" data-open="Menu" onclick=""></label>
-        <input type="checkbox" id="menuToggle">
+        <input type="checkbox" id="menuToggle"/>
           
         <ul id="menu">
                     <li class="home"><a class=" active" href="">Home</a></li>          
@@ -66,22 +66,22 @@
      
     </nav>
   
-    <a id="logo" href="">
+    <%--<a id="logo" href="">
       <svg class="globe" version="1.2" baseProfile="tiny" xmlns="" x="0" y="0" viewBox="0 0 270 235" xml:space="preserve">
         <use xlink:href="#globe"></use>
       </svg>
       <svg class="arrow" version="1.2" baseProfile="tiny" xmlns="" x="0" y="0" viewBox="0 0 270 235" xml:space="preserve" style="transform: rotate(-0deg);">
         <use xlink:href="#arrow"></use>
       </svg>
-    </a>
+    </a>--%>
     
-    <h1>
+    <%--<h1>
       <a href="">
-        World Backup Day — March 31st        <svg class="wordmark" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 6 219 199" xml:space="preserve">
+        tiquessinn<svg class="wordmark" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 6 219 199" xml:space="preserve">
           <use xlink:href="#wordmark"></use>
         </svg>
       </a>
-    </h1>
+    </h1>--%>
       
     
   </div>
@@ -93,7 +93,7 @@
         <p>In-Store experience takes the centre stage <strong> t i q u e s s i n n</strong>.</p>
         
         
-        <a href="" class="next">Benefits?</a> <a href="" class="pledge">How it Works?</a>
+        <a href="" class="next">Benefits?</a> <a href="" class="next">How it Works?</a>
       </article>
               <figure class="animate">
           <svg class="file-cloud" version="1.2" baseProfile="tiny" viewBox="0 0 130 95">
@@ -149,19 +149,19 @@
   	<div class="video-bg">
   		<div class="video-container">
 	  		<span>
-		  		<iframe src="./Home _ World Backup Day — March 31st_files/97489098.html" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+		  		<%--<iframe src="./Home _ World Backup Day — March 31st_files/97489098.html" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>--%>
 	  		</span>
 	  	</div>
   	</div>
-  	<svg class="mask" viewBox="0 0 24 23.8" preserveAspectRatio="none" fill="#FFF">
+  	<svg class="mask" viewBox="0 0 24 23.8" preserveAspectRatio="none">
   		<use xlink:href="#mask"></use>
   	</svg> 
   </section>
   
-  <section id="what">
+  <section id="what" style="background-color:#f1f1f1;">
     <div class="container">
       <article>
-        <h3>Benefis?</h3>
+        <h3>Benefits?</h3>
         
         <p>We assure benefit for both our clients and their users</p>
 
@@ -202,7 +202,7 @@
   <section id="why">
     <div class="container">
       <article>
-        <h3>But why should I backup?</h3>
+        <h3>Client Benefit</h3>
         
         <p>Losing your files is way <strong>more common</strong> than you’d think.</p>
 
@@ -237,22 +237,22 @@
     </svg> 
   </section>
   
-  <section id="how">
+  <section id="how" style="background-color:#f1f1f1;">
     <div class="container">
       <article>
-        <h3>So how do I backup?</h3>
+        <h3>How It Works?</h3>
         
-        <p>Most people backup their files in one of two ways: to an external drive, or somewhere on the Internet.</p>
+        <p>Most people like to save their time not for any specific need but they do like that</p>
 
-<p>It’s really easy, and you only need to set it up once!</p>
+<p>It’s really easy, and you spend less</p>
 
-<aside><strong>Disclaimer:</strong> Even though this process is super simple, we’re not responsible for any data loss. Make sure you read through each screen carefully and you should be fine!</aside>
+<aside><strong>Realy</strong> This is a space to showcase your store in a technological perspective!</aside>
 
         <details class="details-inited">
-          <summary><h4>Backing up to a USB Drive</h4></summary>
+          <summary><h4>Redeem Our Service</h4></summary>
         
         
-          <p>You’ll need an <a href="http://www.amazon.com/s/ref=sr_st_popularity-rank?keywords=external+hard+drive&amp;qid=1395785089&amp;rh=n%3A172282%2Cn%3A541966%2Cn%3A1292110011%2Cn%3A595048%2Ck%3Aexternal+hard+drive&amp;sort=popularity-rank">external hard drive</a> for this, preferably one that holds more than your computer can.</p>
+          <p>You’ll need an <a href=""</a> for this, preferably one that holds more than your computer can.</p>
 
 <p>The good news is, they’re cheap!</p>
                 
@@ -360,13 +360,13 @@ plug it in often. </p>
   
   <section id="pledge">
     <div class="container">
-      <h3>The World Backup Day Pledge</h3>
-      <blockquote>“I solemnly swear to backup my important documents and precious memories on March 31st.”</blockquote>
+      <h3>Tiquessin Your Choice</h3>
+      <blockquote>“”</blockquote>
       
       <p>I will also tell my friends and family about World Backup Day - friends don't let friends go without a backup.</p>
       
       <h5><span>Take the pledge on</span></h5>
-              <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fworldbackupday.com%2Fpledge" class="facebook">Facebook</a> <a href="http://twitter.com/intent/tweet?url=http%3A%2F%2Fworldbackupday.com%2Fpledge&amp;text=I+solemnly+swear+to+backup+my+important+stuff+on+World+Backup+Day%2C+March+31st.+Take+the+pledge%21&amp;related=worldbackupday" class="twitter">Twitter</a>
+              <a href="" class="facebook">Facebook</a> <a href="" class="twitter">Twitter</a>
       
       <p class="count" style="display: block;"><strong>5,329</strong> people have already taken the pledge (and counting!)</p>
     </div>
@@ -382,17 +382,17 @@ plug it in often. </p>
     <footer>
       <div class="container">
         <div>
-          A 614a production <span>Designed by <a href="http://samm.me/">Sam Mularczyk</a></span>
+          Tiquessinn<span>Designed by <a href="thrithvam.com">Thrithvam Technologies</a></span>
                   </div>
         
         <ul>
-                    <li class="home"><a class=" active" href="http://www.worldbackupday.com/en/">Home</a></li>          
-                    <li class="faq"><a class="" href="http://www.worldbackupday.com/en/faq">FAQ</a></li>          
-                    <li class="about"><a class="" href="http://www.worldbackupday.com/en/about">About</a></li>          
-                    <li class="downloads"><a class="" href="http://www.worldbackupday.com/en/downloads">Downloads</a></li>          
-                    <li class="newsletter"><a class="" href="http://www.worldbackupday.com/en/newsletter">Newsletter</a></li>          
-                    <li class="press"><a class="" href="http://www.worldbackupday.com/en/press">Press</a></li>          
-                    <li class="legal"><a class="" href="http://www.worldbackupday.com/en/legal">Legal</a></li>          
+                    <li class="home"><a class=" active" href="">Home</a></li>          
+                    <li class="faq"><a class="" href="">Befefits</a></li>          
+                    <li class="about"><a class="" href="">Client</a></li>          
+                    <li class="downloads"><a class="" href="">User</a></li>          
+                    <li class="newsletter"><a class="" href="">Newsletter</a></li>          
+                    <li class="press"><a class="" href="">About</a></li>          
+                    <li class="legal"><a class="" href="">Contact Us</a></li>          
                   </ul>
       </div>
     </footer>

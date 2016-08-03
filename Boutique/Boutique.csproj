@@ -426,7 +426,9 @@
     <Content Include="Website\css\desktop.css" />
     <Content Include="Website\css\player.css" />
     <Content Include="Website\css\screen.css" />
+    <Content Include="Website\images\06_Customer .jpg" />
     <Content Include="Website\images\Demo.GIF" />
+    <Content Include="Website\images\Demo1.png" />
     <Content Include="Website\script\cloudflare.min.js" />
     <Content Include="Website\script\ga.js" />
     <Content Include="Website\script\player.js" />
