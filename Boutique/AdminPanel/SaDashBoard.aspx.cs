@@ -35,7 +35,8 @@ namespace Boutique.AdminPanel
                     string CurrencyCode = dr["CurrencyCode"].ToString();
                     string FormatCode = dr["FormatCode"].ToString();
                     string symbol = dr["Symbol"].ToString();
-                    DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, BoutiqID, BoutiqueName, UA.Role, CurrencyCode, FormatCode, symbol);
+
+                    DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, BoutiqID, BoutiqueName, UA.Role, CurrencyCode, FormatCode, symbol, dr["AppVersion"].ToString());
                     if (UA_Changed.ValidUser)
                     {
                         Session[Const.LoginSession] = UA_Changed;

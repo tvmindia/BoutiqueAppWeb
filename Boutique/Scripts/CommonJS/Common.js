@@ -1,4 +1,6 @@
-﻿
+﻿/// <reference path="E:\BoutiqueApp\Boutique\AdminPanel/BugTracker.aspx" />
+/// <reference path="E:\BoutiqueApp\Boutique\AdminPanel/BugTracker.aspx" />
+
 var deleteReturn = false;
 
 //-----------*  document.ready * ---------------//
@@ -358,5 +360,14 @@ function GetBoutique_id(boutique) {
     var data = "{'boutiqueObj':" + JSON.stringify(boutique) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/BoutiqueID");
     table = JSON.parse(ds.d);
+    return table;
+}
+
+function InsertException(ExceptionTrack)
+{
+    var data = "{'ETObj':" + JSON.stringify(ExceptionTrack) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/BugTracker.aspx/InsertErrorDetails");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
     return table;
 }

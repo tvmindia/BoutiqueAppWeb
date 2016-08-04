@@ -132,6 +132,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public int PageNumber
+        {
+            get;
+            set;
+        }
         #endregion properties
 
       
@@ -156,8 +162,8 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = Date;
                 cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
                 cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
-                cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
-                cmd.Parameters.Add("@BugFixDate", SqlDbType.DateTime).Value = BugFixDate;
+              //  cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
+              //  cmd.Parameters.Add("@BugFixDate", SqlDbType.DateTime).Value = BugFixDate;
                 cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
                 cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
@@ -264,6 +270,7 @@ namespace Boutique.DAL
                     cmd.CommandText = "[GetAllErrorDetails]";
                     cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = StartIndex;
                     cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = EndIndex;
+                    //cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = PageNumber;
                     cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, -1).Value = SearchText;
                     SqlParameter outparmeter= cmd.Parameters.Add("@OutTotalCount", SqlDbType.BigInt);
                     outparmeter.Direction = ParameterDirection.Output;

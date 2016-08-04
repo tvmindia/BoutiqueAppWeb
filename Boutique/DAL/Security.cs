@@ -44,6 +44,7 @@ namespace Boutique.DAL
             private string Currency_FormatCode;
             private string CurrencySymbol;
             private string User_Id;
+            private string AppVersion;
 
 
 
@@ -133,6 +134,16 @@ namespace Boutique.DAL
                 set;
             }
 
+            public string Version
+            {
+              get
+                {
+                  return AppVersion;
+                }
+
+            }
+
+
             #endregion Properties
 
             #region UserAuthendication default constructor
@@ -168,6 +179,8 @@ namespace Boutique.DAL
                         Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
                         CurrencySymbol = dt.Rows[0]["Symbol"].ToString();
                         User_Id = dt.Rows[0]["UserID"].ToString();
+                        AppVersion = dt.Rows[0]["AppVersion"].ToString();
+
                     }
 
                     else
@@ -179,7 +192,7 @@ namespace Boutique.DAL
             }
 
             #endregion  User Authentication
-            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode, string symbol)
+            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode, string symbol,string version)
             {
                 Boutique_ID = BoutiqueID;
                 isValidUser = true;
@@ -189,6 +202,7 @@ namespace Boutique.DAL
                 Boutique_CurrencyCode = CurrencyCode;
                 Currency_FormatCode = FormatCode;
                 CurrencySymbol = symbol;
+                AppVersion = version;
             }
             #region Get Login Details
             public DataTable GetLoginDetails(string LoginName)

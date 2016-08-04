@@ -213,9 +213,24 @@ namespace Boutique.AdminPanel
                         status = loyaltyObj.UpdateLoyaltyPoints().ToString();               
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "MakeTransaction";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+                //Code For Exception Track insert
             }
             finally
             {
