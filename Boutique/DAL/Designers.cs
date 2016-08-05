@@ -134,7 +134,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "Designers";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
 
                 finally
@@ -185,7 +199,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "InsertDesigner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -241,7 +269,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "UpdateDesigner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -284,7 +326,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "GetDesignerImage";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
 
                 finally
@@ -337,7 +393,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "DeleteDesigner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -375,11 +445,25 @@ namespace Boutique.DAL
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);                    
-                    return dt;
+                   
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "GetAllDesigners";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -388,7 +472,7 @@ namespace Boutique.DAL
                         dcon.DisconectDB();
                     }
                 }
-
+                return dt;
             }
 
         #endregion AllDesigners
@@ -421,11 +505,25 @@ namespace Boutique.DAL
                     sda.SelectCommand = cmd;
                     dt = new DataTable();
                     sda.Fill(dt);
-                    return dt;
+                   
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "GetAllDesignersForApp";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -434,7 +532,7 @@ namespace Boutique.DAL
                         dcon.DisconectDB();
                     }
                 }
-
+                return dt;
             }
 
             #endregion AllDesigners
@@ -466,11 +564,25 @@ namespace Boutique.DAL
                     if (dt.Rows.Count == 0) 
                     { //throw new Exception("No such item"); 
                     }
-                    return dt;
+                   
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "GetAllDesignerIDAndName";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -479,7 +591,7 @@ namespace Boutique.DAL
                         dcon.DisconectDB();
                     }
                 }
-
+                return dt;
             }
             #endregion GetAllDesignerIDAndName
             #region GetDesigner
@@ -514,11 +626,25 @@ namespace Boutique.DAL
                     dt = new DataTable();
                     sda.Fill(dt);
                     if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
-                    return dt;
+                   
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Designers";
+                    ETObj.Method = "GetDesigner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -527,7 +653,7 @@ namespace Boutique.DAL
                         dcon.DisconectDB();
                     }
                 }
-
+                return dt;
             }
         #endregion GetDesigner
         #endregion Methods
