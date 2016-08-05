@@ -173,7 +173,7 @@ namespace Boutique.DAL
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Loyalty";
                 ETObj.Method = "GetLoyaltySettings";
-                ETObj.ErrorSource = "Code-Behind";
+                ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;
                 ETObj.CreatedBy = BugTrackerCreatedBy;
@@ -273,7 +273,7 @@ namespace Boutique.DAL
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Loyalty";
                 ETObj.Method = "UpdateLoyaltyPoints";
-                ETObj.ErrorSource = "Code-Behind";
+                ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;
                 ETObj.CreatedBy = BugTrackerCreatedBy;
@@ -358,7 +358,7 @@ namespace Boutique.DAL
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Loyalty";
                 ETObj.Method = "UpdateLoyaltySettings";
-                ETObj.ErrorSource = "Code-Behind";
+                ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;
                 ETObj.CreatedBy = BugTrackerCreatedBy;
@@ -415,7 +415,7 @@ namespace Boutique.DAL
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Loyalty";
                 ETObj.Method = "InitializeLoyaltySettings";
-                ETObj.ErrorSource = "Code-Behind";
+                ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;
                 ETObj.CreatedBy = BugTrackerCreatedBy;
@@ -476,7 +476,7 @@ namespace Boutique.DAL
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Loyalty";
                 ETObj.Method = "SetLoyaltySettingsToDefault";
-                ETObj.ErrorSource = "Code-Behind";
+                ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;
                 ETObj.CreatedBy = BugTrackerCreatedBy;
@@ -532,7 +532,7 @@ namespace Boutique.DAL
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Loyalty";
                 ETObj.Method = "GetLoyaltyLog";
-                ETObj.ErrorSource = "Code-Behind";
+                ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;
                 ETObj.CreatedBy = BugTrackerCreatedBy;
@@ -584,7 +584,7 @@ namespace Boutique.DAL
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Loyalty";
                 ETObj.Method = "GetAllCurrencyNameAndCode";
-                ETObj.ErrorSource = "Code-Behind";
+                ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;
                 ETObj.CreatedBy = BugTrackerCreatedBy;
