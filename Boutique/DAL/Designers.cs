@@ -71,7 +71,7 @@ namespace Boutique.DAL
             get;
             set;
         }
-        public string status
+        public string BugTrackerstatus
         {
             get;
             set;
