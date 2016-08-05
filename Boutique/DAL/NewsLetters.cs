@@ -203,7 +203,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllTemplateIDandName";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -245,7 +259,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllEmailIdsToSendNewsLetterEmail";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -286,7 +314,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllTemplateDetails";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -328,7 +370,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllTemplateDetailsForDrafts";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -345,57 +401,81 @@ namespace Boutique.DAL
         #region PopulateBody
         public string PopulateBody()
         {
-           if(imageID!=null)
-            {
-                List<string> names = imageID.Split(',').ToList<string>();
-                ImageIDs = names.ToArray();
-            //    List<string> strDetailIDList = new List<string>();
-            //        strDetailIDList.Add(imageID);               
-            //    ImageIDs = strDetailIDList.ToArray();              
-            }
-            // string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
-            DataSet ds = null;
-            ds = GetAllTemplateDetails();
-            string Url = "";
-            string imageUrl, logourl = null;
-
-            string altImage = "http://www.simasa.co.uk/WebRoot/SIMASA/Shops/SIMA/5060/8140/8742/83EE/1AB2/0A00/0063/0C54/SpecialOffer_SIMA-1_m.jpg";
-            //Url = "BoutiqueTemplates/EmailTemplate.htm";
-            Url = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
-            int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
-            imageCount = imageCount+1-2;
             string body = string.Empty;
-            Regex rx = new Regex("(?<=<img[^>]*src=\")[^\"]+", RegexOptions.IgnoreCase);
-            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+            try
             {
-                body = reader.ReadToEnd();
-            }
-            //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
-            //body = fileName;
-            body = body.Replace("{UserName}", " ");
-            body = body.Replace("{Title}", " ");
-            body = body.Replace("{Url}", "");
-            body = body.Replace("{Description}", Description);
-            body = body.Replace("{Mainimage}", "");
-            body = body.Replace("{Images0}", altImage);
-            if (body.Contains("{ImgBirthday}"))
-            {
-                body = body.Replace("{ImgBirthday}", "../img/Templates/BirthdayImage.jpg");
-            }
-            if (body.Contains("imgLogo"))
-            {
-              logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
-              string logo = "http://tiquesinn.com/" + logourl.Replace("../", "");
-              body = body.Replace("{imgLogo}", logo);
-              body = body.Replace("{BoutiqueName}", Boutique);
-            }
-            for (int i = 0; i <= imageCount; i++)
-            {
+                if (imageID != null)
+                {
+                    List<string> names = imageID.Split(',').ToList<string>();
+                    ImageIDs = names.ToArray();
+                    //    List<string> strDetailIDList = new List<string>();
+                    //        strDetailIDList.Add(imageID);               
+                    //    ImageIDs = strDetailIDList.ToArray();              
+                }
+                // string imageUrl = "https://ci5.googleusercontent.com/proxy/cBgbcNE45Ik_XJgwpDGopRq1XIqU_HQLp3HgHLwVKh4-Yfap2wX1fSUTXvPNJaLttIsN1H8XvofjmLPIXqc122yl8_nO7wnuVrtDTNJ-5zZlHsD9CBNxpzFM1Utj570VnbbFgkNCwKi6kAjCKkEchyP1kGxJoVmdVIAcfwY=s0-d-e1-ft#http://i1.sdlcdn.com/static/img/marketing-mailers/mailer/2016/UserGrowth/manfashion25april/images/";
+                DataSet ds = null;
+                ds = GetAllTemplateDetails();
+                string Url = "";
+                string imageUrl, logourl = null;
+
+                string altImage = "http://www.simasa.co.uk/WebRoot/SIMASA/Shops/SIMA/5060/8140/8742/83EE/1AB2/0A00/0063/0C54/SpecialOffer_SIMA-1_m.jpg";
+                //Url = "BoutiqueTemplates/EmailTemplate.htm";
+                Url = ds.Tables[0].Rows[0]["TemplateFile"].ToString();
+                int imageCount = Convert.ToInt32(ds.Tables[0].Rows[0]["ImageCount"]);
+                imageCount = imageCount + 1 - 2;
+               
+                Regex rx = new Regex("(?<=<img[^>]*src=\")[^\"]+", RegexOptions.IgnoreCase);
+                using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+                {
+                    body = reader.ReadToEnd();
+                }
+                //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
+                //body = fileName;
+                body = body.Replace("{UserName}", " ");
+                body = body.Replace("{Title}", " ");
+                body = body.Replace("{Url}", "");
+                body = body.Replace("{Description}", Description);
+                body = body.Replace("{Mainimage}", "");
+                body = body.Replace("{Images0}", altImage);
+                if (body.Contains("{ImgBirthday}"))
+                {
+                    body = body.Replace("{ImgBirthday}", "../img/Templates/BirthdayImage.jpg");
+                }
+                if (body.Contains("imgLogo"))
+                {
+                    logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
+                    string logo = "http://tiquesinn.com/" + logourl.Replace("../", "");
+                    body = body.Replace("{imgLogo}", logo);
+                    body = body.Replace("{BoutiqueName}", Boutique);
+                }
+                for (int i = 0; i <= imageCount; i++)
+                {
                     //  string[] ids = { "5ff4eb3b-4f63-418d-94a8-e05b33a03008","5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124" };
                     imageUrl = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + ImageIDs[i];
-               
-                // body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
-                body = body.Replace("{image" + i + "}", imageUrl);
+
+                    // body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
+                    body = body.Replace("{image" + i + "}", imageUrl);
+                }
+                
+            }
+            catch(Exception ex)
+            {
+
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "PopulateBody";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             return body;
         }
@@ -439,7 +519,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "InsertNewsLetterTrackingDetails";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -507,7 +601,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllNewsLetterDetails";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -544,7 +652,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "UpdateNewsLetterIsmailSend";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -602,7 +724,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllNewsLetterMailNotSendDetails";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -659,7 +795,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllSendMailDetails";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -701,7 +851,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "AddNewTemplate";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -800,7 +964,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "UnsubscribeEmail";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -843,7 +1021,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetAllNewsLetterMailIDs";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
@@ -885,7 +1077,21 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetters";
+                ETObj.Method = "GetEmailIDBasedOnNewsLetter";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
 
             finally
