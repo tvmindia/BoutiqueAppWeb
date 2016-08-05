@@ -112,7 +112,26 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string status
+        {
+            get;
+            set;
+        }
+        public string BugTrackerVersion
+        {
+            get;
+            set;
+        }
+        public string BugTrackerUserID
+        {
+            get;
+            set;
+        }
+        public string BugTrackerCreatedBy
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Methods
@@ -144,7 +163,22 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "GetLoyaltySettings";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+                //Code For Exception Track insert
             }
             finally
             {
@@ -314,7 +348,7 @@ namespace Boutique.DAL
         }
         #endregion
 
-
+        #region InitializeLoyaltySettings
         public Int16 InitializeLoyaltySettings()
         {
             if (BoutiqueID == "")
@@ -355,6 +389,7 @@ namespace Boutique.DAL
             //update success or failure
             return Int16.Parse(outParameter.Value.ToString());
         }
+        #endregion InitializeLoyaltySettings
 
         #region Set Loyalty Settings To Default
         /// <summary>

@@ -95,9 +95,13 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             loyaltyObj.BoutiqueID = UA.BoutiqueID;
+            loyaltyObj.BugTrackerCreatedBy = UA.userName;
+            loyaltyObj.BugTrackerVersion = UA.Version;
+            loyaltyObj.BugTrackerUserID = UA.UserID;
+            string status = null;
             string jsonResult = null;
             DataSet ds = new DataSet();
-            string status = null;
+           
             try
             {
                 ds.Tables.Add(loyaltyObj.GetLoyaltySettings());

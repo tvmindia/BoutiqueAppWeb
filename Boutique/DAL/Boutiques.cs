@@ -175,7 +175,26 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string status
+        {
+            get;
+            set;
+        }
+        public string BugTrackerVersion
+        {
+            get;
+            set;
+        }
+        public string BugTrackerUserID
+        {
+            get;
+            set;
+        }
+        public string BugTrackerCreatedBy
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Methods
