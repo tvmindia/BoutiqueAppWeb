@@ -174,7 +174,8 @@ namespace Boutique.DAL
                 }
                 dbConnection dcon = null;
                 SqlCommand cmd = null;
-                SqlParameter outParameter,outDesignerID = null;
+                SqlParameter outDesignerID = null;
+                SqlParameter outParameter = null;
                 try
                 {
                     dcon = new dbConnection();
