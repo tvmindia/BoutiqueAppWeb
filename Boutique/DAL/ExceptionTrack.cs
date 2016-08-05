@@ -278,7 +278,7 @@ namespace Boutique.DAL
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
                     sda.Fill(ds);
-                    TotalCount= int.Parse(outparmeter.Value.ToString());
+                    TotalCount= int.Parse(outparmeter.Value.ToString());  
                 
             }
 
