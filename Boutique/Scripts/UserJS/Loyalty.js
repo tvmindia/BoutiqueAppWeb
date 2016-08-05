@@ -315,7 +315,7 @@
                 //ETObj.BoutiqueID = UA.BoutiqueID;
                 //ETObj.UserID = UA.UserID;
                 //ETObj.Description = ex.Message;//Actual exception message
-                ////ETObj.Date = DateTime.Now.ToString();
+                //ETObj.Date = DateTime.Now.ToString();
                 //ETObj.Module = "Loyalty";
                 //ETObj.Method = "MakeTransaction";
                 //ETObj.ErrorSource = "Code-Behind";
