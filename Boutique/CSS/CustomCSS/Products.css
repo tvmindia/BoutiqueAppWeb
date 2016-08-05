@@ -247,10 +247,63 @@ img.sticker {
     width:85px;
     margin-left:330px;
 }
-.ReviveSort
+#CategorySort
 {
      width:85px;
     margin-left:330px;
+    margin-top: -75px;
+}
+#OutOfStocksCategorySort
+{
+    width:85px;
+    margin-left:330px;
+    margin-top: -75px;
+}
+#TrendingCategorySort
+{
+     width:85px;
+    margin-left:330px;
+    margin-top: -75px;
+}
+#OutOfStocksSortSelect
+{
+  width:85px;
+}
+#OutOfStocksSort
+{
+ margin-left:500px;
+    margin-top: -40px;
+}
+#TrendingSort
+{
+ margin-left:500px;
+    margin-top: -40px;
+}
+#NewCategorySort
+{
+  width:85px;
+    margin-left:330px;
+    margin-top: -75px;
+}
+#NewPdtSelectSort
+{
+width:85px;
+}
+#NewPdtSort
+{
+    margin-left:500px;
+    margin-top: -40px;
+}
+#TrendingSortSelect{
+ width:85px;
+}
+#Sort
+{
+    margin-left:740px;
+    margin-top: -40px;
+}
+#SortSelect{
+     width:85px;
 }
 SortCategory
 {

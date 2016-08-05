@@ -38,7 +38,7 @@ namespace Boutique.AdminPanel
 
             }
             this.DataBind();
-          
+
         }
 
 
@@ -61,7 +61,7 @@ namespace Boutique.AdminPanel
         #region InsertProduct
 
         [System.Web.Services.WebMethod]
-       
+
         public static string InsertProduct(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -70,7 +70,7 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             try
             {
-                if(UA != null)
+                if (UA != null)
                 {
                     if (UA.BoutiqueID != "")
                     {
@@ -82,10 +82,10 @@ namespace Boutique.AdminPanel
                 }
                 else
                 {
-                
+
                 }
-                
-               
+
+
             }
             catch (Exception)
             {
@@ -102,7 +102,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string UpdateProduct(Product productObj)
         {
-        
+
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -131,7 +131,7 @@ namespace Boutique.AdminPanel
             }
 
             return jsSerializer.Serialize(productObj);
-         }
+        }
         #endregion UpdateProduct
 
 
@@ -140,7 +140,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string DeleteProduct(Product productObj)
         {
-           
+
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -175,7 +175,7 @@ namespace Boutique.AdminPanel
         //[System.Web.Services.WebMethod]
         public string InsertProductImage()
         {
-            
+
 
             return "333";
         }
@@ -187,7 +187,7 @@ namespace Boutique.AdminPanel
         public static string DeleteProudctImage(Product productObj)
         {
 
-           
+
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -216,35 +216,35 @@ namespace Boutique.AdminPanel
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession]; 
-        
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
 
             if (UA.BoutiqueID != "")
             {
-                  productObj.BoutiqueID = UA.BoutiqueID;
-                  DataSet ds = null;
-                  ds = productObj.GetAllProductMainImagesDetails();
-             
-           
-                  List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                  Dictionary<string, object> childRow;
+                productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetAllProductMainImagesDetails();
 
-                  if (ds.Tables[0].Rows.Count > 0)
-                  {
-                      foreach (DataRow row in ds.Tables[0].Rows)
-                      {
-                          childRow = new Dictionary<string, object>();
-                          foreach (DataColumn col in ds.Tables[0].Columns)
-                          {
-                              childRow.Add(col.ColumnName, row[col]);
-                          }
-                          parentRow.Add(childRow);
-                      }
-                  }
-                  return jsSerializer.Serialize(parentRow);
-              }
-              return jsSerializer.Serialize("");
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
         }
         #endregion GetAllProductMainImages
 
@@ -260,7 +260,7 @@ namespace Boutique.AdminPanel
 
             if (UA.BoutiqueID != "")
             {
-                
+
                 productObj.BoutiqueID = UA.BoutiqueID;
                 productObj.GetAllTotalCount();
             }
@@ -411,7 +411,7 @@ namespace Boutique.AdminPanel
             }
             return jsSerializer.Serialize("");
         }
-         
+
         #endregion GetAllProductImages
 
         #region GetAllProductIDandName
@@ -548,7 +548,7 @@ namespace Boutique.AdminPanel
                 //ds = productObj.GetAllProductIDAndName();
 
                 //Converting to Json
-              
+
                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                 Dictionary<string, object> childRow;
                 if (ds.Tables[0].Rows.Count > 0)
@@ -965,6 +965,114 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize("");
         }
         #endregion GetCategorySortDetails
+
+        #region GetTrendingCategorySortDetails
+        [System.Web.Services.WebMethod]
+        public static string GetTrendingCategorySortDetails(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetTrendingCategorySortReults();
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+        #endregion GetTrendingCategorySortDetails
+
+        #region GetOutOfStocksCategorySortDetails
+        [System.Web.Services.WebMethod]
+        public static string GetOutOfStocksCategorySortDetails(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetOutOfStocksCategorySortReults();
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+        #endregion GetOutOfStocksCategorySortDetails
+
+        #region GetReviveCategorySortDetails
+        [System.Web.Services.WebMethod]
+        public static string GetReviveCategorySortDetails(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetReviveCategorySortReults();
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+        #endregion GetReviveCategorySortDetails
 
     }
 }
