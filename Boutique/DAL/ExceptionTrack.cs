@@ -156,7 +156,7 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertErrorLog]";
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = UserID;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                 cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = Date;
