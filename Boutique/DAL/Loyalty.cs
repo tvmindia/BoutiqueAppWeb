@@ -163,7 +163,7 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                BugTrackerstatus = "500";//Exception of foreign key
 
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();
