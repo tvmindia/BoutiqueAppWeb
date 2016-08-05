@@ -555,7 +555,8 @@ namespace Boutique.DAL
 
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            DataSet ds,dsEmail = null;
+            DataSet dsEmail = null;
+            DataSet ds = null;
             SqlDataAdapter sda = null;
 
             try
@@ -687,7 +688,8 @@ namespace Boutique.DAL
 
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            DataSet ds,dsAudience = null;
+            DataSet dsAudience = null;
+            DataSet ds = null;
             SqlDataAdapter sda = null;
 
             try
@@ -758,7 +760,8 @@ namespace Boutique.DAL
 
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            DataSet ds, dsAudience = null;
+            DataSet dsAudience = null;
+            DataSet ds = null;
             SqlDataAdapter sda = null;
 
             try
