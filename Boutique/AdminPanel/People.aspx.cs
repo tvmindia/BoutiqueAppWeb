@@ -292,7 +292,7 @@ namespace Boutique.AdminPanel
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 status = "500";//Exception of foreign key
 
