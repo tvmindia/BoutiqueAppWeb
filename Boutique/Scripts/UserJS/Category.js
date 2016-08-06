@@ -26,7 +26,7 @@ $("document").ready(function (e) {
             catch(e)
             {
                 var ExceptionTrack = new Object();
-                ExceptionTrack.Description = e.description;
+                ExceptionTrack.Description = e.message;
                 ExceptionTrack.Module = "Category";
                 ExceptionTrack.Method = "catdelete-live";
                 ExceptionTrack.ErrorSource = "JavaScript";
@@ -56,7 +56,7 @@ $("document").ready(function (e) {
             catch(e)
             {
                 var ExceptionTrack = new Object();
-                ExceptionTrack.Description = e.description;
+                ExceptionTrack.Description = e.message;
                 ExceptionTrack.Module = "Category";
                 ExceptionTrack.Method = "categoryedit-live";
                 ExceptionTrack.ErrorSource = "JavaScript";
@@ -75,7 +75,7 @@ $("document").ready(function (e) {
             catch(e)
             {
                 var ExceptionTrack = new Object();
-                ExceptionTrack.Description = e.description;
+                ExceptionTrack.Description = e.message;
                 ExceptionTrack.Module = "Category";
                 ExceptionTrack.Method = "CancelCategory-live";
                 ExceptionTrack.ErrorSource = "JavaScript";
@@ -136,7 +136,7 @@ function DeleteItem(e,p)
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "DeleteItem";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -159,7 +159,7 @@ function BindAsyncCategoryTable()
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "BindAsyncCategoryTable";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -180,7 +180,7 @@ function GetAllCategories(Product) {
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "GetAllCategories";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -207,7 +207,7 @@ function BindCategoryTable(Records) {
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "BindCategoryTable";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -229,7 +229,7 @@ function DeleteCategory(Category)
     catch (e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "DeleteCategory";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -250,7 +250,7 @@ function InsertCategory(Category) {
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "InsertCategory";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -262,6 +262,7 @@ function InsertCategory(Category) {
 
 function UpdateCategory(Category)
 {
+    debugger;
     try
     {
         var data = "{'categoryObj':" + JSON.stringify(Category) + "}";
@@ -272,7 +273,7 @@ function UpdateCategory(Category)
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "UpdateCategory";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -295,7 +296,7 @@ function GetCategory(Category) {
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "GetCategory";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -327,7 +328,7 @@ function BindCategoryTextBoxes(Records) {
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "BindCategoryTextBoxes";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -354,7 +355,7 @@ function ClearCategoryControls()
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "ClearCategoryControls";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -444,7 +445,7 @@ function CategoryValidation()
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "CategoryValidation";
         ExceptionTrack.ErrorSource = "JavaScript";
@@ -496,7 +497,7 @@ function  AddCategory()
     catch(e)
     {
         var ExceptionTrack = new Object();
-        ExceptionTrack.Description = e.description;
+        ExceptionTrack.Description = e.message;
         ExceptionTrack.Module = "Category";
         ExceptionTrack.Method = "AddCategory";
         ExceptionTrack.ErrorSource = "JavaScript";
