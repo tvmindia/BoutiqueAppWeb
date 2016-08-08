@@ -19,7 +19,7 @@ $("document").ready(function (e) {
     $(".Newsletterproducts").select2({
         allowClear: true,
         placeholder: "Choose products",
-       data: BindNewsLetterProductDropdown()
+        data: BindNewsLetterProductDropdown()
     });
     $(".template").select2({
         allowClear: true,
@@ -384,7 +384,7 @@ $("document").ready(function (e) {
                    InsertException(ExceptionTrack);
                }
            }
-    });
+       });
     $(".AudiencePopup").click(function () {
         try
         {
@@ -468,8 +468,8 @@ $("document").ready(function (e) {
             ExceptionTrack.IsMobile = false;
             InsertException(ExceptionTrack);
         }
-        });
-    }
+    });
+}
     
 });
 //end of document.ready
@@ -1075,7 +1075,7 @@ function reloadNewsLetter() {
     window.location.reload();
 }
 function MainImageClick(checkedImage) {
-//    $(".PreviewTemplate").remove();
+    //    $(".PreviewTemplate").remove();
     //   $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
     var ImageInfo = [];
