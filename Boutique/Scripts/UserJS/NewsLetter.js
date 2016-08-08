@@ -1271,7 +1271,7 @@ function handleFileSelect(evt) {
         // Read in the image file as a data URL.
         reader.readAsDataURL(f);
     }
-    catch(e)
+    catch(e)  
     {
         var ExceptionTrack = new Object();
         ExceptionTrack.Description = e.message;
