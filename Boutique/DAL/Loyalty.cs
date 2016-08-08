@@ -112,7 +112,26 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string BugTrackerstatus
+        {
+            get;
+            set;
+        }
+        public string BugTrackerVersion
+        {
+            get;
+            set;
+        }
+        public string BugTrackerUserID
+        {
+            get;
+            set;
+        }
+        public string BugTrackerCreatedBy
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Methods
@@ -144,7 +163,22 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "GetLoyaltySettings";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+                //Code For Exception Track insert
             }
             finally
             {
@@ -229,7 +263,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "UpdateLoyaltyPoints";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -300,7 +348,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "UpdateLoyaltySettings";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -314,7 +376,7 @@ namespace Boutique.DAL
         }
         #endregion
 
-
+        #region InitializeLoyaltySettings
         public Int16 InitializeLoyaltySettings()
         {
             if (BoutiqueID == "")
@@ -343,7 +405,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "InitializeLoyaltySettings";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -355,6 +431,7 @@ namespace Boutique.DAL
             //update success or failure
             return Int16.Parse(outParameter.Value.ToString());
         }
+        #endregion InitializeLoyaltySettings
 
         #region Set Loyalty Settings To Default
         /// <summary>
@@ -389,7 +466,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "SetLoyaltySettingsToDefault";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -431,7 +522,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "GetLoyaltyLog";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -469,9 +574,22 @@ namespace Boutique.DAL
 
             catch (Exception ex)
             {
-                throw ex;
-            }
+                BugTrackerstatus = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "GetAllCurrencyNameAndCode";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
             finally
             {
                 if (dcon.SQLCon != null)

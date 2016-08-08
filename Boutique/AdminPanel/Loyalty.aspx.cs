@@ -12,6 +12,7 @@ namespace Boutique.AdminPanel
 {
     public partial class Loyalty : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -34,27 +35,48 @@ namespace Boutique.AdminPanel
 
             string jsonResult = null;
             DataSet ds = null;
-
-            ds = Usersobj.SelectAllUsers();
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            string status = null;
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
-                    {
-                        childRow.Add(col.ColumnName, row[col]);
-                    }
-                    parentRow.Add(childRow);
-                }
-            }
-            jsonResult = jsSerializer.Serialize(parentRow);
+                ds = Usersobj.SelectAllUsers();
 
+                //Converting to Json
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                jsonResult = jsSerializer.Serialize(parentRow);
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "GetAllUsers";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+                //Code For Exception Track insert
+            }
             return jsonResult;
         }
         #endregion
@@ -73,29 +95,54 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             loyaltyObj.BoutiqueID = UA.BoutiqueID;
+            loyaltyObj.BugTrackerCreatedBy = UA.userName;
+            loyaltyObj.BugTrackerVersion = UA.Version;
+            loyaltyObj.BugTrackerUserID = UA.UserID;
+            string status = null;
             string jsonResult = null;
-            DataSet ds = new DataSet();          
+            DataSet ds = new DataSet();
            
-            ds.Tables.Add(loyaltyObj.GetLoyaltySettings());
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
-                    {
-                        childRow.Add(col.ColumnName, row[col]);
-                    }
-                    parentRow.Add(childRow);
-                }
-            }
-            jsonResult = jsSerializer.Serialize(parentRow);
+                ds.Tables.Add(loyaltyObj.GetLoyaltySettings());
 
+                //Converting to Json
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                jsonResult = jsSerializer.Serialize(parentRow);
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "GetLoyaltySettings";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+                //Code For Exception Track insert
+            }
             return jsonResult;
         }
         #endregion
@@ -118,26 +165,48 @@ namespace Boutique.AdminPanel
 
             string jsonResult = null;
             DataSet ds = null;
-            ds = userObj.SelectUserByUserID();
-
-            //Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            string status = null;
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
-                    {
-                        childRow.Add(col.ColumnName, row[col]);
-                    }
-                    parentRow.Add(childRow);
-                }
-            }
-            jsonResult = jsSerializer.Serialize(parentRow);
+                ds = userObj.SelectUserByUserID();
 
+                //Converting to Json
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                jsonResult = jsSerializer.Serialize(parentRow);
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Loyalty";
+                ETObj.Method = "GetUserByID";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+                //Code For Exception Track insert
+            }
             return jsonResult; //Converting to Json
         }
         #endregion
@@ -252,24 +321,47 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
            
                 DataSet ds = null;
-
-                ds = loyaltyObj.GetAllCurrencyNameAndCode();
-
-                //Converting to Json
-
+                string status = null;
                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                Dictionary<string, object> childRow;
-                if (ds.Tables[0].Rows.Count > 0)
+                try
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    ds = loyaltyObj.GetAllCurrencyNameAndCode();
+
+                    //Converting to Json
+
+                  
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
-                        childRow = new Dictionary<string, object>();
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        foreach (DataRow row in ds.Tables[0].Rows)
                         {
-                            childRow.Add(col.ColumnName, row[col]);
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
                         }
-                        parentRow.Add(childRow);
                     }
+                }
+            catch(Exception ex)
+                {
+                    status = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = UA.BoutiqueID;
+                    ETObj.UserID = UA.UserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Loyalty";
+                    ETObj.Method = "GetAllCurrencyNameAndCode";
+                    ETObj.ErrorSource = "Code-Behind";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = UA.Version;
+                    ETObj.CreatedBy = UA.userName;
+                    ETObj.InsertErrorDetails();
+                    //Code For Exception Track insert
                 }
                 return jsSerializer.Serialize(parentRow);
             

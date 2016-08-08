@@ -1,5 +1,5 @@
 ﻿$("document").ready(function (e) {
-  
+    parent.document.title = Pages.Bugs;
     $.ajaxSetup({
         cache: false
     });

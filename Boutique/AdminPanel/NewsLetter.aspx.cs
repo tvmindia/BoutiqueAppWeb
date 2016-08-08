@@ -24,6 +24,7 @@ namespace Boutique.AdminPanel
         public static string GetAllAudienceMailID(NewsLetters newsObj)
         {
             string jsonResult = null;
+            string status = null;
             DataSet ds = null;
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -31,31 +32,54 @@ namespace Boutique.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             newsObj.BoutiqueID = UA.BoutiqueID;
             newsObj.Boutique = UA.Boutique;
-            ds = newsObj.GetAllNewsLetterMailIDs();
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                ds = newsObj.GetAllNewsLetterMailIDs();
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
+                jsonResult = jsSerializer.Serialize(parentRow);
             }
-            jsonResult = jsSerializer.Serialize(parentRow);
+             catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "GetAllAudienceMailID";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
 
             return jsonResult; //Converting to Json
         }
         #endregion GetAllAudienceMailID
+
         #region SendNotificationMail
         [System.Web.Services.WebMethod]
         public static string SendEmail(MailSending mailObj)
         {
+            string status = null;
             int ? result=null;
             string jsonResult = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -68,6 +92,7 @@ namespace Boutique.AdminPanel
             mailObj.Boutique = UA.Boutique;
             DataSet ds = null;
             mailObj.msg = mailObj.msg;
+           
             if (mailObj.audienceType == "All")
             {
                 ds = newsObj.GetAllEmailIdsToSendNewsLetterEmail();
@@ -103,8 +128,22 @@ namespace Boutique.AdminPanel
             }
             catch(Exception ex)
             {
-                result = 0;
-                throw ex;
+
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "SendEmail";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
             }
             jsonResult = jsSerializer.Serialize(result);
 
@@ -116,6 +155,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string AddSelectedImageToHtmlTemplate(NewsLetters newsObj)
         {
+            string status = null;
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
 
@@ -124,9 +164,30 @@ namespace Boutique.AdminPanel
             newsObj.Boutique = UA.Boutique;
             string jsonResult = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            var body = newsObj.PopulateBody();
+            try
+            {
+                var body = newsObj.PopulateBody();
 
-            jsonResult = jsSerializer.Serialize(body);
+                jsonResult = jsSerializer.Serialize(body);
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "AddSelectedImageToHtmlTemplate";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
 
             return jsonResult;
         }
@@ -136,6 +197,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllTemplateNameAndID(NewsLetters newsObj)
         {
+            string status = null;
             string jsonResult = null;
             DataSet ds = null;
             DAL.Security.UserAuthendication UA;
@@ -144,24 +206,44 @@ namespace Boutique.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             newsObj.BoutiqueID = UA.BoutiqueID;
             newsObj.Boutique = UA.Boutique;
-            ds = newsObj.GetAllTemplateIDandName();
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                ds = newsObj.GetAllTemplateIDandName();
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
+                jsonResult = jsSerializer.Serialize(parentRow);
             }
-            jsonResult = jsSerializer.Serialize(parentRow);
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "GetAllTemplateNameAndID";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
             return jsonResult; //Converting to Json
         }
         #endregion GetAllTemplateNameAndID
@@ -173,29 +255,49 @@ namespace Boutique.AdminPanel
 
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
-
+            string status = null;
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             newsObj.BoutiqueID = UA.BoutiqueID;
             string jsonResult = null;
             DataSet ds = null;
-            ds = newsObj.GetAllEmailIdsToSendNewsLetterEmail();
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                ds = newsObj.GetAllEmailIdsToSendNewsLetterEmail();
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
+                jsonResult = jsSerializer.Serialize(parentRow);
             }
-            jsonResult = jsSerializer.Serialize(parentRow);
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "GetAllNewsLetterEmails";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
             return jsonResult; //Converting to Json
         }
         #endregion GetAllNewsLetterEmails
@@ -248,9 +350,23 @@ namespace Boutique.AdminPanel
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "AddNesLetterMailTrackingDetails";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -269,24 +385,45 @@ namespace Boutique.AdminPanel
             newsObj.BoutiqueID = UA.BoutiqueID;
             string jsonResult = null;
             DataSet ds = null;
-            ds = newsObj.GetAllNewsLetterMailNotSendDetails();
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            string status = null;
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                ds = newsObj.GetAllNewsLetterMailNotSendDetails();
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
+                jsonResult = jsSerializer.Serialize(parentRow);
             }
-            jsonResult = jsSerializer.Serialize(parentRow);
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "GetAllNewsLetterNotMailSendDetails";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
             return jsonResult; //Converting to Json
         }
         #endregion GetAllNewsLetterNotMailSendDetails
@@ -297,24 +434,48 @@ namespace Boutique.AdminPanel
         {
             string jsonResult = null;
             DataSet ds = null;
-            ds = newsObj.GetAllTemplateDetails();
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            string status = null;
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
+                ds = newsObj.GetAllTemplateDetails();
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        childRow.Add(col.ColumnName, row[col]);
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
                     }
-                    parentRow.Add(childRow);
                 }
+                jsonResult = jsSerializer.Serialize(parentRow);
             }
-            jsonResult = jsSerializer.Serialize(parentRow);
+             catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "NewsLetter";
+                ETObj.Method = "GetAllTemplateDetails";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
             return jsonResult; //Converting to Json
         }
         #endregion GetAllTemplateDetails
@@ -323,30 +484,51 @@ namespace Boutique.AdminPanel
          [System.Web.Services.WebMethod]
          public static string GetAllNewsLetterSendMailDetails(NewsLetters newsObj)
          {
+             string status = null;
              DAL.Security.UserAuthendication UA;
              UIClasses.Const Const = new UIClasses.Const();
              UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
              newsObj.BoutiqueID = UA.BoutiqueID;
              string jsonResult = null;
              DataSet ds = null;
-             ds = newsObj.GetAllSendMailDetails();
-             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-             Dictionary<string, object> childRow;
-             if (ds.Tables[0].Rows.Count > 0)
+             try
              {
-                 foreach (DataRow row in ds.Tables[0].Rows)
+                 ds = newsObj.GetAllSendMailDetails();
+                 JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                 Dictionary<string, object> childRow;
+                 if (ds.Tables[0].Rows.Count > 0)
                  {
-                     childRow = new Dictionary<string, object>();
-                     foreach (DataColumn col in ds.Tables[0].Columns)
+                     foreach (DataRow row in ds.Tables[0].Rows)
                      {
-                         childRow.Add(col.ColumnName, row[col]);
+                         childRow = new Dictionary<string, object>();
+                         foreach (DataColumn col in ds.Tables[0].Columns)
+                         {
+                             childRow.Add(col.ColumnName, row[col]);
+                         }
+                         parentRow.Add(childRow);
                      }
-                     parentRow.Add(childRow);
                  }
+                 jsonResult = jsSerializer.Serialize(parentRow);
              }
-             jsonResult = jsSerializer.Serialize(parentRow);
+             catch(Exception ex)
+             {
+                 status = "500";//Exception of foreign key
 
+                 //Code For Exception Track insert
+                 ExceptionTrack ETObj = new ExceptionTrack();
+                 ETObj.BoutiqueID = UA.BoutiqueID;
+                 ETObj.UserID = UA.UserID;
+                 ETObj.Description = ex.Message;//Actual exception message
+                 ETObj.Date = DateTime.Now.ToString();
+                 ETObj.Module = "NewsLetter";
+                 ETObj.Method = "GetAllNewsLetterSendMailDetails";
+                 ETObj.ErrorSource = "Code-Behind";
+                 ETObj.IsMobile = false;
+                 ETObj.Version = UA.Version;
+                 ETObj.CreatedBy = UA.userName;
+                 ETObj.InsertErrorDetails();
+             }
              return jsonResult; //Converting to Json
          }
          #endregion GetAllNewsLetterSendMailDetails
@@ -368,9 +550,23 @@ namespace Boutique.AdminPanel
 
                  status = newsObj.UnsubscribeEmail().ToString();
              }
-             catch (Exception)
+             catch (Exception ex)
              {
                  status = "500";//Exception of foreign key
+
+                 //Code For Exception Track insert
+                 ExceptionTrack ETObj = new ExceptionTrack();
+                 ETObj.BoutiqueID = UA.BoutiqueID;
+                 ETObj.UserID = UA.UserID;
+                 ETObj.Description = ex.Message;//Actual exception message
+                 ETObj.Date = DateTime.Now.ToString();
+                 ETObj.Module = "NewsLetter";
+                 ETObj.Method = "UnsubscribeNewsLetter";
+                 ETObj.ErrorSource = "Code-Behind";
+                 ETObj.IsMobile = false;
+                 ETObj.Version = UA.Version;
+                 ETObj.CreatedBy = UA.userName;
+                 ETObj.InsertErrorDetails();
              }
              finally
              {
@@ -383,26 +579,52 @@ namespace Boutique.AdminPanel
          [System.Web.Services.WebMethod]
          public static string GetNewsLetterEmails(NewsLetters newsObj)
          {
+             string status = null;
              string jsonResult = null;
              DataSet ds = null;
-             ds = newsObj.GetEmailIDBasedOnNewsLetter();
-             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-             Dictionary<string, object> childRow;
-             if (ds.Tables[0].Rows.Count > 0)
-             {
-                 foreach (DataRow row in ds.Tables[0].Rows)
-                 {
-                     childRow = new Dictionary<string, object>();
-                     foreach (DataColumn col in ds.Tables[0].Columns)
-                     {
-                         childRow.Add(col.ColumnName, row[col]);
-                     }
-                     parentRow.Add(childRow);
-                 }
-             }
-             jsonResult = jsSerializer.Serialize(parentRow);
+             DAL.Security.UserAuthendication UA;
+             UIClasses.Const Const = new UIClasses.Const();
 
+             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+             try
+             {
+                 ds = newsObj.GetEmailIDBasedOnNewsLetter();
+                 JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                 Dictionary<string, object> childRow;
+                 if (ds.Tables[0].Rows.Count > 0)
+                 {
+                     foreach (DataRow row in ds.Tables[0].Rows)
+                     {
+                         childRow = new Dictionary<string, object>();
+                         foreach (DataColumn col in ds.Tables[0].Columns)
+                         {
+                             childRow.Add(col.ColumnName, row[col]);
+                         }
+                         parentRow.Add(childRow);
+                     }
+                 }
+                 jsonResult = jsSerializer.Serialize(parentRow);
+             }
+             catch(Exception ex)
+             {
+
+                 status = "500";//Exception of foreign key
+
+                 //Code For Exception Track insert
+                 ExceptionTrack ETObj = new ExceptionTrack();
+                 ETObj.BoutiqueID = UA.BoutiqueID;
+                 ETObj.UserID = UA.UserID;
+                 ETObj.Description = ex.Message;//Actual exception message
+                 ETObj.Date = DateTime.Now.ToString();
+                 ETObj.Module = "NewsLetter";
+                 ETObj.Method = "GetNewsLetterEmails";
+                 ETObj.ErrorSource = "Code-Behind";
+                 ETObj.IsMobile = false;
+                 ETObj.Version = UA.Version;
+                 ETObj.CreatedBy = UA.userName;
+                 ETObj.InsertErrorDetails();
+             }
              return jsonResult; //Converting to Json
          }
          #endregion GetNewsLetterEmails

@@ -45,9 +45,23 @@ namespace Boutique.AdminPanel
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "LoyaltySettings";
+                ETObj.Method = "UpdateLoyaltySettings";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -70,30 +84,49 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             loyaltyObj.BoutiqueID = UA.BoutiqueID;
-            
+            string status = null;
             string jsonResult = null;
             DataSet ds = new DataSet();
-
-            ds.Tables.Add(loyaltyObj.GetLoyaltyLog());
-
-            //Converting to Json
-             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
-                    {
-                        childRow.Add(col.ColumnName, row[col]);
-                    }
-                    parentRow.Add(childRow);
-                }
-            }
-            jsonResult = jsSerializer.Serialize(parentRow);
+                ds.Tables.Add(loyaltyObj.GetLoyaltyLog());
 
+                //Converting to Json
+                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                jsonResult = jsSerializer.Serialize(parentRow);
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "LoyaltySettings";
+                ETObj.Method = "GetLoyaltyLog";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
             return jsonResult;
         }
         #endregion
@@ -107,12 +140,32 @@ namespace Boutique.AdminPanel
             string status = null;
           
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-
-            if (UA != null)
+            try
             {
-                loyalObj.BoutiqueID = UA.BoutiqueID;
-                loyalObj.UpdatedBy = UA.userName;
-                status = loyalObj.SetLoyaltySettingsToDefault().ToString(); 
+                if (UA != null)
+                {
+                    loyalObj.BoutiqueID = UA.BoutiqueID;
+                    loyalObj.UpdatedBy = UA.userName;
+                    status = loyalObj.SetLoyaltySettingsToDefault().ToString();
+                }
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "LoyaltySettings";
+                ETObj.Method = "SetLoyaltySettingsToDefault";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
             }
             return status;
 

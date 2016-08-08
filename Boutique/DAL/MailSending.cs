@@ -104,6 +104,26 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string BugTrackerstatus
+        {
+            get;
+            set;
+        }
+        public string BugTrackerVersion
+        {
+            get;
+            set;
+        }
+        public string BugTrackerUserID
+        {
+            get;
+            set;
+        }
+        public string BugTrackerCreatedBy
+        {
+            get;
+            set;
+        }
         #endregion Global Variables
 
         #region Public Variables
@@ -124,42 +144,62 @@ namespace Boutique.DAL
 
         public void SendEmail()
         {
-            MailMessage Msg = new MailMessage();
-
-            Msg.From = new MailAddress(EmailFromAddress);
-
-            if (recepientEmail != null)
+            try
             {
-                string[] multiEmail = recepientEmail;
-                foreach (string multipleMails in multiEmail)
+                MailMessage Msg = new MailMessage();
+
+                Msg.From = new MailAddress(EmailFromAddress);
+
+                if (recepientEmail != null)
                 {
-                    //mailMessage.To.Add(new MailAddress(multipleMails));
-                    Msg.To.Add(multipleMails);
+                    string[] multiEmail = recepientEmail;
+                    foreach (string multipleMails in multiEmail)
+                    {
+                        //mailMessage.To.Add(new MailAddress(multipleMails));
+                        Msg.To.Add(multipleMails);
+                    }
                 }
-            }
 
-            else
+                else
+                {
+                    Msg.To.Add(new MailAddress(EmailID));
+                }
+
+
+
+                //string message = msg;
+                Msg.Subject = MailSubject;
+                Msg.Body = emailBody;
+                Msg.IsBodyHtml = true;
+
+                // your remote SMTP server IP.
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = host;
+                smtp.Port = Convert.ToInt32(port);
+                smtp.Credentials = new System.Net.NetworkCredential(smtpUserName, smtpPassword);
+                smtp.EnableSsl = true;
+                smtp.Send(Msg);
+                Msg = null;
+            }
+            catch(Exception ex)
             {
-                Msg.To.Add(new MailAddress(EmailID));
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "MailSending";
+                ETObj.Method = "SendEmail";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
-                
-          
-
-            //string message = msg;
-            Msg.Subject = MailSubject;
-            Msg.Body = emailBody;
-            Msg.IsBodyHtml = true;
-
-            // your remote SMTP server IP.
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = host;
-            smtp.Port = Convert.ToInt32(port);
-            smtp.Credentials = new System.Net.NetworkCredential(smtpUserName, smtpPassword);
-            smtp.EnableSsl = true;
-            smtp.Send(Msg);
-            Msg = null;
         }
-
 
         #endregion SendEmail
 
@@ -167,129 +207,197 @@ namespace Boutique.DAL
 
         public void FormatAndSendEmail()
         {
-            string Url = "";
-
-            Url = "Home/mailTemplates/OrderStatusEmail.html";
-
-            string body = string.Empty;
-            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+            try
             {
-                body = reader.ReadToEnd();
-            }
+                string Url = "";
 
-            body = body.Replace("{UserName}", UsrName);
-            body = body.Replace("{OrderNo}", OrderNo);
-            body = body.Replace("{OrderDate}", OrderDate);
-            body = body.Replace("{TotalPrice}", TotalPrice);
-            body = body.Replace("{Mobile}", Mobile);
-            body = body.Replace("{msg}", msg);
+                Url = "Home/mailTemplates/OrderStatusEmail.html";
 
-            StringBuilder html = new StringBuilder();
-
-            if (ProductNames != "" && ProductNames != null)
-            {
-                string[] prdctDetails = ProductNames.Split('|');
-
-                html.Append("<tr><th>Product</th><th>Remarks</th></tr>");
-
-                for (int i = 0; i < prdctDetails.Length; i++)
+                string body = string.Empty;
+                using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
                 {
-                    if (prdctDetails[i] != "")
+                    body = reader.ReadToEnd();
+                }
+
+                body = body.Replace("{UserName}", UsrName);
+                body = body.Replace("{OrderNo}", OrderNo);
+                body = body.Replace("{OrderDate}", OrderDate);
+                body = body.Replace("{TotalPrice}", TotalPrice);
+                body = body.Replace("{Mobile}", Mobile);
+                body = body.Replace("{msg}", msg);
+
+                StringBuilder html = new StringBuilder();
+
+                if (ProductNames != "" && ProductNames != null)
+                {
+                    string[] prdctDetails = ProductNames.Split('|');
+
+                    html.Append("<tr><th>Product</th><th>Remarks</th></tr>");
+
+                    for (int i = 0; i < prdctDetails.Length; i++)
                     {
-                        string[] Columns = prdctDetails[i].Split('$');
+                        if (prdctDetails[i] != "")
+                        {
+                            string[] Columns = prdctDetails[i].Split('$');
 
-                        html.Append("<tr><td>" + Columns[0] + "</td><td>" + Columns[1] + "</td></tr>");
+                            html.Append("<tr><td>" + Columns[0] + "</td><td>" + Columns[1] + "</td></tr>");
 
+                        }
                     }
                 }
-            }
 
-            else
+                else
+                {
+                    html.Append("<p>No products</p>");
+                }
+
+                string HTML = html.ToString();
+                body = body.Replace("{products}", HTML);
+
+                emailBody = body;
+                SendEmail();
+            }
+            catch(Exception ex)
             {
-                html.Append("<p>No products</p>");
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "MailSending";
+                ETObj.Method = "FormatAndSendEmail";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
-
-            string HTML = html.ToString();
-            body = body.Replace("{products}", HTML);
-
-            emailBody = body;
-            SendEmail();
         }
 
         #endregion Format And Send Email
 
+        #region PopulateBody
         public int PopulateBody()
         {
-            NewsLetters newsObj = new NewsLetters();
-            string imageUrl = "http://tiquesinn.com/NewsLetterImages/";
-            string Url, logourl = "";
-            newsObj.NewsLetterID = mailNewsLetterID;
-            newsObj.BoutiqueID = BoutiqueID;
-            newsObj.GetAllNewsLetterDetails();
-            Url = newsObj.templateFile;
-            recepientEmail = newsObj.audienceMailIDs;
-          //  int imageCount = Convert.ToInt32(8);
-            string body = string.Empty;
-            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+            try
             {
-                body = reader.ReadToEnd();
+                NewsLetters newsObj = new NewsLetters();
+                string imageUrl = "http://tiquesinn.com/NewsLetterImages/";
+                string Url, logourl = "";
+                newsObj.NewsLetterID = mailNewsLetterID;
+                newsObj.BoutiqueID = BoutiqueID;
+                newsObj.GetAllNewsLetterDetails();
+                Url = newsObj.templateFile;
+                recepientEmail = newsObj.audienceMailIDs;
+                //  int imageCount = Convert.ToInt32(8);
+                string body = string.Empty;
+                using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/" + Url)))
+                {
+                    body = reader.ReadToEnd();
+                }
+                //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
+                //body = fileName;
+                body = body.Replace("{UserName}", " ");
+                body = body.Replace("{Title}", "Your Todays Deal.....");
+                body = body.Replace("{Url}", "url");
+                body = body.Replace("{Description}", newsObj.Description);
+                body = body.Replace("{Mainimage}", "MainimageUrl");
+                if (body.Contains("{ImgBirthday}"))
+                {
+                    body = body.Replace("{ImgBirthday}", "http://tiquesinn.com/img/Templates/BirthdayImage.jpg");
+                }
+                if (body.Contains("imgLogo"))
+                {
+                    logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
+                    string logo = "http://tiquesinn.com/" + logourl.Replace("../", ""); ;
+                    body = body.Replace("{imgLogo}", logo);
+                    body = body.Replace("{BoutiqueName}", Boutique);
+                }
+                char[] c = new char[] { ' ', ',' };
+                string[] image = newsObj.ImageIDs[0].Split(c);
+                for (int i = 0; i <= newsObj.imageCount - 1; i++)
+                {
+                    body = body.Replace("{image" + i + "}", imageUrl + image[i] + ".jpeg");
+                }
+                emailBody = body;
+                SendEmail();
+                newsObj.UpdateNewsLetterIsmailSend();
+                
             }
-            //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
-            //body = fileName;
-            body = body.Replace("{UserName}", " ");
-            body = body.Replace("{Title}", "Your Todays Deal.....");
-            body = body.Replace("{Url}", "url");
-            body = body.Replace("{Description}", newsObj.Description);
-            body = body.Replace("{Mainimage}", "MainimageUrl");
-            if (body.Contains("{ImgBirthday}"))
+            catch(Exception ex)
             {
-                body = body.Replace("{ImgBirthday}", "http://tiquesinn.com/img/Templates/BirthdayImage.jpg");
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "MailSending";
+                ETObj.Method = "PopulateBody";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
-            if (body.Contains("imgLogo"))
-            {
-                logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
-                string logo = "http://tiquesinn.com/" + logourl.Replace("../", ""); ;
-                body = body.Replace("{imgLogo}", logo);
-                body = body.Replace("{BoutiqueName}", Boutique);
-            }
-            char[] c = new char[] { ' ', ',' };
-            string[] image = newsObj.ImageIDs[0].Split(c);
-            for (int i = 0; i <= newsObj.imageCount - 1; i++)
-            {
-                body = body.Replace("{image" + i + "}", imageUrl +image[i] + ".jpeg");
-            }
-            emailBody = body;
-            SendEmail();
-            newsObj.UpdateNewsLetterIsmailSend();
             return 2;
         }
+        #endregion PopulateBody
 
+        #region SendHtmlFormattedEmail
         public void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
         {
-            using (MailMessage mailMessage = new MailMessage())
+            try
             {
-                mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["UserName"]);
-                mailMessage.Subject = subject;
-                mailMessage.Body = body;
-                mailMessage.IsBodyHtml = true;
-                string[] multiEmail = recepientEmail.Split(';');
-                foreach (string multipleMails in multiEmail)
+                using (MailMessage mailMessage = new MailMessage())
                 {
-                    mailMessage.To.Add(new MailAddress(multipleMails));
-                }
+                    mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["UserName"]);
+                    mailMessage.Subject = subject;
+                    mailMessage.Body = body;
+                    mailMessage.IsBodyHtml = true;
+                    string[] multiEmail = recepientEmail.Split(';');
+                    foreach (string multipleMails in multiEmail)
+                    {
+                        mailMessage.To.Add(new MailAddress(multipleMails));
+                    }
 
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = ConfigurationManager.AppSettings["Host"];
-                smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
-                System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
-                NetworkCred.UserName = ConfigurationManager.AppSettings["UserName"];
-                NetworkCred.Password = ConfigurationManager.AppSettings["Password"];
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = NetworkCred;
-                smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
-                smtp.Send(mailMessage);
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = ConfigurationManager.AppSettings["Host"];
+                    smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
+                    System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
+                    NetworkCred.UserName = ConfigurationManager.AppSettings["UserName"];
+                    NetworkCred.Password = ConfigurationManager.AppSettings["Password"];
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+                    smtp.Send(mailMessage);
+                }
+            }
+            catch(Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "MailSending";
+                ETObj.Method = "SendHtmlFormattedEmail";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
         }
+        #endregion SendHtmlFormattedEmail
         #endregion Methods
     }
 }

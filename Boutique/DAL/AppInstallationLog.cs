@@ -45,6 +45,26 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string BugTrackerstatus
+        {
+            get;
+            set;
+        }
+        public string BugTrackerVersion
+        {
+            get;
+            set;
+        }
+        public string BugTrackerUserID
+        {
+            get;
+            set;
+        }
+        public string BugTrackerCreatedBy
+        {
+            get;
+            set;
+        }
 	    #endregion
         
         
@@ -83,7 +103,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "AppInstallationLog";
+                    ETObj.Method = "InsertAppInstallation";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -136,7 +170,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "AppInstallationLog";
+                    ETObj.Method = "UpdateAppInstallation";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -188,7 +236,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "AppInstallationLog";
+                    ETObj.Method = "DeleteAppInstallation";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -232,11 +294,25 @@ namespace Boutique.DAL
                 ds = new DataSet();
                 sda.Fill(ds);
                 if (ds.Tables[0].Rows.Count == 0) { throw new Exception("No such item"); }
-                return ds;
+               
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "AppInstallationLog";
+                ETObj.Method = "GetAllAppInstallation";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -245,6 +321,7 @@ namespace Boutique.DAL
                     dcon.DisconectDB();
                 }
             }
+            return ds;
         }
         #endregion 
 

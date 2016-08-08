@@ -28,14 +28,35 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            if (UA.BoutiqueID != "")
+            try
             {
-                CategoryObj.BoutiqueID = UA.BoutiqueID;
+               
+                if (UA.BoutiqueID != "")
+                {
+                    CategoryObj.BoutiqueID = UA.BoutiqueID;
 
-                status = CategoryObj.CheckCategory();
-                return jsSerializer.Serialize(status);
+                    status = CategoryObj.CheckCategory();
+                    return jsSerializer.Serialize(status);
+                }
             }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Category";
+                ETObj.Method = "CheckCategories";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
             return jsSerializer.Serialize("");
 
            
@@ -47,17 +68,139 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllCategories(Product productObj)
         {
+            string status = null;
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            if (UA.BoutiqueID != "")
+            try
             {
-                productObj.BoutiqueID = UA.BoutiqueID;
-                DataSet ds = null;
-                ds = productObj.GetAllCategories();
-                //Converting to Json
-                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                if (UA.BoutiqueID != "")
+                {
+                    productObj.BoutiqueID = UA.BoutiqueID;
+                    DataSet ds = null;
+                    ds = productObj.GetAllCategories();
+                    //Converting to Json
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+                    return jsSerializer.Serialize(parentRow);
+                }
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Category";
+                ETObj.Method = "GetAllCategories";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
+            return jsSerializer.Serialize("");
+
+            //Converting to Json
+        }
+
+        #endregion GetAllCategories
+
+        #region GetAllCategoryIDandName
+        [System.Web.Services.WebMethod]
+        public static string GetAllCategoryIDandName(Product productObj)
+        {
+            string status = null;
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA.BoutiqueID != "")
+                {
+                    productObj.BoutiqueID = UA.BoutiqueID;
+                    DataSet ds = null;
+                    ds = productObj.GetAllCategoryIDAndName();
+                    //Converting to Json
+                    List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                    Dictionary<string, object> childRow;
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in ds.Tables[0].Rows)
+                        {
+                            childRow = new Dictionary<string, object>();
+                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            {
+                                childRow.Add(col.ColumnName, row[col]);
+                            }
+                            parentRow.Add(childRow);
+                        }
+                    }
+                    return jsSerializer.Serialize(parentRow);
+                }
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Category";
+                ETObj.Method = "GetAllCategoryIDandName";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
+            }
+            return jsSerializer.Serialize("");
+          
+            //Converting to Json
+        }
+
+        #endregion GetAllCategoryIDandName
+
+        #region GetCategoryByCategoryCode
+
+        [System.Web.Services.WebMethod]
+        public static string GetCategoryByCategoryCode(Product categoryObj)
+        {
+            string status = null;
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            categoryObj.BoutiqueID = UA.BoutiqueID;
+            DataSet ds = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            try
+            {
+                ds = categoryObj.GetCategory();
+
+                // Converting to Json
+               
                 Dictionary<string, object> childRow;
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -71,82 +214,24 @@ namespace Boutique.AdminPanel
                         parentRow.Add(childRow);
                     }
                 }
-                return jsSerializer.Serialize(parentRow);
             }
-
-            return jsSerializer.Serialize("");
-
-            //Converting to Json
-        }
-
-        #endregion GetAllCategories
-
-        #region GetAllCategoryIDandName
-        [System.Web.Services.WebMethod]
-        public static string GetAllCategoryIDandName(Product productObj)
-        {
-            DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            if(UA.BoutiqueID != "")
+            catch(Exception ex)
             {
-                productObj.BoutiqueID = UA.BoutiqueID;
-                DataSet ds = null;
-                ds = productObj.GetAllCategoryIDAndName();
-                //Converting to Json
-                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-                Dictionary<string, object> childRow;
-                if(ds.Tables[0].Rows.Count > 0)
-                {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
-                    {
-                        childRow.Add(col.ColumnName, row[col]);
-                    }
-                    parentRow.Add(childRow);
-                }
-            }
-            return jsSerializer.Serialize(parentRow);
-            }
+                status = "500";//Exception of foreign key
 
-            return jsSerializer.Serialize("");
-          
-            //Converting to Json
-        }
-
-        #endregion GetAllCategoryIDandName
-
-        #region GetCategoryByCategoryCode
-
-        [System.Web.Services.WebMethod]
-        public static string GetCategoryByCategoryCode(Product categoryObj)
-        {
-
-            DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            categoryObj.BoutiqueID = UA.BoutiqueID;
-            DataSet ds = null;
-            ds=categoryObj.GetCategory();
-
-           // Converting to Json
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Dictionary<string, object> childRow;
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    childRow = new Dictionary<string, object>();
-                    foreach (DataColumn col in ds.Tables[0].Columns)
-                    {
-                        childRow.Add(col.ColumnName, row[col]);
-                    }
-                    parentRow.Add(childRow);
-                }
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Category";
+                ETObj.Method = "GetCategoryByCategoryCode";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
             }
             return jsSerializer.Serialize(parentRow);
 
@@ -160,12 +245,12 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string InsertCategory(Product categoryObj)
         {
+            string status = null;
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             categoryObj.BoutiqueID = UA.BoutiqueID;
             categoryObj.CreatedBy = UA.userName;
-             string status=null;
              try
              {
                  if (categoryObj.CategoryCode != "")
@@ -174,9 +259,23 @@ namespace Boutique.AdminPanel
                  }
               
              }
-             catch(Exception)
+             catch(Exception ex)
              {
+                 status = "500";//Exception of foreign key
 
+                 //Code For Exception Track insert
+                 ExceptionTrack ETObj = new ExceptionTrack();
+                 ETObj.BoutiqueID = UA.BoutiqueID;
+                 ETObj.UserID = UA.UserID;
+                 ETObj.Description = ex.Message;//Actual exception message
+                 ETObj.Date = DateTime.Now.ToString();
+                 ETObj.Module = "Category";
+                 ETObj.Method = "InsertCategory";
+                 ETObj.ErrorSource = "Code-Behind";
+                 ETObj.IsMobile = false;
+                 ETObj.Version = UA.Version;
+                 ETObj.CreatedBy = UA.userName;
+                 ETObj.InsertErrorDetails();
              }
              return status;
         }
@@ -189,7 +288,7 @@ namespace Boutique.AdminPanel
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            categoryObj.BoutiqueID = UA.BoutiqueID;
+          //  categoryObj.BoutiqueID = UA.BoutiqueID;
             categoryObj.UpdatedBy = UA.userName;
 
             string status = null;
@@ -198,9 +297,23 @@ namespace Boutique.AdminPanel
                 status = categoryObj.EditCategory().ToString();
 
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                status = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Category";
+                ETObj.Method = "UpdateCategory";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
             }
             return status;
         }
@@ -221,9 +334,23 @@ namespace Boutique.AdminPanel
                 status = categoryObj.DeleteCategory().ToString();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                status = "500";//exception occur
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = UA.BoutiqueID;
+                ETObj.UserID = UA.UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Category";
+                ETObj.Method = "DeleteCategory";
+                ETObj.ErrorSource = "Code-Behind";
+                ETObj.IsMobile = false;
+                ETObj.Version = UA.Version;
+                ETObj.CreatedBy = UA.userName;
+                ETObj.InsertErrorDetails();
             }
             return status;
         }

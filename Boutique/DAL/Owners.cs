@@ -80,7 +80,26 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string BugTrackerstatus
+        {
+            get;
+            set;
+        }
+        public string BugTrackerVersion
+        {
+            get;
+            set;
+        }
+        public string BugTrackerUserID
+        {
+            get;
+            set;
+        }
+        public string BugTrackerCreatedBy
+        {
+            get;
+            set;
+        }
         #endregion Properties
 
         #region Methods
@@ -129,7 +148,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Owners";
+                    ETObj.Method = "Owners";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
 
                 finally
@@ -186,7 +219,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Owners";
+                    ETObj.Method = "InsertOwner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -250,7 +297,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Owners";
+                    ETObj.Method = "UpdateOwner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -302,7 +363,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Owners";
+                    ETObj.Method = "DeleteOwner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -346,11 +421,25 @@ namespace Boutique.DAL
                     dt = new DataTable();
                     sda.Fill(dt);
                     if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
-                    return dt;
+                   
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Owners";
+                    ETObj.Method = "GetOwner";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -359,6 +448,7 @@ namespace Boutique.DAL
                         dcon.DisconectDB();
                     }
                 }
+                return dt;
             }
             #endregion GetOwner
 
@@ -391,11 +481,25 @@ namespace Boutique.DAL
                     dt = new DataTable();
                     sda.Fill(dt);
                    // if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
-                    return dt;
+                 
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    BugTrackerstatus = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = BugTrackerUserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Owners";
+                    ETObj.Method = "GetAllOwners";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = BugTrackerVersion;
+                    ETObj.CreatedBy = BugTrackerCreatedBy;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -404,6 +508,7 @@ namespace Boutique.DAL
                         dcon.DisconectDB();
                     }
                 }
+                return dt;
             }
         #endregion
         #endregion Methods

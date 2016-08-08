@@ -50,7 +50,8 @@ var Pages = {
     LoyaltySettings: "Loyalty Settings",
     OrderStatus: "Order Status",
     Products: "Products",
-    ProductsReview:"Products Review"
+    ProductsReview: "Products Review",
+    Bugs:"Bug Tracker"
 }
 
 //--------------* Messages * ---------------//
