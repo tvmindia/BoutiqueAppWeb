@@ -12,7 +12,7 @@
     </style>
     
     <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
-    
+     <script src="../Scripts/custom.js"></script>
    
       <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>

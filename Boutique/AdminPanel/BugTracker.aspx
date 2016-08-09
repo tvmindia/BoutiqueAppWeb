@@ -205,11 +205,13 @@
     <script src="../Scripts/jquery-1.12.3.js"></script>
 
     <link href="../CSS/DataTables-1.10.4/css/jquery.dataTables.css" rel="stylesheet" />
+    
     <script src="../Scripts/jquery.dataTables-1.10.12.js"></script>
    <%-- <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>--%>
    
     <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/CustomCSS/BugTracker.css" rel="stylesheet" />
+    <%--  <script src="../Scripts/custom.js"></script>--%>
      <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/BugTracker.js"></script>
 

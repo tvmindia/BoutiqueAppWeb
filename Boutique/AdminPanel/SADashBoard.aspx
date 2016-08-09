@@ -10,9 +10,10 @@
      <link href="../CSS/Common.css" rel="stylesheet" />
       <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/select2.min.js"></script>
-  
+     <script src="../Scripts/jquery.validate.min-1.15.0.js"></script>
+  <script src="../Scripts/custom.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
-    <script src="../Scripts/jquery.validation.js"></script>
+  
     <script src="../Scripts/UserJS/SaDashBoard.js"></script>
    
     
