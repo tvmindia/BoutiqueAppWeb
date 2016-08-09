@@ -469,7 +469,7 @@ $("document").ready(function (e) {
             InsertException(ExceptionTrack);
         }
     });
-}
+
     
 });
 //end of document.ready
