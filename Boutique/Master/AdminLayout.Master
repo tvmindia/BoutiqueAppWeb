@@ -39,6 +39,7 @@
 <script src="../Scripts/jquery.validate.min-1.15.0.js"></script>
 <script src="../Scripts/custom.js"></script>
 <script src="../Scripts/UserJS/AdminLayout.js"></script>
+
     <%-- first test till above --%>
 
 
