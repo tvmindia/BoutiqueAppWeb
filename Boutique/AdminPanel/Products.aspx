@@ -113,9 +113,9 @@
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i> New Products</a></li>
+							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i> All Products</a></li>
 							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i> Trending</a></li>
-							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i> Out of Stocks</a></li>
+							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i> Not in Stocks</a></li>
                             <li><a id="idtabdeletedproducts" href="#deletedproducts"><i class="halflings-icon repeat"></i> Revive Products</a></li>
 						</ul>
 						
@@ -493,8 +493,8 @@
 								 <%-- <textarea class="form-control" style="max-width:68%" rows="4" id="txtTags"></textarea>--%>
                                      <div id="tags">
  
-    <input type="text" value="" id="txtTags" placeholder="Add a tag" />
-  </div>
+                                      <input type="text" value="" id="txtTags" placeholder="Add a tag" />
+                                     </div>
 								</div>
 								</div>
 						</div>

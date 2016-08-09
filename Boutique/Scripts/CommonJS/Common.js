@@ -209,13 +209,14 @@ function DeleteCustomAlert(txt, e, p)
     btnYes.appendChild(d.createTextNode("Yes"));
     btnYes.href = "#";
     //btnYes.focus();
-   
+    
     if (p == "ProductImage") {
         btnYes.onclick = function () { DeleteProductImage(e, p); removeCustomAlert(); return false; }
     }
   
     if (p == "Revive")//it is not  delete it restore from the deleted products
     {
+
         btnYes.onclick = function () { ReviveProducts(e, p); removeCustomAlert(); return false; }
     }
     if(p == "ErrorFix")

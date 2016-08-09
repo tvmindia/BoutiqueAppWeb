@@ -127,16 +127,17 @@ $("document").ready(function (e) {
     $(".DeleteProduct").live({
        
         click: function (e) {// Delete button click
-            debugger;
+           
             var e = $("#hdfproductID").val();
             var p = "";
+            debugger;
             DeleteCustomAlert("Are you sure?", e, p);
         }
     })
     
     $(".imgdelete").live({
         click: function (e) {// Clear controls
-            debugger;
+          
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -170,7 +171,7 @@ $("document").ready(function (e) {
 
 
     $("#load_more_button").click(function (e) { //user clicks on button
-        debugger;
+      
         HideAlertBox();
         var len = null;
         $(this).hide(); //hide load more button on click
@@ -647,7 +648,7 @@ $("document").ready(function (e) {
 
 
      $(".ReviveProduct").click(function (e) {//
-
+         debugger;
          HideAlertBox();
          var prodid = $("#hdfproductID").val();
          if (prodid != '')
@@ -670,14 +671,16 @@ $("document").ready(function (e) {
      });
     //----tag textarea------------------//
      $("#tags input").on({
+         
          focusout: function () {
              var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig, ''); // allowed characters
              if (txt) $("<span/>", { text: txt.toLowerCase(), insertBefore: this });
              this.value = "";
          },
          keypress: function (ev) {
-             if (event.keyCode == 13) {
-                 debugger;
+            
+             if (ev.keyCode == 13) {
+               
                  // if: comma|enter (delimit more keyCodes with | pipe) 
                  if (/(188|13)/.test(ev.which)) $(this).focusout();
                  var callbacks = $.Callbacks();
@@ -842,7 +845,7 @@ function DeleteItem(e, p) {
     if (result.status == "1") {
         //which tab should rebind
         var curtabname=$('#myTab .active').text();
-        if (curtabname === ' New Products') {
+        if (curtabname === ' All Products') {
             // BindAllProductImages(0);
             BindAllProductImagesRebind(0);
         }
@@ -850,7 +853,7 @@ function DeleteItem(e, p) {
         {
             BindTrendedProductImagesRebind(0);
         }
-        if (curtabname === ' Out of Stocks')
+        if (curtabname === ' Not in Stocks')
         {
             BindOutStockProductImagesRebind(0);
         }
@@ -872,6 +875,7 @@ function DeleteItem(e, p) {
 
 function ReviveProducts(e,p)
 {
+    debugger;
     var Product = new Object();
     Product.ProductID = e;
     //var result = DeleteProduct(Product);
@@ -1593,7 +1597,7 @@ function BindSortResult(Pagevalue, searchtext)
             Product.SearchText = "";
         }
         //inserts from code behind
-        debugger;
+  
         var totalimages = {};
         totalimages = GetAllNewProductsSearchDetails(Product);
         $("#newproductgaldiv").find(".imageholder").remove();
@@ -1656,7 +1660,7 @@ function BindSortResult(Pagevalue, searchtext)
         }
         //inserts from code behind
         var totalimages = {};
-        debugger;
+     
         totalimages = GetAllNewTrendingSearchDetails(Product);
         $("#trendingproductgaldiv").find(".imageholderTrends").remove();
         var parentdiv = $("#trendingproductgaldiv");
@@ -2007,7 +2011,7 @@ function BindSortResult(Pagevalue, searchtext)
 
 
     function BindAsyncCategory() {
-        debugger;
+       
         var jsonResult = {};
         var Product = new Object();
         jsonResult = GetAllCategories(Product);
@@ -2072,7 +2076,7 @@ function BindSortResult(Pagevalue, searchtext)
     }
     function GetSortResult(Product)
     {
-        debugger;
+      
         var ds = {};
         var table = {};
         var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -2330,6 +2334,7 @@ function BindSortResult(Pagevalue, searchtext)
         $('#IframeProjectSwitching').hide();
         $("#previewmsg").text('');
         $('#lblproductno').hide();
+        $("#txtTags").siblings('span').remove();
     
     }
 
@@ -3303,7 +3308,7 @@ function BindSortResult(Pagevalue, searchtext)
     }
     function EditProduct()
     {
-        debugger;
+        
         if ($("#hdfproductID").val() != '') {
             var lines = [];
             var Product = new Object();

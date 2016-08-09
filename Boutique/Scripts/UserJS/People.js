@@ -10,6 +10,24 @@ $("document").ready(function (e) {
     $('#hdfRole').val(LoginUserRole[0]);
     $('#hdfloginname').val(LoginUserRole[1]);
 
+    var qrStr = window.location.search;
+    if (qrStr != "") {
+
+        qrStr = qrStr.split("?")[1].split("=")[1];
+        if (qrStr == "users")
+        {
+            $('#myTab li:eq(3) a').tab('show');
+            BindAsyncUserTable();
+            $('#UsersTable').DataTable({
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "fnPageChange": "next"
+            });
+
+        }
+    }
+
     if (LoginUserRole[0] != Roles.Manager) {
         if (window.File && window.FileReader && window.FileList && window.Blob) {
             // Great success! All the File APIs are supported.     
@@ -38,12 +56,12 @@ $("document").ready(function (e) {
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
         "fnPageChange": "next"          //removing paging
     });
-    $('#UsersTable').DataTable({
-        "bPaginate": true,
-        "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],  
-        "fnPageChange": "next"
-    });
+    //$('#UsersTable').DataTable({
+    //    "bPaginate": true,
+    //    "iDisplayLength": 6,
+    //    "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],  
+    //    "fnPageChange": "next"
+    //});
 
 
 
@@ -1867,6 +1885,7 @@ function AdminValidation() {
         Errorbox.appendChild(divs);
         for (var i = 0; i < container.length; i++) {
             if (container[i].Value == "") {
+                //null value check
                 j = 1;
                 Errorbox.style.borderRadius = "5px";
                 Errorbox.style.display = "block";
@@ -1875,6 +1894,16 @@ function AdminValidation() {
                 txtB.style.backgroundPosition = "95% center";
                 txtB.style.backgroundRepeat = "no-repeat";         
                 Errorbox.style.paddingLeft = "30px";
+
+            }
+            else
+            {
+                //logical check
+                if(i==5)
+                {
+                    debugger;
+                    $("#txtAdminEmail").validate();
+                }
 
             }
 
