@@ -2,12 +2,18 @@
 $("document").ready(function (e) {
     var boutiqueID = {};
     boutiqueID = getboutiqueID();
+    debugger;
+    var LoginUserRole = getRole();
     hdfBoutiqueID = boutiqueID;
     parent.document.title = Pages.NewsLetter;
     if (window.File && window.FileReader && window.FileList && window.Blob) {
 
         // Great success! All the File APIs are supported.     
         document.getElementById('tempUpload').addEventListener('change', handleFileSelect, false);
+    }
+    if (LoginUserRole[0] == Roles.Manager) {
+        $(".NewTempSec").hide();
+        $("#CreateTemplate").hide();
     }
     BindNewsLetterAudience();
     var LoginUserRole = getRole();
@@ -708,12 +714,12 @@ function FillNewsLetterSendMailTable(Records) {
         var checkrole = $('#hdfRole').val();
         if (checkrole == Roles.Manager) {
             $("thead#newsLetterSendthead tr").remove();
-            var html = '<tr><th>Template</th> <th>Description</th> <th>Audience</th> <th>Created Date</th></tr> ';
+            var html = '<tr><th>Template</th> <th>Description</th> <th>Audience</th> <th>Created Date</th><th>Actions</th></tr> ';
             $("#newsLetterSendthead").append(html);
 
             $("tbody#newsLetterSendrows tr").remove();            //Remove all existing rows for refreshing
             $.each(Records, function (index, Records) {
-                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
+                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
                 $("#NewsLetterSendTable").append(html);
             })
 
@@ -746,12 +752,12 @@ function FillNewsLetterTable(Records) {
         var checkrole = $('#hdfRole').val();
         if (checkrole == Roles.Manager) {
             $("thead#newsLetterthead tr").remove();
-            var html = '<tr><th>Template</th> <th>Description</th> <th>Audience</th> <th>Created Date</th></tr> ';
+            var html = '<tr><th>Template</th> <th>Description</th> <th>Audience</th> <th>Created Date</th><th>Actions</th></tr> ';
             $("#newsLetterthead").append(html);
 
             $("tbody#newsLetterrows tr").remove();            //Remove all existing rows for refreshing
             $.each(Records, function (index, Records) {
-                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td></tr>'
+                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
                 $("#NewsLetterTable").append(html);
             })
 

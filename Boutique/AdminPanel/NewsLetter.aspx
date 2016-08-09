@@ -78,7 +78,7 @@
                         <li><a href="#GenerateTemplate" onclick="reloadNewsLetter();"><i class="halflings-icon list-alt"></i>NewsLetter</a></li>
                         <li><a href="#SendMail" onclick="ClearAllControls();"><i class="halflings-icon envelope"></i>Drafts</a></li>
                         <li><a href="#SendList" onclick="ClearAllControls();"><i class=" halflings-icon ok"></i>Sent</a></li>
-                        <li><a href="#CreateTemplate" onclick="ClearAllControls();"><i class="halflings-icon edit"></i>New Template</a></li>
+                        <li class="NewTempSec"><a href="#CreateTemplate" onclick="ClearAllControls();"><i class="halflings-icon edit"></i>New Template</a></li>
                     </ul>
                      <div id="myTabContent" class="tab-content">
                            <div class="tab-pane active" id="GenerateTemplate">
