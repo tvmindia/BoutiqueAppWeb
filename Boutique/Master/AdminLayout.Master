@@ -16,11 +16,11 @@
 <script src="../Scripts/jquery.cookie.js"></script>
 <script src="../Scripts/fullcalendar.min.js"></script>
 
-<script src="../Scripts/excanvas.js"></script>
+<%--<script src="../Scripts/excanvas.js"></script>
 <script src="../Scripts/jquery.flot.js"></script>
 <script src="../Scripts/jquery.flot.pie.js"></script>
 <script src="../Scripts/jquery.flot.stack.js"></script>
-<script src="../Scripts/jquery.flot.resize.min.js"></script>
+<script src="../Scripts/jquery.flot.resize.min.js"></script>--%>
 <script src="../Scripts/jquery.chosen.min.js"></script>
 <script src="../Scripts/jquery.uniform.min.js"></script>
 <%--<script src="../Scripts/jquery.cleditor.min.js"></script>--%>
@@ -36,7 +36,7 @@
 <script src="../Scripts/jquery.sparkline.min.js"></script>
 <script src="../Scripts/counter.js"></script>
 <%--<script src="../Scripts/retina.js"></script>--%>
-<script src="../Scripts/jquery.validate.min-1.15.0.js"></script>
+
 <script src="../Scripts/custom.js"></script>
 <script src="../Scripts/UserJS/AdminLayout.js"></script>
 
