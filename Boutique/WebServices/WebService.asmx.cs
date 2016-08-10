@@ -1180,6 +1180,36 @@ namespace Boutique.WebServices
         }
         #endregion
 
+        #region OwnerApp
+        [WebMethod]
+        public string PurchaseGraph(string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Loyalty purchase = new Loyalty();
+                purchase.BoutiqueID = boutiqueID;
+                dt = purchase.GetPurchaseDetailsforGraph();
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #region JSON converter
         /// <summary>
         /// JSON function without returning any images

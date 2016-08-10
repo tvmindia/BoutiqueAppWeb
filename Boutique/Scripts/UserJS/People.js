@@ -63,8 +63,6 @@ $("document").ready(function (e) {
     //    "fnPageChange": "next"
     //});
 
-
-
     $("#idTabAdministrator").click(function (e) {
         try
         {
@@ -1902,7 +1900,24 @@ function AdminValidation() {
                 if(i==5)
                 {
                     debugger;
-                    $("#txtAdminEmail").validate();
+                    var email = document.getElementById('txtAdminEmail');
+                    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                    if (!filter.test(email.value)) {
+                        //alert('Please provide a valid email address');
+                        j = 1;
+                        Errorbox.style.borderRadius = "5px";
+                        Errorbox.style.display = "block";
+                        var txtB = document.getElementById(container[i].id);
+                        txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+                        txtB.style.backgroundPosition = "95% center";
+                        txtB.style.backgroundRepeat = "no-repeat";
+                        Errorbox.style.paddingLeft = "30px";
+
+
+                      //  email.focus;
+                        return false;
+                    }
                 }
 
             }
@@ -2004,6 +2019,31 @@ function ManagerValidation() {
                 txtB.style.backgroundRepeat = "no-repeat";         
                 Errorbox.style.paddingLeft = "30px";
             }
+            else {
+                //logical check
+                if (i == 5) {
+                   
+                    var email = document.getElementById('txtManagerEmail');
+                    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                    if (!filter.test(email.value)) {
+                        //alert('Please provide a valid email address');
+                        j = 1;
+                        Errorbox.style.borderRadius = "5px";
+                        Errorbox.style.display = "block";
+                        var txtB = document.getElementById(container[i].id);
+                        txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+                        txtB.style.backgroundPosition = "95% center";
+                        txtB.style.backgroundRepeat = "no-repeat";
+                        Errorbox.style.paddingLeft = "30px";
+
+
+                        //  email.focus;
+                        return false;
+                    }
+                }
+
+            }
 
         }
         if (Password[0].value != CPassword[0].value) {
@@ -2076,6 +2116,7 @@ function DesignerValidate() {
                 txtB.style.backgroundRepeat = "no-repeat";       
                 Errorbox.style.paddingLeft = "30px";
             }
+
         }
         if (j == '1') {
             var p = document.createElement('p');
@@ -2112,6 +2153,7 @@ function UserValidate() {
         //var Email = $('#txtOwnerEmail');
         //var Address = $('#txtOwnerAddress');
         var Phone = $('#txtMobile');
+        
         //{ id: Email[0].id, name: Email[0].name, Value: Email[0].value },
         //{ id: Address[0].id, name: Address[0].name, Value: Address[0].value },
         var container = [
@@ -2135,6 +2177,7 @@ function UserValidate() {
                 txtB.style.backgroundRepeat = "no-repeat";         
                 Errorbox.style.paddingLeft = "30px";
             }
+           
         }
         if (j == '1') {
             var p = document.createElement('p');

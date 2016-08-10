@@ -14,7 +14,7 @@
       }
     </style>
     
-
+      <script src="../Scripts/custom.js"></script>
      <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
  <script src="../Scripts/UserJS/ProductReview.js"></script>

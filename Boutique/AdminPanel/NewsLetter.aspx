@@ -4,10 +4,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/NewsLetter.css" rel="stylesheet" />
      <link href="../CSS/Common.css" rel="stylesheet" />
+
        <script src="../Scripts/select2.min.js"></script>
  <%--    <link href="../CSS/viewbox.css" rel="stylesheet" />
     <script src="../Scripts/jquery.viewbox.min.js"></script>--%>
     <script src="../Scripts/CommonJS/Common.js"></script>
+      <script src="../Scripts/custom.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script> 
 <%--     <script src="../Scripts/bootstrap-multiselect.js"></script>
     <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />--%>

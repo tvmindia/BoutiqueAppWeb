@@ -10,6 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/People.css" rel="stylesheet" />
       <link href="../CSS/Common.css" rel="stylesheet" />
+      <script src="../Scripts/custom.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/jquery.validate.min-1.15.0.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
@@ -131,7 +132,7 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Email</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Email" data-msg-email="Please enter a valid email address" data-msg-required="Please enter your email address" data-rule-email="true" data-rule-required="true" aria-required="true" onkeyup=" return EmailValidation();" id="txtAdminEmail" type="text" />
+                                                        <input class="input-large focused" name="Email" onkeyup=" return EmailValidation();" id="txtAdminEmail" type="text" />
                                                         <img id="imgfail" style="display:none"  src="../img/Default/newClose.png" />
                                                         <img id="imgsuccess" style="display:none" src="../img/Default/newfff.png" />
 
