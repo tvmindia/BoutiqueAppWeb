@@ -142,8 +142,18 @@
                                                 <div class="control-group">
                                                     <label class="control-label">Is Acitive?</label>
                                                     <div class="controls">
-                                                        <label class="checkbox inline">
-                                                            <input type="checkbox" id="chkActiveAdmin" checked="checked" />Yes</label>
+                                                      <%--  <label class="checkbox inline">
+                                                          
+                                                         <input type="checkbox" id="chkActiveAdmin" checked="checked" />Yes</label>--%>
+                                                         <label class="radio">
+								                      	<input type="radio" name="AoptionsRadiosActive" id="AOptIsActiveYes" value="true" checked=""/>
+								                        Yes
+								                        </label>
+								
+								                     <label class="radio">
+								                      	<input type="radio" name="AoptionsRadiosActive" id="AOptIsActiveNo" value="false"/>
+								                         	No
+							                    	 </label>
 
                                                     </div>
                                                 </div>
@@ -268,9 +278,21 @@
 
                                                 <div class="control-group">
                                                     <label class="control-label">Is Acitive?</label>
-                                                    <div class="controls">
-                                                        <label class="checkbox inline">
-                                                            <input type="checkbox" id="chkActiveManager" checked />Yes</label>
+                                                   
+                                                     
+                                                         <div class="controls">
+                                                               <%-- <label class="checkbox inline">
+                                                            <input type="checkbox" id="chkActiveManager" checked />Yes</label>--%>
+                                                        <label class="radio">
+								                      	<input type="radio" name="MoptionsRadiosActive" id="MOptIsActiveYes" value="true" checked=""/>
+								                        Yes
+								                        </label>
+								
+								                     <label class="radio">
+								                      	<input type="radio" name="MoptionsRadiosActive" id="MOptIsActiveNo" value="false"/>
+								                         	No
+							                    	 </label>
+                                                   
 
                                                     </div>
                                                 </div>
@@ -462,8 +484,15 @@
                                                 <div class="control-group">
                                                     <label class="control-label">Is Acitive?</label>
                                                     <div class="controls">
-                                                        <label class="checkbox inline">
-                                                            <input type="checkbox" class="chkActive" id="chkActive" value="option1" />Yes</label>
+                                                        <label class="radio">
+								                      	<input type="radio" name="optionsRadiosActive" id="OptIsActiveYes" value="true" checked=""/>
+								                        Yes
+								                        </label>
+								
+								                     <label class="radio">
+								                      	<input type="radio" name="optionsRadiosActive" id="OptIsActiveNo" value="false"/>
+								                         	No
+							                    	 </label>
                                                     </div>
                                                 </div>
 

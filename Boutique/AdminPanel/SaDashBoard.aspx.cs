@@ -161,24 +161,33 @@ namespace Boutique.AdminPanel
         #region NewAdmin
         [System.Web.Services.WebMethod]
         public static string NewAdmin(Users userObj)
-        {
-            DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
-
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-           // userObj.BoutiqueID = UA.BoutiqueID;
-
-            string status = null;
-            if(userObj.UserID==null)
+         {
+             string status = null;
+            try
             {
-                userObj.IsAdmin = true;
-                status = userObj.AddNewUser().ToString();
+                DAL.Security.UserAuthendication UA;
+                UIClasses.Const Const = new UIClasses.Const();
+
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+                // userObj.BoutiqueID = UA.BoutiqueID;
+
+                
+                if (userObj.UserID == null)
+                {
+                    userObj.IsAdmin = true;
+                    status = userObj.AddNewUser().ToString();
+                }
+                else
+                {
+                    userObj.BoutiqueID = UA.BoutiqueID;
+                    status = userObj.EditUser(userObj.UserID).ToString();
+                }
             }
-            else
+            catch(Exception ex)
             {
-                userObj.BoutiqueID = UA.BoutiqueID;
-                status = userObj.EditUser(userObj.UserID).ToString();
+
             }
+          
            
             return status;
         }

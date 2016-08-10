@@ -1,6 +1,7 @@
 ﻿//document.ready
 $("document").ready(function (e) {
-
+    debugger;
+   $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement": "bottom", delay: { show: 400, hide: 200 } });
     parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION 
@@ -27,6 +28,7 @@ $("document").ready(function (e) {
 
         }
     }
+    
 
     if (LoginUserRole[0] != Roles.Manager) {
         if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -44,18 +46,8 @@ $("document").ready(function (e) {
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
         "fnPageChange": "next"           //removing paging
     });
-    $('#ManagerTable').DataTable({
-        "bPaginate": true,
-        "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-        "fnPageChange": "next"            //removing paging
-    });
-    $('#DesignerTable').DataTable({
-        "bPaginate": true,
-        "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-        "fnPageChange": "next"          //removing paging
-    });
+   
+  
     //$('#UsersTable').DataTable({
     //    "bPaginate": true,
     //    "iDisplayLength": 6,
@@ -84,6 +76,12 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncManagersTable();
+            $('#ManagerTable').DataTable({
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "fnPageChange": "next"            //removing paging
+            });
         }
         catch(e)
         {
@@ -101,6 +99,12 @@ $("document").ready(function (e) {
         try
         {
             BindAsycDesignerTable();
+            $('#DesignerTable').DataTable({
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "fnPageChange": "next"          //removing paging
+            });
         }
         catch(e)
         {
@@ -117,6 +121,12 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncUserTable();
+            $('#UsersTable').DataTable({
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "fnPageChange": "next"
+            });
         }
         catch(e)
         {
@@ -477,6 +487,10 @@ $("document").ready(function (e) {
     });
 
     //end styling client validation
+
+   
+
+
 
 });
 //end of document.ready
@@ -958,11 +972,11 @@ function BindAdminsTable(Records) {
             $("tbody#Adminrows tr").remove();
             $.each(Records, function (index, Records) {           
                 if (Records.LoginName == lname) {
-                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-rel="tooltip" data-original-title="Tooltip, you can change the position."><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                     $("#AdministratorTable").append(html);
                 }
                 else {
-                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-rel="tooltip" data-original-title="Tooltip, you can change the position."><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                     $("#AdministratorTable").append(html);
                 }
             })
@@ -984,13 +998,13 @@ function BindAdminsTable(Records) {
 
 
 function InsertUser(User) {
+    debugger;
     var table = {};
     try
     {
         var data = "{'userObj':" + JSON.stringify(User) + "}";
-
         jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/NewAdmin");
-      
+   
         table = JSON.parse(jsonResult.d);
     }
     catch(e)
@@ -1091,7 +1105,9 @@ function clearManagerControls() {
     $("#txtManagerPass").val('');
     $("#txtManagerConPass").val('');
     $("#txtManagerEmail").val('');
-    $('#chkActiveManager').parent().addClass('checked');
+    // $('#chkActiveManager').parent().addClass('checked');
+    $('#ManagerIsActiveYes').parent().addClass('checked');
+    $("#ManagerIsActiveNo").parent().removeClass('checked');
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1119,7 +1135,9 @@ function clearAdminControls() {
     $("#txtAdminPass").val('');
     $("#txtAdminConPass").val('');
     $("#txtAdminEmail").val('');
-    $('#chkActiveAdmin').parent().addClass('checked');
+    // $('#chkActiveAdmin').parent().addClass('checked');
+    $('#AOptIsActiveYes').parent().addClass('checked');
+    $("#AOptIsActiveNo").parent().removeClass('checked');
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1140,7 +1158,8 @@ function clearUserControls() {
     $("#txtName").val('');
     $("#txtMobile").val('');
     $("#txtEmail").val('');
-    $("#chkActive").val('');
+    $('#OptIsActiveYes').parent().addClass('checked');
+    $("#OptIsActiveNo").parent().removeClass('checked');
     $("#dateDOB").val('');
     $("#dateAnniversary").val('');
     $('#rowfluidDiv').hide();
@@ -1274,16 +1293,25 @@ function BindUserTextBoxes(Records) {
             $("#txtMobile").val(Records.Mobile);
             $("#txtEmail").val(Records.Email);
 
-            if (Records.Active === true) {
+            //if (Records.Active === true) {
          
          
-                $('#chkActive').parent().addClass('checked');
-            }
-            else {
+            //    $('#chkActive').parent().addClass('checked');
+            //}
+            //else {
                    
-                $('#chkActive').parent().removeClass('checked');
+            //    $('#chkActive').parent().removeClass('checked');
+            //}
+
+            //  $("#chkActive").val(Records.IsActive);
+            if (Records.Active === true) {
+                $("#OptIsActiveNo").parent().removeClass('checked');
+                $('#OptIsActiveYes').parent().addClass('checked');
             }
-            $("#chkActive").val(Records.IsActive);
+            if (Records.Active === false) {
+                $("#OptIsActiveYes").parent().removeClass('checked');
+                $('#OptIsActiveNo').parent().addClass('checked');
+            }
             $("#txtCaption").val(Records.Caption);
             $("#dateDOB").val(ConvertJsonToDate(Records.DOB));
             $("#dateAnniversary").val(ConvertJsonToDate(Records.Anniversary));
@@ -1322,14 +1350,25 @@ function BindAdminTextBoxes(Records) {
       
             $("#hdfMobile").val(Records.Mobile);
             $("#hdfAdminID").val(Records.AdminID);
-            if (Records.Active === true) {
+            //if (Records.Active === true) {
                      
-                $('#chkActiveAdmin').parent().addClass('checked');
+            //    $('#chkActiveAdmin').parent().addClass('checked');
+            //}
+            //else {
+            //    $('#chkActiveAdmin').parent().removeClass('checked');
+            //}
+            //$("#chkActiveAdmin").val(Records.IsActive);
+            if (Records.Active === true)
+            {
+                $("#AOptIsActiveNo").parent().removeClass('checked');
+                $('#AOptIsActiveYes').parent().addClass('checked');
             }
-            else {
-                $('#chkActiveAdmin').parent().removeClass('checked');
+            if (Records.Active === false)
+            {
+                $("#AOptIsActiveYes").parent().removeClass('checked');
+                $('#AOptIsActiveNo').parent().addClass('checked');
             }
-            $("#chkActiveAdmin").val(Records.IsActive);
+
             $("#hdfUserID").val(Records.UserID);
             $("#hdfCardNo").val(Records.LoyaltyCardNo);
             $("#hdfBoutiqueID").val(Records.BoutiqueID);
@@ -1367,15 +1406,27 @@ function BindManagerTextBoxes(Records) {
 
             $("#hdfMobile").val(Records.Mobile);
             $("#hdfAdminID").val(Records.AdminID);
+            //if (Records.Active === true)
+            //{
+            //    $('#chkActiveManager').parent().addClass('checked');
+            //}
+            //else
+            //{
+            //    $('#chkActiveManager').parent().removeClass('checked');
+            //}
+            //$("#chkActiveManager").val(Records.IsActive);
             if (Records.Active === true)
             {
-                $('#chkActiveManager').parent().addClass('checked');
+                $("#MOptIsActiveNo").parent().removeClass('checked');
+                $('#MOptIsActiveYes').parent().addClass('checked');
+
             }
-            else
+            if (Records.Active === false)
             {
-                $('#chkActiveManager').parent().removeClass('checked');
+                $("#MOptIsActiveYes").parent().removeClass('checked');
+                $('#MOptIsActiveNo').parent().addClass('checked');
             }
-            $("#chkActiveManager").val(Records.IsActive);
+
             $("#hdfUserID").val(Records.UserID);
             $("#hdfCardNo").val(Records.LoyaltyCardNo);
             $("#hdfBoutiqueID").val(Records.BoutiqueID);
@@ -1509,10 +1560,10 @@ function DeleteDesigner(Designer) {
 
 //Add New Admin
 function AddAdmin() {
+    debugger;
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
-
     var result = "";
     try
     {
@@ -1533,14 +1584,20 @@ function AddAdmin() {
         Admin.Email = $("#txtAdminEmail").val();
         Admin.DOB = $("#dateDOB").val();
         Admin.Anniversary = $("#dateAnniversary").val();
-        if ($('#chkActiveAdmin').is(':checked'))
+        //if ($('#chkActiveAdmin').is(':checked'))
+        //{
+        //    Admin.IsActive = "true";
+        //}
+        //else
+        //{
+        //    Admin.IsActive = "false";
+        //}
+
+        if ($("input[name=AoptionsRadiosActive]:checked"))
         {
-            Admin.IsActive = "true";
+            Admin.IsActive = $("input[name=AoptionsRadiosActive]:checked").val();
         }
-        else
-        {
-            Admin.IsActive = "false";
-        }
+            
         result = InsertAdmin(Admin);
         if (result == "1") {
             clearAdminControls();
@@ -1573,6 +1630,7 @@ function AddAdmin() {
 }
 //Add New Manager
 function AddManager() {
+    debugger;
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1600,11 +1658,15 @@ function AddManager() {
         Manager.Anniversary = $("#dateAnniversary").val();
 
         // 
-        if ($('#chkActiveManager').is(':checked')) {
-            Manager.IsActive = "true";
-        }
-        else {
-            Manager.IsActive = "false";
+        //if ($('#chkActiveManager').is(':checked')) {
+        //    Manager.IsActive = "true";
+        //}
+        //else {
+        //    Manager.IsActive = "false";
+        //}
+        if ($("input[name=MoptionsRadiosActive]:checked"))
+        {
+            Manager.IsActive = $("input[name=MoptionsRadiosActive]:checked").val();
         }
 
      
@@ -1790,6 +1852,7 @@ function AddDesigner()
 //Add New User
 function AddUser()
 {
+    debugger;
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1797,10 +1860,10 @@ function AddUser()
     var result = "";
     try
     {
-        var User = new Object();
+           var User = new Object();
 
-        User.UserID = $("#hdfUserID").val();
-        if (User.UserID != null) {
+           User.UserID = $("#hdfUserID").val();
+           if (User.UserID != null) {
             User.Name = $("#txtName").val();
             User.Mobile = $("#txtMobile").val();
             User.Email = $("#txtEmail").val();
@@ -1809,12 +1872,27 @@ function AddUser()
             if (User.Mobile != $("#hdfMobile").val()) {
                 User.isVerified = "false";
             }
-            if ($('#chkActive').is(':checked')) {
-                User.IsActive = "true";
+            //if ($('#chkActive').is(':checked')) {
+            //    User.IsActive = "true";
+            //}
+            //else {
+            //    User.IsActive = "false";
+               //}
+           
+            //if ($('#chkActive').attr("checked") == 'checked')
+            //{
+            //    User.IsActive = "true";
+            //}
+            //else
+            //{
+            //    User.IsActive = "false";
+            //}
+         
+            if ($("input[name=optionsRadiosActive]:checked")) {
+                User.IsActive = $("input[name=optionsRadiosActive]:checked").val();
             }
-            else {
-                User.IsActive = "false";
-            }
+
+
             User.DOB = $("#dateDOB").val();
             User.Anniversary = $("#dateAnniversary").val();
             result = InsertUser(User);
@@ -2156,6 +2234,7 @@ function UserValidate() {
         
         //{ id: Email[0].id, name: Email[0].name, Value: Email[0].value },
         //{ id: Address[0].id, name: Address[0].name, Value: Address[0].value },
+
         var container = [
             { id: Name[0].id, name: Name[0].name, Value: Name[0].value },        
             { id: Phone[0].id, name: Phone[0].name, Value: Phone[0].value }
