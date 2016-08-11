@@ -719,7 +719,7 @@ function FillNewsLetterSendMailTable(Records) {
 
             $("tbody#newsLetterSendrows tr").remove();            //Remove all existing rows for refreshing
             $.each(Records, function (index, Records) {
-                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
+                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#" data-toggle="tooltip" data-placement="top"  title="Preview"><i class="halflings-icon white list-alt"></i></a></td></tr>'
                 $("#NewsLetterSendTable").append(html);
             })
 
@@ -728,7 +728,7 @@ function FillNewsLetterSendMailTable(Records) {
 
             $("tbody#newsLetterSendrows tr").remove();            //Remove all existing rows for refreshing
             $.each(Records, function (index, Records) {
-                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
+                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudienceDraftPopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-success DraftsTemplatePreview" href="#" data-toggle="tooltip" data-placement="top"  title="Preview"><i class="halflings-icon white list-alt"></i></a></td></tr>'
                 $("#NewsLetterSendTable").append(html);
             })
 
@@ -757,7 +757,7 @@ function FillNewsLetterTable(Records) {
 
             $("tbody#newsLetterrows tr").remove();            //Remove all existing rows for refreshing
             $.each(Records, function (index, Records) {
-                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
+                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"data-toggle="tooltip" data-placement="top"  title="Send Mail"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#" data-toggle="tooltip" data-placement="top"  title="Preview"><i class="halflings-icon white list-alt"></i></a></td></tr>'
                 $("#NewsLetterTable").append(html);
             })
 
@@ -766,7 +766,7 @@ function FillNewsLetterTable(Records) {
 
             $("tbody#newsLetterrows tr").remove();            //Remove all existing rows for refreshing
             $.each(Records, function (index, Records) {
-                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#"><i class="halflings-icon white list-alt"></i></a></td></tr>'
+                var html = '<tr NewsLetterID="' + Records.NewsLetterID + '" BoutiqueID="' + Records.BoutiqueID + '" ImageID="' + Records.ImageID + '" TemplateID="' + Records.TemplateID + '"Description="' + Records.Description + '"Audience="' + Records.AudienceMailID + '"><td>' + Records.TemplateName + '</td><td class="center">' + Records.Description + '</td><td class="center"><a class="AudiencePopup">' + Records.AudienceMailID + '</a></td><td class="center">' + ConvertJsonToDate(Records.CreatedDate) + '</td><td class="center"><a class="btn btn-info sendMail" href="#"data-toggle="tooltip" data-placement="top"  title="Send Mail"><i class="halflings-icon white envelope"></i><i class="halflings-icon white share-alt"></i></a><a class="btn btn-success DraftsTemplatePreview" href="#" data-toggle="tooltip" data-placement="top"  title="Preview"><i class="halflings-icon white list-alt"></i></a></td></tr>'
                 $("#NewsLetterTable").append(html);
             })
 
