@@ -1,7 +1,7 @@
 ﻿//document.ready
 $("document").ready(function (e) {
     debugger;
-   $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement": "bottom", delay: { show: 400, hide: 200 } });
+ 
     parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION 
@@ -972,11 +972,11 @@ function BindAdminsTable(Records) {
             $("tbody#Adminrows tr").remove();
             $.each(Records, function (index, Records) {           
                 if (Records.LoginName == lname) {
-                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-rel="tooltip" data-original-title="Tooltip, you can change the position."><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-toggle="tooltip" data-placement="top"  title="Edit Admin"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                     $("#AdministratorTable").append(html);
                 }
                 else {
-                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-rel="tooltip" data-original-title="Tooltip, you can change the position."><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-toggle="tooltip" data-placement="top"  title="Edit Admin"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                     $("#AdministratorTable").append(html);
                 }
             })
