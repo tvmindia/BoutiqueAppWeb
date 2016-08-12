@@ -148,7 +148,7 @@ namespace Boutique.DAL
             {
                 MailMessage Msg = new MailMessage();
 
-                Msg.From = new MailAddress(EmailFromAddress);
+                Msg.From = new MailAddress(EmailFromAddress,Boutique);
 
                 if (recepientEmail != null)
                 {
@@ -300,6 +300,10 @@ namespace Boutique.DAL
                 }
                 //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
                 //body = fileName;
+                string header =newsObj.TemplateHeader();
+                string footer = newsObj.TemplateFooter();
+                body = header + body;
+                body = body + footer;
                 body = body.Replace("{UserName}", " ");
                 body = body.Replace("{Title}", "Your Todays Deal.....");
                 body = body.Replace("{Url}", "url");

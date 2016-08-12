@@ -431,6 +431,7 @@ namespace Boutique.DAL
                 }
                 //string fileName = HttpContext.Current.Server.MapPath("~/" + Url);
                 //body = fileName;
+                
                 body = body.Replace("{UserName}", " ");
                 body = body.Replace("{Title}", " ");
                 body = body.Replace("{Url}", "");
@@ -909,7 +910,7 @@ namespace Boutique.DAL
                 "</td>"+
                 " </tr>" +
                 "</table>";
-            header = header.Replace("{imgLogo}", "../img/Default/nologo1.png");
+            //header = header.Replace("{imgLogo}", "../img/Default/nologo1.png");
             return header;
         }
         #endregion TemplateHeader
