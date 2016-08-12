@@ -898,6 +898,9 @@ footer span:before {
     opacity: 0.5;
 }
 @media screen and (max-width: 640px) {
+   .modal-dialog{
+         min-width:480px!important;
+     }
     footer span {
     margin-top: 0.5em;
     display: block;
@@ -906,6 +909,9 @@ footer span:before {
     display: none;
 }
 }@media screen and (max-width: 480px) {
+      .modal-dialog{
+         min-width:300px!important;
+     }
      #intro h2{
          font-size:67px!important;
      }
@@ -1051,3 +1057,4 @@ footer span:before {
     left: 0;
     width: 100%;
     height: 100%}
+

@@ -5,18 +5,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>t i q u e s s i n n</title>
+    <link rel="shortcut icon" type="image/png" href="images/Logo PNG.png" />
     <script src="script/cloudflare.min.js"></script>
-    <script src="../Scripts/jquery-1.12.3.js"></script>
+    <script src="../Scripts/jquery-1.12.3.js"></script>   
     <script src="application-82ea8bbc3e31c251ee1dc09d3220e512.js"></script>
     <script src="player.js"></script>
     <script src="promo-e030b96623647aa3a6cdf081281c2ec3.js"></script>
     <script src="vuid.min.js"></script>
+    <script src="script/script.js"></script>
      <link href="css/application-0db4a6b242aea7886b88306baabadc2f.css" rel="stylesheet" />
     <link href="css/screen.css" rel="stylesheet" />
     <link href="css/desktop.css" rel="stylesheet" />    
     <link href="css/css.css" rel="stylesheet" />
     <link href="../CSS/glyphicons.css" rel="stylesheet" />
-    <script src="script/script.js"></script>
+    
     <%--<link href="css/player1.css" rel="stylesheet" />--%>
    <style>
         @font-face {font-family: Sitefond;src: url(../Website/ufonts.com_bauhaus-medium.ttf);}
@@ -78,6 +80,42 @@
       :-ms-input-placeholder {  
       color: #E45B00;  
       }
+       .sendbtn{
+        display: inline-block;
+        -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+       box-sizing: content-box;
+       cursor: pointer;
+       padding: 10px 20px;
+       border: 1px solid rgba(255,119,0,1);
+       -webkit-border-radius: 9px 29px;
+       border-radius: 9px 29px;
+  font: normal 16px/normal Georgia, serif;
+  color: rgba(255,255,255,0.9);
+  text-indent: 22px;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  letter-spacing: 2px;
+  word-spacing: 18px;
+  background: url("./images/sent-mail.png"), #e67e22;
+  background-repeat: no-repeat;
+  background-position: 3% 50%;
+  -webkit-background-origin: padding-box;
+  background-origin: padding-box;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-background-size: auto auto;
+  background-size: auto auto;
+  text-shadow: 0 3px 0 rgba(15,73,168,0.66) ;
+
+       }
+       a:hover{
+           text-decoration:none;
+           background-color:transparent;
+           border:2px solid #E45B00;
+           color:orange;
+           box-shadow:2px 2px 5px 0 rgba(255,255,255,1);
+       }
     </style>
 </head>
     
@@ -445,6 +483,8 @@
           
       </div>
     </footer> 
+    <!-------------------------------------//---------------------------------------------------------------->
+
     <div class="modal fade" id="getstarted" role="dialog">
      <div class="modal-dialog" style="min-width:550px;">
      <!-- Modal content-->               
@@ -459,6 +499,13 @@
      <h3 class="modal-title" style="margin-left:5%;color:orange;top:-24px;position:relative;">Get Started</h3>
      </div>
      <div class="container 50%" style="background-color:#3a3a3a">
+          <div class="form_error text-center" style="color:red;">
+                        <div class="name_error hide error">Please Enter your name</div>
+                        <div class="email_error hide error">Please Enter your Email</div>
+                        <div class="email_val_error hide error">Please Enter a Valid Email Address</div>
+                        <div class="message_error hide error">Please Enter Your Message</div>
+                    </div>
+                    <div class="Sucess" style="color:green"></div>
      <form id="Form1">
      <div class="row uniform">
      <div class="6u 12u$(small)">
@@ -474,8 +521,12 @@
      <textarea name="message" id="message" placeholder="Message (optional) " rows="2"></textarea>
      </div>
      <div class="12u$">
-     <input type="button" value="Send Message" style="color:orange" />
+     <a class="form_submit sendbtn">Send</a>
      </div>
+         <div class="12u$">
+           <%--  <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
+             <p style="visibility:hidden;">thomson kattingal</p>
+         </div>
      </div>
 
      </form>
@@ -488,9 +539,12 @@
 </div>  
     <script>
         function openmyModal() {
-
             $('#getstarted').modal('show');
-
+            $(".Sucess").hide();
+            $(".form_error .name_error").addClass("hide").removeClass("show");
+            $(".form_error .email_error").addClass("hide").removeClass("show");
+            $(".form_error .email_val_error").addClass("hide").removeClass("show");
+            $(".form_error .message_error").addClass("hide").removeClass("show");
         }
     </script>   
 </body>
