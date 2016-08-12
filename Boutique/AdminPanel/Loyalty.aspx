@@ -186,11 +186,11 @@
                                                             <tr>
                                                                 <td colspan="2" id="radioButtons">
                                                                     <label class="radio">
-                                                                        <input type="radio" name="redeem" value="yes" id="radioYes" />
+                                                                        <input type="radio" name="redeem" value="true" id="radioYes" />
                                                                         Redeem it
                                                                     </label>
                                                                     <label class="radio">
-                                                                        <input type="radio" name="redeem" value="no" id="radioNo" />
+                                                                        <input type="radio" name="redeem" value="false" id="radioNo" />
                                                                         Don't Redeem 
                                                                     </label>
                                                                 </td>
