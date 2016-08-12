@@ -44,6 +44,7 @@ namespace Boutique.DAL
             private string Currency_FormatCode;
             private string CurrencySymbol;
             private string User_Id;
+            private string AppVersion;
 
 
 
@@ -133,6 +134,16 @@ namespace Boutique.DAL
                 set;
             }
 
+            public string Version
+            {
+              get
+                {
+                  return AppVersion;
+                }
+
+            }
+
+
             #endregion Properties
 
             #region UserAuthendication default constructor
@@ -145,56 +156,108 @@ namespace Boutique.DAL
             #region User Authentication
             public UserAuthendication(String userName, String password)
             {
-
-                DataTable dt = GetLoginDetails(userName);
-
-                if (dt.Rows.Count > 0)
+                string status = null;
+                try
                 {
-                    string Name = dt.Rows[0]["LoginName"].ToString();
-                    string Passwd = dt.Rows[0]["Password"].ToString();
-                    bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
-                   
-                    if ((string.Equals(userName, Name, StringComparison.CurrentCultureIgnoreCase)) && (CryptObj.Encrypt(password) == Passwd) && Active == true)
+                    DataTable dt = GetLoginDetails(userName);
 
-                    //  if (userName == Name && password == Passwd)
+                    if (dt.Rows.Count > 0)
                     {
-                        isValidUser = true;
-                        userN = Name;
+                        string Name = dt.Rows[0]["LoginName"].ToString();
+                        string Passwd = dt.Rows[0]["Password"].ToString();
+                        bool Active = Convert.ToBoolean(dt.Rows[0]["Active"]);
 
-                        BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
-                        Boutique_ID = dt.Rows[0]["BoutiqueID"].ToString();
-                        RoleName = dt.Rows[0]["RoleName"].ToString();
-                        Currency_FormatCode = dt.Rows[0]["FormatCode"].ToString();
-                        Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
-                        CurrencySymbol = dt.Rows[0]["Symbol"].ToString();
-                        User_Id = dt.Rows[0]["UserID"].ToString();
-                    }
+                        if ((string.Equals(userName, Name, StringComparison.CurrentCultureIgnoreCase)) && (CryptObj.Encrypt(password) == Passwd) && Active == true)
 
-                    else
-                    {
-                        isValidUser = false;
+                        //  if (userName == Name && password == Passwd)
+                        {
+                            isValidUser = true;
+                            userN = Name;
+
+                            BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
+                            Boutique_ID = dt.Rows[0]["BoutiqueID"].ToString();
+                            RoleName = dt.Rows[0]["RoleName"].ToString();
+                            Currency_FormatCode = dt.Rows[0]["FormatCode"].ToString();
+                            Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
+                            CurrencySymbol = dt.Rows[0]["Symbol"].ToString();
+                            User_Id = dt.Rows[0]["UserID"].ToString();
+                            AppVersion = dt.Rows[0]["AppVersion"].ToString();
+
+                        }
+
+                        else
+                        {
+                            isValidUser = false;
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+                    status = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = UserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Security";
+                    ETObj.Method = "UserAuthendication";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = AppVersion;
+                    ETObj.CreatedBy = userName;
+                    ETObj.InsertErrorDetails();
                 }
 
             }
 
             #endregion  User Authentication
-            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode, string symbol)
+
+            #region UserAuthendication
+            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode, string symbol,string version)
             {
-                Boutique_ID = BoutiqueID;
-                isValidUser = true;
-                userN = userName;
-                BoutiqueName = BoutiqueNam;
-                RoleName = RoleNam;
-                Boutique_CurrencyCode = CurrencyCode;
-                Currency_FormatCode = FormatCode;
-                CurrencySymbol = symbol;
+                string status = null;
+                try
+                {
+                    Boutique_ID = BoutiqueID;
+                    isValidUser = true;
+                    userN = userName;
+                    BoutiqueName = BoutiqueNam;
+                    RoleName = RoleNam;
+                    Boutique_CurrencyCode = CurrencyCode;
+                    Currency_FormatCode = FormatCode;
+                    CurrencySymbol = symbol;
+                    AppVersion = version;
+                }
+                catch(Exception ex)
+                {
+
+                    status = "500";//Exception of foreign key
+
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = UserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Security";
+                    ETObj.Method = "UserAuthendication";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = AppVersion;
+                    ETObj.CreatedBy = userName;
+                    ETObj.InsertErrorDetails();
+                }
             }
+            #endregion UserAuthendication
+
             #region Get Login Details
             public DataTable GetLoginDetails(string LoginName)
             {
                 SqlConnection con = null;
                 DataTable dt = new DataTable();
+                string status = null;
                 try
                 {
 
@@ -212,16 +275,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    //var page = HttpContext.Current.CurrentHandler as Page;
-                    //eObj.ErrorData(ex, page);
+                    status = "500";//Exception of foreign key
 
-                    //eObj.Description = ex.Message;
-                    //eObj.Module = Module;
-
-                    //eObj.UserID = usrid;
-                    //eObj.Method = "GetLoginDetails";
-
-                    //eObj.InsertError();
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    ETObj.BoutiqueID = BoutiqueID;
+                    ETObj.UserID = UserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Security";
+                    ETObj.Method = "GetLoginDetails";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    ETObj.Version = AppVersion;
+                    ETObj.CreatedBy = userName;
+                    ETObj.InsertErrorDetails();
                 }
                 finally
                 {
@@ -267,6 +335,7 @@ namespace Boutique.DAL
             /// <returns>Encrypted text</returns>
             public string Encrypt(string plainText)
             {
+                string status = null;
                 string encryptedText = "";
                 try
                 {
@@ -287,16 +356,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    //System.IO.File.WriteAllText(@Server.MapPath("~/Text.txt"), ex.Message);
-                    //throw ex;
+                    status = "500";//Exception of foreign key
 
-                    //eObj.Description = ex.Message;
-                    //eObj.Module = Module;
-
-                    //eObj.UserID = usrid;
-                    //eObj.Method = "Encrypt";
-
-                    //eObj.InsertError();
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                    // ETObj.BoutiqueID = Convert.ToString(BoutiqueID);
+                    // ETObj.UserID = UserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Security";
+                    ETObj.Method = "Decrypt";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    //   ETObj.Version = AppVersion;
+                    //   ETObj.CreatedBy = LoginName;
+                    ETObj.InsertErrorDetails();
 
 
                 }
@@ -310,6 +384,7 @@ namespace Boutique.DAL
             public string Decrypt(string encryptedText)
             {
                 string plainText = "";
+                string status = null;
                 try
                 {
                     var encryptedBytes = Convert.FromBase64String(encryptedText);
@@ -329,15 +404,21 @@ namespace Boutique.DAL
                 }
                 catch (Exception ex)
                 {
-                    //System.IO.File.WriteAllText(@Server.MapPath("~/Text.txt"), ex.Message);
+                    status = "500";//Exception of foreign key
 
-                    //eObj.Description = ex.Message;
-                    //eObj.Module = Module;
-
-                    //eObj.UserID = usrid;
-                    //eObj.Method = "Decrypt";
-
-                    //eObj.InsertError();
+                    //Code For Exception Track insert
+                    ExceptionTrack ETObj = new ExceptionTrack();
+                   // ETObj.BoutiqueID = Convert.ToString(BoutiqueID);
+                   // ETObj.UserID = UserID;
+                    ETObj.Description = ex.Message;//Actual exception message
+                    ETObj.Date = DateTime.Now.ToString();
+                    ETObj.Module = "Security";
+                    ETObj.Method = "Decrypt";
+                    ETObj.ErrorSource = "DAL";
+                    ETObj.IsMobile = false;
+                    //   ETObj.Version = AppVersion;
+                 //   ETObj.CreatedBy = LoginName;
+                    ETObj.InsertErrorDetails();
 
                 }
                 return plainText;
@@ -404,25 +485,48 @@ namespace Boutique.DAL
 
         public DataTable GetUserDetailsByEmailID()
         {
+            string status = null;
             SqlConnection con = null;
             DataTable dtUsers = null;
-
-            dtUsers = new DataTable();
-            dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("[GetUserDetailsByEmail]", con);
-
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
-
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            adapter.Fill(dtUsers);
-
-            if (con != null)
+            try
             {
-                con.Dispose();
+                
+
+                dtUsers = new DataTable();
+                dbConnection dcon = new dbConnection();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("[GetUserDetailsByEmail]", con);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                adapter.Fill(dtUsers);
+
+                if (con != null)
+                {
+                    con.Dispose();
+                }
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID =Convert.ToString(BoutiqueID);
+                ETObj.UserID = UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Security";
+                ETObj.Method = "GetUserDetailsByEmailID";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+             //   ETObj.Version = AppVersion;
+                ETObj.CreatedBy = LoginName;
+                ETObj.InsertErrorDetails();
             }
 
             return dtUsers;
@@ -434,31 +538,55 @@ namespace Boutique.DAL
 
         public void AddVerificationCode()
         {
+            string status = null;
             dbConnection dcon = new dbConnection();
-
-            dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = dcon.SQLCon;
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = "[AddVerificationCode]";
-
-            cmd.Parameters.Add("@VerificationCode", SqlDbType.NVarChar, 20).Value = VerifyCode;
-            cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
-            cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
-
-
-            SqlParameter Output = new SqlParameter();
-            Output.DbType = DbType.Int32;
-            Output.ParameterName = "@Status";
-            Output.Direction = ParameterDirection.Output;
-            cmd.Parameters.Add(Output);
-            cmd.ExecuteNonQuery();
-
-            if (dcon.SQLCon != null)
+            try
             {
-                dcon.DisconectDB();
-            }
+               
 
+                dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.CommandText = "[AddVerificationCode]";
+
+                cmd.Parameters.Add("@VerificationCode", SqlDbType.NVarChar, 20).Value = VerifyCode;
+                cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
+
+
+                SqlParameter Output = new SqlParameter();
+                Output.DbType = DbType.Int32;
+                Output.ParameterName = "@Status";
+                Output.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(Output);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = Convert.ToString(BoutiqueID);
+                ETObj.UserID = UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Security";
+                ETObj.Method = "AddVerificationCode";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                //   ETObj.Version = AppVersion;
+                ETObj.CreatedBy = LoginName;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
         }
 
         #endregion Add verificationcode (Generated random number)
@@ -467,26 +595,49 @@ namespace Boutique.DAL
 
         public DataTable GetUserVerificationCodeByEmailID()
         {
+            string status = null;
             SqlConnection con = null;
             DataTable dtVerificationCode = null;
 
             dtVerificationCode = new DataTable();
             dbConnection dcon = new dbConnection();
-            con = dcon.GetDBConnection();
-            SqlCommand cmd = new SqlCommand("GetVerificationCodeByEmailID", con);
-            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            adapter.SelectCommand = cmd;
-            adapter.Fill(dtVerificationCode);
-
-            if (con != null)
+            try
             {
-                con.Dispose();
+                con = dcon.GetDBConnection();
+                SqlCommand cmd = new SqlCommand("GetVerificationCodeByEmailID", con);
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                adapter.Fill(dtVerificationCode);
             }
+            catch (Exception ex)
+            {
+                status = "500";//Exception of foreign key
 
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = Convert.ToString(BoutiqueID);
+                ETObj.UserID = UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Security";
+                ETObj.Method = "GetUserVerificationCodeByEmailID";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                //   ETObj.Version = AppVersion;
+                ETObj.CreatedBy = LoginName;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Dispose();
+                }
 
+            }
 
             return dtVerificationCode;
         }
@@ -496,25 +647,47 @@ namespace Boutique.DAL
 
         public void SendEmail()
         {
-            MailMessage Msg = new MailMessage();
+            string status = null;
+            try
+            {
+                MailMessage Msg = new MailMessage();
 
-            Msg.From = new MailAddress(EmailFromAddress);
+                Msg.From = new MailAddress(EmailFromAddress);
 
-            Msg.To.Add(Email);
+                Msg.To.Add(Email);
 
-            string message = "<body><h3>Hello ,</h3>" + msg + "<p>Enter Your Code in given field and change your Password<p><p><p><p>&nbsp;&nbsp;&nbsp;&nbsp; Tiques&nbsp; Admin<p><p><p><p><p>Please do not reply to this email with your password. We will never ask for your password, and we strongly discourage you from sharing it with anyone.</body>";
-            Msg.Subject = VerificationCode;
-            Msg.Body = message;
-            Msg.IsBodyHtml = true;
+                string message = "<body><h3>Hello ,</h3>" + msg + "<p>Enter Your Code in given field and change your Password<p><p><p><p>&nbsp;&nbsp;&nbsp;&nbsp; Tiques&nbsp; Admin<p><p><p><p><p>Please do not reply to this email with your password. We will never ask for your password, and we strongly discourage you from sharing it with anyone.</body>";
+                Msg.Subject = VerificationCode;
+                Msg.Body = message;
+                Msg.IsBodyHtml = true;
 
-            // your remote SMTP server IP.
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = host;
-            smtp.Port = 587;
-            smtp.Credentials = new System.Net.NetworkCredential(smtpUserName, smtpPassword);
-            smtp.EnableSsl = true;
-            smtp.Send(Msg);
-            Msg = null;
+                // your remote SMTP server IP.
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = host;
+                smtp.Port = 587;
+                smtp.Credentials = new System.Net.NetworkCredential(smtpUserName, smtpPassword);
+                smtp.EnableSsl = true;
+                smtp.Send(Msg);
+                Msg = null;
+            }
+            catch(Exception ex)
+            {
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = Convert.ToString(BoutiqueID);
+                ETObj.UserID = UserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Security";
+                ETObj.Method = "SendEmail";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                //   ETObj.Version = AppVersion;
+                ETObj.CreatedBy = LoginName;
+                ETObj.InsertErrorDetails();
+            }
         }
 
 
@@ -525,7 +698,7 @@ namespace Boutique.DAL
         public string ResetPassword(Guid UserID)
         {
             dbConnection dcon = new dbConnection();
-
+            string status = null;
             try
             {
                 dcon.GetDBConnection();
@@ -542,39 +715,38 @@ namespace Boutique.DAL
                 cmd.Parameters.Add(Output);
                 cmd.ExecuteNonQuery();
 
-                //if (Output.Value.ToString() == "")
-                //{
-                //    //not successfull   
-
-                //    var page = HttpContext.Current.CurrentHandler as Page;
-                //    eObj.UpdationNotSuccessMessage(page);
-
-                //}
-                //else
-                //{
-                //    //successfull
-
-                //    var page = HttpContext.Current.CurrentHandler as Page;
-                //    eObj.UpdationSuccessMessage(page);
-
-                //}
+               
 
 
             }
             catch (Exception ex)
             {
-               // var page = HttpContext.Current.CurrentHandler as Page;
-                //eObj.ErrorData(ex, page);
-                return ex.ToString();
-            }
-            return "";
 
+                status = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = Convert.ToString(BoutiqueID);
+                ETObj.UserID =Convert.ToString(UserID);
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Security";
+                ETObj.Method = "ResetPassword";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                //   ETObj.Version = AppVersion;
+                ETObj.CreatedBy = LoginName;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
             if (dcon.SQLCon != null)
             {
                 dcon.DisconectDB();
             }
 
-
+            }
+            return "";
         }
 
         #endregion  Reset Password

@@ -9,6 +9,7 @@
     <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/lightbox.css" rel="stylesheet" />
     <script src="../Scripts/select2.min.js"></script>
+      <script src="../Scripts/custom.js"></script>
    <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Home/js/lightbox.js"></script>
@@ -113,9 +114,9 @@
 					</div>
 					<div class="box-content">
 						<ul class="nav tab-menu nav-tabs" id="myTab">
-							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i> New Products</a></li>
+							<li><a id="idtabnewproducts" href="#newproducts"><i class="halflings-icon ok-circle"></i> All Products</a></li>
 							<li class="active"><a id="idtabtrending" href="#trends"><i class="halflings-icon star-empty"></i> Trending</a></li>
-							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i> Out of Stocks</a></li>
+							<li><a id="idtaboutofstock" href="#outstock"><i class="halflings-icon warning-sign"></i> Not in Stocks</a></li>
                             <li><a id="idtabdeletedproducts" href="#deletedproducts"><i class="halflings-icon repeat"></i> Revive Products</a></li>
 						</ul>
 						
@@ -130,12 +131,22 @@
 									<input id="txtsearchnewproducts" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchnewproducts btntxtsearch" id="idbtnsearchnewproducts"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshnewproducts" href="#"><i class="halflings-icon white refresh"></i></a>
    
                                      
+                                      					  </div>
+								</div>
+							  </div>
+                                 <div class="control-group" id="NewCategorySort">
+                                      <label class="control-label">Cateory</label>
+                                      <div class="controls">
                                       <select class="CategorySort">
                                           <option value="" disabled selected hidden>Select Category..</option>
                                           <option value="All">All</option>
-                                      </select>   
-                                          <select  class="NewProductsSort">
-                 <option hidden >Sort By</option>
+                                      </select>  
+                                          </div>
+                                     </div> 
+                                 <div class="control-group" id="NewPdtSort">
+                                     <div class="controls">
+                                          <select  class="NewProductsSort" id="NewPdtSelectSort">
+                 <option hidden  >Sort By</option>
         <option value="ProductNo">Product No</option>
       <option value="Discount">Discount</option>
         <option value="Price">Price</option>
@@ -143,11 +154,8 @@
 
        
       </select>
-                                
+                </div></div>                
                                      
-                                      					  </div>
-								</div>
-							  </div>
 								 <%--Search box--%>
 
                               
@@ -183,12 +191,22 @@
 								<div class="controls">
 								  <div class="input-append">
 									<input id="txtsearchtrends" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchtrends btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshtrends" href="#"><i class="halflings-icon white refresh"></i></a>
-								  
-                                      <select class="CategorySort">
+								    </div>
+								</div>
+							  </div>
+
+                                      <div class="control-group" id="TrendingCategorySort">
+                                      <label class="control-label">Cateory</label>
+                                      <div class="controls">
+                                      <select class="TrendingCategorySort">
                                           <option value="" disabled selected hidden>Select Category..</option>
                                           <option value="All">All</option>
                                       </select>   
-                                          <select  class="TrendingSort">
+                                          </div>
+                                          </div>
+                                 <div class="control-group" id="TrendingSort">
+                                     <div class="controls">
+                                          <select  class="TrendingSort" id="TrendingSortSelect">
                  <option hidden >Sort By</option>
         <option value="ProductNo">Product No</option>
       <option value="Discount">Discount</option>
@@ -197,9 +215,7 @@
 
        
       </select>
-                                  </div>
-								</div>
-							  </div>
+               </div></div>                 
 								 <%--Search box--%>
 
                                   <%--Gallery Trends--%>
@@ -232,12 +248,21 @@
 								<div class="controls">
 								  <div class="input-append">
 									<input id="txtsearchoutofstock" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchoutofstock btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshoutofproduct" href="#"><i class="halflings-icon white refresh"></i></a>
-								 
-                                      <select class="CategorySort">
+								  </div>
+								</div>
+							  </div>
+                                   <div class="control-group" id="OutOfStocksCategorySort">
+                                      <label class="control-label">Cateory</label>
+                                      <div class="controls">
+                                      <select class="OutOfStocksCategorySort">
                                           <option value="" disabled selected hidden>Select Category..</option>
                                           <option value="All">All</option>
                                       </select>   
-                                          <select  class="OutOfStockSort">
+                                          </div>
+                                       </div>
+                                 <div class="control-group" id="OutOfStocksSort">
+                                     <div class="controls">
+                                          <select  class="OutOfStockSort" id="OutOfStocksSortSelect">
                  <option hidden >Sort By</option>
         <option value="ProductNo">Product No</option>
       <option value="Discount">Discount</option>
@@ -246,9 +271,7 @@
 
        
       </select>
-                                       </div>
-								</div>
-							  </div>
+            </div>  </div>                                        
 								 <%--Search box--%>
 
                                   <%--Gallery Out of stock--%>
@@ -279,11 +302,26 @@
 								  <div class="input-append">
 									<input id="txtdeletproductsearch" class="txtsearch" placeholder="Search by Product No/Name..." size="16" type="text"/><a class="btn btn-success btnsearchreviveproduct btntxtsearch" href="#"><i class="halflings-icon white search"></i></a><a class="btn btn-danger btnRefreshreviveproduct" href="#"><i class="halflings-icon white refresh"></i></a>
 								 
-                                      <select class="CategorySort">
+                                   
+      
+                                       </div>
+								</div>
+							  </div>
+
+                                  <div class="control-group" id="CategorySort">
+                                      <label class="control-label">Cateory</label>
+                                      <div class="controls">
+                                              <select class="ReviveCategorySort">
                                           <option value="" disabled selected hidden>Select Category..</option>
                                           <option value="All">All</option>
-                                      </select>   
-                                          <select  class="ReviveSort">
+                                      </select>  
+                                          </div>
+                                  </div>
+
+                                <div class="control-group" id="Sort">
+                                     
+                                      <div class="controls">
+                                                                              <select  class="ReviveSort" id="SortSelect">
                  <option hidden >Sort By</option>
         <option value="ProductNo">Product No</option>
       <option value="Discount">Discount</option>
@@ -292,9 +330,8 @@
 
        
       </select>
-                                       </div>
-								</div>
-							  </div>
+                                          </div>
+                                  </div>
 								 <%--Search box--%>
 
 
@@ -457,8 +494,8 @@
 								 <%-- <textarea class="form-control" style="max-width:68%" rows="4" id="txtTags"></textarea>--%>
                                      <div id="tags">
  
-    <input type="text" value="" id="txtTags" placeholder="Add a tag" />
-  </div>
+                                      <input type="text" value="" id="txtTags" placeholder="Add a tag" />
+                                     </div>
 								</div>
 								</div>
 						</div>

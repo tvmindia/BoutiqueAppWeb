@@ -1,5 +1,5 @@
 ﻿$("document").ready(function (e) {
-  
+    parent.document.title = Pages.Bugs;
     $.ajaxSetup({
         cache: false
     });
@@ -50,7 +50,7 @@
         //]
         "columnDefs": [
             { targets: [0], visible: false },
-            { "targets": -1, "data": null, "defaultContent": "<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>" }
+            { "targets": -1, orderable: false, "data": null, "defaultContent": "<a class='btn btn-info Exceptionedit' href='#'><i class='halflings-icon white edit'></i></a>" }
          
         ]
        

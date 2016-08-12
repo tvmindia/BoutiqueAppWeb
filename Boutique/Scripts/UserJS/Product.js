@@ -1,5 +1,6 @@
 ﻿var LoginUserRole = '';
 $("document").ready(function (e) {
+  
     $('.ReviveProduct').hide();
     $('#lblproductno').hide();
    
@@ -102,7 +103,21 @@ $("document").ready(function (e) {
         allowClear: true,
         data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
     });
-   
+    $(".TrendingCategorySort").select2({
+        placeholder: "Choose Categories",
+        allowClear: true,
+        data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
+    });
+    $(".OutOfStocksCategorySort").select2({
+        placeholder: "Choose Categories",
+        allowClear: true,
+        data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
+    });
+    $(".ReviveCategorySort").select2({
+        placeholder: "Choose Categories",
+        allowClear: true,
+        data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
+    });
     var $desingnSingle = $(".ddlDesigners").select2({
 
         data: BindAsyncDesigner()//Designer dropdown binds only with id and text[key:value] mandatory
@@ -113,16 +128,17 @@ $("document").ready(function (e) {
     $(".DeleteProduct").live({
        
         click: function (e) {// Delete button click
-            debugger;
+           
             var e = $("#hdfproductID").val();
             var p = "";
+            debugger;
             DeleteCustomAlert("Are you sure?", e, p);
         }
     })
     
     $(".imgdelete").live({
         click: function (e) {// Clear controls
-            debugger;
+          
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -156,10 +172,14 @@ $("document").ready(function (e) {
 
 
     $("#load_more_button").click(function (e) { //user clicks on button
+      
         HideAlertBox();
         var len = null;
         $(this).hide(); //hide load more button on click
         var n = $("div.imageholder > .masonry-thumb").length;//check the count of thumb divs
+        var category = $(".CategorySort").val();
+        var sort = $(".NewProductsSort").val();
+       
         $('.animation_image').show(); //show loading image
 
         if (n === 0)
@@ -176,7 +196,16 @@ $("document").ready(function (e) {
         if (n > 0)
         {
             n = n + 1;//last div thumb +1 to avoid last product duplication
-            len = BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (category != null) {
+                len = BindAllProductImagesForEventLoadBasedOnCateory(n, category)
+            }
+            else if (sort != null && sort != "Sort By")
+            {
+                BindAllSortedProductImagesForEventLoad(n, sort);
+            }
+            else {
+                len = BindAllProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            }
             if (len === 0)
             {
                 $(this).show();
@@ -195,6 +224,8 @@ $("document").ready(function (e) {
         var len = null;
         $(this).hide(); //hide load more button on click
         var n = $("div.imageholderTrends > .masonry-thumb").length;//check the count of thumb divs
+        var category = $(".TrendingCategorySort").val();
+        var sort = $(".TrendingSort").val();
         // var Product = new Object();
         //var totalcount = GetTotalProductCount(Product);
         //if (totalcount.TotalRows === n)
@@ -218,7 +249,15 @@ $("document").ready(function (e) {
         if (n > 0)
         {
             n = n + 1;//last div thumb +1 to avoid last product duplication
-            len = BindTrendedProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (category != null) {
+                len = BindTrendingProductImagesForEventLoadBasedOnCateory(n, category)
+            }
+            else if (sort != null && sort != "Sort By") {
+                BindSortedTrendingProductImagesForEventLoad(n, sort);
+            }
+            else {
+                len = BindTrendedProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            }
             if (len === 0) {
                 $(this).show();
                 $(this).text("No More Products");
@@ -238,6 +277,8 @@ $("document").ready(function (e) {
         var len = null;
         $(this).hide(); //hide load more button on click
         var n = $("div.imageholderoutofstock > .masonry-thumb").length;//check the count of thumb divs
+        var category = $(".OutOfStocksCategorySort").val();
+        var sort = $(".OutOfStockSort").val();
         // var Product = new Object();
         //var totalcount = GetTotalProductCount(Product);
         //if (totalcount.TotalRows === n)
@@ -261,7 +302,15 @@ $("document").ready(function (e) {
         }
         if (n > 0) {
             n = n + 1;//last div thumb +1 to avoid last product duplication
-            len = BindOutStockProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (category != null) {
+                len = BindOutStockProductImagesForEventLoadBasedOnCategorySort(n, category)
+            }
+            else if (sort != null && sort != "Sort By") {
+                BindOutStockSortedProductImagesForEventLoad(n, sort);
+            }
+            else {
+                len = BindOutStockProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            }
             if (len === 0) {
                 $(this).show();
                 $(this).text("No More Products");
@@ -279,6 +328,8 @@ $("document").ready(function (e) {
         var len = null;
         $(this).hide(); //hide load more button on click
         var n = $("div.imageholderreviveproduct > .masonry-thumb").length;//check the count of thumb divs
+        var category = $(".ReviveCategorySort").val();
+        var sort = $(".ReviveSort").val();
        
         $('.animation_image').show(); //show loading image
         if (n === 0) {
@@ -293,7 +344,15 @@ $("document").ready(function (e) {
         }
         if (n > 0) {
             n = n + 1;//last div thumb +1 to avoid last product duplication
-            len = BindReviveProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            if (category != null) {
+                len = BindReviveProductImagesForEventLoadBasedOnCategorySort(n, category)
+            }
+            else if (sort != null && sort != "Sort By") {
+                BindSortedReviveProductImagesForEventLoad(n, sort);
+            }
+            else {
+                len = BindReviveProductImagesForEventLoad(n);//Bind Images Into Masonry container
+            }
             if (len === 0) {
                 $(this).show();
                 $(this).text("No More Products");
@@ -590,7 +649,7 @@ $("document").ready(function (e) {
 
 
      $(".ReviveProduct").click(function (e) {//
-
+         debugger;
          HideAlertBox();
          var prodid = $("#hdfproductID").val();
          if (prodid != '')
@@ -613,14 +672,16 @@ $("document").ready(function (e) {
      });
     //----tag textarea------------------//
      $("#tags input").on({
+         
          focusout: function () {
              var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig, ''); // allowed characters
              if (txt) $("<span/>", { text: txt.toLowerCase(), insertBefore: this });
              this.value = "";
          },
          keypress: function (ev) {
-             if (event.keyCode == 13) {
-                 debugger;
+            
+             if (ev.keyCode == 13) {
+               
                  // if: comma|enter (delimit more keyCodes with | pipe) 
                  if (/(188|13)/.test(ev.which)) $(this).focusout();
                  var callbacks = $.Callbacks();
@@ -643,6 +704,10 @@ $("document").ready(function (e) {
              $mars.imagesLoaded().progress(function () {
                  $mars.masonry('layout');
              });
+             //$(".CategorySort").select2({
+             //    placeholder: 'Select an option',
+             //    allowClear: true
+             //});
          }
      });
     
@@ -669,7 +734,7 @@ $("document").ready(function (e) {
          }
      });
      $('.ReviveSort').on('change', function () {
-         if (BindReviveSortSortResult(0, this.value) != -1) {
+         if (BindReviveSortResult(0, this.value) != -1) {
              var $mars = $('.imageholder').masonry(
              {
                  itemSelector: '.masonry-thumb',
@@ -682,6 +747,44 @@ $("document").ready(function (e) {
      $('.CategorySort').on('change', function () {
        
             if (BindCategorySort(0, this.value) != -1) {
+             var $mars = $('.imageholder').masonry(
+             {
+                 itemSelector: '.masonry-thumb',
+             });
+             $mars.imagesLoaded().progress(function () {
+                 $mars.masonry('layout');
+             });
+             $('.NewProductsSort').val("");
+            // $(".NewProductsSort").append("<option value='0' selected>Select</option>");
+         }
+     });
+     $('.TrendingCategorySort').on('change', function () {
+
+         if (BindTrendingCategorySort(0, this.value) != -1) {
+             var $mars = $('.imageholder').masonry(
+             {
+                 itemSelector: '.masonry-thumb',
+             });
+             $mars.imagesLoaded().progress(function () {
+                 $mars.masonry('layout');
+             });
+         }
+     });
+     $('.OutOfStocksCategorySort').on('change', function () {
+
+         if (BindOutOfStocksCategorySort(0, this.value) != -1) {
+             var $mars = $('.imageholder').masonry(
+             {
+                 itemSelector: '.masonry-thumb',
+             });
+             $mars.imagesLoaded().progress(function () {
+                 $mars.masonry('layout');
+             });
+         }
+     });
+     $('.ReviveCategorySort').on('change', function () {
+
+         if (BindReviveCategorySort(0, this.value) != -1) {
              var $mars = $('.imageholder').masonry(
              {
                  itemSelector: '.masonry-thumb',
@@ -743,7 +846,7 @@ function DeleteItem(e, p) {
     if (result.status == "1") {
         //which tab should rebind
         var curtabname=$('#myTab .active').text();
-        if (curtabname === ' New Products') {
+        if (curtabname === ' All Products') {
             // BindAllProductImages(0);
             BindAllProductImagesRebind(0);
         }
@@ -751,7 +854,7 @@ function DeleteItem(e, p) {
         {
             BindTrendedProductImagesRebind(0);
         }
-        if (curtabname === ' Out of Stocks')
+        if (curtabname === ' Not in Stocks')
         {
             BindOutStockProductImagesRebind(0);
         }
@@ -773,6 +876,7 @@ function DeleteItem(e, p) {
 
 function ReviveProducts(e,p)
 {
+    debugger;
     var Product = new Object();
     Product.ProductID = e;
     //var result = DeleteProduct(Product);
@@ -816,7 +920,6 @@ function BindProductTextBoxes(thisobject)
     var productid = $(thisobject).attr('productid');
     var productno = $(thisobject).attr('productno');
     var tags = $(thisobject).attr('tags');
-
     $("#editLabel").text("Edit Product");
     $("#hdfproductID").val(productid);
     $("#txtName").val(productname);
@@ -831,7 +934,7 @@ function BindProductTextBoxes(thisobject)
     {
         $("#txtDiscount").val(pdiscount);
     }
-    if (tags === "null")
+    if (tags === "null" || tags==="undefined")
     {
         $("#txtTags").val('');
         $("#txtTags").siblings('span').remove();
@@ -932,11 +1035,11 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
         if (totalimages[i].Discount != null) {
 
 
-            elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
         }
         if (totalimages[i].Discount === null) {
 
-            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
 
         }
     }
@@ -986,16 +1089,196 @@ function BindAllRevivedProductsSearch(Pagevalue, searchtext)
         if (totalimages[i].Discount != null) {
 
 
-            elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
         }
         if (totalimages[i].Discount === null) {
 
-            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
 
         }
     }
     $marsrevive.append(elems);
     $marsrevive.masonry('appended', elems);
+    return totalimages.length;
+}
+
+function BindTrendingCategorySort(Pagevalue, searchtext)
+{
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+    if (searchtext != undefined) {
+        Product.SearchText = searchtext;
+    }
+    else {
+        Product.SearchText = "";
+    }
+    var totalimages = {};
+    totalimages = GetTrendingCategorySortResult(Product);
+    $("#trendingproductgaldiv").find(".imageholderTrends").remove();
+    var parentdiv = $("#trendingproductgaldiv");
+    var dynamicdiv = document.createElement('div');
+    dynamicdiv.setAttribute("id", "productTrendsimagehold");
+    dynamicdiv.className = "imageholderTrends";
+    if (totalimages.length < 1) {
+
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
+
+    parentdiv.append(dynamicdiv);
+    var $mars = $('.imageholderTrends');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            if (totalimages[i].IsOutOfStock == false) {
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
+            }
+        }
+        if (totalimages[i].Discount === null) {
+            if (totalimages[i].IsOutOfStock == false) {
+
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
+            }
+        }
+        if (totalimages[i].IsOutOfStock == true) {
+            if (totalimages[i].Discount != null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
+            }
+            if (totalimages[i].Discount == null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
+            }
+        }
+    }
+    $mars.append(elems);
+    $mars.masonry('appended', elems);
+    return totalimages.length;
+}
+
+function BindOutOfStocksCategorySort(Pagevalue, searchtext)
+{
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+    if (searchtext != undefined) {
+        Product.SearchText = searchtext;
+    }
+    else {
+        Product.SearchText = "";
+    }
+    var totalimages = {};
+    totalimages = GetOutOfStocksCategorySortResult(Product);
+    $("#outofstockproductgaldiv").find(".imageholderoutofstock").remove();
+    var parentdiv = $("#outofstockproductgaldiv");
+    var dynamicdiv = document.createElement('div');
+    dynamicdiv.setAttribute("id", "productoutofstockimagehold");
+    dynamicdiv.className = "imageholderoutofstock";
+    if (totalimages.length < 1) {
+
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
+
+    parentdiv.append(dynamicdiv);
+    var $mars = $('.imageholderoutofstock');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            if (totalimages[i].IsOutOfStock == false) {
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
+            }
+        }
+        if (totalimages[i].Discount === null) {
+            if (totalimages[i].IsOutOfStock == false) {
+
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
+            }
+        }
+        if (totalimages[i].IsOutOfStock == true) {
+            if (totalimages[i].Discount != null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
+            }
+            if (totalimages[i].Discount == null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
+            }
+        }
+    }
+    $mars.append(elems);
+    $mars.masonry('appended', elems);
+    return totalimages.length;
+}
+
+function BindReviveCategorySort(Pagevalue, searchtext)
+{
+    var Product = new Object();
+    if (Pagevalue != undefined) {
+        Product.Paginationvalue = Pagevalue;
+    }
+    else {
+        Product.Paginationvalue = "";
+    }
+    if (searchtext != undefined) {
+        Product.SearchText = searchtext;
+    }
+    else {
+        Product.SearchText = "";
+    }
+    var totalimages = {};
+    totalimages = GetReviveCategorySortResult(Product);
+    $("#reviveproductgaldiv").find(".imageholderreviveproduct").remove();
+    var parentdiv = $("#reviveproductgaldiv");
+    var dynamicdiv = document.createElement('div');
+    dynamicdiv.setAttribute("id", "productreviveimagehold");
+    dynamicdiv.className = "imageholderreviveproduct";
+    if (totalimages.length < 1) {
+
+        dynamicdiv.appendChild(BindNoProductImage());
+        parentdiv.append(dynamicdiv);
+        return -1;//flag value
+    }
+
+    parentdiv.append(dynamicdiv);
+    var $mars = $('.imageholderreviveproduct');
+    var elems = $();
+    for (var i = 0; i < totalimages.length; i++) {
+        if (totalimages[i].Discount != null) {
+            if (totalimages[i].IsOutOfStock == false) {
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
+            }
+        }
+        if (totalimages[i].Discount === null) {
+            if (totalimages[i].IsOutOfStock == false) {
+
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
+            }
+        }
+        if (totalimages[i].IsOutOfStock == true) {
+            if (totalimages[i].Discount != null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
+            }
+            if (totalimages[i].Discount == null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
+            }
+        }
+    }
+    $mars.append(elems);
+    $mars.masonry('appended', elems);
     return totalimages.length;
 }
 
@@ -1014,7 +1297,6 @@ function BindCategorySort(Pagevalue, searchtext)
     else {
         Product.SearchText = "";
     }
-    debugger;
     var totalimages = {};
     totalimages = GetCategorySortResult(Product);
     $("#newproductgaldiv").find(".imageholder").remove();
@@ -1035,23 +1317,23 @@ function BindCategorySort(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
             }
         }
     }
@@ -1060,7 +1342,7 @@ function BindCategorySort(Pagevalue, searchtext)
     return totalimages.length;
 }
 
-function BindReviveSortSortResult(Pagevalue, searchtext)
+function BindReviveSortResult(Pagevalue, searchtext)
 {
     var Product = new Object();
     if (Pagevalue != undefined) {
@@ -1075,7 +1357,6 @@ function BindReviveSortSortResult(Pagevalue, searchtext)
     else {
         Product.SearchText = "";
     }
-    debugger;
     var totalimages = {};
     totalimages = GetReviveSortResult(Product);
     $("#reviveproductgaldiv").find(".imageholderreviveproduct").remove();
@@ -1096,23 +1377,23 @@ function BindReviveSortSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
             }
         }
     }
@@ -1136,9 +1417,8 @@ function BindOutOfStockSortResult(Pagevalue, searchtext)
     else {
         Product.SearchText = "";
     }
-    debugger;
     var totalimages = {};
-    totalimages = GetSortResult(Product);
+    totalimages = GetOutOfStockSortResult(Product);
     $("#outofstockproductgaldiv").find(".imageholderoutofstock").remove();
     var parentdiv = $("#outofstockproductgaldiv");
     var dynamicdiv = document.createElement('div');
@@ -1157,23 +1437,23 @@ function BindOutOfStockSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
             }
         }
     }
@@ -1197,9 +1477,8 @@ function BindTrendingSortResult(Pagevalue, searchtext)
     else {
         Product.SearchText = "";
     }
-    debugger;
     var totalimages = {};
-    totalimages = GetSortResult(Product);
+    totalimages = GetTrendsSortResult(Product);
     $("#trendingproductgaldiv").find(".imageholderTrends").remove();
     var parentdiv = $("#trendingproductgaldiv");
     var dynamicdiv = document.createElement('div');
@@ -1218,23 +1497,23 @@ function BindTrendingSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
             }
         }
     }
@@ -1258,7 +1537,6 @@ function BindSortResult(Pagevalue, searchtext)
     else {
         Product.SearchText = "";
     }
-    debugger;
     var totalimages = {};
     totalimages = GetSortResult(Product);
     $("#newproductgaldiv").find(".imageholder").remove();
@@ -1279,23 +1557,23 @@ function BindSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
             }
         }
     }
@@ -1320,7 +1598,7 @@ function BindSortResult(Pagevalue, searchtext)
             Product.SearchText = "";
         }
         //inserts from code behind
-        debugger;
+  
         var totalimages = {};
         totalimages = GetAllNewProductsSearchDetails(Product);
         $("#newproductgaldiv").find(".imageholder").remove();
@@ -1341,23 +1619,23 @@ function BindSortResult(Pagevalue, searchtext)
         for (var i = 0; i < totalimages.length; i++) {
             if (totalimages[i].Discount != null) {
                 if (totalimages[i].IsOutOfStock == false) {
-                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
                 }
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
 
-                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
                 }
             }
             if (totalimages[i].IsOutOfStock == true) {
                 if (totalimages[i].Discount != null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]),i);
                 }
                 if (totalimages[i].Discount == null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
                 }
             }
         }
@@ -1383,7 +1661,7 @@ function BindSortResult(Pagevalue, searchtext)
         }
         //inserts from code behind
         var totalimages = {};
-        debugger;
+     
         totalimages = GetAllNewTrendingSearchDetails(Product);
         $("#trendingproductgaldiv").find(".imageholderTrends").remove();
         var parentdiv = $("#trendingproductgaldiv");
@@ -1405,24 +1683,24 @@ function BindSortResult(Pagevalue, searchtext)
                 if (totalimages[i].IsOutOfStock == false) {
 
 
-                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
                 }
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
 
-                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
 
                 }
             }
             if (totalimages[i].IsOutOfStock == true) {
                 if (totalimages[i].Discount != null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
                 }
                 if (totalimages[i].Discount == null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
                 }
             }
 
@@ -1461,11 +1739,11 @@ function BindSortResult(Pagevalue, searchtext)
             if (totalimages[i].Discount != null) {
 
 
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount === null) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
 
             }
         }
@@ -1490,10 +1768,10 @@ function BindSortResult(Pagevalue, searchtext)
         $("#productoutofstockimagehold").find(".masonry-thumb").remove();
         for (var i = 0; i < totalimages.length; i++) {
             if (totalimages[i].Discount != null) {
-                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i],i));
             } 
             if (totalimages[i].Discount === null) {
-                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
 
         }
@@ -1519,14 +1797,14 @@ function BindSortResult(Pagevalue, searchtext)
             if (totalimages[i].Discount != null) {
                 if (totalimages[i].IsOutOfStock == false) {
                       
-                    imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductWithOffer(totalimages[i],i));
                 }
 
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
      
-                    imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i],i));
                 }
 
 
@@ -1535,11 +1813,11 @@ function BindSortResult(Pagevalue, searchtext)
                 if (totalimages[i].Discount != null) {
     
 
-                    imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
                 }
                 if (totalimages[i].Discount == null) {
              
-                    imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
                 }
 
             }
@@ -1547,7 +1825,7 @@ function BindSortResult(Pagevalue, searchtext)
     }
 
 
-    function HtmlBindProductWithOffer(totalimages)
+    function HtmlBindProductWithOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb port-1 effect-2">'
           + ''
@@ -1559,7 +1837,7 @@ function BindSortResult(Pagevalue, searchtext)
           + '</div>');
         return html;
     }
-    function HtmlBindProductWithoutOffer(totalimages)
+    function HtmlBindProductWithoutOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb port-1 effect-2" >'
                  + ''
@@ -1571,7 +1849,7 @@ function BindSortResult(Pagevalue, searchtext)
                  + '</div>');
         return html;
     }
-    function HtmlBindProductOutOfStockWithOffer(totalimages)
+    function HtmlBindProductOutOfStockWithOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb" productno=' + totalimages.ProductNo + ' productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' tags=' + totalimages.Tags + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '>'
            + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
@@ -1580,7 +1858,7 @@ function BindSortResult(Pagevalue, searchtext)
         return html;
 
     }
-    function HtmlBindProductOutOfStockWithoutOffer(totalimages)
+    function HtmlBindProductOutOfStockWithoutOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' tags=' + totalimages.Tags + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '>'
                + '<div class="image-box"><img id="img' +i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
@@ -1734,7 +2012,7 @@ function BindSortResult(Pagevalue, searchtext)
 
 
     function BindAsyncCategory() {
-        debugger;
+       
         var jsonResult = {};
         var Product = new Object();
         jsonResult = GetAllCategories(Product);
@@ -1770,9 +2048,36 @@ function BindSortResult(Pagevalue, searchtext)
         table = JSON.parse(ds.d);
         return table;
     }
+    function GetTrendingCategorySortResult(Product)
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        ds = getJsonData(data, "../AdminPanel/Products.aspx/GetTrendingCategorySortDetails");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    function GetOutOfStocksCategorySortResult(Product)
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        ds = getJsonData(data, "../AdminPanel/Products.aspx/GetOutOfStocksCategorySortDetails");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    function GetReviveCategorySortResult(Product)
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        ds = getJsonData(data, "../AdminPanel/Products.aspx/GetReviveCategorySortDetails");
+        table = JSON.parse(ds.d);
+        return table;
+    }
     function GetSortResult(Product)
     {
-        debugger;
+      
         var ds = {};
         var table = {};
         var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -1781,11 +2086,28 @@ function BindSortResult(Pagevalue, searchtext)
         return table;
     }
     function GetReviveSortResult(Product) {
-        debugger;
         var ds = {};
         var table = {};
         var data = "{'productObj':" + JSON.stringify(Product) + "}";
         ds = getJsonData(data, "../AdminPanel/Products.aspx/GetReviveSortDetails");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    function GetOutOfStockSortResult(Product)
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        ds = getJsonData(data, "../AdminPanel/Products.aspx/GetOutOfStockSortDetails");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+    function GetTrendsSortResult(Product)
+    {
+        var ds = {};
+        var table = {};
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        ds = getJsonData(data, "../AdminPanel/Products.aspx/GetTrendsSortDetails");
         table = JSON.parse(ds.d);
         return table;
     }
@@ -2013,6 +2335,7 @@ function BindSortResult(Pagevalue, searchtext)
         $('#IframeProjectSwitching').hide();
         $("#previewmsg").text('');
         $('#lblproductno').hide();
+        $("#txtTags").siblings('span').remove();
     
     }
 
@@ -2075,6 +2398,105 @@ function BindSortResult(Pagevalue, searchtext)
         $mars.masonry('appended', elems);
         return totalimages.length;
     }
+
+    function BindAllProductImagesForEventLoadBasedOnCateory(Pagevalue, searchtext) {
+        var imagedivholder = $('#productimagehold');
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetCategorySortResult(Product);
+
+        var $mars = $('.imageholder');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
+                if (totalimages[i].IsOutOfStock == false) {
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                }
+            }
+            if (totalimages[i].Discount === null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                }
+            }
+            if (totalimages[i].IsOutOfStock == true) {
+                if (totalimages[i].Discount != null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                }
+                if (totalimages[i].Discount == null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                }
+            }
+        }
+        $mars.append(elems);
+        $mars.masonry('appended', elems);
+        return totalimages.length;
+    }
+
+    function BindAllSortedProductImagesForEventLoad(Pagevalue, searchtext) {
+        var imagedivholder = $('#productimagehold');
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetSortResult(Product);
+
+        var $mars = $('.imageholder');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
+                if (totalimages[i].IsOutOfStock == false) {
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                }
+            }
+            if (totalimages[i].Discount === null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                }
+            }
+            if (totalimages[i].IsOutOfStock == true) {
+                if (totalimages[i].Discount != null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                }
+                if (totalimages[i].Discount == null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                }
+            }
+        }
+        $mars.append(elems);
+        $mars.masonry('appended', elems);
+        return totalimages.length;
+    }
+
     function BindAllProductImagesForEventLoad(Pagevalue) {
         var imagedivholder = $('#productimagehold');
         var Product = new Object();
@@ -2168,6 +2590,43 @@ function BindSortResult(Pagevalue, searchtext)
         return totalimages.length;
     }
 
+    function BindOutStockProductImagesForEventLoadBasedOnCategorySort(Pagevalue, searchtext)
+    {
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetOutOfStocksCategorySortResult(Product);
+        var $marsoutofstock = $('.imageholderoutofstock');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
+
+
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            }
+            if (totalimages[i].Discount === null) {
+
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+
+            }
+        }
+        $marsoutofstock.append(elems);
+        $marsoutofstock.masonry('appended', elems);
+        return totalimages.length;
+    }
+
     function BindOutStockProductImagesForEventLoad(Pagevalue) {
 
    
@@ -2234,9 +2693,79 @@ function BindSortResult(Pagevalue, searchtext)
         return totalimages.length;
     }
 
+    function BindReviveProductImagesForEventLoadBasedOnCategorySort(Pagevalue, searchtext)
+    {
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetReviveCategorySortResult(Product);
+        var $marsrevive = $('.imageholderreviveproduct');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
 
 
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            }
+            if (totalimages[i].Discount === null) {
 
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+
+            }
+        }
+        $marsrevive.append(elems);
+        $marsrevive.masonry('appended', elems);
+        return totalimages.length;
+    }
+
+    function BindSortedReviveProductImagesForEventLoad(Pagevalue, searchtext)
+    {
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetReviveSortResult(Product);
+        var $marsrevive = $('.imageholderreviveproduct');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
+
+
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            }
+            if (totalimages[i].Discount === null) {
+
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+
+            }
+        }
+        $marsrevive.append(elems);
+        $marsrevive.masonry('appended', elems);
+        return totalimages.length;
+    }
 
     //Revived product bind
     function BindRevivedProductImagesRebinds(Pagevalue)
@@ -2356,7 +2885,163 @@ function BindSortResult(Pagevalue, searchtext)
 
     ////
     ////Trend Images
-    ///
+///
+    function BindSortedTrendingProductImagesForEventLoad(Pagevalue, searchtext)
+    {
+        var imagedivholder = $('#productimagehold');
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetTrendsSortResult(Product);
+        var $marstrends = $('.imageholderTrends');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                }
+            }
+            if (totalimages[i].Discount === null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+
+                }
+            }
+            if (totalimages[i].IsOutOfStock == true) {
+                if (totalimages[i].Discount != null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                }
+                if (totalimages[i].Discount == null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                }
+            }
+
+        }
+        $marstrends.append(elems);
+        $marstrends.masonry('appended', elems);
+        return totalimages.length;
+    }
+    function BindSortedTrendingProductImagesForEventLoad(Pagevalue, searchtext)
+    {
+        var imagedivholder = $('#productimagehold');
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetTrendsSortResult(Product);
+        var $marstrends = $('.imageholderTrends');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                }
+            }
+            if (totalimages[i].Discount === null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+
+                }
+            }
+            if (totalimages[i].IsOutOfStock == true) {
+                if (totalimages[i].Discount != null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                }
+                if (totalimages[i].Discount == null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                }
+            }
+
+        }
+        $marstrends.append(elems);
+        $marstrends.masonry('appended', elems);
+        return totalimages.length;
+    }
+    function BindTrendingProductImagesForEventLoadBasedOnCateory(Pagevalue, searchtext)
+    {
+        var imagedivholder = $('#productimagehold');
+        var Product = new Object();
+        if (Pagevalue != undefined) {
+            Product.Paginationvalue = Pagevalue;
+        }
+        else {
+            Product.Paginationvalue = "";
+        }
+        if (searchtext != undefined) {
+            Product.SearchText = searchtext;
+        }
+        else {
+            Product.SearchText = "";
+        }
+        //inserts from code behind
+        var totalimages = {};
+        totalimages = GetTrendingCategorySortResult(Product);
+        var $marstrends = $('.imageholderTrends');
+        var elems = $();
+        for (var i = 0; i < totalimages.length; i++) {
+            if (totalimages[i].Discount != null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                }
+            }
+            if (totalimages[i].Discount === null) {
+                if (totalimages[i].IsOutOfStock == false) {
+
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+
+                }
+            }
+            if (totalimages[i].IsOutOfStock == true) {
+                if (totalimages[i].Discount != null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                }
+                if (totalimages[i].Discount == null) {
+
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                }
+            }
+
+        }
+        $marstrends.append(elems);
+        $marstrends.masonry('appended', elems);
+        return totalimages.length;
+    }
     function BindTrendedProductImagesForEventLoad(Pagevalue) {
 
         var imagedivholder = $('#productimagehold');
@@ -2549,7 +3234,7 @@ function BindSortResult(Pagevalue, searchtext)
         $('.alert-success').hide();
         $('.alert-error').hide();
         var result = "";
-
+        debugger;
         var Product = new Object();
         Product.Name = $("#txtName").val();
         Product.Description = $("#txtDescription").val();
@@ -2624,7 +3309,7 @@ function BindSortResult(Pagevalue, searchtext)
     }
     function EditProduct()
     {
-        debugger;
+        
         if ($("#hdfproductID").val() != '') {
             var lines = [];
             var Product = new Object();

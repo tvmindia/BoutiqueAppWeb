@@ -11,6 +11,7 @@
     <script src="../Home/js/lightbox.js"></script>
     <link href="../CSS/CustomCSS/Profile.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
+     <script src="../Scripts/custom.js"></script>
       <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
 

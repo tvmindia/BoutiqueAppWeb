@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/LoyaltySettings.css" rel="stylesheet" />
-
+      <script src="../Scripts/custom.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/LoyaltySettings.js"></script>
 

@@ -10,7 +10,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/People.css" rel="stylesheet" />
       <link href="../CSS/Common.css" rel="stylesheet" />
+      <script src="../Scripts/custom.js"></script>
     <script src="../Scripts/jquery.dataTables.min.js"></script>
+    <script src="../Scripts/jquery.validate.min-1.15.0.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/People.js"></script>
     <div id="content" class="span10">
@@ -140,8 +142,18 @@
                                                 <div class="control-group">
                                                     <label class="control-label">Is Acitive?</label>
                                                     <div class="controls">
-                                                        <label class="checkbox inline">
-                                                            <input type="checkbox" id="chkActiveAdmin" checked="checked" />Yes</label>
+                                                      <%--  <label class="checkbox inline">
+                                                          
+                                                         <input type="checkbox" id="chkActiveAdmin" checked="checked" />Yes</label>--%>
+                                                         <label class="radio">
+								                      	<input type="radio" name="AoptionsRadiosActive" id="AOptIsActiveYes" value="true" checked=""/>
+								                        Yes
+								                        </label>
+								
+								                     <label class="radio">
+								                      	<input type="radio" name="AoptionsRadiosActive" id="AOptIsActiveNo" value="false"/>
+								                         	No
+							                    	 </label>
 
                                                     </div>
                                                 </div>
@@ -266,9 +278,21 @@
 
                                                 <div class="control-group">
                                                     <label class="control-label">Is Acitive?</label>
-                                                    <div class="controls">
-                                                        <label class="checkbox inline">
-                                                            <input type="checkbox" id="chkActiveManager" checked />Yes</label>
+                                                   
+                                                     
+                                                         <div class="controls">
+                                                               <%-- <label class="checkbox inline">
+                                                            <input type="checkbox" id="chkActiveManager" checked />Yes</label>--%>
+                                                        <label class="radio">
+								                      	<input type="radio" name="MoptionsRadiosActive" id="MOptIsActiveYes" value="true" checked=""/>
+								                        Yes
+								                        </label>
+								
+								                     <label class="radio">
+								                      	<input type="radio" name="MoptionsRadiosActive" id="MOptIsActiveNo" value="false"/>
+								                         	No
+							                    	 </label>
+                                                   
 
                                                     </div>
                                                 </div>
@@ -460,8 +484,15 @@
                                                 <div class="control-group">
                                                     <label class="control-label">Is Acitive?</label>
                                                     <div class="controls">
-                                                        <label class="checkbox inline">
-                                                            <input type="checkbox" class="chkActive" id="chkActive" value="option1" />Yes</label>
+                                                        <label class="radio">
+								                      	<input type="radio" name="optionsRadiosActive" id="OptIsActiveYes" value="true" checked=""/>
+								                        Yes
+								                        </label>
+								
+								                     <label class="radio">
+								                      	<input type="radio" name="optionsRadiosActive" id="OptIsActiveNo" value="false"/>
+								                         	No
+							                    	 </label>
                                                     </div>
                                                 </div>
 

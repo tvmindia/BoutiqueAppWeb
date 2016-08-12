@@ -33,6 +33,13 @@ public class JQDataTableModel//DTParameterModel
     /// <summary>
     /// Global Search for the table
     /// </summary>
+    /// 
+
+    public int RecordsTotal
+    {
+        get;
+        set;
+    }
     public DTSearch Search { get; set; }
 
     /// <summary>

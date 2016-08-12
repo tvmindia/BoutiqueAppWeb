@@ -186,119 +186,144 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
-
-            if ($('#hdfUserID').val()== '') {
-                return;
-            }
-
-            var Loyalty = new Object();
-
-            if ($("#txtcurrentPurchase").val() != "") {
-                Loyalty.purchaseAmount = $('#txtcurrentPurchase').val();
+            try
+            {
+                if ($('#hdfUserID').val() == '') {
+                    return;
                 }
-            else {
+
+                var Loyalty = new Object();
+
+                if ($("#txtcurrentPurchase").val() != "") {
+                    Loyalty.purchaseAmount = $('#txtcurrentPurchase').val();
+                }
+                else {
                     alert("Please enter purchase amount.");
                     return;
-            }
+                }
 
-            Loyalty.UserID = $('#hdfUserID').val();
+                Loyalty.UserID = $('#hdfUserID').val();
 
-            if ($("#radioYes").parent().hasClass('checked')) {
-                if (confirm("Redeem and make transaction?") == true) {
-                    Loyalty.Redeem = true;
+                if ($("#radioYes").parent().hasClass('checked')) {
+                    if (confirm("Redeem and make transaction?") == true) {
+                        Loyalty.Redeem = true;
+                    }
+                    else {
+                        return;
+                    }
+                }
+                else if ($("#radioNo").parent().hasClass('checked')) {
+                    if (confirm("Purchase without redeeming?") == true) {
+                        Loyalty.Redeem = false;
+                    }
+                    else {
+                        return;
+                    }
                 }
                 else {
+                    alert("Please select whether to redeem or not.");
                     return;
                 }
-            }
-            else if ($("#radioNo").parent().hasClass('checked')) {
-                if (confirm("Purchase without redeeming?") == true) {
-                    Loyalty.Redeem = false;
+
+                if ($("#txtcurrentPurchase").val() != "") {
+                    if ($(".Currency").val() != "") {
+                        Loyalty.CurrencyCode = $(".Currency").val();
+                    }
+
+
                 }
-                else {
-                    return;
+                result = MakeTransaction(Loyalty);
+                if (result == "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-success').show();
+                    $('.alert-success strong').text(Messages.SavedSuccessfull);
+
+                    //Clearing fields
+                    $("#lblSymbol").text("");
+
+                    if ($('#hdfCurrencyCode').val() != "") {
+                        $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set  default selected option
+                    }
+
+                    //$("select").val("en-IN").trigger("change");  //set india as default selected option
+
+                    $("#txtUserName").text('');
+                    $("#txtMobile").text('');
+                    $("#txtLoyalCardNo").text('');
+                    $("#txtLoyaltyPoints").text('');
+                    $("#hdfUserID").val('');
+                    $('#txtcurrentPurchase').val('');
+                    $("#radioYes").parent().removeClass('checked');
+                    $("#radioNo").parent().removeClass('checked');
+                    $("#existingPoints").text('');
+                    $("#pointsFromThisPurchase").text('');
+                    $("#totalPoints").text('');
+                    $("#redeemablePoints").text('');
+                    $("#netAmount").text('');
+                    $("#netPoints").text('');
+                    CurrentLoyalty = 0;
+                    CurrentPurchase = 0;
+                    redeemablePoints = 0;
+                    totalPoints = 0;
+
+                    $("#LoyaltyLogTable").dataTable().fnClearTable();
+                    $("#LoyaltyLogTable").dataTable().fnDestroy();
+
+
+                    BindLoyaltyLogTable();
+
+                    $('#LoyaltyLogTable').DataTable({
+
+                        "aaSorting": [[9, 'desc']],      //Sort with Date coloumn
+                        "bPaginate": true,
+                        "iDisplayLength": 6,
+                        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+
+                        "fnPageChange": "next"
+                    });
+
                 }
-            }
-            else {
-                alert("Please select whether to redeem or not.");
-                return;
-            }
+                if (result != "1") {
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text(Messages.SavingFailure);
 
-            if ($("#txtcurrentPurchase").val() != "")
-            {
-                if ($(".Currency").val() != "")
-                {
-                    Loyalty.CurrencyCode = $(".Currency").val();
                 }
 
-               
-            }
-            result = MakeTransaction(Loyalty);
-            if (result == "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-success').show();
-                $('.alert-success strong').text(Messages.SavedSuccessfull);
-               
-                //Clearing fields
-                $("#lblSymbol").text("");
-
-                if ($('#hdfCurrencyCode').val() != "") {
-                    $("select").val($('#hdfCurrencyCode').val()).trigger("change");  //set  default selected option
-                }
-
-                //$("select").val("en-IN").trigger("change");  //set india as default selected option
-
-                $("#txtUserName").text('');
-                $("#txtMobile").text('');
-                $("#txtLoyalCardNo").text('');
-                $("#txtLoyaltyPoints").text('');
-                $("#hdfUserID").val('');
-                $('#txtcurrentPurchase').val('');
-                $("#radioYes").parent().removeClass('checked');
-                $("#radioNo").parent().removeClass('checked');
-                $("#existingPoints").text('');
-                $("#pointsFromThisPurchase").text('');
-                $("#totalPoints").text('');
-                $("#redeemablePoints").text('');
-                $("#netAmount").text('');
-                $("#netPoints").text('');
-                CurrentLoyalty = 0;
-                CurrentPurchase = 0;
-                redeemablePoints = 0;
-                totalPoints = 0;
-
-                $("#LoyaltyLogTable").dataTable().fnClearTable();
-                $("#LoyaltyLogTable").dataTable().fnDestroy();
-
-
-                BindLoyaltyLogTable();
-
-                $('#LoyaltyLogTable').DataTable({
-
-                    "aaSorting": [[9, 'desc']],      //Sort with Date coloumn
-                    "bPaginate": true,
-                    "iDisplayLength": 6,
-                    "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
-                    "fnPageChange": "next"
+                // Scroll page
+                var offset = $('#rowfluidDiv').offset();
+                offset.left -= 20;
+                offset.top -= 20;
+                $('html, body').animate({
+                    scrollTop: offset.top,
+                    scrollLeft: offset.left
                 });
-
             }
-            if (result != "1") {
-                $('#rowfluidDiv').show();
-                $('.alert-error').show();
-                $('.alert-error strong').text(Messages.SavingFailure);
-                
+            catch(e)
+            {
+                var ExceptionTrack = new Object();
+                ExceptionTrack.Description = e.description;
+                ExceptionTrack.Module = "Loyalty";
+                ExceptionTrack.Method = "submitDetails-live";
+                ExceptionTrack.ErrorSource = "JavaScript";
+                ExceptionTrack.IsMobile = false;
+                InsertException(ExceptionTrack);
+              
             }
-
-            // Scroll page
-            var offset = $('#rowfluidDiv').offset();
-            offset.left -= 20;
-            offset.top -= 20;
-            $('html, body').animate({
-                scrollTop: offset.top,
-                scrollLeft: offset.left
-            });
+            finally
+            {
+                //ETObj.BoutiqueID = UA.BoutiqueID;
+                //ETObj.UserID = UA.UserID;
+                //ETObj.Description = ex.Message;//Actual exception message
+                //ETObj.Date = DateTime.Now.ToString();
+                //ETObj.Module = "Loyalty";
+                //ETObj.Method = "MakeTransaction";
+                //ETObj.ErrorSource = "Code-Behind";
+                //ETObj.IsMobile = false;
+                //ETObj.Version = UA.Version;
+                //ETObj.CreatedBy = UA.userName;
+            }
+            
         }
     })
     //Cancel button-----------

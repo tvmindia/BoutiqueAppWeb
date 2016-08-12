@@ -201,7 +201,7 @@ img.sticker {
 
 #tags{
   float:left;
-  border:1px solid #ccc;
+  border:1px none;
   padding:5px;
   font-family:Arial;
 }
@@ -210,7 +210,7 @@ img.sticker {
   display:block;
   float:left;
   color:#fff;
-  background:#789;
+  background:#21939e;
   padding:5px;
   padding-right:25px;
   margin:4px;
@@ -221,17 +221,17 @@ img.sticker {
 #tags > span:after{
  position:absolute;
  content:"×";
- border:1px solid;
+ border:0px solid;
  padding:2px 5px;
  margin-left:3px;
- font-size:11px;
+ font-size:17px;
 }
 #tags > input{
-  background:#eee;
-  border:0;
-  margin:4px;
-  padding:7px;
-  width:auto;
+ 
+    margin: 0px;
+    padding: 6px;
+    width: 209px;
+
 }
 .NewProductsSort
 {
@@ -247,10 +247,63 @@ img.sticker {
     width:85px;
     margin-left:330px;
 }
-.ReviveSort
+#CategorySort
 {
      width:85px;
     margin-left:330px;
+    margin-top: -75px;
+}
+#OutOfStocksCategorySort
+{
+    width:85px;
+    margin-left:330px;
+    margin-top: -75px;
+}
+#TrendingCategorySort
+{
+     width:85px;
+    margin-left:330px;
+    margin-top: -75px;
+}
+#OutOfStocksSortSelect
+{
+  width:85px;
+}
+#OutOfStocksSort
+{
+ margin-left:500px;
+    margin-top: -40px;
+}
+#TrendingSort
+{
+ margin-left:500px;
+    margin-top: -40px;
+}
+#NewCategorySort
+{
+  width:85px;
+    margin-left:330px;
+    margin-top: -75px;
+}
+#NewPdtSelectSort
+{
+width:85px;
+}
+#NewPdtSort
+{
+    margin-left:500px;
+    margin-top: -40px;
+}
+#TrendingSortSelect{
+ width:85px;
+}
+#Sort
+{
+    margin-left:740px;
+    margin-top: -40px;
+}
+#SortSelect{
+     width:85px;
 }
 SortCategory
 {

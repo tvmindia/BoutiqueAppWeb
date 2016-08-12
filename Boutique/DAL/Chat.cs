@@ -55,6 +55,26 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string BugTrackerstatus
+        {
+            get;
+            set;
+        }
+        public string BugTrackerVersion
+        {
+            get;
+            set;
+        }
+        public string BugTrackerUserID
+        {
+            get;
+            set;
+        }
+        public string BugTrackerCreatedBy
+        {
+            get;
+            set;
+        }
         #endregion
 
 
@@ -72,7 +92,8 @@ namespace Boutique.DAL
             }
             dbConnection dcon = null;
             SqlCommand cmd = null;
-            SqlParameter outParameter, outMessageID = null;
+            SqlParameter outMessageID = null;
+            SqlParameter outParameter = null;
             try
             {
                 dcon = new dbConnection();
@@ -96,7 +117,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "InsertChatMessage";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -146,7 +181,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "GetChats";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -193,7 +242,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "UpdateDeliveryStatus";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {
@@ -238,7 +301,21 @@ namespace Boutique.DAL
             }
             catch (Exception ex)
             {
-                throw ex;
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "GetProductDetailForChat";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
             }
             finally
             {

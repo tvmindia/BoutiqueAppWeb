@@ -6,6 +6,7 @@
 
     <link href="../CSS/CustomCSS/Notifications.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
+      <script src="../Scripts/custom.js"></script>
         <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
    

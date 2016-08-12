@@ -132,6 +132,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public int PageNumber
+        {
+            get;
+            set;
+        }
         #endregion properties
 
       
@@ -139,6 +145,9 @@ namespace Boutique.DAL
         #region InsertErrorDetails
         public Int16 InsertErrorDetails()
         {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter, outParameter2 = null;
@@ -150,19 +159,47 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertErrorLog]";
-                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = BoutiqueID;
-                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = UserID;
+                if (BoutiqueID != null)
+                {
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                }
+                else
+                {
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UA.BoutiqueID);
+                }
+                if(UserID!=null)
+                {
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                }
+               else
+                {
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value =Guid.Parse( UA.UserID);
+                }
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                 cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = Date;
                 cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
                 cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
-                cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
-                cmd.Parameters.Add("@BugFixDate", SqlDbType.DateTime).Value = BugFixDate;
+              //  cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
+              //  cmd.Parameters.Add("@BugFixDate", SqlDbType.DateTime).Value = BugFixDate;
                 cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
                 cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;
-                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
+                if(CreatedBy!=null)
+                {
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
+                }
+               else
+                {
+                    cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = UA.userName;
+                }
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = Version;
+                if (Version!=null)
+                {
+                    cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = Version;
+                }
+               else
+                {
+                    cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = UA.Version;
+                }
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParameter2 = cmd.Parameters.Add("@OutErrorID", SqlDbType.NVarChar, 50);
                 outParameter2.Direction = ParameterDirection.Output;
@@ -264,6 +301,7 @@ namespace Boutique.DAL
                     cmd.CommandText = "[GetAllErrorDetails]";
                     cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = StartIndex;
                     cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = EndIndex;
+                    //cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = PageNumber;
                     cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, -1).Value = SearchText;
                     SqlParameter outparmeter= cmd.Parameters.Add("@OutTotalCount", SqlDbType.BigInt);
                     outparmeter.Direction = ParameterDirection.Output;
@@ -271,7 +309,7 @@ namespace Boutique.DAL
                     sda.SelectCommand = cmd;
                     ds = new DataSet();
                     sda.Fill(ds);
-                    TotalCount= int.Parse(outparmeter.Value.ToString());
+                    TotalCount= int.Parse(outparmeter.Value.ToString());  
                 
             }
 

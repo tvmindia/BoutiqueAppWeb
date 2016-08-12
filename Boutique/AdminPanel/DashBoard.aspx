@@ -12,7 +12,7 @@
     </style>
     
     <link href="../CSS/CustomCSS/Dashboard.css" rel="stylesheet" />
-    
+     <script src="../Scripts/custom.js"></script>
    
       <script src="../Scripts/jquery.dataTables.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>
@@ -37,7 +37,7 @@
                 <%--   Report tiles--%>
 				<div class="row-fluid" style="padding-top:25%;">	
 
-				<a class="quick-button metro yellow span2" href="People.aspx">
+				<a class="quick-button metro yellow span2" href="People.aspx?tab=users">
 				<i class="icon-group"></i>
 				<p>App Users</p>
 				<span class="badge" id="UsersBadge">0</span>

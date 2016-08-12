@@ -108,7 +108,7 @@ $(document).ready(function(){
 	/* ---------- Acivate Functions ---------- */
 	template_functions();
 	init_masonry();
-	sparkline_charts();
+	//sparkline_charts();
 	charts();
 	calendars();
 	growlLikeNotifications();
@@ -120,7 +120,7 @@ $(document).ready(function(){
 		
 	} else {
 		
-		circle_progess();
+		//circle_progess();
 		
 	}
 	
@@ -301,10 +301,10 @@ function template_functions(){
 	});
 	
 	/* ---------- Text editor ---------- */
-	$('.cleditor').cleditor();
+	//$('.cleditor').cleditor();
 	
 	/* ---------- Datapicker ---------- */
-	$('.datepicker').datepicker();
+	//$('.datepicker').datepicker();
 	
 	/* ---------- Notifications ---------- */
 	$('.noty').click(function(e){
@@ -314,10 +314,10 @@ function template_functions(){
 	});
 
 	/* ---------- Uniform ---------- */
-	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+	//$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
 
 	/* ---------- Choosen ---------- */
-	$('[data-rel="chosen"],[rel="chosen"]').chosen();
+	//$('[data-rel="chosen"],[rel="chosen"]').chosen();
 
 	/* ---------- Tabs ---------- */
 	$('#myTab a:first').tab('show');
@@ -337,27 +337,27 @@ function template_functions(){
 	});
 
 	/* ---------- Tooltip ---------- */
-	$('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
+	//$('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
 
 	/* ---------- Popover ---------- */
 	$('[rel="popover"],[data-rel="popover"]').popover();
 
 	/* ---------- File Manager ---------- */
-	var elf = $('.file-manager').elfinder({
-		url : 'misc/elfinder-connector/connector.php'  // connector URL (REQUIRED)
-	}).elfinder('instance');
+	//var elf = $('.file-manager').elfinder({
+	//	url : 'misc/elfinder-connector/connector.php'  // connector URL (REQUIRED)
+	//}).elfinder('instance');
 
 	/* ---------- Star Rating ---------- */
-	$('.raty').raty({
-		score : 4 //default stars
-	});
+	//$('.raty').raty({
+	//	score : 4 //default stars
+	//});
 
 	/* ---------- Uploadify ---------- */
-	$('#file_upload').uploadify({
-		'swf'      : 'misc/uploadify.swf',
-		'uploader' : 'misc/uploadify.php'
-		// Put your options here
-	});
+	//$('#file_upload').uploadify({
+	//	'swf'      : 'misc/uploadify.swf',
+	//	'uploader' : 'misc/uploadify.php'
+	//	// Put your options here
+	//});
 
 	/* ---------- Fullscreen ---------- */
 	$('#toggle-fullscreen').button().click(function () {
@@ -697,73 +697,73 @@ function template_functions(){
 
 /* ---------- Circle Progess Bars ---------- */
 
-function circle_progess() {
+//function circle_progess() {
 	
-	var divElement = $('div'); //log all div elements
+//	var divElement = $('div'); //log all div elements
 	
-	if (retina()) {
+//	if (retina()) {
 		
-		$(".whiteCircle").knob({
-	        'min':0,
-	        'max':100,
-	        'readOnly': true,
-	        'width': 240,
-	        'height': 240,
-			'bgColor': 'rgba(255,255,255,0.5)',
-	        'fgColor': 'rgba(255,255,255,0.9)',
-	        'dynamicDraw': true,
-	        'thickness': 0.2,
-	        'tickColorizeValues': true
-	    });
+//		$(".whiteCircle").knob({
+//	        'min':0,
+//	        'max':100,
+//	        'readOnly': true,
+//	        'width': 240,
+//	        'height': 240,
+//			'bgColor': 'rgba(255,255,255,0.5)',
+//	        'fgColor': 'rgba(255,255,255,0.9)',
+//	        'dynamicDraw': true,
+//	        'thickness': 0.2,
+//	        'tickColorizeValues': true
+//	    });
 	
-		$(".circleStat").css('zoom',0.5);
-		$(".whiteCircle").css('zoom',0.999);
+//		$(".circleStat").css('zoom',0.5);
+//		$(".whiteCircle").css('zoom',0.999);
 		
 		
-	} else {
+//	} else {
 		
-		$(".whiteCircle").knob({
-	        'min':0,
-	        'max':100,
-	        'readOnly': true,
-	        'width': 120,
-	        'height': 120,
-			'bgColor': 'rgba(255,255,255,0.5)',
-	        'fgColor': 'rgba(255,255,255,0.9)',
-	        'dynamicDraw': true,
-	        'thickness': 0.2,
-	        'tickColorizeValues': true
-	    });
+//		$(".whiteCircle").knob({
+//	        'min':0,
+//	        'max':100,
+//	        'readOnly': true,
+//	        'width': 120,
+//	        'height': 120,
+//			'bgColor': 'rgba(255,255,255,0.5)',
+//	        'fgColor': 'rgba(255,255,255,0.9)',
+//	        'dynamicDraw': true,
+//	        'thickness': 0.2,
+//	        'tickColorizeValues': true
+//	    });
 		
-	}
+//	}
 	
 	
 	
-	$(".circleStatsItemBox").each(function(){
+//	$(".circleStatsItemBox").each(function(){
 		
-		var value = $(this).find(".value > .number").html();
-		var unit = $(this).find(".value > .unit").html();
-		var percent = $(this).find("input").val()/100;
+//		var value = $(this).find(".value > .number").html();
+//		var unit = $(this).find(".value > .unit").html();
+//		var percent = $(this).find("input").val()/100;
 		
-		countSpeed = 2300*percent;
+//		countSpeed = 2300*percent;
 		
-		endValue = value*percent;
+//		endValue = value*percent;
 		
-		$(this).find(".count > .unit").html(unit);
-		$(this).find(".count > .number").countTo({
+//		$(this).find(".count > .unit").html(unit);
+//		$(this).find(".count > .number").countTo({
 			
-			from: 0,
-		    to: endValue,
-		    speed: countSpeed,
-		    refreshInterval: 50
+//			from: 0,
+//		    to: endValue,
+//		    speed: countSpeed,
+//		    refreshInterval: 50
 		
-		});
+//		});
 		
-		//$(this).find(".count").html(value*percent + unit);
+//		//$(this).find(".count").html(value*percent + unit);
 		
-	});
+//	});
 	
-}                
+//}                
 
       
 
@@ -942,105 +942,105 @@ function calendars(){
 
 /* ---------- Sparkline Charts ---------- */
 
-function sparkline_charts() {
+//function sparkline_charts() {
 	
-	//generate random number for charts
-	randNum = function(){
-		//return Math.floor(Math.random()*101);
-		return (Math.floor( Math.random()* (1+40-20) ) ) + 20;
-	}
+//	//generate random number for charts
+//	randNum = function(){
+//		//return Math.floor(Math.random()*101);
+//		return (Math.floor( Math.random()* (1+40-20) ) ) + 20;
+//	}
 
-	var chartColours = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'];
+//	var chartColours = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'];
 
-	//sparklines (making loop with random data for all 7 sparkline)
-	i=1;
-	for (i=1; i<9; i++) {
-	 	var data = [[1, 3+randNum()], [2, 5+randNum()], [3, 8+randNum()], [4, 11+randNum()],[5, 14+randNum()],[6, 17+randNum()],[7, 20+randNum()], [8, 15+randNum()], [9, 18+randNum()], [10, 22+randNum()]];
-	 	placeholder = '.sparkLineStats' + i;
+//	//sparklines (making loop with random data for all 7 sparkline)
+//	i=1;
+//	for (i=1; i<9; i++) {
+//	 	var data = [[1, 3+randNum()], [2, 5+randNum()], [3, 8+randNum()], [4, 11+randNum()],[5, 14+randNum()],[6, 17+randNum()],[7, 20+randNum()], [8, 15+randNum()], [9, 18+randNum()], [10, 22+randNum()]];
+//	 	placeholder = '.sparkLineStats' + i;
 		
-		if (retina()) {
+//		if (retina()) {
 			
-			$(placeholder).sparkline(data, {
-				width: 160,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
-				height: 80,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
-				lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
-				fillColor: 'rgba(255,255,255,0.2)',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
-				spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
-				maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
-				minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
-				spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
-				lineWidth: 1//In pixels (default: 1) - Integer
-			});
+//			$(placeholder).sparkline(data, {
+//				width: 160,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
+//				height: 80,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
+//				lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
+//				fillColor: 'rgba(255,255,255,0.2)',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
+//				spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
+//				maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
+//				minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
+//				spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
+//				lineWidth: 1//In pixels (default: 1) - Integer
+//			});
 			
-			$(placeholder).css('zoom',0.5);
+//			$(placeholder).css('zoom',0.5);
 			
-		} else {
+//		} else {
 			
-			if($.browser.msie  && parseInt($.browser.version, 10) === 8) {
+//			if($.browser.msie  && parseInt($.browser.version, 10) === 8) {
 				
-				$(placeholder).sparkline(data, {
-					width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
-					height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
-					lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
-					fillColor: '#ffffff',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
-					spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
-					maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
-					minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
-					spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
-					lineWidth: 1//In pixels (default: 1) - Integer
-				});
+//				$(placeholder).sparkline(data, {
+//					width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
+//					height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
+//					lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
+//					fillColor: '#ffffff',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
+//					spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
+//					maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
+//					minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
+//					spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
+//					lineWidth: 1//In pixels (default: 1) - Integer
+//				});
 				
-			} else {
+//			} else {
 				
-				$(placeholder).sparkline(data, {
-					width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
-					height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
-					lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
-					fillColor: 'rgba(255,255,255,0.2)',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
-					spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
-					maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
-					minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
-					spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
-					lineWidth: 1//In pixels (default: 1) - Integer
-				});
+//				$(placeholder).sparkline(data, {
+//					width: 80,//Width of the chart - Defaults to 'auto' - May be any valid css width - 1.5em, 20px, etc (using a number without a unit specifier won't do what you want) - This option does nothing for bar and tristate chars (see barWidth)
+//					height: 40,//Height of the chart - Defaults to 'auto' (line height of the containing tag)
+//					lineColor: '#ffffff',//Used by line and discrete charts to specify the colour of the line drawn as a CSS values string
+//					fillColor: 'rgba(255,255,255,0.2)',//Specify the colour used to fill the area under the graph as a CSS value. Set to false to disable fill
+//					spotColor: '#ffffff',//The CSS colour of the final value marker. Set to false or an empty string to hide it
+//					maxSpotColor: '#ffffff',//The CSS colour of the marker displayed for the maximum value. Set to false or an empty string to hide it
+//					minSpotColor: '#ffffff',//The CSS colour of the marker displayed for the mimum value. Set to false or an empty string to hide it
+//					spotRadius: 2,//Radius of all spot markers, In pixels (default: 1.5) - Integer
+//					lineWidth: 1//In pixels (default: 1) - Integer
+//				});
 				
-			}
+//			}
 			
-		}
+//		}
 	
-	}
+//	}
 	
-	if($(".boxchart")) {
+//	if($(".boxchart")) {
 		
-		if (retina()) {
+//		if (retina()) {
 			
-			$(".boxchart").sparkline('html', {
-			    type: 'bar',
-			    height: '120', // Double pixel number for retina display
-				barWidth: '8', // Double pixel number for retina display
-				barSpacing: '2', // Double pixel number for retina display
-			    barColor: '#ffffff',
-			    negBarColor: '#eeeeee'}
-			);
+//			$(".boxchart").sparkline('html', {
+//			    type: 'bar',
+//			    height: '120', // Double pixel number for retina display
+//				barWidth: '8', // Double pixel number for retina display
+//				barSpacing: '2', // Double pixel number for retina display
+//			    barColor: '#ffffff',
+//			    negBarColor: '#eeeeee'}
+//			);
 			
-			$(".boxchart").css('zoom',0.5);
+//			$(".boxchart").css('zoom',0.5);
 			
-		} else {
+//		} else {
 			
-			$(".boxchart").sparkline('html', {
-			    type: 'bar',
-			    height: '60',
-				barWidth: '4',
-				barSpacing: '1',
-			    barColor: '#ffffff',
-			    negBarColor: '#eeeeee'}
-			);
+//			$(".boxchart").sparkline('html', {
+//			    type: 'bar',
+//			    height: '60',
+//				barWidth: '4',
+//				barSpacing: '1',
+//			    barColor: '#ffffff',
+//			    negBarColor: '#eeeeee'}
+//			);
 			
-		}		
+//		}		
 		
-	}
+//	}
 		
-}
+//}
 
 /* ---------- Charts ---------- */
 
@@ -1988,93 +1988,93 @@ function growlLikeNotifications() {
 
 
 /* ---------- Additional functions for data table ---------- */
-$.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
-{
-	return {
-		"iStart":         oSettings._iDisplayStart,
-		"iEnd":           oSettings.fnDisplayEnd(),
-		"iLength":        oSettings._iDisplayLength,
-		"iTotal":         oSettings.fnRecordsTotal(),
-		"iFilteredTotal": oSettings.fnRecordsDisplay(),
-		"iPage":          Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
-		"iTotalPages":    Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
-	};
-}
-$.extend( $.fn.dataTableExt.oPagination, {
-	"bootstrap": {
-		"fnInit": function( oSettings, nPaging, fnDraw ) {
-			var oLang = oSettings.oLanguage.oPaginate;
-			var fnClickHandler = function ( e ) {
-				e.preventDefault();
-				if ( oSettings.oApi._fnPageChange(oSettings, e.data.action) ) {
-					fnDraw( oSettings );
-				}
-			};
+//$.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
+//{
+//	return {
+//		"iStart":         oSettings._iDisplayStart,
+//		"iEnd":           oSettings.fnDisplayEnd(),
+//		"iLength":        oSettings._iDisplayLength,
+//		"iTotal":         oSettings.fnRecordsTotal(),
+//		"iFilteredTotal": oSettings.fnRecordsDisplay(),
+//		"iPage":          Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
+//		"iTotalPages":    Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
+//	};
+//}
+//$.extend( $.fn.dataTableExt.oPagination, {
+//	"bootstrap": {
+//		"fnInit": function( oSettings, nPaging, fnDraw ) {
+//			var oLang = oSettings.oLanguage.oPaginate;
+//			var fnClickHandler = function ( e ) {
+//				e.preventDefault();
+//				if ( oSettings.oApi._fnPageChange(oSettings, e.data.action) ) {
+//					fnDraw( oSettings );
+//				}
+//			};
 
-			$(nPaging).addClass('pagination').append(
-				'<ul>'+
-					'<li class="prev disabled"><a href="#">&larr; '+oLang.sPrevious+'</a></li>'+
-					'<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
-				'</ul>'
-			);
-			var els = $('a', nPaging);
-			$(els[0]).bind( 'click.DT', { action: "previous" }, fnClickHandler );
-			$(els[1]).bind( 'click.DT', { action: "next" }, fnClickHandler );
-		},
+//			$(nPaging).addClass('pagination').append(
+//				'<ul>'+
+//					'<li class="prev disabled"><a href="#">&larr; '+oLang.sPrevious+'</a></li>'+
+//					'<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
+//				'</ul>'
+//			);
+//			var els = $('a', nPaging);
+//			$(els[0]).bind( 'click.DT', { action: "previous" }, fnClickHandler );
+//			$(els[1]).bind( 'click.DT', { action: "next" }, fnClickHandler );
+//		},
 
-		"fnUpdate": function ( oSettings, fnDraw ) {
-			var iListLength = 5;
-			var oPaging = oSettings.oInstance.fnPagingInfo();
-			var an = oSettings.aanFeatures.p;
-			var i, j, sClass, iStart, iEnd, iHalf=Math.floor(iListLength/2);
+//		"fnUpdate": function ( oSettings, fnDraw ) {
+//			var iListLength = 5;
+//			var oPaging = oSettings.oInstance.fnPagingInfo();
+//			var an = oSettings.aanFeatures.p;
+//			var i, j, sClass, iStart, iEnd, iHalf=Math.floor(iListLength/2);
 
-			if ( oPaging.iTotalPages < iListLength) {
-				iStart = 1;
-				iEnd = oPaging.iTotalPages;
-			}
-			else if ( oPaging.iPage <= iHalf ) {
-				iStart = 1;
-				iEnd = iListLength;
-			} else if ( oPaging.iPage >= (oPaging.iTotalPages-iHalf) ) {
-				iStart = oPaging.iTotalPages - iListLength + 1;
-				iEnd = oPaging.iTotalPages;
-			} else {
-				iStart = oPaging.iPage - iHalf + 1;
-				iEnd = iStart + iListLength - 1;
-			}
+//			if ( oPaging.iTotalPages < iListLength) {
+//				iStart = 1;
+//				iEnd = oPaging.iTotalPages;
+//			}
+//			else if ( oPaging.iPage <= iHalf ) {
+//				iStart = 1;
+//				iEnd = iListLength;
+//			} else if ( oPaging.iPage >= (oPaging.iTotalPages-iHalf) ) {
+//				iStart = oPaging.iTotalPages - iListLength + 1;
+//				iEnd = oPaging.iTotalPages;
+//			} else {
+//				iStart = oPaging.iPage - iHalf + 1;
+//				iEnd = iStart + iListLength - 1;
+//			}
 
-			for ( i=0, iLen=an.length ; i<iLen ; i++ ) {
-				// remove the middle elements
-				$('li:gt(0)', an[i]).filter(':not(:last)').remove();
+//			for ( i=0, iLen=an.length ; i<iLen ; i++ ) {
+//				// remove the middle elements
+//				$('li:gt(0)', an[i]).filter(':not(:last)').remove();
 
-				// add the new list items and their event handlers
-				for ( j=iStart ; j<=iEnd ; j++ ) {
-					sClass = (j==oPaging.iPage+1) ? 'class="active"' : '';
-					$('<li '+sClass+'><a href="#">'+j+'</a></li>')
-						.insertBefore( $('li:last', an[i])[0] )
-						.bind('click', function (e) {
-							e.preventDefault();
-							oSettings._iDisplayStart = (parseInt($('a', this).text(),10)-1) * oPaging.iLength;
-							fnDraw( oSettings );
-						} );
-				}
+//				// add the new list items and their event handlers
+//				for ( j=iStart ; j<=iEnd ; j++ ) {
+//					sClass = (j==oPaging.iPage+1) ? 'class="active"' : '';
+//					$('<li '+sClass+'><a href="#">'+j+'</a></li>')
+//						.insertBefore( $('li:last', an[i])[0] )
+//						.bind('click', function (e) {
+//							e.preventDefault();
+//							oSettings._iDisplayStart = (parseInt($('a', this).text(),10)-1) * oPaging.iLength;
+//							fnDraw( oSettings );
+//						} );
+//				}
 
-				// add / remove disabled classes from the static elements
-				if ( oPaging.iPage === 0 ) {
-					$('li:first', an[i]).addClass('disabled');
-				} else {
-					$('li:first', an[i]).removeClass('disabled');
-				}
+//				// add / remove disabled classes from the static elements
+//				if ( oPaging.iPage === 0 ) {
+//					$('li:first', an[i]).addClass('disabled');
+//				} else {
+//					$('li:first', an[i]).removeClass('disabled');
+//				}
 
-				if ( oPaging.iPage === oPaging.iTotalPages-1 || oPaging.iTotalPages === 0 ) {
-					$('li:last', an[i]).addClass('disabled');
-				} else {
-					$('li:last', an[i]).removeClass('disabled');
-				}
-			}
-		}
-	}
-});
+//				if ( oPaging.iPage === oPaging.iTotalPages-1 || oPaging.iTotalPages === 0 ) {
+//					$('li:last', an[i]).addClass('disabled');
+//				} else {
+//					$('li:last', an[i]).removeClass('disabled');
+//				}
+//			}
+//		}
+//	}
+//});
 
 /* ---------- Page width functions ---------- */
 

@@ -1,4 +1,6 @@
-﻿
+﻿/// <reference path="E:\BoutiqueApp\Boutique\AdminPanel/BugTracker.aspx" />
+/// <reference path="E:\BoutiqueApp\Boutique\AdminPanel/BugTracker.aspx" />
+
 var deleteReturn = false;
 
 //-----------*  document.ready * ---------------//
@@ -48,7 +50,8 @@ var Pages = {
     LoyaltySettings: "Loyalty Settings",
     OrderStatus: "Order Status",
     Products: "Products",
-    ProductsReview:"Products Review"
+    ProductsReview: "Products Review",
+    Bugs:"Bug Tracker"
 }
 
 //--------------* Messages * ---------------//
@@ -206,13 +209,14 @@ function DeleteCustomAlert(txt, e, p)
     btnYes.appendChild(d.createTextNode("Yes"));
     btnYes.href = "#";
     //btnYes.focus();
-   
+    
     if (p == "ProductImage") {
         btnYes.onclick = function () { DeleteProductImage(e, p); removeCustomAlert(); return false; }
     }
   
     if (p == "Revive")//it is not  delete it restore from the deleted products
     {
+
         btnYes.onclick = function () { ReviveProducts(e, p); removeCustomAlert(); return false; }
     }
     if(p == "ErrorFix")
@@ -358,5 +362,14 @@ function GetBoutique_id(boutique) {
     var data = "{'boutiqueObj':" + JSON.stringify(boutique) + "}";
     ds = getJsonData(data, "../AdminPanel/DashBoard.aspx/BoutiqueID");
     table = JSON.parse(ds.d);
+    return table;
+}
+
+function InsertException(ExceptionTrack)
+{
+    var data = "{'ETObj':" + JSON.stringify(ExceptionTrack) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/BugTracker.aspx/InsertErrorDetails");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
     return table;
 }

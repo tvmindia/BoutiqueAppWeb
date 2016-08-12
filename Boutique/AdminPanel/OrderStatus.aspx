@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master/AdminLayout.Master" AutoEventWireup="true" CodeBehind="OrderStatus.aspx.cs" Inherits="Boutique.AdminPanel.OrderStatus" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+      <script src="../Scripts/custom.js"></script>
       <script src="../Scripts/jquery.dataTables.min.js"></script>
       <script src="../Scripts/select2.min.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>   

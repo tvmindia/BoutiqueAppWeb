@@ -103,7 +103,8 @@ namespace Boutique.WebServices
             var sb = new StringBuilder();
 
             sb.Append(@"{" + "\"draw\": " + TObj.Draw + ",");
-            sb.Append("\"recordsTotal\": " + TObj.Length + ",");
+            
+            sb.Append("\"recordsTotal\": " + TObj.RecordsTotal + ",");
             sb.Append("\"recordsFiltered\": " + TObj.Length + ",");
             sb.Append("\"data\": [");
             foreach (var result in records)
@@ -138,36 +139,44 @@ namespace Boutique.WebServices
             // but I will just populate a sample collection in code
             
 
-            DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-              List<ExceptionTrack> exceptonList = new List<ExceptionTrack>();
-             if (UA != null)
-             {
+           // DAL.Security.UserAuthendication UA;
+           // UIClasses.Const Const = new UIClasses.Const();
+          //  UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            List<ExceptionTrack> exceptonList = null;
+            try
+            {
+                exceptonList = new List<ExceptionTrack>();
+
                 ExceptionTrack ETObj = new ExceptionTrack();
                 //ETObj.BoutiqueID = UA.BoutiqueID;
                 DataSet ds = null;
                 ETObj.StartIndex = TObj.Start;
-                ETObj.EndIndex =TObj.Start + TObj.Length;
+                ETObj.EndIndex = TObj.Start + TObj.Length;
                 ETObj.SearchText = TObj.Search.Value;
-               // ETObj.EndIndex = TObj.Length;
+                ETObj.PageNumber = TObj.Draw;
+                // ETObj.EndIndex = TObj.Length;
                 ds = ETObj.GetAllErrorDetails();
 
-              //  TObj.Length = ETObj.TotalCount;
-                if(ds.Tables[0].Rows.Count>0)// 
+
+                TObj.RecordsTotal = ETObj.TotalCount;
+                if (ds.Tables[0].Rows.Count > 0)// 
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        exceptonList.Add(new ExceptionTrack { ErrorID=Convert.ToString(dr["ErrorID"]), BoutiqueName = Convert.ToString(dr["BoutiqueName"]), UserName = Convert.ToString(dr["UserName"]), Module = Convert.ToString(dr["Module"]),Method=Convert.ToString(dr["Method"]),ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
+                        exceptonList.Add(new ExceptionTrack { ErrorID = Convert.ToString(dr["ErrorID"]), BoutiqueName = Convert.ToString(dr["BoutiqueName"]), UserName = Convert.ToString(dr["UserName"]), Module = Convert.ToString(dr["Module"]), Method = Convert.ToString(dr["Method"]), ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
                     }
-                
-                }
-               
-             
-            }//end if ua
-             
-            return exceptonList;
 
+                }
+            }//end of try
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+            return exceptonList;
         }//end of method
     }
 }
