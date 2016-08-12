@@ -109,7 +109,7 @@
   text-shadow: 0 3px 0 rgba(15,73,168,0.66) ;
 
        }
-       a:hover{
+       .sendbtn:hover{
            text-decoration:none;
            background-color:transparent;
            border:2px solid #E45B00;
@@ -487,7 +487,7 @@
     <footer>
       <div class="container">
         <div>
-          Copyright &copy; 2016 Tiquesinn<span>Designed by <a href="thrithvam.com">Thrithvam Technologies</a></span>
+          Copyright &copy; 2016 Tiquesinn<span>Designed by <a href="http://thrithvam.com">Thrithvam Technologies</a></span>
                   </div>
           <a href="https://www.facebook.com/tiquesinn" target="_blank"><img src="images/fb.png" /></a><a href="https://twitter.com/tiquesinn" target="_blank"><img src="images/twitter.png" /></a><a href="https://plus.google.com/103146218218684459847" target="_blank"><img src="images/goog.png" /></a><a href="mailto:info@tiquesinn.com?Subject=Enquiry%20Related%20Query" target="_top"><img src="images/skype.png" /></a>
           
