@@ -99,7 +99,7 @@
   word-spacing: 18px;
   background: url("./images/sent-mail.png"), #e67e22;
   background-repeat: no-repeat;
-  background-position: 3% 50%;
+  background-position: 10% 50%;
   -webkit-background-origin: padding-box;
   background-origin: padding-box;
   -webkit-background-clip: border-box;
