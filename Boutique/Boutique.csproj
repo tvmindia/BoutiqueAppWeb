@@ -466,6 +466,7 @@
     <Content Include="Website\images\Logo.png" />
     <Content Include="Website\images\movetop.png" />
     <Content Include="Website\images\ordering.PNG" />
+    <Content Include="Website\images\sent-mail.png" />
     <Content Include="Website\images\skype.png" />
     <Content Include="Website\images\twitter.png" />
     <Content Include="Website\player.js" />
@@ -659,6 +660,7 @@
     <Compile Include="DAL\Owners.cs" />
     <Compile Include="DAL\Product.cs" />
     <Compile Include="DAL\Security.cs" />
+    <Compile Include="DAL\site.cs" />
     <Compile Include="DAL\Users.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
