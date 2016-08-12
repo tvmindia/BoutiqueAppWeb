@@ -1,5 +1,6 @@
 ﻿var LoginUserRole = '';
 $("document").ready(function (e) {
+  
     $('.ReviveProduct').hide();
     $('#lblproductno').hide();
    

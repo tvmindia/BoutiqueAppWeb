@@ -1,6 +1,6 @@
 ﻿//document.ready
 $("document").ready(function (e) {
-    debugger;
+   
  
     parent.document.title = Pages.People;
     $('.AddUser').hide();
@@ -28,6 +28,16 @@ $("document").ready(function (e) {
 
         }
     }
+    else
+    {
+        BindAsyncUserTable();
+        $('#UsersTable').DataTable({
+            "bPaginate": true,
+            "iDisplayLength": 6,
+            "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+            "fnPageChange": "next"
+        });
+    }
     
 
     if (LoginUserRole[0] != Roles.Manager) {
@@ -39,6 +49,8 @@ $("document").ready(function (e) {
             alert('The File APIs are not fully supported in this browser.');
         }
     }
+
+   
     BindAsyncAdminsTable();
      $('#AdministratorTable').DataTable({
         "bPaginate": true,
@@ -46,7 +58,14 @@ $("document").ready(function (e) {
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
         "fnPageChange": "next"           //removing paging
     });
-   
+     initTable();
+
+     $('#DesignerTable').DataTable({
+         "bPaginate": true,
+         "iDisplayLength": 6,
+         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+         "fnPageChange": "next"          //removing paging
+     });
   
     //$('#UsersTable').DataTable({
     //    "bPaginate": true,
@@ -76,12 +95,9 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncManagersTable();
-            $('#ManagerTable').DataTable({
-                "bPaginate": true,
-                "iDisplayLength": 6,
-                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                "fnPageChange": "next"            //removing paging
-            });
+            var oTable = initTable();
+            oTable.fnReloadAjax();
+            
         }
         catch(e)
         {
@@ -99,12 +115,7 @@ $("document").ready(function (e) {
         try
         {
             BindAsycDesignerTable();
-            $('#DesignerTable').DataTable({
-                "bPaginate": true,
-                "iDisplayLength": 6,
-                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                "fnPageChange": "next"          //removing paging
-            });
+           
         }
         catch(e)
         {
@@ -121,12 +132,7 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncUserTable();
-            $('#UsersTable').DataTable({
-                "bPaginate": true,
-                "iDisplayLength": 6,
-                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                "fnPageChange": "next"
-            });
+           
         }
         catch(e)
         {
@@ -998,7 +1004,7 @@ function BindAdminsTable(Records) {
 
 
 function InsertUser(User) {
-    debugger;
+ 
     var table = {};
     try
     {
@@ -1560,7 +1566,7 @@ function DeleteDesigner(Designer) {
 
 //Add New Admin
 function AddAdmin() {
-    debugger;
+   
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1630,7 +1636,7 @@ function AddAdmin() {
 }
 //Add New Manager
 function AddManager() {
-    debugger;
+  
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1852,7 +1858,7 @@ function AddDesigner()
 //Add New User
 function AddUser()
 {
-    debugger;
+ 
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1977,7 +1983,7 @@ function AdminValidation() {
                 //logical check
                 if(i==5)
                 {
-                    debugger;
+                   
                     var email = document.getElementById('txtAdminEmail');
                     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -2375,3 +2381,15 @@ function EmailValidation() {
     }
     return false;
 }
+
+
+function initTable() {
+    return $('#ManagerTable').DataTable({
+        "bPaginate": true,
+        "bRetrieve": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+        "fnPageChange": "next"           
+    });
+}
+
