@@ -1,13 +1,12 @@
 ﻿//document.ready
 $("document").ready(function (e) {
    
- 
     parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION 
 
     var LoginUserRole = getRole();
-
+    var usertable = '';
     $('#hdfRole').val(LoginUserRole[0]);
     $('#hdfloginname').val(LoginUserRole[1]);
 
@@ -19,24 +18,15 @@ $("document").ready(function (e) {
         {
             $('#myTab li:eq(3) a').tab('show');
             BindAsyncUserTable();
-            $('#UsersTable').DataTable({
-                "bPaginate": true,
-                "iDisplayLength": 6,
-                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                "fnPageChange": "next"
-            });
+            usertable = $('#UsersTable').DataTable();
+              
 
         }
     }
     else
     {
         BindAsyncUserTable();
-        $('#UsersTable').DataTable({
-            "bPaginate": true,
-            "iDisplayLength": 6,
-            "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-            "fnPageChange": "next"
-        });
+        usertable = $('#UsersTable').DataTable();
     }
     
 
@@ -52,33 +42,18 @@ $("document").ready(function (e) {
 
    
     BindAsyncAdminsTable();
-     $('#AdministratorTable').DataTable({
-        "bPaginate": true,
-        "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-        "fnPageChange": "next"           //removing paging
-    });
-     initTable();
-
-     $('#DesignerTable').DataTable({
-         "bPaginate": true,
-         "iDisplayLength": 6,
-         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-         "fnPageChange": "next"          //removing paging
-     });
-  
-    //$('#UsersTable').DataTable({
-    //    "bPaginate": true,
-    //    "iDisplayLength": 6,
-    //    "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],  
-    //    "fnPageChange": "next"
-    //});
-
+   
+    var admintable = $('#AdministratorTable').DataTable();
+    BindAsycDesignerTable();
+    var designtable = $('#DesignerTable').DataTable();
+    BindAsyncManagersTable();
+    var managertable = $('#ManagerTable').DataTable();
     $("#idTabAdministrator").click(function (e) {
         try
         {
             BindAsyncAdminsTable();
-        }
+            admintable.init();
+            }
         catch(e)
         {
             var ExceptionTrack = new Object();
@@ -95,8 +70,8 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncManagersTable();
-            var oTable = initTable();
-            oTable.fnReloadAjax();
+            managertable.init();
+           
             
         }
         catch(e)
@@ -115,7 +90,7 @@ $("document").ready(function (e) {
         try
         {
             BindAsycDesignerTable();
-           
+            designtable.init();
         }
         catch(e)
         {
@@ -132,6 +107,7 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncUserTable();
+            usertable.init();
            
         }
         catch(e)
@@ -2383,13 +2359,5 @@ function EmailValidation() {
 }
 
 
-function initTable() {
-    return $('#ManagerTable').DataTable({
-        "bPaginate": true,
-        "bRetrieve": true,
-        "iDisplayLength": 6,
-        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-        "fnPageChange": "next"           
-    });
-}
+
 

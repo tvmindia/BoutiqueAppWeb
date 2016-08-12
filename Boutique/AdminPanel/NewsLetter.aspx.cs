@@ -24,7 +24,7 @@ namespace Boutique.AdminPanel
         public static string GetAllAudienceMailID(NewsLetters newsObj)
         {
             string jsonResult = null;
-            string status = null;
+         
             DataSet ds = null;
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -54,7 +54,7 @@ namespace Boutique.AdminPanel
             }
              catch(Exception ex)
             {
-                status = "500";//Exception of foreign key
+                //status = "500";//Exception of foreign key
 
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();
@@ -79,7 +79,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string SendEmail(MailSending mailObj)
         {
-            string status = null;
+           
             int ? result=null;
             string jsonResult = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
@@ -129,7 +129,7 @@ namespace Boutique.AdminPanel
             catch(Exception ex)
             {
 
-                status = "500";//Exception of foreign key
+                //status = "500";//Exception of foreign key
 
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();

@@ -39,7 +39,7 @@
 
 			<div class="row-fluid">		
 				<div class="box span12">
-					<div class="box-header" data-original-title>
+					<div class="box-header">
 						<h2>Bugs</h2>
 						
 					</div>
@@ -67,7 +67,7 @@
 
             <div class="row-fluid" id="rowfluidDetails">
                 	<div class="box span12">
-					<div class="box-header" data-original-title>
+					<div class="box-header">
 						<h2>Details</h2>
 						
 					</div>
@@ -204,7 +204,7 @@
 
     <script src="../Scripts/jquery-1.12.3.js"></script>
 
-    <link href="../CSS/DataTables-1.10.4/css/jquery.dataTables.css" rel="stylesheet" />
+    
     
     <script src="../Scripts/jquery.dataTables-1.10.12.js"></script>
    <%-- <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>--%>
