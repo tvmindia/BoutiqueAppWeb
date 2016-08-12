@@ -84,7 +84,7 @@ namespace Boutique.AdminPanel
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             loyaltyObj.BoutiqueID = UA.BoutiqueID;
-            string status = null;
+           
             string jsonResult = null;
             DataSet ds = new DataSet();
             try
@@ -111,7 +111,7 @@ namespace Boutique.AdminPanel
             }
             catch(Exception ex)
             {
-                status = "500";//Exception of foreign key
+               // status = "500";//Exception of foreign key
 
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();

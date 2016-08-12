@@ -35,7 +35,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string NewBoutique(Boutiques boutiqueObj)
         {
-            string status = null;
+           
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
 
@@ -60,7 +60,7 @@ namespace Boutique.AdminPanel
             }
             catch(Exception ex)
             {
-                status = "500";//Exception of foreign key
+               // status = "500";//Exception of foreign key
 
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();
@@ -85,7 +85,7 @@ namespace Boutique.AdminPanel
         public static string BindBoutiqueDetails(Boutiques boutiqueObj)
         {
             string jsResult = null;
-            string status = null;
+          
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
 
@@ -127,7 +127,7 @@ namespace Boutique.AdminPanel
 
             catch (Exception ex)
             {
-                status = "500";//Exception of foreign key
+                //status = "500";//Exception of foreign key
 
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();

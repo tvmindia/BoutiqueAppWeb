@@ -68,7 +68,7 @@ namespace Boutique.AdminPanel
         [System.Web.Services.WebMethod]
         public static string GetAllCategories(Product productObj)
         {
-            string status = null;
+          
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
@@ -100,7 +100,7 @@ namespace Boutique.AdminPanel
             }
             catch(Exception ex)
             {
-                status = "500";//Exception of foreign key
+               // status = "500";//Exception of foreign key
 
                 //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();
