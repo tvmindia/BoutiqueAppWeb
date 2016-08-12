@@ -99,7 +99,7 @@
   word-spacing: 18px;
   background: url("./images/sent-mail.png"), #e67e22;
   background-repeat: no-repeat;
-  background-position: 3% 50%;
+  background-position: 10% 50%;
   -webkit-background-origin: padding-box;
   background-origin: padding-box;
   -webkit-background-clip: border-box;
@@ -109,7 +109,7 @@
   text-shadow: 0 3px 0 rgba(15,73,168,0.66) ;
 
        }
-       a:hover{
+       .sendbtn:hover{
            text-decoration:none;
            background-color:transparent;
            border:2px solid #E45B00;
@@ -121,6 +121,16 @@
     
     
 <body style="background-color:#f1f1f1;">
+    <!-- PRELOADER -->
+    <div class="spn_hol">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+
+ <!-- END PRELOADER -->
     <svg style="display: none;" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
 
 <defs>
@@ -267,17 +277,17 @@
                     <div class="container -medium">
                         <ul class="slide_shop_list">
                     <li class="slide_shop_list_item slide_shop_list_item1" style="visibility: inherit; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
-                        <h2>Survive ?</h2>                       
-                        <p>" Oh God,&nbsp;Suvival in this modern world is&nbsp;&nbsp;too expensive and too tricky.&nbsp;Is it possible to be successful&nbsp;with something abstract&nbsp;which provides satisfaction "</p></li>
+                        <h2>How To ?</h2>                       
+                        <p>"Reach your brand to customers in smarter way&nbsp;&nbsp;Yes, mobile is the way forward.&nbsp;</p></li>
                 <li class="slide_shop_list_item slide_shop_list_item2" style="visibility: hidden; opacity: 0; transform: matrix(1, 0, 0, 1, 0, 300);">
-                    <h2>There u TiquesIn</h2>
-                    <p>"Sounds perfect, easy and more endusiastic&nbsp;lets proceed</p></li>
+                    <h2>Here we go!</h2>
+                    <p>TiquesInn comes in!&nbsp;Build your virtual store, reach out more</p></li>
                     <li class="slide_shop_list_item slide_shop_list_item3" style="visibility: hidden; opacity: 0; transform: matrix(1, 0, 0, 1, 0, 300);">
-                        <h2>Awesome</h2>
-                        <p>Realy worked&nbsp;up...</p></li>
+                        <h2>Hey, my sales touched new heights!</h2>
+                        <p>Mobile is the best companion&nbsp;be mobile and get more eyeballs</p></li>
                         <li class="slide_shop_list_item slide_shop_list_item4" style="visibility: hidden; opacity: 0; transform: matrix(1, 0, 0, 1, 0, 300);">
-                            <h2>Thank U TiquesInn</h2>
-                            <p>Its your Day&nbsp;celebrate.....</p></li>
+                            <h2>Smile is on!</h2>
+                            <p>Keep your faces glow!&nbsp;Color your occasions with tiquesInn</p></li>
                             <li class="slide_shop_list_pager carousel-pager"></li>
                             <li class="slide_shop_list_pages">
                                 <ul class="slide_shop_pages" style="visibility: inherit; opacity: 0.670266;"><li>
@@ -477,7 +487,7 @@
     <footer>
       <div class="container">
         <div>
-          Copyright &copy; 2016 Tiquesinn<span>Designed by <a href="thrithvam.com">Thrithvam Technologies</a></span>
+          Copyright &copy; 2016 Tiquesinn<span>Designed by <a href="http://thrithvam.com">Thrithvam Technologies</a></span>
                   </div>
           <a href="https://www.facebook.com/tiquesinn" target="_blank"><img src="images/fb.png" /></a><a href="https://twitter.com/tiquesinn" target="_blank"><img src="images/twitter.png" /></a><a href="https://plus.google.com/103146218218684459847" target="_blank"><img src="images/goog.png" /></a><a href="mailto:info@tiquesinn.com?Subject=Enquiry%20Related%20Query" target="_top"><img src="images/skype.png" /></a>
           

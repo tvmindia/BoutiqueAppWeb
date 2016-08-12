@@ -176,7 +176,8 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value =Guid.Parse( UA.UserID);
                 }
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
-                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = Date;
+
+                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = (Date==null) ? DateTime.UtcNow : DateTime.Parse(Date);
                 cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
                 cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
               //  cmd.Parameters.Add("@IsFixed", SqlDbType.Bit, -1).Value = IsFixed;
