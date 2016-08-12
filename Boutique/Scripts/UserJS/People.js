@@ -1,7 +1,7 @@
 ﻿//document.ready
 $("document").ready(function (e) {
-    debugger;
-   $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement": "bottom", delay: { show: 400, hide: 200 } });
+   
+ 
     parent.document.title = Pages.People;
     $('.AddUser').hide();
     //BIND REGION 
@@ -28,6 +28,16 @@ $("document").ready(function (e) {
 
         }
     }
+    else
+    {
+        BindAsyncUserTable();
+        $('#UsersTable').DataTable({
+            "bPaginate": true,
+            "iDisplayLength": 6,
+            "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+            "fnPageChange": "next"
+        });
+    }
     
 
     if (LoginUserRole[0] != Roles.Manager) {
@@ -39,6 +49,8 @@ $("document").ready(function (e) {
             alert('The File APIs are not fully supported in this browser.');
         }
     }
+
+   
     BindAsyncAdminsTable();
      $('#AdministratorTable').DataTable({
         "bPaginate": true,
@@ -46,7 +58,14 @@ $("document").ready(function (e) {
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
         "fnPageChange": "next"           //removing paging
     });
-   
+     initTable();
+
+     $('#DesignerTable').DataTable({
+         "bPaginate": true,
+         "iDisplayLength": 6,
+         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+         "fnPageChange": "next"          //removing paging
+     });
   
     //$('#UsersTable').DataTable({
     //    "bPaginate": true,
@@ -76,12 +95,9 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncManagersTable();
-            $('#ManagerTable').DataTable({
-                "bPaginate": true,
-                "iDisplayLength": 6,
-                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                "fnPageChange": "next"            //removing paging
-            });
+            var oTable = initTable();
+            oTable.fnReloadAjax();
+            
         }
         catch(e)
         {
@@ -99,12 +115,7 @@ $("document").ready(function (e) {
         try
         {
             BindAsycDesignerTable();
-            $('#DesignerTable').DataTable({
-                "bPaginate": true,
-                "iDisplayLength": 6,
-                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                "fnPageChange": "next"          //removing paging
-            });
+           
         }
         catch(e)
         {
@@ -121,12 +132,7 @@ $("document").ready(function (e) {
         try
         {
             BindAsyncUserTable();
-            $('#UsersTable').DataTable({
-                "bPaginate": true,
-                "iDisplayLength": 6,
-                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                "fnPageChange": "next"
-            });
+           
         }
         catch(e)
         {
@@ -972,11 +978,11 @@ function BindAdminsTable(Records) {
             $("tbody#Adminrows tr").remove();
             $.each(Records, function (index, Records) {           
                 if (Records.LoginName == lname) {
-                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-rel="tooltip" data-original-title="Tooltip, you can change the position."><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-toggle="tooltip" data-placement="top"  title="Edit Admin"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger " disabled="disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                     $("#AdministratorTable").append(html);
                 }
                 else {
-                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-rel="tooltip" data-original-title="Tooltip, you can change the position."><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                    var html = '<tr userID="' + Records.UserID + '"  AdminID="' + Records.AdminID + '"><td>' + Records.Name + '</td>	<td class="center">' + Records.Mobile + '</td><td class="center">' + Records.Email + '</td><td class="center"><a class="btn btn-info adminedit" data-toggle="tooltip" data-placement="top"  title="Edit Admin"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger admindelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
                     $("#AdministratorTable").append(html);
                 }
             })
@@ -998,7 +1004,7 @@ function BindAdminsTable(Records) {
 
 
 function InsertUser(User) {
-    debugger;
+ 
     var table = {};
     try
     {
@@ -1560,7 +1566,7 @@ function DeleteDesigner(Designer) {
 
 //Add New Admin
 function AddAdmin() {
-    debugger;
+   
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1630,7 +1636,7 @@ function AddAdmin() {
 }
 //Add New Manager
 function AddManager() {
-    debugger;
+  
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1852,7 +1858,7 @@ function AddDesigner()
 //Add New User
 function AddUser()
 {
-    debugger;
+ 
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1977,7 +1983,7 @@ function AdminValidation() {
                 //logical check
                 if(i==5)
                 {
-                    debugger;
+                   
                     var email = document.getElementById('txtAdminEmail');
                     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -2375,3 +2381,15 @@ function EmailValidation() {
     }
     return false;
 }
+
+
+function initTable() {
+    return $('#ManagerTable').DataTable({
+        "bPaginate": true,
+        "bRetrieve": true,
+        "iDisplayLength": 6,
+        "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+        "fnPageChange": "next"           
+    });
+}
+

@@ -3,30 +3,22 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../CSS/CustomCSS/NewsLetter.css" rel="stylesheet" />
-     <link href="../CSS/Common.css" rel="stylesheet" />
-
-       <script src="../Scripts/select2.min.js"></script>
- <%--    <link href="../CSS/viewbox.css" rel="stylesheet" />
-    <script src="../Scripts/jquery.viewbox.min.js"></script>--%>
-    <script src="../Scripts/CommonJS/Common.js"></script>
-      <script src="../Scripts/custom.js"></script>
-    <script src="../Scripts/jquery.dataTables.min.js"></script> 
-<%--     <script src="../Scripts/bootstrap-multiselect.js"></script>
-    <link href="../CSS/bootstrap-multiselect.css" rel="stylesheet" />--%>
-   
-    <script src="../Scripts/jquery-ui.min1.10.2.js"></script>
+    <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/jquery-ui1.10.2.css" rel="stylesheet" />
-    <script src="../Scripts/jquery.multiselect.js"></script>
     <link href="../CSS/jquery.multiselect.css" rel="stylesheet" />
-     <script src="../Scripts/UserJS/NewsLetter.js"></script>
-        <link href="../CSS/select2.min.css" rel="stylesheet" />
- 
-
-    
+    <link href="../CSS/select2.min.css" rel="stylesheet" />
     <link href="../CSS/bootstrap-dialog.min.css" rel="stylesheet" />
-    <script src="../Scripts/bootstrap-dialog.min.js"></script>
     <link href="../CSS/jquery.dataTables.min.css" rel="stylesheet" />
- 
+
+
+    <script src="../Scripts/select2.min.js"></script>
+    <script src="../Scripts/jquery.dataTables.min.js"></script> 
+    <script src="../Scripts/jquery-ui.min1.10.2.js"></script>
+    <script src="../Scripts/jquery.multiselect.js"></script>
+    <script src="../Scripts/bootstrap-dialog.min.js"></script>
+     <script src="../Scripts/custom.js"></script>
+     <script src="../Scripts/CommonJS/Common.js"></script>
+    <script src="../Scripts/UserJS/NewsLetter.js"></script>
 <!-- Include the plugin's CSS and JS: -->
    
 

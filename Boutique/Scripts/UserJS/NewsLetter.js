@@ -2,7 +2,7 @@
 $("document").ready(function (e) {
     var boutiqueID = {};
     boutiqueID = getboutiqueID();
-    debugger;
+  
     var LoginUserRole = getRole();
     hdfBoutiqueID = boutiqueID;
     parent.document.title = Pages.NewsLetter;
@@ -21,7 +21,14 @@ $("document").ready(function (e) {
     BindNewsLetterTable();
     BindSendMailTable();
     $("#idDdlAudience").hide();
-
+    $('#NewsLetterTable').DataTable({
+        "pagingType": "full_numbers",
+        "aaSorting": [[4, 'desc']]
+    });
+    $('#NewsLetterSendTable').DataTable({
+        "pagingType": "full_numbers",
+        "aaSorting": [[4, 'desc']]
+    });
     $(".Newsletterproducts").select2({
         allowClear: true,
         placeholder: "Choose products",
@@ -46,14 +53,7 @@ $("document").ready(function (e) {
 
     //    "fnPageChange": "next"
     //});
-    $('#NewsLetterTable').DataTable({
-        "pagingType": "full_numbers",
-        "aaSorting": [[4, 'desc']]
-    });
-    $('#NewsLetterSendTable').DataTable({
-        "pagingType": "full_numbers",
-        "aaSorting": [[4, 'desc']]
-    });
+ 
     var $rdoAudienceSelect = $(".radio");
 
     $(".radio").on("change", function (e) {

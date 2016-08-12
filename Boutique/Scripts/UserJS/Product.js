@@ -1,5 +1,6 @@
 ﻿var LoginUserRole = '';
 $("document").ready(function (e) {
+  
     $('.ReviveProduct').hide();
     $('#lblproductno').hide();
    
@@ -1034,11 +1035,11 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
         if (totalimages[i].Discount != null) {
 
 
-            elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
         }
         if (totalimages[i].Discount === null) {
 
-            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
 
         }
     }
@@ -1088,11 +1089,11 @@ function BindAllRevivedProductsSearch(Pagevalue, searchtext)
         if (totalimages[i].Discount != null) {
 
 
-            elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
         }
         if (totalimages[i].Discount === null) {
 
-            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+            elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
 
         }
     }
@@ -1136,23 +1137,23 @@ function BindTrendingCategorySort(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
             }
         }
     }
@@ -1196,23 +1197,23 @@ function BindOutOfStocksCategorySort(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
             }
         }
     }
@@ -1256,23 +1257,23 @@ function BindReviveCategorySort(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
             }
         }
     }
@@ -1316,23 +1317,23 @@ function BindCategorySort(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
             }
         }
     }
@@ -1376,23 +1377,23 @@ function BindReviveSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i], i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i], i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i], i));
             }
         }
     }
@@ -1436,23 +1437,23 @@ function BindOutOfStockSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
             }
         }
     }
@@ -1496,23 +1497,23 @@ function BindTrendingSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
             }
         }
     }
@@ -1556,23 +1557,23 @@ function BindSortResult(Pagevalue, searchtext)
     for (var i = 0; i < totalimages.length; i++) {
         if (totalimages[i].Discount != null) {
             if (totalimages[i].IsOutOfStock == false) {
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].Discount === null) {
             if (totalimages[i].IsOutOfStock == false) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
         }
         if (totalimages[i].IsOutOfStock == true) {
             if (totalimages[i].Discount != null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount == null) {
 
-                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
             }
         }
     }
@@ -1618,23 +1619,23 @@ function BindSortResult(Pagevalue, searchtext)
         for (var i = 0; i < totalimages.length; i++) {
             if (totalimages[i].Discount != null) {
                 if (totalimages[i].IsOutOfStock == false) {
-                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
                 }
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
 
-                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
                 }
             }
             if (totalimages[i].IsOutOfStock == true) {
                 if (totalimages[i].Discount != null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]),i);
                 }
                 if (totalimages[i].Discount == null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
                 }
             }
         }
@@ -1682,24 +1683,24 @@ function BindSortResult(Pagevalue, searchtext)
                 if (totalimages[i].IsOutOfStock == false) {
 
 
-                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
                 }
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
 
-                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
 
                 }
             }
             if (totalimages[i].IsOutOfStock == true) {
                 if (totalimages[i].Discount != null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
                 }
                 if (totalimages[i].Discount == null) {
 
-                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                    elems = elems.add(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
                 }
             }
 
@@ -1738,11 +1739,11 @@ function BindSortResult(Pagevalue, searchtext)
             if (totalimages[i].Discount != null) {
 
 
-                elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithOffer(totalimages[i],i));
             }
             if (totalimages[i].Discount === null) {
 
-                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
+                elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i],i));
 
             }
         }
@@ -1767,10 +1768,10 @@ function BindSortResult(Pagevalue, searchtext)
         $("#productoutofstockimagehold").find(".masonry-thumb").remove();
         for (var i = 0; i < totalimages.length; i++) {
             if (totalimages[i].Discount != null) {
-                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+                imagedivholder.append(HtmlBindProductWithOffer(totalimages[i],i));
             } 
             if (totalimages[i].Discount === null) {
-                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+                imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i],i));
             }
 
         }
@@ -1796,14 +1797,14 @@ function BindSortResult(Pagevalue, searchtext)
             if (totalimages[i].Discount != null) {
                 if (totalimages[i].IsOutOfStock == false) {
                       
-                    imagedivholder.append(HtmlBindProductWithOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductWithOffer(totalimages[i],i));
                 }
 
             }
             if (totalimages[i].Discount === null) {
                 if (totalimages[i].IsOutOfStock == false) {
      
-                    imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductWithoutOffer(totalimages[i],i));
                 }
 
 
@@ -1812,11 +1813,11 @@ function BindSortResult(Pagevalue, searchtext)
                 if (totalimages[i].Discount != null) {
     
 
-                    imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductOutOfStockWithOffer(totalimages[i],i));
                 }
                 if (totalimages[i].Discount == null) {
              
-                    imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i]));
+                    imagedivholder.append(HtmlBindProductOutOfStockWithoutOffer(totalimages[i],i));
                 }
 
             }
@@ -1824,7 +1825,7 @@ function BindSortResult(Pagevalue, searchtext)
     }
 
 
-    function HtmlBindProductWithOffer(totalimages)
+    function HtmlBindProductWithOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb port-1 effect-2">'
           + ''
@@ -1836,7 +1837,7 @@ function BindSortResult(Pagevalue, searchtext)
           + '</div>');
         return html;
     }
-    function HtmlBindProductWithoutOffer(totalimages)
+    function HtmlBindProductWithoutOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb port-1 effect-2" >'
                  + ''
@@ -1848,7 +1849,7 @@ function BindSortResult(Pagevalue, searchtext)
                  + '</div>');
         return html;
     }
-    function HtmlBindProductOutOfStockWithOffer(totalimages)
+    function HtmlBindProductOutOfStockWithOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb" productno=' + totalimages.ProductNo + ' productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' tags=' + totalimages.Tags + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '>'
            + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' + i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'
@@ -1857,7 +1858,7 @@ function BindSortResult(Pagevalue, searchtext)
         return html;
 
     }
-    function HtmlBindProductOutOfStockWithoutOffer(totalimages)
+    function HtmlBindProductOutOfStockWithoutOffer(totalimages,i)
     {
         var html = ('<div class="masonry-thumb" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' tags=' + totalimages.Tags + ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '>'
                + '<div class="image-box"><img id="img' +i + '" class="productimage" style="opacity:0.3!important" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '"></img></div>'

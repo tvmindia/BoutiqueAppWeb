@@ -21,20 +21,23 @@
 <script src="../Scripts/jquery.flot.pie.js"></script>
 <script src="../Scripts/jquery.flot.stack.js"></script>
 <script src="../Scripts/jquery.flot.resize.min.js"></script>--%>
-<script src="../Scripts/jquery.chosen.min.js"></script>
-<script src="../Scripts/jquery.uniform.min.js"></script>
 <%--<script src="../Scripts/jquery.cleditor.min.js"></script>--%>
+
+
+<%--<script src="../Scripts/jquery.chosen.min.js"></script>
+<script src="../Scripts/jquery.uniform.min.js"></script>
 <script src="../Scripts/jquery.noty.js"></script>
 <script src="../Scripts/jquery.elfinder.min.js"></script>
 <script src="../Scripts/jquery.raty.min.js"></script>
 <script src="../Scripts/jquery.iphone.toggle.js"></script>
 <script src="../Scripts/jquery.uploadify-3.1.min.js"></script>
-<script src="../Scripts/jquery.gritter.min.js"></script>
+<script src="../Scripts/jquery.gritter.min.js"></script>--%>
+<%--<script src="../Scripts/jquery.knob.modified.js"></script>--%>
 <script src="../Scripts/imagesloaded.pkgd.min.js"></script>
 <script src="../Scripts/masonry.pkgd.min.js"></script>
-<script src="../Scripts/jquery.knob.modified.js"></script>
-<script src="../Scripts/jquery.sparkline.min.js"></script>
-<script src="../Scripts/counter.js"></script>
+
+<%--<script src="../Scripts/jquery.sparkline.min.js"></script>
+<script src="../Scripts/counter.js"></script>--%>
 <%--<script src="../Scripts/retina.js"></script>--%>
 
 
