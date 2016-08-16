@@ -4,124 +4,32 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <!------TITLE TAG ----->
     <title>t i q u e s s i n n</title>
+    <!------TITLE IMAGE ----->
     <link rel="shortcut icon" type="image/png" href="images/Logo PNG.png" />
+    <!------SCRIPT FILES ----->
     <script src="script/cloudflare.min.js"></script>
-    <script src="../Scripts/jquery-1.12.3.js"></script>   
-    <script src="application-82ea8bbc3e31c251ee1dc09d3220e512.js"></script>
-    <script src="player.js"></script>
-    <script src="promo-e030b96623647aa3a6cdf081281c2ec3.js"></script>
-    <script src="vuid.min.js"></script>
-    <script src="script/script.js"></script>
-     <link href="css/application-0db4a6b242aea7886b88306baabadc2f.css" rel="stylesheet" />
+    <script src="script/Tiqcloudflare.min.js"></script>
+    <script src="../Scripts/jquery-1.12.3.js"></script>
+    <script src="script/Tiqapplication-82ea8bbc3e31c251ee1dc09d3220e512.js"></script>
+    <script src="script/Tiqplayer.js"></script>
+    <script src="script/Tiqpromo-e030b96623647aa3a6cdf081281c2ec3.js"></script>
+    <script src="script/Tiqvuid.min.js"></script>
+    <script src="script/Tiqmainscript.js"></script>
+    <!------CSS FILES ----->
+    <link href="css/application-0db4a6b242aea7886b88306baabadc2f.css" rel="stylesheet" />
     <link href="css/screen.css" rel="stylesheet" />
     <link href="css/desktop.css" rel="stylesheet" />    
     <link href="css/css.css" rel="stylesheet" />
-    <link href="../CSS/glyphicons.css" rel="stylesheet" />
-    
-    <%--<link href="css/player1.css" rel="stylesheet" />--%>
-   <style>
-        @font-face {font-family: Sitefond;src: url(../Website/ufonts.com_bauhaus-medium.ttf);}
-       .custom-icon {
-           background: url(\images\logo_wl3_1.ico);
-       }
-      .iconleft{
-          background:url(./images/icwhite16.png) no-repeat;
-          background-position:bottom;
-          width:24px;
-          height:24px;
-          position:absolute;
-          left:0%;
-      }
-      .iconright{
-          background:url(./images/icwhite16.png) no-repeat;
-          width:124px;
-          height:24px;
-          position:absolute;
-          right:44.5%;
-          background-position:bottom;
-      }
-       .iconleftb{
-          background:url(./images/icblack16.png) no-repeat;
-          width:24px;
-          height:24px;
-          position:absolute;
-          left:0%;
-          background-position:bottom;
-      }
-      .iconrightb{
-          background:url(./images/icblack16.png) no-repeat;
-          width:24px;
-          height:24px;
-          position:absolute;
-          right:49.5%;
-          background-position:bottom;
-      }
-      form input,textarea{
-          display: block;
-          border: 3px solid #a9dcf2;
-          border-radius: 5px;
-          padding: 2%;
-          width: 100%;
-          margin-bottom:1%;
-      }
-      ::-webkit-input-placeholder {
-      color: #E45B00;
-      }
-
-      :-moz-placeholder { /* Firefox 18- */
-      color: #E45B00;  
-      }
-
-      ::-moz-placeholder {  /* Firefox 19+ */
-      color: #E45B00;  
-      }
-
-      :-ms-input-placeholder {  
-      color: #E45B00;  
-      }
-       .sendbtn{
-        display: inline-block;
-        -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-       box-sizing: content-box;
-       cursor: pointer;
-       padding: 10px 20px;
-       border: 1px solid rgba(255,119,0,1);
-       -webkit-border-radius: 9px 29px;
-       border-radius: 9px 29px;
-  font: normal 16px/normal Georgia, serif;
-  color: rgba(255,255,255,0.9);
-  text-indent: 22px;
-  -o-text-overflow: clip;
-  text-overflow: clip;
-  letter-spacing: 2px;
-  word-spacing: 18px;
-  background: url("./images/sent-mail.png"), #e67e22;
-  background-repeat: no-repeat;
-  background-position: 10% 50%;
-  -webkit-background-origin: padding-box;
-  background-origin: padding-box;
-  -webkit-background-clip: border-box;
-  background-clip: border-box;
-  -webkit-background-size: auto auto;
-  background-size: auto auto;
-  text-shadow: 0 3px 0 rgba(15,73,168,0.66) ;
-
-       }
-       .sendbtn:hover{
-           text-decoration:none;
-           background-color:transparent;
-           border:2px solid #E45B00;
-           color:orange;
-           box-shadow:2px 2px 5px 0 rgba(255,255,255,1);
-       }
-    </style>
+    <link href="../CSS/glyphicons.css" rel="stylesheet" />    
+    <link href="css/Tiqstyle.css" rel="stylesheet" />
+   
+<!----SECTION HEAD START --->     
 </head>
-    
-    
+<!------SECTION BODY START----->       
 <body style="background-color:#f1f1f1;">
-    <!-- PRELOADER -->
+ <!-- PRELOADER -->
     <div class="spn_hol">
         <div class="spinner">
             <div class="bounce1"></div>
@@ -131,8 +39,8 @@
     </div>
 
  <!-- END PRELOADER -->
-    <svg style="display: none;" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
-
+<!------SECTION START SVGS ----->
+<svg style="display: none;" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
 <defs>
   <path id="icon-cloud" d="M115.578,43.918c0.33-2,0.742-4.051,0.742-6.145C116.32,16.912,99.526,0,78.666,0C65.16,0,53.374,7.094,46.697,17.755
   	c-27.637-0.494-31.399,26.637-31.399,26.637C7.028,48.765,0,57.446,0,67.45v0.453c0,14.402,14.463,27.43,28.868,27.43h75.999
@@ -158,59 +66,30 @@
     <polygon id="mask" points="2,0 24,24 0,24 "></polygon>
   </defs>
 </svg>  
- 
-    
+<!------SECTION END SVG -----> 
+<!------SECTION HEADER ----->    
 <header>
    <div class="container">
-    
-    <nav>   
-      
-      <div>
-        <label for="menuToggle" class="toggle" data-open="Get Started" onclick="openmyModal()"></label>
-        <%--<input type="checkbox" id="menuToggle"/>--%>
-          
-        
-      </div>       
-        
-                  
-         
-     
-    </nav>
-  
-    <%--<a id="logo" href="">
-      <svg class="globe" version="1.2" baseProfile="tiny" xmlns="" x="0" y="0" viewBox="0 0 270 235" xml:space="preserve">
-        <use xlink:href="#globe"></use>
-      </svg>--%>
-      <%--<svg class="arrow" version="1.2" baseProfile="tiny" xmlns="" x="0" y="0" viewBox="0 0 270 235" xml:space="preserve" style="transform: rotate(-0deg);">
-        <use xlink:href="#arrow"></use>
-      </svg>--%>
-    <%--</a>--%>
-    
-    <%--<h1>
-      <a href="">
-        tiquessinn<svg class="wordmark" version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 6 219 199" xml:space="preserve">
-          <use xlink:href="#wordmark"></use>
-        </svg>
-      </a>
-    </h1>--%>
-      
-    
+       <nav> 
+           <div>
+               <label for="menuToggle" class="toggle" data-open="Get Started" onclick="openmyModal()"></label>
+
+           </div>
+
+       </nav>
   </div>
-</header>  
+</header>
+<!------END SECTION HEADER----->     
+<!------SECTION INTRODUCTION----->     
     <section id="intro">
     <div class="container">      
       <article>
         <h2 style="text-shadow:1px 5px 6px #230a0a;color:#3a3a3a;font-family:Sitefond!important;letter-spacing:6px;text-transform:none;font-weight:300;font-size:100px;">tiques<span style="font-family:Sitefond!important;text-transform:none;font-weight:300;font-size:100px;color:gray;text-shadow:1px 5px 5px #3a3a3a;">Inn</span></h2>
-        <p style="color:grey;font-family:Sitefond!important;font-size:35px;text-align:center;text-shadow:1px 2px 3px #211111;">tiquesInn N reach out</p>
-        
-        
+        <p style="color:grey;font-family:Sitefond!important;font-size:35px;text-align:center;text-shadow:1px 2px 3px #211111;">tiquesInn N reach out</p>        
         <a href="#OwnerBen" class="next">Benefits?</a> <a href="#how" class="next">How it Works?</a>
       </article>
               <figure class="animate">
-                  <img class="file-cloud" src="images/Logo.png" />
-          <%--<svg class="file-cloud" version="1.2" baseProfile="tiny" viewBox="0 0 130 95">
-            <use xlink:href="#icon-cloud"></use>
-          </svg>--%>
+                  <img class="file-cloud" src="images/Logo.png" />         
           <div class="files">
             <svg class="file-icon" version="1.2" baseProfile="tiny" viewBox="0 0 61 58.294">
               <use xlink:href="#icon-email"></use>
@@ -256,15 +135,10 @@
     	<use xlink:href="#mask"></use>
     </svg> 
   </section>
-  
+<!------END SECTION INTRODUCTION----->  
+<!------SECTION SCROLL SLIDE----->
   <section id="video">
-      
-  	<div class="video-bg">
-  		<%--<div class="video-container">
-	  		<span>--%>
-		  		<%--<iframe src="./Home _ World Backup Day — March 31st_files/97489098.html" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>--%>
-	  		<%--</span>
-	  	</div>--%>
+      <div class="video-bg">
           <div class="slide -shop">
           <div class="slide_shop_trigger slide_shop_trigger0"></div>
             <div class="slide_shop_trigger slide_shop_trigger1"></div>
@@ -318,7 +192,8 @@
   		<use xlink:href="#mask"></use>
   	</svg> 
   </section>
-  
+<!------SECTION END SCROLL SLIDE----->
+<!------SECTION OWNER BENEFIT ----->  
   <section id="what" style="background-color:#fff;">
     <div id="OwnerBen" class="container">
       <article style="width:47%!important">
@@ -347,7 +222,6 @@
          <img src="images/@home.JPG" style="width:100%"/>
       </article>
       <article style="width:47%!important;margin-top:7%;margin-left:3%;">
-              <%--<figure id="image-what" class="animate">--%>
                   
         <img src="images/@shop.JPG" style="width:100%"/> 
            <div>
@@ -371,34 +245,14 @@
        
         </div>          
           </article>
-         <%-- <svg version="1.2" baseProfile="tiny" xmlns="" x="0" y="0" width="379.8" height="199" viewBox="0 0 379.769 199" xml:space="preserve" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
-            <g id="icon-wire"><path d="M87.5 168l0.5 10c0 2.8 3.2 6 6 6h66c5 0 5-3.2 5-6v-10c0-2.8 2.2-5 5-5l0 0c2.8 0 5 2.2 5 5v25c0 2.8 2.2 5 5 5l0 0c2.8 0 5-2.2 5-5v-22 -3c0-2.8 2.2-5 5-5l0 0c2.8 0 5 2.2 5 5v25c0 2.8 2.2 5 5 5l0 0c2.8 0 5-2.2 5-5v-22 -3c0-2.8 2.2-5 5-5l0 0c2.8 0 5 2.2 5 5v25c0 2.8 2.2 5 5 5l0 0c2.8 0 5-2.2 5-5v-22 -3c0-2.8 2.2-5 5-5l0 0c2.8 0 5 2.2 5 5v10c0 2.8 0.8 6 5.5 6h61c2.8 0 6-3.2 6-6l0.3-10"></path></g>
-            <g id="icon-computer"><path d="M172 113c0 2.8-2.2 5-5 5H6c-2.8 0-5-2.2-5-5V6c0-2.8 2.2-5 5-5h161c2.8 0 5 2.2 5 5V113z"></path><rect x="11" y="11" width="151" height="97"></rect><path d="M103.5 118c0 0 3.5 21.3 5 25.5 1.7 4.9 4 5.7 4 8.4 0 2.3-2.2 3.2-5 3.2h-40c-2.8 0-5-1.2-5-3.4 0-3.7 2.7-3.7 4-9 1.7-6.7 5-24.6 5-24.6H103.5z"></path><line x1="11" y1="29" x2="162" y2="29"></line><circle cx="20.5" cy="19.8" r="4"></circle><circle cx="35.5" cy="19.8" r="4"></circle><circle cx="50.5" cy="19.8" r="4"></circle>
-              
-            </g>
-          </svg>
-        
-          
-          <svg class="arrow" version="1.2" baseProfile="tiny" xmlns="" x="0" y="0" viewBox="0 0 270 235" xml:space="preserve">
-            <use xlink:href="#arrow"></use>
-          </svg>
-          
-          
-          <svg class="computer-icon" version="1.2" baseProfile="tiny" viewBox="0 0 61 58.294"><use xlink:href="#icon-document"></use></svg>
-          <svg class="computer-icon" version="1.2" baseProfile="tiny" viewBox="0 0 61 58.294"><use xlink:href="#icon-photo"></use></svg>
-          
-          <svg class="arrow-icon" version="1.2" baseProfile="tiny" viewBox="0 0 61 58.294"><use xlink:href="#icon-document"></use></svg>
-          <svg class="arrow-icon" version="1.2" baseProfile="tiny" viewBox="0 0 61 58.294"><use xlink:href="#icon-photo"></use></svg>
-          <svg clas--%><%--s="tick-icon" version="1.2" baseProfile="tiny" viewBox="0 0 61 58.294"><use xlink:href="#icon-tick"></use></svg>--%>
-          
-      <%--  </figure>--%>
                   
     </div>
     <svg class="mask" viewBox="0 0 24 23.8" preserveAspectRatio="none">
     	<use xlink:href="#mask"></use>
     </svg> 
   </section>
-  
+<!------SECTION END OWNER BENEFIT----->
+<!------SECTION CUSTOMER BENEFIT----->  
   <section id="why">
     <div class="container" style="color:white;">
         <article style="width:47%!important">
@@ -427,7 +281,6 @@
          <img src="images/@browsing.jpg" style="width:70%"/>
       </article>
       <article style="width:47%!important;margin-top:10%;margin-left:3%;">
-              <%--<figure id="image-what" class="animate">--%>
                   
         <img src="images/@ordering.PNG" style="width:50%"/> 
            <div>
@@ -463,7 +316,8 @@
     	<use xlink:href="#mask"></use>
     </svg> 
   </section>
-  
+<!------SECTION END CUSTOMER BENEFIT-----> 
+<!------SECTION HOW----->       
   <section id="how" style="background-color:#fff;">
     <div class="container">
         <article>
@@ -481,9 +335,9 @@
     	<use xlink:href="#mask"></use>
     </svg> 
   </section>
-  
+ <!------SECTION END HOW----->  
  
-      
+<!------SECTION FOOTER----->       
     <footer>
       <div class="container">
         <div>
@@ -493,8 +347,9 @@
           
       </div>
     </footer> 
+<!------SECTION END FOOTER-----> 
     <!-------------------------------------//---------------------------------------------------------------->
-
+<!------MODAL CONTENT FOR GET STARTED-----> 
     <div class="modal fade" id="getstarted" role="dialog">
      <div class="modal-dialog" style="min-width:550px;">
      <!-- Modal content-->               
@@ -547,7 +402,10 @@
      </div>
         </div>
 </div>  
+<!------END MODAL CONTENT-----> 
+    <!------INLINE SCRIPTS-----> 
     <script>
+        //FUNCTION OPEN MODAL FOR GET STARTED FROM ONCLICK
         function openmyModal() {
             $('#getstarted').modal('show');
             $(".Sucess").hide();
@@ -558,5 +416,7 @@
         }
     </script>   
 </body>
+    <!------SECTION END BODY-----> 
      
 </html>
+

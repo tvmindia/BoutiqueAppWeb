@@ -1,3 +1,6 @@
+/*Author: Thomson Kattigal (Software Engineer)*/
+/*License Free can be used Open*/
+/*Created on:Auguest 2016*/
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -769,14 +772,14 @@ sup {
     background-image: -webkit-linear-gradient(left, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%);
     background-image: -moz-linear-gradient(left, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%);
     background-image: -ms-linear-gradient(left, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%);
-    background-image: linear, to right, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%}
+    background-image: linear, to right, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%;}
 #pledge h5:after {
     left: auto;
     right: 0;
     background-image: -webkit-linear-gradient(right, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%);
     background-image: -moz-linear-gradient(right, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%);
     background-image: -ms-linear-gradient(right, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%);
-    background-image: linear, to left, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%}
+    background-image: linear, to left, #ebf7fc 0%, rgba(249, 252, 253, 0) 100%;}
 #pledge a.facebook, #pledge a.twitter {
     margin: inherit 0.5em;
     color: #3C5D96;
