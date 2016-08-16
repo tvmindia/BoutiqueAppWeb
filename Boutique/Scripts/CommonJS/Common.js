@@ -101,7 +101,9 @@ var Messages = {
     ErrorFix: "Bug Rectified Successfully.",
     ErrorFixNOT: "Operation was Not Successfull.",
     
-    ProductReviewEmpty:"No Items To Display."
+    ProductReviewEmpty: "No Items To Display.",
+    ReviveSucces: "Restored Product Successfully.",
+    ReviveNotSuccess:"Restoring Product was not Successfull.",
 }
 
 function IsCategoryExists() {   
@@ -168,7 +170,7 @@ function postBlobAjax(formData, page) {
 
 function DeleteCustomAlert(txt, e, p) 
 {
-  
+    debugger;
     d = document;
 
     if (d.getElementById("modalContainer")) return;
@@ -176,13 +178,11 @@ function DeleteCustomAlert(txt, e, p)
     mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
     mObj.id = "modalContainer";
     mObj.style.height = d.documentElement.scrollHeight + "px";
-
     alertObj = mObj.appendChild(d.createElement("div"));
     alertObj.id = "alertBox";
     if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
     alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
     alertObj.style.visiblity = "visible";
-
     //h1 = alertObj.appendChild(d.createElement("h1"));
     //h1.appendChild(d.createTextNode("Delete"));
     var img1 = document.createElement('img');
@@ -191,10 +191,8 @@ function DeleteCustomAlert(txt, e, p)
     alertObj.appendChild(img1);
     msg = alertObj.appendChild(d.createElement("p"));
     //'<img class="alertImage" src="../img/Default/Warning.png" /><br />';
-    
     //msg.appendChild(d.createTextNode(txt));
     msg.innerHTML = txt;
-
     btn = alertObj.appendChild(d.createElement("a"));
     btn.id = "closeBtn";
     btn.className = "noButton";
@@ -223,8 +221,8 @@ function DeleteCustomAlert(txt, e, p)
     {
         btnYes.onclick = function () { ErrorFix(e, p); removeCustomAlert(); return false; }
     }
-    else {
-        btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    if (p == "productRemove") {
+       btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
     }
     alertObj.style.display = "block";
 

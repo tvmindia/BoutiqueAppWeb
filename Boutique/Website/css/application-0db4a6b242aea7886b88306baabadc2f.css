@@ -2459,8 +2459,10 @@ a.button {
 }.slide_shop_list p {
     margin: 0;
     color: #fff;
-    font-size: 18px;
+    font-size: 23px;
     line-height: 1.7;
+    font-family:Viner Hand ITC;
+
     /*box-shadow: 0 0 30px 15px #fff;*/
     /*background-color: #fff;*/
 }

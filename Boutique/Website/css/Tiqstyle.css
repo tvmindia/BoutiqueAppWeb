@@ -1,0 +1,98 @@
+﻿/*Author: Thomson Kattigal (Software Engineer)*/
+/*License Free can be used Open*/
+/*Created on:Auguest 2016*/
+ @font-face {font-family: Sitefond;src: url(../Font/ufonts.com_bauhaus-medium.ttf);}
+       .custom-icon {
+           background: url(\images\logo_wl3_1.ico);
+       }
+      .iconleft{
+          background:url(../images/icwhite16.png) no-repeat;
+          background-position:bottom;
+          width:24px;
+          height:24px;
+          position:absolute;
+          left:0%;
+      }
+      .iconright{
+          background:url(../images/icwhite16.png) no-repeat;
+          width:124px;
+          height:24px;
+          position:absolute;
+          right:44.5%;
+          background-position:bottom;
+      }
+       .iconleftb{
+          background:url(../images/icblack16.png) no-repeat;
+          width:24px;
+          height:24px;
+          position:absolute;
+          left:0%;
+          background-position:bottom;
+      }
+      .iconrightb{
+          background:url(../images/icblack16.png) no-repeat;
+          width:24px;
+          height:24px;
+          position:absolute;
+          right:49.5%;
+          background-position:bottom;
+      }
+      form input,textarea{
+          display: block;
+          border: 3px solid #a9dcf2;
+          border-radius: 5px;
+          padding: 2%;
+          width: 100%;
+          margin-bottom:1%;
+      }
+      ::-webkit-input-placeholder {
+      color: #E45B00;
+      }
+
+      :-moz-placeholder { /* Firefox 18- */
+      color: #E45B00;  
+      }
+
+      ::-moz-placeholder {  /* Firefox 19+ */
+      color: #E45B00;  
+      }
+
+      :-ms-input-placeholder {  
+      color: #E45B00;  
+      }
+       .sendbtn{
+        display: inline-block;
+        -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+       box-sizing: content-box;
+       cursor: pointer;
+       padding: 10px 20px;
+       border: 1px solid rgba(255,119,0,1);
+       -webkit-border-radius: 9px 29px;
+       border-radius: 9px 29px;
+       font: normal 16px/normal Georgia, serif;
+       color: rgba(255,255,255,0.9);
+       text-indent: 22px;
+       -o-text-overflow: clip;
+       text-overflow: clip;
+       letter-spacing: 2px;
+        word-spacing: 18px;
+       background: url("../images/sent-mail.png"), #e67e22;
+       background-repeat: no-repeat;
+       background-position: 10% 50%;
+       -webkit-background-origin: padding-box;
+       background-origin: padding-box;
+      -webkit-background-clip: border-box;
+       background-clip: border-box;
+       -webkit-background-size: auto auto;
+       background-size: auto auto;
+       text-shadow: 0 3px 0 rgba(15,73,168,0.66) ;
+
+       }
+       .sendbtn:hover{
+           text-decoration:none;
+           background-color:transparent;
+           border:2px solid #E45B00;
+           color:orange;
+           box-shadow:2px 2px 5px 0 rgba(255,255,255,1);
+       }
