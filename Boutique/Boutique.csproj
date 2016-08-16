@@ -433,7 +433,6 @@
     <Content Include="Website\images\%40home.JPG" />
     <Content Include="Website\images\%40ordering.PNG" />
     <Content Include="Website\images\%40shop.jpg" />
-    <Content Include="Website\images\.PNG" />
     <Content Include="Website\images\06_Customer .jpg" />
     <Content Include="Website\images\Demo1T.PNG" />
     <Content Include="Website\images\Demo2T.PNG" />
@@ -464,7 +463,6 @@
     <Content Include="Website\images\Logo PNG.png" />
     <Content Include="Website\images\Logo.png" />
     <Content Include="Website\images\movetop.png" />
-    <Content Include="Website\images\ordering.PNG" />
     <Content Include="Website\images\sent-mail.png" />
     <Content Include="Website\images\skype.png" />
     <Content Include="Website\images\twitter.png" />
