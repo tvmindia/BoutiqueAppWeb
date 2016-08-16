@@ -1,3 +1,7 @@
+//Author: Thomson Kattingal
+//Created On: August 2016
+//Contact: htttp://www.thrithvam.com
+
 $(window).bind("load", function () {
 
     "use strict";
@@ -27,10 +31,7 @@ $(function() {
   });
 });
 
-
-
-
-//CONTACT FORM VALIDATION
+//GET STARTED FORM VALIDATION
 $(document).ready(function() {
 
     "use strict";
@@ -122,6 +123,7 @@ $(document).ready(function() {
     
 });
 
+//SEND MAIL USING JSON
 function SendMail() {
     debugger;
     var site = new Object();
@@ -157,8 +159,6 @@ function getJsonData(data, page) {
         dataType: "json"
 
     }).done(function (data) {
-
-        //     $("#loadingimage").hide();
         jsonResult = data;
     });
     return jsonResult;
