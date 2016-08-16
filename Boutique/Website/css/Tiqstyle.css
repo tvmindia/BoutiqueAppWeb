@@ -1,6 +1,9 @@
 ﻿/*Author: Thomson Kattigal (Software Engineer)*/
 /*License Free can be used Open*/
 /*Created on:Auguest 2016*/
+body{
+    overflow-x:hidden!important;
+}
  @font-face {font-family: Sitefond;src: url(../Font/ufonts.com_bauhaus-medium.ttf);}
        .custom-icon {
            background: url(\images\logo_wl3_1.ico);

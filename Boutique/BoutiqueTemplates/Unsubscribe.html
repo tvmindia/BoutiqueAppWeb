@@ -16,21 +16,25 @@
             font-size: 16px;
             margin: 4px 2px;
             cursor: pointer;
+            text-transform:uppercase;
         }
         table {
             width:562px!important;
             height:250px;
-    border: 2px solid rgba(49, 42, 42, 0.19);
-background:#f5d3d3;
-}
+            border: 2px solid rgba(49, 42, 42, 0.19);
+            background:#f5d3d3;
+           }
+        .title{
+            font-size:20px;
+        }
     </style>
 </head>
 
 <body style="background-color:#f1f6f6;">
 
-    <form autocomplete="off" style="margin-left:30% !important;margin-top:5%;background:#ffffff;border:2px solid #510606;padding-left:25px;padding-bottom:10px;padding-top:50px;width:594px;" method="post" id="formoid" class="formun">
+    <form autocomplete="off" style="margin-left:30% !important;margin-top:5%;background:#f5d3d3;border:5px solid #510606;padding-left:25px;padding-bottom:10px;padding-top:10px;width:594px;" method="post" id="formoid" class="formun">
         <div mc:edit="std_preheader_content">
-            <table style="background-color:#f5d3d3;width:562px!important;height:40px!important;">
+            <table style="background-color:#ee851f;width:562px!important;height:40px!important;">
                 <tbody>
                     <tr>
                         <td><img alt="" src="{imgLogo}" id="imgLogo" style="height:25px!important;width:25px!important;" /></td>
@@ -39,21 +43,25 @@ background:#f5d3d3;
                 </tbody>
             </table>
         </div>
-        <div><h2 class="title">Do you want to unsubscribe?</h2></div>
-        <div><label class="title">Email to unsubscribe:</label><input autocomplete="on" type="text" name="email" id="txtEmail"></div>
-        <div>
-            <label class="title">Please let us know why you are unsubscribing:</label>
-            <div>
-                <input type="radio" name="answer" value="Inappropriate emails"><span>Inappropriate emails</span><br>
-                <input type="radio" name="answer" value="Not interested anymore"><span>Not interested anymore</span><br>
-                <input type="radio" name="answer" value="Never signed up"><span>Never signed up</span><br>
-                <input type="radio" name="answer" value="Too often"><span>Too often</span><br>
-                <input type="radio" name="answer" value="Bad products"><span>Bad products</span><br>
-                <input type="radio" name="answer" value="Awful support"><span>Awful support</span><br>
-                <input type="radio" name="answer" value="Spam!"><span>Spam!</span><br>
+        <div><h1 class="">Do you want to unsubscribe?</h1></div>
+        
+            <div><label class="title">Email to unsubscribe:</label>&nbsp;&nbsp;<input autocomplete="on" type="text" name="email" id="txtEmail"></div>
+        <div style="display:inline-flex;flex-flow:wrap;margin-top:2%">
+            <div >
+                <label class="title">Please let us know why you are unsubscribing:</label>
+                <div style="position:relative;left:48%;">
+                    <input type="radio" name="answer" value="Inappropriate emails"><span>Inappropriate emails</span><br>
+                    <input type="radio" name="answer" value="Not interested anymore"><span>Not interested anymore</span><br>
+                    <input type="radio" name="answer" value="Never signed up"><span>Never signed up</span><br>
+                    <input type="radio" name="answer" value="Too often"><span>Too often</span><br>
+                    <input type="radio" name="answer" value="Bad products"><span>Bad products</span><br>
+                    <input type="radio" name="answer" value="Awful support"><span>Awful support</span><br>
+                    <input type="radio" name="answer" value="Spam!"><span>Spam!</span><br>
+                </div>
             </div>
         </div>
-        <div><input type="button" name="unsubscribe" onclick="getUnsubscribeMailId();" value="Unsubscribe" style="background-color:#006dcc;border-color:#1598d9;border:2px solid #1598d9;height:35px;width:135px;"></div>
+       
+        <div style="position:relative;left:60%"><input type="button" name="unsubscribe" onclick="getUnsubscribeMailId();" value="Unsubscribe" style="background-color: #9ca9b5;border-color: #e5eef3;color: white;border: 2px solid #edf0f1;height: 35px;width: 135px;"></div>
 
     </form>
 
