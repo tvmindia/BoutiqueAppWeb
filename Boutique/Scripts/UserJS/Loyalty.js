@@ -93,8 +93,8 @@
             $('#txtcurrentPurchase').focus(); //to directly enter the amount            
             //Clearing fields
             $('#txtcurrentPurchase').val('');
-            $("#radioYes").parent().removeClass('checked');
-            $("#radioNo").parent().removeClass('checked');
+            $("#radioYes").prop('checked', false);
+            $("#radioNo").prop('checked', false);
             $("#existingPoints").text('');
             $("#pointsFromThisPurchase").text('');
             $("#totalPoints").text('');
@@ -135,8 +135,8 @@
             }
             redeemablePoints = Math.floor(redeemablePoints);
             //Clearing fields
-            $("#radioYes").parent().removeClass('checked');
-            $("#radioNo").parent().removeClass('checked');
+            $("#radioYes").prop('checked', false);
+            $("#radioNo").prop('checked', false);
             $("#netAmount").text('');
             $("#netPoints").text('');
             //Showing calculations
@@ -186,6 +186,7 @@
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+            debugger;
             try
             {
                 if ($('#hdfUserID').val() == '') {
@@ -201,29 +202,33 @@
                     alert("Please enter purchase amount.");
                     return;
                 }
-
+                debugger;
                 Loyalty.UserID = $('#hdfUserID').val();
 
-                if ($("#radioYes").parent().hasClass('checked')) {
-                    if (confirm("Redeem and make transaction?") == true) {
-                        Loyalty.Redeem = true;
+                if ($("input[name=redeem]:checked")) {
+                    if ($("input[name=redeem]:checked").val()=="true") {
+                        if (confirm("Redeem and make transaction?") == true) {
+                            Loyalty.Redeem = true;
+                        }
+                        else {
+                            return;
+                        }
+                    }
+                    else if ($("input[name=redeem]:checked").val() == "false") {
+                        if (confirm("Purchase without redeeming?") == true) {
+                            Loyalty.Redeem = false;
+                        }
+                        else {
+                            return;
+                        }
                     }
                     else {
+                        alert("Please select whether to redeem or not.");
                         return;
                     }
                 }
-                else if ($("#radioNo").parent().hasClass('checked')) {
-                    if (confirm("Purchase without redeeming?") == true) {
-                        Loyalty.Redeem = false;
-                    }
-                    else {
-                        return;
-                    }
-                }
-                else {
-                    alert("Please select whether to redeem or not.");
-                    return;
-                }
+               
+                
 
                 if ($("#txtcurrentPurchase").val() != "") {
                     if ($(".Currency").val() != "") {
@@ -253,8 +258,8 @@
                     $("#txtLoyaltyPoints").text('');
                     $("#hdfUserID").val('');
                     $('#txtcurrentPurchase').val('');
-                    $("#radioYes").parent().removeClass('checked');
-                    $("#radioNo").parent().removeClass('checked');
+                    $("#radioYes").prop('checked', false);
+                    $("#radioNo").prop('checked', false);
                     $("#existingPoints").text('');
                     $("#pointsFromThisPurchase").text('');
                     $("#totalPoints").text('');
@@ -347,8 +352,8 @@
             $("#txtLoyaltyPoints").text('');
             $("#hdfUserID").val('');
             $('#txtcurrentPurchase').val('');
-            $("#radioYes").parent().removeClass('checked');
-            $("#radioNo").parent().removeClass('checked');
+            $("#radioYes").prop('checked', false);
+            $("#radioNo").prop('checked', false);
             $("#existingPoints").text('');
             $("#pointsFromThisPurchase").text('');
             $("#totalPoints").text('');
