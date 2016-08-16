@@ -119,7 +119,6 @@ $("document").ready(function (e) {
         data: BindAsyncCategory()//category dropdown binds only with id and text[key:value] mandatory
     });
     var $desingnSingle = $(".ddlDesigners").select2({
-
         data: BindAsyncDesigner()//Designer dropdown binds only with id and text[key:value] mandatory
        , allowClear: true
        , placeholder: "Select a Designer"
@@ -130,7 +129,7 @@ $("document").ready(function (e) {
         click: function (e) {// Delete button click
            
             var e = $("#hdfproductID").val();
-            var p = "";
+            var p = "productRemove";
             debugger;
             DeleteCustomAlert("Are you sure?", e, p);
         }
@@ -876,15 +875,15 @@ function DeleteItem(e, p) {
 
 function ReviveProducts(e,p)
 {
-    debugger;
+   
     var Product = new Object();
     Product.ProductID = e;
-    //var result = DeleteProduct(Product);
     var result = ReviveProduct(Product);
     if (result.status == "1") {
         //which tab should rebind
           $('#rowfluidDiv').show();
-         $('.alert-success').show();
+          $('.alert-success').show();
+          $('.alert-success strong').text(Messages.ReviveSucces);
          if (BindRevivedProductImagesRebinds(0) != -1) {
              var $mars = $('.imageholderreviveproduct').masonry({
                  itemSelector: '.masonry-thumb',
@@ -900,6 +899,7 @@ function ReviveProducts(e,p)
     {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
+        $('.alert-error strong').text(Messages.ReviveNotSuccess);
         AutoScrollToAlertBox();
     }
 }
