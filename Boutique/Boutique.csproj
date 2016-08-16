@@ -248,6 +248,7 @@
     <Content Include="Home\mailTemplates\ContactUs.html" />
     <Content Include="Home\mailTemplates\OrderStatusEmail.html" />
     <Content Include="ImageHandler\PhotoUploadHandler.ashx" />
+    <Content Include="img\403.png" />
     <Content Include="img\ajax-loader.gif" />
     <Content Include="img\arrows-active.png" />
     <Content Include="img\arrows-normal.png" />
@@ -319,7 +320,9 @@
     <Content Include="img\slider_r8.png" />
     <Content Include="img\spinner-mini.gif" />
     <Content Include="img\sprite.png" />
+    <Content Include="img\Templates\birthday.jpg" />
     <Content Include="img\Templates\BirthdayImage.jpg" />
+    <Content Include="img\Templates\notify1.png" />
     <Content Include="img\timeline-bg.png" />
     <Content Include="img\timeline-left-arrow%402x.png" />
     <Content Include="img\timeline-left-arrow.png" />
