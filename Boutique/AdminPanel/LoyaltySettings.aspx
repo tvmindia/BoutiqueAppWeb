@@ -40,7 +40,7 @@
                 </div>
             </div>		
 	     <%--Alert boxes --%>
-
+         <div class="row-fluid" style="min-height:700px">
          <div class="row-fluid">
              <div class="box span6">
                 <div class="box-header">
@@ -125,7 +125,7 @@
 
 
      </div>
-
+    </div>
     
     <input type="hidden" id="hdfUserID" value="" />
 

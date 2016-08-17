@@ -30,7 +30,7 @@
           </li>
       </ul>
 
-        <div class="row-fluid">
+        <div class="row-fluid" style="min-height:700px">
             <div class="span7">
                 <h1>Product Review</h1>
                    <div class="row-fluid" style="height: 3px;">
