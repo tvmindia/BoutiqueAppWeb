@@ -149,37 +149,37 @@
             <div class="slide_shop_trigger slide_shop_trigger3"></div>
             <div class="slide_shop_trigger slide_shop_trigger4"></div>
             <div class="slide_shop_trigger slide_shop_trigger5"></div>
-            <div data-scrollmagic-pin-spacer="" class="scrollmagic-pin-spacer" style="top: 0px; left: 0px; bottom: auto; right: auto; margin: 0px; display: block; position: relative; box-sizing: content-box; width: 100%; min-height: 661px; height: auto; padding-top: 0px;">
-                <div class="slide_shop" style="position: relative; margin: auto; top: 0px; left: 0px; bottom: auto; right: auto; box-sizing: border-box; width: 100%;">
+            <div data-scrollmagic-pin-spacer="" class="scrollmagic-pin-spacer">
+                <div class="slide_shop">
                     <div class="container -medium">
                         <ul class="slide_shop_list">
-                    <li class="slide_shop_list_item slide_shop_list_item1" style="visibility: inherit; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+                    <li class="slide_shop_list_item slide_shop_list_item1">
                         <h2>How To ?</h2>                       
                         <p>"Reach your brand to customers in smarter way&nbsp;&nbsp;Yes, mobile is the way forward.&nbsp;</p></li>
-                <li class="slide_shop_list_item slide_shop_list_item2" style="visibility: hidden; opacity: 0; transform: matrix(1, 0, 0, 1, 0, 300);">
+                <li class="slide_shop_list_item slide_shop_list_item2">
                     <h2>Here we go!</h2>
                     <p>TiquesInn comes in!&nbsp;Build your virtual store, reach out more</p></li>
-                    <li class="slide_shop_list_item slide_shop_list_item3" style="visibility: hidden; opacity: 0; transform: matrix(1, 0, 0, 1, 0, 300);">
+                    <li class="slide_shop_list_item slide_shop_list_item3">
                         <h2>Hey, my sales touched new heights!</h2>
                         <p>Mobile is the best companion&nbsp;be mobile and get more eyeballs</p></li>
-                        <li class="slide_shop_list_item slide_shop_list_item4" style="visibility: hidden; opacity: 0; transform: matrix(1, 0, 0, 1, 0, 300);">
+                        <li class="slide_shop_list_item slide_shop_list_item4">
                             <h2>Smile is on!</h2>
                             <p>Keep your faces glow!&nbsp;Color your occasions with tiquesInn</p></li>
                             <li class="slide_shop_list_pager carousel-pager"></li>
                             <li class="slide_shop_list_pages">
-                                <ul class="slide_shop_pages" style="visibility: inherit; opacity: 0.670266;"><li>
-                                    <div class="slide_shop_page slide_shop_page1" style="transform: matrix(1, 0, 0, 1, 0, 0);"></div></li>
-                            <li><div class="slide_shop_page slide_shop_page2" style="transform: matrix(0, 0, 0, 0, 0, 0);"></div></li>
-                            <li><div class="slide_shop_page slide_shop_page3" style="transform: matrix(0, 0, 0, 0, 0, 0);"></div></li>
-                            <li><div class="slide_shop_page slide_shop_page4" style="transform: matrix(0, 0, 0, 0, 0, 0);"></div></li></ul></li></ul>
+                                <ul class="slide_shop_pages"><li>
+                                    <div class="slide_shop_page slide_shop_page1"></div></li>
+                            <li><div class="slide_shop_page slide_shop_page2"></div></li>
+                            <li><div class="slide_shop_page slide_shop_page3"></div></li>
+                            <li><div class="slide_shop_page slide_shop_page4"></div></li></ul></li></ul>
                         <div class="slide_shop_bg_container">
                             <img alt="" class="slide_shop_bg -bg" src="../Website/images/Demo2.png"/>      
-                            <img alt="" class="slide_shop_bg -slide1 -carousel" src="../Website/images/Demo2.png" style="visibility: inherit; opacity: 1;"/>
-                            <img alt="" class="slide_shop_bg -slide2 -carousel" src="../Website/images/Demo3.png" style="visibility: hidden; opacity: 0;"/>
-                            <img alt="" class="slide_shop_bg -slide3 -carousel" src="../Website/images/Demo4.png" style="visibility: hidden; opacity: 0;"/>
-                            <img alt="" class="slide_shop_bg -slide4 -carousel" src="../Website/images/Demo5.png" style="visibility: hidden; opacity: 0;"/>
-                            <img alt="" class="slide_shop_bg -slide4 -carousel" src="../Website/images/Demo6.png" style="visibility: hidden; opacity: 0;"/>
-                            <img alt="" class="slide_shop_bg -slide4 -carousel" src="../Website/images/Demo1.png" style="visibility: hidden; opacity: 0;"/>
+                            <img alt="" class="slide_shop_bg -slide1 -carousel" src="../Website/images/Demo2.png"/>
+                            <img alt="" class="slide_shop_bg -slide2 -carousel" src="../Website/images/Demo3.png"/>
+                            <img alt="" class="slide_shop_bg -slide3 -carousel" src="../Website/images/Demo4.png"/>
+                            <img alt="" class="slide_shop_bg -slide4 -carousel" src="../Website/images/Demo5.png"/>
+                            <img alt="" class="slide_shop_bg -slide4 -carousel" src="../Website/images/Demo6.png"/>
+                            <img alt="" class="slide_shop_bg -slide4 -carousel" src="../Website/images/Demo1.png"/>
 
                         </div>
 

@@ -45,6 +45,20 @@ jQuery(document).ready(function($){
 	
 });	
 
+$(document).scroll(function () {
+    debugger;
+    var y = $(this).scrollTop();
+    if (y > 150) {
+        $('#powertiq').css("visibility", "visible");
+        $('#powertiq').fadeIn();
+        
+    } else {
+        $('#powertiq').fadeOut();
+        
+    }
+
+});
+
 $(document).ready(function(){
 		
 			
