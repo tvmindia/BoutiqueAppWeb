@@ -135,7 +135,7 @@ namespace Boutique.ImageHandler
             body = body.Replace("{UserName}", " ");
             body = body.Replace("{Title}", "Title");
             body = body.Replace("{Description}", "Description");
-            body = body.Replace("{imgLogo}", "../img/Default/nologo1.png");
+            //body = body.Replace("{imgLogo}", "../img/Default/nologo1.png");
            
                 
                 if (body.Contains("{ImgBirthday}"))
@@ -150,10 +150,10 @@ namespace Boutique.ImageHandler
                     body = rx.Replace(body, m => "../img/Default/adimage.png");
                 }
             
-            string header = newsObj.TemplateHeader();
-            string footer = newsObj.TemplateFooter();
-            body = header + body;
-            body = body + footer;
+            //string header = newsObj.TemplateHeader();
+           // string footer = newsObj.TemplateFooter();
+           // body = header + body;
+           // body = body + footer;
                     if (template != null)
                     {
                         context.Response.ContentType = "text/html";
