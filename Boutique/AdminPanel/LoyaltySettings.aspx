@@ -41,10 +41,10 @@
             </div>		
 	     <%--Alert boxes --%>
          <div class="row-fluid" style="min-height:700px">
-         <div class="row-fluid">
-             <div class="box span6">
+         <div class="row-fluid" style="margin-top:2%">
+             <div class="box span6" >
                 <div class="box-header">
-						<h2>Loyalty Settings</h2>
+						<h2></h2>
 					</div>
             	<div class="box-content" >
                     <div class="form-horizontal" style="margin-top:3%" >                     
