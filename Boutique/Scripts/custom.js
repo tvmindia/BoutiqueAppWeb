@@ -44,9 +44,8 @@ jQuery(document).ready(function($){
 	}
 	
 });	
-
+/*----------------Scroll function important Author:Thomson----------------------*/
 $(document).scroll(function () {
-    debugger;
     var y = $(this).scrollTop();
     if (y > 150) {
         $('#powertiq').css("visibility", "visible");
@@ -58,7 +57,8 @@ $(document).scroll(function () {
     }
 
 });
-
+/*----------------End Scroll function important Author:Thomson----------------------*/
+$(document).scroll(function () {
 $(document).ready(function(){
 		
 			
