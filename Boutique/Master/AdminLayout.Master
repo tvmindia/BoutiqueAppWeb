@@ -241,7 +241,7 @@ input[type=text],input[type=password],textarea,select
 	</div>
 	<!-- start: Header -->
 	
-		<div class="container-fluid-full" style="padding-top:2.5%;">
+		<div class="container-fluid-full" style="padding-top:3.2%;">
 		<div class="row-fluid">
 				
 			<!-- start: SideBar-left -->

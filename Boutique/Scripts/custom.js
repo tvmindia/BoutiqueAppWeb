@@ -44,11 +44,10 @@ jQuery(document).ready(function($){
 	}
 	
 });	
-
+/*----------------Scroll function important Author:Thomson----------------------*/
 $(document).scroll(function () {
-    debugger;
     var y = $(this).scrollTop();
-    if (y > 150) {
+    if (y > 50) {
         $('#powertiq').css("visibility", "visible");
         $('#powertiq').fadeIn();
         
@@ -58,7 +57,7 @@ $(document).scroll(function () {
     }
 
 });
-
+/*----------------End Scroll function important Author:Thomson----------------------*/
 $(document).ready(function(){
 		
 			
