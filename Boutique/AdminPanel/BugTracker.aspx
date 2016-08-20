@@ -205,8 +205,8 @@
     <script src="../Scripts/jquery-1.12.3.js"></script>
 
     
-    
-    <script src="../Scripts/jquery.dataTables-1.10.12.js"></script>
+    <script src="../Scripts/DataTables-1.10.12/jquery.dataTables.js"></script>
+  <%--  <script src="../Scripts/jquery.dataTables-1.10.12.js"></script>--%>
    <%-- <script src="../Scripts/DataTables-1.10.4/jquery.dataTables.js"></script>--%>
    
     <link href="../CSS/Common.css" rel="stylesheet" />

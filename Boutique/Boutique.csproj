@@ -346,8 +346,6 @@
     <Content Include="Scripts\jquery-1.12.3.min.js" />
     <Content Include="Scripts\jquery-ui.min1.10.2.js" />
     <Content Include="Scripts\jquery.alerts.js" />
-    <Content Include="Scripts\jquery.dataTables-1.10.12.js" />
-    <Content Include="Scripts\jquery.dataTables.min-1.10.12.js" />
     <Content Include="Scripts\jquery.multiselect.js" />
     <Content Include="Scripts\jquery.ui.draggable.js" />
     <Content Include="Scripts\jquery.validate-1.15.0.js" />
