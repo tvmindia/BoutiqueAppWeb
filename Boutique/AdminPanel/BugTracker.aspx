@@ -215,5 +215,5 @@
      <script src="../Scripts/CommonJS/Common.js"></script>
     <script src="../Scripts/UserJS/BugTracker.js"></script>
 
-       <input type="hidden" id="hdfErrorID" value=""/>
+       <input type="hidden" id="hdfErrorID" value=""/>  
 </asp:Content>
