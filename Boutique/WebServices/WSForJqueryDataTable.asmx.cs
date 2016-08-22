@@ -87,14 +87,14 @@ namespace Boutique.WebServices
         [ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = false)]
         public string GetAllTableData(JQDataTableModel TObj)
         {
-            var records = GetRecordsFromDatabaseWithFilter(TObj).ToList();
+             var records = GetRecordsFromDatabaseWithFilter(TObj).ToList();
             if (!records.Any())
             {
                 return string.Empty;
             }
-            //var orderedResults = sortOrder == "asc"
-            //                   ? records.OrderBy(o => o.Module)
-            //                   : records.OrderByDescending(o => o.Module);
+            //DTOrder dtorderobj = TObj.Order;
+            //var orderedResults = sortOrder == "asc" ? records.OrderBy(o => o.Module)
+            //                                        : records.OrderByDescending(o => o.Module);
             //var itemsToSkip = displayStart == 0
             //                  ? 0
             //                  : displayStart + 1;
@@ -117,7 +117,7 @@ namespace Boutique.WebServices
                 sb.Append("[");
                 sb.Append("\"" + result.ErrorID + "\",");
                 sb.Append("\"" + result.BoutiqueName + "\",");
-                sb.Append("\"" + result.UserName + "\",");
+                sb.Append("\"" + result.Date + "\",");
                 sb.Append("\"" + result.Module + "\",");
                 sb.Append("\"" + result.Method + "\",");
                 sb.Append("\"" + result.ErrorSource + "\",");
@@ -134,7 +134,7 @@ namespace Boutique.WebServices
         }
 
         private static IEnumerable<ExceptionTrack> GetRecordsFromDatabaseWithFilter(JQDataTableModel TObj)
-        {
+         {
             // At this point you can call to your database to get the data
             // but I will just populate a sample collection in code
             
@@ -163,7 +163,8 @@ namespace Boutique.WebServices
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        exceptonList.Add(new ExceptionTrack { ErrorID = Convert.ToString(dr["ErrorID"]), BoutiqueName = Convert.ToString(dr["BoutiqueName"]), UserName = Convert.ToString(dr["UserName"]), Module = Convert.ToString(dr["Module"]), Method = Convert.ToString(dr["Method"]), ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
+
+                        exceptonList.Add(new ExceptionTrack { ErrorID = Convert.ToString(dr["ErrorID"]), BoutiqueName = Convert.ToString(dr["BoutiqueName"]), Date = dr["Date"].ToString()=="" ? "" : DateCon(dr), Module = Convert.ToString(dr["Module"]), Method = Convert.ToString(dr["Method"]), ErrorSource = Convert.ToString(dr["ErrorSource"]), Version = Convert.ToString(dr["Version"]) });
                     }
 
                 }
@@ -178,5 +179,14 @@ namespace Boutique.WebServices
             }
             return exceptonList;
         }//end of method
+        
+
+        private static string DateCon(DataRow drr)
+        {
+            var d = DateTime.Parse(drr["Date"].ToString()).Day.ToString();
+            var m = DateTime.Parse(drr["Date"].ToString()).Month.ToString();
+            var y = DateTime.Parse(drr["Date"].ToString()).Year.ToString();
+            return d + "-" + m + "-" + y;
+        }
     }
 }

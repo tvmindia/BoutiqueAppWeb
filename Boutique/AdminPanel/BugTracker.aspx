@@ -49,7 +49,7 @@
               <tr class="gridStyle">
                   <th>ErrorID</th>
                  <th>Boutique</th>
-                 <th>User</th>
+                 <th>Date</th>
                  <th>Module</th>
                  <th>Method</th>
                  <th>Source</th>
@@ -202,7 +202,7 @@
    <%--  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--%>
     <%-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />--%>
     <link href="../CSS/DataTables-1.10.12/jquery.dataTables.min.css" rel="stylesheet" />
-
+    <link href="../CSS/DataTables-1.10.12/dataTables.bootstrap.min.css" rel="stylesheet" />
 
     <script src="../Scripts/jquery-1.12.3.js"></script>
 
