@@ -226,6 +226,59 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
+
+        public Int16 InsertErrorDetailsFromApp()
+        {
+            IsMobile = true;
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter, outParameter2 = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertErrorLog]";
+                if (BoutiqueID != null)
+                {
+                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                }
+                if (UserID != null)
+                {
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                }                
+                cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
+                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = (Date == null) ? DateTime.UtcNow : DateTime.Parse(Date);
+                cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
+                cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
+                cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
+                cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;                
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;                
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@Version", SqlDbType.NVarChar, 50).Value = Version;                
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParameter2 = cmd.Parameters.Add("@OutErrorID", SqlDbType.NVarChar, 50);
+                outParameter2.Direction = ParameterDirection.Output;
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //insert success or failure
+            ErrorID = outParameter2.Value.ToString();
+            return Int16.Parse(outParameter.Value.ToString());
+        }
         #endregion  InsertErrorDetails
         #region UpdateErrorDetails
         public string UpdateErrorDetails()
