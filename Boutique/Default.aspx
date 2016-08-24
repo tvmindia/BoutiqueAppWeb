@@ -6,7 +6,7 @@
 
 <head runat="server">
     <!------TITLE TAG ----->
-    <title>t i q u e s s i n n</title>
+    <title>tiquesInn</title>
     <!------TITLE IMAGE ----->
     <link rel="shortcut icon" type="image/png" href="Website/images/Logo PNG.png" />
     <!------SCRIPT FILES ----->
@@ -340,17 +340,18 @@
   </section>
  <!------SECTION END HOW----->  
  
-<!------SECTION FOOTER----->       
+<!------SECTION FOOTER----->
     <footer>
-      <div class="container">
-        <div>
-          Copyright &copy; 2016 Tiquesinn<span>Designed by <a href="http://thrithvam.com">Thrithvam Technologies</a></span>
-                  </div>
-          <a href="https://www.facebook.com/tiquesinn" target="_blank"><img src="Website/images/fb.png" /></a><a href="https://twitter.com/tiquesinn" target="_blank"><img src="Website/images/twitter.png" /></a><a href="https://plus.google.com/103146218218684459847" target="_blank"><img src="Website/images/goog.png" /></a><a href="mailto:info@tiquesinn.com?Subject=Enquiry%20Related%20Query" target="_top"><img src="Website/images/skype.png" /></a>
-          
-      </div>
-    </footer> 
-<!------SECTION END FOOTER-----> 
+        <div class="container">
+           
+            <a href="https://www.facebook.com/tiquesinn" target="_blank">
+                <img src="Website/images/fb.png" /></a><a href="https://twitter.com/tiquesinn" target="_blank"><img src="Website/images/twitter.png" /></a><a href="https://plus.google.com/103146218218684459847" target="_blank"><img src="Website/images/goog.png" /></a> 
+             <div style="font-size:small;margin-top:25px;">
+                Copyright &copy; 2016 Tiquesinn<span> a product of <a href="http://thrithvam.com">Thrithvam</a></span>
+            </div>
+        </div>
+    </footer>
+    <!------SECTION END FOOTER-----> 
     <!-------------------------------------//---------------------------------------------------------------->
 <!------MODAL CONTENT FOR GET STARTED-----> 
     <div class="modal fade" id="getstarted" role="dialog">
