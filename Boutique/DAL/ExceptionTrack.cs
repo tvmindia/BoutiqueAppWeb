@@ -241,18 +241,10 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[InsertErrorLog]";
-                if (BoutiqueID != null)
-                {
-                    cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                }
-                if (UserID != null)
-                {
-                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
-                }                
+                cmd.Parameters.Add("@ErrorID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ErrorID);
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar, -1).Value = Description;
                 cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = (Date == null) ? DateTime.UtcNow : DateTime.Parse(Date);
                 cmd.Parameters.Add("@Module", SqlDbType.NVarChar, 50).Value = Module;
-                cmd.Parameters.Add("@Method", SqlDbType.NVarChar, 50).Value = Method;
                 cmd.Parameters.Add("@ErrorSource", SqlDbType.NVarChar, 25).Value = ErrorSource;
                 cmd.Parameters.Add("@IsMobile", SqlDbType.Bit).Value = IsMobile;                
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;                
@@ -276,7 +268,6 @@ namespace Boutique.DAL
                 }
             }
             //insert success or failure
-            ErrorID = outParameter2.Value.ToString();
             return Int16.Parse(outParameter.Value.ToString());
         }
         #endregion  InsertErrorDetails

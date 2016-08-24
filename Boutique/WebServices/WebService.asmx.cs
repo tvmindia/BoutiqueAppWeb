@@ -1210,6 +1210,48 @@ namespace Boutique.WebServices
         }
         #endregion
 
+        #region Error Detection
+        [WebMethod]
+        public string ErrorDetection(string REPORT_ID, string PACKAGE_NAME, Object BUILD, string LOGCAT,string ANDROID_VERSION,string APP_VERSION_CODE,string AVAILABLE_MEM_SIZE,Object CRASH_CONFIGURATION)
+        {
+            DataTable dt = new DataTable();
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            try
+            {   //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.ErrorID = REPORT_ID;
+                ETObj.Description = "REPORT_ID\n\n"+ REPORT_ID
+                                    + "\n\nBUILD\n\n"+ serializer.Serialize(BUILD) 
+                                    + "\n\nLOGCAT\n\n" + LOGCAT
+                                    + "\n\nCRASH_CONFIGURATION\n\n" + serializer.Serialize(CRASH_CONFIGURATION)
+                                    + "\n\nAVAILABLE_MEM_SIZE\n\n" + AVAILABLE_MEM_SIZE ;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = PACKAGE_NAME;
+                ETObj.ErrorSource = "App";
+                ETObj.IsMobile = true;
+                ETObj.Version = "ANDROID_VERSION\n\n" + ANDROID_VERSION
+                                + "\n\nAPP_VERSION_CODE\n\n" + APP_VERSION_CODE;
+                ETObj.CreatedBy = "App";
+                ETObj.InsertErrorDetailsFromApp();
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+        #endregion
+
         #region JSON converter
         /// <summary>
         /// JSON function without returning any images
