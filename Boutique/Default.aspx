@@ -88,7 +88,7 @@
     <div class="container">      
       <article>
         <h2 style="text-shadow:1px 5px 6px #230a0a;color:#3a3a3a;font-family:Sitefond!important;letter-spacing:6px;text-transform:none;font-weight:300;font-size:100px;">tiques<span style="font-family:Sitefond!important;text-transform:none;font-weight:300;font-size:100px;color:gray;text-shadow:1px 5px 5px #3a3a3a;">Inn</span></h2>
-        <p style="color:grey;font-family:Sitefond!important;font-size:35px;text-align:center;text-shadow:1px 2px 3px #211111;">tiquesInn N reach out</p>        
+        <p style="color:grey;font-family:Segoe Script!important;font-size:35px;text-align:center;text-shadow:1px 2px 3px #211111;">tiquesInn N reach out</p>        
         <a href="#OwnerBen" class="next">Benefits?</a> <a href="#how" class="next">How it Works?</a>
       </article>
               <figure class="animate">
@@ -218,7 +218,7 @@
         </div>
         <div>
             <div class="iconleftb"></div>
-             <p>Provide E-Commerce experience without sacrifies your brand.</p>
+             <p>Provide E-Commerce experience without sacrificing your brand.</p>
 
         </div>
         
@@ -249,7 +249,7 @@
         </div>
            <div>
             <div class="iconrightb"></div>
-             <p>Get shop details on owner dashboard.</p>
+             <p>Get shop updates on owner dashboard.</p>
        
         </div>          
           </article>
@@ -328,7 +328,7 @@
         <h3>How It Works?</h3>
         
         <p></p>
-            <img class="imgstart" src="Website/images/start.png" style=""/>
+            <%--<img class="imgstart" src="Website/images/start.png" style=""/>--%>
             <img id="Howworks" src="Website/images/how copy.jpg" />              
             <img id="Howworkmedium" src="Website/images/how copy.jpg" />
             <img id="Howworksmall" src="Website/images/Howsmall.jpg" />

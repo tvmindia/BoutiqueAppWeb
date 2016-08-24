@@ -238,7 +238,7 @@
                                     <div class="control-group">
                                 <label class="control-label" for="focusedInput">file</label>
                                 <div class="controls">
-                                     <input id="tempUpload" type="file" size="60" name="myfile" />
+                                     <input id="tempUpload" type="file" size="60" name="myfile" onchange="checkfile(this)"/>
                                 </div>
                             </div>
                              </div>
@@ -297,4 +297,11 @@
           </div>
      <input type="hidden" id="hdfRole" value="" />
     <input type="hidden" id="hdfBoutiqueID" value="" />
+    <script>
+        function checkfile(f) {
+            debugger;
+            var htmlcontent = $('#tempUpload');
+
+        }
+    </script>
 </asp:Content>
