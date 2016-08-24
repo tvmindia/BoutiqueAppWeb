@@ -155,16 +155,16 @@
                         <ul class="slide_shop_list">
                     <li class="slide_shop_list_item slide_shop_list_item1">
                         <h2>How To ?</h2>                       
-                        <p>"Reach your brand to customers in smarter way&nbsp;&nbsp;Yes, mobile is the way forward.&nbsp;</p></li>
+                        <p>"Reach your brand to customers in smarter way&nbsp;&nbsp;<br />Yes, mobile is the way forward.&nbsp;</p></li>
                 <li class="slide_shop_list_item slide_shop_list_item2">
                     <h2>Here we go!</h2>
-                    <p>TiquesInn comes in!&nbsp;Build your virtual store, reach out more</p></li>
+                    <p>TiquesInn comes in!&nbsp;<br />Build your virtual store, reach out more</p></li>
                     <li class="slide_shop_list_item slide_shop_list_item3">
                         <h2>Hey, my sales touched new heights!</h2>
-                        <p>Mobile is the best companion&nbsp;be mobile and get more eyeballs</p></li>
+                        <p>Mobile is the best companion&nbsp;<br />Be mobile and get more eyeballs!</p></li>
                         <li class="slide_shop_list_item slide_shop_list_item4">
                             <h2>Smile is on!</h2>
-                            <p>Keep your faces glow!&nbsp;Color your occasions with tiquesInn</p></li>
+                            <p>Keep your faces glow!<br />&nbsp;Color your occasions with tiquesInn</p></li>
                             <li class="slide_shop_list_pager carousel-pager"></li>
                             <li class="slide_shop_list_pages">
                                 <ul class="slide_shop_pages"><li>
@@ -218,7 +218,7 @@
         </div>
         <div>
             <div class="iconleftb"></div>
-             <p>Provide E-Commerce experience without satisfying your brand.</p>
+             <p>Provide E-Commerce experience without sacrifies your brand.</p>
 
         </div>
         
@@ -244,7 +244,12 @@
         </div>   
         <div>
             <div class="iconrightb"></div>
-             <p>Foresee customers taste on upcoming product trends.<span>(Post your future products, get genuine reviews, and go ahead!)</span></p>
+             <p>Foresee customers taste on upcoming product trends.</p>
+       
+        </div>
+           <div>
+            <div class="iconrightb"></div>
+             <p>Get shop details on owner dashboard.</p>
        
         </div>          
           </article>
@@ -272,12 +277,12 @@
         </div>
         <div>
             <div class="iconleft"></div>
-             <p>Get notifications about new collections, offers.</p>
+             <p>Get notifications about new collections, offers and order status.</p>
 
         </div>
         <div>
             <div class="iconleft"></div>
-             <p>Get advanced notifications on Order Status.</p>
+             <p>Earn loyalty points for every purchase.</p>
 
         </div>
         
@@ -286,14 +291,10 @@
       <article style="width:47%!important;margin-top:10%;margin-left:3%;">
                   
         <img src="Website/images/@ordering.PNG" style="width:50%"/> 
-           <div>
-            <div class="iconright"></div>
-             <p>Save you fuel and energy</p>
-
-        </div>    
+              
           <div>
             <div class="iconright"></div>
-              <p>Earn loyalty points for every purchase.</p>
+              <p>Build product wish list and pick when you want</p>
 
 
         </div> 
@@ -309,7 +310,7 @@
         </div>  
            <div>
             <div class="iconright"></div>
-             <p>Build product wish list and pick when you want</p>
+             <p>Save you fuel and energy</p>
        
         </div>           
           </article>     
@@ -326,7 +327,8 @@
         <article>
         <h3>How It Works?</h3>
         
-        <p>Most people like to save their time not for any specific need but they do like that</p>
+        <p></p>
+            <img class="imgstart" src="Website/images/start.png" style=""/>
             <img id="Howworks" src="Website/images/how copy.jpg" />              
             <img id="Howworkmedium" src="Website/images/how copy.jpg" />
             <img id="Howworksmall" src="Website/images/Howsmall.jpg" />
@@ -346,7 +348,7 @@
            
             <a href="https://www.facebook.com/tiquesinn" target="_blank">
                 <img src="Website/images/fb.png" /></a><a href="https://twitter.com/tiquesinn" target="_blank"><img src="Website/images/twitter.png" /></a><a href="https://plus.google.com/103146218218684459847" target="_blank"><img src="Website/images/goog.png" /></a> 
-             <div style="font-size:small;margin-top:25px;">
+             <div style="font-size:small;margin-top:25px;text-transform:lowercase;">
                 Copyright &copy; 2016 Tiquesinn<span> a product of <a href="http://thrithvam.com">Thrithvam</a></span>
             </div>
         </div>

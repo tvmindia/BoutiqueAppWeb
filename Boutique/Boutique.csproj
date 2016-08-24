@@ -379,6 +379,8 @@
     <Content Include="Home\fonts\trench.100.otf" />
     <Content Include="WebServices\WSForJqueryDataTable.asmx" />
     <Content Include="Website\css\Tiqstyle.css" />
+    <Content Include="Website\images\finish.png" />
+    <Content Include="Website\images\start.png" />
     <Content Include="Website\script\Tiqapplication-82ea8bbc3e31c251ee1dc09d3220e512.js" />
     <Content Include="Website\css\application-0db4a6b242aea7886b88306baabadc2f.css" />
     <Content Include="Website\css\css.css" />
