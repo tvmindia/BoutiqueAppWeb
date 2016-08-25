@@ -841,7 +841,7 @@ namespace Boutique.WebServices
             {
                     Notification notifications = new Notification();
                     notifications.BoutiqueID = boutiqueID;
-                    notifications.UserID = userID;
+                    notifications.UserID = "";//userID;
                     if (notificationIDs == "")                          //App don't have any present notifications
                     {
                         dt = notifications.GetNotificationsForApp(null);
@@ -850,6 +850,7 @@ namespace Boutique.WebServices
                     {
                         dt = notifications.GetNotificationsForApp(notificationIDs);
                     }
+                    if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
                     
             }
             catch (Exception ex)
