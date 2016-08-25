@@ -19,7 +19,7 @@
 
         "processing": true,
         "serverSide": true,
-        "paging": true,
+       
         "pagingType": "full_numbers",
 	    
         "ajax": {
