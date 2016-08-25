@@ -1219,6 +1219,8 @@ namespace Boutique.WebServices
             try
             {   //Code For Exception Track insert
                 ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = Guid.Empty.ToString();
+                ETObj.UserID = Guid.Empty.ToString();
                 ETObj.ErrorID = REPORT_ID;
                 ETObj.Description = "REPORT_ID\n\n"+ REPORT_ID
                                     + "\n\nBUILD\n\n"+ serializer.Serialize(BUILD) 
