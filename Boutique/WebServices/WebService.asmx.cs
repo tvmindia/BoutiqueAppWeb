@@ -1231,8 +1231,7 @@ namespace Boutique.WebServices
                 ETObj.Module = PACKAGE_NAME;
                 ETObj.ErrorSource = "App";
                 ETObj.IsMobile = true;
-                ETObj.Version = "ANDROID_VERSION\n\n" + ANDROID_VERSION
-                                + "\n\nAPP_VERSION_CODE\n\n" + APP_VERSION_CODE;
+                ETObj.Version = ANDROID_VERSION+ "/"+ APP_VERSION_CODE;
                 ETObj.CreatedBy = "App";
                 ETObj.InsertErrorDetailsFromApp();
             }
