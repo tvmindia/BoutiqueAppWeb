@@ -383,7 +383,7 @@
      <input name="mobile" id="mobile" value="" placeholder="Mobile" type="text" />
      </div>
      <div class="12u$">
-     <textarea name="message" id="message" placeholder="Message (optional) " rows="2"></textarea>
+     <textarea name="message" id="message" placeholder="Message" rows="2"></textarea>
      </div>
      <div class="12u$">
      <a class="form_submit sendbtn">Send</a>

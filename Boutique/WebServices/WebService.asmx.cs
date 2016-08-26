@@ -62,6 +62,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Products";
+                ETObj.Method = "Products";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -106,6 +114,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Products";
+                ETObj.Method = "ProductImages";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -155,6 +171,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Products";
+                ETObj.Method = "RelatedProducts";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -194,6 +218,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Products";
+                ETObj.Method = "ProductsBySearch";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -230,6 +262,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Categories";
+                ETObj.Method = "Categories";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -277,6 +317,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Categories";
+                ETObj.Method = "ProductsByCategory";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -319,6 +367,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutique";
+                ETObj.Method = "Boutique";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -361,6 +417,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutique";
+                ETObj.Method = "BannerImages";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -426,6 +490,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "User";
+                ETObj.Method = "UserRegistration";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -476,6 +548,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "User";
+                ETObj.Method = "UserActivation";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -514,6 +594,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "User";
+                ETObj.Method = "UserLogin";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -548,6 +636,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "User";
+                ETObj.Method = "UserDetails";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -601,6 +697,13 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "User";
+                ETObj.Method = "ChatAppUserLogin";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -646,6 +749,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Favorites";
+                ETObj.Method = "Favorites";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -699,6 +810,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "OwnersAndDesigners";
+                ETObj.Method = "OwnersAndDesigners";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -722,7 +841,7 @@ namespace Boutique.WebServices
             {
                     Notification notifications = new Notification();
                     notifications.BoutiqueID = boutiqueID;
-                    notifications.UserID = userID;
+                    notifications.UserID = "";//userID;
                     if (notificationIDs == "")                          //App don't have any present notifications
                     {
                         dt = notifications.GetNotificationsForApp(null);
@@ -731,6 +850,7 @@ namespace Boutique.WebServices
                     {
                         dt = notifications.GetNotificationsForApp(notificationIDs);
                     }
+                    if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
                     
             }
             catch (Exception ex)
@@ -743,6 +863,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Notifications";
+                ETObj.Method = "Notifications";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -780,6 +908,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Order Status";
+                ETObj.Method = "Orders";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -814,6 +950,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Order Status";
+                ETObj.Method = "OrderItems";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -848,6 +992,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Order Status";
+                ETObj.Method = "OrderDetailsByID";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -886,6 +1038,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Reviews";
+                ETObj.Method = "ReviewsList";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -936,6 +1096,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Reviews";
+                ETObj.Method = "InsertProductReview";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -983,6 +1151,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Reviews";
+                ETObj.Method = "DeleteProductReview";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -1045,6 +1221,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "InsertChat";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -1081,6 +1265,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "GetMessages";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -1128,6 +1320,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "UpdateDeliveryStatus";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -1172,6 +1372,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "GetProductDetailsOnChat";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -1202,6 +1410,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "OwnerApp";
+                ETObj.Method = "PurchaseGraph";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -1245,6 +1461,13 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Error Detection";
+                ETObj.Method = "ErrorDetection";
+                ETObj.InsertErrorDetailsFromWebService();
             }
             finally
             {
@@ -1288,7 +1511,17 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 ErrorMsg.Rows.Add(dr);
-                return getDbDataAsJSON(ErrorMsg); ;
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Error Detection";
+                ETObj.Method = "ErrorDetection";
+                ETObj.InsertErrorDetailsFromWebService();
+
+                return getDbDataAsJSON(ErrorMsg);
+
             }
             finally
             {
@@ -1375,6 +1608,14 @@ namespace Boutique.WebServices
                 dr["Flag"] = false;
                 dr["Message"] = ex.Message;
                 ErrorMsg.Rows.Add(dr);
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Error Detection";
+                ETObj.Method = "ErrorDetection";
+                ETObj.InsertErrorDetailsFromWebService();
                 return getDbDataAsJSON(ErrorMsg);
             }
             finally
