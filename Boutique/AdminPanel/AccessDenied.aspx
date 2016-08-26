@@ -6,5 +6,5 @@
         <img src="../img/403.png" alt="403- Access denied" style=" height:80%; width:80%; padding-left:20%; padding-top:10%;  padding-bottom:10%; padding-right:10%;"  /> 
     </div>
 
-
+      
 </asp:Content>
