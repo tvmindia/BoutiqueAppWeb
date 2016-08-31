@@ -106,7 +106,7 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 if(ReplyPersonID!="") cmd.Parameters.Add("@ReplyPersonID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ReplyPersonID);
                 cmd.Parameters.Add("@Direction", SqlDbType.NVarChar, 10).Value = Direction;
-                cmd.Parameters.Add("@Message", SqlDbType.NVarChar, -1).Value = Message;
+                if (Message != "") cmd.Parameters.Add("@Message", SqlDbType.NVarChar, -1).Value = Message; //Message empty means it is about a produt
                 if(ProductID!="") cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 cmd.Parameters.Add("@MessageTime", SqlDbType.DateTime).Value = DateTime.Now;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
