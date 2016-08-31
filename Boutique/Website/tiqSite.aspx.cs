@@ -26,7 +26,7 @@ namespace Boutique.Website
                 //DateTime CurrentTime = DateTime.Now;
                 MailMessage Msg = new MailMessage();
                 //Sender e-mail address.
-                Msg.From = new MailAddress("info.thrithvam@gmail.com");
+                Msg.From = new MailAddress("tiquesinn@gmail.com");
                 //Recipient e-mail address.
                 Msg.To.Add("info@tiquesinn.com");
                 string message = "<table style='width:70%'><tr><td>From </td><td>: </td><td>" + userObj.name + "</td></tr>";
@@ -41,7 +41,7 @@ namespace Boutique.Website
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("info.thrithvam", "thrithvam@2015");//password
+                smtp.Credentials = new System.Net.NetworkCredential("tiquesinn", "passwordagain1");//password
                 smtp.EnableSsl = true;
                 smtp.Send(Msg);
                 Msg = null;
