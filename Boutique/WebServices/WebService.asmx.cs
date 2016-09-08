@@ -1424,6 +1424,51 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+        [WebMethod]
+        public string ProductsForOwnersApp(string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.BoutiqueID = boutiqueID;
+                dt = product.GetProductForOwnerApp();
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+                //Giving coloumns of image details
+                ArrayList imgColNames = new ArrayList();
+                ArrayList imgFileNameCols = new ArrayList();
+                ArrayList imgFileTypeCols = new ArrayList();
+                imgColNames.Add("Image");
+                imgFileNameCols.Add("ImageID");
+                imgFileTypeCols.Add("FileType");
+
+                return getDbDataAsJSON(dt, imgColNames, imgFileNameCols, imgFileTypeCols, false);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Chat";
+                ETObj.Method = "GetProductDetailsOnChat";
+                ETObj.InsertErrorDetailsFromWebService();
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
         #endregion
 
         #region Error Detection
