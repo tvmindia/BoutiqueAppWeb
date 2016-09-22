@@ -3386,7 +3386,7 @@ function BindSortResult(Pagevalue, searchtext)
             if (result.status == "1") {
 
                 $('#rowfluidDiv').show();
-                $('.alert-success strong').text(Messages.ProductAddSuccessfull);
+                $('.alert-success strong').text(Messages.UpdationSuccessFull);
                 $('.alert-success').show();
                 $("#editLabel").text("Edit Product");
                 if (BindAllProductImagesRebind(0) != -1) {
