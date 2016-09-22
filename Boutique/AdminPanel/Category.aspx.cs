@@ -288,7 +288,7 @@ namespace Boutique.AdminPanel
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-          //  categoryObj.BoutiqueID = UA.BoutiqueID;
+            categoryObj.BoutiqueID = UA.BoutiqueID;
             categoryObj.UpdatedBy = UA.userName;
 
             string status = null;
