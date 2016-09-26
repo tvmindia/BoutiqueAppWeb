@@ -671,7 +671,7 @@ $("document").ready(function (e) {
             editedrow = $(this).closest('tr');
 
             var e = editedrow.attr("ProductID");
-            var p = editedrow.attr("OrderID");
+            var p = "Delete";
             DeleteCustomAlert("Are You Sure?", e, p)
             return false;
         }
