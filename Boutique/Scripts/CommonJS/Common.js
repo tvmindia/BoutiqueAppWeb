@@ -227,6 +227,19 @@ function DeleteCustomAlert(txt, e, p)
     if (p == "DeleteBanner") {
         btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
     }
+    if (p == "User") {
+        btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    }
+    if (p == "Manager") {
+        btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    }
+    if (p == "Designer") {
+        btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    }
+    if (p == "Admin") {
+        btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
+    }
+
     alertObj.style.display = "block";
 
     $("#alertBox").animate({ top: '50px' });
