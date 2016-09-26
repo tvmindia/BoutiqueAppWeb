@@ -80,7 +80,7 @@ $("document").ready(function (e) {
                   $('.alert-error').hide();
                   editedrow = $(this).closest('tr');
                   var e = editedrow.attr("userID");
-                  var p = editedrow.attr("ownerID");
+                  var p = "Delete";
                   DeleteCustomAlert('Are You Sure?', e, p);
               }
               catch(e)

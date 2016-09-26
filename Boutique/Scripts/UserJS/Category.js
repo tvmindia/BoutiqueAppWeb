@@ -13,14 +13,17 @@ $("document").ready(function (e) {
 
     $(".catdelete").live(
     {
+       
         click: function () {
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();          
-            try{
+            try {
+                debugger;
                 editedrow = $(this).closest('tr');
                 var e = editedrow.attr("CategoryID");
-                var p = editedrow.attr("CategCode");            
+                var p ="Delete";            
                 DeleteCustomAlert('Are You Sure?', e, p);   
             }
             catch(e)

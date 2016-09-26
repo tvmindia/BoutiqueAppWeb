@@ -52,7 +52,7 @@
                var jsonResult = {};
                editedrow = $(this).closest('tr');
                var e = editedrow.attr("boutiqueID");
-               var p = "";
+               var p = "Delete";
                DeleteCustomAlert('Are You Sure?', e, p);
                return false;
            }
@@ -130,7 +130,7 @@ function RemoveStyle()
 }
 function DeleteItem(e,p)
 {
-   
+    debugger;
     var jsonResult = {};
     //editedrow = $(this).closest('tr');
     var Boutique = new Object();
