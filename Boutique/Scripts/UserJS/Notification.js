@@ -288,8 +288,8 @@
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.DeletionSuccessFull);
 
-            BindNotificationsTable();
             ReinitNotificationTable();
+            BindNotificationsTable();
 
         }
         if (result != "1") {
@@ -524,8 +524,8 @@
             $('#rowfluidDiv').show();
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.InsertionSuccessFull);
-            BindNotificationsTable();
             ReinitNotificationTable();
+            BindNotificationsTable();           
             $("#txtTitle").val("");
             $("#txtDescription").val("");
             $("#dateStartDate").val("");
