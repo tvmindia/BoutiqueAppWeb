@@ -262,7 +262,7 @@ function CustomAlert(txt) {
     mObj.style.height = d.documentElement.scrollHeight + "px";
 
     alertObj = mObj.appendChild(d.createElement("div"));
-    alertObj.id = "alert";
+    alertObj.id = "alertBox";
     if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
     alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
     alertObj.style.visiblity = "visible";
@@ -286,6 +286,49 @@ function CustomAlert(txt) {
 
     alertObj.style.display = "block";
     $("#alert").animate({ top: '50px' });
+}
+
+function CustomConfirmBox(txt)
+{
+    
+    d = document;
+
+    if (d.getElementById("modalContainer")) return;
+
+    mObj = d.getElementsByTagName("body")[0].appendChild(d.createElement("div"));
+    mObj.id = "modalContainer";
+    mObj.style.height = d.documentElement.scrollHeight + "px";
+    alertObj = mObj.appendChild(d.createElement("div"));
+    alertObj.id = "alertBox";
+    if (d.all && !window.opera) alertObj.style.top = document.documentElement.scrollTop + "px";
+    alertObj.style.left = (d.documentElement.scrollWidth - alertObj.offsetWidth) / 2 + "px";
+    alertObj.style.visiblity = "visible";
+
+    var img1 = document.createElement('img');
+    img1.setAttribute("src", "../img/Default/Warn.png");
+    img1.setAttribute("class", "alertImage");
+    alertObj.appendChild(img1);
+    msg = alertObj.appendChild(d.createElement("p"));
+
+    msg.innerHTML = txt;
+    btn = alertObj.appendChild(d.createElement("a"));
+    btn.id = "closeBtn";
+    btn.className = "noButton";
+    btn.appendChild(d.createTextNode("Cancel"));
+    btn.href = "#";
+    btn.onclick = function () { removeCustomAlert(); return false; }
+
+    btnYes = alertObj.appendChild(d.createElement("a"));
+    btnYes.id = "DeleteYesBtn";
+    btnYes.className = "yesButton";
+    btnYes.appendChild(d.createTextNode("OK"));
+    btnYes.href = "#";
+    btnYes.focus();
+    btnYes.onclick = function () { removeCustomAlert(); return true; }
+
+    alertObj.style.display = "block";
+
+    $("#alertBox").animate({ top: '50px' });
 }
 
 function getJsonData(data, page) {
