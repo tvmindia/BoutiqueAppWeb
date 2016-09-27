@@ -609,7 +609,8 @@ $("document").ready(function (e) {
            
             BindClosedOrdersTable(); //To bind table with new or modified entry
 
-            
+            $("tbody#ClosedOrderItemRows tr").remove();            //Remove all existing rows for refreshing
+                  
             // Scroll page
             var offset = $('#Orders').offset();
             offset.left -= 20;
