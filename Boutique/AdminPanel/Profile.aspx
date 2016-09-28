@@ -31,10 +31,10 @@
                 <a href="DashBoard.aspx">Home</a>
                 <i class="icon-angle-right"></i>
             </li>
-            <li><a href="#">Boutique Profile</a></li>
+            <li><a href="#">Profile</a></li>
         </ul>
 
-        <div class="row-fluid"><span class="headerStyle">Boutique Profile</span></div>
+        <div class="row-fluid"><span class="headerStyle">Profile</span></div>
         <div class="row-fluid" style="height: 3px;"></div>
 
         <%--Alert boxes --%>
@@ -89,7 +89,7 @@
 
                                 <div class="box span12">
                                     <div class="box-header">
-                                        <h2>Customize your Boutique</h2>
+                                        <h2>Customize Shop Profile</h2>
                                         <div class="box-icon">
                                             <%--<a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
 							<a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>

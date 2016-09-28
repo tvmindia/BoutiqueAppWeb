@@ -251,7 +251,7 @@ input[type=text],input[type=password],textarea,select
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="navTitle" id ="Li_SaDashBoard" runat="server"><a href="SaDashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> SA Dashboard</span></a></li>	
                         <li class="navTitle" id ="Li_DashBoard" runat="server"><a href="DashBoard.aspx"><i class="icon-bar-chart"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-				 	    <li class="navTitle" id ="Li_Profile" runat="server"><a href="Profile.aspx"><i class="icon-heart"></i><span class="hidden-tablet"> Boutique Profile</span></a></li>
+				 	    <li class="navTitle" id ="Li_Profile" runat="server"><a href="Profile.aspx"><i class="icon-heart"></i><span class="hidden-tablet"> Profile</span></a></li>
 						<li class="navTitle" id ="Li_People" runat="server"><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet"> People</span></a></li>
                        <%-- 	<li><a href="Profile.aspx"><i class="icon-pencil"></i><span class="hidden-tablet">Profile</span></a></li>
 						<li><a href="People.aspx"><i class="icon-user"></i><span class="hidden-tablet">People</span></a></li>--%>
