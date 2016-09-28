@@ -139,7 +139,7 @@ $("document").ready(function (e) {
                 prdctImg.src = "../img/No-Img_Chosen.png";
             }
             else {
-                alert("Please select an item ");
+                CustomAlert("Please select an item ");
             }
         }
     })
@@ -183,7 +183,7 @@ $("document").ready(function (e) {
                 });
             }
             else {
-               alert("Please select a user");
+                CustomAlert("Please select a user");
                 return;
             }
 
@@ -689,7 +689,8 @@ $("document").ready(function (e) {
 
 
 function ClearControls() {
-
+    $(".products").select2("val", "");
+    document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
     $("#txtDescription").val("");
     $("#txtOrderDate").val("");
     $("#dateOrderDate").text("");

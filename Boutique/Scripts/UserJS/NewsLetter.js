@@ -394,6 +394,7 @@ $("document").ready(function (e) {
     $(".AudiencePopup").click(function () {
         try
         {
+            debugger;
             editedrow = $(this).closest('tr');
       
             $('#AudiencePreview').modal('show');
@@ -433,7 +434,7 @@ $("document").ready(function (e) {
         }
     });
     $(".AudienceDraftPopup").click(function () {
-       
+        debugger;
         try
         {
             editedrow = $(this).closest('tr');
