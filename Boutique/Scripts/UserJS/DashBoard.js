@@ -23,7 +23,7 @@
         InsertException(ExceptionTrack);
     }
    
-
+    debugger;
     BindTileValues();
     BindAllImages();//TrendsGraph 
     
@@ -125,6 +125,7 @@ function BindTotalProducts()
 
 function BindAllTiles()
 {
+    debugger;
     try{
         var table = {};
         var Notifications = new Object();
@@ -430,6 +431,7 @@ function BindAllTiles()
   }
 
   function BindAllImages() {
+      debugger;
       try
       {
           var imageids = {};

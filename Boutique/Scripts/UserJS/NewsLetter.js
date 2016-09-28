@@ -292,9 +292,12 @@ $("document").ready(function (e) {
         $('.alert-error').hide();
         try
         {
+            debugger;
             var result = "";
             if (((imagefile = $('#tempUpload')[0].files[0]) != undefined)) {
-                var formData = new FormData();
+                if ($('#tempUpload')[0].files[0].name.split('.')[1]=="html")
+                    {
+                    var formData = new FormData();
                 var tempFile;
                 if ((tempFile = $('#tempUpload')[0].files[0]) != undefined) {
                     formData.append('tempfile', tempFile, tempFile.name);
@@ -320,6 +323,14 @@ $("document").ready(function (e) {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                     $('.alert-error strong').text(Messages.InsertionFailure);
+                }
+                }
+                else
+                {
+                 
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text(Messages.HtmlFileFormatError);
                 }
             }
         }

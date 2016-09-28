@@ -51,6 +51,10 @@
                         <%--	<button type="button" class="close" data-dismiss="alert">×</button>--%>
                         <strong>Successfull.</strong>
                     </div>
+                      <div class="alert alert-info" style="display:none;">
+							<%--<button type="button" class="close" data-dismiss="alert">×</button>--%>
+							<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+						</div>
                 </div>
 
             </div>

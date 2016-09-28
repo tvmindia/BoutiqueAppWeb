@@ -103,7 +103,9 @@ var Messages = {
     
     ProductReviewEmpty: "No Items To Display.",
     ReviveSucces: "Restored Product Successfully.",
-    ReviveNotSuccess:"Restoring Product was not Successfull.",
+    ReviveNotSuccess: "Restoring Product was not Successfull.",
+    
+    HtmlFileFormatError:"Please select html file"
 }
 
 function IsCategoryExists() {   
