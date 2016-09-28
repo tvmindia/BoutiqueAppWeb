@@ -12,8 +12,8 @@
         "bPaginate": true,
         "iDisplayLength": 6,
         "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-
-        "fnPageChange": "next"
+        "fnPageChange": "next",
+        "aaSorting": [[2, 'desc']]
     });
 
     $('#PersonalisedNotificationTable').DataTable({
@@ -524,7 +524,7 @@
             $('#rowfluidDiv').show();
             $('.alert-success').show();
             $('.alert-success strong').text(Messages.InsertionSuccessFull);
-            ReinitNotificationTable();
+            ReinitNotificationTable(); 
             BindNotificationsTable();           
             $("#txtTitle").val("");
             $("#txtDescription").val("");
@@ -755,6 +755,7 @@
         }
     }
 
-    function ReinitNotificationTable() {
-        $('#NotificationTable').DataTable({ "bDestroy": true });//reinit jquery datatable
+    function ReinitNotificationTable() {    
+        $("#NotificationTable").dataTable().fnClearTable();
+        $("#NotificationTable").dataTable().fnDestroy();
     }
