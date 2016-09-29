@@ -1109,6 +1109,7 @@ function MainImageClick(checkedImage) {
     //    $(".PreviewTemplate").remove();
     //   $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
+    $("#HtmlPreviewDisplay").empty();
     var ImageInfo = [];
     var idval;
     var pdtIDs = [];
