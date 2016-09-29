@@ -1,4 +1,5 @@
 ﻿var ddlAudience = [];
+var checkedImages = [];
 $("document").ready(function (e) {
     var boutiqueID = {};
     boutiqueID = getboutiqueID();
@@ -92,6 +93,7 @@ $("document").ready(function (e) {
     var $eventPdtsSelect = $(".Newsletterproducts");
  
     $eventPdtsSelect.on("change", function (e) {
+        debugger;
         try
         {
             var ddlproduct = [];
@@ -100,7 +102,14 @@ $("document").ready(function (e) {
             for (var i = 0; i <= ddlproduct.length - 1; i++) {
                 // var productid = ddlproduct[ddlproduct.length - 1];
                 BindAllProductImages(ddlproduct[i]);//binds  gallery with product under current boutique
+                for (var j = 0; j <= checkedImages.length - 1; j++) {
+                    var pdtimgId = checkedImages[j];
+                    if (pdtimgId == ddlproduct[i]) {
+                        document.getElementById(pdtimgId).checked = true;
+                    }
+                }
             }
+            
         }
         catch(e)
         {
@@ -520,17 +529,20 @@ function Preview() {
 }
 function ImageCheck(evt)
 {
+    debugger;
     try
     {
+        checkedImages = [];
         var imageCount = 0;
         $('#NewsLetterimagehold div').each(function (index) {
             var idval = $(this).attr('imageid');
             var pdtVal = $(this).attr('productid');
+            
             var chkflag = document.getElementsByClassName("checkDes").checked;
             var chkflag = document.getElementById(pdtVal).checked;
             if (chkflag == true) {
                 imageCount = imageCount + 1;
-           
+                checkedImages.push(pdtVal);
             }
         });
         document.getElementById('idSelectedImageCount').innerHTML =" "+ imageCount+" ";
@@ -1093,6 +1105,7 @@ function reloadNewsLetter() {
     window.location.reload();
 }
 function MainImageClick(checkedImage) {
+    debugger;
     //    $(".PreviewTemplate").remove();
     //   $("#templatePreviewImagehold").find(".templatePreviewOuterDiv").remove();
     $("#HtmlPreviewDisplay").find(".templatePreviewOuterDiv").remove();
