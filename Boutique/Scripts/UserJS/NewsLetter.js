@@ -379,6 +379,7 @@ $("document").ready(function (e) {
                {
                    // Clear image control
                    $("#bodyTable").remove();
+                   $('#HtmlPreviewDisplay').empty();
                    // $("#HtmlPreviewDisplay").find("#bodyTable").remove();
                    // var ImageInfo = [];
                    editedrow = $(this).closest('tr');
