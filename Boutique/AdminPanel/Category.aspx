@@ -120,7 +120,7 @@
                              <div class="control-group">
 								<label class="control-label" for="focusedInput">Order No</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Order no" id="txtOrderno" type="text"/>
+								  <input class="input-large focused" name="Order no" onkeypress="return isNumber(event)" id="txtOrderno" type="text"/>
 								</div>
 								</div>
 

@@ -39,7 +39,7 @@ var Roles = {
 //--------------* Pages * ---------------//
 var Pages = {
     People: "People",
-    Profile: "Boutique Profile",
+    Profile: "Profile",
     SaDashboard: "SA DashBoard",
     Dashboard: "DashBoard",
     Category: "Category",
