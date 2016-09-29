@@ -718,8 +718,16 @@ namespace Boutique.DAL
                     else
                     {
                         string mailIDs =ds.Tables[0].Rows[intCount]["AudienceMailID"].ToString();
-                        audienceCount = mailIDs.Split(',').Length;
-                        ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
+                        if(mailIDs=="")
+                        {
+                            ds.Tables[0].Rows[intCount]["AudienceMailID"] = 0;
+                        }
+                        else
+                        {
+                            audienceCount = mailIDs.Split(',').Length;
+                            ds.Tables[0].Rows[intCount]["AudienceMailID"] = audienceCount;
+                        }
+                       
                     }
                 }
                 ds.Tables[0].AcceptChanges();
