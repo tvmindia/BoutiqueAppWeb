@@ -451,11 +451,18 @@ namespace Boutique.DAL
                 }
                 for (int i = 0; i <= imageCount; i++)
                 {
+                    if(i+1>ImageIDs.Length)
+                    {
+                        body = body.Replace("{image" + i + "}", "../img/Default/adimage.png");
+                    }
+                    else
+                    {
                     //  string[] ids = { "5ff4eb3b-4f63-418d-94a8-e05b33a03008","5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124", "5ff4eb3b-4f63-418d-94a8-e05b33a03008", "8981c06b-df62-461d-aef3-d512a54c2124" };
                     imageUrl = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + ImageIDs[i];
 
                     // body = body.Replace("{image" + i + "}", imageUrl + i + ".jpeg");
                     body = body.Replace("{image" + i + "}", imageUrl);
+                    }
                 }
                 
             }
