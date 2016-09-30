@@ -498,6 +498,12 @@ function AddBoutiques()
         $('#rowfluidDiv').show();
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+        $(".ddlboutiques").select2({
+            data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+        , allowClear: true
+        , placeholder: "Select a Boutique"
+        });
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
