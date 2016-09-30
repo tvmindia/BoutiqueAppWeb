@@ -1,7 +1,6 @@
 ﻿
 var InitialItemCount = 0;
 
-
 $("document").ready(function (e) {
    
     var rowCount = $("#OrderItemTable > tbody > tr").length;
@@ -690,7 +689,6 @@ $("document").ready(function (e) {
 
 });
 
-
 function ClearControls() {
     $(".products").select2("val", "");
     document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
@@ -755,7 +753,6 @@ function GetProductImage(Order) {
 
 }
 
-
 function SendMail(MailSending) {
     if (MailSending.EmailID != "") {
         var data = "{'mailObj':" + JSON.stringify(MailSending) + "}";
@@ -766,7 +763,6 @@ function SendMail(MailSending) {
         //return table;
     }
 }
-
 
 //------------ BINDING  Order details table------------//
 
@@ -933,7 +929,6 @@ function GetOrderDetailsByOrderID(Order) {
 function BindControlsWithOrderDetails(Records) {
     $.each(Records, function (index, Records) {
 
-
         //---------Manage Control hide and show on edit click 
 
         $("#OrderNoDiv").show();
@@ -962,13 +957,10 @@ function BindControlsWithOrderDetails(Records) {
         $(".Users").val(Records.UserID).trigger("change");
         $("#hdfOrderID").val(Records.OrderID);
 
-
-
     });
     $(".submitDetails").text("Save");
     $("#editLabel").text("Edit Order");
 }
-
 
 function BindControlsWithClosedOrderDetails(Records) {
     $.each(Records, function (index, Records) {
@@ -983,10 +975,7 @@ function BindControlsWithClosedOrderDetails(Records) {
         $("#ClosedtotalAmount").text(Records.TotalOrderAmount);
         //$(".Users").val(Records.UserID).trigger("change");
         $("#ClosedlblUser").text(Records.Name);
-
         $("#ClosedhdfOrderID").val(Records.OrderID);
-
-
 
     });
     $(".submitDetails").text("Save");
@@ -1013,7 +1002,6 @@ function BindClosedOrderItemsList(Order) {
     }
 }
 
-
 //---* Get the orderITEM datatable in form of JSON *--//
 
 function GetOrderItemsByOrderID(Order) {
@@ -1024,7 +1012,6 @@ function GetOrderItemsByOrderID(Order) {
     table = JSON.parse(ds.d);
     return table;
 }
-
 
 //Fill OrderITEM table 
 function FillOrderItemsTable(Records) {
@@ -1091,7 +1078,6 @@ function FillClosedOrderItemsTable(Records) {
 
 //------------- *END :  Functions Work On Edit Click  *-----------------//
 
-
 function GetUserDetailsByUserID(Order) {
     var ds = {};
     var table = {};
@@ -1119,7 +1105,6 @@ function DeleteOrderItem(Order) {
 
 function BindProductDropdown() {
 
-
     var jsonResult = {};
     var Notify = new Object();
     jsonResult = GetAllProducts(Notify);
@@ -1129,7 +1114,6 @@ function BindProductDropdown() {
 }
 
 function BindUserDropdown() {
-
 
     var jsonResult = {};
     var Users = new Object();
@@ -1205,9 +1189,6 @@ function ConvertJsonToDate(jsonDate) {
 }
 
 function OrderStatusValidation() {
-
-
-  
 
     $('#Displaydiv').remove();
     var container;
