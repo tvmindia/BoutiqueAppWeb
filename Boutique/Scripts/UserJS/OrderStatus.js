@@ -607,7 +607,18 @@ $("document").ready(function (e) {
            
             ClearControlsOfClosedOrder();
            
+
+            $("#ClosedOrdersTable").dataTable().fnClearTable();
+            $("#ClosedOrdersTable").dataTable().fnDestroy();
             BindClosedOrdersTable(); //To bind table with new or modified entry
+
+            $('#ClosedOrdersTable').DataTable({
+                "bPaginate": true,
+                "iDisplayLength": 6,
+                "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                "aaSorting": [[0, 'desc']],
+                "fnPageChange": "next"
+            });
 
             $("tbody#ClosedOrderItemRows tr").remove();            //Remove all existing rows for refreshing
                   
