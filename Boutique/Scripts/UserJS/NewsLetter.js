@@ -225,7 +225,7 @@ $("document").ready(function (e) {
     });
 
     $(".saveDetails").click(function () {
-       
+        debugger;
         var result = "";
         var idval;
         var ImageInfo = [];
@@ -243,7 +243,6 @@ $("document").ready(function (e) {
             
             }
             $('#NewsLetterimagehold div').each(function (index) {
-
                 //val.push($(this).attr('id'));
                 var idval = $(this).attr('imageid');
                 var pdtVal = $(this).attr('productid');
