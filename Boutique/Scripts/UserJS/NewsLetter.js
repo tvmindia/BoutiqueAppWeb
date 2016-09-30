@@ -274,6 +274,7 @@ $("document").ready(function (e) {
                 $('.alert-success').show();
                 $('.alert-error').hide();
                 $("#hdfNewsLetterID").val(result.NewsLetterID);
+                clearAllcontrolsAfterSave();
                 BindNewsLetterTable();
             }
             if (result.status != "1") {
@@ -500,6 +501,25 @@ $("document").ready(function (e) {
     
 });
 //end of document.ready
+function clearAllcontrolsAfterSave()
+{
+    debugger;
+    $(".template").val('').trigger('change');
+    $(".Newsletterproducts").val('').trigger('change');
+    $("#txtNewsletterDescription").val('');
+    $(jQuery.unique(
+       $('INPUT:radio')
+           .map(function (i, e) {
+               return $(e).attr('name')
+           }
+           ).get()
+   )).each(function (i, e) {
+       $('INPUT:radio[name="' + e + '"]:visible:first')
+           .attr('checked', 'checked');
+   });
+    $("#audienceDropDown").hide();
+}
+
 function GetEmailsForPopup(boutiqId,newsId) {
     var jsonResult = {};
     var NewsLetters = new Object();
