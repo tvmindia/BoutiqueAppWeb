@@ -48,10 +48,11 @@ $("document").ready(function (e) {
     $(".OrderEdit").live(
     {
         click: function (e) {
-
+           
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+            $('#ErrorBox').hide();
 
             $("#dateForecastDeliveryDate").removeAttr("disabled");
             $("#dateOrderReadyDate").removeAttr("disabled");
@@ -667,6 +668,8 @@ $("document").ready(function (e) {
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
+           // $('#ErrorBox').hide();
+
             //if (confirm("Do you want to delete this item ?") == true) {
 
             editedrow = $(this).closest('tr');
