@@ -3285,6 +3285,17 @@ function BindSortResult(Pagevalue, searchtext)
 
         if (result.status == "1") {
 
+            //---------- * Rebinding Related Products Dropdown * ------------//
+
+            $(".ddlrelateproducts").select2('data', null);
+
+            $(".ddlrelateproducts").select2({
+                placeholder: "Choose Related Products",
+                allowClear: true,
+                data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
+            });
+
+
             $("#hdfproductID").val(result.ProductID);
             $('#rowfluidDiv').show();
             $('.alert-success strong').text(Messages.InsertionSuccessFull);

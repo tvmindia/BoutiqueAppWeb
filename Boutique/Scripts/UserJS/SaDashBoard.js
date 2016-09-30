@@ -499,6 +499,10 @@ function AddBoutiques()
         $('.alert-success').show();
         $('.alert-success strong').text(Messages.InsertionSuccessFull);
 
+//---------- * Rebinding Boutique Dropdown * ------------//
+
+        $(".ddlboutiques").select2('data', null);
+
         $(".ddlboutiques").select2({
             data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
         , allowClear: true
