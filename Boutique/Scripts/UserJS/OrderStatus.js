@@ -825,7 +825,7 @@ function FillOrderTable(Records) {
     $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
     $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
-        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td><a class="btn btn-info OrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
+        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td><a class="btn btn-info OrderEdit" href="#" title="Edit Order"><i class="halflings-icon white edit"></i></a></td></tr>';
         $("#OrdersTable").append(html);
     });
 }
@@ -834,7 +834,7 @@ function FillClosedOrderTable(Records) {
     $("#ClosedOrdersTable").width("100%");
     $("tbody#ClosedOrderRows tr").remove();            //Remove all existing rows for refreshing  
     $.each(Records, function (index, Records) {
-        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td><a class="btn btn-info ClosedOrderEdit" href="#"><i class="halflings-icon white edit"></i></a></td></tr>';
+        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : "-") + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : "-") + '</td><td ><a class="btn btn-info ClosedOrderEdit" href="#" title="View Order"><i class="halflings-icon white edit"></i></a></td></tr>';
         $("#ClosedOrdersTable").append(html);
     });
 }
