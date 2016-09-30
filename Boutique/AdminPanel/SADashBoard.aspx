@@ -266,7 +266,7 @@
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Started Year</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtStartYear" name="Start Year" type="text"/>
+								  <input class="input-large focused" id="txtStartYear" name="Start Year" type="text" onkeypress="return isNumber(event)"/>
 								</div>
 								</div>
 
