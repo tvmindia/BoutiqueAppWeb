@@ -422,16 +422,29 @@ $("document").ready(function (e) {
             var audiencedivholder = $('#AudiencePreviewDisplay');
             audiencedivholder.empty();
             var totalemails = [];
-            var jsonResult = {};
+            var jsonResult = [];
+            var objEmail = [];
             var email = {};
 
             jsonResult = GetEmailsForPopup(editedrow.attr("boutiqueid"), editedrow.attr("newsletterid"));
+            debugger;
             if (jsonResult != undefined) {
                 var len = jsonResult.length;
+                
                 var i = 0;
                 while (i != len) {
 
                     email = jsonResult[i].AudienceMailID + "<br>";
+                    if (len == "1") {
+                        var index = 0;
+                        var j = jsonResult[0].AudienceMailID.split(',').length;
+                        while(index!=j)
+                        {
+                            objEmail = objEmail+email.split(',')[index] + "<br>";
+                            index = index + 1;
+                        }
+                        email = objEmail;
+                    }
                     if (email == "undefined<br>") {
                         email = jsonResult[i].Email + "<br>";
                     }
