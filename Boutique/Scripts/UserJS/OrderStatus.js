@@ -852,7 +852,7 @@ function DeleteItem(e, p) {
 
     if (Order.OrderID != "") {
 
-    
+        Order.OrderID = $("#hdfOrderID").val();
     result = DeleteOrderItem(Order);
     if (result == "1") {
 

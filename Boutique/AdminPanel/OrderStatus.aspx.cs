@@ -296,6 +296,10 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
             Dictionary<string, object> childRow;
+
+            if (ds != null)
+	{
+		 
             if (ds.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow row in ds.Tables[0].Rows)
@@ -308,6 +312,7 @@ namespace Boutique.AdminPanel
                     parentRow.Add(childRow);
                 }
             }
+        }
             jsonResult = jsSerializer.Serialize(parentRow);
 
             return jsonResult; //Converting to Json
