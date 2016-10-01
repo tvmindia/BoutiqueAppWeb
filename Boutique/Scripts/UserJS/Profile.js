@@ -1225,10 +1225,18 @@ function AddOwner()
 
         Owners.Profile = $("#txtProfile").val();
 
-         $("input[type='radio']:checked").each(function () {
+        if ($('#radioMale').is(':checked'))
+        {
+            Owners.Gender = "Male"
+        }
+        else {
+            Owners.Gender = "Female"
+        }
+
+         //$("input[type='radio']:checked").each(function () {
        
-             Owners.Gender = $(this).val(); //Bind Gender radio button
-            });
+         //    Owners.Gender = $(this).val(); //Bind Gender radio button
+         //   });
 
 
         result = InsertOwner(Owners);
