@@ -41,7 +41,10 @@ $("document").ready(function (e) {
     })
     $(".categoryedit").live(
     {
-        click: function (e) {          
+        click: function (e) {
+
+            RemoveStyle();
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();        
@@ -104,6 +107,12 @@ $("document").ready(function (e) {
 
 });
 //end of document.ready
+
+
+function RemoveStyle() {
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1').slideUp(1000);
+}
 
 function DeleteItem(e,p)
 {
