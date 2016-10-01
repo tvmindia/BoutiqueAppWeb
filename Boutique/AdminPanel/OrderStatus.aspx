@@ -30,10 +30,10 @@
                 <a href="DashBoard.aspx">Home</a>
                 <i class="icon-angle-right"></i>
             </li>
-            <li><a href="#">Order Status</a></li>
+            <li><a href="#">Manage Orders</a></li>
         </ul>
 
-        <div class="row-fluid"><span class="headerStyle">Order Status</span></div>
+        <div class="row-fluid"><span class="headerStyle">Manage Orders</span></div>
         <div class="row-fluid" style="height: 3px;"></div>
 
         <%--Alert boxes --%>
