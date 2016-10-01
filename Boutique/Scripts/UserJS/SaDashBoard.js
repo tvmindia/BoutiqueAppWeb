@@ -315,6 +315,7 @@ function clearControls() {
     $(".AddBoutique").text("Save");
     $("#editLabel").text("New Boutique");
     $('#rowfluidDiv').hide();
+    $(".ddlCurrency").val("").trigger("change");
 }
 
 function ClearAdminControls()
@@ -513,6 +514,9 @@ function AddBoutiques()
         , allowClear: true
         , placeholder: "Select a Boutique"
         });
+
+        $(".ddlCurrency").val("").trigger("change");
+       
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
