@@ -264,7 +264,7 @@ function BindBoutiqueTable(Records) {
 
     $.each(Records, function (index, Records) {
     
-        var html = '<tr class="Boutiquerows" boutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.AppVersion + '</td><td class="center">' + Records.Location + '</td><td class="center">' + Records.Phone + '</td><td class="center">' + Records.Timing + '</td><td class="center">' + Records.WorkingDays + '</td></td><td class="center"><a class="btn btn-info Edit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr class="Boutiquerows" boutiqueID="' + Records.BoutiqueID + '"><td>' + Records.Name + '</td><td class="center">' + Records.AppVersion + '</td><td class="center">' + Records.Location + '</td><td class="center">' + Records.Phone + '</td><td class="center">' + Records.Timing + '</td><td class="center">' + Records.WorkingDays + '</td></td><td class="center"><a class="btn btn-info Edit" href="#" title="Edit Botique"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger Delete" href="#" title="Delete Botique"><i class="halflings-icon white trash"></i></a></td></tr>';
         $("#boutiqueTable").append(html);
     })
    
