@@ -329,7 +329,9 @@ function ClearAdminControls()
 
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
-    $('.alert-error').hide(); 
+    $('.alert-error').hide();
+
+    $(".ddlboutiques").val("").trigger("change");
 }
 
 function BindTiles()
