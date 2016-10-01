@@ -914,6 +914,15 @@ function BindOwnerTextBoxes(Records) {
             $("#txtProfile").val(Records.Profile);
             $("#hdfOwnerID").val(Records.OwnerID);
             $("#hdfUserID").val(Records.UserID);
+
+            if (Records.Gender == "Male") {
+                $("#radioMale").attr('checked', true);
+            }
+            else {
+                $("#radioFemale").attr('checked', true);
+            }
+
+
         })
         $(".AddOwner").text("Save");
         $("#editLabel").text("Edit Owner");
@@ -945,6 +954,7 @@ function clearOwnerControls() {
     $("#hdfOwnerID").val('');
     $(".AddOwner").text("Save");
     $("#editLabel").text("New Owner");
+    $("#radioMale").attr('checked', true);
 } 
 
 function BindOwnerTable(Records) {
@@ -1214,6 +1224,11 @@ function AddOwner()
         Owners.Gender = "Male";
 
         Owners.Profile = $("#txtProfile").val();
+
+         $("input[type='radio']:checked").each(function () {
+       
+             Owners.Gender = $(this).val(); //Bind Gender radio button
+            });
 
 
         result = InsertOwner(Owners);
