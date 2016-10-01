@@ -273,7 +273,9 @@ function BindBoutiqueTable(Records) {
 function BindBoutiqueTextBoxes(Records)
 {
     $.each(Records, function(index, Records)
-    {      
+    {
+        debugger;
+
         $("#txtAppVersion").val(Records.AppVersion);
         $("#txtBouquetName").val(Records.Name);
         $("#txtStartYear").val(Records.StartedYear);
@@ -287,6 +289,9 @@ function BindBoutiqueTextBoxes(Records)
         $("#txtFacebooklink").val(Records.FBLink);
         $("#txtInstatgramlink").val(Records.InstagramLink);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
+
+        $(".ddlCurrency").val(Records.CurrencyCode).trigger("change");
+
        })
     $(".AddBoutique").text("Save");
     $("#editLabel").text("Edit Boutique");
