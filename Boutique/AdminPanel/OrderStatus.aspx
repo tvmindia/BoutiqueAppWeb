@@ -474,7 +474,7 @@
 
                                     <footer class="InnerFooter">
                                         <a class="btn btn-primary submitDetails" href="#" style="display: none">Save</></a>
-                                        <a class="btn ClosedOrderCancel">Cancel</a>
+                                        <a class="btn ClosedOrderCancel">Clear</a>
                                     </footer>
 
                                 </div>
