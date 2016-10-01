@@ -21,7 +21,9 @@
 
     $(".edit").live({
         click: function (e) {
-          
+            RemoveStyle();
+
+
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -40,7 +42,8 @@
                }, 500);
                return false;
                
-           }
+        }
+        
        })
 
     $(".Delete").live({    
