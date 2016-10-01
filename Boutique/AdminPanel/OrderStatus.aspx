@@ -298,7 +298,7 @@
 
                                     <footer class="InnerFooter">
                                         <a class="btn btn-primary submitDetails" onclick="return OrderStatusValidation()" href="#">Save</></a>
-                                        <a class="btn Cancel">Cancel</a>
+                                        <a class="btn Cancel">Clear</a>
                                     </footer>
 
                                 </div>
