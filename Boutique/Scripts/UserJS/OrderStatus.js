@@ -1395,6 +1395,28 @@ function FillOrderItemsTable(Records) {
         var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td>' + Count + '</td><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td>' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
         $("#OrderItemTable").append(html);
+
+
+        //--------- temporary Code
+
+        var Order = new Object();
+        productID = Records.ProductID;
+        Order.ProductID = productID;
+        
+        if (productID != "") {
+          
+            var imgID = GetProductImage(Order);
+
+            if (imgID != "") {
+                var prdctImg = document.getElementById('ImgProduct');
+                prdctImg.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + imgID;
+            }
+            else {
+                var prdctImg = document.getElementById('ImgProduct');
+                prdctImg.src = "../img/No-Img_Chosen.png";
+
+            }
+        }
     });
 
 
