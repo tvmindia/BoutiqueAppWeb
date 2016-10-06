@@ -257,7 +257,7 @@
                                     <div class="span11" style="background-color: #e8eaef; border: 1px solid; border-color: #5bc0de;">
 
                                         <br />
-                                        <div class="form-horizontal">
+                                        <%--<div class="form-horizontal">--%>
                                             <div class="span5">
 
                                                 <div class="control-group">
@@ -281,7 +281,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <%--</div>--%>
                                     </div>
 
                                     <%--order details HEADING--%>

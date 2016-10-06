@@ -620,6 +620,21 @@ $("document").ready(function (e) {
                         }
                     }
 
+                    if (Order.OrderReadyDate != null && Order.OrderReadyDate != "") {
+
+                    
+                    var descrptn = OrderStatusNotification.OrderReady;
+                    var replacedDescrptn = descrptn.replace("$", result.OrderNo);
+
+                    Notification.Description = replacedDescrptn;
+                    //MailSending.OrderNo = result.OrderNo;
+                    //MailSending.msg = replacedDescrptn;
+                    //SendMail(MailSending);
+
+                    resultOfNotification = InsertNotification(Notification);
+
+                    }
+
                 }
 
                 ClearCurrentOrderControls();
