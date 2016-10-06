@@ -341,7 +341,7 @@ $("document").ready(function (e) {
 
                         MailSending.OrderNo = result.OrderNo;
                         MailSending.msg = replacedDescrptn;
-                        SendMail(MailSending);
+                      //  SendMail(MailSending);
 
                         Notification.OrderID = result.OrderID;
                         Notification.Description = replacedDescrptn;
@@ -397,7 +397,7 @@ $("document").ready(function (e) {
 
                             MailSending.OrderNo = result.OrderNo;
                             MailSending.msg = replacedDescrptn;
-                            SendMail(MailSending);
+                          //  SendMail(MailSending);
 
                             Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
@@ -515,17 +515,10 @@ $("document").ready(function (e) {
                             var descrptn = OrderStatusNotification.OrderUpdateWithProducts;
                             var replacedDescrptn = descrptn.replace("$", NoOfNewProducts);
                             replacedDescrptn = replacedDescrptn.replace("#", result.OrderNo);
-
-                            MailSending.OrderNo = result.OrderNo;
-                            MailSending.msg = replacedDescrptn;
-                            SendMail(MailSending);
-
                             Notification.Description = replacedDescrptn;
                             resultOfNotification = InsertNotification(Notification);
 
                             BindOrderItemsList(Order);
-
-                            ClearCurrentOrderControls();
 
                             $('#rowfluidDiv').show();
                             $('.alert-success').show();
@@ -552,6 +545,14 @@ $("document").ready(function (e) {
                                 "aaSorting": [[0, 'desc']],
                                 "fnPageChange": "next"
                             });
+
+
+                            MailSending.OrderNo = result.OrderNo;
+                            MailSending.msg = replacedDescrptn;
+                          //  SendMail(MailSending);
+
+                            ClearCurrentOrderControls();
+
                         }
 
 
@@ -1008,13 +1009,26 @@ function DeleteItem(e, p) {
         editedrow.remove();
 
         var rowCount = $("#OrderItemTable > tbody > tr").length;
-
+      
 
         //if (rowCount == 0) {
         //    $('#OrderItemTable').hide();
         //}
 
     }
+
+
+   // var Order = new Object();
+   //Order.ProductID = e;
+   // var ProductDeatils = {};
+   // ProductDeatils = GetProductDetails(Product);
+
+   // $.each(ProductDeatils, function (index, ProductDeatils) {
+
+   //     TotalPrice = parseInt(TotalPrice - ProductDeatils.Price )
+   //     $('#lblTotalAmount').text(TotalPrice);
+   // });
+
 
 
     if (result != "1" && result != "-1") {
