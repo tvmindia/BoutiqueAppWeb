@@ -4,9 +4,29 @@ var ProductPrice = 0;
 var TotalPrice = 0;
 var slNo = 0;
 var unit = '';
+var ExistingCustomer = true;
+
 
 $("document").ready(function (e) {
     debugger;
+
+    $("#rdoNo").click(function () {
+        debugger;
+
+        //--- Hide dropdown and show textbox---//
+        $("#txtCustomerName").show();
+        $("#Customer").css("display", "none");
+        ExistingCustomer = false;
+    });
+
+    $("#rdoYes").click(function () {
+        debugger;
+
+        //--- Hide textbox and show dropdown---//
+        $("#txtCustomerName").hide();
+        $("#Customer").show();
+        ExistingCustomer = true;
+    });
 
     var rowCount = $("#OrderItemTable > tbody > tr").length;
 
@@ -87,10 +107,7 @@ $("document").ready(function (e) {
                      $('#lblCustomer').text( CustmerName);
                  }
              }
-             var OrderDate = GetFormatedDate();
-             $('#lblOrderDate').text( OrderDate);
-
-             $('#lblNoOfProducts').text( ($('#OrderItemTable tbody tr').length));
+            
          })
 
 
@@ -104,6 +121,10 @@ $("document").ready(function (e) {
 
                      $('#lblBranch').text( data[0].text);
                  }
+                 else {
+                     $('#lblBranch').text("-");
+                 }
+
              }
 
              var Min = $("#txtRequestedDeliveryTimeMin").val();
@@ -115,7 +136,13 @@ $("document").ready(function (e) {
              var Time = $("#txtRequestedDeliveryTime").val() + "." + Min + $("#ddlMerdian").val()
              $('#lblReqDeliveryDate').text( $('#txtPlannedDeliveryDate').val() + "," + Time);
 
-             $('#lblStatus').text( $('#ddlStatus').select2('data')[0].text);
+             $('#lblStatus').text($('#ddlStatus').select2('data')[0].text);
+
+             var OrderDate = GetFormatedDate();
+             $('#lblOrderDate').text(OrderDate);
+
+             $('#lblNoOfProducts').text(($('#OrderItemTable tbody tr').length));
+             $('#lblTotalAmount').text(TotalPrice);
          })
 
 
@@ -123,9 +150,15 @@ $("document").ready(function (e) {
          .on("change", function (e) {
              debugger;
              var data = $(this).select2('data');
+
              if (data != null) {
-                 if (data[0].text != "") {
+                 if (data[0].text != "")
+                 {
                      $('#lblStatus').text( data[0].text);
+                 }
+
+                 else {
+                     $('#lblStatus').text("-");
                  }
              }
 
@@ -268,30 +301,43 @@ $("document").ready(function (e) {
             var Notification = new Object();
 
             if ($(".Users").val() != "") {
-                Order.UserID = $(".Users").val();
+
+                    Order.UserID = $(".Users").val();
+                
+                //else {
+                //    $("#txtCustomerName").val();
+                //}
+
+
                 var Users = new Object();
-                Users.UserID = $(".Users").val();
-                var userDeatils = {};
-                userDeatils = GetUserDetailsByUserID(Order);
 
-                $.each(userDeatils, function (index, userDeatils) {
+                    Users.UserID = $(".Users").val();
 
-                    MailSending.EmailID = userDeatils.Email;
-                    MailSending.UsrName = userDeatils.Name;
-                    MailSending.Mobile = userDeatils.Mobile;
 
-                });
+                    var userDeatils = {};
+                    userDeatils = GetUserDetailsByUserID(Order);
 
-                Notification.Title = $("#txtOrderRemarks").val();
-                if ($("#hdfOrderID").val() == "") {
-                    Notification.StartDate = new Date();
-                }
-                else {
-                    Notification.StartDate = $("#dateOrderDate").text();
-                }
-                Notification.UserID = $(".Users").val();
+                    $.each(userDeatils, function (index, userDeatils) {
+
+                        MailSending.EmailID = userDeatils.Email;
+                        MailSending.UsrName = userDeatils.Name;
+                        MailSending.Mobile = userDeatils.Mobile;
+
+                    });
+                
+                    Notification.UserID = $(".Users").val();
 
             }
+
+
+            Notification.Title = $("#txtOrderRemarks").val();
+            if ($("#hdfOrderID").val() == "") {
+                Notification.StartDate = new Date();
+            }
+            else {
+                Notification.StartDate = $("#dateOrderDate").text();
+            }
+
             Order.OrderDescription = $("#txtOrderRemarks").val();
 
             if ($("#hdfOrderID").val() == "") {
@@ -308,6 +354,16 @@ $("document").ready(function (e) {
             }
             if ($("#ddlStatus").val() != "") {
                 Order.StatusCode = $("#ddlStatus").val();
+
+                if (Order.StatusCode == "2") // Order Ready
+                {
+                    Order.OrderReadyDate = GetFormatedDate();
+                }
+                if (Order.StatusCode == "3") //Order Delivered
+                {
+                    Order.ActualDeliveryDate = GetFormatedDate();
+                }
+
             }
 
             if ($("#txtRequestedDeliveryTime").val() != "") {
@@ -326,6 +382,12 @@ $("document").ready(function (e) {
             Order.TotalOrderAmount = TotalPrice;
 
             MailSending.TotalPrice = Order.TotalOrderAmount;
+
+            if (ExistingCustomer == false) {
+                Order.CustomerName = $("#txtCustomerName").val();
+            }
+
+
             result = InsertOrUpdateOrder(Order);
             debugger;
             if (result.OrderID != "") {
@@ -382,6 +444,10 @@ $("document").ready(function (e) {
                             Order.Quantity = $("#txtQuantity").val();
                             Order.Unit = $("#txtunit").val();
                             Order.OrderID = result.OrderID;
+                            Order.Quantity = $(this).find('td').eq(2).text();
+                            if (unit != "") {
+                                Order.Unit = unit;
+                            }
                             productNames = productNames + "|" + productname + "$" + remarks;
                             resultItem = InsertOrderItem(Order);
 
@@ -546,55 +612,46 @@ $("document").ready(function (e) {
                                 "fnPageChange": "next"
                             });
 
-
                             MailSending.OrderNo = result.OrderNo;
                             MailSending.msg = replacedDescrptn;
                           //  SendMail(MailSending);
 
                             ClearCurrentOrderControls();
-
                         }
-
-
                     }
-
-                    else {
-                        $("#OrdersTable").dataTable().fnClearTable();
-                        $("#OrdersTable").dataTable().fnDestroy();
-
-                        BindOrdersTable(); //To bind table with new or modified entry
-
-                        $('#OrdersTable').DataTable({
-                            "bPaginate": true,
-                            "iDisplayLength": 6,
-                            "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
-                            "aaSorting": [[0, 'desc']],
-                            "fnPageChange": "next"
-                        });
-
-
-                        $('#rowfluidDiv').show();
-                        $('.alert-success').show();
-                        $('.alert-success strong').text(Messages.InsertionSuccessFull);
-
-                        //Scroll page
-                        var offset = $('#rowfluidDiv').offset();
-                        offset.left -= 20;
-                        offset.top -= 20;
-                        $('html, body').animate({
-                            scrollTop: offset.top,
-                            scrollLeft: offset.left
-                        });
-
-
-                    }
-
 
                 }
+
+                ClearCurrentOrderControls();
+
+                $("#OrdersTable").dataTable().fnClearTable();
+                $("#OrdersTable").dataTable().fnDestroy();
+
+                BindOrdersTable(); //To bind table with new or modified entry
+
+                $('#OrdersTable').DataTable({
+                    "bPaginate": true,
+                    "iDisplayLength": 6,
+                    "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                    "aaSorting": [[0, 'desc']],
+                    "fnPageChange": "next"
+                });
+
+
+                $('#rowfluidDiv').show();
+                $('.alert-success').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+
+                //Scroll page
+                var offset = $('#rowfluidDiv').offset();
+                offset.left -= 20;
+                offset.top -= 20;
+                $('html, body').animate({
+                    scrollTop: offset.top,
+                    scrollLeft: offset.left
+                });
+ 
             }
-
-
-
 
             ////------------------------------------------------------------------------------------------------------------
 
@@ -760,6 +817,21 @@ function FillActualDeliveryDateSummary() {
     $('#lblAddress').text( $('#lblActualDeliveryDate').val());
 }
 
+
+function FillMobileNoSummary() {
+    $('#lblMobileNo').text($('#txtMobileNo').val());
+}
+
+function FillCustomerNameSummary()
+{
+    if (ExistingCustomer == false) {
+        $('#lblCustomer').text($('#txtCustomerName').val());
+    }
+   
+  
+}
+
+
 function GetFormatedDate() {
     var today = new Date();
     var dd = today.getDate();
@@ -790,8 +862,14 @@ function ClearCustomerDetails() {
     $("#editLabel").text("New Order");
     $("#dateOrderDate").hide();
     $("#txtPlannedDeliveryDate").show();
+    if (ExistingCustomer) {
+        $(".Users").select2("val", "");
+    }
 
-    $(".Users").select2("val", "");
+    else {
+        $("#txtCustomerName").val("");
+    }
+
     $("#txtMobileNo").val("");
     $("#txtPlannedDeliveryDate").val("");
     $("#txtRequestedDeliveryTime").val("");
@@ -835,6 +913,7 @@ function ClearOrderSummary() {
 }
 
 function ClearCurrentOrderControls() {
+    ExistingCustomer = true;
     ClearCustomerDetails();
     ClearOrderDescription();
     ClearOrderSummary();
@@ -873,8 +952,13 @@ function ClearControls() {
     //---order item
 
     $("#OrdersTable > tbody").empty();
-    $(".Users").select2("val", "");
+    if (ExistingCustomer) {
+        $(".Users").select2("val", "");
+    }
 
+    else {
+        $("#txtCustomerName").val("");
+    }
 }
 
 function ClearControlsOfClosedOrder() {
@@ -1058,8 +1142,9 @@ function AddToList() {
     //}
 
     var Quantity = $("#txtQuantity").val();
+    //<td id="Prdct' + slNo + '"></td>
 
-    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + slNo + '</td><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (Quantity != null ? Quantity : "-") + '</td><td id="Prdct' + slNo + '"></td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + slNo + '</td><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (Quantity != null ? Quantity : "-") + '</td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
     $("#OrderItemTable").append(html);
 
     $('#lblNoOfProducts').text(slNo);
@@ -1138,11 +1223,17 @@ function BindControlsWithOrderDetails(Records) {
         $("#txtPlannedDeliveryDate").hide();
         //------END
         $("#lblOrderNo").text(Records.OrderNo);
-        $(".Users").val(Records.UserID).trigger("change");
+        if (ExistingCustomer)
+        {
+            $(".Users").val(Records.UserID).trigger("change");
+        }
+        else {
+            $("#txtCustomerName").val("");
+        }
         $("#txtMobileNo").val(Records.Mobile);
 
-        $("#txtDeliveryAddress").text(Records.DeliveryAddress);
-        $("#txtOrderRemarks").text(Records.OrderDescription);
+        $("#txtDeliveryAddress").val(Records.DeliveryAddress);
+        $("#txtOrderRemarks").val(Records.OrderDescription);
         $("#ddlBranch").val(Records.BranchID).trigger("change");
         $("#ddlStatus").val(Records.StatusCode).trigger("change");
         $("#txtDescription").val(Records.OrderDescription);
@@ -1164,6 +1255,18 @@ function BindControlsWithOrderDetails(Records) {
         }
 
 
+        var Min = $("#txtRequestedDeliveryTimeMin").val();
+
+        if (Min == "") {
+            Min = "00";
+        }
+        if ($("#txtRequestedDeliveryTime").val() != "")
+        {
+            var Time = $("#txtRequestedDeliveryTime").val() + "." + Min + $("#ddlMerdian").val();
+            $('#lblReqDeliveryDate').text(ConvertJsonToDate(Records.PlannedDeliveryDate) + "," + Time);
+
+        }
+       
         //$("#lblActualDeliveryDate").text(ConvertJsonToDate(Records.ActualDeliveryDate));
         // $("#lblBranch").text(Records.Name);
         // $("#lblStatus").text(Records.Name);
@@ -1259,8 +1362,9 @@ function FillOrderItemsTable(Records) {
         var Count = index + 1;
         //var html = '<tr ProductID="' + (Records.productID != null ? Records.productID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td >' + Count + '</td><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td >' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td id="Prdct' + Count + '"></td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
         //$("#OrderItemTable").append(html);
+        //<td id="Prdct' + Count + '"></td>
 
-        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td>' + Count + '</td><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td>' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td id="Prdct' + Count + '"></td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td>' + Count + '</td><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td>' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
         $("#OrderItemTable").append(html);
     });

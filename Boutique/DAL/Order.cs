@@ -73,6 +73,13 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public string CustomerName
+        {
+            get;
+            set;
+
+        }
         public string ForecastDeliveryDate
         {
             get;
@@ -637,6 +644,10 @@ namespace Boutique.DAL
 
                 cmd.Parameters.Add("@StatusCode", SqlDbType.Int).Value = Convert.ToInt32(StatusCode);
 
+                if (CustomerName != null)
+                {
+                    cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 255).Value = CustomerName;
+                } 
 
                 cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
@@ -733,8 +744,11 @@ namespace Boutique.DAL
                 {
                     cmd.Parameters.Add("@PlannedDeliveryTime", SqlDbType.NVarChar, 30).Value = PlannedDeliveryTime;
                 }
-                
 
+                if (CustomerName!= null)
+	              {
+                      cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 255).Value = CustomerName;
+	              } 
                 //cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value = ActualDeliveryDate;
                 //cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value = OrderReadyDate;
 

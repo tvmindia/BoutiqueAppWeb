@@ -1,4 +1,23 @@
 ﻿
+/*Make search and sort of gridview same line*/
+ .dataTables_wrapper .dataTables_length {
+            float: right;
+            text-align: right;
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            float: left;
+        }
+
+
+
+
+        #ddlGridStatus {
+            font-size: 16px !important;
+        }
+
+
+
 .control-label
 {
   color:black;

@@ -9,20 +9,6 @@
     <link href="../CSS/CustomCSS/OrderStatus.css" rel="stylesheet" />
     <link href="../CSS/Common.css" rel="stylesheet" />
     <link href="../CSS/select2.min.css" rel="stylesheet" />
-    <style>
-        .dataTables_wrapper .dataTables_length {
-            float: right;
-            text-align: right;
-        }
-
-        .dataTables_wrapper .dataTables_filter {
-            float: left;
-        }
-
-        #ddlGridStatus {
-            font-size: 16px !important;
-        }
-    </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -86,13 +72,13 @@
                                         </div>
                                         <div class="span3">
 
-                                              <a class="btn btn-primary New" href="#" style="width:15%">New</></a>
+                                            <a class="btn btn-primary New" href="OrderStatus.aspx" style="width: 15%">New</></a>
 
-                                            <select class="Status" id="ddlGridStatus" style="max-width: 50%!important;width:59%!important">
+                                            <select class="Status" id="ddlGridStatus" style="max-width: 50%!important; width: 59%!important">
                                                 <option></option>
                                             </select>
 
-                                          
+
 
                                         </div>
                                     </div>
@@ -161,13 +147,41 @@
                                                 </div>
                                             </div>
 
+
+
+                                            <div class="control-group">
+                                                <label class="control-label" >Existig Customer?</label>
+                                                <div class="controls">
+                                                    <div id="isActiverdbtn">
+                                                        <label class="radio">
+                                                            <input type="radio" name="ExistingCustomer" id="rdoYes" value="true" checked="" />
+                                                            Yes
+                                                        </label>
+
+                                                        <label class="radio">
+                                                            <input type="radio" name="ExistingCustomer" id="rdoNo" value="false" />
+                                                            No
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+
+
+
                                             <%--Customer--%>
                                             <div class="control-group">
                                                 <label class="control-label" for="Users">Customer</label>
                                                 <div class="controls">
-                                                    <select class="Users" style="max-width: 50%!important;width:40%!important">
+                                                    <div id="Customer">
+                                                    <select class="Users" id="ddlCustomer" style="max-width: 50%!important; width: 40%!important;">
                                                         <option></option>
                                                     </select>
+                                                        </div>
+
+
+                                                     <input type="text" id="txtCustomerName" onblur="FillCustomerNameSummary()" value="" style="max-width: 100%;display:none" />
                                                 </div>
                                             </div>
 
@@ -176,7 +190,7 @@
 
                                                 <label class="control-label" for="focusedInput">Mobile No</label>
                                                 <div class="controls">
-                                                    <input type="text" id="txtMobileNo" value="" style="max-width: 100%" />
+                                                    <input type="text" id="txtMobileNo" onblur="FillMobileNoSummary();" value="" style="max-width: 100%" />
 
                                                 </div>
                                             </div>
@@ -186,9 +200,9 @@
 
                                                 <label class="control-label" for="focusedInput">Requested Delivery Date</label>
                                                 <div class="controls">
-                                                    <input type="text"  style="cursor: default; background-color: white;max-width: 100%" class="input-large datepicker" id="txtPlannedDeliveryDate" value="" />
+                                                    <input type="text" style="cursor: default; background-color: white; max-width: 100%" class="input-large datepicker" id="txtPlannedDeliveryDate" value="" />
 
-                                                    <label id="dateOrderDate" class="control-label" style="font-size: 16px!important;display:none" />
+                                                    <label id="dateOrderDate" class="control-label" style="font-size: 16px!important; display: none" />
 
                                                 </div>
                                             </div>
@@ -198,9 +212,9 @@
 
                                                 <label class="control-label" for="focusedInput">Requested Delivery Time</label>
                                                 <div class="controls">
-                                                    <input type="number" placeholder="Hr" min="1" max="12" id="txtRequestedDeliveryTime" value="" style="max-width: 100%;width:10%" />
-                                                     <input type="number" placeholder="Min" min="0"   max="59" id="txtRequestedDeliveryTimeMin"  style="max-width: 100%;width:10%" onblur="CorrectTimeMinFormat()" />
-                                                     <select id="ddlMerdian" style="width:13%">
+                                                    <input type="number" placeholder="Hr" min="1" max="12" id="txtRequestedDeliveryTime" value="" style="max-width: 100%; width: 10%" />
+                                                    <input type="number" placeholder="Min" min="0" max="59" id="txtRequestedDeliveryTimeMin" style="max-width: 100%; width: 10%" onblur="CorrectTimeMinFormat()" />
+                                                    <select id="ddlMerdian" style="width: 13%">
                                                         <option value="AM">AM</option>
                                                         <option value="PM">PM</option>
                                                     </select>
@@ -249,7 +263,7 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="Branch"><b>Branch</b></label>
                                                     <div class="controls">
-                                                        <select id="ddlBranch" style="max-width: 100%!important;width:50%">
+                                                        <select id="ddlBranch" style="max-width: 100%!important; width: 50%">
                                                             <option></option>
                                                         </select>
                                                     </div>
@@ -257,11 +271,11 @@
                                             </div>
 
                                             <div class="span5">
-                                                
+
                                                 <div class="control-group">
                                                     <label class="control-label" for="Status"><b>Order Status</b></label>
                                                     <div class="controls">
-                                                        <select class="Status" id="ddlStatus" style="max-width: 100%!important;width:50%">
+                                                        <select class="Status" id="ddlStatus" style="max-width: 100%!important; width: 50%">
                                                             <option></option>
                                                         </select>
                                                     </div>
@@ -376,7 +390,7 @@
                                                         <th>Slno</th>
                                                         <th>Item</th>
                                                         <th>Quantity</th>
-                                                        <th>Image</th>
+                                                        <%--<th>Image</th>--%>
                                                         <th>Remarks</th>
                                                     </tr>
                                                 </thead>
@@ -399,92 +413,92 @@
 
                                     <div class="span12" style="padding-top: 20px">
 
-                                          <div class="form-horizontal">
+                                        <div class="form-horizontal">
 
-                                        <div class="span6">
+                                            <div class="span6">
 
-                                            <%--customer--%>
-                                            <div class="control-group">
+                                                <%--customer--%>
+                                                <div class="control-group">
 
-                                                <label class="control-label" for="focusedInput">Customer</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblCustomer" class="control-label" style="font-size: 16px!important;" />
+                                                    <label class="control-label" for="focusedInput">Customer</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblCustomer" class="control-label" style="font-size: 16px!important;" />
 
+                                                    </div>
                                                 </div>
+
+
+                                                <%--Address--%>
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Address</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblAddress" class="control-label" style="font-size: 16px!important;" />
+
+                                                    </div>
+                                                </div>
+
+                                                <%--Mob--%>
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Mobile No</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblMobileNo" class="control-label" style="font-size: 16px!important;" />
+
+                                                    </div>
+                                                </div>
+
+                                                <%--No Of Products--%>
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">No Of Products</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblNoOfProducts" class="control-label" style="font-size: 16px!important;" />
+
+                                                    </div>
+                                                </div>
+
+
+                                                <%--Total Order Amount--%>
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Total Order Amount</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblTotalAmount" class="control-label" style="font-size: 16px!important;" />
+
+                                                    </div>
+                                                </div>
+
                                             </div>
 
+                                            <div class="span5">
 
-                                            <%--Address--%>
-                                            <div class="control-group">
+                                                <%--Order Date--%>
 
-                                                <label class="control-label" for="focusedInput">Address</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblAddress" class="control-label" style="font-size: 16px!important;" />
-                                                    
+                                                <div class="control-group">
+
+                                                    <label class="control-label" for="focusedInput">Order date</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblOrderDate" class="control-label" style="font-size: 16px!important;" />
+
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <%--Mob--%>
-                                            <div class="control-group">
+                                                <%--Req Delivery Date--%>
 
-                                                <label class="control-label" for="focusedInput">Mobile No</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblMobileNo" class="control-label" style="font-size: 16px!important;" />
+                                                <div class="control-group">
 
+                                                    <label class="control-label" for="focusedInput">Requested Delivery Date</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblReqDeliveryDate" class="control-label" style="font-size: 16px!important;" />
+
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                            <%--No Of Products--%>
-                                            <div class="control-group">
-
-                                                <label class="control-label" for="focusedInput">No Of Products</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblNoOfProducts" class="control-label" style="font-size: 16px!important;" />
-
-                                                </div>
-                                            </div>
 
 
-                                            <%--Total Order Amount--%>
-                                            <div class="control-group">
+                                                <%--Actual Delivery Date--%>
 
-                                                <label class="control-label" for="focusedInput">Total Order Amount</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblTotalAmount" class="control-label" style="font-size: 16px!important;" />
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="span5">
-
-                                            <%--Order Date--%>
-
-                                            <div class="control-group">
-
-                                                <label class="control-label" for="focusedInput">Order date</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblOrderDate" class="control-label" style="font-size: 16px!important;" />
-
-                                                </div>
-                                            </div>
-
-                                            <%--Req Delivery Date--%>
-
-                                            <div class="control-group">
-
-                                                <label class="control-label" for="focusedInput">Requested Delivery Date</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblReqDeliveryDate" class="control-label" style="font-size: 16px!important;" />
-
-                                                </div>
-                                            </div>
-
-
-                                            <%--Actual Delivery Date--%>
-
-                                           <%-- <div class="control-group">
+                                                <%-- <div class="control-group">
 
                                                 <label class="control-label" for="focusedInput">Actual Delivery Date</label>
                                                 <div class="controls" style="padding-left: 10%; font-size: 20px!important">
@@ -493,31 +507,31 @@
                                                 </div>
                                             </div>--%>
 
-                                            <%--Branch--%>
-                                            <div class="control-group">
+                                                <%--Branch--%>
+                                                <div class="control-group">
 
-                                                <label class="control-label" for="focusedInput" style="font-size: 16px">Branch</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblBranch" class="control-label" style="font-size: 16px!important;" />
+                                                    <label class="control-label" for="focusedInput" style="font-size: 16px">Branch</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblBranch" class="control-label" style="font-size: 16px!important;" />
 
+                                                    </div>
                                                 </div>
-                                            </div>
 
 
-                                            <%--Status--%>
-                                            <div class="control-group">
+                                                <%--Status--%>
+                                                <div class="control-group">
 
-                                                <label class="control-label" for="focusedInput" style="font-size: 16px">Status</label>
-                                                <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                    <label id="lblStatus" class="control-label" style="font-size: 16px!important;" />
+                                                    <label class="control-label" for="focusedInput" style="font-size: 16px">Status</label>
+                                                    <div class="controls" style="padding-left: 10%; font-size: 20px!important">
+                                                        <label id="lblStatus" class="control-label" style="font-size: 16px!important;" />
 
+                                                    </div>
                                                 </div>
-                                            </div>
 
+
+                                            </div>
 
                                         </div>
-
-                                              </div>
 
                                     </div>
 
