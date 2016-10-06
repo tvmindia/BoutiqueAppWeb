@@ -159,3 +159,22 @@ label.control-label {
   opacity: 1;
   right: 0;
 }
+ img
+        {
+           
+            max-width:100%!important;
+        }
+
+        #HeadOrderDetails,#HeadOrderSummary
+        {
+            float: left;
+    margin-top: 0px;
+    padding-left: 10px;
+    font-weight: 300;
+    font-size: 20px;
+    color: #18392b;
+        }
+
+.Status{
+        border-radius: 10px;
+        }

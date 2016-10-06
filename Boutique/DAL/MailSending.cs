@@ -221,6 +221,8 @@ namespace Boutique.DAL
 
                 body = body.Replace("{UserName}", UsrName);
                 body = body.Replace("{OrderNo}", OrderNo);
+                OrderDate = DateTime.Now.ToString("dd-MMM-yyyy");
+
                 body = body.Replace("{OrderDate}", OrderDate);
                 body = body.Replace("{TotalPrice}", TotalPrice);
                 body = body.Replace("{Mobile}", Mobile);

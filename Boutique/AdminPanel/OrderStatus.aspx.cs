@@ -28,6 +28,82 @@ namespace Boutique.AdminPanel
     {
         #region Methods
 
+        #region Get All Status Code And Status
+        [System.Web.Services.WebMethod]
+        public static string GetAllStatusCodeandStatus(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+              //  usrObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+
+                ds = OrderObj.SelectAllOrderStatusCodeAndStatus();
+                //Converting to Json
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion Get All Status Code And Status
+
+        #region Get BranchId And Name
+        [System.Web.Services.WebMethod]
+        public static string GetBranchIdAndName(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                  OrderObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+
+                ds = OrderObj.GetBranchIdAndName();
+                //Converting to Json
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion Get BranchId And Name
+
         //---------* Order 
 
         #region Get All UserID and Name
@@ -424,6 +500,44 @@ namespace Boutique.AdminPanel
         }
         #endregion Get Product Image
 
+
+        #region Get Product Details By ProductID
+        
+        [System.Web.Services.WebMethod]
+        public static string GetProductDetailsByProductID(Product prdctObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            prdctObj.BoutiqueID = UA.BoutiqueID;
+
+            string jsonResult = null;
+            DataSet ds = null;
+            ds = prdctObj.GetProductDetailsByProductID();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult; //Converting to Json
+        }
+        #endregion Get Product Details By ProductID
+
         //--------END OrderItems
 
         //---------General Methods
@@ -455,7 +569,7 @@ namespace Boutique.AdminPanel
 
                
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 status = "500";//Exception of foreign key
             }
@@ -537,9 +651,6 @@ namespace Boutique.AdminPanel
         }
 
         #endregion Send Mail
-
-      
-
 
         #endregion Methods
 

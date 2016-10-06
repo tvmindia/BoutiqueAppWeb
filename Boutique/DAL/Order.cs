@@ -68,6 +68,11 @@ namespace Boutique.DAL
             set;
         }
 
+        public string PlannedDeliveryTime
+        {
+            get;
+            set;
+        }
         public string ForecastDeliveryDate
         {
             get;
@@ -115,7 +120,43 @@ namespace Boutique.DAL
             get;
             set;
         }
-       
+
+        public string DeliveryAddress
+        {
+            get;
+            set;
+        }
+
+        public String MobileNo
+        {
+            get; 
+            set; 
+        }
+        public string BranchID
+        {
+            get;
+            set;
+        }
+
+        public string StatusCode
+        {
+            get;
+            set;
+        }
+
+        public string Quantity
+        {
+            get;
+            set;
+        }
+
+        public string Unit
+        {
+            get;
+            set;
+        }
+
+
 //----- * Order Item properties *---------//
 
         public string CustomerRemarks
@@ -153,7 +194,130 @@ namespace Boutique.DAL
 
         #region Methods
 
-        //-- Closed Orders
+        #region Select All Order Status
+        /// <summary>
+        /// To select all orders
+        /// </summary>
+        /// <returns>Dataset</returns>
+        public DataSet GetBranchIdAndName()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            
+            try
+            {
+                 Guid _boutiqueid = Guid.Parse(BoutiqueID);
+                 if (_boutiqueid != Guid.Empty)
+                 {
+                     dcon = new dbConnection();
+                     dcon.GetDBConnection();
+                     cmd = new SqlCommand();
+                     cmd.Connection = dcon.SQLCon;
+                     cmd.CommandType = CommandType.StoredProcedure;
+                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
+                     cmd.CommandText = "[GetBranchIdAndName]";
+                     sda = new SqlDataAdapter();
+                     sda.SelectCommand = cmd;
+                     ds = new DataSet();
+
+                     sda.Fill(ds);
+                 }
+            }
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Order";
+                ETObj.Method = "GetBranchIdAndName";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion Select All Order Status
+
+        #region Select All Order Status
+        /// <summary>
+        /// To select all orders
+        /// </summary>
+        /// <returns>Dataset</returns>
+        public DataSet SelectAllOrderStatusCodeAndStatus()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+            ;
+            try
+            {
+                    dcon = new dbConnection();
+                    dcon.GetDBConnection();
+                    cmd = new SqlCommand();
+                    cmd.Connection = dcon.SQLCon;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                   
+                    cmd.CommandText = "[SelectAllOrderStatusCodeAndStatus]";
+                    sda = new SqlDataAdapter();
+                    sda.SelectCommand = cmd;
+                    ds = new DataSet();
+
+                    sda.Fill(ds);
+            
+            }
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Order";
+                ETObj.Method = "SelectAllOrderStatusCodeAndStatus";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion Select All Order Status
+
+        //----------* Closed Orders * ------------//
 
         #region Select All Closed Orders
         /// <summary>
@@ -459,6 +623,21 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value =  DateTime.Parse(ActualDeliveryDate);
                 }
 
+                if (PlannedDeliveryTime != null && PlannedDeliveryTime != string.Empty)
+                {
+                    cmd.Parameters.Add("@PlannedDeliveryTime", SqlDbType.NVarChar, 30).Value = PlannedDeliveryTime;
+                }
+                cmd.Parameters.Add("@DeliveryAddress", SqlDbType.NVarChar, -1).Value = DeliveryAddress;
+                cmd.Parameters.Add("@MobileNo", SqlDbType.NVarChar, 20).Value = MobileNo;
+
+                if (BranchID != null && BranchID != string.Empty)
+                {
+                    cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BranchID);
+                }
+
+                cmd.Parameters.Add("@StatusCode", SqlDbType.Int).Value = Convert.ToInt32(StatusCode);
+
+
                 cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -516,10 +695,10 @@ namespace Boutique.DAL
             {
                 throw new Exception("BoutiqueID is Empty!!");
             }
-            if (OrderDate == "")
-            {
-                throw new Exception("OrderDate is Empty!!");
-            }
+            //if (OrderDate == "")
+            //{
+            //    throw new Exception("OrderDate is Empty!!");
+            //}
           
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -536,15 +715,25 @@ namespace Boutique.DAL
                 cmd.CommandText = "[InsertOrder]";
 
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+
+                if (UserID!= null && UserID != string.Empty)
+                {
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID); 
+                }
+               
                 cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar, -1).Value = OrderDescription;
-                cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime).Value =  DateTime.Parse(OrderDate);
+                cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime).Value = DateTime.Now; //OrderDate
 
                 if (PlannedDeliveryDate != string.Empty && PlannedDeliveryDate != null )
                 {
                     cmd.Parameters.Add("@PlannedDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(PlannedDeliveryDate);
                     cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(PlannedDeliveryDate);
                 }
+                if (PlannedDeliveryTime != null && PlannedDeliveryTime != string.Empty)
+                {
+                    cmd.Parameters.Add("@PlannedDeliveryTime", SqlDbType.NVarChar, 30).Value = PlannedDeliveryTime;
+                }
+                
 
                 //cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value = ActualDeliveryDate;
                 //cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value = OrderReadyDate;
@@ -554,13 +743,22 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 //cmd.Parameters.Add("@OrderNo", SqlDbType.Int).Value = OrderNo;
 
+                cmd.Parameters.Add("@DeliveryAddress", SqlDbType.NVarChar, -1).Value = DeliveryAddress;
+                cmd.Parameters.Add("@MobileNo", SqlDbType.NVarChar, 20).Value = MobileNo;
+
+                if (BranchID != null && BranchID != string.Empty)
+                {
+                    cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BranchID); 
+                }
+
+                cmd.Parameters.Add("@StatusCode", SqlDbType.Int).Value = Convert.ToInt32(StatusCode);
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
 
                 ID = cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier);
                 ID.Direction = ParameterDirection.Output;
 
-                ordrNo = cmd.Parameters.Add("@OrderNo", SqlDbType.Int);
+                ordrNo = cmd.Parameters.Add("@OrderNo", SqlDbType.NVarChar,-1);
                 ordrNo.Direction = ParameterDirection.Output;
 
                 cmd.ExecuteNonQuery();
@@ -631,6 +829,16 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
                 cmd.Parameters.Add("@CustomerRemarks", SqlDbType.NVarChar, -1).Value = CustomerRemarks;
+                
+                if (Unit != null && Unit != string.Empty)
+                {
+                    cmd.Parameters.Add("@Unit", SqlDbType.NVarChar, 50).Value = Unit;  
+                }
+                if (Quantity != null && Quantity != string.Empty)
+                {
+                    cmd.Parameters.Add("@Quantity", SqlDbType.Int).Value = Convert.ToInt32(Quantity);
+                }  
+
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
