@@ -53,7 +53,7 @@
                 </div>
                 <div class="box-content">
                     <ul class="nav tab-menu nav-tabs" id="myTab">
-                        <li><a href="#Notifications">Notifications</a></li>
+                        <li><a href="#Notifications">Notify App users</a></li>
                         <li><a href="#PersonlizedNotification">Personalised Notifications</a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
