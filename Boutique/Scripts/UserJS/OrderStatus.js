@@ -170,7 +170,7 @@ $("document").ready(function (e) {
     $(".OrderEdit").live(
     {
         click: function (e) {
-
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -914,6 +914,12 @@ function ClearOrderSummary() {
 
 function ClearCurrentOrderControls() {
     ExistingCustomer = true;
+
+    $("#txtCustomerName").hide()
+    $("#Customer").show();
+    ExistingCustomer = true;
+    $("#rdoYes").prop("checked", true);
+
     ClearCustomerDetails();
     ClearOrderDescription();
     ClearOrderSummary();
@@ -1214,7 +1220,7 @@ function GetOrderDetailsByOrderID(Order) {
 
 function BindControlsWithOrderDetails(Records) {
     $.each(Records, function (index, Records) {
-
+        debugger;
         //---------Manage Control hide and show on edit click 
 
         $("#OrderNoDiv").show();
@@ -1223,12 +1229,19 @@ function BindControlsWithOrderDetails(Records) {
         $("#txtPlannedDeliveryDate").hide();
         //------END
         $("#lblOrderNo").text(Records.OrderNo);
-        if (ExistingCustomer)
+        if (Records.UserID != null)
         {
             $(".Users").val(Records.UserID).trigger("change");
+            $("#lblCustomer").text(Records.Name);
         }
         else {
-            $("#txtCustomerName").val("");
+            $("#txtCustomerName").show();
+            $("#Customer").css("display", "none");
+            ExistingCustomer = false;
+            $("#rdoNo").prop("checked", true);
+
+            $("#txtCustomerName").val(Records.CustomerName);
+            $("#lblCustomer").text(Records.CustomerName);
         }
         $("#txtMobileNo").val(Records.Mobile);
 
@@ -1239,7 +1252,7 @@ function BindControlsWithOrderDetails(Records) {
         $("#txtDescription").val(Records.OrderDescription);
         $("#txtTotalOrderAmount").val(Records.TotalOrderAmount);
 
-        $("#lblCustomer").text( Records.Name);
+        
         $("#lblMobileNo").text( Records.Mobile);
         $("#lblAddress").text( Records.DeliveryAddress);
         $("#lblTotalAmount").text( Records.TotalOrderAmount);

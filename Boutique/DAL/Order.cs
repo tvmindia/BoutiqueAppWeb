@@ -610,8 +610,13 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateOrderByOrderID]";
+
+                if (UserID != string.Empty && UserID != null)
+                {
+                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                }
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
-                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+              
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar,-1).Value = OrderDescription;
 
