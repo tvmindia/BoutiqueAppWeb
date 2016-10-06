@@ -422,7 +422,7 @@
 
                                                     <label class="control-label" for="focusedInput">Customer</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblCustomer" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblCustomer" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -433,7 +433,7 @@
 
                                                     <label class="control-label" for="focusedInput">Address</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblAddress" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblAddress" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -443,7 +443,7 @@
 
                                                     <label class="control-label" for="focusedInput">Mobile No</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblMobileNo" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblMobileNo" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -453,7 +453,7 @@
 
                                                     <label class="control-label" for="focusedInput">No Of Products</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblNoOfProducts" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblNoOfProducts" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -464,7 +464,7 @@
 
                                                     <label class="control-label" for="focusedInput">Total Order Amount</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblTotalAmount" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblTotalAmount" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -479,7 +479,7 @@
 
                                                     <label class="control-label" for="focusedInput">Order date</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblOrderDate" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblOrderDate" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -490,7 +490,7 @@
 
                                                     <label class="control-label" for="focusedInput">Requested Delivery Date</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblReqDeliveryDate" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblReqDeliveryDate" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -512,7 +512,7 @@
 
                                                     <label class="control-label" for="focusedInput" style="font-size: 16px">Branch</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblBranch" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblBranch" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
@@ -523,7 +523,7 @@
 
                                                     <label class="control-label" for="focusedInput" style="font-size: 16px">Status</label>
                                                     <div class="controls" style="padding-left: 10%; font-size: 20px!important">
-                                                        <label id="lblStatus" class="control-label" style="font-size: 16px!important;" />
+                                                        <label id="lblStatus" class="control-label" style="font-size: 16px!important; font-weight: bold;" />
 
                                                     </div>
                                                 </div>
