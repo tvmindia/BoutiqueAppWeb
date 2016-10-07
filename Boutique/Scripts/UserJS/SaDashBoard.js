@@ -874,8 +874,12 @@ function BindAsynAdminBranchDropdown()
  , allowClear: true
  , placeholder: "Select Branch"
         });
-       
+     
         //$('.ddlBranches option:selected').attr('disabled', 'disabled');
+        if($(".ddlBranches option:selected").text()!=null)
+        {
+            BindAdminHiddenFields();
+    }
     }
     else
     {
