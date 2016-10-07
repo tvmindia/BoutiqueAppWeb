@@ -189,6 +189,42 @@ $("document").ready(function (e) {
 
          })
 
+    
+
+    $('#ddlGridStatus').select2()
+         .on("change", function (e) {
+
+             var data = $(this).select2('data');
+
+             if (data != null) {
+                 if (data[0].id != "") {
+                    
+                     $("#OrdersTable").dataTable().fnClearTable();
+                     $("#OrdersTable").dataTable().fnDestroy();
+
+
+                     var jsonResult = {};
+                     var Order = new Object();
+                     Order.StatusCode = data[0].id;
+                     jsonResult = GetOrdersByStatus(Order);
+                     if (jsonResult != undefined) {
+                         FillOrderTable(jsonResult);
+
+                         $('#OrdersTable').DataTable({
+                             "bPaginate": true,
+                             "iDisplayLength": 6,
+                             "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+                             "aaSorting": [[0, 'desc']],
+                             "fnPageChange": "next"
+                         });
+                     }
+
+                 }
+
+             }
+
+         })
+
 
     $(".OrderEdit").live(
     {
@@ -1072,6 +1108,17 @@ function BindClosedOrdersTable() {
 
 //---* Get the datatable in form of JSON *--//
 
+
+function GetOrdersByStatus(Order) {
+    var ds = {};
+    var table = {};
+    var data = "{'OrderObj':" + JSON.stringify(Order) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetOrdersByStatus");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+
 function GetAllOrders(Order) {
     var ds = {};
     var table = {};
@@ -1098,7 +1145,7 @@ function FillOrderTable(Records) {
     $("tbody#OrderRows tr").remove();            //Remove all existing rows for refreshing
     $("#OrdersTable > tbody").empty();          //Remove all existing rows for refreshing
     $.each(Records, function (index, Records) {
-        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 30%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : (Records.CustomerName != null ? Records.CustomerName : "-")) + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : (Records.CustomerMobile != null ? Records.CustomerMobile : "-")) + '</td><td><a class="btn btn-info OrderEdit" href="#" title="Edit Order"><i class="halflings-icon white edit"></i></a></td></tr>';
+        var html = '<tr OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '" BoutiqueID="' + (Records.BoutiqueID != null ? Records.BoutiqueID : "-") + '"><td Style="width: 20%;">' + (Records.OrderNo != null ? Records.OrderNo : "-") + '</td><td Style="width: 25%;">' + (Records.OrderDescription != null ? Records.OrderDescription : "-") + '</td><td Style="width: 20%;">' + (Records.Name != null ? Records.Name : (Records.CustomerName != null ? Records.CustomerName : "-")) + '</td><td Style="width: 20%;">' + (Records.Mobile != null ? Records.Mobile : (Records.CustomerMobile != null ? Records.CustomerMobile : "-")) + '</td><td Style="width: 20%;">' + (Records.Status != null ? Records.Status : "-") + '</td><td><a class="btn btn-info OrderEdit" href="#" title="Edit Order"><i class="halflings-icon white edit"></i></a></td></tr>';
         $("#OrdersTable").append(html);
     });
 }

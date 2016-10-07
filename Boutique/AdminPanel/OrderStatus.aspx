@@ -98,6 +98,7 @@
                                                 <th>OrderDescription</th>
                                                 <th>Name</th>
                                                 <th>Contact Number</th>
+                                                <th>Order Status</th>
                                                 <th>Actions</th>
 
                                             </tr>

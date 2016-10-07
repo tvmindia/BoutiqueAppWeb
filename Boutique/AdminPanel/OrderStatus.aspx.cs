@@ -212,6 +212,52 @@ namespace Boutique.AdminPanel
 
         #endregion  Get All Orders
 
+        #region Get Order By Status Code
+        /// <summary>
+        /// To get all the order
+        /// </summary>
+        /// <param name="Boutiqueid"></param>
+        /// <returns></returns>
+        [System.Web.Services.WebMethod]
+        public static string GetOrdersByStatus(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            OrderObj.BoutiqueID = UA.BoutiqueID;
+
+            string jsonResult = null;
+            DataSet ds = null;
+
+            ds = OrderObj.SelectOrdersByStatus();
+
+            //Converting to Json
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            //       if (ds.Tables[0] != null)
+            //{
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+            //}
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+        }
+
+        #endregion  Get Order By Status Code
+
+
         #region Get Order Details By OrderID
         /// <summary>
         /// To get specific order details by orderid for the editing purpose
