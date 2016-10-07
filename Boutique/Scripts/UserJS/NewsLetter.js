@@ -412,6 +412,7 @@ $("document").ready(function (e) {
                }
            }
        });
+
     $(".AudiencePopup").click(function () {
         try
         {

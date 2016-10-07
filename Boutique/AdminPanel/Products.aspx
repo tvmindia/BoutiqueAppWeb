@@ -413,7 +413,7 @@
 								 <label class="control-label" for="focusedInput">Price</label>
 								<div class="controls">
                                       
-								<input class="input-large focused" id="txtPrice" placeholder =<%= this.UA.BoutiqueCurrencySymbol %> type="text" onkeypress="return isNumber(event)"/>
+								<input class="input-large focused" id="txtPrice" placeholder ="<%= this.UA.BoutiqueCurrencySymbol %>" type="text" onkeypress="return isNumber(event)"/>
                                       
 								</div>
 								</div>
@@ -423,7 +423,7 @@
 								 <label class="control-label" for="focusedInput">Discount</label>
 								<div class="controls">
                                     
-								  <input class="input-large focused" id="txtDiscount" placeholder=<%= this.UA.BoutiqueCurrencySymbol %> type="text" onkeypress="return isNumber(event)"/>
+								  <input class="input-large focused" id="txtDiscount" placeholder="<%= this.UA.BoutiqueCurrencySymbol %>" type="text" onkeypress="return isNumber(event)"/>
                                         
 								</div>
 								</div>

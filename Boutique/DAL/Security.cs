@@ -37,6 +37,7 @@ namespace Boutique.DAL
 
             private string BoutiqueName;
             private string Boutique_ID;
+            private string Branch_ID;
             private string Boutique_CurrencyCode;
             private Boolean isValidUser;
             private string userN;
@@ -87,6 +88,13 @@ namespace Boutique.DAL
                 }
 
 
+            }
+            public string BranchID
+            {
+                get
+                {
+                    return Branch_ID;
+                }
             }
             public string BoutiqueCurrencyCode
             {
@@ -176,6 +184,7 @@ namespace Boutique.DAL
 
                             BoutiqueName = dt.Rows[0]["BoutiqueName"].ToString();
                             Boutique_ID = dt.Rows[0]["BoutiqueID"].ToString();
+                            Branch_ID = dt.Rows[0]["BranchID"].ToString();
                             RoleName = dt.Rows[0]["RoleName"].ToString();
                             Currency_FormatCode = dt.Rows[0]["FormatCode"].ToString();
                             Boutique_CurrencyCode = dt.Rows[0]["CurrencyCode"].ToString();
@@ -215,12 +224,13 @@ namespace Boutique.DAL
             #endregion  User Authentication
 
             #region UserAuthendication
-            public UserAuthendication(String userName, String BoutiqueID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode, string symbol,string version)
+            public UserAuthendication(String userName, String BoutiqueID, String BranchID, String BoutiqueNam, String RoleNam, string CurrencyCode, string FormatCode, string symbol, string version)
             {
                 string status = null;
                 try
                 {
                     Boutique_ID = BoutiqueID;
+                    Branch_ID = BranchID;
                     isValidUser = true;
                     userN = userName;
                     BoutiqueName = BoutiqueNam;
@@ -444,6 +454,11 @@ namespace Boutique.DAL
             set;
         }
         public Guid BoutiqueID
+        {
+            get;
+            set;
+        }
+        public Guid BranchID
         {
             get;
             set;
