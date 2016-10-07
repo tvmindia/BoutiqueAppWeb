@@ -1165,7 +1165,7 @@ function AddToList() {
     var Quantity = $("#txtQuantity").val();
     //<td id="Prdct' + slNo + '"></td>
 
-    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + slNo + '</td><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (Quantity != null ? Quantity : "-") + '</td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + slNo + '</td><td >' + (ProductName != null ? ProductName : "-") + '</td><td >' + (Quantity != null ? Quantity : "-") + '</td><td><img class="imgPrdctList" id="Prdct' + slNo + '"/></td><td >' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
     $("#OrderItemTable").append(html);
 
     $('#lblNoOfProducts').text(slNo);
@@ -1174,6 +1174,33 @@ function AddToList() {
 
     $('#lblNoOfProducts').text(slNo);
     $('#lblTotalAmount').text(TotalPrice);
+
+
+
+    var Order = new Object();
+    Order.ProductID = productID;
+
+    if (productID != "") {
+
+        var imgID = GetProductImage(Order);
+
+        if (imgID != "") {
+            var prdctImg = document.getElementById('Prdct' + slNo);
+            prdctImg.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + imgID;
+        }
+        else {
+            var prdctImg = document.getElementById('Prdct' + slNo);
+            prdctImg.src = "../img/No-Img_Chosen.png";
+
+        }
+    }
+
+
+
+
+
+
+
 
     //var productID = $('.products').val();
     //var Order = new Object();
@@ -1392,7 +1419,7 @@ function FillOrderItemsTable(Records) {
         //$("#OrderItemTable").append(html);
         //<td id="Prdct' + Count + '"></td>
 
-        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td>' + Count + '</td><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td>' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td>' + Count + '</td><td >' + (Records.Product != null ? Records.Product : "-") + '</td><td>' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td><img class="imgPrdctList" id="Prdct' + Count + '"/></td><td >' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
         $("#OrderItemTable").append(html);
 
@@ -1408,11 +1435,11 @@ function FillOrderItemsTable(Records) {
             var imgID = GetProductImage(Order);
 
             if (imgID != "") {
-                var prdctImg = document.getElementById('ImgProduct');
+                var prdctImg = document.getElementById('Prdct' + Count);
                 prdctImg.src = "../ImageHandler/ImageServiceHandler.ashx?ImageID=" + imgID;
             }
             else {
-                var prdctImg = document.getElementById('ImgProduct');
+                var prdctImg = document.getElementById('Prdct' + Count);
                 prdctImg.src = "../img/No-Img_Chosen.png";
 
             }

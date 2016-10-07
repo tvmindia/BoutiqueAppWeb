@@ -390,7 +390,7 @@
                                                         <th>Slno</th>
                                                         <th>Item</th>
                                                         <th>Quantity</th>
-                                                        <%--<th>Image</th>--%>
+                                                        <th>Image</th>
                                                         <th>Remarks</th>
                                                     </tr>
                                                 </thead>
