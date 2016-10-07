@@ -22,7 +22,7 @@
             </li>
             <li><a href="#">Notifications</a></li>
         </ul>
-        <div class="row-fluid"><span class="headerStyle">Notifications</span></div>
+        <div class="row-fluid"><span class="headerStyle">Notify App Users</span></div>
         <div class="row-fluid" style="height: 3px;"></div>
 
         <%--Alert boxes --%>

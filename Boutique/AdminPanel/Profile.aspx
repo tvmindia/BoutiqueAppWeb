@@ -318,12 +318,12 @@
                                                     <label class="control-label">Gender</label>
                                                     <div class="controls">
                                                         <label class="radio">
-                                                            <input type="radio" name="optionsRadios" id="radioMale" value="option1" checked="" />
+                                                            <input type="radio" name="optionsRadios" id="radioMale" value="Male" checked="" />
                                                             Male
                                                         </label>
                                                         <div style="clear: both"></div>
                                                         <label class="radio">
-                                                            <input type="radio" name="optionsRadios" id="radioFemale" value="option2" />
+                                                            <input type="radio" name="optionsRadios" id="radioFemale" value="Female" />
                                                             Female
                                                         </label>
                                                     </div>

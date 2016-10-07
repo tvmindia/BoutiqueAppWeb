@@ -1,4 +1,32 @@
 ﻿
+/*Make search and sort of gridview same line*/
+ .dataTables_wrapper .dataTables_length {
+            float: right;
+            text-align: right;
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            float: left;
+        }
+
+
+
+
+        #ddlGridStatus {
+            font-size: 16px !important;
+        }
+
+/*-------------------------*/
+
+
+.imgPrdctList
+{
+    height:100px!important;
+    width:60px!important;
+}
+
+
+
 .control-label
 {
   color:black;
@@ -159,3 +187,22 @@ label.control-label {
   opacity: 1;
   right: 0;
 }
+ img
+        {
+           
+            max-width:100%!important;
+        }
+
+        #HeadOrderDetails,#HeadOrderSummary
+        {
+            float: left;
+    margin-top: 0px;
+    padding-left: 10px;
+    font-weight: 300;
+    font-size: 20px;
+    color: #18392b;
+        }
+
+.Status{
+        border-radius: 10px;
+        }

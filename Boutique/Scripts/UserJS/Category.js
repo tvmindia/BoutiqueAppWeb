@@ -41,7 +41,10 @@ $("document").ready(function (e) {
     })
     $(".categoryedit").live(
     {
-        click: function (e) {          
+        click: function (e) {
+
+            RemoveStyle();
+
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();        
@@ -104,6 +107,12 @@ $("document").ready(function (e) {
 
 });
 //end of document.ready
+
+
+function RemoveStyle() {
+    $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+    $('#ErrorBox,#ErrorBox1').slideUp(1000);
+}
 
 function DeleteItem(e,p)
 {
@@ -199,10 +208,10 @@ function BindCategoryTable(Records) {
         $("tbody#catrgoryrows tr").remove();
         $.each(Records, function (index, Records) {
             if (Records.CategoryCode == "NEW" || Records.CategoryCode == "OFR") {
-                var html = '<tr class="categoryrows" OrderNo="' + Records.OrderNo + '" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.OrderNo + '</td><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger"disabled="disabled" data-toggle="tooltip" title="Deletion Disabled" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                var html = '<tr class="categoryrows" OrderNo="' + Records.OrderNo + '" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.OrderNo + '</td><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#" title="Edit Category"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger"disabled="disabled" data-toggle="tooltip" title="Deletion Disabled" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
             }
             else {
-                var html = '<tr class="categoryrows" OrderNo="' + Records.OrderNo + '" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.OrderNo + '</td><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#"><i class="halflings-icon white trash"></i></a></td></tr>';
+                var html = '<tr class="categoryrows" OrderNo="' + Records.OrderNo + '" CategoryID="' + Records.CategoryID + '" boutiqueID="' + Records.BoutiqueID + '" CategCode="' + Records.CategoryCode + '"><td class="center">' + Records.OrderNo + '</td><td class="center">' + Records.CategoryCode + '</td><td class="center">' + Records.Name + '</td><td class="center"><a class="btn btn-info categoryedit" href="#" title="Edit Category"><i class="halflings-icon white edit"></i></a><a class="btn btn-danger catdelete" href="#" title="Delete Category"><i class="halflings-icon white trash"></i></a></td></tr>';
             }
             $("#CategoryTable").append(html);
         })

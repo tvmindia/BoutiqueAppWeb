@@ -12,7 +12,7 @@
     $('#boutiqueTable').DataTable({
         "bPaginate": false,             //removing paging
     });
-   
+
     //-----------*   Currency Dropdown * --------//
     $(".ddlCurrency").select2({
         placeholder: "Choose related Currency",
@@ -29,7 +29,7 @@
     , allowClear: true
     , placeholder: "Select a Boutique"
     });
-   
+
     $(".ddlBranches").select2({
         //data: BindAsyncAdministrator()//Boutiques dropdown binds only with id and text[key:value] mandatory
     allowClear: true
@@ -38,7 +38,9 @@
     //ddlBranches
     $(".boutiqueEdit").live({
         click: function (e) {
-            debugger;
+            RemoveStyle();
+
+
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
                $('.alert-error').hide();
@@ -58,6 +60,7 @@
                return false;
                
            }
+        
        })
 
     $(".Delete").live({    
@@ -88,7 +91,7 @@
             RemoveStyle();
         }
     })
-   
+
 
     $(".branchDelete").live({
         click: function (e) {
@@ -826,7 +829,7 @@ function BindAsyncBoutiques() {
     if (jsonResult != undefined) {
         //BindAsynAdminBranchDropdown();
         return jsonResult;
-    }
+     }
 
 }
 
@@ -879,7 +882,7 @@ function BindAsynAdminBranchDropdown()
         $(".ddlBranches").empty();
         $(".ddlBranches").select2({
        placeholder: "Select Branch"
-        });
+    });
         BindAdminHiddenFields();
     }
     //$(".ddlBranches").select2('data', null);
@@ -968,6 +971,8 @@ function BindBoutiqueTextBoxes(Records)
 {
     $.each(Records, function(index, Records)
     {      
+        debugger;
+
         $("#txtAppVersion").val(Records.AppVersion);
         $("#txtBouquetName").val(Records.Name);
         $("#txtStartYear").val(Records.StartedYear);
@@ -981,6 +986,9 @@ function BindBoutiqueTextBoxes(Records)
         $("#txtFacebooklink").val(Records.FBLink);
         $("#txtInstatgramlink").val(Records.InstagramLink);
         $("#hdfBoutiqueID").val(Records.BoutiqueID);
+
+        $(".ddlCurrency").val(Records.CurrencyCode).trigger("change");
+
        })
     $(".AddBoutique").text("Save");
     $("#editLabel").text("Edit Boutique");
@@ -1004,6 +1012,7 @@ function clearControls() {
     $(".AddBoutique").text("Save");
     $("#editLabel").text("New Boutique");
     //$('#rowfluidDiv').hide();
+    $(".ddlCurrency").val("").trigger("change");
 }
 
 function ClearAdminControls()
@@ -1019,6 +1028,12 @@ function ClearAdminControls()
     //$('#rowfluidDiv').hide();
     //$('.alert-success').hide();
     //$('.alert-error').hide(); 
+
+   // $('#rowfluidDiv').hide();
+   // $('.alert-success').hide();
+    //$('.alert-error').hide();
+
+    $(".ddlboutiques").val("").trigger("change");
 }
 
 function BindTiles()
@@ -1209,6 +1224,9 @@ function AddBoutiques()
  , allowClear: true
  , placeholder: "Select a Boutique"
         });
+
+        $(".ddlCurrency").val("").trigger("change");
+       
     }
     if (result != "1") {
         $('#rowfluidDiv').show();
