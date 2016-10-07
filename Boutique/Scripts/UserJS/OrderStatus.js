@@ -365,6 +365,7 @@ $("document").ready(function (e) {
             if (ExistingCustomer) {
                 if ($(".Users").val() == "") {
                     IsValidationSuccess = false;
+                    CustomAlert("Please select a User");
                     return false;
                 }
             }
@@ -372,6 +373,7 @@ $("document").ready(function (e) {
             else {
                 if ($("#txtCustomerName").val() == "") {
                     IsValidationSuccess = false;
+                    CustomAlert("Please enter customer name");
                     return false;
                 }
             }
@@ -397,6 +399,7 @@ $("document").ready(function (e) {
             if (($("#hdfOrderID").val()) == "" && (IsValidationSuccess == true)) {
                 if ($('#txtPlannedDeliveryDate').val() == "") {
                     IsValidationSuccess = false;
+                    CustomAlert("Please enter the requested delivery date");
                     return false;
                 }
             }
@@ -1800,8 +1803,8 @@ function OrderStatusValidation() {
     $('#Displaydiv').remove();
     var container;
 
-    if ($("#hdfOrderID").val() == "") {
-
+    //if ($("#hdfOrderID").val() == "") {
+    //}
 
 
         //var StDate = $('#txtOrderDate');
@@ -1816,7 +1819,7 @@ function OrderStatusValidation() {
          //   { id: CustmrAddrss[0].id, name: CustmrAddrss[0].name, Value: CustmrAddrss[0].value },
             { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value },
         ];
-    }
+   
     var j = 0;
     var Errorbox = document.getElementById('ErrorBox');
     var divs = document.createElement('div');
