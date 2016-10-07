@@ -111,8 +111,11 @@ $("document").ready(function (e) {
 
                          $("#txtMobileNo").val(userDeatils.Mobile);
                          $('#lblMobileNo').text(userDeatils.Mobile);
+
                          $('#lblCustomer').text(userDeatils.Name);
+                        
                          $("#txtDeliveryAddress").val(userDeatils.Address);
+                         $('#lblAddress').text(userDeatils.Address);
                      });
 
                      //var MobileNo = data[0].text.split(',')[1];
@@ -1114,13 +1117,16 @@ function FillClosedOrderTable(Records) {
 //------------ Edit Button CLick------------//
 
 function DeleteItem(e, p) {
+
+    debugger;
+
     var jsonResult = {};
     var Order = new Object();
     Order.ProductID = e;
     Order.OrderID = p;
     var result = -1;
 
-    if (Order.OrderID != "") {
+    if (Order.OrderID != "" && Order.OrderID != "") {
 
         Order.OrderID = $("#hdfOrderID").val();
         result = DeleteOrderItem(Order);
@@ -1143,17 +1149,16 @@ function DeleteItem(e, p) {
     }
 
 
-   // var Order = new Object();
-   //Order.ProductID = e;
-   // var ProductDeatils = {};
-   // ProductDeatils = GetProductDetails(Product);
+    var Product = new Object();
+    Product.ProductID = e;
+    var ProductDeatils = {};
+    ProductDeatils = GetProductDetails(Product);
 
-   // $.each(ProductDeatils, function (index, ProductDeatils) {
-
-   //     TotalPrice = parseInt(TotalPrice - ProductDeatils.Price )
-   //     $('#lblTotalAmount').text(TotalPrice);
-   // });
-
+    $.each(ProductDeatils, function (index, ProductDeatils) {
+        debugger;
+        TotalPrice =parseFloat( TotalPrice - ProductDeatils.Price);
+        $('#lblTotalAmount').text(TotalPrice);
+    });
 
 
     if (result != "1" && result != "-1") {
@@ -1190,7 +1195,7 @@ function AddToList() {
 
     $('#lblNoOfProducts').text(slNo);
 
-    TotalPrice = parseInt(TotalPrice + (ProductPrice * Quantity));
+    TotalPrice = parseFloat(TotalPrice + (ProductPrice * Quantity));
 
     $('#lblNoOfProducts').text(slNo);
     $('#lblTotalAmount').text(TotalPrice);
@@ -1214,13 +1219,6 @@ function AddToList() {
 
         }
     }
-
-
-
-
-
-
-
 
     //var productID = $('.products').val();
     //var Order = new Object();
@@ -1330,7 +1328,7 @@ function BindControlsWithOrderDetails(Records) {
        
         $("#lblAddress").text(Records.DeliveryAddress != null ? Records.DeliveryAddress : "-");
         $("#lblTotalAmount").text(Records.TotalOrderAmount != null ? Records.TotalOrderAmount : "-");
-        TotalPrice = parseInt(Records.TotalOrderAmount);
+        TotalPrice = parseFloat(Records.TotalOrderAmount);
         $("#dateOrderDate").text( ConvertJsonToDate(Records.PlannedDeliveryDate));
         $("#lblOrderDate").text( ConvertJsonToDate(Records.OrderDate));
         $("#lblReqDeliveryDate").text( ConvertJsonToDate(Records.PlannedDeliveryDate));
@@ -1418,13 +1416,17 @@ function BindControlsWithClosedOrderDetails(Records) {
 }
 
 function BindOrderItemsList(Order) {
-   
+  
+    if (Order.OrderID != null && Order.OrderID != "") {
+    
     var jsonResult = {};
 
     jsonResult = GetOrderItemsByOrderID(Order);
     if (jsonResult != undefined) {
         FillOrderItemsTable(jsonResult);
     }
+
+}
 }
 
 function BindClosedOrderItemsList(Order) {
