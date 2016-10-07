@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="span3">
 
-                                            <a class="btn btn-primary New" href="OrderStatus.aspx" style="width: 15%">New</></a>
+                                            <a id="btnNew" class="btn btn-primary New" href="#" style="width: 15%">New</></a>
 
                                             <select class="Status" id="ddlGridStatus" style="max-width: 50%!important; width: 59%!important">
                                                 <option></option>

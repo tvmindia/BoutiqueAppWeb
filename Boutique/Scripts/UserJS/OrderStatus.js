@@ -225,6 +225,22 @@ $("document").ready(function (e) {
          })
 
 
+    $("#btnNew").live(
+  {
+      click: function (e) {
+          ClearCurrentOrderControls();
+          //Scroll page
+          var offset = $('#editLabel').offset();
+          offset.left -= 80;
+          offset.top -= 80;
+          $('html, body').animate({
+              scrollTop: offset.top,
+              scrollLeft: offset.left
+          });
+          return false;
+      }
+  })
+
     $(".OrderEdit").live(
     {
         click: function (e) {
@@ -349,27 +365,39 @@ $("document").ready(function (e) {
             if (ExistingCustomer) {
                 if ($(".Users").val() == "") {
                     IsValidationSuccess = false;
+                    return false;
                 }
             }
 
             else {
                 if ($("#txtCustomerName").val() == "") {
                     IsValidationSuccess = false;
+                    return false;
                 }
             }
 
             if (IsValidationSuccess) {
                 //($("#txtDeliveryAddress").val() == "")
 
-
+              
                 if (($("#ddlBranch").val() == "") || ($("#ddlStatus").val() == "")) {
                     IsValidationSuccess = false;
+
+                    if (($("#ddlBranch").val() == "")) {
+                        CustomAlert("Please select a Branch");
+                        return false;
+                    }
+                    if ($("#ddlStatus").val() == "") {
+                        CustomAlert("Please select a Status");
+                        return false;
+                    }
                 }
             }
 
             if (($("#hdfOrderID").val()) == "" && (IsValidationSuccess == true)) {
                 if ($('#txtPlannedDeliveryDate').val() == "") {
                     IsValidationSuccess = false;
+                    return false;
                 }
             }
 
