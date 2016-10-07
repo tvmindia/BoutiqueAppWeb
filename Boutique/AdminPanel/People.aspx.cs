@@ -440,11 +440,18 @@ namespace Boutique.AdminPanel
                 AdminObj.CreatedDate = DateTime.Now;
                 AdminObj.IsAdmin = true;
 
-                if (AdminObj.UserID == null)
+                if ((AdminObj.UserID == null)||(AdminObj.UserID==""))
                 {
                     status = AdminObj.AddNewUser().ToString();
-                    status = AdminObj.AddNewAdmin().ToString();
-                    status = AdminObj.AddNewRole().ToString();
+                    if(status!="4")
+                    {
+                        status = AdminObj.AddNewAdmin().ToString();
+                        if(status!="3")
+                        {
+                            status = AdminObj.AddNewRole().ToString();
+                        }                      
+                    }
+                   
                 }
                 else
                 {
@@ -453,6 +460,7 @@ namespace Boutique.AdminPanel
 
                     status = AdminObj.EditUser(AdminObj.UserID).ToString();
                     status = AdminObj.EditAdmin().ToString(); //update Admin table  
+                    status = "2";
 
                 }
             }
@@ -492,7 +500,10 @@ namespace Boutique.AdminPanel
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-            Adminsobj.BoutiqueID = UA.BoutiqueID;
+            if (Adminsobj.BoutiqueID == null)
+            {
+                Adminsobj.BoutiqueID = UA.BoutiqueID;
+            }
             Adminsobj.RoleName = Const.Administrator;
             DataTable dt = null;
             try
@@ -547,7 +558,11 @@ namespace Boutique.AdminPanel
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-            AdminObj.BoutiqueID = UA.BoutiqueID;
+            if (AdminObj.BoutiqueID==null)
+            {
+                AdminObj.BoutiqueID = UA.BoutiqueID;
+            }
+            
             string status = null;
             try
             {

@@ -35,8 +35,8 @@ namespace Boutique.AdminPanel
                     string CurrencyCode = dr["CurrencyCode"].ToString();
                     string FormatCode = dr["FormatCode"].ToString();
                     string symbol = dr["Symbol"].ToString();
-
-                    DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, BoutiqID, BoutiqueName, UA.Role, CurrencyCode, FormatCode, symbol, dr["AppVersion"].ToString());
+                    string BranchID = dr["BranchID"].ToString();
+                    DAL.Security.UserAuthendication UA_Changed = new DAL.Security.UserAuthendication(UA.userName, BoutiqID,BranchID, BoutiqueName, UA.Role, CurrencyCode, FormatCode, symbol, dr["AppVersion"].ToString());
                     if (UA_Changed.ValidUser)
                     {
                         Session[Const.LoginSession] = UA_Changed;
@@ -101,6 +101,7 @@ namespace Boutique.AdminPanel
             UIClasses.Const Const = new UIClasses.Const();
             string status = null;
             string Boutique_ID = null;
+            DataSet dsBoutique = new DataSet();
 
             UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
            // boutiqueobj.BoutiqueID = UA.BoutiqueID;
@@ -124,6 +125,24 @@ namespace Boutique.AdminPanel
 
                     if (status == "1")
                     {
+                        //--------- * Adding Deafult Branch To Boutique * ----------//
+                        boutiqueobj.BoutiqueID = Boutique_ID;
+                        dsBoutique=boutiqueobj.GetBoutique();
+                        if(dsBoutique.Tables[0].Rows.Count>0)
+                        {
+                            DataRow dr = dsBoutique.Tables[0].Rows[0];
+                            boutiqueobj.branchName = dr["Name"].ToString();
+                            boutiqueobj.branchCode = "1001";
+                            boutiqueobj.branchLocation = dr["Location"].ToString();
+                            boutiqueobj.branchAddress = dr["Address"].ToString();
+                            boutiqueobj.branchPhone = dr["Phone"].ToString();
+                           // boutiqueobj.branchEmail = dr["Phone"].ToString();
+                            boutiqueobj.branchCoordinate = dr["latlong"].ToString();
+                            boutiqueobj.branchIsActive ="True";
+                            boutiqueobj.AddBranch();
+                        }
+                        
+                        // adding category
                         Product Catobj = new Product();
 
                         Catobj.BoutiqueID = Boutique_ID;
@@ -302,8 +321,236 @@ namespace Boutique.AdminPanel
         }
         #endregion GetAllBoutiqueIDandName
 
+        //----------------* Branch Methods *-----------------//
+
+        #region SelectBranch
+        [System.Web.Services.WebMethod]
+        public static string SelectBranch(Boutiques boutiqueObj)
+        {
+            string jsonResult = null;
+            DataSet ds = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if ((boutiqueObj.BoutiqueID != null) && (boutiqueObj.BoutiqueID != ""))
+            {
+                ds = boutiqueObj.SelectBranch();
+
+                //Converting to Json
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                    //childRow = new Dictionary<string, object>();
+                    //childRow.Add("Result", "Success");
+
+                    //parentRow.Add(childRow);
+                }
+                else
+                {
+                    //childRow = new Dictionary<string, object>();
+                    //childRow.Add("Result", "Error");
+                    //parentRow.Add(childRow);
+                }
+            }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+
+
+            //Converting to Json
+        }
+        #endregion SelectBranch
+
+        #region NewBranch
+        [System.Web.Services.WebMethod]
+        public static string NewBranch(Boutiques boutiqueobj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            string status = null;
+            //string Boutique_ID = null;
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            // boutiqueobj.BoutiqueID = UA.BoutiqueID;
+
+            if (UA != null)
+            {
+                if ((boutiqueobj.BoutiqueID != "")&&(boutiqueobj.BoutiqueID!=null))
+                {
+                    if (boutiqueobj.branchID == null) //new branch
+                    {
+                        boutiqueobj.CreatedBy = UA.userName;
+                        status = boutiqueobj.AddBranch();//creating new boutique and receiving Boutique ID
+                    }
+                }
+                //else //Edit Boutique
+                //{
+                //    boutiqueobj.UpdatedBy = UA.userName;
+                //    status = boutiqueobj.EditBoutique().ToString();
+                //}
+
+            }
+            
+            return status;
+
+
+        }
+#endregion NewBranch
+
+        #region GetAllBranches
+        [System.Web.Services.WebMethod]
+        public static string GetAllBranches(Boutiques boutiqWebObj)
+        {
+            string jsonResult = null;
+            DataSet ds = null;
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if ((boutiqWebObj.BoutiqueID != null) && (boutiqWebObj.BoutiqueID!=""))
+            {
+                ds = boutiqWebObj.GetAllBranches();
+            
+            //Converting to Json
+            
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+                //childRow = new Dictionary<string, object>();
+                //childRow.Add("Result", "Success");
+
+                //parentRow.Add(childRow);
+            }
+            else
+            {
+                //childRow = new Dictionary<string, object>();
+                //childRow.Add("Result", "Error");
+                //parentRow.Add(childRow);
+            }
+        }
+            jsonResult = jsSerializer.Serialize(parentRow);
+
+            return jsonResult;
+
+
+            //Converting to Json
+        }
+        #endregion GetAllBranches
+
+        #region DeleteBranch
+        [System.Web.Services.WebMethod]
+        public static string DeleteBranch(Boutiques boutiquesObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+
+            string status = null;
+            try
+            {
+
+                status = boutiquesObj.DeleteBranch().ToString();
+            }
+            catch (Exception)
+            {
+                status = "2";//Exception of foreign key
+            }
+            finally
+            {
+
+            }
+            return status;
+        }
+        #endregion DeleteBranch
+
+        #region EditBranch
+        [System.Web.Services.WebMethod]
+        public static string EditBranch(Boutiques boutiqueobj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            string status = null;
+            //string Boutique_ID = null;
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            // boutiqueobj.BoutiqueID = UA.BoutiqueID;
+
+            if (UA != null)
+            {
+
+                if (boutiqueobj.branchID != null) //new branch
+                {
+                    boutiqueobj.UpdatedBy = UA.userName;
+                    status = boutiqueobj.EditBranch();//creating new boutique and receiving Boutique ID
+                }
+                //else //Edit Boutique
+                //{
+                //    boutiqueobj.UpdatedBy = UA.userName;
+                //    status = boutiqueobj.EditBoutique().ToString();
+                //}
+
+            }
+
+            return status;
+
+
+        }
+        #endregion EditBranch
+
+        #region GetAllBranchIDandName
+        [System.Web.Services.WebMethod]
+        public static string GetAllBranchIDandName(Boutiques boutiquesObj)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            DataSet ds = null;
+            List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+            Dictionary<string, object> childRow;
+            if ((boutiquesObj.BoutiqueID != "") && (boutiquesObj.BoutiqueID != null))
+            {
+                ds = boutiquesObj.GetAllBranchIDAndName();
+            
+            
+            //Converting to Json
+            
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    childRow = new Dictionary<string, object>();
+                    foreach (DataColumn col in ds.Tables[0].Columns)
+                    {
+                        childRow.Add(col.ColumnName, row[col]);
+                    }
+                    parentRow.Add(childRow);
+                }
+            }
+        }
+            return jsSerializer.Serialize(parentRow);
+
+
+        }
+        #endregion GetAllBranchIDandName
+
         #endregion webmethods
-      
+
         #region events
         //protected void NewBoutique_ServerClick(object sender, EventArgs e)
         //{
