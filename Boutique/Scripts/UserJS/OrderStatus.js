@@ -99,12 +99,28 @@ $("document").ready(function (e) {
              var data = $(this).select2('data');
              if (data != null) {
                  if (data[0].text != "") {
-                     var MobileNo = data[0].text.split(',')[1];
-                     $("#txtMobileNo").val(MobileNo);
-                     $('#lblMobileNo').text( MobileNo);
 
-                     var CustmerName = data[0].text.split(',')[0];
-                     $('#lblCustomer').text( CustmerName);
+                     var Users = new Object();
+                     var Order = new Object();
+                     Order.UserID = data[0].id;
+
+                     var userDeatils = {};
+                     userDeatils = GetUserDetailsByUserID(Order);
+
+                     $.each(userDeatils, function (index, userDeatils) {
+
+                         $("#txtMobileNo").val(userDeatils.Mobile);
+                         $('#lblMobileNo').text(userDeatils.Mobile);
+                         $('#lblCustomer').text(userDeatils.Name);
+                         $("#txtDeliveryAddress").val(userDeatils.Address);
+                     });
+
+                     //var MobileNo = data[0].text.split(',')[1];
+                     //$("#txtMobileNo").val(MobileNo);
+                     //$('#lblMobileNo').text( MobileNo);
+
+                     //var CustmerName = data[0].text.split(',')[0];
+                     //$('#lblCustomer').text( CustmerName);
                  }
              }
             
@@ -169,8 +185,6 @@ $("document").ready(function (e) {
              }
 
          })
-
-
 
 
     $(".OrderEdit").live(
