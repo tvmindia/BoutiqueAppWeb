@@ -114,7 +114,7 @@ $("document").ready(function (e) {
 
     $('#ddlBranch').select2()
          .on("change", function (e) {
-             debugger;
+            
              var data = $(this).select2('data');
              if (data != null) {
                  if (data[0].text != "") {
@@ -133,9 +133,15 @@ $("document").ready(function (e) {
                  Min = "00";
              }
 
-             var Time = $("#txtRequestedDeliveryTime").val() + "." + Min + $("#ddlMerdian").val()
-             $('#lblReqDeliveryDate').text( $('#txtPlannedDeliveryDate').val() + "," + Time);
+             if ($("#txtRequestedDeliveryTime").val() != "") {
+                 var Time = $("#txtRequestedDeliveryTime").val() + "." + Min + $("#ddlMerdian").val()
+                 $('#lblReqDeliveryDate').text($('#txtPlannedDeliveryDate').val() + "," + Time);
 
+             }
+             else {
+                 $('#lblReqDeliveryDate').text($('#txtPlannedDeliveryDate').val() );
+             }
+             
              $('#lblStatus').text($('#ddlStatus').select2('data')[0].text);
 
              var OrderDate = GetFormatedDate();
@@ -148,7 +154,7 @@ $("document").ready(function (e) {
 
     $('#ddlStatus').select2()
          .on("change", function (e) {
-             debugger;
+          
              var data = $(this).select2('data');
 
              if (data != null) {
@@ -1274,9 +1280,14 @@ function BindControlsWithOrderDetails(Records) {
         if (Records.UserID != null)
         {
             $(".Users").val(Records.UserID).trigger("change");
+
+            debugger;
             $("#lblCustomer").text(Records.Name);
         }
         else {
+
+            debugger;
+
             $("#txtCustomerName").show();
             $("#Customer").css("display", "none");
             ExistingCustomer = false;
@@ -1285,7 +1296,14 @@ function BindControlsWithOrderDetails(Records) {
             $("#txtCustomerName").val(Records.CustomerName);
             $("#lblCustomer").text(Records.CustomerName);
         }
-        $("#txtMobileNo").val(Records.Mobile);
+
+        debugger;
+
+        if (Records.Mobile != null) {
+            $("#txtMobileNo").val(Records.Mobile);
+            $("#lblMobileNo").text(Records.Mobile);
+        }
+       
 
         $("#txtDeliveryAddress").val(Records.DeliveryAddress);
         $("#txtOrderRemarks").val(Records.OrderDescription);
@@ -1295,18 +1313,25 @@ function BindControlsWithOrderDetails(Records) {
         $("#txtTotalOrderAmount").val(Records.TotalOrderAmount);
 
         
-        $("#lblMobileNo").text( Records.Mobile);
-        $("#lblAddress").text( Records.DeliveryAddress);
-        $("#lblTotalAmount").text( Records.TotalOrderAmount);
+       
+        $("#lblAddress").text(Records.DeliveryAddress != null ? Records.DeliveryAddress : "-");
+        $("#lblTotalAmount").text(Records.TotalOrderAmount != null ? Records.TotalOrderAmount : "-");
         TotalPrice = parseInt(Records.TotalOrderAmount);
         $("#dateOrderDate").text( ConvertJsonToDate(Records.PlannedDeliveryDate));
         $("#lblOrderDate").text( ConvertJsonToDate(Records.OrderDate));
         $("#lblReqDeliveryDate").text( ConvertJsonToDate(Records.PlannedDeliveryDate));
 
-        if (Records.PlannedDeliveryTime != null) {
+        if (Records.PlannedDeliveryTime != null && Records.PlannedDeliveryTime != "") {
             $("#txtRequestedDeliveryTime").val(Records.PlannedDeliveryTime.split(':')[0]);
             $("#txtRequestedDeliveryTimeMin").val(Records.PlannedDeliveryTime.split(':')[1]);
             $("#ddlMerdian").val(Records.PlannedDeliveryTime.split(':')[2])
+        }
+
+        else
+        {
+            $("#txtRequestedDeliveryTime").val("");
+            $("#txtRequestedDeliveryTimeMin").val("");
+            $("#ddlMerdian").val("");
         }
 
 
@@ -1321,7 +1346,16 @@ function BindControlsWithOrderDetails(Records) {
             $('#lblReqDeliveryDate').text(ConvertJsonToDate(Records.PlannedDeliveryDate) + "," + Time);
 
         }
-       
+        else
+        {
+            if (Records.PlannedDeliveryDate != null && Records.PlannedDeliveryDate != "") {
+                $('#lblReqDeliveryDate').text(ConvertJsonToDate(Records.PlannedDeliveryDate));
+            }
+
+        }
+
+
+        
         //$("#lblActualDeliveryDate").text(ConvertJsonToDate(Records.ActualDeliveryDate));
         // $("#lblBranch").text(Records.Name);
         // $("#lblStatus").text(Records.Name);
@@ -1370,7 +1404,7 @@ function BindControlsWithClosedOrderDetails(Records) {
 }
 
 function BindOrderItemsList(Order) {
-    debugger;
+   
     var jsonResult = {};
 
     jsonResult = GetOrderItemsByOrderID(Order);
