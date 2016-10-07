@@ -195,6 +195,52 @@ namespace Boutique.DAL
             get;
             set;
         }
+        //Branch Properties
+        public string branchID
+        {
+            get;
+            set;
+        }
+        public string branchCode
+        {
+            get;
+            set;
+        }
+        public string branchName
+        {
+            get;
+            set;
+        }
+        public string branchLocation
+        {
+            get;
+            set;
+        }
+        public string branchAddress
+        {
+            get;
+            set;
+        }
+        public string branchPhone
+        {
+            get;
+            set;
+        }
+        public string branchEmail
+        {
+            get;
+            set;
+        }
+        public string branchCoordinate
+        {
+            get;
+            set;
+        }
+        public string branchIsActive
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Methods
@@ -763,6 +809,374 @@ namespace Boutique.DAL
 
         }
         #endregion GetBoutiqueLogo
+
+        //----------------  * BRANCH METHODS *------------//
+        #region NewBranch
+        public string AddBranch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[AddNewBranch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@BranchCode", SqlDbType.NVarChar, 30).Value = branchCode;
+                cmd.Parameters.Add("@Name", SqlDbType.NVarChar, 255).Value = branchName;
+                cmd.Parameters.Add("@Location", SqlDbType.NVarChar, 255).Value = branchLocation;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = branchAddress;
+                cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = branchPhone;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = branchEmail;
+                cmd.Parameters.Add("@Coordinate", SqlDbType.VarChar, 100).Value = branchCoordinate;
+                cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = Convert.ToBoolean(branchIsActive);
+                cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutiques";
+                ETObj.Method = "AddBranch";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return outParameter.Value.ToString();
+        }
+        #endregion NewBranch
+
+        #region GetAllBranches
+        /// <summary>
+        /// Selects all boutiques
+        /// </summary>
+        /// <returns>All boutiques</returns>
+        public DataSet GetAllBranches()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllBranches]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutiques";
+                ETObj.Method = "GetAllBranches";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+
+
+        }
+        #endregion GetAllBoutiques
+
+        #region EditBranch
+        public string EditBranch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+    
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateBranches]";
+                cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(branchID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@BranchCode", SqlDbType.NVarChar, 30).Value = branchCode;
+                cmd.Parameters.Add("@Name",SqlDbType.NVarChar,255).Value=branchName;
+                cmd.Parameters.Add("@Location", SqlDbType.NVarChar, 255).Value = branchLocation;
+                cmd.Parameters.Add("@Address", SqlDbType.NVarChar, -1).Value = branchAddress;
+                cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 50).Value = branchPhone;
+                cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = branchEmail;
+                cmd.Parameters.Add("@Coordinate", SqlDbType.VarChar, 100).Value = branchCoordinate;
+                cmd.Parameters.Add("@IsActive", SqlDbType.Bit).Value = Convert.ToBoolean(branchIsActive);
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutiques";
+                ETObj.Method = "EditBranch";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return outParameter.Value.ToString();
+
+
+
+        }
+        #endregion EditBranch
+
+        #region SelectBranch
+        /// <summary>
+        /// Selects all boutiques
+        /// </summary>
+        /// <returns>All boutiques</returns>
+        public DataSet SelectBranch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+
+                dcon = new dbConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[SelectBranch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(branchID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutiques";
+                ETObj.Method = "SelectBranch";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+
+
+        }
+        #endregion SelectBranch
+
+        #region DeleteBranch
+        /// <summary>
+        /// Delete boutique
+        /// </summary>
+        /// <param name="BoutiqueID"></param>
+        /// <returns></returns>
+        public Int16 DeleteBranch()
+        {
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            Guid _boutiqueid = Guid.Empty;
+            try
+            {
+                _boutiqueid = Guid.Parse(BoutiqueID);
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteBranch]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value =Guid.Parse(branchID);
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutiques";
+                ETObj.Method = "DeleteBoutique";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            //insert success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion DeleteBranch
+
+        #region GetAllBranchIDAndName
+        public DataSet GetAllBranchIDAndName()
+        {
+
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetBranchIdAndName]";
+                
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Boutiques";
+                ETObj.Method = "GetAllBranchIDAndName";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+        #endregion GetAllBranchIDAndName
 
         //-------------  * BANNER METHODS * ---------- //
 

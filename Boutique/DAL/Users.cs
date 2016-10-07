@@ -150,7 +150,11 @@ namespace Boutique.DAL
             get;
             set;
         }
-        
+        public string branchId
+        {
+            get;
+            set;
+        }
 
 
 
@@ -659,6 +663,10 @@ namespace Boutique.DAL
                     cmd.CommandText = "[SelectAllAdminsByBoutiqueID]";
                     cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = _boutiqueid;
                     cmd.Parameters.Add("@RoleName", SqlDbType.NVarChar, 25).Value =RoleName;
+                    if ((branchId != null) && (branchId!=""))
+                    {
+                        cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(branchId);
+                    }
                     sda = new SqlDataAdapter();
                     sda.SelectCommand = cmd;
                     ds = new DataTable();
@@ -731,11 +739,17 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@LoginName", SqlDbType.NVarChar, 255).Value = LoginName;
               
                 cmd.Parameters.Add("@Password", SqlDbType.NVarChar, 255).Value = CryptObj.Encrypt(Password);
+                if((Email!=null)&&(Email!=""))
+                {
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = Email;
+                }
 
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 200).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime, 200).Value = DateTime.Now;
-
-
+                if ((branchId != null) && (branchId != ""))
+                {
+                    cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(branchId);
+                }
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.TinyInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
@@ -869,7 +883,7 @@ namespace Boutique.DAL
                 cmd.CommandText = "[DeleteAdmin]";//sp not created
                 cmd.Parameters.Add("@AdminID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(AdminID);
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.TinyInt);
+                outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
                 cmd.ExecuteNonQuery();
             }
@@ -933,6 +947,10 @@ namespace Boutique.DAL
                 cmd.CommandText = "[SelectAdminsByUserID]";
                 cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                if((branchId!=null)&&(branchId!=""))
+                {
+                    cmd.Parameters.Add("@BranchID",SqlDbType.UniqueIdentifier).Value=Guid.Parse(branchId);
+                }
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);

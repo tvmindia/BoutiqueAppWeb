@@ -245,6 +245,17 @@ function DeleteCustomAlert(txt, e, p)
     {
         btnYes.onclick = function () { DeleteItem(e, p); removeCustomAlert(); return false; }
     }
+    if (p == "DeleteBranch")
+    {
+        btnYes.onclick = function () {
+            DeleteBranch(e, p);
+            removeCustomAlert(); return false;
+        }
+    }
+    if (p == "SaAdmin")
+    {
+        btnYes.onclick = function () { DeleteSaAdmin(e, p); removeCustomAlert(); return false; }
+    }
     alertObj.style.display = "block";
 
     $("#alertBox").animate({ top: '50px' });
