@@ -1822,23 +1822,27 @@ function OrderStatusValidation() {
     $('#Displaydiv').remove();
     var container;
 
+    
+
+    var ReqDeliveryDate = $('#txtPlannedDeliveryDate');
+    var MobNo = $('#txtMobileNo');
 
     if (ExistingCustomer == false) {
         var CustmrName = $("#txtCustomerName");
-
-        var ReqDeliveryDate = $('#txtPlannedDeliveryDate');
+        
 
         container = [
              //{ id: branch[0].id, name: branch[0].name, Value: branch[0].value },
+           //   { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
             { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value },
          //   { id: CustmrAddrss[0].id, name: CustmrAddrss[0].name, Value: CustmrAddrss[0].value },
             { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
         ];
     }
     else {
-        var ReqDeliveryDate = $('#txtPlannedDeliveryDate');
+       
         container = [
-          
+          // { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
            { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
         ];
     }
@@ -1889,7 +1893,7 @@ function OrderStatusValidation() {
     }
     if (j == '0') {
         $('#ErrorBox').hide();
-        AddNotification();
+      //  AddNotification();
         IsValidationSuccess = true;
         return true;
     }
