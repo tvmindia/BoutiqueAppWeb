@@ -68,10 +68,10 @@
 
         function imageChoose()
         {
-            
             var lblmsg = document.getElementById("<%=lblFile.ClientID%>");
             lblmsg.innerHTML = '';
             $('#<%=fileupload.ClientID%>').click();
+           
             
         }
 
@@ -82,7 +82,7 @@
    {
     height: 30px;
     line-height: 30px;
-    display:none;
+    /*display:none;*/
 
 }
 
@@ -90,16 +90,17 @@
     <form id="form1" runat="server">
     <div class="span4">
         <div>
-
-       <label class="choose">
-            <span>Choose Images..</span>
-        <asp:fileupload runat="server" onchange="OnUpload();showimagepreview(this);" ID="fileupload"></asp:fileupload>
-       </label>
-       
-    <asp:label runat="server" ID="lblFile"/>
-         <img id="imgprvw" onclick="imageChoose();" style="height:150px;width:150px;" src="../img/defaultimages.jpg" alt="Click here to Upload Image"/>
-             <asp:Button CssClass="btn1" runat="server" id="UploadButton" text="Upload" OnClientClick="return gethiddenvalueparent();" onclick="UploadButton_Click" />
-            </div>
+            <label class="choose">
+                <span>Choose Images..</span>
+                <asp:fileupload runat="server" onchange="OnUpload();showimagepreview(this);" ID="fileupload"></asp:fileupload>
+            </label>
+        </div>
+        <div>
+            <asp:label runat="server" ID="lblFile"/>
+             <img id="imgprvw" onclick="imageChoose();" style="height:50px;width:50px; padding-left:10px" src="../img/defaultimages.jpg" alt="Click here to Upload Image"/>
+            <asp:Button CssClass="btn1"   runat="server" id="UploadButton" text="Upload" OnClientClick="return gethiddenvalueparent();" onclick="UploadButton_Click" />
+           
+        </div>
        <%-- <input type="hidden" id="hdfchildproductID" runat="server" value=""/>--%>
      
         <asp:HiddenField ClientIDMode="Static" ID="hdfchildproductID" runat="server" />
