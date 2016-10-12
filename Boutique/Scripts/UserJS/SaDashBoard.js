@@ -2,7 +2,6 @@
     BindTiles();
     parent.document.title = Pages.SaDashboard;
 
-    //dsfdsf
     $("#hdfBoutiqueID").val('');
 
     BindAsyncBoutiqueDropDown();  
@@ -19,27 +18,31 @@
         allowClear: true,
         data: BindCurrencyDropdown()
     });
+
+    //-------------* boutiques Dropdown for Branches tab *-----------------------//
     $(".ddlboutiques").select2({
         data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
     , allowClear: true
     , placeholder: "Select a Boutique"
     });
+
+    //-------------* boutiques Dropdown for Admin Tab *-----------------------//
     $(".ddlBoutiques").select2({
         data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
     , allowClear: true
     , placeholder: "Select a Boutique"
     });
 
+    //-------------* Branches Dropdown *-----------------------//
     $(".ddlBranches").select2({
-        //data: BindAsyncAdministrator()//Boutiques dropdown binds only with id and text[key:value] mandatory
     allowClear: true
   , placeholder: "Select Branch"
     });
-    //ddlBranches
+
+    //-------------* Boutique Edit *-----------------------//
     $(".boutiqueEdit").live({
         click: function (e) {
             RemoveStyle();
-
 
                $('#rowfluidDiv').hide();
                $('.alert-success').hide();
@@ -63,6 +66,7 @@
         
        })
 
+    //-------------* Boutique Delete *-----------------------//
     $(".Delete").live({    
         click: function (e)
            {
@@ -78,6 +82,7 @@
            }
        })
 
+    //-------------* Boutique Cancel *-----------------------//
     $(".CancelClear").live({
         click: function (e) {// Clear controls
             clearControls();
@@ -85,6 +90,7 @@
         }
     })
     
+    //-------------* Branch Cancel *-----------------------//
     $(".CancelAdClear").live({
         click: function (e) {// Clear controls            
             ClearAdminControls();
@@ -92,7 +98,7 @@
         }
     })
 
-
+    //-------------* Branch Delete *-----------------------//
     $(".branchDelete").live({
         click: function (e) {
             $('#rowfluidDiv').hide();
@@ -106,6 +112,8 @@
             return false;
         }
     })
+
+    //-------------* Branch Edit *-----------------------//
     $(".branchedit").live({
         click: function (e) {
             debugger;
@@ -116,12 +124,7 @@
             var branchID = "";
             editedrow = $(this).closest('tr');
             var Boutique = new Object();
-            //if ($("#ddlGridBranchBoutique").val() != null) {
             Boutique.BoutiqueID = $("#hdfBranchBoutique").val();
-            //}
-            //else {
-            //    Boutique.BoutiqueID = "";
-            //}
             Boutique.branchID = editedrow.attr("branchID");
             branchID = editedrow.attr("branchID");
             $("#hdfBranchID").val(branchID);
@@ -138,6 +141,8 @@
 
         }
     })
+
+    //-------------* Admin Edit *-----------------------//
     $(".adminedit").live({
         click: function (e) {
             debugger;
@@ -170,6 +175,8 @@
 
         }
     })
+
+    //-------------* Admin Delete *-----------------------//
     $(".adminDelete").live({
         click: function (e) {
             debugger;
@@ -195,33 +202,22 @@
             return false;
         }
     })
-    var $eventBranchSelect = $(".ddlboutiques");//admin boutique change
+
+    //admin boutique change event
+    var $eventBranchSelect = $(".ddlboutiques");
     $eventBranchSelect.on("change", function (e) {
         debugger;
 
         $("#txtBoutique").val("");
         $("#txtBranch").val("");
-        //$(".ddlBranches").val('').trigger('change')
-        //$('.ddlBranches').select2('val', '');
-        //$("hdfAdminBranchId").val()
         $(".ddlBranches").select2({
-            data: null//Boutiques dropdown binds only with id and text[key:value] mandatory
+            data: null
  , allowClear: true
  , placeholder: "Select Branch"
         });
         BindAsynAdminBranchDropdown();
     });
-    //var $eventAdminBranchSelect = $("#idAdminBoutiqueBranches");//admin banch change
-    //$eventAdminBranchSelect.on("change", function (e) {
-    //    debugger;
-    //    BindAsyncAdminsTable();//Gridbind
-    //});
-    //$(".AddBoutique").({
-    //   click: function (e) {// submit button click
-
-   // 
-    //   }
-    //})
+    
     $('input[type=text],input[type=password]').on('focus', function () {
         $(this).css({ background: 'white' });
         $('#ErrorBox,#ErrorBox1').slideUp(1000);
@@ -230,15 +226,9 @@
         $(this).css({ background: 'white' });
         $('#ErrorBox,#ErrorBox1').slideUp(1000);
     });
-    //$(".AddAdmin").live({
-    //    click: function (e) {// submit button click
-
             BindBoutiqueAsyncLoad();//Gridbind
             BindAsyncBoutiqueDropDown();
           
-    //    }
-    //})
-    
     $('#AppUserMainDiv').hide();
     
     $('#ExceptionMainDiv').hide();
@@ -248,6 +238,8 @@
 });//document.ready
 
 //----------Branch--------------//
+
+
 function GetAdmin(Admin) {
     var ds = {};
     var table = {};
@@ -268,6 +260,7 @@ function GetAdmin(Admin) {
     return table;
 }
 
+//---------- * Email Validation * --------------//
 function ValidateEmail(e)
 {
     debugger;
@@ -337,7 +330,7 @@ function GetAllAdmins(Admins) {
     return table;
 }
 
-
+//----------Delete Branch--------------//
 function DeleteBranch(branchId)
 {
     debugger;
@@ -375,6 +368,8 @@ function DeleteBranch(branchId)
         }
     }
 }
+
+//----------Delete Branch--------------//
 function DeleteBoutiqueBranch(Boutique) {
     var data = "{'boutiquesObj':" + JSON.stringify(Boutique) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/SaDashBoard.aspx/DeleteBranch");
@@ -382,10 +377,10 @@ function DeleteBoutiqueBranch(Boutique) {
     table = JSON.parse(jsonResult.d);
     return table;
 }
+
+//----------set dropdown values to hidden fields--------------//
 function BindAdminHiddenFields()
 {
-    debugger;
-  
     var boutiqueID = "";
     var branchId = "";
     var boutiqueName = "";
@@ -416,6 +411,8 @@ function BindAdminHiddenFields()
     }
     BindAsyncAdminsTable();
 }
+
+//----------Bind Branch Grid--------------//
 function BindBranchGrid()
 {
     debugger;
@@ -436,6 +433,8 @@ function BindBranchGrid()
    
     BindBranchAsyncLoad();
 }
+
+//----------Branch fields Validation before insertion--------------//
 function BranchAddValidation() {
     debugger;
     if ($("#editBranchLabel").text() == "Edit Branch")
@@ -448,6 +447,8 @@ function BranchAddValidation() {
     }
     BindBranchAsyncLoad();
 }
+
+//----------Insert Branch--------------//
 function AddBranch() {
     debugger;
     $('#rowfluidDiv').hide();
@@ -460,16 +461,9 @@ function AddBranch() {
     var phone=$("#txtBranchPhone").val();
   
             var Boutique = new Object();
-            // if ($("#ddlBranchBoutique").val() != null) {
             Boutique.BoutiqueID = $("#hdfBranchBoutique").val();
-            // }
-            //else {
-            //    Boutique.BoutiqueID = "";
-            //}
-
             Latitude = $("#txtBranchLatitude").val();
             Longitude = $("#txtBranchLongitude").val();
-            //Boutique.CurrencyCode = $("#idDdlCurrency").val();
             Boutique.branchCode = $("#txtBranchCode").val();
             Boutique.branchName = $("#txtBranchName").val();
             Boutique.branchLocation = $("#txtBranchLocation").val();
@@ -519,6 +513,7 @@ function AddBranch() {
    
 }
 
+//----------Edit Branch--------------//
 function EditBranch()
 {
     debugger;
@@ -529,17 +524,10 @@ function EditBranch()
     var Latitude = "";
     var Longitude = "";
     var Boutique = new Object();
-    // if ($("#ddlBranchBoutique").val() != null) {
     Boutique.BoutiqueID = $("#hdfBranchBoutique").val();
     Boutique.branchID = $("#hdfBranchID").val();
-    // }
-    //else {
-    //    Boutique.BoutiqueID = "";
-    //}
-
     Latitude = $("#txtBranchLatitude").val();
     Longitude = $("#txtBranchLongitude").val();
-    //Boutique.CurrencyCode = $("#idDdlCurrency").val();
     Boutique.branchCode = $("#txtBranchCode").val();
     Boutique.branchName = $("#txtBranchName").val();
     Boutique.branchLocation = $("#txtBranchLocation").val();
@@ -580,6 +568,7 @@ function EditBranch()
     BindBoutiqueAsyncLoad();//Gridbind
 }
 
+//----------Update Branch--------------//
 function UpdateBranch(Boutique) {
     debugger;
     var data = "{'boutiqueobj':" + JSON.stringify(Boutique) + "}";
@@ -589,6 +578,8 @@ function UpdateBranch(Boutique) {
     return table;
 
 }
+
+//----------Insert Branch--------------//
 function InsertBranch(Boutique) {
     debugger;
     var data = "{'boutiqueobj':" + JSON.stringify(Boutique) + "}";
@@ -596,8 +587,8 @@ function InsertBranch(Boutique) {
     var table = {};
     table = JSON.parse(jsonResult.d);
     return table;
-
 }
+
 
 function BindBranchAsyncLoad() {
     debugger;
@@ -614,13 +605,11 @@ function BindBranchAsyncLoad() {
         BindBranchesTable(jsonResults);
     }
 }
+
+//----------Bind Branches Table--------------//
 function BindBranchesTable(Records) {
     ClearTextBoxes();
-    // $("#boutiqueTable").find(".odd").remove();
-
-    debugger;
     $("tbody#branchesRows tr").remove();
-
     $.each(Records, function (index, Records) {
 
         if (Records.Email == null || Records.Email == undefined)
@@ -641,6 +630,7 @@ function BindBranchesTable(Records) {
 
 }
 
+//----------Get All Branches--------------//
 function GetAllBranches(Boutique) {
     var ds = {};
     var table = {};
@@ -649,6 +639,8 @@ function GetAllBranches(Boutique) {
     table = JSON.parse(ds.d);
     return table;
 }
+
+//----------Select specific Branch based on boutique ID and Branch ID--------------//
 function SelectBranch(Boutique) {
     var ds = {};
     var table = {};
@@ -657,6 +649,8 @@ function SelectBranch(Boutique) {
     table = JSON.parse(ds.d);
     return table;
 }
+
+//----------Bind Branch TextBoxes--------------//
 function BindBranchTextBoxes(Records) {
     var Coordinate = Records[0].Coordinate;
     var latitude = Coordinate.split(',')[0];
@@ -677,11 +671,10 @@ function BindBranchTextBoxes(Records) {
         {
             document.getElementById("chkBranchActive").checked = false;
         }
-    //$(".AddBoutique").text("Save");,,,,,,,IsActive
         $("#editBranchLabel").text("Edit Branch");
-        //$("#BranchBoutiqueDisplay").css('display', 'none');
-
 }
+
+//----------Clear All TextBoxes--------------//
 function ClearTextBoxes()
 {
     $("#txtBranchCode").val("");
@@ -693,10 +686,12 @@ function ClearTextBoxes()
     $("#txtBranchLatitude").val("");
     $("#txtBranchLongitude").val("");
     $("#editBranchLabel").text("New Branch");
-    //$("#BranchBoutiqueDisplay").css('display', 'block');
     document.getElementById("chkBranchActive").checked = true;
 }
+
 //----Boutique-------//
+
+//----------Bind Currency DropDown--------------//
 function BindCurrencyDropdown() {
     var jsonResult = {};
     var Loyalty = new Object();
@@ -707,6 +702,7 @@ function BindCurrencyDropdown() {
     }
 }
 
+//----------Get All Currency--------------//
 function GetAllCurrency(Loyalty) {
     var ds = {};
     var table = {};
@@ -721,6 +717,8 @@ function RemoveStyle()
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1').slideUp(1000);
 }
+
+//----------Delete SaAdmin--------------//
 function DeleteSaAdmin(e,p)
 {
     var Admin = new Object();
@@ -745,6 +743,7 @@ function DeleteSaAdmin(e,p)
         }
     }
 }
+//----------Delete Admin--------------//
 function DeleteAdmin(Admin) {
     var ds = {};
     var table = {};
@@ -768,7 +767,6 @@ function DeleteItem(e,p)
 {
     debugger;
     var jsonResult = {};
-    //editedrow = $(this).closest('tr');
     var Boutique = new Object();
     Boutique.BoutiqueID = e;
     jsonResult = DeleteBoutique(Boutique);
@@ -874,8 +872,6 @@ function BindAsynAdminBranchDropdown()
  , allowClear: true
  , placeholder: "Select Branch"
         });
-     
-        //$('.ddlBranches option:selected').attr('disabled', 'disabled');
         if($(".ddlBranches option:selected").text()!=null)
         {
             BindAdminHiddenFields();
@@ -889,13 +885,11 @@ function BindAsynAdminBranchDropdown()
     });
         BindAdminHiddenFields();
     }
-    //$(".ddlBranches").select2('data', null);
    
 }
 function BindAsyncBranchDropDown() {
 
     $(".ddlBranches").select2({
-        //data: BindAsyncBoutiques()//Branches dropdown binds only with id and text[key:value] mandatory
          allowClear: true
         , placeholder: "Select Branch"
     });
@@ -956,11 +950,8 @@ function BindBoutiqueAsyncLoad()
     }
 }
 
+//----------Bind Boutique Table--------------//
 function BindBoutiqueTable(Records) {
- 
-   // $("#boutiqueTable").find(".odd").remove();
-   
-
     $("tbody#Boutiquerows tr").remove();
 
     $.each(Records, function (index, Records) {
@@ -971,12 +962,11 @@ function BindBoutiqueTable(Records) {
    
 }
 
+//----------Bind Boutique Textboxes--------------//
 function BindBoutiqueTextBoxes(Records)
 {
     $.each(Records, function(index, Records)
     {      
-        debugger;
-
         $("#txtAppVersion").val(Records.AppVersion);
         $("#txtBouquetName").val(Records.Name);
         $("#txtStartYear").val(Records.StartedYear);
@@ -999,6 +989,7 @@ function BindBoutiqueTextBoxes(Records)
 
 }
 
+//----------Clear All Controls--------------//
 function clearControls() {
     $("#txtAppVersion").val('');
     $("#txtBouquetName").val('');
@@ -1015,10 +1006,10 @@ function clearControls() {
     $("#hdfBoutiqueID").val('');
     $(".AddBoutique").text("Save");
     $("#editLabel").text("New Boutique");
-    //$('#rowfluidDiv').hide();
     $(".ddlCurrency").val("").trigger("change");
 }
 
+//----------Clear Admin Controls--------------//
 function ClearAdminControls()
 {  
     $("#txtUserName").val('');
@@ -1029,17 +1020,11 @@ function ClearAdminControls()
     $("#txtUserEmail").val('');
     $("#hdfUserId").val('');
     $("#hdfAdminId").val('');
-    //$('#rowfluidDiv').hide();
-    //$('.alert-success').hide();
-    //$('.alert-error').hide(); 
-
-   // $('#rowfluidDiv').hide();
-   // $('.alert-success').hide();
-    //$('.alert-error').hide();
 
     $(".ddlboutiques").val("").trigger("change");
 }
 
+//----------Bind Tiles--------------//
 function BindTiles()
 {
     BindAppUsersTile();
@@ -1078,9 +1063,6 @@ function BindBoutique() {
     $('#AllBoutiquesMainDiv').show();
     var BoutiqueDiv = document.getElementById('BoutiqueRowFluid');
     BoutiqueDiv.style.boxShadow = '0 3px 20px #00A300';
-    //$('html, body').animate({
-    //    scrollTop: $("#BoutiqueRowFluid").offset().top
-    //}, 500);
 }
 
 function BindUsers()
@@ -1090,9 +1072,6 @@ function BindUsers()
     $('#AppUserMainDiv').show();
     var AppUserDiv = document.getElementById('AppUserRowFluid');
     AppUserDiv.style.boxShadow = '0 3px 20px #FFC40D';
-    //$('html, body').animate({
-    //    scrollTop: $("#AppUserRowFluid").offset().top
-    //}, 500);
 }
 
 function BindException()
@@ -1102,14 +1081,10 @@ function BindException()
     $('#ExceptionMainDiv').show();
     var AppUserDiv = document.getElementById('ExcepyionRowFluid');
     AppUserDiv.style.boxShadow = '0 3px 20px #9F00A7';
-    //$('html, body').animate({
-    //    scrollTop: $("#ExcepyionRowFluid").offset().top
-    //}, 500);
 }
 
+//----------Boutique Fields Validation--------------//
 function Validation() {
- 
-
     $('#Displaydiv').remove();
     var AppVer = $('#txtAppVersion');
     var BoutiqueNam = $('#txtBouquetName');
@@ -1146,14 +1121,9 @@ function Validation() {
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.border = "5px solid Red!important";
-            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";            
             
         }
-
-        
-        
     }
     if (j == '1')
     {
@@ -1173,11 +1143,10 @@ function Validation() {
     }
     
 }
+
+//----------Add New Boutique--------------//
 function AddBoutiques()
 {
-   
-
-    
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1192,9 +1161,6 @@ function AddBoutiques()
         Boutique.CurrencyCode = $(".ddlCurrency").val();
     }
  
-
-
-    //Boutique.CurrencyCode = $("#idDdlCurrency").val();
     Boutique.AppVersion = $("#txtAppVersion").val();
     Boutique.Name = $("#txtBouquetName").val();
     Boutique.StartedYear = $("#txtStartYear").val();
@@ -1243,6 +1209,8 @@ function AddBoutiques()
     BindBoutiqueAsyncLoad();//Gridbind
     BindAsyncBoutiqueDropDown();
 }
+
+//----------Admin Fields Validation--------------//
 function AdminValidation()
 {
  
@@ -1254,8 +1222,6 @@ function AdminValidation()
     var CPassword = $('#txtAdminConPass');
     var Email = $('#txtUserEmail');
     var Phone = $('#txtMobile');
-    //var Timings = $('#txtTimings');
-    //var WorkDays = $('#txtWorkingDays');
     var container = [
         { id: Name[0].id, name: Name[0].name, Value: Name[0].value },
         { id: LoginName[0].id, name: LoginName[0].name, Value: LoginName[0].value },
@@ -1282,7 +1248,6 @@ function AdminValidation()
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }
@@ -1318,6 +1283,7 @@ function AdminValidation()
         return true;
     }
 }
+//---------- * Add New Administrator * --------------//
 function AddAdmin()
 {
     $('#rowfluidDiv').hide();
@@ -1346,7 +1312,7 @@ function AddAdmin()
     Admin.Mobile = $("#txtMobile").val();
     Admin.Email = $("#txtUserEmail").val();
     Admin.AdminID = $("#hdfAdminId").val();
-    // 
+    
     if ($('#chkActive').is(':checked')) {
         Admin.IsActive = "true";
     }
@@ -1383,9 +1349,9 @@ function AddAdmin()
 
 }
 
+//----------Bind Admin TextBoxes--------------//
 function BindAdminTextBoxes(Records)
 {
-    debugger;
     $("#txtUserName").val(Records[0].Name);
     $("#txtMobile").val(Records[0].Mobile);
     $("#txtAdminLoginName").val(Records[0].LoginName);
@@ -1397,6 +1363,8 @@ function BindAdminTextBoxes(Records)
         document.getElementById("chkActive").checked = false;
     }
 }
+
+//----------Clear Admin Controls--------------//
 function ClearAllControls()
 {
     $("#txtUserName").val('');
@@ -1412,6 +1380,8 @@ function ClearAllControls()
     $('.alert-error').hide();
     clearControls();
 }
+
+//----------Branch Fields Validation--------------//
 function BranchValidation() {
 
 
@@ -1422,8 +1392,6 @@ function BranchValidation() {
    var BranchAddress= $("#txtBranchAddress");
    var BranchPhone= $("#txtBranchPhone");
    var BranchEmail= $("#txtBranchEmail");
-   //var BranchLatitude= $("#txtBranchLatitude");
-   //var BranchLongitude= $("#txtBranchLongitude");
     var container = [
         { id: BranchCode[0].id, name: BranchCode[0].name, Value: BranchCode[0].value },
         { id: BranchName[0].id, name: BranchName[0].name, Value: BranchName[0].value },
@@ -1431,8 +1399,6 @@ function BranchValidation() {
         { id: BranchAddress[0].id, name: BranchAddress[0].name, Value: BranchAddress[0].value },
         { id: BranchPhone[0].id, name: BranchPhone[0].name, Value: BranchPhone[0].value },
         { id: BranchEmail[0].id, name: BranchEmail[0].name, Value: BranchEmail[0].value },
-        //{ id: BranchLatitude[0].id, name: BranchLatitude[0].name, Value: BranchLatitude[0].value },
-        //{ id: BranchLongitude[0].id, name: BranchLongitude[0].name, Value: BranchLongitude[0].value },
     ];
 
     var j = 0;
@@ -1451,8 +1417,6 @@ function BranchValidation() {
             txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
             txtB.style.backgroundPosition = "95% center";
             txtB.style.backgroundRepeat = "no-repeat";
-            //txtB.style.border = "5px solid Red!important";
-            //txtB.style.backgroundColor = "#FFFEE1";
             Errorbox.style.paddingLeft = "30px";
 
         }
@@ -1476,19 +1440,3 @@ function BranchValidation() {
     }
 
 }
-//function ClearAllBranchControls()
-//{
-//    debugger;
-//    ClearAllControls();
-//    $(".ddlBoutiques").select2({
-//        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
-//  , allowClear: true
-//  , placeholder: "Select a Boutique"
-//    });
-//    //$(".ddlBoutiques").empty();
-//    //$(".ddlBoutiques").select2({       
-//    //placeholder: "Select a Boutique"
-//    //});
-  
-//}
-
