@@ -112,14 +112,14 @@
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Name</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" id="txtBouquetName" type="text" />
+                                                        <input class="input-large focused" id="txtBouquetName"  onkeypress="return blockSpecialChar(event)"  type="text" />
                                                     </div>
                                                 </div>
 
                                                 <div class="control-group">
                                                     <label class="control-label" for="focusedInput">Started Year</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" id="txtStartYear" type="text" />
+                                                        <input class="input-large focused" id="txtStartYear" maxlength="4" onkeypress="return isNumber(event)"  type="text" />
                                                     </div>
                                                 </div>
 
@@ -279,7 +279,7 @@
 
                                                     <label class="control-label" for="focusedInput">Name</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Owner Name" id="txtOwnerName" type="text" />
+                                                        <input class="input-large focused" name="Owner Name"  onkeypress="return blockSpecialChar(event)"   id="txtOwnerName" type="text" />
                                                     </div>
                                                 </div>
 

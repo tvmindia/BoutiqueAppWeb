@@ -400,7 +400,7 @@
                     		  <div class="control-group">
 				    			  <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtName" type="text"/>
+								  <input class="input-large focused" id="txtName" onkeypress="return blockSpecialChar(event)" type="text"/>
 								</div>
 								</div>
 						      <div class="control-group">

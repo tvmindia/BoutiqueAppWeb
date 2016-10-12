@@ -222,14 +222,14 @@
 							  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Name</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtBouquetName" name="Boutique Name" type="text"/>
+								  <input class="input-large focused" id="txtBouquetName"  onkeypress="return blockSpecialChar(event)" name="Boutique Name" type="text"/>
 								</div>
 								</div>
 
                               <div class="control-group">
 								 <label class="control-label" for="focusedInput">Started Year</label>
 								<div class="controls">
-								  <input class="input-large focused" id="txtStartYear" name="Start Year" type="text" onkeypress="return isNumber(event)"/>
+								  <input class="input-large focused" id="txtStartYear" maxlength="4" name="Start Year" type="text" onkeypress="return isNumber(event)"/>
 								</div>
 								</div>
 

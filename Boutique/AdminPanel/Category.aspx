@@ -127,7 +127,7 @@
 						  <div class="control-group">
 								 <label class="control-label" for="focusedInput">Category Code</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Category Code" id="txtCatCode" type="text"/>
+								  <input class="input-large focused" name="Category Code" id="txtCatCode"  onkeypress="return blockSpecialChar(event)"  type="text"/>
                                      <label class="control-label" id="lblcatcode" style="display:none;" />
 								</div>
 								</div>
@@ -135,7 +135,7 @@
                               <div class="control-group">
 								<label class="control-label" for="focusedInput">Category Name</label>
 								<div class="controls">
-								  <input class="input-large focused" name="Category Name" id="txtCategoryName" type="text"/>
+								  <input class="input-large focused" name="Category Name"  onkeypress="return blockSpecialChar(event)"  id="txtCategoryName" type="text"/>
 								</div>
 								</div>
                             						

@@ -411,6 +411,30 @@ function isNumber(evt) {
     return true;
 }
 
+function blockSpecialChar(e) {
+    debugger;
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    if ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57))
+    {
+        return true;
+    }
+        return false;
+}
+ 
+
+// function Allowing only alphabets in Textbox 
+function isnotNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123)) {
+        return true;
+    }
+    return false;
+}
+
+
+
 function HideAlertBox() {
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();

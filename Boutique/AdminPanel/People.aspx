@@ -94,7 +94,7 @@
 
                                                     <label class="control-label" for="focusedInput">Name</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Admin Name" id="txtAdminName" type="text" />
+                                                        <input class="input-large focused" name="Admin Name" id="txtAdminName"  onkeypress="return blockSpecialChar(event)" type="text" />
                                                     </div>
                                                 </div>
 
@@ -231,7 +231,7 @@
 
                                                     <label class="control-label" for="focusedInput">Name</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Manager Name" id="txtManagerName" type="text" />
+                                                        <input class="input-large focused" name="Manager Name"  onkeypress="return blockSpecialChar(event)"  id="txtManagerName" type="text" />
                                                     </div>
                                                 </div>
 
@@ -368,7 +368,7 @@
 
                                                     <label class="control-label" for="focusedInput">Name</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" name="Designer Name" id="txtDesignerName" type="text" />
+                                                        <input class="input-large focused" name="Designer Name"  onkeypress="return blockSpecialChar(event)" id="txtDesignerName" type="text" />
                                                     </div>
                                                 </div>
 
@@ -465,7 +465,7 @@
 
                                                     <label class="control-label" for="focusedInput">Name</label>
                                                     <div class="controls">
-                                                        <input class="input-large focused" id="txtName" type="text" />
+                                                        <input class="input-large focused" id="txtName"  onkeypress="return blockSpecialChar(event)" type="text" />
                                                     </div>
                                                 </div>
 
