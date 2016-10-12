@@ -5,7 +5,7 @@ var TotalPrice = 0;
 var slNo = 0;
 var unit = '';
 var ExistingCustomer = true;
-
+var IsValidationSuccess = true;
 
 $("document").ready(function (e) {
     debugger;
@@ -17,6 +17,7 @@ $("document").ready(function (e) {
         $("#txtCustomerName").show();
         $("#Customer").css("display", "none");
         ExistingCustomer = false;
+        RemoveStyle();
     });
 
     $("#rdoYes").click(function () {
@@ -26,6 +27,7 @@ $("document").ready(function (e) {
         $("#txtCustomerName").hide();
         $("#Customer").show();
         ExistingCustomer = true;
+        RemoveStyle();
     });
 
     var rowCount = $("#OrderItemTable > tbody > tr").length;
@@ -229,6 +231,22 @@ $("document").ready(function (e) {
   {
       click: function (e) {
           ClearCurrentOrderControls();
+        
+          $("#OrdersTable").dataTable().fnClearTable();
+          $("#OrdersTable").dataTable().fnDestroy();
+
+
+          BindOrdersTable();
+
+
+          $('#OrdersTable').DataTable({
+              "bPaginate": true,
+              "iDisplayLength": 6,
+              "aLengthMenu": [[6, 20, 50, -1], [6, 20, 50, "All"]],
+              "aaSorting": [[0, 'desc']],
+              "fnPageChange": "next"
+          });
+         
           //Scroll page
           var offset = $('#editLabel').offset();
           offset.left -= 80;
@@ -359,7 +377,7 @@ $("document").ready(function (e) {
     $(".submitDetails").live(
     {
         click: function (e) {
-            var IsValidationSuccess = true;
+            if (IsValidationSuccess == true) {
             debugger;
 
             if (ExistingCustomer) {
@@ -790,6 +808,7 @@ $("document").ready(function (e) {
 
                 ////------------------------------------------------------------------------------------------------------------
             }
+        }
         }
 
     })
@@ -1797,28 +1816,45 @@ function ConvertJsonToDate(jsonDate) {
 }
 
 function OrderStatusValidation() {
-
+     
 
     debugger;
     $('#Displaydiv').remove();
     var container;
 
+    
+
+    var ReqDeliveryDate = $('#txtPlannedDeliveryDate');
+    var MobNo = $('#txtMobileNo');
+
+    if (ExistingCustomer == false) {
+        var CustmrName = $("#txtCustomerName");
+        
+
+        container = [
+             //{ id: branch[0].id, name: branch[0].name, Value: branch[0].value },
+           //   { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
+            { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value },
+         //   { id: CustmrAddrss[0].id, name: CustmrAddrss[0].name, Value: CustmrAddrss[0].value },
+            { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
+        ];
+    }
+    else {
+       
+        container = [
+          // { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
+           { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
+        ];
+    }
     //if ($("#hdfOrderID").val() == "") {
     //}
 
 
-        //var StDate = $('#txtOrderDate');
-        //var branch = $("#ddlBranch");
-        var CustmrName = $("#txtCustomerName");
-        //  var CustmrAddrss = $("#txtDeliveryAddress")
-        var ReqDeliveryDate = $('#txtPlannedDeliveryDate');
-
-        container = [
-             //{ id: branch[0].id, name: branch[0].name, Value: branch[0].value },
-            { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value },
-         //   { id: CustmrAddrss[0].id, name: CustmrAddrss[0].name, Value: CustmrAddrss[0].value },
-            { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value },
-        ];
+    //var StDate = $('#txtOrderDate');
+    //var branch = $("#ddlBranch");
+        
+    //  var CustmrAddrss = $("#txtDeliveryAddress")
+      
    
     var j = 0;
     var Errorbox = document.getElementById('ErrorBox');
@@ -1852,14 +1888,16 @@ function OrderStatusValidation() {
         p.style.fontSize = "14px";
 
         divs.appendChild(p);
-
+         IsValidationSuccess = false;
         return false;
     }
     if (j == '0') {
         $('#ErrorBox').hide();
-        AddNotification();
+      //  AddNotification();
+        IsValidationSuccess = true;
         return true;
     }
+
 }
 
 function RemoveStyle() {
