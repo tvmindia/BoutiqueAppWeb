@@ -1147,6 +1147,8 @@ function Validation() {
 //----------Add New Boutique--------------//
 function AddBoutiques()
 {
+    debugger;
+    
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1175,6 +1177,7 @@ function AddBoutiques()
     Boutique.InstagramLink = $("#txtInstatgramlink").val();
 
     result = InsertBoutique(Boutique);
+    debugger;
     if (result == "1") {
         $('#rowfluidDiv').show();
         $('.alert-success').show();
@@ -1183,7 +1186,7 @@ function AddBoutiques()
 //---------- * Rebinding Boutique Dropdown * ------------//
 
         $(".ddlboutiques").select2('data', null);
-
+        
         $(".ddlboutiques").select2({
             data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
         , allowClear: true
@@ -1198,7 +1201,25 @@ function AddBoutiques()
         $(".ddlCurrency").val("").trigger("change");
        
     }
-    if (result != "1") {
+    if (result == "2")
+    {
+        $('#rowfluidDiv').show();
+        $('.alert-success').show();
+        $('.alert-success strong').text(Messages.UpdationSuccessFull);
+        $(".ddlboutiques").select2('data', null);
+        $(".ddlboutiques").trigger('change');
+        $(".ddlboutiques").select2({
+            data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+        , allowClear: true
+        , placeholder: "Select a Boutique"
+        });
+        $(".ddlBoutiques").select2({
+            data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+ , allowClear: true
+ , placeholder: "Select a Boutique"
+        });
+    }
+    if ((result != "1")&&(result!="2")) {
         $('#rowfluidDiv').show();
         $('.alert-error').show();
         $('.alert-error strong').text(Messages.InsertionFailure);
@@ -1282,6 +1303,16 @@ function AdminValidation()
         AddAdmin()
         return true;
     }
+    $(".ddlboutiques").select2({
+        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+       , allowClear: true
+       , placeholder: "Select a Boutique"
+    });
+    $(".ddlBoutiques").select2({
+        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+, allowClear: true
+, placeholder: "Select a Boutique"
+    });
 }
 //---------- * Add New Administrator * --------------//
 function AddAdmin()
@@ -1438,5 +1469,14 @@ function BranchValidation() {
         BranchAddValidation();
         return true;
     }
-
+    $(".ddlboutiques").select2({
+        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+       , allowClear: true
+       , placeholder: "Select a Boutique"
+    });
+    $(".ddlBoutiques").select2({
+        data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
+, allowClear: true
+, placeholder: "Select a Boutique"
+    });
 }

@@ -320,6 +320,8 @@
     <Content Include="font\glyphiconshalflings-regular.eot" />
     <Content Include="font\glyphiconshalflings-regular.ttf" />
     <Content Include="font\glyphiconshalflings-regular.woff" />
+    <Content Include="Media\GraphPic\GraphicPic.txt" />
+    <Content Include="Media\NewsLetter\NewsLetter.txt" />
     <Content Include="NewsLetterImages\ppt.txt" />
     <Content Include="Scripts\bootstrap-dialog.min.js" />
     <Content Include="Scripts\bootstrap-select-1.6.3.js" />
@@ -678,8 +680,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Media\GraphPic\" />
-    <Folder Include="Media\NewsLetter\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

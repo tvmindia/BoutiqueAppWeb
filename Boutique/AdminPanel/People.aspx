@@ -12,7 +12,8 @@
       <link href="../CSS/Common.css" rel="stylesheet" />
      <link href="../CSS/DataTables-1.10.4/css/jquery.dataTables.css" rel="stylesheet" />
       <script src="../Scripts/custom.js"></script>
-      <script src="../Scripts/jquery.dataTables-1.10.12.js"></script>
+    <script src="../Scripts/DataTables-1.10.12/jquery.dataTables.min.js"></script>
+ <%--     <script src="../Scripts/jquery.dataTables-1.10.12.js"></script>--%>
    <%-- <script src="../Scripts/jquery.dataTables.min.js"></script>--%>
     <script src="../Scripts/jquery.validate.min-1.15.0.js"></script>
     <script src="../Scripts/CommonJS/Common.js"></script>

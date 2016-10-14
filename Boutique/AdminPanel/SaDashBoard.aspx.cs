@@ -163,6 +163,10 @@ namespace Boutique.AdminPanel
                 {
                     boutiqueobj.UpdatedBy = UA.userName;
                     status = boutiqueobj.EditBoutique().ToString();
+                    if(status=="1")
+                    {
+                        status = "2";
+                    }
                 }
 
             }
