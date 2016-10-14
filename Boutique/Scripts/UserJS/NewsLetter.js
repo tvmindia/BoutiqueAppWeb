@@ -12,7 +12,7 @@ $("document").ready(function (e) {
         // Great success! All the File APIs are supported.     
         document.getElementById('tempUpload').addEventListener('change', handleFileSelect, false);
     }
-    if (LoginUserRole[0] == Roles.Manager) {
+    if (LoginUserRole[0] != Roles.SuperAdmin) {
         $(".NewTempSec").hide();
         $("#CreateTemplate").hide();
     }
