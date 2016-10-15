@@ -216,6 +216,7 @@
  , placeholder: "Select Branch"
         });
         BindAsynAdminBranchDropdown();
+        $('.ddlboutiques option[value="newValue"]').remove();
     });
     
     $('input[type=text],input[type=password]').on('focus', function () {
@@ -418,6 +419,7 @@ function BindBranchGrid()
     debugger;
     var boutiqueID = "";
     var boutiqueName = "";
+    $('.ddlBoutiques option[value="newValue"]').remove();
     if ($("#ddlGridBranchBoutique").val() != null) {
         boutiqueID = $("#ddlGridBranchBoutique").val();
     }
@@ -1177,6 +1179,8 @@ function AddBoutiques()
     Boutique.InstagramLink = $("#txtInstatgramlink").val();
 
     result = InsertBoutique(Boutique);
+    $('.ddlboutiques option[value="newValue"]').remove();
+     $('.ddlBoutiques option[value="newValue"]').remove();
     debugger;
     if (result == "1") {
         $('#rowfluidDiv').show();
@@ -1208,11 +1212,20 @@ function AddBoutiques()
         $('.alert-success strong').text(Messages.UpdationSuccessFull);
         $(".ddlboutiques").select2('data', null);
         $(".ddlboutiques").trigger('change');
+       // <---------*refreshing boutique dropdown of admin*----------->
+        $(".ddlboutiques").html('');
+        var opt = "<option value='newValue' selected ='selected' disabled='disabled' id='disabledtext' style='color:#9f9f9f !important;'>Select Boutique </option>";
+        $(".ddlboutiques").html(opt);
         $(".ddlboutiques").select2({
             data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
-        , allowClear: true
-        , placeholder: "Select a Boutique"
+               , allowClear: true
+               , placeholder: "Select a Boutique"
         });
+
+        // <---------*refreshing boutique dropdown of branch*----------->
+        $(".ddlBoutiques").html('');
+        var opt = "<option value='newValue' selected ='selected' disabled='disabled' id='disabledtext'>Select Branch </option>";
+        $(".ddlBoutiques").html(opt);
         $(".ddlBoutiques").select2({
             data: BindAsyncBoutiques()//Boutiques dropdown binds only with id and text[key:value] mandatory
  , allowClear: true
