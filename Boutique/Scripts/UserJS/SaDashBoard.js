@@ -1063,6 +1063,7 @@ function BindBoutique() {
     $('#AppUserMainDiv').hide();
     $('#ExceptionMainDiv').hide();
     $('#AllBoutiquesMainDiv').show();
+    $('#myTab').show();
     var BoutiqueDiv = document.getElementById('BoutiqueRowFluid');
     BoutiqueDiv.style.boxShadow = '0 3px 20px #00A300';
 }
@@ -1072,6 +1073,7 @@ function BindUsers()
     $('#AllBoutiquesMainDiv').hide();
     $('#ExceptionMainDiv').hide();
     $('#AppUserMainDiv').show();
+    $('#myTab').hide();
     var AppUserDiv = document.getElementById('AppUserRowFluid');
     AppUserDiv.style.boxShadow = '0 3px 20px #FFC40D';
 }
@@ -1081,6 +1083,7 @@ function BindException()
     $('#AllBoutiquesMainDiv').hide();
     $('#AppUserMainDiv').hide();
     $('#ExceptionMainDiv').show();
+    $('#myTab').hide();
     var AppUserDiv = document.getElementById('ExcepyionRowFluid');
     AppUserDiv.style.boxShadow = '0 3px 20px #9F00A7';
 }
