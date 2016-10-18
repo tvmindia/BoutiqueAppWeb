@@ -146,13 +146,14 @@ namespace Boutique.DAL
         public Int16 InsertErrorDetails()
         {
             DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
-            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           
             dbConnection dcon = null;
             SqlCommand cmd = null;
             SqlParameter outParameter, outParameter2 = null;
             try
             {
+                UIClasses.Const Const = new UIClasses.Const();
+                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
                 dcon = new dbConnection();
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
