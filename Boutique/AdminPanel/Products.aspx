@@ -62,7 +62,10 @@
         padding-left:5px;
       }
 
-
+    .TypeInput{
+        float:right!important;
+        width:70%!important;
+    }
         </style>
     <div id="content" class="span10">
 
@@ -410,10 +413,10 @@
 								</div>
 								</div>
 					          <div class="control-group">
-								 <label class="control-label" for="focusedInput">Price</label>
+								 <label class="control-label" for="focusedInput">Base Price</label>
 								<div class="controls">
                                       
-								<input class="input-large focused" id="txtPrice" placeholder ="<%= this.UA.BoutiqueCurrencySymbol %>" type="text" onkeypress="return isNumber(event)"/>
+								<input class="input-large focused" id="txtPrice" placeholder ="<%= this.UA.BoutiqueCurrencySymbol %>" type="text" onkeypress="return isNumber(event)" onblur="SetDefaultPrice()"/>
                                       
 								</div>
 								</div>
@@ -423,7 +426,7 @@
 								 <label class="control-label" for="focusedInput">Discount</label>
 								<div class="controls">
                                     
-								  <input class="input-large focused" id="txtDiscount" placeholder="<%= this.UA.BoutiqueCurrencySymbol %>" type="text" onkeypress="return isNumber(event)"/>
+								  <input class="input-large focused" id="txtDiscount" placeholder="<%= this.UA.BoutiqueCurrencySymbol %>" type="text" onkeypress="return isNumber(event)" onblur="SetDefaultDiscount()"/>
                                         
 								</div>
 								</div>
@@ -498,6 +501,24 @@
                                      </div>
 								</div>
 								</div>
+
+                              <div class="control-group" >
+                                <label class="control-label" for="selectError1">Product Types</label>
+                                <div class="controls">
+                                <select class="input-large ddlProductTypes" multiple="multiple" id="ddlProductTypes" >
+                            
+                                </select>
+                                </div>
+                            </div>
+
+                            <div class="control-group" >
+                                <label class="control-label"  style="display:none">Product Types</label>
+                                <div class="controls" id="divTypes" style="width:100%;margin-left:0px!important">
+                               
+                                </div>
+                            </div>
+
+
 						</div>
                     </div>
                     <div class="span5" id="imageupGallery" style="max-height:550px;overflow-y:auto;overflow-x:hidden;">

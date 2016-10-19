@@ -210,6 +210,34 @@ namespace Boutique.DAL
         }
         #endregion ProductReviewProperty
 
+        #region Product Type Properties
+
+        public string ProductTypeCode
+        {
+            get;
+            set;
+        }
+
+        public string ProductTypeDescription
+        {
+            get;
+            set;
+        }
+
+        public string ProductTypeAmount
+        {
+            get;
+            set;
+        }
+
+        public string ProductTypeDiscountAmount
+        {
+            get;
+            set;
+        }
+
+        #endregion Product Type Properties
+
         #region Methods
 
         #region Constructors
@@ -283,6 +311,373 @@ namespace Boutique.DAL
             }
         }
         #endregion Constructors
+
+        //------------------ * Product Type Methods *-------------//
+
+        #region Product Type Methods
+
+        #region GetAllProductTypeIDAndName
+        /// <summary>
+        /// This datasource will be binded to Product Type Dropdown
+        /// </summary>
+        /// <returns>Dataset containing product type id and name</returns>
+        public DataSet GetAllProductTypeIDAndName()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetAllProductTypeIDAndName]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+
+        #endregion GetAllProductTypeIDAndName
+
+        #region Update Product Type Details
+        /// <summary>
+        /// Update Product type Details
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 UpdateProducTypeDetails()
+        {
+
+            if (BoutiqueID == string.Empty || BoutiqueID == null)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (ProductID == string.Empty || ProductID == null)
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateProductTypeDetails]";
+
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+
+                if (ProductTypeCode != string.Empty || ProductTypeCode != null)
+                {
+                    cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = ProductTypeCode;
+                }
+                //if (ProductTypeDescription != string.Empty || ProductTypeDescription != null)
+                //{
+                //    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255).Value = ProductTypeDescription;
+                //}
+                if (ProductTypeAmount != string.Empty || ProductTypeAmount != null)
+                {
+                    cmd.Parameters.Add("@Amount", SqlDbType.Money).Value = Convert.ToDecimal(ProductTypeAmount);
+                }
+
+                if (ProductTypeDiscountAmount != string.Empty || ProductTypeDiscountAmount != null)
+                {
+                    cmd.Parameters.Add("@DiscountAmount", SqlDbType.Money).Value = Convert.ToDecimal(ProductTypeDiscountAmount);
+                }
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Product";
+                ETObj.Method = "UpdateProducTypeDetails";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //update success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion Update Product type Details
+
+        #region Insert Product Type
+
+        public Int16 InsertProductType()
+        {
+            if (BoutiqueID == string.Empty || BoutiqueID == null)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (ProductID == string.Empty || ProductID == null)
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertProductType]";
+
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+
+                if (ProductTypeCode != string.Empty || ProductTypeCode != null)
+                {
+                    cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = ProductTypeCode;
+                }
+                if (ProductTypeDescription != string.Empty || ProductTypeDescription != null)
+                {
+                    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255).Value = ProductTypeDescription;
+                }
+                if (ProductTypeAmount != string.Empty || ProductTypeAmount != null)
+                {
+                    cmd.Parameters.Add("@Amount", SqlDbType.Money).Value = Convert.ToDecimal(ProductTypeAmount);
+                }
+
+                if (ProductTypeDiscountAmount != string.Empty || ProductTypeDiscountAmount != null)
+                {
+                    cmd.Parameters.Add("@DiscountAmount", SqlDbType.Money).Value = Convert.ToDecimal(ProductTypeDiscountAmount);
+                }
+
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "product";
+                ETObj.Method = "InsertProductType";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+
+            //insert success or failure
+
+            return Int16.Parse(outParameter.Value.ToString());
+            //return Guid.Parse(ID.Value.ToString());
+
+        }
+        #endregion Insert Product Type
+
+        #region Get Product Types By ProductID
+        public DataSet GetProductTypesByProductID()
+        {
+
+            //if (BoutiqueID == string.Empty || BoutiqueID == null)
+            //{
+            //    throw new Exception("BoutiqueID is Empty!!");
+            //}
+
+            if (ProductID == string.Empty || ProductID == null)
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetProductTypesByProductID]";
+                //cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID); ;
+             
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+            }
+
+
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Product";
+                ETObj.Method = "GetProductTypesByProductID";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return ds;
+        }
+        #endregion Get Product Types By ProductID
+
+        #region Delete Product Type Code And ProductID
+        /// <summary>
+        /// Delete Product Type Code And ProductID
+        /// </summary>
+        /// <returns>status</returns>
+        public Int16 DeleteProductTypeByProductIDAndCode()
+        {
+
+            if (ProductID == string.Empty || ProductID == null)
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+
+            if (ProductTypeCode == string.Empty || ProductTypeCode == null)
+            {
+                throw new Exception("ProductTypeCode is Empty!!");
+            }
+
+
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[DeleteProductTypeByProductIDAndCode]";
+
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = ProductTypeCode;
+
+                outParameter = cmd.Parameters.Add("@DeletionStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Product";
+                ETObj.Method = "DeleteProductTypeByProductIDAndCode";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            //update success or failure
+            return Int16.Parse(outParameter.Value.ToString());
+
+        }
+        #endregion Delete Product Type Code And ProductID
+
+
+        #endregion Product Type Methods
+
+        //-------- ----------* END :   Product Type Methods *---------//
 
         #region New Product
         /// <summary>
@@ -639,6 +1034,71 @@ namespace Boutique.DAL
             return dt;
         }
         #endregion
+
+        #region Product Type Details as DataTable
+        /// <summary>
+        /// To get a product's details by ProductID
+        /// </summary>
+        /// <returns>Datatable of details</returns>
+        public DataTable GetProductTypeDetailsByProductID()
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+            //if (BoutiqueID == "")
+            //{
+            //    throw new Exception("BoutiqueID is Empty!!");
+            //}
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlDataAdapter sda = null;
+            DataTable dt = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                sda = new SqlDataAdapter();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetProductTypesByProductID]";
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+               // cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.BoutiqueID);
+                sda.SelectCommand = cmd;
+                dt = new DataTable();
+                sda.Fill(dt);
+                if (dt.Rows.Count == 0) { throw new Exception("No such item"); }
+
+            }
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Product";
+                ETObj.Method = "GetProductTypeDetailsByProductID";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return dt;
+        }
+        #endregion Product Type Details as DataTable
 
         #region Add entry to product view log
         /// <summary>

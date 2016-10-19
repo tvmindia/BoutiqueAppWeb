@@ -1,4 +1,9 @@
 ﻿var LoginUserRole = '';
+var ProductTypes = []; 
+var IsBindedControlsOnEdit = false;     //-- To check whether controls are binded on edit (reason: bcz Product type controls will be recreated on type dropdown change,And valuies will get disappeared , so inorder to rebind value to controls , we have to identify its edit click itself )
+var DefaultPrice = '';                 //-- Base price (Base Price will be binded for type prices, This value will be binded on onblur event of Base price textbox)
+var DefaultDiscount = '';             //-- Base Discount price (Discount will be binded for type discount prices, This value will be binded on onblur event of Base Discount price textbox)
+
 $("document").ready(function (e) {
   
     $('.ReviveProduct').hide();
@@ -168,8 +173,6 @@ $("document").ready(function (e) {
         }
     })
 
-
-
     $("#load_more_button").click(function (e) { //user clicks on button
       
         HideAlertBox();
@@ -269,7 +272,6 @@ $("document").ready(function (e) {
 
     });
 
-
     $("#load_more_buttonoutofstock").click(function (e)
     { //user clicks on button
         HideAlertBox();
@@ -320,7 +322,6 @@ $("document").ready(function (e) {
         $('.animation_image').hide();
         $(this).show();
     });
-
 
     $("#load_more_buttonreviveproducts").click(function (e) { //user clicks on button
         HideAlertBox();
@@ -475,8 +476,6 @@ $("document").ready(function (e) {
         //Masonary reinit
     });
 
-    
-
     $(".btnsearchnewproducts").click(function (e) { //user clicks on button
         HideAlertBox();
         var search = $("#txtsearchnewproducts").val();
@@ -498,7 +497,6 @@ $("document").ready(function (e) {
         }
     });
 
-
     $(".btnsearchtrends").click(function (e) { //user clicks on button
         $('#loadmoretrendproductdiv').hide();
         HideAlertBox();
@@ -517,7 +515,6 @@ $("document").ready(function (e) {
             CustomAlert("Please Search with Product No/Name!");
         }
     });
-
 
     $(".btnsearchoutofstock").click(function (e) { //user clicks on button
         $('#loadmoreoutofstockproductdiv').hide();
@@ -542,7 +539,6 @@ $("document").ready(function (e) {
         }
     });
 
-
     $(".btnsearchreviveproduct").click(function (e) {
         $('#loadmoredeletedproductdiv').hide();
           HideAlertBox();
@@ -563,9 +559,6 @@ $("document").ready(function (e) {
 
     });
 
-
-
-
     $('input[type=text],input[type=password],select').on('focus', function () {
        
         $(this).css({ background: 'white' });
@@ -576,7 +569,6 @@ $("document").ready(function (e) {
         $(this).css({ background: 'white' });
         $('#ErrorBox').slideUp(1000);
     });
-
 
     $(".btnRefreshnewproducts").click(function (e)
     {//
@@ -594,8 +586,6 @@ $("document").ready(function (e) {
         }
        
    });
-
-
 
     $(".btnRefreshtrends").click(function (e) {//
         $('#loadmoretrendproductdiv').show();
@@ -646,7 +636,6 @@ $("document").ready(function (e) {
         
      });
 
-
      $(".ReviveProduct").click(function (e) {//
          debugger;
          HideAlertBox();
@@ -658,8 +647,6 @@ $("document").ready(function (e) {
           }
 });
 
-
-     
      $("#txtsearchnewproducts").keyup(function (event) {
          if (event.keyCode == 13) {
              if ($('#txtsearchnewproducts').val() != '')
@@ -794,6 +781,79 @@ $("document").ready(function (e) {
          }
      });
    
+    // ----------- * Binding Product Type Dropdown * -------------//
+     $("#ddlProductTypes").select2({
+         placeholder: "Choose Product Types",
+         allowClear: true,
+         data: BindProductTypes()
+     });
+
+
+    //------------ * Product Type Item Change Event (Will get fired for both selecting an item as well as deselecting item)  *----------//
+    $('#ddlProductTypes').select2()
+          .on("change", function (e) {
+              
+              var data = $(this).select2('data');
+              var index = data.length - 1;
+              $('#divTypes').html('');
+
+              var $Label = $("<label style='cursor:auto'>");
+              var $Table = $("<table id ='tblProdctTypes'><tr><th>Type</th><th>Amount</th><th>Discount</th></tr>");
+              
+              for (var i = 0; i < data.length; i++)
+              {
+                  if ($("#hdfproductID").val() == "")  // New Product (Price and Discount values will get binded with base values)
+                   {
+                      var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any' value = " + DefaultPrice + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' value = " + DefaultDiscount + " onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
+	                  $Table = $Table.append($Content);
+                      $Label = $Label.append($Table);
+                      var $html = $Label;
+                      $('#divTypes').append($html);
+                   }
+                  else
+                  {
+                      //-------* Edit Product Case (no need to bind base price and discount , instead values should take from db) *------//
+
+                      var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any'  style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
+                      $Table = $Table.append($Content);
+                      $Label = $Label.append($Table);
+                     var $html = $Label;
+                  }
+                 
+                  $('<input>').attr({ type: 'hidden', Value: data[i].text, id: 'hdnType' + i }).appendTo($html);
+                  $('<input>').attr({ type: 'hidden', Value: data[i].id, id: 'hdnTypeCode' + i }).appendTo($html); 
+                  $('#divTypes').append($html);
+
+              }
+
+                  if( IsBindedControlsOnEdit == true &&  $("#hdfproductID").val() != "")
+                  {
+                  //------* Edit case - Created controls are binded from here(Price and Discount values will get binded with values from database(Corresoponding saved values)) *-----//
+                      var Product = new Object();
+                      Product.ProductID = $("#hdfproductID").val();
+
+                      var data = "{'productObj':" + JSON.stringify(Product) + "}";
+                      jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetProductTypesByProductID");
+                      var table = {};
+                      table = JSON.parse(jsonResult.d);
+
+                      var ProductTypeDeatils = {};
+                      ProductTypeDeatils = table;
+                     
+                      $.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
+                          
+                          //-- Amount -- //
+                          Amount = "txtAmt" + index;
+                          $('#' + Amount).val(ProductTypeDeatils.Amount);
+                        
+                          //-- Discount Amount -- //
+                          DiscountAmt = "txtDiscountAmt" + index;
+                          $('#' + DiscountAmt).val(ProductTypeDeatils.DiscountAmount);
+
+                      });
+                 }
+          })
+
 });//end of document.ready
 function FillDetails(objthis)
 {
@@ -871,6 +931,35 @@ function DeleteItem(e, p) {
         $('.alert-error').show();
         AutoScrollToAlertBox();
     }
+}
+
+function SetDefaultPrice()
+{
+    DefaultPrice = $("#txtPrice").val();
+}
+
+function SetDefaultDiscount()
+{
+    var DiscountAmt = parseFloat($("#txtDiscount").val());
+    var Amt = parseFloat($("#txtPrice").val());
+
+    DefaultDiscount = $("#txtDiscount").val();
+
+    if (DiscountAmt >= Amt) {
+        CustomAlert("Discount amount should be less than actual price");
+    }
+}
+
+function DiscountValidation(i)
+{
+    var DiscountAmt = parseFloat( $("#txtDiscountAmt"+i).val());
+    var Amt =parseFloat( $("#txtAmt"+i).val());
+   
+    if (DiscountAmt >= Amt)
+    {
+        CustomAlert("Discount amount should be less than actual price");
+    }
+
 }
 
 function ReviveProducts(e,p)
@@ -994,6 +1083,61 @@ function BindProductTextBoxes(thisobject)
     $('#IframeProjectSwitching').show();
     $('#idproductno').text(productno);
     $('#lblproductno').show();
+
+    debugger;
+    var productid = $(thisobject).attr('productid');
+    var Product = new Object();
+    Product.ProductID = productid;
+
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetProductTypesByProductID");
+    var table = {};
+    table = JSON.parse(jsonResult.d);
+    
+    var ProductTypeDeatils = {};
+    ProductTypeDeatils = table;
+
+    $('#divTypes').html('');
+
+    var TypeCodeArray = [];
+   
+    $.each(ProductTypeDeatils, function (index, ProductTypeDeatils)
+    {
+        TypeCodeArray.push(ProductTypeDeatils.Code);
+
+    });
+
+    if (TypeCodeArray.length > 0) {
+        $("#ddlProductTypes").select2().val(TypeCodeArray).trigger("change");
+    }
+    else {
+        $("#ddlProductTypes").select2("val", "");
+    }
+
+    $('#divTypes').html('');
+
+    //------------------ * Create And Bind Product Types * -------------//
+
+    var $Label = $("<label style='cursor:auto'>");
+    var $Table = $("<table id ='tblProdctTypes'><tr><th>Type</th><th>Amount</th><th>Discount</th></tr>");
+
+    $.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
+
+     var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' onblur='DiscountValidation(" + index + ")' value = " + ProductTypeDeatils.DiscountAmount + " style='float:right!important;width:70%!important;'></td></tr>");
+     $Table = $Table.append($Content);
+     $Label = $Label.append($Table);
+
+     var $html = $Label;
+     $('#divTypes').append($html);
+
+        $('<input>').attr({ type: 'hidden', Value: ProductTypeDeatils.Description, id: 'hdnType' + index }).appendTo($html);
+        $('<input>').attr({ type: 'hidden', Value: ProductTypeDeatils.Code, id: 'hdnTypeCode' + index }).appendTo($html);
+        $('#divTypes').append($html);
+
+    });
+   
+    IsBindedControlsOnEdit = true;
+   
 }
 
 //////////////////////////////////////
@@ -1048,7 +1192,6 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
     return totalimages.length;
 }
 //////////////////////////////////////////////////////
-
 
 function BindAllRevivedProductsSearch(Pagevalue, searchtext)
 {
@@ -2028,6 +2171,16 @@ function BindSortResult(Pagevalue, searchtext)
             return jsonResult;
         }
     }
+
+    function BindProductTypes() {
+        var jsonResult = {};
+        var Product = new Object();
+        jsonResult = GetAllProductTypes(Product);
+        if (jsonResult != undefined) {
+            return jsonResult;
+        }
+    }
+
     function BindAsyncDesigner() {
         var jsonResult = {};
         var Designers = new Object();
@@ -2211,6 +2364,16 @@ function BindSortResult(Pagevalue, searchtext)
         table = JSON.parse(ds.d);
         return table;
     }
+    function GetAllProductTypes(Product) {
+        var ds = {};
+        var table = {};
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductTypeIDandName");
+        table = JSON.parse(ds.d);
+        return table;
+    }
+
+
     function GetAllDesigners(Designers) {
         var ds = {};
         var table = {};
@@ -2227,6 +2390,23 @@ function BindSortResult(Pagevalue, searchtext)
         table = JSON.parse(jsonResult.d);
         return table;
     }
+    function InsertProductType(Product) {
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/InsertProductType");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+
+    function UpdateProductTypeDetails(Product) {
+        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+        jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/UpdateProductTypeDetails");
+        var table = {};
+        table = JSON.parse(jsonResult.d);
+        return table;
+    }
+
+
 
     function UpdateProduct(Product) {
         debugger;
@@ -2337,6 +2517,12 @@ function BindSortResult(Pagevalue, searchtext)
         $('#lblproductno').hide();
         $("#txtTags").siblings('span').remove();
     
+        //--- Clear product type controls
+        ProductTypes = [];
+        $('#divTypes').html('');
+        $("#ddlProductTypes").select2("val", "");
+        DefaultPrice = '';
+        DefaultDiscount = '';
     }
 
 
@@ -3101,8 +3287,52 @@ function BindSortResult(Pagevalue, searchtext)
         return table;
     }
 
+
+    function AddProductTypestoArray()
+    {
+        ProductTypes = [];
+
+        for (var i = 0; i < tblProdctTypes.length; i++) {
+            debugger;
+
+            Type = "hdnType" + i;
+            Type = $('#' + Type).val();
+
+            TypeCode = "hdnTypeCode" + i;
+            TypeCode = $('#' + TypeCode).val();
+
+            Amount = "txtAmt" + i;
+            Amount = $('#' + Amount).val();
+
+            DiscountAmt = "txtDiscountAmt" + i;
+            DiscountAmt = $('#' + DiscountAmt).val();
+
+            
+
+            ProductTypes.push(Type + "|" +TypeCode+"|"+ Amount + "|" + DiscountAmt);
+        }
+    }
+
+
     function ProductValidation() {
-    
+
+      
+      //  AddProductTypestoArray();
+        //$('#tblProdctTypes tr').each(function () {
+        //    $(this).find('td').each(function () {
+                
+        //    })
+        //})
+
+        //$('#tblProdctTypes tr').each(function (i, el) {
+        //    var $tds = $(this).find('td'),
+        //        Type = $tds.eq(0).text(),
+        //        Amount = $tds.eq(1).text(),
+        //        DiscountAmt = $tds.eq(2).text();
+        //    ProductTypes.push(Type + "|" + Amount + "|" + DiscountAmt);
+        //});
+
+        
         $('#Displaydiv').remove();
         var Name = $('#txtName');
         var Descrip = $('#txtDescription');
@@ -3281,33 +3511,100 @@ function BindSortResult(Pagevalue, searchtext)
             Product.DesignerID = "";
         }
 
-        result = InsertProduct(Product);
-
-        if (result.status == "1") {
-
-            //---------- * Rebinding Related Products Dropdown * ------------//
-
-            $(".ddlrelateproducts").select2('data', null);
-
-            $(".ddlrelateproducts").select2({
-                placeholder: "Choose Related Products",
-                allowClear: true,
-                data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
-            });
-
-
-            $("#hdfproductID").val(result.ProductID);
-            $('#rowfluidDiv').show();
-            $('.alert-success strong').text(Messages.InsertionSuccessFull);
-            $('.alert-success').show();
-            $('.ModifyProduct').show();//displays editsave button
-            $('.AddProduct').hide();//hides save
-            $('#IframeProjectSwitching').show();
-            // Scroll page
-            // AutoScrollToAlertBox();
-
+        if (Product.Discount >= Product.Price)
+        {
+            CustomAlert("Discount amount should be less than actual price");
         }
-        if (result.status != "1") {
+        else {
+            result = InsertProduct(Product);
+        }
+       
+        debugger;
+
+        if (result != "") {
+
+            debugger;
+            if (result.status == "1") {
+                //ProductTypes
+                //---------- * Rebinding Related Products Dropdown * ------------//
+
+                $(".ddlrelateproducts").select2('data', null);
+
+                $(".ddlrelateproducts").select2({
+                    placeholder: "Choose Related Products",
+                    allowClear: true,
+                    data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
+                });
+          
+            
+            
+                $("#hdfproductID").val(result.ProductID);
+                $('#rowfluidDiv').show();
+                $('.alert-success strong').text(Messages.InsertionSuccessFull);
+                $('.alert-success').show();
+                $('.ModifyProduct').show();//displays editsave button
+                $('.AddProduct').hide();//hides save
+                $('#IframeProjectSwitching').show();
+                // Scroll page
+                // AutoScrollToAlertBox();
+                debugger;
+                ProductTypes = [];
+                var Product = new Object();
+
+                Product.ProductID = result.ProductID;
+
+                tblProdctTypes = $("#tblProdctTypes tr");
+
+              
+
+                for (var i = 0; i < tblProdctTypes.length; i++) {
+                    debugger;
+
+                    //-- Description --//
+                    Type = "hdnType" + i;
+                    Type = $('#' + Type).val();
+                    Product.ProductTypeDescription = Type;
+
+                    //-- Code --//
+                    TypeCode = "hdnTypeCode" + i;
+                    TypeCode = $('#' + TypeCode).val();
+                    Product.ProductTypeCode = TypeCode;
+                
+                    //-- Amount -- //
+                    Amount = "txtAmt" + i;
+                    Amount = $('#' + Amount).val();
+                    Product.ProductTypeAmount = Amount;
+
+                    //-- Discount Amount -- //
+                    DiscountAmt = "txtDiscountAmt" + i;
+                    DiscountAmt = $('#' + DiscountAmt).val();
+                    Product.ProductTypeDiscountAmount = DiscountAmt;
+                    
+                    if (parseFloat(DiscountAmt) >=parseFloat( Amount)) {
+                        CustomAlert("Discount amount should be less than actual price");
+                    }
+                    else if (Amount == "") {
+                        CustomAlert("Please enter a Amount");
+                    }
+                    else if (DiscountAmt == "") {
+                        CustomAlert("Please enter a Discount Amount");
+                    }
+                    else
+                    {
+                        ProductTypes.push(Type + "|" + TypeCode + "|" + Amount + "|" + DiscountAmt);
+                        InsertProductType(Product);
+
+                    }
+               
+                }
+
+            }
+        }
+
+        if (result != "") {
+    
+        
+        if (result.status != "1" ) {
             $('#rowfluidDiv').show();
             $('.alert-error strong').text(Messages.InsertionFailure);
             $('.alert-error').show();
@@ -3315,7 +3612,7 @@ function BindSortResult(Pagevalue, searchtext)
             AutoScrollToAlertBox();
 
         }
-    
+    }
         return false;
     }
     function EditProduct()
@@ -3393,13 +3690,13 @@ function BindSortResult(Pagevalue, searchtext)
             });
             Product.ImageInfo = ImageInfo;
             //productimage id and order number
+
+            debugger;
+
             result = UpdateProduct(Product);
             if (result.status == "1") {
 
-                $('#rowfluidDiv').show();
-                $('.alert-success strong').text(Messages.UpdationSuccessFull);
-                $('.alert-success').show();
-                $("#editLabel").text("Edit Product");
+               
                 if (BindAllProductImagesRebind(0) != -1) {
 
                     var galerydiv = $('.imageholder');
@@ -3428,6 +3725,168 @@ function BindSortResult(Pagevalue, searchtext)
                     allowClear: true,
                     data: BindAsyncRelatedProducts()//Related products dropdown binds only with id and text[key:value] mandatory
                 });
+
+
+                ProductTypes = [];
+                var Product = new Object();
+
+                Product.ProductID = $("#hdfproductID").val();
+                tblProdctTypes = $("#tblProdctTypes tr");
+
+                if (tblProdctTypes.length == 0)
+                {
+
+                    $('#rowfluidDiv').show();
+                    $('.alert-success strong').text(Messages.UpdationSuccessFull);
+                    $('.alert-success').show();
+                    $("#editLabel").text("Edit Product");
+
+
+                }
+
+                var Product = new Object();
+
+                Product.ProductID = $("#hdfproductID").val();
+                var data = "{'productObj':" + JSON.stringify(Product) + "}";
+                jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetProductTypesByProductID");
+                var table = {};
+                table = JSON.parse(jsonResult.d);
+                var TypeCodes = [];
+
+                //$.each(table, function (index, table) {
+                //    if ($.inArray(table.Code, tblProdctTypes) == -1) {
+
+                //        alert($.inArray(table.Code, tblProdctTypes));
+                //    }
+
+                //});
+
+
+                for (var i = 0; i < tblProdctTypes.length; i++) {
+                    debugger;
+
+                    //-- Description --//
+                    Type = "hdnType" + i;
+                    Type = $('#' + Type).val();
+                    Product.ProductTypeDescription = Type;
+
+                    //-- Code --//
+                    TypeCode = "hdnTypeCode" + i;
+                    TypeCode = $('#' + TypeCode).val();
+                    Product.ProductTypeCode = TypeCode;
+                    TypeCodes.push(TypeCode);
+
+
+                    //-- Amount -- //
+                    Amount = "txtAmt" + i;
+                    Amount = $('#' + Amount).val();
+                    Product.ProductTypeAmount = Amount;
+
+                    //-- Discount Amount -- //
+                    DiscountAmt = "txtDiscountAmt" + i;
+                    DiscountAmt = $('#' + DiscountAmt).val();
+                    Product.ProductTypeDiscountAmount = DiscountAmt;
+
+                    if (parseFloat(DiscountAmt) >= parseFloat(Amount))
+                    {
+                        CustomAlert("Discount amount should be less than actual price");
+                    }
+                   
+                    else if (Amount == "") {
+                        CustomAlert("Please enter a Amount");
+                    }
+                    else if (DiscountAmt == "") {
+                        CustomAlert("Please enter a Discount Amount");
+                    }
+
+
+                    else
+                    {
+                        ProductTypes.push(Type + "|" + TypeCode + "|" + Amount + "|" + DiscountAmt);
+
+
+                        UpdateProductTypeDetails(Product);
+
+                        $('#rowfluidDiv').show();
+                        $('.alert-success strong').text(Messages.UpdationSuccessFull);
+                        $('.alert-success').show();
+                        $("#editLabel").text("Edit Product");
+
+
+                    }
+
+                 
+                    
+
+
+                    //var ProductTypeDeatils = {};
+                    //ProductTypeDeatils = table;
+                    //debugger;
+
+
+                    //$.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
+
+                    //    debugger;
+
+                    //    if (index == i) {
+    
+                    //    var a = ProductTypeDeatils.ProductID;
+                    //    var b = Product.ProductID;
+
+                    //    var c = parseFloat(ProductTypeDeatils.Code);
+                    //    var d = parseFloat(Product.ProductTypeCode);
+
+                    //    debugger;
+                    //    if (ProductTypeDeatils.ProductID == Product.ProductID && parseFloat( ProductTypeDeatils.Code )== parseFloat( Product.ProductTypeCode))
+                    //    {
+                    //        debugger;
+                    //        //-- Update Case
+                    //        if (ProductTypeDeatils.Amount != Product.ProductTypeAmount || ProductTypeDeatils.DiscountAmount != Product.ProductTypeDiscountAmount)
+                    //        {
+                    //            var c = 9;
+                    //            return false;
+                    //        }
+                    //    }
+
+                    //    else
+                    //    {
+                    //        debugger;
+                    //        var c = 9;
+
+                    //        //Insert case
+
+                    //      //  InsertProductType(Product);
+                    //    }
+                        
+                    //}
+                    //});
+
+                    //if (i > (ProductTypeDeatils.length - 1))
+                    //{
+                    //    var c = 9;
+
+                    //   // InsertProductType(Product);
+                    //}
+                }
+
+
+                $.each(table, function (index, table) {
+                    if ($.inArray(table.Code, TypeCodes) == -1) {
+
+                        //--Type Deletion
+                        var Product = new Object();
+                        Product.ProductID = $("#hdfproductID").val();
+                        Product.ProductTypeCode = table.Code;
+
+                        var data = "{'productObj':" + JSON.stringify(Product) + "}";
+                        jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/DeleteProductType");
+                        var table = {};
+                        table = JSON.parse(jsonResult.d);
+                    }
+
+                });
+               
+
 
             }
             if (result.status != "1") {
