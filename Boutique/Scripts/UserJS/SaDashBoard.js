@@ -610,7 +610,7 @@ function BindBranchAsyncLoad() {
 
 //----------Bind Branches Table--------------//
 function BindBranchesTable(Records) {
-    ClearTextBoxes();
+    //ClearTextBoxes();
     $("tbody#branchesRows tr").remove();
     $.each(Records, function (index, Records) {
 
