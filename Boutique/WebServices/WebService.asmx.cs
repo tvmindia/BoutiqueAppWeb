@@ -447,7 +447,7 @@ namespace Boutique.WebServices
         /// <param name="referral">Referral loyalty number. sent "null" if there is none</param>
         /// <returns>flag and message. Then OTP number and Loyalty Card Number. also UserID for activation</returns>
         [WebMethod]
-        public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary, string referral)
+        public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary, string referral, string address)
         {
             DataTable dt = new DataTable();
             try
@@ -464,8 +464,10 @@ namespace Boutique.WebServices
                 user.CreatedBy = "User";
                 user.CreatedDate = DateTime.Now;
                 user.IsAdmin = false;
-                user.AddNewUser(referral);
-                
+                user.Address = address;
+
+                user.AddNewUser(referral);             
+                                
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));
                 dt.Columns.Add("UserID", typeof(String));
