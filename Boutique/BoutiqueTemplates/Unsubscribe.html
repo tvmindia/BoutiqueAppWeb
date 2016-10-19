@@ -64,17 +64,26 @@
         <div style="position:relative;left:60%"><input type="button" name="unsubscribe" onclick="getUnsubscribeMailId();" value="Unsubscribe" style="background-color: #9ca9b5;border-color: #e5eef3;color: white;border: 2px solid #edf0f1;height: 35px;width: 135px;"></div>
 
     </form>
-
+    <input type="hidden"  id="hdfBoutiqueId"/>
     <script>
        
+   
         window.onload = function () {
-                var boutiqueID = {};
-                boutiqueID = getboutiqueID();
+          
+            var boutiqueID = {};
+            boutiqueID = getQueryString('id');
+            $("#hdfBoutiqueId").val(boutiqueID);
                 $("#imgLogo").attr("src", "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + boutiqueID);
                 var jsonResult = {};
                 jsonResult = GetBoutiques();
                 $("#lblBoutique").text(jsonResult[0].Name);
         }
+        var getQueryString = function (field, url) {
+            var href = url ? url : window.location.href;
+            var reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+            var string = reg.exec(href);
+            return string ? string[1] : null;
+        };
         function GetBoutiques() {
 
             var ds = {};
@@ -90,6 +99,7 @@
             var result = "";
             var NewsLetters = new Object();
             NewsLetters.EmailId = $("#txtEmail").val();
+            NewsLetters.BoutiqueID = $("#hdfBoutiqueId").val();
             result = UnsubscribeEmail(NewsLetters)
             if (result.status == "1") {
                 alert("successfull..!!!");

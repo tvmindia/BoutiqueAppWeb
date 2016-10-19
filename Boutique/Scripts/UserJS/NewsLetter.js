@@ -1309,6 +1309,7 @@ function GetAllProductsImageDetailsForNewsLetter(Product) {
 function handleFileSelect(evt) {
     try
     {
+        debugger;
         var files = evt.target.files; // FileList object
         // $("#imageList").find(".thumb").remove();
         // Loop through the FileList and render image files as thumbnails.
@@ -1330,7 +1331,7 @@ function handleFileSelect(evt) {
                 var span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" src="', e.target.result,
                                  '" title="', escape(theFile.name), '"/>'].join('');
-                document.getElementById('imageList').insertBefore(span, null);
+                //document.getElementById('imageList').insertBefore(span, null);
             };
         })(f);
 

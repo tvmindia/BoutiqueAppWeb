@@ -944,7 +944,7 @@ namespace Boutique.DAL
                                 " <div mc:edit='std_footer'>"+
                                 "<em>Copyright © 2016 TiquesInn, All rights reserved.</em>" +
                                 "<br />" +
-                                "<em><a href='../BoutiqueTemplates/Unsubscribe.html' target='_blank'>unsubscribe</a></em>"+
+                                "<em><a href='tiquesinn.com/BoutiqueTemplates/Unsubscribe.html?id="+BoutiqueID+"' target='_blank'>unsubscribe</a></em>" +
                                 "<br>"+
                                 "</div>"+
                                 "</td>"+
