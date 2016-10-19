@@ -315,7 +315,7 @@ $("document").ready(function (e) {
                 formData.append('BoutiqueID', hdfBoutiqueID);
                 result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
                 var resultData = result.split(",");
-                if (resultData[0] != "0") {
+                if (resultData[0] != "0" && resultData[1]!="") {
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
                     $('.alert-success strong').text(Messages.InsertionSuccessFull);
@@ -328,7 +328,7 @@ $("document").ready(function (e) {
                     });
                     AutoScrollToAlertBox();
                 }
-                if (resultData[0] == "0") {
+                if (resultData[0] == "0" || resultData[1] == "") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                     $('.alert-error strong').text(Messages.InsertionFailure);
