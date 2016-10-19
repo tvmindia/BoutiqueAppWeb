@@ -42,7 +42,6 @@ namespace Boutique.AdminPanel
         }
 
 
-
         #region SessionCheck
         public DAL.Security.UserAuthendication SessionCheck()
         {
@@ -58,6 +57,7 @@ namespace Boutique.AdminPanel
             return UA;
         }
         #endregion SessionCheck
+
         #region InsertProduct
 
         [System.Web.Services.WebMethod]
@@ -133,7 +133,6 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize(productObj);
         }
         #endregion UpdateProduct
-
 
         #region DeleteProduct
 
@@ -247,7 +246,6 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize("");
         }
         #endregion GetAllProductMainImages
-
 
         #region GetAllRowsCount
         [System.Web.Services.WebMethod]
@@ -529,7 +527,6 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize("");
         }
         #endregion GetAllRelatedProductsByProductID
-
 
         #region GetAllRelatedProductIDandName
 
@@ -1074,11 +1071,13 @@ namespace Boutique.AdminPanel
         }
         #endregion GetReviveCategorySortDetails
 
+        //-------- * Product Type Methods  * ----------//
 
-        //-------------------- * Product Type Methods  * -----------------------//
+        #region Product Type Methods
 
         #region GetAllProductTypeIDandName
         [System.Web.Services.WebMethod]
+        ///This datasource will be binded to Product Type Dropdown
         public static string GetAllProductTypeIDandName(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -1088,13 +1087,10 @@ namespace Boutique.AdminPanel
             if (UA.BoutiqueID != "")
             {
                 productObj.BoutiqueID = UA.BoutiqueID;
-
                 DataSet ds = null;
-
                 ds = productObj.GetAllProductTypeIDAndName();
 
                 //Converting to Json
-
                 List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
                 Dictionary<string, object> childRow;
                 if (ds.Tables[0].Rows.Count > 0)
@@ -1137,8 +1133,6 @@ namespace Boutique.AdminPanel
                     }
                 }
                
-
-
             }
             catch (Exception)
             {
@@ -1154,7 +1148,7 @@ namespace Boutique.AdminPanel
         #region Insert Product Type
 
         [System.Web.Services.WebMethod]
-
+        ///It handles both insert and update of Product types
         public static string UpdateProductTypeDetails(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
@@ -1172,12 +1166,15 @@ namespace Boutique.AdminPanel
                         ds = productObj.GetProductTypesByProductID();
                         DataRow[] FilteredRow = ds.Tables[0].Select("ProductID = '" + productObj.ProductID + "' AND Code = '" + productObj.ProductTypeCode+"'");
 
-                        if (FilteredRow.Length > 0)
+                        //---------- * Already Existing : So case is UPDATE * --------//
+
+                        if (FilteredRow.Length > 0) 
                         {
                             productObj.status = productObj.UpdateProducTypeDetails().ToString();
                         }
                         else
                         {
+                            //----------- * New Type :INSERT  *-------------//
                             productObj.status = productObj.InsertProductType().ToString();
                         }
                         
@@ -1195,7 +1192,6 @@ namespace Boutique.AdminPanel
         }
 
         #endregion Insert Product Type
-
 
         #region Delete Product Type
 
@@ -1267,5 +1263,9 @@ namespace Boutique.AdminPanel
             return jsSerializer.Serialize("");
         }
         #endregion Get Product Types By ProductID
+
+        #endregion Product Type Methods
+
+       //----- *END : Product Type Methods  * ---------//
     }
 }

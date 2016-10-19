@@ -312,11 +312,15 @@ namespace Boutique.DAL
         }
         #endregion Constructors
 
-        //-- Product Type Methods
+        //------------------ * Product Type Methods *-------------//
 
         #region Product Type Methods
 
         #region GetAllProductTypeIDAndName
+        /// <summary>
+        /// This datasource will be binded to Product Type Dropdown
+        /// </summary>
+        /// <returns>Dataset containing product type id and name</returns>
         public DataSet GetAllProductTypeIDAndName()
         {
             if (BoutiqueID == "")
@@ -673,7 +677,7 @@ namespace Boutique.DAL
 
         #endregion Product Type Methods
 
-        //-------- * END :   Product Type Methods *----//
+        //-------- ----------* END :   Product Type Methods *---------//
 
         #region New Product
         /// <summary>

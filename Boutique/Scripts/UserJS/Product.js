@@ -1,8 +1,8 @@
 ﻿var LoginUserRole = '';
-var ProductTypes = [];
-var IsBindedControlsOnEdit = false;
-var DefaultPrice = '';
-var DefaultDiscount = '';
+var ProductTypes = []; 
+var IsBindedControlsOnEdit = false;     //-- To check whether controls are binded on edit (reason: bcz Product type controls will be recreated on type dropdown change,And valuies will get disappeared , so inorder to rebind value to controls , we have to identify its edit click itself )
+var DefaultPrice = '';                 //-- Base price (Base Price will be binded for type prices, This value will be binded on onblur event of Base price textbox)
+var DefaultDiscount = '';             //-- Base Discount price (Discount will be binded for type discount prices, This value will be binded on onblur event of Base Discount price textbox)
 
 $("document").ready(function (e) {
   
@@ -173,8 +173,6 @@ $("document").ready(function (e) {
         }
     })
 
-
-
     $("#load_more_button").click(function (e) { //user clicks on button
       
         HideAlertBox();
@@ -274,7 +272,6 @@ $("document").ready(function (e) {
 
     });
 
-
     $("#load_more_buttonoutofstock").click(function (e)
     { //user clicks on button
         HideAlertBox();
@@ -325,7 +322,6 @@ $("document").ready(function (e) {
         $('.animation_image').hide();
         $(this).show();
     });
-
 
     $("#load_more_buttonreviveproducts").click(function (e) { //user clicks on button
         HideAlertBox();
@@ -480,8 +476,6 @@ $("document").ready(function (e) {
         //Masonary reinit
     });
 
-    
-
     $(".btnsearchnewproducts").click(function (e) { //user clicks on button
         HideAlertBox();
         var search = $("#txtsearchnewproducts").val();
@@ -503,7 +497,6 @@ $("document").ready(function (e) {
         }
     });
 
-
     $(".btnsearchtrends").click(function (e) { //user clicks on button
         $('#loadmoretrendproductdiv').hide();
         HideAlertBox();
@@ -522,7 +515,6 @@ $("document").ready(function (e) {
             CustomAlert("Please Search with Product No/Name!");
         }
     });
-
 
     $(".btnsearchoutofstock").click(function (e) { //user clicks on button
         $('#loadmoreoutofstockproductdiv').hide();
@@ -547,7 +539,6 @@ $("document").ready(function (e) {
         }
     });
 
-
     $(".btnsearchreviveproduct").click(function (e) {
         $('#loadmoredeletedproductdiv').hide();
           HideAlertBox();
@@ -568,9 +559,6 @@ $("document").ready(function (e) {
 
     });
 
-
-
-
     $('input[type=text],input[type=password],select').on('focus', function () {
        
         $(this).css({ background: 'white' });
@@ -581,7 +569,6 @@ $("document").ready(function (e) {
         $(this).css({ background: 'white' });
         $('#ErrorBox').slideUp(1000);
     });
-
 
     $(".btnRefreshnewproducts").click(function (e)
     {//
@@ -599,8 +586,6 @@ $("document").ready(function (e) {
         }
        
    });
-
-
 
     $(".btnRefreshtrends").click(function (e) {//
         $('#loadmoretrendproductdiv').show();
@@ -651,7 +636,6 @@ $("document").ready(function (e) {
         
      });
 
-
      $(".ReviveProduct").click(function (e) {//
          debugger;
          HideAlertBox();
@@ -663,8 +647,6 @@ $("document").ready(function (e) {
           }
 });
 
-
-     
      $("#txtsearchnewproducts").keyup(function (event) {
          if (event.keyCode == 13) {
              if ($('#txtsearchnewproducts').val() != '')
@@ -799,41 +781,20 @@ $("document").ready(function (e) {
          }
      });
    
-     debugger;
+    // ----------- * Binding Product Type Dropdown * -------------//
      $("#ddlProductTypes").select2({
          placeholder: "Choose Product Types",
          allowClear: true,
          data: BindProductTypes()
      });
 
-     //$('#ddlProductTypes').on("select2:select", function (e) {
-     //    // what you would like to happen
-     //    debugger;
 
-
-
-     //    var k = $(this).innerHTML;
-
-     //    var f = $(e.currentTarget);
-
-     //    var value = $(e.currentTarget).find("option:selected").val();
-
-
-     //    alert(value);
-     //});
-
-
-
+    //------------ * Product Type Item Change Event (Will get fired for both selecting an item as well as deselecting item)  *----------//
     $('#ddlProductTypes').select2()
           .on("change", function (e) {
-              debugger;
-              //   alert($(this).val());
-
-            
+              
               var data = $(this).select2('data');
-            
               var index = data.length - 1;
-             
               $('#divTypes').html('');
 
               var $Label = $("<label style='cursor:auto'>");
@@ -841,54 +802,34 @@ $("document").ready(function (e) {
               
               for (var i = 0; i < data.length; i++)
               {
-
-                  debugger;
-                  //var $label = $("<label style='width:80%;cursor:none'>").text('Enter Amount Of ' + data[i].text);
-                  ////Create the input element
-                  //var $input = $('<input type="text" >').attr({ id: 'txtAmt' + i, name: 'Amount' });
-
-                  ////Insert the input into the label
-                  //// $input.appendTo($label);
-                  ////Insert the label into the DOM - replace body with the required position 
-
-                  if ($("#hdfproductID").val() == "") {
-                      //var $html = $("<label style='cursor:auto'><table id ='tblProdctTypes'><tr><td style='width:40%'>" + 'Amount Of <span style="font-size:16px!important; color:#c43a0b;"><b> ' + data[i].text + "</b></span></td><td ><input type='number'  id='txtAmt" + i + "'  step='any' value = " + DefaultPrice + "  ><td style='width:5%'></td><td style='width:60%'>" + 'Discount Amount Of <span style="font-size:16px!important; color:#c43a0b"><b>' + data[i].text + "</b></span></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' value = " + DefaultDiscount + " ></td></tr></table>")
-
-                      //var $html = $("<label style='cursor:auto'><table id ='tblProdctTypes'><tr><th>Type</th><th>Amount</th><th>Discount</th></tr><tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any' value = " + DefaultPrice + " style='float:right!important;width:70%!important;' class='TypeInput'  ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' value = " + DefaultDiscount + " style='float:right!important;width:70%!important;' class='TypeInput'></td></tr></table></label")
-
+                  if ($("#hdfproductID").val() == "")  // New Product (Price and Discount values will get binded with base values)
+                   {
                       var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any' value = " + DefaultPrice + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' value = " + DefaultDiscount + " onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
-	                   $Table = $Table.append($Content);
+	                  $Table = $Table.append($Content);
                       $Label = $Label.append($Table);
-	
                       var $html = $Label;
                       $('#divTypes').append($html);
+                   }
+                  else
+                  {
+                      //-------* Edit Product Case (no need to bind base price and discount , instead values should take from db) *------//
 
-
-                  }
-                  else {
-                      //var $html = $("<label style='cursor:auto'><table id ='tblProdctTypes'><tr><td style='width:40%'>" + 'Amount Of <span style="font-size:16px!important; color:#c43a0b;"><b>' + data[i].text + "</b></span></td><td ><input type='number'  id='txtAmt" + i + "' step='any' ><td style='width:5%'></td><td style='width:60%'>" + 'Discount Amount Of <span style="font-size:16px!important; color:#c43a0b"><b>' + data[i].text + "</b></span></td><td><input type='number' id='txtDiscountAmt" + i + "'  step='any' ></td></tr></table>")
-                      //var $html = $("<label style='cursor:auto'><table id ='tblProdctTypes'><tr><th>Type</th><th>Amount</th><th>Discount</th></tr><tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any'  class='TypeInput' style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any'  class='TypeInput' style='float:right!important;width:70%!important;'></td></tr></table></label")
                       var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any'  style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
                       $Table = $Table.append($Content);
                       $Label = $Label.append($Table);
-
-                      var $html = $Label;
+                     var $html = $Label;
                   }
                  
                   $('<input>').attr({ type: 'hidden', Value: data[i].text, id: 'hdnType' + i }).appendTo($html);
                   $('<input>').attr({ type: 'hidden', Value: data[i].id, id: 'hdnTypeCode' + i }).appendTo($html); 
-
                   $('#divTypes').append($html);
 
-                  // DefaultPrice = '';
-                  //value = " + DefaultPrice + "
-                  //value = " + DefaultPrice + "
               }
 
                   if( IsBindedControlsOnEdit == true &&  $("#hdfproductID").val() != "")
                   {
+                  //------* Edit case - Created controls are binded from here(Price and Discount values will get binded with values from database(Corresoponding saved values)) *-----//
                       var Product = new Object();
-
                       Product.ProductID = $("#hdfproductID").val();
 
                       var data = "{'productObj':" + JSON.stringify(Product) + "}";
@@ -898,12 +839,9 @@ $("document").ready(function (e) {
 
                       var ProductTypeDeatils = {};
                       ProductTypeDeatils = table;
-                      debugger;
-
-                      //$.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
-
+                     
                       $.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
-                          debugger;
+                          
                           //-- Amount -- //
                           Amount = "txtAmt" + index;
                           $('#' + Amount).val(ProductTypeDeatils.Amount);
@@ -913,8 +851,6 @@ $("document").ready(function (e) {
                           $('#' + DiscountAmt).val(ProductTypeDeatils.DiscountAmount);
 
                       });
-
-    
                  }
           })
 
@@ -1004,11 +940,9 @@ function SetDefaultPrice()
 
 function SetDefaultDiscount()
 {
-
     var DiscountAmt = parseFloat($("#txtDiscount").val());
     var Amt = parseFloat($("#txtPrice").val());
 
-    debugger;
     DefaultDiscount = $("#txtDiscount").val();
 
     if (DiscountAmt >= Amt) {
@@ -1018,8 +952,6 @@ function SetDefaultDiscount()
 
 function DiscountValidation(i)
 {
-   
-    debugger;
     var DiscountAmt = parseFloat( $("#txtDiscountAmt"+i).val());
     var Amt =parseFloat( $("#txtAmt"+i).val());
    
@@ -1029,7 +961,6 @@ function DiscountValidation(i)
     }
 
 }
-
 
 function ReviveProducts(e,p)
 {
@@ -1176,7 +1107,6 @@ function BindProductTextBoxes(thisobject)
 
     });
 
-
     if (TypeCodeArray.length > 0) {
         $("#ddlProductTypes").select2().val(TypeCodeArray).trigger("change");
     }
@@ -1186,34 +1116,24 @@ function BindProductTextBoxes(thisobject)
 
     $('#divTypes').html('');
 
+    //------------------ * Create And Bind Product Types * -------------//
+
     var $Label = $("<label style='cursor:auto'>");
     var $Table = $("<table id ='tblProdctTypes'><tr><th>Type</th><th>Amount</th><th>Discount</th></tr>");
 
     $.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
 
-   
-     //var $html = $("<label style='cursor:auto'><table id ='tblProdctTypes'><tr><td style='width:40%'>" + 'Amount Of ' + ProductTypeDeatils.Description + "</td><td ><input type='number' step='any' value=" + ProductTypeDeatils.Amount + "   id='txtAmt" + index + "' ><td style='width:5%'></td><td style='width:60%'>" + 'Discount Amount Of ' + ProductTypeDeatils.Description + "</td><td><input type='number' step='any' value=" + ProductTypeDeatils.DiscountAmount + " id='txtDiscountAmt" + index + "'  ></td></tr></table>")
-
-     //var $html = $("<label style='cursor:auto'><table id ='tblProdctTypes'><tr><th>Type</th><th>Amount</th><th>Discount</th></tr><tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " class='TypeInput' style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' value = " + ProductTypeDeatils.DiscountAmount + " class='TypeInput' style='float:right!important;width:70%!important;'></td></tr></table></label")
-     
-        var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' onblur='DiscountValidation(" + index + ")' value = " + ProductTypeDeatils.DiscountAmount + " style='float:right!important;width:70%!important;'></td></tr>");
+     var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' onblur='DiscountValidation(" + index + ")' value = " + ProductTypeDeatils.DiscountAmount + " style='float:right!important;width:70%!important;'></td></tr>");
      $Table = $Table.append($Content);
      $Label = $Label.append($Table);
 
      var $html = $Label;
      $('#divTypes').append($html);
 
-
         $('<input>').attr({ type: 'hidden', Value: ProductTypeDeatils.Description, id: 'hdnType' + index }).appendTo($html);
         $('<input>').attr({ type: 'hidden', Value: ProductTypeDeatils.Code, id: 'hdnTypeCode' + index }).appendTo($html);
-
         $('#divTypes').append($html);
 
-    
-        //$desingnSingle
-
-        //Code  Description Amount DiscountAmount
-      
     });
    
     IsBindedControlsOnEdit = true;
@@ -1272,7 +1192,6 @@ function BindAllNewProductImagesOutOfStockSearch(Pagevalue, searchtext) {
     return totalimages.length;
 }
 //////////////////////////////////////////////////////
-
 
 function BindAllRevivedProductsSearch(Pagevalue, searchtext)
 {
