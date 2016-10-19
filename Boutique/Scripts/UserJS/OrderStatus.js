@@ -1821,7 +1821,7 @@ function OrderStatusValidation() {
     debugger;
     $('#Displaydiv').remove();
     var container;
-
+   var OrderID = $("#hdfOrderID").val();
     
 
     var ReqDeliveryDate = $('#txtPlannedDeliveryDate');
@@ -1830,21 +1830,35 @@ function OrderStatusValidation() {
     if (ExistingCustomer == false) {
         var CustmrName = $("#txtCustomerName");
         
+        if (OrderID == "")
+        {
+            container = [
+           //{ id: branch[0].id, name: branch[0].name, Value: branch[0].value },
+         //   { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
+          { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value },
+       //   { id: CustmrAddrss[0].id, name: CustmrAddrss[0].name, Value: CustmrAddrss[0].value },
+          { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
+            ];
+        }
+        else
+        {
+            container = [
+         
+         { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value }
+     
+            ];
 
-        container = [
-             //{ id: branch[0].id, name: branch[0].name, Value: branch[0].value },
-           //   { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
-            { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value },
-         //   { id: CustmrAddrss[0].id, name: CustmrAddrss[0].name, Value: CustmrAddrss[0].value },
-            { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
-        ];
+        }
+
+      
     }
     else {
-       
+        if (OrderID == "") {
         container = [
           // { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
            { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
         ];
+    }
     }
     //if ($("#hdfOrderID").val() == "") {
     //}

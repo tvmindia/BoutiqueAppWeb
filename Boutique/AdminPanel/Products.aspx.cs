@@ -1074,5 +1074,198 @@ namespace Boutique.AdminPanel
         }
         #endregion GetReviveCategorySortDetails
 
+
+        //-------------------- * Product Type Methods  * -----------------------//
+
+        #region GetAllProductTypeIDandName
+        [System.Web.Services.WebMethod]
+        public static string GetAllProductTypeIDandName(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+
+                ds = productObj.GetAllProductTypeIDAndName();
+
+                //Converting to Json
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion GetAllProductTypeIDandName
+
+        #region Insert Product Type
+
+        [System.Web.Services.WebMethod]
+
+        public static string InsertProductType(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        productObj.BoutiqueID = UA.BoutiqueID;
+                        productObj.status = productObj.InsertProductType().ToString();
+                    }
+                }
+               
+
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+
+            return jsSerializer.Serialize(productObj);
+        }
+
+        #endregion Insert Product Type
+
+        #region Insert Product Type
+
+        [System.Web.Services.WebMethod]
+
+        public static string UpdateProductTypeDetails(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        productObj.BoutiqueID = UA.BoutiqueID;
+                        DataSet ds = null;
+                        ds = productObj.GetProductTypesByProductID();
+                        DataRow[] FilteredRow = ds.Tables[0].Select("ProductID = '" + productObj.ProductID + "' AND Code = '" + productObj.ProductTypeCode+"'");
+
+                        if (FilteredRow.Length > 0)
+                        {
+                            productObj.status = productObj.UpdateProducTypeDetails().ToString();
+                        }
+                        else
+                        {
+                            productObj.status = productObj.InsertProductType().ToString();
+                        }
+                        
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+
+            return jsSerializer.Serialize(productObj);
+        }
+
+        #endregion Insert Product Type
+
+
+        #region Delete Product Type
+
+        [System.Web.Services.WebMethod]
+
+        public static string DeleteProductType(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            try
+            {
+                if (UA != null)
+                {
+                    if (UA.BoutiqueID != "")
+                    {
+                        productObj.status = productObj.DeleteProductTypeByProductIDAndCode().ToString();
+                       
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+
+            return jsSerializer.Serialize(productObj);
+        }
+
+        #endregion Delete Product Type
+
+        #region Get Product Types By ProductID
+        [System.Web.Services.WebMethod]
+        public static string GetProductTypesByProductID(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+              //  productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetProductTypesByProductID();
+                
+              //  "Size >= 230 AND Sex = 'm'"
+                
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+        #endregion Get Product Types By ProductID
     }
 }
