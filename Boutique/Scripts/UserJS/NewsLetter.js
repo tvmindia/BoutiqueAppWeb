@@ -140,12 +140,25 @@ $("document").ready(function (e) {
             var ddltemplate = $(".template").val();
  
             if (ddltemplate != null && ddltemplate != "") {
-                $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
-                BindTemplateImagesPreview(ddltemplate);
-                GetAllTemplateDetails(ddltemplate);
+                var tempFile = $(".template option:selected").text();
+                tempFile=tempFile.trim();
+                if (tempFile.includes(".") == false) {
+                    $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
+                    BindTemplateImagesPreview(ddltemplate);
+                    GetAllTemplateDetails(ddltemplate);
+                    $('#rowfluidDiv').hide();
+                    $('.alert-error').hide();
+                }
+                else
+                {
+                    $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
+                    document.getElementById('lblproductno').style.visibility = "hidden";
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text(Messages.HtmlFileFormatError);
+                }
             }
-            else 
-            {
+            else {
                 $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
                 document.getElementById('lblproductno').style.visibility = "hidden";
             }
