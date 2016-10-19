@@ -172,6 +172,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string newsLetterRemarks
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         MailSending mailObj = new MailSending();
@@ -975,6 +980,10 @@ namespace Boutique.DAL
                 cmd.CommandText = "[UnsubscribeEmail]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = EmailId;
+                if(newsLetterRemarks!=null && newsLetterRemarks!="")
+                {
+                    cmd.Parameters.Add("@newsLetterRemarks", SqlDbType.NVarChar, -1).Value = newsLetterRemarks;
+                }
                 cmd.Parameters.Add("@IsUnsubscribed", SqlDbType.Bit).Value = true;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;

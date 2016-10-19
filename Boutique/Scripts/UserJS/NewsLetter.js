@@ -314,7 +314,7 @@ $("document").ready(function (e) {
         $('.alert-error').hide();
         try
         {
-            debugger;
+            
             var result = "";
             if (((imagefile = $('#tempUpload')[0].files[0]) != undefined)) {
                 if ($('#tempUpload')[0].files[0].name.split('.')[1]=="html")
