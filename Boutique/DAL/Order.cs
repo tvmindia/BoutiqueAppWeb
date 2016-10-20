@@ -162,7 +162,11 @@ namespace Boutique.DAL
             get;
             set;
         }
-
+        public string TypeCode
+        {
+            get;
+            set;
+        }
 
 //----- * Order Item properties *---------//
 
@@ -657,7 +661,7 @@ namespace Boutique.DAL
         {
             if (OrderID == string.Empty)
             {
-                throw new Exception("NotificationID is Empty!!");
+                throw new Exception("OrderID is Empty!!");
             }
             if (BoutiqueID == string.Empty)
             {
@@ -685,20 +689,20 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar,-1).Value = OrderDescription;
 
-                if (ForecastDeliveryDate != string.Empty && ForecastDeliveryDate != null)
-                {
-                    cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(ForecastDeliveryDate); 
-                }
+                //if (ForecastDeliveryDate != string.Empty && ForecastDeliveryDate != null)
+                //{
+                //    cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(ForecastDeliveryDate); 
+                //}
 
-                if (OrderReadyDate != string.Empty && OrderReadyDate != null)
-                {
-                    cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value =  DateTime.Parse(OrderReadyDate); 
-                }
+                //if (OrderReadyDate != string.Empty && OrderReadyDate != null)
+                //{
+                //    cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value =  DateTime.Parse(OrderReadyDate); 
+                //}
 
-                if (ActualDeliveryDate != string.Empty &&  ActualDeliveryDate != null)
-                {
-                    cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value =  DateTime.Parse(ActualDeliveryDate);
-                }
+                //if (ActualDeliveryDate != string.Empty &&  ActualDeliveryDate != null)
+                //{
+                //    cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value =  DateTime.Parse(ActualDeliveryDate);
+                //}
 
                 if (PlannedDeliveryTime != null && PlannedDeliveryTime != string.Empty)
                 {
@@ -921,7 +925,12 @@ namespace Boutique.DAL
                 if (Quantity != null && Quantity != string.Empty)
                 {
                     cmd.Parameters.Add("@Quantity", SqlDbType.Int).Value = Convert.ToInt32(Quantity);
-                }  
+                }
+
+                if (TypeCode != null && TypeCode != string.Empty)
+                {
+                    cmd.Parameters.Add("@TypeCode", SqlDbType.NVarChar, 50).Value = TypeCode;  
+                }
 
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;

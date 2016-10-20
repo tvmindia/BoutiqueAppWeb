@@ -6,6 +6,8 @@ var slNo = 0;
 var unit = '';
 var ExistingCustomer = true;
 var IsValidationSuccess = true;
+var SingleValueID = ''; // --- if there is only one product type, it has to be set selcted , (while binding that single value id is stored to it)
+
 
 $("document").ready(function (e) {
     debugger;
@@ -46,8 +48,6 @@ $("document").ready(function (e) {
         data: BindUserDropdown()
     });
 
-
-
     $("#ddlGridStatus").select2({
         placeholder: "Choose Status",
         allowClear: true,
@@ -66,6 +66,24 @@ $("document").ready(function (e) {
         allowClear: true,
         data: BindBranchDropdown()
     });
+
+
+    //// ----------- * Binding Product Type Dropdown * -------------//
+    //$("#ddlProductTypes").select2({
+    //    placeholder: "",
+    //    allowClear: true,
+    //    data: BindProductTypes()
+    //});
+
+    //if ($("#ddlProductTypes").length == 1)
+    //{
+    //    if (SingleValueID != '') {
+    //        $("#ddlProductTypes").val(SingleValueID).trigger("change"); //Set Default product type if only one type exists
+    //    }
+       
+    //}
+
+
 
 
     BindOrdersTable();
@@ -131,8 +149,6 @@ $("document").ready(function (e) {
 
          })
 
-
-
     $('#ddlBranch').select2()
          .on("change", function (e) {
 
@@ -189,8 +205,6 @@ $("document").ready(function (e) {
              }
 
          })
-
-
 
     $('#ddlGridStatus').select2()
          .on("change", function (e) {
@@ -268,6 +282,8 @@ $("document").ready(function (e) {
             $('.alert-error').hide();
             $('#ErrorBox').hide();
 
+            //TotalPrice = 0;
+
             //$("#dateForecastDeliveryDate").removeAttr("disabled");
             //$("#dateOrderReadyDate").removeAttr("disabled");
             //$("#dateActualDeliveryDate").removeAttr("disabled");  
@@ -337,7 +353,6 @@ $("document").ready(function (e) {
        }
    })
 
-
     //------------ Add To List Button CLick------------//
     $("#addBtn").live(
     {
@@ -377,6 +392,10 @@ $("document").ready(function (e) {
     $(".submitDetails").live(
     {
         click: function (e) {
+
+            debugger;
+
+
             if (IsValidationSuccess == true) {
             debugger;
 
@@ -580,12 +599,14 @@ $("document").ready(function (e) {
                                 Order.ProductID = productId;
                                 Order.CustomerRemarks = remarks;
                                 Order.Quantity = $("#txtQuantity").val();
-                                Order.Unit = $("#txtunit").val();
+                             //   Order.Unit = $("#txtunit").val();
                                 Order.OrderID = result.OrderID;
                                 Order.Quantity = $(this).find('td').eq(2).text();
-                                if (unit != "") {
-                                    Order.Unit = unit;
-                                }
+                                //if (unit != "") {
+                                //    Order.Unit = unit;
+                                //}
+                                Order.TypeCode = $("#ddlProductTypes").val();
+
                                 productNames = productNames + "|" + productname + "$" + remarks;
                                 resultItem = InsertOrderItem(Order);
 
@@ -702,9 +723,9 @@ $("document").ready(function (e) {
                                     Order.OrderID = result.OrderID;
                                     Order.Quantity = $(this).find('td').eq(2).text();
 
-                                    if (unit != "") {
-                                        Order.Unit = unit;
-                                    }
+                                    //if (unit != "") {
+                                    //    Order.Unit = unit;
+                                    //}
 
                                     productNames = productNames + "|" + productname + "$" + remarks;
                                     resultItem = InsertOrderItem(Order);
@@ -883,11 +904,11 @@ $("document").ready(function (e) {
     //----- Dropdown item cahnge event  : (get Image by product id) ----//      
     $('.products').select2()
            .on("change", function (e) {
-
+               debugger;
                $('#txtQuantity').val('');
-               $('#txtunit').val('');
+             //  $('#txtunit').val('');
                $('#txtRemarks').val('');
-
+               $("#ddlProductTypes").select2("val", "");
                //$('#ImgProduct').show();
 
                var productID = $('.products').val();
@@ -921,15 +942,92 @@ $("document").ready(function (e) {
 
                        ProductPrice = ProductDeatils.Price;
 
-                       $("#txtunit").val(ProductDeatils.Unit);
-                       unit = ProductDeatils.Unit;
-                       $("#txtunit").prop('readonly', true);
+                      // $("#txtunit").val(ProductDeatils.Unit);
+                      // unit = ProductDeatils.Unit;
+                      // $("#txtunit").prop('readonly', true);
 
                    });
 
+                  var Product = new Object();
+                   Product.ProductID = productID;
+                   
+                   if (productID != "") {
+                       debugger;
+                       jsonResult = GetProductTypesProductID(Product);
+
+                       if (jsonResult.length == 1) {
+                           $.each(jsonResult, function (index, jsonResult) {
+                               SingleValueID = jsonResult.id;
+                           });
+                       }
+                       $("#ddlProductTypes").select2('data', null);
+                       $("#ddlProductTypes option").remove();
+                      
+                       $("#ddlProductTypes").select2({
+                           placeholder: "",
+                           allowClear: true,
+                           data: jsonResult
+                       });
+
+                       if (jsonResult.length == 1)
+                       {
+                           $("#ddlProductTypes").val(SingleValueID).trigger("change"); //Set Default product type if only one type exists
+                       }
+
+                      
+
+                   }
                }
+               //if ($("#ddlProductTypes").length == 1) {
+
+               //    $("#ddlProductTypes").val(SingleValueID).trigger("change"); //Set Default product type if only one type exists
+               //}
+
+               //else
+               //{
+               //    $("#ddlProductTypes").select2("val", "");
+
+               //}
 
            })
+
+    $('#ddlProductTypes').select2()
+          .on("change", function (e) {
+            
+            
+              var productID = $('.products').val();
+
+              if ($('#ddlProductTypes') != null)
+              {
+                  if ($('#ddlProductTypes').val() != "" && productID != "")
+                  {
+                      var Product = new Object();
+                      Product.ProductID = productID;
+                      Product.ProductTypeCode = $('#ddlProductTypes').val();
+                      var data = "{'productObj':" + JSON.stringify(Product) + "}";
+                      jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetProductTypesByProductIDAndCode");
+                      var table = {};
+                      table = JSON.parse(jsonResult.d);
+
+
+                      $.each(table, function (index, table) {
+                          debugger;
+                          if (table.Amount != null && table.Amount != "")
+                          {
+                              ProductPrice = table.Amount;
+                          }
+                          if (table.DiscountAmount != null && table.DiscountAmount != "") {
+                              ProductPrice = parseFloat(table.Amount - table.DiscountAmount);
+                          }
+
+                      });
+
+                  }
+              }
+              
+
+          })
+
 
     //---------- Delete Button Click---------
     $(".OrderItemDelete").live(
@@ -971,7 +1069,6 @@ function FillActualDeliveryDateSummary() {
     $('#lblAddress').text($('#lblActualDeliveryDate').val());
 }
 
-
 function FillMobileNoSummary() {
     $('#lblMobileNo').text($('#txtMobileNo').val());
 }
@@ -983,7 +1080,6 @@ function FillCustomerNameSummary() {
 
 
 }
-
 
 function GetFormatedDate() {
     var today = new Date();
@@ -1043,12 +1139,18 @@ function ClearCustomerDetails() {
 }
 
 function ClearOrderDescription() {
-    $(".products").val("");
+
+    $(".products").select2("val", "");
+    $("#ddlProductTypes").select2("val", "");
+
+    //$("#ddlProductTypes").val("");
+    //$(".products").val("");
     $('#txtQuantity').val('');
-    $('#txtunit').val('');
+  //  $('#txtunit').val('');
     $('#txtRemarks').val('');
     document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
     $("#OrderItemTable > tbody").empty();
+   
 }
 
 function ClearOrderSummary() {
@@ -1070,8 +1172,16 @@ function ClearCurrentOrderControls() {
 
     $("#txtCustomerName").hide()
     $("#Customer").show();
-    ExistingCustomer = true;
     $("#rdoYes").prop("checked", true);
+
+    //--- * Clear global variables
+     InitialItemCount = 0;
+     ProductPrice = 0;
+     TotalPrice = 0;
+     slNo = 0;
+     unit = '';
+     ExistingCustomer = true;
+     IsValidationSuccess = true;
 
     ClearCustomerDetails();
     ClearOrderDescription();
@@ -1187,7 +1297,6 @@ function BindClosedOrdersTable() {
 
 //---* Get the datatable in form of JSON *--//
 
-
 function GetOrdersByStatus(Order) {
     var ds = {};
     var table = {};
@@ -1196,7 +1305,6 @@ function GetOrdersByStatus(Order) {
     table = JSON.parse(ds.d);
     return table;
 }
-
 
 function GetAllOrders(Order) {
     var ds = {};
@@ -1374,6 +1482,7 @@ function AddToList() {
     //alert(x);
 
 }
+
 
 //------------Insert order item--------------------
 function InsertOrderItem(Order) {
@@ -1731,6 +1840,25 @@ function BindBranchDropdown() {
     }
 }
 
+function BindProductTypes(Product) {
+
+    debugger;
+    var jsonResult = {};
+   
+    jsonResult = GetProductTypesProductID(Product);
+
+    if (jsonResult.length == 1) {
+        $.each(jsonResult, function (index, jsonResult) {
+            SingleValueID = jsonResult.id;
+        });
+    }
+
+   
+    if (jsonResult != undefined) {
+        return jsonResult;
+    }
+}
+
 function GetAllBranches(Orders) {
     var ds = {};
     var table = {};
@@ -1739,7 +1867,6 @@ function GetAllBranches(Orders) {
     table = JSON.parse(ds.d);
     return table;
 }
-
 
 function GetAllStatus(Users) {
     var ds = {};
@@ -1764,6 +1891,18 @@ function GetAllProducts(Notify) {
     var table = {};
     var data = "{'productObj':" + JSON.stringify(Notify) + "}";
     ds = getJsonData(data, "../AdminPanel/Products.aspx/GetAllProductIDandName");
+    table = JSON.parse(ds.d);
+    return table;
+}
+
+function GetProductTypesProductID(Product) {
+
+    debugger;
+
+    var ds = {};
+    var table = {};
+    var data = "{'productObj':" + JSON.stringify(Product) + "}";
+    ds = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetProductTypesByProductIDAndCode");
     table = JSON.parse(ds.d);
     return table;
 }
@@ -1816,8 +1955,7 @@ function ConvertJsonToDate(jsonDate) {
 }
 
 function OrderStatusValidation() {
-     
-
+    
     debugger;
     $('#Displaydiv').remove();
     var container;
@@ -1918,6 +2056,5 @@ function RemoveStyle() {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
     $('#ErrorBox,#ErrorBox1,#ErrorBox2,#ErrorBox3').hide(1000);
 }
-
 
 //------------- *END : General Functions  *-----------------//

@@ -318,17 +318,38 @@
                                             </div>
                                             <div class="span12">
 
+
+                                                 <div class="span6">
+                                                    <div class="control-group">
+
+                                                        <label class="control-label" for="focusedInput">Type </label>
+                                                        <div class="controls">
+                                                            
+                                                              <select id="ddlProductTypes" style="width: 90%">
+                                                            <option></option>
+                                                        </select>
+
+                                                           
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
                                                 <div class="span6">
                                                     <div class="control-group">
 
                                                         <label class="control-label" for="focusedInput">Quantity </label>
                                                         <div class="controls">
-                                                            <input type="number" id="txtQuantity" value="1" min="1" style="width: 87%" />
+                                                            
+                                                            <input type="number" id="txtQuantity" value="1" min="1" style="width: 50%" />
 
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="span6">
+
+                                              <%--  <div class="span6">
                                                     <div class="control-group">
 
                                                         <label class="control-label" for="focusedInput">unit </label>
@@ -337,7 +358,7 @@
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>--%>
 
                                             </div>
                                             <div class="span12">

@@ -3586,9 +3586,9 @@ function BindSortResult(Pagevalue, searchtext)
                     else if (Amount == "") {
                         CustomAlert("Please enter a Amount");
                     }
-                    else if (DiscountAmt == "") {
-                        CustomAlert("Please enter a Discount Amount");
-                    }
+                    //else if (DiscountAmt == "") {
+                    //    CustomAlert("Please enter a Discount Amount");
+                    //}
                     else
                     {
                         ProductTypes.push(Type + "|" + TypeCode + "|" + Amount + "|" + DiscountAmt);
@@ -3795,9 +3795,9 @@ function BindSortResult(Pagevalue, searchtext)
                     else if (Amount == "") {
                         CustomAlert("Please enter a Amount");
                     }
-                    else if (DiscountAmt == "") {
-                        CustomAlert("Please enter a Discount Amount");
-                    }
+                    //else if (DiscountAmt == "") {
+                    //    CustomAlert("Please enter a Discount Amount");
+                    //}
 
 
                     else
