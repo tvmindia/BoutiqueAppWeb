@@ -644,25 +644,23 @@ namespace Boutique.AdminPanel
             string version = "";
             string userName = "";
 
-            DAL.Security.UserAuthendication UA;
-            UIClasses.Const Const = new UIClasses.Const();
+            //DAL.Security.UserAuthendication UA;
+            //UIClasses.Const Const = new UIClasses.Const();
 
             string status = null;
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             Product productObj = new Product();
             try
             {
-                UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-                if (UA != null)
-                {
-                    newsObj.BoutiqueID = UA.BoutiqueID;
-                    boutique_Id = UA.BoutiqueID;
-                    user_Id = UA.UserID;
-                    version = UA.Version;
-                    userName = UA.userName;
+                //UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+
+                boutique_Id = newsObj.BoutiqueID;
+                    //user_Id = UA.UserID;
+                    //version = UA.Version;
+                    //userName = UA.userName;
 
                     status = newsObj.UnsubscribeEmail().ToString();
-                }
+                
             }
             catch (Exception ex)
             {

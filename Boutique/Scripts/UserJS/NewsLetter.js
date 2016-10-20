@@ -140,12 +140,25 @@ $("document").ready(function (e) {
             var ddltemplate = $(".template").val();
  
             if (ddltemplate != null && ddltemplate != "") {
-                $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
-                BindTemplateImagesPreview(ddltemplate);
-                GetAllTemplateDetails(ddltemplate);
+                var tempFile = $(".template option:selected").text();
+                tempFile=tempFile.trim();
+                if (tempFile.includes(".") == false) {
+                    $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
+                    BindTemplateImagesPreview(ddltemplate);
+                    GetAllTemplateDetails(ddltemplate);
+                    $('#rowfluidDiv').hide();
+                    $('.alert-error').hide();
+                }
+                else
+                {
+                    $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
+                    document.getElementById('lblproductno').style.visibility = "hidden";
+                    $('#rowfluidDiv').show();
+                    $('.alert-error').show();
+                    $('.alert-error strong').text(Messages.HtmlFileFormatError);
+                }
             }
-            else 
-            {
+            else {
                 $('#templatePreviewImagehold').find(".PreviewTemplate").remove();
                 document.getElementById('lblproductno').style.visibility = "hidden";
             }
@@ -301,7 +314,7 @@ $("document").ready(function (e) {
         $('.alert-error').hide();
         try
         {
-            debugger;
+            
             var result = "";
             if (((imagefile = $('#tempUpload')[0].files[0]) != undefined)) {
                 if ($('#tempUpload')[0].files[0].name.split('.')[1]=="html")
@@ -315,7 +328,7 @@ $("document").ready(function (e) {
                 formData.append('BoutiqueID', hdfBoutiqueID);
                 result = postBlobAjax(formData, "../ImageHandler/PhotoUploadHandler.ashx");
                 var resultData = result.split(",");
-                if (resultData[0] != "0") {
+                if (resultData[0] != "0" && resultData[1]!="") {
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
                     $('.alert-success strong').text(Messages.InsertionSuccessFull);
@@ -328,7 +341,7 @@ $("document").ready(function (e) {
                     });
                     AutoScrollToAlertBox();
                 }
-                if (resultData[0] == "0") {
+                if (resultData[0] == "0" || resultData[1] == "") {
                     $('#rowfluidDiv').show();
                     $('.alert-error').show();
                     $('.alert-error strong').text(Messages.InsertionFailure);
@@ -1309,6 +1322,7 @@ function GetAllProductsImageDetailsForNewsLetter(Product) {
 function handleFileSelect(evt) {
     try
     {
+        debugger;
         var files = evt.target.files; // FileList object
         // $("#imageList").find(".thumb").remove();
         // Loop through the FileList and render image files as thumbnails.
@@ -1330,7 +1344,7 @@ function handleFileSelect(evt) {
                 var span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" src="', e.target.result,
                                  '" title="', escape(theFile.name), '"/>'].join('');
-                document.getElementById('imageList').insertBefore(span, null);
+                //document.getElementById('imageList').insertBefore(span, null);
             };
         })(f);
 

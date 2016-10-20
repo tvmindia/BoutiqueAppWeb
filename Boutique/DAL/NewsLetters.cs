@@ -172,6 +172,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string newsLetterRemarks
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         MailSending mailObj = new MailSending();
@@ -944,7 +949,7 @@ namespace Boutique.DAL
                                 " <div mc:edit='std_footer'>"+
                                 "<em>Copyright © 2016 TiquesInn, All rights reserved.</em>" +
                                 "<br />" +
-                                "<em><a href='../BoutiqueTemplates/Unsubscribe.html' target='_blank'>unsubscribe</a></em>"+
+                                "<em><a href='tiquesinn.com/BoutiqueTemplates/Unsubscribe.html?id="+BoutiqueID+"' target='_blank'>unsubscribe</a></em>" +
                                 "<br>"+
                                 "</div>"+
                                 "</td>"+
@@ -975,6 +980,10 @@ namespace Boutique.DAL
                 cmd.CommandText = "[UnsubscribeEmail]";
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 255).Value = EmailId;
+                if(newsLetterRemarks!=null && newsLetterRemarks!="")
+                {
+                    cmd.Parameters.Add("@newsLetterRemarks", SqlDbType.NVarChar, -1).Value = newsLetterRemarks;
+                }
                 cmd.Parameters.Add("@IsUnsubscribed", SqlDbType.Bit).Value = true;
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
