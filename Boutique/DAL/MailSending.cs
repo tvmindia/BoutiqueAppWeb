@@ -286,8 +286,9 @@ namespace Boutique.DAL
         {
             try
             {
+                string serverUrl = ConfigurationManager.AppSettings["server"];
                 NewsLetters newsObj = new NewsLetters();
-                string imageUrl = "http://tiquesinn.com/NewsLetterImages/";
+                string imageUrl = "http://" + serverUrl + "/NewsLetterImages/";
                 string Url, logourl = "";
                 newsObj.NewsLetterID = mailNewsLetterID;
                 newsObj.BoutiqueID = BoutiqueID;
@@ -313,12 +314,12 @@ namespace Boutique.DAL
                 body = body.Replace("{Mainimage}", "MainimageUrl");
                 if (body.Contains("{ImgBirthday}"))
                 {
-                    body = body.Replace("{ImgBirthday}", "http://tiquesinn.com/img/Templates/BirthdayImage.jpg");
+                    body = body.Replace("{ImgBirthday}", "http://" + serverUrl + "/img/Templates/BirthdayImage.jpg");
                 }
                 if (body.Contains("imgLogo"))
                 {
                     logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
-                    string logo = "http://tiquesinn.com/" + logourl.Replace("../", ""); ;
+                    string logo = "http://" + serverUrl + "/" + logourl.Replace("../", ""); ;
                     body = body.Replace("{imgLogo}", logo);
                     body = body.Replace("{BoutiqueName}", Boutique);
                 }
