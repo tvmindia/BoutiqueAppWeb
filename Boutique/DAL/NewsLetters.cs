@@ -910,14 +910,14 @@ namespace Boutique.DAL
         #region TemplateHeader
         public string TemplateHeader()
         {
-            string header = " <table border='0' cellpadding='10' cellspacing='0' width='600' id='templatePreheader'>"+
+            string header = " <table border='0' cellpadding='10' cellspacing='0' width='750' id='templatePreheader'>"+
                 "  <tr>" +
                 "<td valign='top' class='preheaderContent'>"+
                 "<table style='height:100%!important;width:100%!important;border:0!important;' cellpadding=' 10' cellspacing='0'>"+
                 "<tr>" +
                 "<td valign='top'>"+
                 "<div mc:edit='std_preheader_content'>"+
-                "<table style='background-color:rgba(49, 42, 42, 0.19)!important;width:562px!important;height:40px!important;'>"+
+                "<table style='background-color:rgba(49, 42, 42, 0.19)!important;width:750px!important;height:40px!important;'>"+
                 "<tbody>" +
                 "<tr>" +
                 "<td><img alt='' src='{imgLogo}' style='height:25px!important;width:25px!important;' /></td>"+
