@@ -973,27 +973,23 @@ $("document").ready(function (e) {
                        {
                            $("#ddlProductTypes").val(SingleValueID).trigger("change"); //Set Default product type if only one type exists
                        }
-
-                      
-
+                       if (jsonResult.length == 0)
+                       {
+                           $('#ddlProductTypes').attr('disabled', 'disabled');
+                       }
+                       else
+                       {
+                           $('#ddlProductTypes').removeAttr('disabled');
+                       }
                    }
                }
-               //if ($("#ddlProductTypes").length == 1) {
-
-               //    $("#ddlProductTypes").val(SingleValueID).trigger("change"); //Set Default product type if only one type exists
-               //}
-
-               //else
-               //{
-               //    $("#ddlProductTypes").select2("val", "");
-
-               //}
-
+               
            })
 
+
+    //-------- * Type Dropdown Item Change event *-------//
     $('#ddlProductTypes').select2()
           .on("change", function (e) {
-            
             
               var productID = $('.products').val();
 
@@ -1008,7 +1004,6 @@ $("document").ready(function (e) {
                       jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/GetProductTypesByProductIDAndCode");
                       var table = {};
                       table = JSON.parse(jsonResult.d);
-
 
                       $.each(table, function (index, table) {
                           debugger;
