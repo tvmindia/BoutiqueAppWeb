@@ -1473,7 +1473,7 @@ function BranchValidation() {
             txtB.style.backgroundRepeat = "no-repeat";
             Errorbox.style.paddingLeft = "30px";
         }
-        if (container[5].Value != "") {
+       else if (container[5].Value != "") {
             var e = container[5].Value;
             $('input[type=text],input[type=password],textarea').css({ background: 'white' });
             var atpos = e.indexOf("@");
@@ -1490,7 +1490,7 @@ function BranchValidation() {
             }
         }
     }
-    if (j = '3')
+    if (j == '3')
     {
         var p = document.createElement('p');
         p.innerHTML = "* E-mail id is not valid  ! ";
