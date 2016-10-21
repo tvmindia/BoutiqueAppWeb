@@ -684,6 +684,7 @@ function ClearTextBoxes()
     $("#editBranchLabel").text("New Branch");
     document.getElementById("chkBranchActive").checked = true;
     RemoveStyle();
+    $(".ddlBoutiques").val("").trigger("change");
 }
 
 //----Boutique-------//
