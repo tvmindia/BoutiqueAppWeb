@@ -795,6 +795,73 @@ $("document").ready(function (e) {
               debugger;
               var data = $(this).select2('data');
               var index = data.length - 1;
+              var Prices = [];
+              $('#tblProdctTypes tr').each(function (i, el) {
+                      var $tds = $(this).find('td'),
+                          Type = $tds.eq().text(),
+                          Amount = $tds.eq(1).text(),
+                      DiscountAmt = $tds.eq(2).text();
+                  ProductTypes.push(Type + "|" + Amount + "|" + DiscountAmt);
+              });
+
+
+              $('#tblProdctTypes> tbody > tr').each(function ()
+              {
+                  debugger;
+                
+                  span = $(this).find('span:first');
+                  var Code = "";
+                  var Amount;
+                  var DiscountAmount;
+                  if (span[0] != undefined )
+                  {
+                      Code = span[0].innerText;
+                  }
+                  var iteration = 1;
+                  $(this).find('td').each(function () {
+                      debugger;
+                    
+                     
+                      $(this).find('input').each(function ()
+                      {
+                          debugger;
+                          if (iteration == 1) {
+                              Amount = $(this).val();
+                          }
+                         
+
+                          if (iteration == 2) {
+                              DiscountAmount = $(this).val();
+                          }
+
+                           iteration = iteration +1;
+                         
+                          //Prices = [{
+                          //    Code:Code,
+                          //    Amt: $(this).val(),
+                          //    DiscountAmt: $(this).val()
+                             
+                          //}];
+
+                        });
+                  })
+                  if (Code != "")
+                  {
+                         Prices.push(
+                  {
+                                                   Code: Code,
+                                                   Amount: Amount,
+                                                   DiscountAmount: DiscountAmount
+                                               }
+                  );
+
+                  }
+               
+
+
+                })
+              debugger;
+              var c = Prices;
               $('#divTypes').html('');
 
               var $Label = $("<label style='cursor:auto'>");
@@ -803,18 +870,19 @@ $("document").ready(function (e) {
               for (var i = 0; i < data.length; i++)
               {
                   if ($("#hdfproductID").val() == "")  // New Product (Price and Discount values will get binded with base values)
-                   {
-                      var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any' value = " + DefaultPrice + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' value = " + DefaultDiscount + " onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
+                  {
+                      var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;' id=spanCode"+i+"><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any' value = " + DefaultPrice + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' value = " + DefaultDiscount + " onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
 	                  $Table = $Table.append($Content);
                       $Label = $Label.append($Table);
                       var $html = $Label;
                       $('#divTypes').append($html);
+
                    }
                   else
                   {
                       //-------* Edit Product Case (no need to bind base price and discount , instead values should take from db) *------//
 
-                      var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any'  style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
+                      var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;' id=spanCode" + i + "><b> " + data[i].text + "</b></span></td><td><input type='number'  id='txtAmt" + i + "'  step='any'  style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + i + "' step='any' onblur='DiscountValidation(" + i + ")' style='float:right!important;width:70%!important;'></td></tr>");
                       $Table = $Table.append($Content);
                       $Label = $Label.append($Table);
                      var $html = $Label;
@@ -826,32 +894,49 @@ $("document").ready(function (e) {
 
               }
 
-                  if( IsBindedControlsOnEdit == true &&  $("#hdfproductID").val() != "")
-                  {
-                  //------* Edit case - Created controls are binded from here(Price and Discount values will get binded with values from database(Corresoponding saved values)) *-----//
-                      var Product = new Object();
-                      Product.ProductID = $("#hdfproductID").val();
 
-                      var data = "{'productObj':" + JSON.stringify(Product) + "}";
-                      jsonResult = getJsonData(data, "../AdminPanel/Products.aspx/GetProductTypesByProductID");
-                      var table = {};
-                      table = JSON.parse(jsonResult.d);
 
-                      var ProductTypeDeatils = {};
-                      ProductTypeDeatils = table;
-                     
-                      $.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
-                          
+              var k = 0;
+
+              var limit = Prices.length
+              $.each(Prices, function (index, Prices) {
+                  debugger;
+
+                  k = 0;
+                  for (var i = k; i <= limit; i++) {
+                      var Code = $('#' + "spanCode" + i)[0].innerText;
+
+
+                      if (Code == Prices.Code) {
                           //-- Amount -- //
-                          Amount = "txtAmt" + index;
-                          $('#' + Amount).val(ProductTypeDeatils.Amount);
-                        
-                          //-- Discount Amount -- //
-                          DiscountAmt = "txtDiscountAmt" + index;
-                          $('#' + DiscountAmt).val(ProductTypeDeatils.DiscountAmount);
+                          Amount = "txtAmt" + i;
+                          $('#' + Amount).val(Prices.Amount);
 
-                      });
-                 }
+                          //-- Discount Amount -- //
+                          DiscountAmt = "txtDiscountAmt" + i;
+                          $('#' + DiscountAmt).val(Prices.DiscountAmount);
+                          k = k + 1;
+                          break;
+
+                      }
+                  }
+
+
+                  //    var SpanCodeID = $('#' + "spanCode" + index);
+
+                  //    var c = SpanCodeID[0].innerText;
+                  //    if (SpanCodeID[0].innerText == ProductTypeDeatils.Description) {
+
+                  //        //-- Amount -- //
+                  //        Amount = "txtAmt" + index;
+                  //        $('#' + Amount).val(ProductTypeDeatils.Amount);
+
+                  //        //-- Discount Amount -- //
+                  //        DiscountAmt = "txtDiscountAmt" + index;
+                  //        $('#' + DiscountAmt).val(ProductTypeDeatils.DiscountAmount);
+                  //}
+              });
+
           })
 
 });//end of document.ready
@@ -951,7 +1036,7 @@ function SetDefaultDiscount()
 }
 
 function DiscountValidation(i)
-{
+{debugger
     var DiscountAmt = parseFloat( $("#txtDiscountAmt"+i).val());
     var Amt =parseFloat( $("#txtAmt"+i).val());
    
@@ -960,6 +1045,7 @@ function DiscountValidation(i)
         CustomAlert("Discount amount should be less than actual price");
     }
 
+   
 }
 
 function ReviveProducts(e,p)
@@ -1140,8 +1226,8 @@ function BindProductTextBoxes(thisobject)
     var $Table = $("<table id ='tblProdctTypes'><tr><th>Type</th><th>Amount</th><th>Discount</th></tr>");
 
     $.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
-
-     var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;'><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' onblur='DiscountValidation(" + index + ")' value = " + ProductTypeDeatils.DiscountAmount + " style='float:right!important;width:70%!important;'></td></tr>");
+      
+        var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;' id=spanCode" + i + "><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' onblur='DiscountValidation(" + index + ")' value = " + ProductTypeDeatils.DiscountAmount + " style='float:right!important;width:70%!important;'></td></tr>");
      $Table = $Table.append($Content);
      $Label = $Label.append($Table);
 
@@ -2537,6 +2623,7 @@ function BindSortResult(Pagevalue, searchtext)
     
         //--- Clear product type controls
         ProductTypes = [];
+        ProctPrices = [];
         $('#divTypes').html('');
         $("#ddlProductTypes").select2("val", "");
         DefaultPrice = '';
