@@ -262,16 +262,16 @@ function GetAdmin(Admin) {
 }
 
 //---------- * Email Validation * --------------//
-function ValidateEmail(e)
-{
-    debugger;
-    var atpos = e.indexOf("@");
-    var dotpos = e.lastIndexOf(".");
-    if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= e.length) {
-        CustomAlert("Not a valid e-mail address");
-        return false;
-    }
-}
+//function ValidateEmail(e)
+//{
+//    debugger;
+//    var atpos = e.indexOf("@");
+//    var dotpos = e.lastIndexOf(".");
+//    if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= e.length) {
+//        CustomAlert("Not a valid e-mail address");
+//        return false;
+//    }
+//}
 
 function BindAsyncAdminsTable() {
     debugger;
@@ -480,9 +480,7 @@ function AddBranch() {
                 Boutique.branchIsActive = "false";
             }
 
-            if ((branchCode.length == 3) || (branchCode.length == 4))
-            {
-                result = InsertBranch(Boutique);
+             result = InsertBranch(Boutique);
                 if (result == "1") {
                     $('#rowfluidDiv').show();
                     $('.alert-success').show();
@@ -507,11 +505,7 @@ function AddBranch() {
                 ClearTextBoxes();
 
                 BindBoutiqueAsyncLoad();//Gridbind
-            }
-            else
-            {
-                CustomAlert("Branchcode length should be 3 or 4");
-            }
+            
    
 }
 
@@ -689,6 +683,8 @@ function ClearTextBoxes()
     $("#txtBranchLongitude").val("");
     $("#editBranchLabel").text("New Branch");
     document.getElementById("chkBranchActive").checked = true;
+    RemoveStyle();
+    $(".ddlBoutiques").val("").trigger("change");
 }
 
 //----Boutique-------//
@@ -717,7 +713,7 @@ function GetAllCurrency(Loyalty) {
 function RemoveStyle()
 {
     $('input[type=text],input[type=password],textarea').css({ background: 'white' });
-    $('#ErrorBox,#ErrorBox1').slideUp(1000);
+    $('#ErrorBox,#ErrorBox1,#ErrorBox2').slideUp(1000);
 }
 
 //----------Delete SaAdmin--------------//
@@ -1430,7 +1426,7 @@ function ClearAllControls()
 
 //----------Branch Fields Validation--------------//
 function BranchValidation() {
-
+    debugger;
 
     $('#Displaydiv2').remove();
    var BranchCode= $("#txtBranchCode");
@@ -1467,9 +1463,51 @@ function BranchValidation() {
             Errorbox.style.paddingLeft = "30px";
 
         }
-
-
-
+        if (container[0].Value.length != 4) {
+            j = 2;
+            $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+            Errorbox.style.borderRadius = "5px";
+            Errorbox.style.display = "block";
+            var txtB = document.getElementById(container[0].id);
+            txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+            txtB.style.backgroundPosition = "95% center";
+            txtB.style.backgroundRepeat = "no-repeat";
+            Errorbox.style.paddingLeft = "30px";
+        }
+       else if (container[5].Value != "") {
+            var e = container[5].Value;
+            $('input[type=text],input[type=password],textarea').css({ background: 'white' });
+            var atpos = e.indexOf("@");
+            var dotpos = e.lastIndexOf(".");
+            if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= e.length) {
+                j = 3;
+                Errorbox.style.borderRadius = "5px";
+                Errorbox.style.display = "block";
+                var txtB = document.getElementById(container[5].id);
+                txtB.style.backgroundImage = "url('../img/Default/invalid.png')";
+                txtB.style.backgroundPosition = "95% center";
+                txtB.style.backgroundRepeat = "no-repeat";
+                Errorbox.style.paddingLeft = "30px";
+            }
+        }
+    }
+    if (j == '3')
+    {
+        var p = document.createElement('p');
+        p.innerHTML = "* E-mail id is not valid  ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
+        return false;
+    }
+    if (j == '2')
+    {
+        var p = document.createElement('p');
+        p.innerHTML = "* BranchCode length should be 4  ! ";
+        p.style.color = "Red";
+        p.style.fontSize = "14px";
+        divs.appendChild(p);
+        return false;
     }
     if (j == '1') {
 

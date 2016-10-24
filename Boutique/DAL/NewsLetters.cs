@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -407,6 +408,7 @@ namespace Boutique.DAL
         public string PopulateBody()
         {
             string body = string.Empty;
+            string serverUrl = ConfigurationManager.AppSettings["server"];
             try
             {
                 if (imageID != null)
@@ -450,7 +452,7 @@ namespace Boutique.DAL
                 if (body.Contains("imgLogo"))
                 {
                     logourl = "../ImageHandler/ImageServiceHandler.ashx?BoutiqueLogoID=" + BoutiqueID;
-                    string logo = "http://tiquesinn.com/" + logourl.Replace("../", "");
+                    string logo = "http://" + serverUrl + "/" + logourl.Replace("../", "");
                     body = body.Replace("{imgLogo}", logo);
                     body = body.Replace("{BoutiqueName}", Boutique);
                 }
@@ -908,14 +910,14 @@ namespace Boutique.DAL
         #region TemplateHeader
         public string TemplateHeader()
         {
-            string header = " <table border='0' cellpadding='10' cellspacing='0' width='600' id='templatePreheader'>"+
+            string header = " <table border='0' cellpadding='10' cellspacing='0' width='750' id='templatePreheader'>"+
                 "  <tr>" +
                 "<td valign='top' class='preheaderContent'>"+
                 "<table style='height:100%!important;width:100%!important;border:0!important;' cellpadding=' 10' cellspacing='0'>"+
                 "<tr>" +
                 "<td valign='top'>"+
                 "<div mc:edit='std_preheader_content'>"+
-                "<table style='background-color:rgba(49, 42, 42, 0.19)!important;width:562px!important;height:40px!important;'>"+
+                "<table style='background-color:rgba(49, 42, 42, 0.19)!important;width:750px!important;height:40px!important;'>"+
                 "<tbody>" +
                 "<tr>" +
                 "<td><img alt='' src='{imgLogo}' style='height:25px!important;width:25px!important;' /></td>"+
@@ -938,6 +940,7 @@ namespace Boutique.DAL
         #region TemplateFooter
         public string TemplateFooter()
         {
+            string serverUrl = ConfigurationManager.AppSettings["server"];
             string footer = "<tr>" +
                 "<td align='center' valign='top'>"+
                     " <table border='0' cellpadding='10' cellspacing='0' width='600' id='templateFooter'>"+
@@ -949,7 +952,7 @@ namespace Boutique.DAL
                                 " <div mc:edit='std_footer'>"+
                                 "<em>Copyright © 2016 TiquesInn, All rights reserved.</em>" +
                                 "<br />" +
-                                "<em><a href='tiquesinn.com/BoutiqueTemplates/Unsubscribe.html?id="+BoutiqueID+"' target='_blank'>unsubscribe</a></em>" +
+                                "<em><a href='" + serverUrl + "/BoutiqueTemplates/Unsubscribe.html?id=" + BoutiqueID + "' target='_blank'>unsubscribe</a></em>" +
                                 "<br>"+
                                 "</div>"+
                                 "</td>"+

@@ -24,7 +24,7 @@
 			<ul class="breadcrumb">
 				<li>
 					<i class="icon-home"></i>
-					<a href="index.html">Home</a> 
+					<a href="DashBoard.aspx">Home</a> 
 					<i class="icon-angle-right"></i>
 				</li>
 				<li><a href="#">Dashboard</a></li>
@@ -445,7 +445,7 @@
                                  <div class="control-group">
                                      <label class="control-label" for="focusedInput">E-mail</label>
                                      <div class="controls">
-                                         <input class="input-large focused" name="Email" id="txtBranchEmail" type="text" onblur="return ValidateEmail(this.value);"/>
+                                         <input class="input-large focused" name="Email" id="txtBranchEmail" type="text"/>
                                      </div>
                                  </div>
 
