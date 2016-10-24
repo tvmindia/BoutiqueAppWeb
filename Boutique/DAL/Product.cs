@@ -316,7 +316,60 @@ namespace Boutique.DAL
 
         #region Product Type Methods
 
-        #region GetProductTypeIDAndNamebyID
+        #region GetProductType Details By Code And ID
+        /// <summary>
+        /// This datasource will be binded to Product Type Dropdown
+        /// </summary>
+        /// <returns>Dataset containing product type id and name</returns>
+        public DataSet GetProductTypeDetailsByCodeAndID()
+        {
+            //if (BoutiqueID == "")
+            //{
+            //    throw new Exception("BoutiqueID is Empty!!");
+            //}
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetproductTypeDetailsByCodeAndID]";
+              //  cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                cmd.Parameters.Add("@ProductTypeCode", SqlDbType.NVarChar, 50).Value = ProductTypeCode;
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+
+        #endregion GetProductType Details By Code And ID
+
+
+        #region GetProductTypeIDAndNameby ProductID
         /// <summary>
         /// This datasource will be binded to Product Type Dropdown
         /// </summary>
@@ -366,7 +419,6 @@ namespace Boutique.DAL
         }
 
         #endregion GetProductTypeIDAndNamebyID
-
 
         #region GetAllProductTypeIDAndName
         /// <summary>
@@ -1913,6 +1965,52 @@ namespace Boutique.DAL
         }
 
         #endregion GetAllProductIDAndName
+
+        #region GetProductsIDAndNameWithImages
+        public DataSet GetProductsIDAndNameWithImages()
+        {
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            DataSet ds = null;
+            SqlDataAdapter sda = null;
+
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[GetProductsIDAndNameWithImages]";
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                sda = new SqlDataAdapter();
+                sda.SelectCommand = cmd;
+                ds = new DataSet();
+                sda.Fill(ds);
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+
+                }
+            }
+            return ds;
+        }
+
+        #endregion GetProductsIDAndNameWithImages
 
         #region GetCategory
         public DataSet GetCategory()

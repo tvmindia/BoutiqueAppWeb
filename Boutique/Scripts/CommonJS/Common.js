@@ -170,7 +170,7 @@ function postBlobAjax(formData, page) {
     return jsonResult;
 }
 
-function DeleteCustomAlert(txt, e, p) 
+function DeleteCustomAlert(txt, e, p)
 {
     debugger;
     d = document;

@@ -335,19 +335,30 @@
                                                     </div>
                                                 </div>
 
-
+                                                 <%--onblur="DisplayPrice()"--%>
 
                                                 <div class="span6">
                                                     <div class="control-group">
 
                                                         <label class="control-label" for="focusedInput">Quantity </label>
                                                         <div class="controls">
-                                                            
-                                                            <input type="number" id="txtQuantity" value="1" min="1" style="width: 50%" />
-
+                                                           
+                                                            <input type="number" id="txtQuantity" value="1" min="1" style="width: 50%"  />
+                                                          
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                              <%--   <div class="span3">
+                                                    <div class="control-group">
+
+                                                        <label class="control-label" for="focusedInput">Price</label>
+                                                        <div class="controls">
+                                                           <label style="width: 10%;color:green;font-size:larger" id="lblPrice"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>--%>
+
 
                                               <%--  <div class="span6">
                                                     <div class="control-group">
@@ -411,7 +422,9 @@
                                                     <tr>
                                                         <th>Slno</th>
                                                         <th>Item</th>
+                                                        <th>Type</th>
                                                         <th>Quantity</th>
+                                                        <th>Price</th>
                                                         <th>Image</th>
                                                         <th>Remarks</th>
                                                     </tr>

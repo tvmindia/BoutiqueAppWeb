@@ -792,7 +792,7 @@ $("document").ready(function (e) {
     //------------ * Product Type Item Change Event (Will get fired for both selecting an item as well as deselecting item)  *----------//
     $('#ddlProductTypes').select2()
           .on("change", function (e) {
-              
+              debugger;
               var data = $(this).select2('data');
               var index = data.length - 1;
               $('#divTypes').html('');
@@ -1103,12 +1103,30 @@ function BindProductTextBoxes(thisobject)
    
     $.each(ProductTypeDeatils, function (index, ProductTypeDeatils)
     {
+     
         TypeCodeArray.push(ProductTypeDeatils.Code);
 
     });
 
     if (TypeCodeArray.length > 0) {
+        debugger;
+
+      //  $("#ddlProductTypes").select2({ data: TypeCodeArray });
+
+
         $("#ddlProductTypes").select2().val(TypeCodeArray).trigger("change");
+
+        //$('#ddlProductTypes option').each(function () {
+        //    debugger;
+        //    if (this.value != TypeCodeArray[0]) {
+               
+        //    }
+        //});
+
+
+
+
+       
     }
     else {
         $("#ddlProductTypes").select2("val", "");

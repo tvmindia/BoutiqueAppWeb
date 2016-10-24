@@ -104,6 +104,45 @@ namespace Boutique.AdminPanel
 
         #endregion Get BranchId And Name
 
+        #region GetAllProductIDandName
+        [System.Web.Services.WebMethod]
+        public static string GetAllProductIDandName(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                productObj.BoutiqueID = UA.BoutiqueID;
+
+                DataSet ds = null;
+
+                ds = productObj.GetProductsIDAndNameWithImages();
+
+                //Converting to Json
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion GetAllProductIDandName
+
         //---------* Order 
 
         #region Get All UserID and Name
@@ -257,7 +296,6 @@ namespace Boutique.AdminPanel
 
         #endregion  Get Order By Status Code
 
-
         #region Get Order Details By OrderID
         /// <summary>
         /// To get specific order details by orderid for the editing purpose
@@ -350,6 +388,42 @@ namespace Boutique.AdminPanel
             //return status;
         }
         #endregion Add OR Edit Order
+
+        #region Update Order TotalAmount
+
+        [System.Web.Services.WebMethod]
+        public static string UpdateOrderTotalAmount(Order OrderObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+           // OrderObj.BoutiqueID = UA.BoutiqueID;
+           // OrderObj.CreatedBy = UA.userName;
+            OrderObj.UpdatedBy = UA.userName;
+
+            string status = null;
+            try
+            {
+                    status = OrderObj.UpdateOrderTotalAmount().ToString();
+                    
+            }
+            catch (Exception)
+            {
+                status = "500";//Exception of foreign key
+            }
+            finally
+            {
+            }
+            return jsSerializer.Serialize(OrderObj);
+            //return jsSerializer.Serialize(status);
+
+            //return status;
+        }
+
+        #endregion Update Order TotalAmount
 
         //--------END Order
 
@@ -583,46 +657,47 @@ namespace Boutique.AdminPanel
         }
         #endregion Get Product Details By ProductID
 
-        //#region GetProductTypesProductID
-        //[System.Web.Services.WebMethod]
-        /////This datasource will be binded to Product Type Dropdown
-        //public static string GetProductTypesbyProductID(Product productObj)
-        //{
-        //    DAL.Security.UserAuthendication UA;
-        //    UIClasses.Const Const = new UIClasses.Const();
-        //    UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
-        //    JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-        //    if (UA.BoutiqueID != "")
-        //    {
-        //        productObj.BoutiqueID = UA.BoutiqueID;
-        //        DataSet ds = null;
-        //        ds = productObj.GetProductTypeIDAndNamebyID();
-
-        //        //Converting to Json
-        //        List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
-        //        Dictionary<string, object> childRow;
-        //        if (ds.Tables[0].Rows.Count > 0)
-        //        {
-        //            foreach (DataRow row in ds.Tables[0].Rows)
-        //            {
-        //                childRow = new Dictionary<string, object>();
-        //                foreach (DataColumn col in ds.Tables[0].Columns)
-        //                {
-        //                    childRow.Add(col.ColumnName, row[col]);
-        //                }
-        //                parentRow.Add(childRow);
-        //            }
-        //        }
-        //        return jsSerializer.Serialize(parentRow);
-        //    }
-        //    return jsSerializer.Serialize("");
-        //}
-
-        //#endregion GetProductTypesProductID
-
-        #region Get Product Types By ProductID And TypeCode
+        #region GetProductType Details By Code And ID
         [System.Web.Services.WebMethod]
-        public static string GetProductTypesByProductIDAndCode(Product productObj)
+        ///This datasource is helpful while selecting a type : so that it gives details about particular type
+        public static string GetProductTypedetailsByCodeAndID(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+               // productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetProductTypeDetailsByCodeAndID();
+
+                //Converting to Json
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+
+        #endregion GetProductType Details By Code And ID
+
+        #region GetProductTypeIDAndNamebyID
+        [System.Web.Services.WebMethod]
+        ///This datasource is helpful while selecting a product, so that it gives selected product details
+        public static string GetProductTypeIDAndNamebyID(Product productObj)
         {
             DAL.Security.UserAuthendication UA;
             UIClasses.Const Const = new UIClasses.Const();
@@ -631,7 +706,7 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             if (UA.BoutiqueID != "")
             {
-                  productObj.BoutiqueID = UA.BoutiqueID;
+                productObj.BoutiqueID = UA.BoutiqueID;
                 DataSet ds = null;
                 ds = productObj.GetProductTypeIDAndNamebyID();
 
@@ -656,7 +731,46 @@ namespace Boutique.AdminPanel
             }
             return jsSerializer.Serialize("");
         }
-        #endregion Get Product Types By ProductID And TypeCode
+        #endregion GetProductTypeIDAndNamebyID
+
+        #region GetProductTypeByProductID
+        [System.Web.Services.WebMethod]
+        
+        public static string GetProductTypeByProductID(Product productObj)
+        {
+            DAL.Security.UserAuthendication UA;
+            UIClasses.Const Const = new UIClasses.Const();
+
+            UA = (DAL.Security.UserAuthendication)HttpContext.Current.Session[Const.LoginSession];
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            if (UA.BoutiqueID != "")
+            {
+                //productObj.BoutiqueID = UA.BoutiqueID;
+                DataSet ds = null;
+                ds = productObj.GetProductTypesByProductID();
+
+                //  "Size >= 230 AND Sex = 'm'"
+
+                List<Dictionary<string, object>> parentRow = new List<Dictionary<string, object>>();
+                Dictionary<string, object> childRow;
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        childRow = new Dictionary<string, object>();
+                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        {
+                            childRow.Add(col.ColumnName, row[col]);
+                        }
+                        parentRow.Add(childRow);
+                    }
+                }
+                return jsSerializer.Serialize(parentRow);
+            }
+            return jsSerializer.Serialize("");
+        }
+        #endregion GetProductTypeByProductID
 
         //--------END OrderItems
 

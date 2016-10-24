@@ -201,6 +201,12 @@ namespace Boutique.DAL
             get;
             set;
         }
+
+        public string ItemPrice
+        {
+            get;
+            set;
+        }
         #endregion Public Properties
 
         #region Methods
@@ -652,6 +658,65 @@ namespace Boutique.DAL
         }
         #endregion
 
+        #region Update Order TotalAmount
+        public Int16 UpdateOrderTotalAmount()
+        {
+            if (OrderID == string.Empty)
+            {
+                throw new Exception("OrderID is Empty!!");
+            }
+
+             dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+           
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[UpdateOrderTotalPrice]";
+                cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
+                cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
+                cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
+                cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+               
+                outParameter = cmd.Parameters.Add("@UpdateStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Order";
+                ETObj.Method = "UpdateOrderTotalAmount";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion Update Order TotalAmount
+
         #region Edit Order Details
         /// <summary>
         /// to edit the order details by orderid
@@ -932,6 +997,11 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@TypeCode", SqlDbType.NVarChar, 50).Value = TypeCode;  
                 }
 
+                if (ItemPrice != null && ItemPrice != string.Empty)
+                {
+                    cmd.Parameters.Add("@ItemPrice", SqlDbType.Money).Value = Convert.ToDecimal(ItemPrice);
+                }
+
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -995,6 +1065,11 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[SelectOrderItemsByOrderID]";
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OrderID);
+                //if (this.ProductID != null && this.ProductID != string.Empty)
+                //{
+                //    cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                //}
+                
                 sda.SelectCommand = cmd;
                 ds = new DataSet();
                 sda.Fill(ds);
