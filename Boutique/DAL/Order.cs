@@ -1132,6 +1132,8 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[DeleteOrderItemByProductID]";
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OrderID);
+                cmd.Parameters.Add("@TypeCode", SqlDbType.NVarChar, 50).Value = TypeCode;
 
                 outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;

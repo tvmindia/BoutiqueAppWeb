@@ -713,12 +713,13 @@ $("document").ready(function (e) {
 
                                 var NewProduct = true; //--- checking product list if it is newly added or already existing product
                                 var productId = $(this).attr("ProductID");
+                                 var TypeCode = $(this).find('td').eq(2).text();
 
                                 if (InitialProducts != undefined) {
 
                                     $.each(InitialProducts, function (index, InitialProducts) {
 
-                                        if (InitialProducts.ProductID == productId) {
+                                        if (InitialProducts.ProductID == productId && InitialProducts.TypeCode == TypeCode) {
 
                                             //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
 
@@ -1404,6 +1405,7 @@ function DeleteItem(e, p) {
     var Qty = 0;
     var ItemPrice = 0;
     var Price = 0;
+    var TypeCode = '';
     $("#OrderItemTable > tbody > tr").each(function () { //get all rows in table
         debugger;
         CurrentPrdctID = $(this).attr("ProductID");
@@ -1412,6 +1414,7 @@ function DeleteItem(e, p) {
         {
             Qty = $(this).find('td').eq(3).text();
             ItemPrice = $(this).find('td').eq(4).text();
+            TypeCode = $(this).find('td').eq(2).text();
           //  ItemPrice = ItemPrice * Qty;
         }
 
@@ -1423,7 +1426,7 @@ function DeleteItem(e, p) {
         var Product = new Object();
         Product.ProductID = e;
         Order.OrderID = $("#hdfOrderID").val();
-      
+        Order.TypeCode = TypeCode;
         //jsonResult = GetProductTypeByProductID(Order);
         
         if (ItemPrice != 0)
