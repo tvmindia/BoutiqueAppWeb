@@ -1412,7 +1412,7 @@ function DeleteItem(e, p) {
         {
             Qty = $(this).find('td').eq(3).text();
             ItemPrice = $(this).find('td').eq(4).text();
-            ItemPrice = ItemPrice * Qty;
+          //  ItemPrice = ItemPrice * Qty;
         }
 
     });
@@ -1574,7 +1574,7 @@ function AddToList() {
     //if ($('#OrderItemTable tbody tr').length != 0) {
 
     //}
-    var ItemPrice = ProductPrice;
+    var ItemPrice = ProductPrice * Quantity;
     
     //<td id="Prdct' + slNo + '"></td>
 
