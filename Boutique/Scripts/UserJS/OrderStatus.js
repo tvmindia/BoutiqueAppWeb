@@ -777,7 +777,7 @@ $("document").ready(function (e) {
                                                             Order.OrderID = result.OrderID;
                                                             Order.TotalOrderAmount = TotalPrice;
                                                             UpdateOrderTotalAmount(Order);
-
+                                                            CustomAlert("Already Ordered.");
 
                                             }
                                            
@@ -1055,8 +1055,13 @@ $("document").ready(function (e) {
                    ProductDeatils = GetProductDetails(Product);
 
                    $.each(ProductDeatils, function (index, ProductDeatils) {
-
+                       debugger;
                        ProductPrice = ProductDeatils.Price;
+
+                       if (ProductDeatils.Discount != null && ProductDeatils.Discount != "")
+                       {
+                           ProductPrice = ProductPrice - ProductDeatils.Discount;
+                       }
 
                       // $("#txtunit").val(ProductDeatils.Unit);
                       // unit = ProductDeatils.Unit;
@@ -1154,7 +1159,7 @@ $("document").ready(function (e) {
     $(".OrderItemDelete").live(
     {
         click: function (e) {
-
+            debugger;
             $('#rowfluidDiv').hide();
             $('.alert-success').hide();
             $('.alert-error').hide();
@@ -1164,9 +1169,13 @@ $("document").ready(function (e) {
 
             editedrow = $(this).closest('tr');
 
+            var Code = editedrow.find('td').eq(2).text();
+
+            $("#hdnCodeToBeDeleted").val(Code);
+
             var e = editedrow.attr("ProductID");
             var p = "Delete";
-            DeleteCustomAlert("Are You Sure?", e, p)
+            DeleteCustomAlert("Are You Sure?",e, p);
             return false;
         }
     })
@@ -1280,7 +1289,7 @@ function ClearOrderDescription() {
     $('#txtRemarks').val('');
     document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
     $("#OrderItemTable > tbody").empty();
-   
+    $("#hdnCodeToBeDeleted").val("");
 }
 
 function ClearOrderSummary() {
@@ -1487,7 +1496,7 @@ function DeleteItem(e, p) {
     var jsonResult = {};
     var Order = new Object();
     Order.ProductID = e;
-   // Order.OrderID = OrderID;
+    // Order.OrderID = OrderID;
     var result = -1;
 
     var Qty = 0;
@@ -1497,30 +1506,60 @@ function DeleteItem(e, p) {
     $("#OrderItemTable > tbody > tr").each(function () { //get all rows in table
         debugger;
         CurrentPrdctID = $(this).attr("ProductID");
-       
-        if ( (CurrentPrdctID == e ) )
+        
+
+        if (CurrentPrdctID == e)
         {
             Qty = $(this).find('td').eq(3).text();
             ItemPrice = $(this).find('td').eq(4).text();
             TypeCode = $(this).find('td').eq(2).text();
-          //  ItemPrice = ItemPrice * Qty;
+            //  ItemPrice = ItemPrice * Qty;
         }
 
     });
 
 
+
     //if (Order.OrderID != "" && Order.OrderID != null)
     //{
-        var Product = new Object();
-        Product.ProductID = e;
-        Order.OrderID = $("#hdfOrderID").val();
-        Order.TypeCode = TypeCode;
-        //jsonResult = GetProductTypeByProductID(Order);
-        
-        if (ItemPrice != 0)
-        {
-            Price =TotalPrice - ItemPrice;
-        }
+    var Product = new Object();
+    Product.ProductID = e;
+    Order.OrderID = $("#hdfOrderID").val();
+    Order.TypeCode = TypeCode;
+    //jsonResult = GetProductTypeByProductID(Order);
+
+    var InitialProducts = {};
+    InitialProducts = GetOrderItemsByOrderID(Order);
+
+    code = $("#hdnCodeToBeDeleted").val();
+
+    var IsSavedProduct = false;
+    if (InitialProducts != undefined) {
+
+        $.each(InitialProducts, function (index, InitialProducts) {
+            debugger;
+            if (InitialProducts.ProductID == e && InitialProducts.TypeCode == code)
+            {
+                IsSavedProduct = true;
+                result = DeleteOrderItem(Order);
+            }
+
+        })
+    }
+      
+    if (IsSavedProduct == false)
+    {
+        editedrow.remove();
+    }
+
+
+    if (ItemPrice != 0)
+    {
+        Price =TotalPrice - ItemPrice;
+    }
+
+    
+//}
 
         //$.each(jsonResult, function (index, jsonResult)
         //{
@@ -1547,12 +1586,12 @@ function DeleteItem(e, p) {
         //    //   $('#lblTotalAmount').text(TotalPrice);
         //});
 
-        result = DeleteOrderItem(Order);
+      
 
 
         var rowCount = $("#OrderItemTable > tbody > tr").length;
         slNo = rowCount - 1;
-        $('#lblNoOfProducts').text(slNo);
+        $('#lblNoOfProducts').text(rowCount);
 
 
 
@@ -1566,9 +1605,9 @@ function DeleteItem(e, p) {
         }
 
     //}
-    if (result == -1) {
+    //if (result == -1) {
 
-        editedrow.remove();
+        
 
         //var noofprdcts = parseInt($('#lblNoOfProducts').text());
         //noofprdcts = parseInt(noofprdcts - 1);
@@ -1578,7 +1617,7 @@ function DeleteItem(e, p) {
         //    $('#OrderItemTable').hide();
         //}
 
-    }
+    //}
 
     if (ItemPrice == 0)
      {

@@ -68,9 +68,12 @@ $("document").ready(function (e) {
     //document.getElementById('imageupGallery').style.display = 'block';
   
     // BindAllProductImages(0);//binds masanory gallery with product under current boutique
+
+
     if (BindAllProductImagesRebind(0) != -1) {
 
         var galerydiv = $('.imageholder');
+       
         var $mars = $('.imageholder').masonry(
                 {
                     itemSelector: '.masonry-thumb',
@@ -942,7 +945,7 @@ $("document").ready(function (e) {
 });//end of document.ready
 function FillDetails(objthis)
 {
-  
+    debugger;
     $('#rowfluidDiv').hide();
     $('.alert-success').hide();
     $('.alert-error').hide();
@@ -1081,6 +1084,7 @@ function ReviveProducts(e,p)
 
 function BindProductTextBoxes(thisobject)
 {
+    debugger;
     var productname=$(thisobject).find(".proname").text();
     //var productname = $(thisobject).attr('pname');
    
@@ -1464,6 +1468,8 @@ function BindOutOfStocksCategorySort(Pagevalue, searchtext)
             }
         }
     }
+
+    
     $mars.append(elems);
     $mars.masonry('appended', elems);
     return totalimages.length;
@@ -2071,12 +2077,13 @@ function BindTrendingAllProductImages(Pagevalue) {
     }
 
 function HtmlBindProductWithOffer(totalimages,i)
-    {
+{
+    debugger;
         var html = ('<div class="masonry-thumb port-1 effect-2">'
           + ''
           + '<div class="image-box"><img class="sticker" src="../img/offersticker/offer.png"/><img id="img' +i + '" class="productimage" src="../ImageHandler/ImageServiceHandler.ashx?ImageID=' +totalimages.ImageID + '"></img></div>'
           + '<div class="productDetailsdiv text-desc">'
-          + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillDetails(this);" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name +' tags='+totalimages.Tags+ ' pprice=' + totalimages.Price + ' isoutstock=' + totalimages.IsOutOfStock + ' isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '><i class="halflings-icon white edit"></i><span class="proname" style="display:none;">' + totalimages.Name + '</span><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></a>'
+          + '<a class="btn btn-toolbar" style="border:1px solid white" onclick="FillDetails(this);" productno=' + totalimages.ProductNo + '  productid=' + totalimages.ProductID + ' imageid=' + totalimages.ImageID + ' pname=' + totalimages.Name + ' tags=' + totalimages.Tags + '  isoutstock=' + totalimages.IsOutOfStock + '  pprice=' + totalimages.Price + '  isactive=' + totalimages.IsActive + ' categories=' + totalimages.Categories + ' designers=' + totalimages.DesignerID + ' designerName=' + totalimages.DesignerName + ' discount=' + totalimages.Discount + '><i class="halflings-icon white edit"></i><span class="proname" style="display:none;">' + totalimages.Name + '</span><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></a>'
           + '<a class="btn btn-toolbar" style="border:1px solid white" href="../ImageHandler/ImageServiceHandler.ashx?ImageID=' + totalimages.ImageID + '" data-lightbox="' + totalimages.ImageID + '" data-title="' + totalimages.Name + '" ><i class="icon-zoom-in"></i></a>'
           + '<div class="prodet"><span>Code:  </span><span>' + totalimages.ProductNo + '</span></div><div class="prodet"><span>Name:  </span><span class="proname">' + totalimages.Name + '</span></div><div class="prodet"><span>Price:  ₹  ' + totalimages.Price + '</span></div><div class="prodet><span>Discount:  ₹ ' + totalimages.Discount + '</span></span></div><span class="pdescription" style="display:none;">' + totalimages.Description + '</span></div>'
           + '</div>');
@@ -2199,7 +2206,7 @@ function gethiddenvalue()
     }
 
 function MultiImageBind(Records, index) {
-
+    debugger;
         var divPre = document.getElementById("Preview");
         divPre.className = 'Maindiv';
         var div = document.createElement("div");
@@ -3094,7 +3101,7 @@ function ClearImage() {
 
     function BindTrendedProductImagesRebind(Pagevalue)
     {
-   
+        debugger;
         var Product = new Object();
         if (Pagevalue != undefined) {
             Product.Paginationvalue = Pagevalue;
@@ -3646,10 +3653,8 @@ function ClearImage() {
 
                 tblProdctTypes = $("#tblProdctTypes tr");
 
-              
-
                 for (var i = 0; i < tblProdctTypes.length; i++) {
-                    debugger;
+                  
 
                     //-- Description --//
                     Type = "hdnType" + i;
