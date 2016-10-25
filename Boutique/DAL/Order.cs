@@ -27,6 +27,12 @@ namespace Boutique.DAL
 
         #region Public Properties
 
+        public string OrderItemID
+        {
+            get;
+            set;
+        }
+
         public string BoutiqueID
         {
             get;
@@ -1110,9 +1116,9 @@ namespace Boutique.DAL
         /// To delete a orderitem by product id
         /// </summary>
         /// <returns>status</returns>
-        public Int16 DeleteOrderItemByProductID()
+        public Int16 DeleteOrderItem()
         {
-            if (ProductID == "")
+            if (OrderItemID == "")
             {
                 throw new Exception("ProductID is Empty!!");
             }
@@ -1130,10 +1136,9 @@ namespace Boutique.DAL
                 sda = new SqlDataAdapter();
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "[DeleteOrderItemByProductID]";
-                cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
-                cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OrderID);
-                cmd.Parameters.Add("@TypeCode", SqlDbType.NVarChar, 50).Value = TypeCode;
+                cmd.CommandText = "[DeleteOrderItem]";
+                //cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.ProductID);
+                cmd.Parameters.Add("@OrderItemID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(this.OrderItemID);
 
                 outParameter = cmd.Parameters.Add("@DeleteStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
@@ -1150,7 +1155,7 @@ namespace Boutique.DAL
                 ETObj.Description = ex.Message;//Actual exception message
                 ETObj.Date = DateTime.Now.ToString();
                 ETObj.Module = "Order";
-                ETObj.Method = "DeleteOrderItemByProductID";
+                ETObj.Method = "DeleteOrderItem";
                 ETObj.ErrorSource = "DAL";
                 ETObj.IsMobile = false;
                 ETObj.Version = BugTrackerVersion;

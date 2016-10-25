@@ -1168,15 +1168,25 @@ $("document").ready(function (e) {
             //if (confirm("Do you want to delete this item ?") == true) {
 
             editedrow = $(this).closest('tr');
-
-            var Code = editedrow.find('td').eq(2).text();
-
-            $("#hdnCodeToBeDeleted").val(Code);
-
-            var e = editedrow.attr("ProductID");
+            var e = editedrow.attr("OrderItemID");
             var p = "Delete";
-            DeleteCustomAlert("Are You Sure?",e, p);
+
+            var Price = editedrow.find('td').eq(4).text();
+            $("#hdfTotalDeletingPrice").val(Price);
+
+            DeleteCustomAlert("Are You Sure?", e, p);
             return false;
+
+           
+            
+            //var isSaved = editedrow.attr("IsSaved");
+            //$("#hdnIsSaved").val(isSaved);
+
+            //var Code = editedrow.find('td').eq(2).text();
+
+            //$("#hdnCodeToBeDeleted").val(Code);
+
+            
         }
     })
     //----------END: Delete Button Click---------
@@ -1289,7 +1299,8 @@ function ClearOrderDescription() {
     $('#txtRemarks').val('');
     document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
     $("#OrderItemTable > tbody").empty();
-    $("#hdnCodeToBeDeleted").val("");
+    $("#hdfTotalDeletingPrice").val("");
+   // $("#hdnCodeToBeDeleted").val("");
 }
 
 function ClearOrderSummary() {
@@ -1489,177 +1500,34 @@ function FillClosedOrderTable(Records) {
 
 //------------ Edit Button CLick------------//
 
-function DeleteItem(e, p) {
-
+function DeleteItem(e, p)
+{
     debugger;
-
-    var jsonResult = {};
-    var Order = new Object();
-    Order.ProductID = e;
-    // Order.OrderID = OrderID;
     var result = -1;
-
-    var Qty = 0;
-    var ItemPrice = 0;
-    var Price = 0;
-    var TypeCode = '';
-    $("#OrderItemTable > tbody > tr").each(function () { //get all rows in table
-        debugger;
-        CurrentPrdctID = $(this).attr("ProductID");
-        
-
-        if (CurrentPrdctID == e)
-        {
-            Qty = $(this).find('td').eq(3).text();
-            ItemPrice = $(this).find('td').eq(4).text();
-            TypeCode = $(this).find('td').eq(2).text();
-            //  ItemPrice = ItemPrice * Qty;
-        }
-
-    });
-
-
-
-    //if (Order.OrderID != "" && Order.OrderID != null)
-    //{
-    var Product = new Object();
-    Product.ProductID = e;
-    Order.OrderID = $("#hdfOrderID").val();
-    Order.TypeCode = TypeCode;
-    //jsonResult = GetProductTypeByProductID(Order);
-
-    var InitialProducts = {};
-    InitialProducts = GetOrderItemsByOrderID(Order);
-
-    code = $("#hdnCodeToBeDeleted").val();
-
     var IsSavedProduct = false;
-    if (InitialProducts != undefined) {
 
-        $.each(InitialProducts, function (index, InitialProducts) {
-            debugger;
-            if (InitialProducts.ProductID == e && InitialProducts.TypeCode == code)
-            {
-                IsSavedProduct = true;
-                result = DeleteOrderItem(Order);
-            }
+    var Order = new Object();
+    Order.OrderItemID = e;
+    Order.OrderID = $("#hdfOrderID").val();
 
-        })
+
+    if (e != null && e!= "null")
+    {
+        result = DeleteOrderItem(Order);
+        IsSavedProduct = true;
     }
-      
-    if (IsSavedProduct == false)
+    else
     {
         editedrow.remove();
     }
+   
 
+    if (result == "1") {
 
-    if (ItemPrice != 0)
-    {
-        Price =TotalPrice - ItemPrice;
-    }
-
-    
-//}
-
-        //$.each(jsonResult, function (index, jsonResult)
-        //{
-        //    if (jsonResult.ProductID == e)
-        //    {
-        //    debugger;
-        //    var Amount = jsonResult.Price;
-        //    if (jsonResult.Amount != null && jsonResult.Amount != "" && jsonResult.Amount  != undefined) {
-        //        Amount = jsonResult.Amount;
-
-                
-
-        //        if (jsonResult.DiscountAmount != null && jsonResult.DiscountAmount != "" && jsonResult.DiscountAmount != undefined) {
-        //            Amount = parseFloat(Amount - jsonResult.DiscountAmount);
-        //        }
-
-        //    }
-        //    if (Amount != undefined)
-        //    {
-        //        Price = parseFloat(TotalPrice - Amount);
-        //    }
-            
-        //}
-        //    //   $('#lblTotalAmount').text(TotalPrice);
-        //});
-
-      
-
-
-        var rowCount = $("#OrderItemTable > tbody > tr").length;
-        slNo = rowCount - 1;
-        $('#lblNoOfProducts').text(rowCount);
-
-
-
-        if (result == "1")
-        {
-            BindOrderItemsList(Order);
-
-            //var noofprdcts = parseInt($('#lblNoOfProducts').text());
-            //noofprdcts = parseInt(noofprdcts - 1);
-            //$('#lblNoOfProducts').text(noofprdcts);
-        }
-
-    //}
-    //if (result == -1) {
-
-        
-
-        //var noofprdcts = parseInt($('#lblNoOfProducts').text());
-        //noofprdcts = parseInt(noofprdcts - 1);
-        
-
-        //if (rowCount == 0) {
-        //    $('#OrderItemTable').hide();
-        //}
-
-    //}
-
-    if (ItemPrice == 0)
-     {
-    
-    var Product = new Object();
-    Product.ProductID = e;
-    var ProductDeatils = {};
-    ProductDeatils = GetProductDetails(Product);
-
-    $.each(ProductDeatils, function (index, ProductDeatils) {
-        debugger;
-
-        tempPrice = parseFloat(TotalPrice - ProductDeatils.Price);
-        if (tempPrice >= 0)
-        {
-            TotalPrice = tempPrice;
-        }
-
-    });
+        BindOrderItemsList(Order);
 
     }
 
-    else
-    {
-        TotalPrice = Price;
-    }
-
-    $('#lblTotalAmount').text(TotalPrice);
-
-    if (result == "1")
-    {
-        if ( $("#hdfOrderID").val() != "") {
-
-        var Order = new Object();
-        Order.OrderID = $("#hdfOrderID").val();
-        Order.TotalOrderAmount = TotalPrice;
-         UpdateOrderTotalAmount(Order);
-       
-        }
-    }
-
-  
     if (result != "1" && result != "-1") {
 
         $('#rowfluidDiv').show();
@@ -1668,14 +1536,33 @@ function DeleteItem(e, p) {
 
     // ---- Correcting the SlNo on deleting an item ----
 
-    var j= 0;
+    var j = 0;
 
     $("#OrderItemTable > tbody > tr").each(function () { //get all rows in table
         j = j + 1;
-       
+
         $(this).find("td:first").text(j);
 
     });
+
+    // ---- Correcting the total price on deleting an item ----
+
+    var Price = $("#hdfTotalDeletingPrice").val();
+    TotalPrice = TotalPrice - Price;
+    $('#lblTotalAmount').text(TotalPrice);
+
+    if (IsSavedProduct == true)
+    {
+        Order.TotalOrderAmount = TotalPrice;
+        UpdateOrderTotalAmount(Order);
+
+    }
+
+
+    // ---- Correcting the No of products label on deleting an item ----
+    var rowCount = $("#OrderItemTable > tbody > tr").length;
+    slNo = rowCount - 1;
+    $('#lblNoOfProducts').text(rowCount);
 
 
 
@@ -1707,8 +1594,9 @@ function AddToList() {
     var ItemPrice = ProductPrice * Quantity;
     
     //<td id="Prdct' + slNo + '"></td>
+    var IsSaved = false;
 
-    var html = '<tr ProductID="' + (productID != null ? productID : "-") + '"OrderID="' + (OrderID != null ? OrderID : "-") + '"><td >' + slNo + '</td><td ProductName="' + (ProductName != null ? ProductName : "-") + '">' + (ProductName != null ? ProductName : "-") + '</td><td TypeCode="' + (TypeCode != null ? TypeCode : "-") + '" >' + (TypeCode != null ? TypeCode : "-") + '</td><td Quantity="' + (Quantity != null ? Quantity : "-") + '">' + (Quantity != null ? Quantity : "-") + '</td><td>' + (ItemPrice != null ? ItemPrice : "-") + '</td><td><img class="imgPrdctList" id="Prdct' + slNo + '"/></td><td CustomerRemarks="' + (CustomerRemarks != null ? CustomerRemarks : "-") + '">' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+    var html = '<tr OrderItemID="'+(OrderItemID = null)+'"  ProductID="' + (productID != null ? productID : "-") + '" OrderID="' + (OrderID != null ? OrderID : "-") + '" ><td >' + slNo + '</td><td ProductName="' + (ProductName != null ? ProductName : "-") + '">' + (ProductName != null ? ProductName : "-") + '</td><td TypeCode="' + (TypeCode != null ? TypeCode : "-") + '" >' + (TypeCode != null ? TypeCode : "-") + '</td><td Quantity="' + (Quantity != null ? Quantity : "-") + '">' + (Quantity != null ? Quantity : "-") + '</td><td>' + (ItemPrice != null ? ItemPrice : "-") + '</td><td><img class="imgPrdctList" id="Prdct' + slNo + '"/></td><td CustomerRemarks="' + (CustomerRemarks != null ? CustomerRemarks : "-") + '">' + (CustomerRemarks != null ? CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
     $("#OrderItemTable").append(html);
 
     $('#lblNoOfProducts').text(slNo);
@@ -2007,7 +1895,7 @@ function FillOrderItemsTable(Records) {
         //$("#OrderItemTable").append(html);
         //<td id="Prdct' + Count + '"></td>
 
-        var html = '<tr ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td>' + Count + '</td><td ProductName="' + (Records.Product != null ? Records.Product : "-") + '" >' + (Records.Product != null ? Records.Product : "-") + '</td><td TypeCode="' + (Records.TypeCode != null ? Records.TypeCode : "-") + '">' + (Records.TypeCode != null ? Records.TypeCode : "-") + '</td><td Quantity="' + (Records.Quantity != null ? Records.Quantity : "-") + '">' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td>' + (Records.Itemprice != null ? Records.Itemprice : "-") + '</td><td><img class="imgPrdctList" id="Prdct' + Count + '"/></td><td CustomerRemarks="' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '">' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
+        var html = '<tr OrderItemID="' + (Records.OrderItemID != null ? Records.OrderItemID : "-") + '" ProductID="' + (Records.ProductID != null ? Records.ProductID : "-") + '"OrderID="' + (Records.OrderID != null ? Records.OrderID : "-") + '"><td>' + Count + '</td><td ProductName="' + (Records.Product != null ? Records.Product : "-") + '" >' + (Records.Product != null ? Records.Product : "-") + '</td><td TypeCode="' + (Records.TypeCode != null ? Records.TypeCode : "-") + '">' + (Records.TypeCode != null ? Records.TypeCode : "-") + '</td><td Quantity="' + (Records.Quantity != null ? Records.Quantity : "-") + '">' + (Records.Quantity != null ? Records.Quantity : "-") + '</td><td>' + (Records.Itemprice != null ? Records.Itemprice : "-") + '</td><td><img class="imgPrdctList" id="Prdct' + Count + '"/></td><td CustomerRemarks="' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '">' + (Records.CustomerRemarks != null ? Records.CustomerRemarks : "-") + '</td><td><a class="btn btn-danger OrderItemDelete" href="#" ><i class="halflings-icon white trash"></i></a></td></tr>';
 
         $("#OrderItemTable").append(html);
 

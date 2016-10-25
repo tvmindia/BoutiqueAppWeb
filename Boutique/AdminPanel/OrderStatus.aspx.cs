@@ -537,7 +537,7 @@ namespace Boutique.AdminPanel
             string status = null;
             try
             {
-                status = OrderObj.DeleteOrderItemByProductID().ToString();
+                status = OrderObj.DeleteOrderItem().ToString();
 
             }
             catch (Exception)

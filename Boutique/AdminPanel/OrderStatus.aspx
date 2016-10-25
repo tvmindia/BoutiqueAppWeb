@@ -765,6 +765,5 @@
 
     <input type="hidden" id="hdfOrderID" />
     <input type="hidden" id="ClosedhdfOrderID" />
-    <input type="hidden" id="hdnCodeToBeDeleted" />
-
+   <input type="hidden" id="hdfTotalDeletingPrice" />
 </asp:Content>
