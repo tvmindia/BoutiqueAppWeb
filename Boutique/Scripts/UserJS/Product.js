@@ -2649,12 +2649,12 @@ function ClearImage() {
         var $mars = $('.imageholder');
         var elems = $();
         for (var i = 0; i < totalimages.length; i++) {
-            if (totalimages[i].Discount != null) {
+            if (totalimages[i].Discount != null && totalimages[i].Discount != 0) {
                 if (totalimages[i].IsOutOfStock == false) {
                     elems = elems.add(HtmlBindProductWithOffer(totalimages[i]));
                 }
             }
-            if (totalimages[i].Discount === null) {
+            if (totalimages[i].Discount == null || totalimages[i].Discount == 0) {
                 if (totalimages[i].IsOutOfStock == false) {
 
                     elems = elems.add(HtmlBindProductWithoutOffer(totalimages[i]));
