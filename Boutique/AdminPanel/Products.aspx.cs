@@ -1209,6 +1209,7 @@ namespace Boutique.AdminPanel
                 {
                     if (UA.BoutiqueID != "")
                     {
+                        productObj.BoutiqueID = UA.BoutiqueID;
                         productObj.status = productObj.DeleteProductTypeByProductIDAndCode().ToString();
                        
                     }

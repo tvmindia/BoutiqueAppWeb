@@ -368,10 +368,10 @@ namespace Boutique.DAL
 
         #endregion GetProductType Details By Code And ID
 
-
         #region GetProductTypeIDAndNameby ProductID
         /// <summary>
         /// This datasource will be binded to Product Type Dropdown
+        /// Giving detauils of particular product 
         /// </summary>
         /// <returns>Dataset containing product type id and name</returns>
         public DataSet GetProductTypeIDAndNamebyID()
@@ -643,6 +643,11 @@ namespace Boutique.DAL
         #endregion Insert Product Type
 
         #region Get Product Types By ProductID
+        /// <summary>
+        /// When selecting a product , we can pass productid and get its types 
+        /// (For Eg:while selecting a shirt we can access its type like XL,XXL etc)
+        /// </summary>
+        /// <returns></returns>
         public DataSet GetProductTypesByProductID()
         {
 
@@ -708,9 +713,9 @@ namespace Boutique.DAL
         }
         #endregion Get Product Types By ProductID
 
-        #region Delete Product Type Code And ProductID
+        #region Delete Product Type BY Code And ProductID
         /// <summary>
-        /// Delete Product Type Code And ProductID
+        /// Delete Product Type By Code And ProductID
         /// </summary>
         /// <returns>status</returns>
         public Int16 DeleteProductTypeByProductIDAndCode()
@@ -741,6 +746,7 @@ namespace Boutique.DAL
                 cmd.CommandText = "[DeleteProductTypeByProductIDAndCode]";
 
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = ProductTypeCode;
 
                 outParameter = cmd.Parameters.Add("@DeletionStatus", SqlDbType.SmallInt);
@@ -776,7 +782,7 @@ namespace Boutique.DAL
             return Int16.Parse(outParameter.Value.ToString());
 
         }
-        #endregion Delete Product Type Code And ProductID
+        #endregion  Delete Product Type BY Code And ProductID
 
 
         #endregion Product Type Methods

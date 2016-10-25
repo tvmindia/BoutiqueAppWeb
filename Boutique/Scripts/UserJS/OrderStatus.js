@@ -606,6 +606,39 @@ $("document").ready(function (e) {
 
                                
                                 Order.OrderID = result.OrderID;
+
+
+                                TypeCode = $(this).find('td').eq(2).text();
+                                var IsAlreadyOrdered = false;
+
+                                debugger;
+
+                                var CurrentItemPrice = $(this).find('td').eq(4).text();
+                                var InitialProducts = {};
+                                InitialProducts = GetOrderItemsByOrderID(Order);
+
+
+                                if (InitialProducts != undefined) {
+
+                                    $.each(InitialProducts, function (index, InitialProducts) {
+                                        debugger;
+                                        if (InitialProducts.ProductID == productId && InitialProducts.TypeCode == TypeCode) {
+                                            IsAlreadyOrdered = true;
+                                            TotalPrice = TotalPrice - CurrentItemPrice;
+                                            $('#lblTotalAmount').text(TotalPrice);
+
+                                             Order.TotalOrderAmount = TotalPrice;
+                                            UpdateOrderTotalAmount(Order);
+
+
+                                            //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
+                                            CustomAlert("Already Ordered.");
+                                            return false;
+                                        }
+
+                                    })
+                                }
+
                                // Order.Quantity = $(this).attr("Quantity");
                                 Order.Quantity = $(this).find('td').eq(3).text();
 
@@ -615,7 +648,11 @@ $("document").ready(function (e) {
                                 Order.TypeCode = $(this).find('td').eq(2).text();
 
                                 productNames = productNames + "|" + productname + "$" + remarks;
-                                resultItem = InsertOrderItem(Order);
+
+                                if (IsAlreadyOrdered == false) {
+                                    resultItem = InsertOrderItem(Order);
+                                }
+                                
 
                                 // var productname = $(this).find('td').eq(1).text();
                                 // var remarks = $(this).find('td').eq(5).text();
