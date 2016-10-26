@@ -807,11 +807,13 @@ $("document").ready(function (e) {
                   ProductTypes.push(Type + "|" + Amount + "|" + DiscountAmt);
               });
 
-
               $('#tblProdctTypes> tbody > tr').each(function ()
               {
-                  debugger;
-                
+
+                  //------------* Loop through product type table and get code , amount,discount values ,And add this values prices array *--------//
+
+
+                  // -- Access Code (by accessing span content)
                   span = $(this).find('span:first');
                   var Code = "";
                   var Amount;
@@ -822,48 +824,37 @@ $("document").ready(function (e) {
                   }
                   var iteration = 1;
                   $(this).find('td').each(function () {
-                      debugger;
                     
-                     
                       $(this).find('input').each(function ()
                       {
-                          debugger;
                           if (iteration == 1) {
-                              Amount = $(this).val();
+                              Amount = $(this).val();            // -- Access Amount
                           }
                          
-
                           if (iteration == 2) {
-                              DiscountAmount = $(this).val();
+                              DiscountAmount = $(this).val();   // -- Access Discount Amount
                           }
 
                            iteration = iteration +1;
                          
-                          //Prices = [{
-                          //    Code:Code,
-                          //    Amt: $(this).val(),
-                          //    DiscountAmt: $(this).val()
-                             
-                          //}];
-
                         });
                   })
+
+
+                  //---- * Add accessed code,amount,discount amount * ----//
+
                   if (Code != "")
                   {
-                         Prices.push(
-                  {
-                                                   Code: Code,
-                                                   Amount: Amount,
-                                                   DiscountAmount: DiscountAmount
-                                               }
-                  );
-
+                  Prices.push({
+                                 Code: Code,
+                                 Amount: Amount,
+                                 DiscountAmount: DiscountAmount
+                             });
                   }
                
-
-
                 })
-              debugger;
+             
+              //-------------- * Recreate product type area *----------------//
             
               $('#divTypes').html('');
 
@@ -898,13 +889,13 @@ $("document").ready(function (e) {
               }
 
 
+                   //--------* Bind Product type area content by using data in PRICES array( which was filled in bignning) *----------//
 
               var k = 0;
 
               var limit = Prices.length
               $.each(Prices, function (index, Prices) {
-                  debugger;
-
+                 
                   k = 0;
                   for (var i = k; i < limit; i++) {
 
@@ -928,20 +919,6 @@ $("document").ready(function (e) {
                   }
                   }
 
-
-                  //    var SpanCodeID = $('#' + "spanCode" + index);
-
-                  //    var c = SpanCodeID[0].innerText;
-                  //    if (SpanCodeID[0].innerText == ProductTypeDeatils.Description) {
-
-                  //        //-- Amount -- //
-                  //        Amount = "txtAmt" + index;
-                  //        $('#' + Amount).val(ProductTypeDeatils.Amount);
-
-                  //        //-- Discount Amount -- //
-                  //        DiscountAmt = "txtDiscountAmt" + index;
-                  //        $('#' + DiscountAmt).val(ProductTypeDeatils.DiscountAmount);
-                  //}
               });
 
           })
@@ -986,7 +963,6 @@ function DeleteProductImage(e, p) {
         BindAllImages();
     }
 }
-
 
 function DeleteItem(e, p) {
    
@@ -1043,7 +1019,7 @@ function SetDefaultDiscount()
 }
 
 function DiscountValidation(i)
-{debugger
+{
     var DiscountAmt = parseFloat( $("#txtDiscountAmt"+i).val());
     var Amt =parseFloat( $("#txtAmt"+i).val());
    
@@ -1088,7 +1064,7 @@ function ReviveProducts(e,p)
 
 function BindProductTextBoxes(thisobject)
 {
-    debugger;
+   
     var productname=$(thisobject).find(".proname").text();
     //var productname = $(thisobject).attr('pname');
    
@@ -1195,32 +1171,18 @@ function BindProductTextBoxes(thisobject)
 
     var TypeCodeArray = [];
    
+    //--------- * Bind Product Types * ------------//
+
+    ///By pushing type codes to TypeCodeArray and assign that array to Types Dropdown
+
     $.each(ProductTypeDeatils, function (index, ProductTypeDeatils)
     {
-     
         TypeCodeArray.push(ProductTypeDeatils.Code);
-
     });
 
     if (TypeCodeArray.length > 0) {
-        debugger;
-
-      //  $("#ddlProductTypes").select2({ data: TypeCodeArray });
-
-
-        $("#ddlProductTypes").select2().val(TypeCodeArray).trigger("change");
-
-        //$('#ddlProductTypes option').each(function () {
-        //    debugger;
-        //    if (this.value != TypeCodeArray[0]) {
-               
-        //    }
-        //});
-
-
-
-
        
+        $("#ddlProductTypes").select2().val(TypeCodeArray).trigger("change");
     }
     else {
         $("#ddlProductTypes").select2("val", "");
@@ -1235,21 +1197,17 @@ function BindProductTextBoxes(thisobject)
 
     $.each(ProductTypeDeatils, function (index, ProductTypeDeatils) {
       
-        var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;' id=spanCode" + i + "><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' onblur='DiscountValidation(" + index + ")' value = " + ProductTypeDeatils.DiscountAmount + " style='float:right!important;width:70%!important;'></td></tr>");
+     var $Content = $("<tr><td><span style='font-size:16px!important; color:#c43a0b;' id=spanCode" + i + "><b> " + ProductTypeDeatils.Description + "</b></span></td><td><input type='number'  id='txtAmt" + index + "'  step='any' value = " + ProductTypeDeatils.Amount + " style='float:right!important;width:70%!important;' ></td><td><input type='number' id='txtDiscountAmt" + index + "' step='any' onblur='DiscountValidation(" + index + ")' value = " + ProductTypeDeatils.DiscountAmount + " style='float:right!important;width:70%!important;'></td></tr>");
      $Table = $Table.append($Content);
      $Label = $Label.append($Table);
-
      var $html = $Label;
      $('#divTypes').append($html);
-
         $('<input>').attr({ type: 'hidden', Value: ProductTypeDeatils.Description, id: 'hdnType' + index }).appendTo($html);
         $('<input>').attr({ type: 'hidden', Value: ProductTypeDeatils.Code, id: 'hdnTypeCode' + index }).appendTo($html);
         $('#divTypes').append($html);
 
     });
-   
     IsBindedControlsOnEdit = true;
-   
 }
 
 //////////////////////////////////////
