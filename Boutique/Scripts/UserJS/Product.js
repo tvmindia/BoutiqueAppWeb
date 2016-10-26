@@ -3390,7 +3390,7 @@ function ClearImage() {
     {
         ProductTypes = [];
 
-        for (var i = 0; i < tblProdctTypes.length; i++) {
+        for (var i = 0; i < tblProdctTypes.length -1; i++) {
             debugger;
 
             Type = "hdnType" + i;
@@ -3558,6 +3558,8 @@ function ClearImage() {
         }
     }
     function AddProduct() {
+
+        debugger;
         $('#rowfluidDiv').hide();
         $('.alert-success').hide();
         $('.alert-error').hide();
@@ -3653,7 +3655,7 @@ function ClearImage() {
 
                 tblProdctTypes = $("#tblProdctTypes tr");
 
-                for (var i = 0; i < tblProdctTypes.length; i++) {
+                for (var i = 0; i < tblProdctTypes.length -1; i++) {
                   
 
                     //-- Description --//
@@ -3674,6 +3676,11 @@ function ClearImage() {
                     //-- Discount Amount -- //
                     DiscountAmt = "txtDiscountAmt" + i;
                     DiscountAmt = $('#' + DiscountAmt).val();
+
+                    if (DiscountAmt == "") {
+                        DiscountAmt = 0;
+                    }
+
                     Product.ProductTypeDiscountAmount = DiscountAmt;
                     
                     if (parseFloat(DiscountAmt) >=parseFloat( Amount)) {
@@ -3713,6 +3720,7 @@ function ClearImage() {
     }
     function EditProduct()
     {
+        debugger;
         
         if ($("#hdfproductID").val() != '') {
             var lines = [];
@@ -3858,7 +3866,7 @@ function ClearImage() {
                 //});
 
 
-                for (var i = 0; i < tblProdctTypes.length; i++) {
+                for (var i = 0; i < tblProdctTypes.length -1; i++) {
                     debugger;
 
                     //-- Description --//
@@ -3881,6 +3889,11 @@ function ClearImage() {
                     //-- Discount Amount -- //
                     DiscountAmt = "txtDiscountAmt" + i;
                     DiscountAmt = $('#' + DiscountAmt).val();
+
+                    if (DiscountAmt == "") {
+                        DiscountAmt = 0;
+                    }
+
                     Product.ProductTypeDiscountAmount = DiscountAmt;
 
                     if (parseFloat(DiscountAmt) >= parseFloat(Amount))

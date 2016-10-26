@@ -1134,9 +1134,9 @@ namespace Boutique.AdminPanel
                 }
                
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                throw e;
             }
 
 
@@ -1182,9 +1182,9 @@ namespace Boutique.AdminPanel
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                throw e;
             }
 
 
@@ -1216,9 +1216,9 @@ namespace Boutique.AdminPanel
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                throw e;
             }
 
 
