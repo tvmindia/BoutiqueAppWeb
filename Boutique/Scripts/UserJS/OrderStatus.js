@@ -610,7 +610,7 @@ $("document").ready(function (e) {
 
                                 Order.OrderItemID = $(this).attr("OrderItemID");
                                 OrderItemID = $(this).attr("OrderItemID");
-
+                               
                                 TypeCode = $(this).find('td').eq(2).text();
                                 var IsAlreadyOrdered = false;
 
@@ -626,9 +626,11 @@ $("document").ready(function (e) {
 
                                         $.each(InitialProducts, function (index, InitialProducts) {
                                             debugger;
-                                            if (InitialProducts.ProductID == productId && InitialProducts.TypeCode == TypeCode) {
-                                                
+                                            if (InitialProducts.ProductID == productId ) {
+                                                //&& InitialProducts.TypeCode == TypeCode
+                                                if (InitialProducts.TypeCode == TypeCode || InitialProducts.TypeCode == null) {
 
+                                               
                                                 IsAlreadyOrdered = true;
                                                 TotalPrice = TotalPrice - CurrentItemPrice;
                                                 $('#lblTotalAmount').text(TotalPrice);
@@ -639,7 +641,8 @@ $("document").ready(function (e) {
 
                                                 //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
                                                  CustomAlert("Already Ordered.");
-                                                return false;
+                                                 return false;
+                                                }
                                             }
 
                                         })
@@ -775,19 +778,27 @@ $("document").ready(function (e) {
 
                                     $.each(InitialProducts, function (index, InitialProducts) {
                                         debugger;
-                                        if (InitialProducts.ProductID == productId && InitialProducts.TypeCode == TypeCode && InitialProducts.OrderItemID == OrderItemID) {
+                                        if (InitialProducts.ProductID == productId && InitialProducts.OrderItemID == OrderItemID) {
 
-                                            //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
+                                            //&& InitialProducts.TypeCode == TypeCode 
+                                            if (InitialProducts.TypeCode == TypeCode || InitialProducts.TypeCode == null) {
 
-                                            NewProduct = false;
+                                                //InitialProducts.CustomerRemarks = MailSending.CustomerRemarks;
 
-                                            productNames = productNames + "|" + InitialProducts.Product + "$" + InitialProducts.CustomerRemarks;
+                                                NewProduct = false;
 
-                                            return false;
+                                                productNames = productNames + "|" + InitialProducts.Product + "$" + InitialProducts.CustomerRemarks;
+
+                                                return false;
+                                            }
                                         }
 
-                                        if (InitialProducts.ProductID == productId && InitialProducts.TypeCode == TypeCode && (OrderItemID == null || OrderItemID == "null"))
+                                        if (InitialProducts.ProductID == productId && (OrderItemID == null || OrderItemID == "null"))
                                         {
+                                            //&& InitialProducts.TypeCode == TypeCode 
+
+                                            if (InitialProducts.TypeCode == TypeCode || InitialProducts.TypeCode == null) {
+
                                             NewProduct = false;
                                             TotalPrice = TotalPrice - CurrentItemPrice;
                                             $('#lblTotalAmount').text(TotalPrice);
@@ -795,7 +806,7 @@ $("document").ready(function (e) {
                                             Order.TotalOrderAmount = TotalPrice;
                                             UpdateOrderTotalAmount(Order);
                                             CustomAlert("Already Ordered.");
-
+                                            }
 
                                         }
 
