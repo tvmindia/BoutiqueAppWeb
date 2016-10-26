@@ -864,7 +864,7 @@ $("document").ready(function (e) {
 
                 })
               debugger;
-              var c = Prices;
+            
               $('#divTypes').html('');
 
               var $Label = $("<label style='cursor:auto'>");
@@ -906,7 +906,10 @@ $("document").ready(function (e) {
                   debugger;
 
                   k = 0;
-                  for (var i = k; i <= limit; i++) {
+                  for (var i = k; i < limit; i++) {
+
+                      if ($('#' + "spanCode" + i)[0] != undefined || $('#' + "spanCode" + i)[0] != null) {
+    
                       var Code = $('#' + "spanCode" + i)[0].innerText;
 
 
@@ -922,6 +925,7 @@ $("document").ready(function (e) {
                           break;
 
                       }
+                  }
                   }
 
 
