@@ -881,7 +881,7 @@ namespace Boutique.WebServices
         }
         #endregion
 
-        #region Order Status
+        #region Order 
         /// <summary>
         /// Get list of orders
         /// </summary>
@@ -1008,6 +1008,68 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+         
+        #region Order Placing 
+
+        [WebMethod]
+       /// To Place order
+        public string AddOrder(string BoutiqueID, string UserID, string OrderDescription, string PlannedDeliveryDate, string PlannedDeliveryTime, string TotalOrderAmount, string DeliveryAddress, string MobileNo)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Order odr = new Order();
+                //BoutiqueID UserID OrderDescription PlannedDeliveryDate PlannedDeliveryTime TotalOrderAmount DeliveryAddress MobileNo
+                odr.BoutiqueID = BoutiqueID;
+                odr.UserID = UserID;
+                odr.OrderDescription = OrderDescription;
+                odr.PlannedDeliveryDate = PlannedDeliveryDate;
+                odr.PlannedDeliveryTime = PlannedDeliveryTime;
+                odr.TotalOrderAmount = Convert.ToInt32(TotalOrderAmount);
+                odr.DeliveryAddress = DeliveryAddress;
+                odr.MobileNo = MobileNo;
+                odr.CreatedBy = "User";
+
+                odr.InsertOrder();
+
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                dt.Columns.Add("OrderID", typeof(String));
+                dt.Columns.Add("OrderNo", typeof(Int64));
+               
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = true;
+                dr["Message"] = "Success";
+                dr["OrderID"] = odr.OrderID;
+                dr["OrderNo"] = odr.OrderNo;
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Oder";
+                ETObj.Method = "AddOrder";
+                ETObj.InsertErrorDetailsFromWebService();
+            }
+           
+            return getDbDataAsJSON(dt);
+        }
+
+
+        #endregion Order Placing
+
         #endregion
 
         #region Reviews

@@ -863,7 +863,7 @@ namespace Boutique.DAL
             SqlParameter ordrNo = null;
             try
             {
-                dcon = new dbConnection();
+                dcon = new dbConnection();   
                 dcon.GetDBConnection();
                 cmd = new SqlCommand();
                 cmd.Connection = dcon.SQLCon;
