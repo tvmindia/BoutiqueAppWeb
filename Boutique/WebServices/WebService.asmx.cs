@@ -234,6 +234,47 @@ namespace Boutique.WebServices
         }
         #endregion
 
+        #region Produt Types By ProductID
+
+        [WebMethod]
+        public string ProductTypesByProductID(string ProductID, string boutiqueID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product prdct = new Product();
+                prdct.ProductID = ProductID;
+                prdct.BoutiqueID = boutiqueID;
+                dt = prdct.GetProductTypesByProductID().Tables[0];
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Product";
+                ETObj.Method = "ProductTypesByProductID";
+                ETObj.InsertErrorDetailsFromWebService();
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+         
+        #endregion Produt Types By ProductID
+
         #endregion Products
 
         #region Categories

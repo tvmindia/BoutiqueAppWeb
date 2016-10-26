@@ -745,7 +745,7 @@ namespace Boutique.AdminPanel
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             if (UA.BoutiqueID != "")
             {
-                //productObj.BoutiqueID = UA.BoutiqueID;
+                productObj.BoutiqueID = UA.BoutiqueID;
                 DataSet ds = null;
                 ds = productObj.GetProductTypesByProductID();
 

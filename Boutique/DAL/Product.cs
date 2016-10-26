@@ -651,10 +651,10 @@ namespace Boutique.DAL
         public DataSet GetProductTypesByProductID()
         {
 
-            //if (BoutiqueID == string.Empty || BoutiqueID == null)
-            //{
-            //    throw new Exception("BoutiqueID is Empty!!");
-            //}
+            if (BoutiqueID == string.Empty || BoutiqueID == null)
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
 
             if (ProductID == string.Empty || ProductID == null)
             {
@@ -673,7 +673,7 @@ namespace Boutique.DAL
                 cmd.Connection = dcon.SQLCon;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[GetProductTypesByProductID]";
-                //cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID); ;
              
                 sda = new SqlDataAdapter();
