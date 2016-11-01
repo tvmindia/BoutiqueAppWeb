@@ -330,7 +330,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                     cmd.Parameters.Add("@Administrator", SqlDbType.Bit).Value = IsAdmin;
                     cmd.Parameters.Add("@Gender", SqlDbType.NVarChar, 6).Value = Gender;
-                    cmd.Parameters.Add("@address", SqlDbType.NVarChar, 255).Value =Address;
+                    if (Address != null && Address != "") cmd.Parameters.Add("@address", SqlDbType.NVarChar, 255).Value = Address;
                     if (referral!=null && referral != "") cmd.Parameters.Add("@Referral", SqlDbType.BigInt).Value = Int64.Parse(referral);
                     outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                     outParameter2 = cmd.Parameters.Add("@LoyalyCardNumber", SqlDbType.BigInt);
