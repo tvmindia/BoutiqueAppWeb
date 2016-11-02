@@ -8,6 +8,7 @@ using System.Data;
 using System.Collections;
 using System.IO;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace Boutique.WebServices
 {
@@ -1054,33 +1055,63 @@ namespace Boutique.WebServices
 
         [WebMethod]
        /// To Place order
-        public string AddOrder(string BoutiqueID, string UserID, string OrderDescription, string PlannedDeliveryDate, string PlannedDeliveryTime, string TotalOrderAmount, string DeliveryAddress, string MobileNo)
+        public string AddOrder(string BoutiqueID, string UserID, string OrderItemsJson,  string TotalOrderAmount, string DeliveryAddress, string requestDeliveryDate, string requestDeliveryTime)
         {
+            //string PlannedDeliveryDate, string PlannedDeliveryTime,
             DataTable dt = new DataTable();
+            DataTable orderItems = new DataTable();
             try
             {
+                Users user = new Users();
+                user.UserID = UserID;
+                user.BoutiqueID = BoutiqueID;
+                DataSet dsUser = user.SelectUserByUserID();
+                if (dsUser.Tables[0].Rows.Count == 0) { throw new Exception(constants.UnSuccessfull); }
+                user.Mobile=dsUser.Tables[0].Rows[0]["Mobile"].ToString();
+                user.Name = dsUser.Tables[0].Rows[0]["Name"].ToString();
+                
+
                 Order odr = new Order();
-                //BoutiqueID UserID OrderDescription PlannedDeliveryDate PlannedDeliveryTime TotalOrderAmount DeliveryAddress MobileNo
                 odr.BoutiqueID = BoutiqueID;
                 odr.UserID = UserID;
-                odr.OrderDescription = OrderDescription;
-                odr.PlannedDeliveryDate = PlannedDeliveryDate;
-                odr.PlannedDeliveryTime = PlannedDeliveryTime;
+                odr.PlannedDeliveryDate = requestDeliveryDate;
+                odr.PlannedDeliveryTime = requestDeliveryTime;
+                odr.CustomerName = user.Name;
                 odr.TotalOrderAmount = Convert.ToInt32(TotalOrderAmount);
                 odr.DeliveryAddress = DeliveryAddress;
-                odr.MobileNo = MobileNo;
-                odr.CreatedBy = "User";
+                odr.MobileNo = user.Mobile;
+                odr.StatusCode = "0";   //Pending
+                odr.CreatedBy = "UserFromApp";
 
-                odr.InsertOrder();
+                orderItems = (DataTable)JsonConvert.DeserializeObject(OrderItemsJson, (typeof(DataTable)));
+
+                if (odr.InsertOrder() == 1)
+                {
+                    foreach (DataRow odrItem in orderItems.Rows)
+                    {
+                        odr.ProductID = odrItem["ProductID"].ToString();
+                        odr.TypeCode = odrItem["TypeCode"].ToString();
+                        odr.Quantity = odrItem["Quantity"].ToString();
+                        odr.ItemPrice = odrItem["Price"].ToString();
+                        if (odr.InsertOrderItem() != 1)
+                        {
+                            throw new Exception(constants.UnSuccessfull);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception(constants.UnSuccessfull);
+                }
 
                 dt.Columns.Add("Flag", typeof(Boolean));
                 dt.Columns.Add("Message", typeof(String));
                 dt.Columns.Add("OrderID", typeof(String));
                 dt.Columns.Add("OrderNo", typeof(Int64));
-               
+
                 DataRow dr = dt.NewRow();
                 dr["Flag"] = true;
-                dr["Message"] = "Success";
+                dr["Message"] = constants.Successfull;
                 dr["OrderID"] = odr.OrderID;
                 dr["OrderNo"] = odr.OrderNo;
                 dt.Rows.Add(dr);

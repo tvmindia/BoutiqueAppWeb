@@ -851,10 +851,10 @@ namespace Boutique.DAL
             {
                 throw new Exception("BoutiqueID is Empty!!");
             }
-            //if (OrderDate == "")
-            //{
-            //    throw new Exception("OrderDate is Empty!!");
-            //}
+            if (UserID == string.Empty)
+            {
+                throw new Exception("UserID is Empty!!");
+            }
           
             dbConnection dcon = null;
             SqlCommand cmd = null;
@@ -871,46 +871,25 @@ namespace Boutique.DAL
                 cmd.CommandText = "[InsertOrder]";
 
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-
-                if (UserID!= null && UserID != string.Empty)
-                {
-                    cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID); 
-                }
-               
-                cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar, -1).Value = OrderDescription;
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(UserID);
+                if (OrderDescription != string.Empty && OrderDescription != null) cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar, -1).Value = OrderDescription;
                 cmd.Parameters.Add("@OrderDate", SqlDbType.DateTime).Value = DateTime.Now; //OrderDate
-
-                if (PlannedDeliveryDate != string.Empty && PlannedDeliveryDate != null )
+                if (PlannedDeliveryDate != string.Empty && PlannedDeliveryDate != null)
                 {
                     cmd.Parameters.Add("@PlannedDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(PlannedDeliveryDate);
                     cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(PlannedDeliveryDate);
                 }
-                if (PlannedDeliveryTime != null && PlannedDeliveryTime != string.Empty)
-                {
-                    cmd.Parameters.Add("@PlannedDeliveryTime", SqlDbType.NVarChar, 30).Value = PlannedDeliveryTime;
-                }
-
-                if (CustomerName!= null)
-	              {
-                      cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 255).Value = CustomerName;
-	              } 
-                //cmd.Parameters.Add("@ActualDeliveryDate", SqlDbType.DateTime).Value = ActualDeliveryDate;
-                //cmd.Parameters.Add("@OrderReadyDate", SqlDbType.DateTime).Value = OrderReadyDate;
-
+                if (PlannedDeliveryTime != null && PlannedDeliveryTime != string.Empty)cmd.Parameters.Add("@PlannedDeliveryTime", SqlDbType.NVarChar, 30).Value = PlannedDeliveryTime;
+                if (CustomerName != null && CustomerName != string.Empty) cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 255).Value = CustomerName; 
+                
                 cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
-                //cmd.Parameters.Add("@OrderNo", SqlDbType.Int).Value = OrderNo;
-
                 cmd.Parameters.Add("@DeliveryAddress", SqlDbType.NVarChar, -1).Value = DeliveryAddress;
                 cmd.Parameters.Add("@MobileNo", SqlDbType.NVarChar, 20).Value = MobileNo;
-
-                if (BranchID != null && BranchID != string.Empty)
-                {
-                    cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BranchID); 
-                }
-
+                if (BranchID != null && BranchID != string.Empty)cmd.Parameters.Add("@BranchID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BranchID);
                 cmd.Parameters.Add("@StatusCode", SqlDbType.Int).Value = Convert.ToInt32(StatusCode);
+
                 outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
                 outParameter.Direction = ParameterDirection.Output;
 
@@ -987,27 +966,11 @@ namespace Boutique.DAL
 
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
                 cmd.Parameters.Add("@ProductID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
-                cmd.Parameters.Add("@CustomerRemarks", SqlDbType.NVarChar, -1).Value = CustomerRemarks;
-                
-                if (Unit != null && Unit != string.Empty)
-                {
-                    cmd.Parameters.Add("@Unit", SqlDbType.NVarChar, 50).Value = Unit;  
-                }
-                if (Quantity != null && Quantity != string.Empty)
-                {
-                    cmd.Parameters.Add("@Quantity", SqlDbType.Int).Value = Convert.ToInt32(Quantity);
-                }
-
-                if (TypeCode != null && TypeCode != string.Empty)
-                {
-                    cmd.Parameters.Add("@TypeCode", SqlDbType.NVarChar, 50).Value = TypeCode;  
-                }
-
-                if (ItemPrice != null && ItemPrice != string.Empty)
-                {
-                    cmd.Parameters.Add("@ItemPrice", SqlDbType.Money).Value = Convert.ToDecimal(ItemPrice);
-                }
-
+                if (CustomerRemarks != null && CustomerRemarks != string.Empty) cmd.Parameters.Add("@CustomerRemarks", SqlDbType.NVarChar, -1).Value = CustomerRemarks;
+                if (Unit != null && Unit != string.Empty)cmd.Parameters.Add("@Unit", SqlDbType.NVarChar, 50).Value = Unit;  
+                if (Quantity != null && Quantity != string.Empty)cmd.Parameters.Add("@Quantity", SqlDbType.Int).Value = Convert.ToInt32(Quantity);
+                if (TypeCode != null && TypeCode != string.Empty)cmd.Parameters.Add("@TypeCode", SqlDbType.NVarChar, 50).Value = TypeCode;
+                if (ItemPrice != null && ItemPrice != string.Empty)cmd.Parameters.Add("@ItemPrice", SqlDbType.Money).Value = Convert.ToDecimal(ItemPrice);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
