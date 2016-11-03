@@ -1051,13 +1051,20 @@ namespace Boutique.WebServices
             return getDbDataAsJSON(dt);
         }
          
-        #region Order Placing 
-
+        /// <summary>
+        /// Webservice to place and order from app
+        /// </summary>
+        /// <param name="BoutiqueID"></param>
+        /// <param name="UserID"></param>
+        /// <param name="OrderItemsJson">Product items as JSON string format</param>
+        /// <param name="TotalOrderAmount"></param>
+        /// <param name="DeliveryAddress"></param>
+        /// <param name="requestDeliveryDate">optional</param>
+        /// <param name="requestDeliveryTime">optional</param>
+        /// <returns></returns>
         [WebMethod]
-       /// To Place order
         public string AddOrder(string BoutiqueID, string UserID, string OrderItemsJson,  string TotalOrderAmount, string DeliveryAddress, string requestDeliveryDate, string requestDeliveryTime)
         {
-            //string PlannedDeliveryDate, string PlannedDeliveryTime,
             DataTable dt = new DataTable();
             DataTable orderItems = new DataTable();
             try
@@ -1083,11 +1090,11 @@ namespace Boutique.WebServices
                 odr.StatusCode = "0";   //Pending
                 odr.CreatedBy = "UserFromApp";
 
-                orderItems = (DataTable)JsonConvert.DeserializeObject(OrderItemsJson, (typeof(DataTable)));
+                orderItems = (DataTable)JsonConvert.DeserializeObject(OrderItemsJson, (typeof(DataTable)));//Order items as JSON to Datatable
 
-                if (odr.InsertOrder() == 1)
+                if (odr.InsertOrder() == 1)//Order insert
                 {
-                    foreach (DataRow odrItem in orderItems.Rows)
+                    foreach (DataRow odrItem in orderItems.Rows)//Inserting each product
                     {
                         odr.ProductID = odrItem["ProductID"].ToString();
                         odr.TypeCode = odrItem["TypeCode"].ToString();
@@ -1138,9 +1145,7 @@ namespace Boutique.WebServices
            
             return getDbDataAsJSON(dt);
         }
-
-
-        #endregion Order Placing
+     
 
         #endregion
 
