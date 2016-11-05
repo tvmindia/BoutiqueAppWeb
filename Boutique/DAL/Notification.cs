@@ -225,10 +225,10 @@ namespace Boutique.DAL
             {
                 throw new Exception("BoutiqueID is Empty!!");
             }
-            if (Title == "")
-            {
-                throw new Exception("Title is Empty!!");
-            }
+            //if (Title == "")
+            //{
+            //    throw new Exception("Title is Empty!!");
+            //}
             if (StartDate == "")
             {
                 throw new Exception("StartDate is Empty!!");

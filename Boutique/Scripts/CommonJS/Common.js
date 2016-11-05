@@ -30,6 +30,8 @@ var OrderStatusNotification = {
     OrderUpdateWithProducts: "Newly $ products are added to your Order. Your Order Number is : # "
 }
 
+var OrderWithoutDescription = "Order Notification";
+
 //--------------* Roles * ---------------//
 var Roles = {
     Manager: "Manager",

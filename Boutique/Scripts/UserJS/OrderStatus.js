@@ -1989,6 +1989,11 @@ function GetProductTypeByProductID(Product) {
 
 //------------Insert--------------------
 function InsertNotification(Notification) {
+
+    if (Notification.Title == "" || Notification.Title == null) {
+        Notification.Title = OrderWithoutDescription;
+    }
+
     var data = "{'notificationObj':" + JSON.stringify(Notification) + "}";
     jsonResult = getJsonData(data, "../AdminPanel/OrderStatus.aspx/InsertNotification");
     var table = {};
