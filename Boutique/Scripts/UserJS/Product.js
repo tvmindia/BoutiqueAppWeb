@@ -3623,7 +3623,7 @@ function ClearImage() {
                     //-- Description --//
                     Type = "hdnType" + i;
                     Type = $('#' + Type).val();
-                    Product.ProductTypeDescription = Type;
+                  //  Product.ProductTypeDescription = Type;
 
                     //-- Code --//
                     TypeCode = "hdnTypeCode" + i;
@@ -3834,7 +3834,7 @@ function ClearImage() {
                     //-- Description --//
                     Type = "hdnType" + i;
                     Type = $('#' + Type).val();
-                    Product.ProductTypeDescription = Type;
+                   // Product.ProductTypeDescription = Type;
 
                     //-- Code --//
                     TypeCode = "hdnTypeCode" + i;

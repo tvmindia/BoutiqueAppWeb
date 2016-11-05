@@ -203,7 +203,7 @@
                                                 <div class="controls">
                                                     <input type="text" style="cursor: default; background-color: white; max-width: 100%" class="input-large datepicker" id="txtPlannedDeliveryDate" value="" />
 
-                                                    <label id="dateOrderDate" class="control-label" style="font-size: 16px!important; display: none" />
+                                                    <%--<label id="dateOrderDate" class="control-label" style="font-size: 16px!important; display: none" />--%>
 
                                                 </div>
                                             </div>

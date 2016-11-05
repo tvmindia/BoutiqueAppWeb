@@ -458,7 +458,7 @@ $("document").ready(function (e) {
                     Notification.StartDate = new Date();
                 }
                 else {
-                    Notification.StartDate = $("#dateOrderDate").text();
+                    Notification.StartDate = $("#txtPlannedDeliveryDate").val();
                 }
 
                 Order.OrderDescription = $("#txtOrderRemarks").val();
@@ -493,7 +493,7 @@ $("document").ready(function (e) {
                     Order.PlannedDeliveryTime = $("#txtRequestedDeliveryTime").val() + ":" + $("#txtRequestedDeliveryTimeMin").val() + ":" + $("#ddlMerdian").val();
                 }
                
-                Order.TotalOrderAmount = TotalPrice;
+                Order.TotalOrderAmount = parseFloat(TotalPrice);
 
                 MailSending.TotalPrice = Order.TotalOrderAmount;
 
@@ -589,12 +589,12 @@ $("document").ready(function (e) {
                                                 if (InitialProducts.TypeCode == TypeCode || InitialProducts.TypeCode == null) { //--- Handling both cases : 1.same productid and code  2. same productid but product not having code
 
                                                 IsAlreadyOrdered = true;
-                                                TotalPrice = TotalPrice - CurrentItemPrice;
+                                                TotalPrice =parseFloat( TotalPrice) - parseFloat(CurrentItemPrice);
                                                 $('#lblTotalAmount').text(TotalPrice);
 
                                                //---- * Updating price to previous price as product is not added *------//
 
-                                                Order.TotalOrderAmount = TotalPrice;
+                                                Order.TotalOrderAmount = parseFloat( TotalPrice);
                                                 UpdateOrderTotalAmount(Order);
 
                                                 CustomAlert("Already Ordered.");
@@ -739,7 +739,7 @@ $("document").ready(function (e) {
                                             if (InitialProducts.TypeCode == TypeCode || InitialProducts.TypeCode == null) {  //--- Handling both cases : 1.same productid and code  2. same productid but product not having code
 
                                             NewProduct = false;
-                                            TotalPrice = TotalPrice - CurrentItemPrice;
+                                            TotalPrice =parseFloat( TotalPrice) - parseFloat(CurrentItemPrice);
                                             $('#lblTotalAmount').text(TotalPrice);
                                             Order.OrderID = result.OrderID;
 
@@ -1189,8 +1189,6 @@ function ClearCustomerDetails() {
     $("#hdfOrderID").val("");
     $(".submitDetails").text("Save");
     $("#editLabel").text("New Order");
-    $("#dateOrderDate").hide();
-    $("#txtPlannedDeliveryDate").show();
     if (ExistingCustomer) {
         $(".Users").select2("val", "");
     }
@@ -1274,8 +1272,7 @@ function ClearControls() {
     document.getElementById('ImgProduct').src = "../img/No-Img_Chosen.png";
     $("#txtDescription").val("");
     $("#txtOrderDate").val("");
-    $("#dateOrderDate").text("");
-    $("#txtPlannedDeliveryDate").val("");
+   $("#txtPlannedDeliveryDate").val("");
     $("#datePlannedDeliveryDate").text("");
     $("#dateForecastDeliveryDate").val("");
     $("#dateOrderReadyDate").val("");
@@ -1290,10 +1287,9 @@ function ClearControls() {
     $("#OrderNoDiv").hide();
     $("#lblOrderNo").hide();
 
-    $("#dateOrderDate").hide();
     $("#datePlannedDeliveryDate").hide();
     $("#txtOrderDate").show();
-    $("#txtPlannedDeliveryDate").show();
+   
 
     $("#dateForecastDeliveryDate").attr('disabled', 'disabled');
     $("#dateOrderReadyDate").attr('disabled', 'disabled');
@@ -1478,12 +1474,12 @@ function DeleteItem(e, p)
     // ---- Correcting the total price on deleting an item ----
 
     var Price = $("#hdfTotalDeletingPrice").val();
-    TotalPrice = TotalPrice - Price;
+    TotalPrice =parseFloat( TotalPrice) - parseFloat(Price);
     $('#lblTotalAmount').text(TotalPrice);
 
     if (IsSavedProduct == true)
     {
-        Order.TotalOrderAmount = TotalPrice;
+        Order.TotalOrderAmount = parseFloat( TotalPrice);
         UpdateOrderTotalAmount(Order);
 
     }
@@ -1608,9 +1604,7 @@ function BindControlsWithOrderDetails(Records) {
 
         $("#OrderNoDiv").show();
         $("#lblOrderNo").show();
-        $("#dateOrderDate").show();
-        $("#txtPlannedDeliveryDate").hide();
-        //------END
+         //------END
         $("#lblOrderNo").text(Records.OrderNo);
         if (Records.UserID != null) {
             $(".Users").val(Records.UserID).trigger("change");
@@ -1647,7 +1641,7 @@ function BindControlsWithOrderDetails(Records) {
         $("#lblAddress").text(Records.DeliveryAddress != null ? Records.DeliveryAddress : "-");
         $("#lblTotalAmount").text(Records.TotalOrderAmount != null ? Records.TotalOrderAmount : "-");
         TotalPrice = parseFloat(Records.TotalOrderAmount);
-        $("#dateOrderDate").text(ConvertJsonToDate(Records.PlannedDeliveryDate));
+        $("#txtPlannedDeliveryDate").val(ConvertJsonToDate(Records.PlannedDeliveryDate));
         $("#lblOrderDate").text(ConvertJsonToDate(Records.OrderDate));
         $("#lblReqDeliveryDate").text(ConvertJsonToDate(Records.PlannedDeliveryDate));
 
@@ -2041,7 +2035,7 @@ function ConvertJsonToDate(jsonDate) {
 }
 
 function OrderStatusValidation() {
-    
+    debugger;
     $('#Displaydiv').remove();
     var container;
    var OrderID = $("#hdfOrderID").val();
@@ -2053,46 +2047,21 @@ function OrderStatusValidation() {
     if (ExistingCustomer == false) {
         var CustmrName = $("#txtCustomerName");
         
-        if (OrderID == "")
-        {
-            container = [
-           //{ id: branch[0].id, name: branch[0].name, Value: branch[0].value },
-         //   { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
-          { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value },
-       //   { id: CustmrAddrss[0].id, name: CustmrAddrss[0].name, Value: CustmrAddrss[0].value },
-          { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
-            ];
-        }
-        else
-        {
-            container = [
-         
-         { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value }
-     
-            ];
-
-        }
+        container = [
+        { id: CustmrName[0].id, name: CustmrName[0].name, Value: CustmrName[0].value },
+        { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
+        ];
 
       
     }
     else {
-        if (OrderID == "") {
         container = [
           // { id: MobNo[0].id, name: MobNo[0].name, Value: MobNo[0].value },
            { id: ReqDeliveryDate[0].id, name: ReqDeliveryDate[0].name, Value: ReqDeliveryDate[0].value }
         ];
+    
     }
-    }
-    //if ($("#hdfOrderID").val() == "") {
-    //}
 
-
-    //var StDate = $('#txtOrderDate');
-    //var branch = $("#ddlBranch");
-        
-    //  var CustmrAddrss = $("#txtDeliveryAddress")
-      
-   
     var j = 0;
     var Errorbox = document.getElementById('ErrorBox');
     var divs = document.createElement('div');
@@ -2114,8 +2083,6 @@ function OrderStatusValidation() {
             Errorbox.style.paddingLeft = "30px";
 
         }
-
-
 
     }
     if (j == '1') {

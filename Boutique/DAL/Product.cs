@@ -218,12 +218,7 @@ namespace Boutique.DAL
             set;
         }
 
-        public string ProductTypeDescription
-        {
-            get;
-            set;
-        }
-
+     
         public string ProductTypeAmount
         {
             get;
@@ -507,10 +502,7 @@ namespace Boutique.DAL
                 {
                     cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = ProductTypeCode;
                 }
-                //if (ProductTypeDescription != string.Empty || ProductTypeDescription != null)
-                //{
-                //    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255).Value = ProductTypeDescription;
-                //}
+              
                 if (ProductTypeAmount != string.Empty || ProductTypeAmount != null)
                 {
                     cmd.Parameters.Add("@Amount", SqlDbType.Money).Value = Convert.ToDecimal(ProductTypeAmount);
@@ -588,10 +580,7 @@ namespace Boutique.DAL
                 {
                     cmd.Parameters.Add("@Code", SqlDbType.NVarChar, 50).Value = ProductTypeCode;
                 }
-                if (ProductTypeDescription != string.Empty || ProductTypeDescription != null)
-                {
-                    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255).Value = ProductTypeDescription;
-                }
+              
                 if (ProductTypeAmount != string.Empty || ProductTypeAmount != null)
                 {
                     cmd.Parameters.Add("@Amount", SqlDbType.Money).Value = Convert.ToDecimal(ProductTypeAmount);

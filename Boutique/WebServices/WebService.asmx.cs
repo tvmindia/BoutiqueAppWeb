@@ -1084,7 +1084,7 @@ namespace Boutique.WebServices
                 odr.PlannedDeliveryDate = requestDeliveryDate;
                 odr.PlannedDeliveryTime = requestDeliveryTime;
                 odr.CustomerName = user.Name;
-                odr.TotalOrderAmount = Convert.ToInt32(TotalOrderAmount);
+                odr.TotalOrderAmount = TotalOrderAmount;
                 odr.DeliveryAddress = DeliveryAddress;
                 odr.MobileNo = user.Mobile;
                 odr.StatusCode = "0";   //Pending

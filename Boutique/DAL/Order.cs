@@ -104,7 +104,7 @@ namespace Boutique.DAL
             set;
         }
 
-        public int TotalOrderAmount
+        public string TotalOrderAmount
         {
             get;
             set;
@@ -685,7 +685,7 @@ namespace Boutique.DAL
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "[UpdateOrderTotalPrice]";
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
-                cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
+                cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = Convert.ToDecimal(TotalOrderAmount);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                
@@ -758,7 +758,10 @@ namespace Boutique.DAL
                 cmd.Parameters.Add("@OrderID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(OrderID);
               
                 cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
-                cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar,-1).Value = OrderDescription;
+                if (OrderDescription != string.Empty && OrderDescription != null)
+                {
+                    cmd.Parameters.Add("@OrderDescription", SqlDbType.NVarChar, -1).Value = OrderDescription;
+                }
 
                 //if (ForecastDeliveryDate != string.Empty && ForecastDeliveryDate != null)
                 //{
@@ -794,7 +797,7 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 255).Value = CustomerName;
                 } 
 
-                cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
+                cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = Convert.ToDecimal(TotalOrderAmount);
                 cmd.Parameters.Add("@UpdatedBy", SqlDbType.NVarChar, 255).Value = UpdatedBy;
                 cmd.Parameters.Add("@UpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                
@@ -880,9 +883,9 @@ namespace Boutique.DAL
                     cmd.Parameters.Add("@ForecastDeliveryDate", SqlDbType.DateTime).Value = DateTime.Parse(PlannedDeliveryDate);
                 }
                 if (PlannedDeliveryTime != null && PlannedDeliveryTime != string.Empty)cmd.Parameters.Add("@PlannedDeliveryTime", SqlDbType.NVarChar, 30).Value = PlannedDeliveryTime;
-                if (CustomerName != null && CustomerName != string.Empty) cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 255).Value = CustomerName; 
-                
-                cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = TotalOrderAmount;
+                if (CustomerName != null && CustomerName != string.Empty) cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 255).Value = CustomerName;
+
+                cmd.Parameters.Add("@TotalOrderAmount", SqlDbType.Money).Value = Convert.ToDecimal(TotalOrderAmount);
                 cmd.Parameters.Add("@CreatedBy", SqlDbType.NVarChar, 255).Value = CreatedBy;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@DeliveryAddress", SqlDbType.NVarChar, -1).Value = DeliveryAddress;
