@@ -7,7 +7,9 @@ using Boutique.DAL;
 using System.Data;
 using System.Collections;
 using System.IO;
+using System.Collections.Specialized;
 using System.Drawing;
+using System.Net;
 using Newtonsoft.Json;
 
 namespace Boutique.WebServices
@@ -492,8 +494,10 @@ namespace Boutique.WebServices
         public string UserRegistration(string name, string mobile, string email,string boutiqueID, string gender, string dob, string anniversary, string referral, string address)
         {
             DataTable dt = new DataTable();
+            int otp;
             try
             {
+
                 Users user = new Users();
                 user.BoutiqueID = boutiqueID;
                 user.Name = name;
@@ -520,9 +524,13 @@ namespace Boutique.WebServices
                 dr["Message"] = "Success";
                 dr["UserID"] = user.UserID;
                 dr["LoyaltyCardNo"] = user.LoyaltyCardNo;
-                Random rnd = new Random();                  // Random number creation for OTP
-                dr["OTP"] = rnd.Next(2000, 9000);
+                Random rnd = new Random();
+                otp= rnd.Next(2000, 9000);// Random number creation for OTP
+                dr["OTP"] = otp;//rnd.Next(2000, 9000);               
                 dt.Rows.Add(dr);
+
+                SendMessage(otp.ToString(), user.Mobile, "2factor");
+
             }
             catch (Exception ex)
             {
@@ -548,6 +556,118 @@ namespace Boutique.WebServices
             }
             return getDbDataAsJSON(dt);
         }
+
+
+        #region messageSending
+
+
+        public string SendMessage(string Msg, string MobileNos, string provider = "txtlocal", string type = "OTP")
+        {
+            string result = null;
+
+
+            string[] IndividualMsgs = Msg.Split('|');
+            string[] IndividualMobileNos = MobileNos.Split('|');
+            foreach (var msg in IndividualMsgs) //msg is individual message
+            {
+
+                foreach (var Num in IndividualMobileNos) //Num is individual Number
+                {
+                    if (Num != string.Empty)
+                    {
+                        if (msg != string.Empty)
+                        {
+                            String message = HttpUtility.UrlEncode(msg);
+                            #region textlocal
+                            //--------------------------------------------------------------------------------------------------
+                            if (provider == "txtlocal")
+                            {
+                                using (var wb = new System.Net.WebClient())
+                                {
+                                    byte[] response = wb.UploadValues("https://api.textlocal.in/send/", "POST", new NameValueCollection()
+                                {
+                                {"username" , "suvaneeth@gmail.com"},
+                                {"hash" , "0f6f640793dfe7fd4c75ef55b57c2f841986f71e8c52fbdea5f6cb52cc723603"},
+                                { "apiKey","dSGmbXNsOJU-OZI40tsiF6tEwF6fCgEVq3uZ9lpd56"},
+                                {"sender" , "TXTLCL"},
+                                {"numbers" , Num},
+                                {"message" , message}
+                                });
+                                    result = System.Text.Encoding.UTF8.GetString(response);
+
+                                }
+                            }
+                            #endregion
+
+                            #region smshorizon
+                            //-------------------------------------------------------------------------------------------------------
+                            else if (provider == "smshorizon")
+                            {
+
+                                using (var wb = new System.Net.WebClient())
+                                {
+                                    byte[] response = wb.UploadValues("http://smshorizon.co.in/api/sendsms.php", "POST", new NameValueCollection()
+                                {
+                                {"user" , "suvaneeth"},
+                                {"apikey" , "Ge0hv03z2WvwlBOTK3B0"},
+                                {"mobile" , Num},
+                                {"message" , msg},
+                                        { "senderid","MYTEXT"},
+                                { "type","txt"}
+                                });
+                                    result = System.Text.Encoding.UTF8.GetString(response);
+
+                                }
+
+                            }
+
+                            #endregion
+
+                            #region 2factor
+                            //-----------------------------------------------------------------------------------------------------------
+                            else if (provider == "2factor" && type == "OTP")
+                            {
+
+
+
+
+
+
+                                string otpTemplate = System.Web.Configuration.WebConfigurationManager.AppSettings["2factorOTP"];
+
+                                if (!String.IsNullOrEmpty(otpTemplate))
+                                {
+
+                                    String url = "https://2factor.in/API/V1/bddc3759-107a-11e7-9462-00163ef91450/SMS/" + MobileNos + "/" + msg + "/" + otpTemplate + "";
+
+                                    HttpWebRequest httpWReq = (HttpWebRequest)WebRequest.Create(url);
+                                    httpWReq.Method = "POST";
+                                    httpWReq.ContentType = "application/x-www-form-urlencoded";
+                                    HttpWebResponse response = (HttpWebResponse)httpWReq.GetResponse();
+                                    string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+
+                                }
+                            }
+                            #endregion
+                            //-------------------------------------------------------------------------------------------------------------
+
+                        }
+
+                    }
+                }
+
+            }
+            return result;
+
+        }
+        #endregion
+
+
+
+
+
+
 
         /// <summary>
         /// To activate a user by user Id
@@ -618,6 +738,7 @@ namespace Boutique.WebServices
         public string UserLogin(string mobile, string boutiqueID)
         {
             DataTable dt = new DataTable();
+            int otp;
             try
             {
                 Users user = new Users();
@@ -626,7 +747,11 @@ namespace Boutique.WebServices
                 dt=user.UserLogin();
                 dt.Columns.Add("OTP", typeof(int));
                 Random rnd = new Random();                  // Random number creation for OTP
-                dt.Rows[0]["OTP"] = rnd.Next(2000, 9000);
+                otp = rnd.Next(2000, 9000);
+                dt.Rows[0]["OTP"] = otp;//rnd.Next(2000, 9000);               
+               
+
+                SendMessage(otp.ToString(), user.Mobile, "2factor");
             }
             catch (Exception ex)
             {
@@ -1827,6 +1952,68 @@ namespace Boutique.WebServices
             }
         }
         #endregion Utility Functions
+
+
+        #region Enquiry
+        [WebMethod]
+        public string InsertProductEnquiry(string productID, string boutiqueID, string userID, string enquiryDescription)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.BoutiqueID = boutiqueID;
+                product.ProductID = productID;
+                product.EnquiryDescription = enquiryDescription;
+
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                if (product.InsertProductEnquiry(userID) == 1)
+                {
+                    dr["Flag"] = true;
+                    dr["Message"] = constants.Successfull;
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                }
+                dt.Rows.Add(dr);
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Enquiry";
+                ETObj.Method = "InsertProductEnquiry";
+                ETObj.InsertErrorDetailsFromWebService();
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+
+
+        }
+
+
+
+
+
+
+        #endregion
 
     }
 }

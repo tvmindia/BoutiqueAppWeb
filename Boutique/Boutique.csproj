@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -373,7 +374,9 @@
     <Content Include="Scripts\UserJS\Profile.js" />
     <Content Include="Scripts\UserJS\SaDashBoard.js" />
     <Content Include="WebServices\WebService.asmx" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ImageHandler\ImageServiceHandler.ashx" />
     <Content Include="Home\fonts\fontawesome-webfont.eot" />
     <Content Include="Home\fonts\fontawesome-webfont.ttf" />
@@ -433,6 +436,7 @@
     <Content Include="Website\tiqSite.aspx" />
     <Content Include="Website\script\Tiqvuid.min.js" />
     <None Include="Properties\PublishProfiles\Albert.pubxml" />
+    <None Include="Properties\PublishProfiles\Santhicatalogue.pubxml" />
     <None Include="Properties\PublishProfiles\SreePublish.pubxml" />
     <None Include="Properties\PublishProfiles\web publish.pubxml" />
     <None Include="Web.Debug.config">
@@ -684,15 +688,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="MSHTML">
-      <Guid>{3050F1C5-98B5-11CF-BB82-00AA00BDCE0B}</Guid>
-      <VersionMajor>4</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

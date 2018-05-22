@@ -112,6 +112,11 @@ namespace Boutique.DAL
             get;
             set;
         }
+        public string EnquiryDescription
+        {
+            get;
+            set;
+        }
         #endregion properties
 
         #region Categoryproperties
@@ -3305,6 +3310,70 @@ namespace Boutique.DAL
         }
         #endregion UpdateReviewIsModarate
         #endregion UpdateReviewTable
+
+        #region InsertProductEnquiry
+        public Int16 InsertProductEnquiry(string userID)
+        {
+            if (ProductID == "")
+            {
+                throw new Exception("ProductID is Empty!!");
+            }
+            if (BoutiqueID == "")
+            {
+                throw new Exception("BoutiqueID is Empty!!");
+            }
+            if (userID == "")
+            {
+                throw new Exception("userID is Empty!!");
+            }
+            dbConnection dcon = null;
+            SqlCommand cmd = null;
+            SqlParameter outParameter = null;
+            try
+            {
+                dcon = new dbConnection();
+                dcon.GetDBConnection();
+                cmd = new SqlCommand();
+                cmd.Connection = dcon.SQLCon;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "[InsertEnquiry]";
+                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(userID);
+                cmd.Parameters.Add("@BoutiqueID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(BoutiqueID);
+                cmd.Parameters.Add("@ProudctID", SqlDbType.UniqueIdentifier).Value = Guid.Parse(ProductID);
+                cmd.Parameters.Add("@EnquiryDescription", SqlDbType.NVarChar, -1).Value = EnquiryDescription;
+                //cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                outParameter = cmd.Parameters.Add("@InsertStatus", SqlDbType.SmallInt);
+                outParameter.Direction = ParameterDirection.Output;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                BugTrackerstatus = "500";//Exception of foreign key
+
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = BoutiqueID;
+                ETObj.UserID = BugTrackerUserID;
+                ETObj.Description = ex.Message;//Actual exception message
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Product";
+                ETObj.Method = "InsertProductEnquiry";
+                ETObj.ErrorSource = "DAL";
+                ETObj.IsMobile = false;
+                ETObj.Version = BugTrackerVersion;
+                ETObj.CreatedBy = BugTrackerCreatedBy;
+                ETObj.InsertErrorDetails();
+            }
+            finally
+            {
+                if (dcon.SQLCon != null)
+                {
+                    dcon.DisconectDB();
+                }
+            }
+            return Int16.Parse(outParameter.Value.ToString());
+        }
+        #endregion
 
         #region Get ImageID By ProductID
         public string GetImageIDByProductID()
