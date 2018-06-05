@@ -113,55 +113,125 @@ namespace Boutique.Master
                 {
 
                 }
+            string  menuList = System.Configuration.ConfigurationManager.AppSettings["DisableMenu"];
+            if (!String.IsNullOrEmpty(menuList))
+            {
+                string[] values = menuList.Split(',');
+                for (int i = 0; i < values.Length; i++)
+                {
+
+                    if (values[i] == "SA Dashboard")
+                    {
+                        Li_SaDashBoard.Visible = false;
+                    }
+                    else if (values[i] == "Dashboard")
+                    {
+                        Li_DashBoard.Visible = false;
+                    }
+                    else if (values[i] == "Profile")
+                    {
+                        Li_Profile.Visible = false;
+                    }
+                    else if (values[i] == "People")
+                    {
+                        Li_People.Visible = false;
+                    }
+                    else if (values[i] == "Category")
+                    {
+                        Li_Category.Visible = false;
+                    }
+                    else if (values[i] == "Products")
+                    {
+                        Li_Products.Visible = false;
+                    }
+                    else if (values[i] == "Products Review")
+                    {
+                        Li_ProductReview.Visible = false;
+                    }
+                    else if(values[i] == "Notifications")
+                    {
+                        Li_Notifications.Visible = false;
+                    }
+                    else if(values[i] == "NewsLetter")
+                    {
+                        Li_NewsLetter.Visible = false;
+                    }
+                    else if (values[i] == "Loyalty")
+                    {
+                        Li_Loyalty.Visible = false;
+                    }
+                    else if(values[i] == "Loyalty Setting")
+                    {
+                        Li_LoyaltySettings.Visible = false;
+                    }
+                    else if(values[i] == "Manage Orders")
+                    {
+                        Li_OrderStatus.Visible = false;
+                    }
+                    else if (values[i] == "Bug Tracker")
+                    {
+                        Li_BugTrack.Visible = false;
+                    }
+                   
+
+                }
+            }
+            else
+            {
+                // Key doesn't exist
+            }
 
 
-                //if (currRole.Count == 0) { Response.Redirect(Const.UnderConstruction;) }
-
-                //if (currPage != Const.AccessDenied)
-                //{
-                //    if (currPage == Const.PatientPage) { }
-                //    if (currPage == Const.TokenPage) { }
-                //    if (currPage == Const.DoctorPage)
-                //    {
-                //        if (!currRole.Contains(Const.RoleDoctor))
-                //        {
-                //            From = From + Const.Doctor;
-                //            redirectURL = Const.AccessDeniedURL + From;
-                //        }
-                //    }
-                //    if (currPage == Const.PharmacyPage) { }
-                //    if (currPage == Const.StockPage) { }
-                //    if (currPage == Const.AdminPage)
-                //    {
-                //        if (!(currRole.Contains(Const.RoleDoctor) | currRole.Contains(Const.RoleAdministrator)))
-                //        {
-                //            From = From + Const.Admin;
-                //            redirectURL = Const.AccessDeniedURL + From;
-                //        }
-                //    }
-                //    if (currPage == Const.MasterPage)
-                //    {
-                //        if (!(currRole.Contains(Const.RoleAdministrator)))
-                //        {
-                //            From = From + Const.Admin;
-                //            redirectURL = Const.AccessDeniedURL + From;
-                //        }
-                //    }
 
 
 
-                //    if (redirectURL != "") { Response.Redirect(redirectURL, true); }
+            //if (currRole.Count == 0) { Response.Redirect(Const.UnderConstruction;) }
+
+            //if (currPage != Const.AccessDenied)
+            //{
+            //    if (currPage == Const.PatientPage) { }
+            //    if (currPage == Const.TokenPage) { }
+            //    if (currPage == Const.DoctorPage)
+            //    {
+            //        if (!currRole.Contains(Const.RoleDoctor))
+            //        {
+            //            From = From + Const.Doctor;
+            //            redirectURL = Const.AccessDeniedURL + From;
+            //        }
+            //    }
+            //    if (currPage == Const.PharmacyPage) { }
+            //    if (currPage == Const.StockPage) { }
+            //    if (currPage == Const.AdminPage)
+            //    {
+            //        if (!(currRole.Contains(Const.RoleDoctor) | currRole.Contains(Const.RoleAdministrator)))
+            //        {
+            //            From = From + Const.Admin;
+            //            redirectURL = Const.AccessDeniedURL + From;
+            //        }
+            //    }
+            //    if (currPage == Const.MasterPage)
+            //    {
+            //        if (!(currRole.Contains(Const.RoleAdministrator)))
+            //        {
+            //            From = From + Const.Admin;
+            //            redirectURL = Const.AccessDeniedURL + From;
+            //        }
+            //    }
 
 
 
-                //}
+            //    if (redirectURL != "") { Response.Redirect(redirectURL, true); }
+
+
+
+            //}
 
             //}
             //catch (Exception ex)
             //{
 
-               
-                //   Response.Redirect(Const.AccessDeniedURL);
+
+            //   Response.Redirect(Const.AccessDeniedURL);
             //}
         }
     }

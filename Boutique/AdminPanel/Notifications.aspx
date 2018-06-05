@@ -75,7 +75,7 @@
                                                     <th>Description</th>
                                                     <th>Start Date</th>
                                                     <th>End Date</th>
-                                                    <th>Actions</th>
+                                                  <%--  <th>Actions</th>--%>
                                                 </tr>
                                             </thead>
                                             <tbody id="notificationrows">
