@@ -25,7 +25,7 @@
 });//end of document.ready
 function GetReviews()
 {
-   
+    debugger;
     var ds = {};
     var table = {};
     var data = {};
@@ -34,16 +34,24 @@ function GetReviews()
     return table;
 }
 function BindNotification() {
-    $('#NotifyArea').find('li').remove();
-    var Reviews = {};
-    ReviewsCount = GetReviews();
-    Reviews = GetReviewCountforBubble();
+    debugger;
+    try
+    {
+        $('#NotifyArea').find('li').remove();
+        var Reviews = {};
+        ReviewsCount = GetReviews();
+        Reviews = GetReviewCountforBubble();
+        if (ReviewsCount.length > 0) {
+            $.each(Reviews, function (index, Records) {
+                MultiReviewBind(Records, index, ReviewsCount[index].RDate);
+            })
+        }
+        return false;
+    }
+    catch(e)
+    {
 
-    $.each(Reviews, function (index, Records) {
-        MultiReviewBind(Records, index, ReviewsCount[index].RDate);
-     })
-    return false;
-
+    }
 }
 function GetReviewCountforBubble() {
 

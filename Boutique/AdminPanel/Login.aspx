@@ -8,7 +8,7 @@
 
     <!-- start: Meta -->
 	<meta charset="utf-8"/>
-	<title>Boutique</title>
+	<title>Login</title>
 	
 	<!-- end: Meta -->
 	
