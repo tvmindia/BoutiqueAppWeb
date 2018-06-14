@@ -11,6 +11,7 @@ using System.Collections.Specialized;
 using System.Drawing;
 using System.Net;
 using Newtonsoft.Json;
+using System.Web.Configuration;
 
 namespace Boutique.WebServices
 {
@@ -22,6 +23,8 @@ namespace Boutique.WebServices
     public class WebService : System.Web.Services.WebService
     {
         Boutique.UIClasses.Const constants = new Boutique.UIClasses.Const();
+
+        public object JsonRequestBehavior { get; private set; }
 
         #region Products
         /// <summary>
@@ -1810,6 +1813,7 @@ namespace Boutique.WebServices
                     rows.Add(row);
                 }
                 this.Context.Response.ContentType = "";
+                
                 return serializer.Serialize(rows);
             }
             catch (Exception ex)
@@ -1840,6 +1844,12 @@ namespace Boutique.WebServices
             }
 
         }
+
+        private object Json(string v, object allowGet)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// JSON function with returning any images
         /// </summary>
@@ -2010,10 +2020,102 @@ namespace Boutique.WebServices
 
 
 
+        [WebMethod]
+        public string GetProductEnquiryForMobile( string boutiqueID, string userID,string fromDate,string toDate,string status)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                Product product = new Product();
+                product.BoutiqueID = boutiqueID;
+                product.FromDate = fromDate;
+                product.ToDate = toDate;
+                product.Status = status;
+                dt = product.GetProductEnquiryForMobile(userID);
+                if (dt.Rows.Count == 0) { throw new Exception(constants.NoItems); }
+            }
+            catch (Exception ex)
+            {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.BoutiqueID = boutiqueID;
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Enquiry";
+                ETObj.Method = "GetProductEnquiryForMobile";
+                ETObj.InsertErrorDetailsFromWebService();
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
+        }
+
+        [WebMethod]
+        public string UpdateEnquiry(string EnquiryID,string status,string Remarks)
+        {
+
+            DataTable dt = new DataTable();
+            try {
+                Product product = new Product();
+                product.EnquiryID = EnquiryID;
+                product.Status = status;
+                product.Remarks = Remarks;
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                if (product.UpdateEnquiry(EnquiryID,status,Remarks) == 1)
+                {
+                    dr["Flag"] = true;
+                    dr["Message"] = constants.Successfull;
+                }
+                else
+                {
+                    dr["Flag"] = false;
+                    dr["Message"] = constants.UnSuccessfull;
+                }
+                dt.Rows.Add(dr);
+
+
+            }
+            catch(Exception ex) {
+                //Return error message
+                dt = new DataTable();
+                dt.Columns.Add("Flag", typeof(Boolean));
+                dt.Columns.Add("Message", typeof(String));
+                DataRow dr = dt.NewRow();
+                dr["Flag"] = false;
+                dr["Message"] = ex.Message;
+                dt.Rows.Add(dr);
+                //Code For Exception Track insert
+                ExceptionTrack ETObj = new ExceptionTrack();
+                ETObj.Description = ex.Message;
+                ETObj.Date = DateTime.Now.ToString();
+                ETObj.Module = "Enquiry";
+                ETObj.Method = "UpdateEnquiry";
+                ETObj.InsertErrorDetailsFromWebService();
+            }
+            finally
+            {
+            }
+            return getDbDataAsJSON(dt);
 
 
 
-        #endregion
 
-    }
+        }
+
+            #endregion
+
+
+
+        }
 }
